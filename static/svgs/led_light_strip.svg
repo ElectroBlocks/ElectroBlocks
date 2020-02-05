@@ -1,0 +1,684 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="566.55" height="313.78" viewBox="0 0 566.55 313.78">
+  <title>led_light_strip</title>
+  <g id="simple_wires">
+    <text id="text" transform="translate(140.82 287.67)" style="font-size: 10px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold"><tspan style="letter-spacing: -0.02490234375em">R</tspan><tspan x="6.94" y="0">ed is po</tspan><tspan x="44.56" y="0" style="letter-spacing: -0.01318359375em">w</tspan><tspan x="52.55" y="0">er wi</tspan><tspan x="76.22" y="0" style="letter-spacing: -0.02490234375em">r</tspan><tspan x="80.35" y="0">e (5v or VIN)</tspan><tspan x="0" y="12">G</tspan><tspan x="7.92" y="12" style="letter-spacing: -0.02490234375em">r</tspan><tspan x="12.05" y="12">een is d</tspan><tspan x="49.36" y="12" style="letter-spacing: -0.02490234375em">a</tspan><tspan x="55.05" y="12">ta wi</tspan><tspan x="77.87" y="12" style="letter-spacing: -0.02490234375em">r</tspan><tspan x="82" y="12">e (Analog Pin)</tspan><tspan x="0" y="24">Bla</tspan><tspan x="15.84" y="24" style="letter-spacing: -0.0380859375em">c</tspan><tspan x="21.41" y="24">k or white is </tspan><tspan x="82.05" y="24" style="letter-spacing: -0.01318359375em">g</tspan><tspan x="88.17" y="24" style="letter-spacing: -0.0380859375em">r</tspan><tspan x="92.17" y="24">ound wi</tspan><tspan x="129.88" y="24" style="letter-spacing: -0.02490234375em">r</tspan><tspan x="134.01" y="24">e (GND Pin)</tspan></text>
+    <g id="GND">
+      <line id="CONNECT_GND" x1="1" y1="293.41" x2="1" y2="236.41" style="fill: none;stroke: #000;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line y1="237.41" x2="31" y2="237.41" style="fill: none;stroke: #000;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </g>
+    <g id="POWER">
+      <line x1="14" y1="255.41" x2="31" y2="255.41" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line id="CONNECT_POWER" x1="15" y1="255.41" x2="15" y2="293.41" style="fill: none;stroke: red;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </g>
+    <g id="DATA">
+      <line x1="8" y1="246.41" x2="31" y2="246.41" style="fill: none;stroke: #006837;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line id="CONNECT_DATA" x1="8" y1="293.41" x2="8" y2="245.41" style="fill: none;stroke: #006837;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </g>
+  </g>
+  <g id="_1" data-name="1">
+    <g id="BASE-1">
+      <rect x="31.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="31.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-1">
+      <circle cx="53" cy="246.41" r="8.5"/>
+      <circle cx="53" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(48.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">1</text>
+  </g>
+  <g id="_2" data-name="2">
+    <g id="BASE-2" data-name="BASE">
+      <rect x="75.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="75.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-2" data-name="LED">
+      <circle cx="97" cy="246.41" r="8.5"/>
+      <circle cx="97" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(92.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">2</text>
+  </g>
+  <g id="_3" data-name="3">
+    <g id="BASE-3" data-name="BASE">
+      <rect x="119.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="119.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-3" data-name="LED">
+      <circle cx="141" cy="246.41" r="8.5"/>
+      <circle cx="141" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(136.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">3</text>
+  </g>
+  <g id="_4" data-name="4">
+    <g id="BASE-4" data-name="BASE">
+      <rect x="163.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="163.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-4" data-name="LED">
+      <circle cx="185" cy="246.41" r="8.5"/>
+      <circle cx="185" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(180.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">4</text>
+  </g>
+  <g id="_5" data-name="5">
+    <g id="BASE-5" data-name="BASE">
+      <rect x="207.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="207.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-5" data-name="LED">
+      <circle cx="229" cy="246.41" r="8.5"/>
+      <circle cx="229" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(224.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">5</text>
+  </g>
+  <g id="_6" data-name="6">
+    <g id="BASE-6" data-name="BASE">
+      <rect x="251.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="251.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-6" data-name="LED">
+      <circle cx="273" cy="246.41" r="8.5"/>
+      <circle cx="273" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(268.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">6</text>
+  </g>
+  <g id="_7" data-name="7">
+    <g id="BASE-7" data-name="BASE">
+      <rect x="295.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="295.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-7" data-name="LED">
+      <circle cx="317" cy="246.41" r="8.5"/>
+      <circle cx="317" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(312.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">7</text>
+  </g>
+  <g id="_8" data-name="8">
+    <g id="BASE-8" data-name="BASE">
+      <rect x="338.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="338.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-8" data-name="LED">
+      <circle cx="360" cy="246.41" r="8.5"/>
+      <circle cx="360" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(355.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">8</text>
+  </g>
+  <g id="_9" data-name="9">
+    <g id="BASE-9" data-name="BASE">
+      <rect x="382.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="382.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-9" data-name="LED">
+      <circle cx="404" cy="246.41" r="8.5"/>
+      <circle cx="404" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(399.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">9</text>
+  </g>
+  <g id="_10" data-name="10">
+    <g id="BASE-10" data-name="BASE">
+      <rect x="426.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="426.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-10" data-name="LED">
+      <circle cx="448" cy="246.41" r="8.5"/>
+      <circle cx="448" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(441.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">10</text>
+  </g>
+  <g id="_11" data-name="11">
+    <g id="BASE-11" data-name="BASE">
+      <rect x="470.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="470.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-11" data-name="LED">
+      <circle cx="492" cy="246.41" r="8.5"/>
+      <circle cx="492" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(485.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">11</text>
+  </g>
+  <g id="_12" data-name="12">
+    <g id="BASE-12" data-name="BASE">
+      <rect x="514.5" y="234.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="514.5" y="234.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-12" data-name="LED">
+      <circle cx="536" cy="246.41" r="8.5"/>
+      <circle cx="536" cy="246.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(529.38 270.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">12</text>
+  </g>
+  <g id="_13" data-name="13">
+    <g id="BASE-13" data-name="BASE">
+      <rect x="514.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="514.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-13" data-name="LED">
+      <circle cx="536" cy="187.41" r="8.5"/>
+      <circle cx="536" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(529.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">13</text>
+  </g>
+  <g id="ENDS">
+    <path id="LEVEL1" d="M558,175.91h1.5a6,6,0,0,1,6,6v70a6,6,0,0,1-6,6H558a0,0,0,0,1,0,0v-82A0,0,0,0,1,558,175.91Z" style="fill: #f2d4b6;stroke: #000;stroke-miterlimit: 10"/>
+    <path id="LEVEL2" d="M35,125.1H36.5a6,6,0,0,1,6,6v69.4a6,6,0,0,1-6,6H35a0,0,0,0,1,0,0V125.1a0,0,0,0,1,0,0Z" transform="translate(66.5 324.01) rotate(180)" style="fill: #f2d4b6;stroke: #000;stroke-miterlimit: 10"/>
+    <path id="LEVEL4" d="M35.5,8.1h1a6,6,0,0,1,6,6v69a6,6,0,0,1-6,6h-1a0,0,0,0,1,0,0V8.1A0,0,0,0,1,35.5,8.1Z" transform="translate(67 89.61) rotate(180)" style="fill: #f2d4b6;stroke: #000;stroke-miterlimit: 10"/>
+    <path id="LEVEL3" d="M558.55,58.51H560a6,6,0,0,1,6,6v70a6,6,0,0,1-6,6h-1.5a0,0,0,0,1,0,0v-82A0,0,0,0,1,558.55,58.51Z" style="fill: #f2d4b6;stroke: #000;stroke-miterlimit: 10"/>
+  </g>
+  <g id="_14" data-name="14">
+    <text transform="translate(485.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">14</text>
+    <g id="BASE-14" data-name="BASE">
+      <rect x="470.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="470.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-14" data-name="LED">
+      <circle cx="492" cy="187.41" r="8.5"/>
+      <circle cx="492" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+  </g>
+  <g id="_15" data-name="15">
+    <text transform="translate(441.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">15</text>
+    <g id="BASE-15" data-name="BASE">
+      <rect x="426.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="426.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-15" data-name="LED">
+      <circle cx="448" cy="187.41" r="8.5"/>
+      <circle cx="448" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+  </g>
+  <g id="_16" data-name="16">
+    <text transform="translate(397.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">16</text>
+    <g id="BASE-16" data-name="BASE">
+      <rect x="382.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="382.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-16" data-name="LED">
+      <circle cx="404" cy="187.41" r="8.5"/>
+      <circle cx="404" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+  </g>
+  <g id="_17" data-name="17">
+    <text transform="translate(353.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">17</text>
+    <g id="BASE-17" data-name="BASE">
+      <rect x="338.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="338.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-17" data-name="LED">
+      <circle cx="360" cy="187.41" r="8.5"/>
+      <circle cx="360" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+  </g>
+  <g id="_18" data-name="18">
+    <text transform="translate(309.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">18</text>
+    <g id="BASE-18" data-name="BASE">
+      <rect x="294.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="294.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-18" data-name="LED">
+      <circle cx="316" cy="187.41" r="8.5"/>
+      <circle cx="316" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+  </g>
+  <g id="_19" data-name="19">
+    <text transform="translate(265.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">19</text>
+    <g id="BASE-19" data-name="BASE">
+      <rect x="250.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="250.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-19" data-name="LED">
+      <circle cx="272" cy="187.41" r="8.5"/>
+      <circle cx="272" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+  </g>
+  <g id="_20" data-name="20">
+    <text transform="translate(222.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">20</text>
+    <g id="BASE-20" data-name="BASE">
+      <rect x="207.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="207.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-20" data-name="LED">
+      <circle cx="229" cy="187.41" r="8.5"/>
+      <circle cx="229" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+  </g>
+  <g id="_21" data-name="21">
+    <g id="BASE-21" data-name="BASE">
+      <rect x="163.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="163.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-21" data-name="LED">
+      <circle cx="185" cy="187.41" r="8.5"/>
+      <circle cx="185" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(178.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">21</text>
+  </g>
+  <g id="_22" data-name="22">
+    <g id="BASE-22" data-name="BASE">
+      <rect x="119.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="119.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-22" data-name="LED">
+      <circle cx="141" cy="187.41" r="8.5"/>
+      <circle cx="141" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(134.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">22</text>
+  </g>
+  <g id="_23" data-name="23">
+    <g id="BASE-23" data-name="BASE">
+      <rect x="75.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="75.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-23" data-name="LED">
+      <circle cx="97" cy="187.41" r="8.5"/>
+      <circle cx="97" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(90.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">23</text>
+  </g>
+  <g id="_24" data-name="24">
+    <g id="BASE-24" data-name="BASE">
+      <rect x="31.5" y="175.91" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="31.5" y="175.91" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-24" data-name="LED">
+      <circle cx="53" cy="187.41" r="8.5"/>
+      <circle cx="53" cy="187.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(46.38 211.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">24</text>
+  </g>
+  <g id="_25" data-name="25">
+    <g id="BASE-25" data-name="BASE">
+      <rect x="31.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="31.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-25" data-name="LED">
+      <circle cx="53" cy="129.41" r="8.5"/>
+      <circle cx="53" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(45.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">25</text>
+  </g>
+  <g id="_26" data-name="26">
+    <g id="BASE-26" data-name="BASE">
+      <rect x="75.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="75.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-26" data-name="LED">
+      <circle cx="97" cy="129.41" r="8.5"/>
+      <circle cx="97" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(89.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">26</text>
+  </g>
+  <g id="_27" data-name="27">
+    <g id="BASE-27" data-name="BASE">
+      <rect x="119.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="119.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-27" data-name="LED">
+      <circle cx="141" cy="129.41" r="8.5"/>
+      <circle cx="141" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(133.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">27</text>
+  </g>
+  <g id="_28" data-name="28">
+    <g id="BASE-28" data-name="BASE">
+      <rect x="163.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="163.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-28" data-name="LED">
+      <circle cx="185" cy="129.41" r="8.5"/>
+      <circle cx="185" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(177.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">28</text>
+  </g>
+  <g id="_29" data-name="29">
+    <g id="BASE-29" data-name="BASE">
+      <rect x="207.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="207.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-29" data-name="LED">
+      <circle cx="229" cy="129.41" r="8.5"/>
+      <circle cx="229" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(221.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">29</text>
+  </g>
+  <g id="_30" data-name="30">
+    <g id="BASE-30" data-name="BASE">
+      <rect x="251.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="251.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-30" data-name="LED">
+      <circle cx="273" cy="129.41" r="8.5"/>
+      <circle cx="273" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(265.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">30</text>
+  </g>
+  <g id="_31" data-name="31">
+    <g id="BASE-31" data-name="BASE">
+      <rect x="295.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="295.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-31" data-name="LED">
+      <circle cx="317" cy="129.41" r="8.5"/>
+      <circle cx="317" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(309.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">31</text>
+  </g>
+  <g id="_32" data-name="32">
+    <g id="BASE-32" data-name="BASE">
+      <rect x="338.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="338.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-32" data-name="LED">
+      <circle cx="360" cy="129.41" r="8.5"/>
+      <circle cx="360" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(352.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">32</text>
+  </g>
+  <g id="_33" data-name="33">
+    <g id="BASE-33" data-name="BASE">
+      <rect x="382.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="382.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-33" data-name="LED">
+      <circle cx="404" cy="129.41" r="8.5"/>
+      <circle cx="404" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(396.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">33</text>
+  </g>
+  <g id="_34" data-name="34">
+    <g id="BASE-34" data-name="BASE">
+      <rect x="426.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="426.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-34" data-name="LED">
+      <circle cx="448" cy="129.41" r="8.5"/>
+      <circle cx="448" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(440.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">34</text>
+  </g>
+  <g id="_35" data-name="35">
+    <g id="BASE-35" data-name="BASE">
+      <rect x="470.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="470.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-35" data-name="LED">
+      <circle cx="492" cy="129.41" r="8.5"/>
+      <circle cx="492" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(484.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">35</text>
+  </g>
+  <g id="_36" data-name="36">
+    <g id="BASE-36" data-name="BASE">
+      <rect x="514.5" y="117.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="514.5" y="117.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-36" data-name="LED">
+      <circle cx="536" cy="129.41" r="8.5"/>
+      <circle cx="536" cy="129.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(528.38 153.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">36</text>
+  </g>
+  <g id="_37" data-name="37">
+    <g id="BASE-37" data-name="BASE">
+      <rect x="514.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="514.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-37" data-name="LED">
+      <circle cx="536" cy="70.41" r="8.5"/>
+      <circle cx="536" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(528.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">37</text>
+  </g>
+  <g id="_38" data-name="38">
+    <g id="BASE-38" data-name="BASE">
+      <rect x="470.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="470.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-38" data-name="LED">
+      <circle cx="492" cy="70.41" r="8.5"/>
+      <circle cx="492" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(484.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">38</text>
+  </g>
+  <g id="_39" data-name="39">
+    <g id="BASE-39" data-name="BASE">
+      <rect x="426.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="426.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-39" data-name="LED">
+      <circle cx="448" cy="70.41" r="8.5"/>
+      <circle cx="448" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(440.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">39</text>
+  </g>
+  <g id="_40" data-name="40">
+    <g id="BASE-40" data-name="BASE">
+      <rect x="382.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="382.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-40" data-name="LED">
+      <circle cx="404" cy="70.41" r="8.5"/>
+      <circle cx="404" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(396.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">40</text>
+  </g>
+  <g id="_41" data-name="41">
+    <g id="BASE-41" data-name="BASE">
+      <rect x="338.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="338.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-41" data-name="LED">
+      <circle cx="360" cy="70.41" r="8.5"/>
+      <circle cx="360" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(352.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">41</text>
+  </g>
+  <g id="_42" data-name="42">
+    <g id="BASE-42" data-name="BASE">
+      <rect x="294.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="294.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-42" data-name="LED">
+      <circle cx="316" cy="70.41" r="8.5"/>
+      <circle cx="316" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(308.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">42</text>
+  </g>
+  <g id="_43" data-name="43">
+    <g id="BASE-43" data-name="BASE">
+      <rect x="251.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="251.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-43" data-name="LED">
+      <circle cx="273" cy="70.41" r="8.5"/>
+      <circle cx="273" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(265.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">43</text>
+  </g>
+  <g id="_44" data-name="44">
+    <g id="BASE-44" data-name="BASE">
+      <rect x="207.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="207.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-44" data-name="LED">
+      <circle cx="229" cy="70.41" r="8.5"/>
+      <circle cx="229" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(221.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">44</text>
+  </g>
+  <g id="_45" data-name="45">
+    <g id="BASE-45" data-name="BASE">
+      <rect x="163.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="163.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-45" data-name="LED">
+      <circle cx="185" cy="70.41" r="8.5"/>
+      <circle cx="185" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(177.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">45</text>
+  </g>
+  <g id="_46" data-name="46">
+    <g id="BASE-46" data-name="BASE">
+      <rect x="119.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="119.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-46" data-name="LED">
+      <circle cx="141" cy="70.41" r="8.5"/>
+      <circle cx="141" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(133.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">46</text>
+  </g>
+  <g id="_47" data-name="47">
+    <g id="BASE-47" data-name="BASE">
+      <rect x="75.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="75.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-47" data-name="LED">
+      <circle cx="97" cy="70.41" r="8.5"/>
+      <circle cx="97" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(89.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">47</text>
+  </g>
+  <g id="_48" data-name="48">
+    <g id="BASE-48" data-name="BASE">
+      <rect x="31.5" y="58.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="31.5" y="58.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-48" data-name="LED">
+      <circle cx="53" cy="70.41" r="8.5"/>
+      <circle cx="53" cy="70.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(45.38 94.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">48</text>
+  </g>
+  <g id="_49" data-name="49">
+    <g id="BASE-49" data-name="BASE">
+      <rect x="31.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="31.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-49" data-name="LED">
+      <circle cx="53" cy="12.41" r="8.5"/>
+      <circle cx="53" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(45.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">49</text>
+  </g>
+  <g id="_50" data-name="50">
+    <g id="BASE-50" data-name="BASE">
+      <rect x="75.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="75.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-50" data-name="LED">
+      <circle cx="97" cy="12.41" r="8.5"/>
+      <circle cx="97" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(89.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">50</text>
+  </g>
+  <g id="_51" data-name="51">
+    <g id="BASE-51" data-name="BASE">
+      <rect x="119.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="119.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-51" data-name="LED">
+      <circle cx="141" cy="12.41" r="8.5"/>
+      <circle cx="141" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(133.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">51</text>
+  </g>
+  <g id="_52" data-name="52">
+    <g id="BASE-52" data-name="BASE">
+      <rect x="163.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="163.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-52" data-name="LED">
+      <circle cx="185" cy="12.41" r="8.5"/>
+      <circle cx="185" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(177.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">52</text>
+  </g>
+  <g id="_53" data-name="53">
+    <g id="BASE-53" data-name="BASE">
+      <rect x="207.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="207.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-53" data-name="LED">
+      <circle cx="229" cy="12.41" r="8.5"/>
+      <circle cx="229" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(221.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">53</text>
+  </g>
+  <g id="_54" data-name="54">
+    <g id="BASE-54" data-name="BASE">
+      <rect x="251.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="251.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-54" data-name="LED">
+      <circle cx="273" cy="12.41" r="8.5"/>
+      <circle cx="273" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(265.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">54</text>
+  </g>
+  <g id="_55" data-name="55">
+    <g id="BASE-55" data-name="BASE">
+      <rect x="295.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="295.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-55" data-name="LED">
+      <circle cx="317" cy="12.41" r="8.5"/>
+      <circle cx="317" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(309.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">55</text>
+  </g>
+  <g id="_56" data-name="56">
+    <g id="BASE-56" data-name="BASE">
+      <rect x="338.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="338.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-56" data-name="LED">
+      <circle cx="360" cy="12.41" r="8.5"/>
+      <circle cx="360" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(352.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">56</text>
+  </g>
+  <g id="_57" data-name="57">
+    <g id="BASE-57" data-name="BASE">
+      <rect x="382.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="382.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-57" data-name="LED">
+      <circle cx="404" cy="12.41" r="8.5"/>
+      <circle cx="404" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(396.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">57</text>
+  </g>
+  <g id="_58" data-name="58">
+    <g id="BASE-58" data-name="BASE">
+      <rect x="426.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="426.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-58" data-name="LED">
+      <circle cx="448" cy="12.41" r="8.5"/>
+      <circle cx="448" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(440.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">58</text>
+  </g>
+  <g id="_59" data-name="59">
+    <g id="BASE-59" data-name="BASE">
+      <rect x="470.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="470.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-59" data-name="LED">
+      <circle cx="492" cy="12.41" r="8.5"/>
+      <circle cx="492" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(484.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">59</text>
+  </g>
+  <g id="_60" data-name="60">
+    <g id="BASE-60" data-name="BASE">
+      <rect x="514.5" y="0.5" width="44" height="23" style="fill: #f2d4b6"/>
+      <rect x="514.5" y="0.5" width="44" height="23" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <g id="LED-60" data-name="LED">
+      <circle cx="536" cy="12.41" r="8.5"/>
+      <circle cx="536" cy="12.41" r="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+    </g>
+    <text transform="translate(528.38 36.65)" style="font-size: 12px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">60</text>
+  </g>
+</svg>

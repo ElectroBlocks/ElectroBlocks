@@ -2,7 +2,7 @@ import Blockly, { WorkspaceSvg } from 'blockly';
 
 import './menu/variable.menu';
 import './menu/function.menu';
-import './blocks/index.js';
+import './blocks/index';
 
 import registerListeners from './events/registerEvents';
 import registerListMenu from './menu/list.menu';

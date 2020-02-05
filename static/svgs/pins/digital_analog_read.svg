@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72.59" height="91.76" viewBox="0 0 72.59 91.76">
+  <title>digital_analog_read</title>
+  <g id="WIRES">
+    <line id="POWER" x1="10" y1="78.15" x2="10" y2="90.76" fill="none" stroke="#f73939" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="GND" x1="60" y1="78.15" x2="60" y2="90.76" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN" x1="35" y1="79.45" x2="35" y2="90.76" fill="none" stroke="#78f462" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+  <g id="LIGHT">
+    <path id="BASE" d="M15,35H85V85H15Z" transform="translate(-15 -5.55)" fill="#73ddd3"/>
+    <circle cx="35" cy="29.45" r="17.5"/>
+    <text id="PIN_TEXT" transform="translate(25.09 76.74)" font-size="6" font-family="Biryani-SemiBold, Biryani" font-weight="600"><tspan xml:space="preserve"> Pin 7</tspan></text>
+    <text id="VCC_TEXT" transform="translate(3.53 76.74)" font-size="6" font-family="Biryani-SemiBold, Biryani" font-weight="600">VCC</text>
+    <text id="GND_TEXT" transform="translate(53.13 76.74)" font-size="6" font-family="Biryani-SemiBold, Biryani" font-weight="600">GND</text>
+    <text id="READING_VALUE" transform="translate(3.53 6.15)" font-size="7" font-family="Biryani-ExtraBold, Biryani" font-weight="800">Sensing Power: 120</text>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="8.02" height="44.85" viewBox="0 0 8.02 44.85">
+  <title>resistor</title>
+  <g id="WIRE_2">
+    <line x1="4" y1="1" x2="4" y2="10" style="fill: none;stroke: #999;stroke-linecap: round;stroke-linejoin: round;stroke-width: 2px"/>
+  </g>
+  <g id="WIRE_1">
+    <line x1="4" y1="34.65" x2="4" y2="43.85" style="fill: none;stroke: #999;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+  </g>
+  <g id="base">
+    <rect y="10.43" width="8" height="24" style="fill: #efd49e"/>
+  </g>
+  <line id="BAND_4" x1="8.02" y1="14.99" x2="0.02" y2="14.99" style="fill: #c1272d;stroke: #93581c;stroke-miterlimit: 10;stroke-width: 2px"/>
+  <line id="BAND_3" x1="8.02" y1="24.59" x2="0.02" y2="24.59" style="fill: #c1272d;stroke: #93581c;stroke-miterlimit: 10;stroke-width: 2px"/>
+  <line id="BAND_2" x1="8.02" y1="29.87" x2="0.02" y2="29.87" style="fill: #c1272d;stroke: #ffff4d;stroke-miterlimit: 10;stroke-width: 2px"/>
+  <line id="BAND_1" x1="8.02" y1="19.79" x2="0.02" y2="19.79" style="fill: #c1272d;stroke: #1d9135;stroke-miterlimit: 10;stroke-width: 2px"/>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="175" height="246.97" viewBox="0 0 175 246.97">
+  <title>digital_read</title>
+  <g id="Wires">
+    <line id="PIN_WIRE" x1="25" y1="246.49" x2="43" y2="174.49" style="fill: none;stroke: #c1272d;stroke-miterlimit: 10;stroke-width: 4px"/>
+    <line id="GND_WIRE" x1="153" y1="246.49" x2="135" y2="174.49" style="fill: none;stroke: #000;stroke-miterlimit: 10;stroke-width: 4px"/>
+    <text id="TEXT_PIN" transform="translate(30.92 168.61)" style="font-size: 14px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">PIN </text>
+    <text id="TEXT_GND" transform="translate(117.81 168.61)" style="font-size: 14px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">GND</text>
+  </g>
+  <g id="Layer_1" data-name="Layer 1">
+    <g id="base_box">
+      <rect x="0.5" y="0.5" width="174" height="174" style="fill: #fff"/>
+      <path d="M235,13.5v173H62V13.5H235m1-1H61v175H236V12.5Z" transform="translate(-61 -12.5)"/>
+    </g>
+    <text id="pin_text" transform="translate(28.49 29.43)" style="font-size: 21px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">Digital Pin 7</text>
+    <text transform="translate(8.9 71.43)" style="font-size: 18px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">Is Sensing <tspan x="94.72" y="0" style="letter-spacing: -0.0380859375em">P</tspan><tspan x="106.04" y="0">o</tspan><tspan x="116.91" y="0" style="letter-spacing: -0.01318359375em">w</tspan><tspan x="131.31" y="0" style="letter-spacing: -0.00005425347222222222em">er?</tspan></text>
+    <text id="state_text" transform="translate(36.35 139.89) rotate(0.61)" style="font-size: 60px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold"><tspan style="letter-spacing: -0.06298828125em">Y</tspan><tspan x="33.72" y="0">es</tspan></text>
+  </g>
+</svg>

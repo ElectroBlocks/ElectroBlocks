@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="276.44" height="323" viewBox="0 0 276.44 323">
+  <title>photosensor</title>
+  <g id="sensor-text">
+    <text id="READING_VALUE" transform="translate(0 31.64)" font-size="36" font-family="Biryani-Bold, Biryani" font-weight="700">Light Level: 332</text>
+  </g>
+  <g id="wire">
+    <path id="POWER" d="M60.27,296h8a0,0,0,0,1,0,0v23a4,4,0,0,1-4,4h0a4,4,0,0,1-4-4V296A0,0,0,0,1,60.27,296Z" fill="#898883"/>
+    <path id="GND" d="M124.27,296h8a0,0,0,0,1,0,0v23a4,4,0,0,1-4,4h0a4,4,0,0,1-4-4V296A0,0,0,0,1,124.27,296Z" fill="#898883"/>
+    <path id="PIN" d="M190.57,296h8a0,0,0,0,1,0,0v23a4,4,0,0,1-4,4h0a4,4,0,0,1-4-4V296A0,0,0,0,1,190.57,296Z" fill="#898883"/>
+  </g>
+  <g id="sensor">
+    <g>
+      <rect x="43.86" y="45.5" width="169.15" height="250.86" fill="#d9f4e0"/>
+      <path d="M59.48,98H227.63V347.86H59.48V98m-1-1V348.86H228.63V97Z" transform="translate(-15.12 -52)"/>
+    </g>
+    <g>
+      <path d="M140.77,176.84a26.73,26.73,0,0,1-.5-53.44h.49a26.73,26.73,0,0,1,.51,53.44Z" transform="translate(-15.12 -52)" fill="#f4bd87"/>
+      <path d="M140.77,123.89a26.3,26.3,0,0,1,18.64,44.43,25.55,25.55,0,0,1-18.15,8h-.49a26.3,26.3,0,0,1-18.64-44.43,25.49,25.49,0,0,1,18.15-8h.49m0-1h-.5a27.23,27.23,0,0,0,.51,54.44h.51a27.23,27.23,0,0,0-.52-54.44Z" transform="translate(-15.12 -52)"/>
+    </g>
+    <line x1="110.21" y1="85" x2="141.21" y2="85" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>
+    <line x1="104.71" y1="96.5" x2="146.71" y2="96.5" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>
+    <line x1="110.21" y1="109.5" x2="141.21" y2="109.5" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>
+    <text transform="translate(70.14 293.35) rotate(-90)" font-size="18" font-family="Biryani-Regular, Biryani">VCC</text>
+    <text transform="translate(134.14 292.35) rotate(-90)" font-size="18" font-family="Biryani-Regular, Biryani">GND</text>
+    <text id="PIN_TEXT" transform="translate(200.45 292.35) rotate(-90)" font-size="18" font-family="Biryani-Regular, Biryani">DO</text>
+  </g>
+</svg>

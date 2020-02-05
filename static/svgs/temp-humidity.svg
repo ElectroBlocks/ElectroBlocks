@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="183.75" height="391.73" viewBox="0 0 183.75 391.73">
+  <title>temp-humidity</title>
+  <g id="WIRE">
+    <g id="VCC">
+      <line x1="34.74" y1="338.23" x2="34.74" y2="388.23" fill="none" stroke="#a3a29f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="6"/>
+    </g>
+    <g id="SIG">
+      <line x1="83.11" y1="338.73" x2="83.11" y2="388.73" fill="none" stroke="#a3a29f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="6"/>
+    </g>
+    <g id="GND">
+      <line x1="129.24" y1="338.73" x2="129.24" y2="388.73" fill="none" stroke="#a3a29f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="6"/>
+    </g>
+  </g>
+  <g id="BASE">
+    <g>
+      <rect x="8.61" y="50.23" width="149" height="288" fill="#81a4c1"/>
+      <path d="M167.88,72V359h-148V72h148m1-1h-150V360h150V71Z" transform="translate(-10.76 -21.27)"/>
+    </g>
+    <g>
+      <rect x="23.49" y="63.23" width="119" height="127" fill="#5da8f4"/>
+      <path d="M152.75,85V211h-118V85h118m1-1h-120V212h120V84Z" transform="translate(-10.76 -21.27)"/>
+    </g>
+    <g>
+      <g>
+        <g>
+          <rect x="116.74" y="161.23" width="16" height="16"/>
+          <path d="M143,183v15H128V183h15m1-1H127v17h17V182Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="95.74" y="161.23" width="16" height="16"/>
+          <path d="M122,183v15H107V183h15m1-1H106v17h17V182Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="74.74" y="161.23" width="16" height="16"/>
+          <path d="M101,183v15H86V183h15m1-1H85v17h17V182Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="53.74" y="161.23" width="16" height="16"/>
+          <path d="M80,183v15H65V183H80m1-1H64v17H81V182Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="32.74" y="161.23" width="16" height="16"/>
+          <path d="M59,183v15H44V183H59m1-1H43v17H60V182Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+      </g>
+      <g>
+        <g>
+          <rect x="116.74" y="140.23" width="16" height="16"/>
+          <path d="M143,162v15H128V162h15m1-1H127v17h17V161Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="95.74" y="140.23" width="16" height="16"/>
+          <path d="M122,162v15H107V162h15m1-1H106v17h17V161Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="74.74" y="140.23" width="16" height="16"/>
+          <path d="M101,162v15H86V162h15m1-1H85v17h17V161Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="53.74" y="140.23" width="16" height="16"/>
+          <path d="M80,162v15H65V162H80m1-1H64v17H81V161Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="32.74" y="140.23" width="16" height="16"/>
+          <path d="M59,162v15H44V162H59m1-1H43v17H60V161Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+      </g>
+      <g>
+        <g>
+          <rect x="116.74" y="119.23" width="16" height="16"/>
+          <path d="M143,141v15H128V141h15m1-1H127v17h17V140Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="95.74" y="119.23" width="16" height="16"/>
+          <path d="M122,141v15H107V141h15m1-1H106v17h17V140Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="74.74" y="119.23" width="16" height="16"/>
+          <path d="M101,141v15H86V141h15m1-1H85v17h17V140Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="53.74" y="119.23" width="16" height="16"/>
+          <path d="M80,141v15H65V141H80m1-1H64v17H81V140Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="32.74" y="119.23" width="16" height="16"/>
+          <path d="M59,141v15H44V141H59m1-1H43v17H60V140Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+      </g>
+      <g>
+        <g>
+          <rect x="116.74" y="98.23" width="16" height="16"/>
+          <path d="M143,120v15H128V120h15m1-1H127v17h17V119Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="95.74" y="98.23" width="16" height="16"/>
+          <path d="M122,120v15H107V120h15m1-1H106v17h17V119Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="74.74" y="98.23" width="16" height="16"/>
+          <path d="M101,120v15H86V120h15m1-1H85v17h17V119Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="53.74" y="98.23" width="16" height="16"/>
+          <path d="M80,120v15H65V120H80m1-1H64v17H81V119Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="32.74" y="98.23" width="16" height="16"/>
+          <path d="M59,120v15H44V120H59m1-1H43v17H60V119Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+      </g>
+      <g>
+        <g>
+          <rect x="116.74" y="77.23" width="16" height="16"/>
+          <path d="M143,99v15H128V99h15m1-1H127v17h17V98Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="95.74" y="77.23" width="16" height="16"/>
+          <path d="M122,99v15H107V99h15m1-1H106v17h17V98Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="74.74" y="77.23" width="16" height="16"/>
+          <path d="M101,99v15H86V99h15m1-1H85v17h17V98Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="53.74" y="77.23" width="16" height="16"/>
+          <path d="M80,99v15H65V99H80m1-1H64v17H81V98Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+        <g>
+          <rect x="32.74" y="77.23" width="16" height="16"/>
+          <path d="M59,99v15H44V99H59m1-1H43v17H60V98Z" transform="translate(-10.76 -21.27)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="TEXT">
+    <text id="TEMP_TEXT" transform="translate(0 18.46)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">Temperature: 90˚</text>
+    <text id="HUMIDITY_TEXT" transform="translate(23.41 42.46)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">Humidity: 50</text>
+    <text transform="translate(27.88 332.82)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">+ </text>
+    <text transform="translate(124.88 331.82)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+    <text transform="translate(64.68 333.64)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">out</text>
+  </g>
+</svg>

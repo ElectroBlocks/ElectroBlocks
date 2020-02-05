@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110.88" height="293.08" viewBox="0 0 110.88 293.08">
+  <title>servo</title>
+  <g id="base">
+    <g>
+      <rect x="0.5" y="42.58" width="79" height="219" fill="#2a90ff"/>
+      <path d="M135.56,46.19v218h-78v-218h78m1-1h-80v220h80Z" transform="translate(-56.56 -3.11)"/>
+    </g>
+  </g>
+  <g id="Angle_Text" data-name="Angle Text">
+    <text id="servo_name" transform="translate(6.93 15.82)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">Servo 3</text>
+    <text id="servo_degree" transform="translate(6.93 36.25)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">Servo 3</text>
+  </g>
+  <g id="spinning_part" data-name="spinning part">
+    <rect id="black_fill" data-name="black fill" x="32.5" y="133.58" width="25" height="27" stroke="#000" stroke-miterlimit="10"/>
+    <path id="moving_part" data-name="moving part" d="M166.91,152c-.4-7.21-5.39-13.31-11.85-13.94l-60.88-8.21c-7.33,2.38-12.61,10.2-13,19.16-.42,9.38,4.61,18,12.18,20.71l61.2-1.24C161.91,167.8,167.37,160.11,166.91,152Zm-66.49,9.07c-5.22-.18-9.28-5.21-9.07-11.23s4.62-10.74,9.84-10.56,9.28,5.22,9.07,11.22S105.64,161.24,100.42,161.06Z" transform="translate(-56.56 -3.11)" fill="#fbb03b" stroke="#000" stroke-miterlimit="10"/>
+    <path id="CenterOfCicle" d="M102.06,149.69" transform="translate(-56.56 -3.11)" fill="#fbb03b" stroke="#000" stroke-miterlimit="10"/>
+  </g>
+  <g id="Layer_3" data-name="Layer 3">
+    <rect id="DATA_BOX" data-name="DATA BOX" x="60" y="261.58" width="10" height="31" fill="orange" stroke="#000" stroke-miterlimit="10"/>
+    <rect id="_5V_BOX" data-name=" 5V BOX" x="35" y="261.58" width="10" height="31" fill="#ff422a" stroke="#000" stroke-miterlimit="10"/>
+    <text transform="translate(37.58 267.38) rotate(90)" font-size="7.03" font-family="Biryani-SemiBold, Biryani" font-weight="600" style="isolation: isolate">5V</text>
+    <text transform="translate(62.26 267.38) rotate(90)" font-size="7.03" font-family="Biryani-SemiBold, Biryani" font-weight="600" style="isolation: isolate">Data</text>
+    <polygon id="GND_BOX" data-name="GND BOX" points="10 261.58 10 292.58 15 292.58 20 292.58 20 261.58 10 261.58" fill="#d6ad65" stroke="#000" stroke-miterlimit="10"/>
+    <text id="GND_TEXT" data-name="GND TEXT" transform="translate(12.68 267.38) rotate(90)" font-size="7.03" font-family="Biryani-SemiBold, Biryani" font-weight="600" style="isolation: isolate">GND</text>
+  </g>
+</svg>

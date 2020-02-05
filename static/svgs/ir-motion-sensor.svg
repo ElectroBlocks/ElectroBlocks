@@ -1,0 +1,29 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="238.77" height="520.27" viewBox="0 0 238.77 520.27">
+  <title>ir-motion-sensor</title>
+  <g>
+    <rect x="22.41" y="142.5" width="181.69" height="314.78" style="fill: #71b3d8"/>
+    <path d="M243.35,149.22V463H62.65V149.22h180.7m1-1H61.65V464h182.7V148.22Z" transform="translate(-39.75 -6.23)"/>
+  </g>
+  <g>
+    <path d="M172.5,179.88V129.76h.09l.06-.44c1.52-12.44,14.35-21.82,29.85-21.82s28.33,9.38,29.85,21.82l.06.44h.09v50.12Z" transform="translate(-39.75 -6.23)" style="fill: #f7f7f7"/>
+    <path d="M202.5,108c15.24,0,27.86,9.19,29.36,21.38l.1.88h0v49.12H173V130.26h0l.1-.88c1.5-12.19,14.12-21.38,29.36-21.38m0-1c-15.82,0-28.82,9.76-30.35,22.26H172v51.12h61V129.26h-.15C231.32,116.76,218.32,107,202.5,107Z" transform="translate(-39.75 -6.23)"/>
+  </g>
+  <g>
+    <path d="M76.5,179.88V129.76h.09l.06-.44C78.17,116.88,91,107.5,106.5,107.5s28.33,9.38,29.85,21.82l.06.44h.09v50.12Z" transform="translate(-39.75 -6.23)" style="fill: #3d464c"/>
+    <path d="M106.5,108c15.24,0,27.86,9.19,29.36,21.38l.1.88h0v49.12H77V130.26h0l.1-.88C78.64,117.19,91.26,108,106.5,108m0-1c-15.82,0-28.82,9.76-30.35,22.26H76v51.12h61V129.26h-.15C135.32,116.76,122.32,107,106.5,107Z" transform="translate(-39.75 -6.23)"/>
+  </g>
+  <rect x="33.25" y="457.77" width="21" height="62" style="fill: #000102;stroke: #000;stroke-miterlimit: 10"/>
+  <g>
+    <rect x="103.75" y="458.27" width="20" height="61" style="fill: #000102"/>
+    <path d="M163,465v60H144V465h19m1-1H143v62h21V464Z" transform="translate(-39.75 -6.23)"/>
+  </g>
+  <g>
+    <rect x="174.75" y="458.27" width="20" height="61" style="fill: #000102"/>
+    <path d="M234,465v60H215V465h19m1-1H214v62h21V464Z" transform="translate(-39.75 -6.23)"/>
+  </g>
+  <text transform="translate(51.08 452.06) rotate(-90)" style="font-size: 18px;fill: #fff;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">GND</text>
+  <text transform="translate(120.08 453.06) rotate(-90)" style="font-size: 18px;fill: #fff;font-family: ArialRoundedMTBold, Arial Rounded MT Bold"><tspan style="letter-spacing: -0.01318359375em">V</tspan><tspan x="12.15" y="0">CC</tspan></text>
+  <text transform="translate(191.08 452.06) rotate(-90)" style="font-size: 18px;fill: #fff;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">OUT</text>
+  <text transform="translate(14 31.1)" style="font-size: 36px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">IR Sensor 7</text>
+  <text transform="translate(0 74.1)" style="font-size: 24px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">Sensing Motion? <tspan x="198.01" y="0" style="letter-spacing: -0.06298828125em">Y</tspan><tspan x="211.5" y="0">es</tspan></text>
+</svg>

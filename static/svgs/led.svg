@@ -1,0 +1,25 @@
+<svg id="Container" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="39.73" height="74.66" viewBox="0 0 39.73 74.66">
+  <defs>
+    <radialGradient id="radial-gradient" cx="25" cy="47.5" r="18.72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#39b54a"/>
+    </radialGradient>
+  </defs>
+  <title>led</title>
+  <g id="POWER">
+    <line x1="13.56" y1="48.83" x2="13.56" y2="68.83" fill="none" stroke="#999" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+  <g id="GND">
+    <line x1="27.86" y1="48.83" x2="27.86" y2="68.83" fill="none" stroke="#999" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+  <g id="light_liner">
+    <path d="M5.64,64.5V49.86a19.37,19.37,0,0,1,38.73,0V64.5Z" transform="translate(-5.14 -16.17)" fill="#fff"/>
+    <path d="M25,31A18.88,18.88,0,0,1,43.86,49.86V64H6.14V49.86A18.88,18.88,0,0,1,25,31m0-1h0A19.86,19.86,0,0,0,5.14,49.86V65H44.86V49.86A19.86,19.86,0,0,0,25,30Z" transform="translate(-5.14 -16.17)"/>
+  </g>
+  <g id="ON">
+    <path d="M44.86,65H5.14V49.86A19.86,19.86,0,0,1,25,30h0A19.86,19.86,0,0,1,44.86,49.86Z" transform="translate(-5.14 -16.17)" fill="url(#radial-gradient)"/>
+  </g>
+  <text transform="translate(3.33 62.72)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+  <text transform="translate(30.33 63.72)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+  <text id="LED_TEXT" transform="translate(3.86 10.55)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">Led 7</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="277.08" viewBox="0 0 280 277.08">
+  <title>ultrasonic-sensor</title>
+  <g id="WIRES">
+    <line id="GND" x1="244.5" y1="224.08" x2="244.5" y2="274.08" stroke-width="6" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <line id="ECHO" x1="176.17" y1="224.08" x2="176.17" y2="274.08" stroke-width="6" stroke="#919080" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <line id="VCC" x1="31.75" y1="224.08" x2="31.75" y2="274.08" stroke-width="6" stroke="#e51313" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <line id="TRIG" x1="101.37" y1="224.08" x2="101.37" y2="274.08" stroke-width="6" stroke="#919080" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <g id="Sensor">
+    <g id="BASE">
+      <rect x="2" y="131.08" width="276" height="91" fill="#208fd3"/>
+      <path d="M282,232v87H10V232H282m4-4H6v95H286V228Z" transform="translate(-6 -98.92)"/>
+    </g>
+    <g id="RIGHT_EYE">
+      <rect x="17" y="94.58" width="56.73" height="36" fill="#bbc2c4"/>
+      <path d="M78.23,195v33H24.5V195H78.23m3-3H21.5v39H81.23V192Z" transform="translate(-6 -98.92)"/>
+    </g>
+    <g id="LEFT_EYE">
+      <rect x="207.27" y="94.58" width="56.73" height="36" fill="#bbc2c4"/>
+      <path d="M268.5,195v33H214.77V195H268.5m3-3H211.77v39H271.5V192Z" transform="translate(-6 -98.92)"/>
+    </g>
+  </g>
+  <g id="DISTANCE">
+    <text id="DISTANCE_TEXT" transform="translate(110.66 19.34)" font-size="22" font-family="Biryani-SemiBold, Biryani" font-weight="600">8 CM </text>
+    <g id="OBJECT">
+      <rect x="0.5" y="30.58" width="279" height="16" fill="#d61632"/>
+      <path d="M285,130v15H7V130H285m1-1H6v17H286V129Z" transform="translate(-6 -98.92)"/>
+    </g>
+  </g>
+  <g id="waves">
+    <path d="M51.26,173.78A19.47,19.47,0,0,0,32.81,187a1,1,0,1,0,1.89.64,17.48,17.48,0,0,1,33.11,0,1,1,0,0,0,2-.33,1,1,0,0,0-.06-.32A19.47,19.47,0,0,0,51.26,173.78Z" transform="translate(-6 -98.92)"/>
+    <path d="M27.77,181.35a1,1,0,0,0,1.84.78,23.5,23.5,0,0,1,43.56.69,1,1,0,0,0,1.29.57,1,1,0,0,0,.64-.93,1.13,1.13,0,0,0-.06-.36,25.51,25.51,0,0,0-47.27-.75Z" transform="translate(-6 -98.92)"/>
+    <path d="M243.47,180.36a19.5,19.5,0,0,0,18.72-12.85,1,1,0,0,0-1.89-.68,17.48,17.48,0,0,1-33.1-.66,1,1,0,0,0-1.95.29.89.89,0,0,0,.05.32A19.49,19.49,0,0,0,243.47,180.36Z" transform="translate(-6 -98.92)"/>
+    <path d="M267.11,173.26a1,1,0,0,0-1.83-.81,23.5,23.5,0,0,1-43.53-1.58,1,1,0,0,0-1.94.33.91.91,0,0,0,.06.36,25.51,25.51,0,0,0,47.24,1.7Z" transform="translate(-6 -98.92)"/>
+  </g>
+  <g id="WIRE_TEXT">
+    <text id="VCC_TEXT" transform="translate(8.04 212.29)" font-size="22" font-family="Biryani-SemiBold, Biryani" font-weight="600">VCC</text>
+    <text id="TRIG_TEXT" transform="translate(74.42 212.29)" font-size="22" font-family="Biryani-SemiBold, Biryani" font-weight="600">TRIG</text>
+    <text id="ECHO_TEXT" transform="translate(143.62 212.29)" font-size="22" font-family="Biryani-SemiBold, Biryani" font-weight="600">ECHO</text>
+    <text id="GND_TEXT" transform="translate(219.29 212.29)" font-size="22" font-family="Biryani-SemiBold, Biryani" font-weight="600">GND</text>
+  </g>
+</svg>

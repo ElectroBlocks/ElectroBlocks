@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="175" height="246.97" viewBox="0 0 175 246.97">
+  <title>analog_pin</title>
+  <g id="Wires">
+    <line id="PIN_WIRE" x1="25" y1="246.49" x2="43" y2="174.49" style="fill: #009245;stroke: #009245;stroke-miterlimit: 10;stroke-width: 4px"/>
+    <line id="GND_WIRE" x1="153" y1="246.49" x2="135" y2="174.49" style="fill: none;stroke: #000;stroke-miterlimit: 10;stroke-width: 4px"/>
+    <text id="TEXT_PIN" transform="translate(30.92 168.61)" style="font-size: 14px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">PIN </text>
+    <text id="TEXT_GND" transform="translate(117.81 168.61)" style="font-size: 14px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">GND</text>
+  </g>
+  <g id="Layer_1" data-name="Layer 1">
+    <g id="base_box">
+      <rect x="0.5" y="0.5" width="174" height="174" style="fill: #fff"/>
+      <path d="M235,13.5v173H62V13.5H235m1-1H61v175H236V12.5Z" transform="translate(-61 -12.5)"/>
+    </g>
+    <text id="pin_text" transform="translate(10.3 31.43)" style="font-size: 26px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">Analog Pin 7</text>
+    <text id="pin_text-2" data-name="pin_text" transform="translate(36.13 65.43)" style="font-size: 26px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">Sending</text>
+    <text id="state_text" transform="translate(34.02 133.43)" style="font-size: 60px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">150</text>
+  </g>
+</svg>

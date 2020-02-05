@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="66.94" height="80.5" viewBox="0 0 66.94 80.5">
+  <title>rgb-led-no-resistor</title>
+  <g id="LED">
+    <g id="RED_PIN">
+      <line x1="11.54" y1="51.65" x2="11.54" y2="79.5" fill="none" stroke="#ed1c24" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="11.54" y1="51.65" x2="11.54" y2="79.5" fill="#585858"/>
+    </g>
+    <g id="GND_PIN">
+      <line x1="26.16" y1="51.65" x2="26.16" y2="79.5" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+    <g id="BLUE_PIN">
+      <line x1="55.4" y1="51.65" x2="55.4" y2="79.5" fill="none" stroke="blue" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+    <g id="GREEN_PIN">
+      <line x1="40.78" y1="51.65" x2="40.78" y2="79.5" fill="none" stroke="lime" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+    <g id="COLOR_LED">
+      <path d="M17.5,61.94V28.08A17.1,17.1,0,0,1,34.58,11H66.36A17.1,17.1,0,0,1,83.44,28.08V61.94Z" transform="translate(-17 -10.5)" fill="#fff"/>
+      <path d="M66.36,11.5A16.6,16.6,0,0,1,82.94,28.08V61.44H18V28.08A16.6,16.6,0,0,1,34.58,11.5H66.36m0-1H34.58A17.58,17.58,0,0,0,17,28.08V62.44H83.94V28.08A17.58,17.58,0,0,0,66.36,10.5Z" transform="translate(-17 -10.5)"/>
+    </g>
+  </g>
+  <g id="TEXT">
+    <text transform="translate(7.81 64.31) rotate(-90) scale(0.92 1)" font-size="5.64" font-family="Biryani-SemiBold, Biryani" font-weight="600">RED</text>
+    <text transform="translate(22.11 65.18) rotate(-90) scale(0.92 1)" font-size="5.64" font-family="Biryani-SemiBold, Biryani" font-weight="600">GND</text>
+    <text transform="translate(36.41 72.02) rotate(-90) scale(0.92 1)" font-size="5.64" font-family="Biryani-SemiBold, Biryani" font-weight="600">GREEN</text>
+    <text transform="translate(51.28 67.3) rotate(-90) scale(0.92 1)" font-size="5.64" font-family="Biryani-SemiBold, Biryani" font-weight="600">BLUE</text>
+  </g>
+</svg>

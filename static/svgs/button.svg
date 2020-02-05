@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="61.5" height="85.93" viewBox="0 0 61.5 85.93">
+  <title>button</title>
+  <g id="Layer_1" data-name="Layer 1">
+    <path d="M62.56,58.49" transform="translate(-13.32 -3.07)" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    <text id="BUTTON_TEXT" transform="translate(10.7 5.24)" font-size="6.07" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">Button 7 </text>
+    <text id="PRESSED_STATE" transform="translate(10.57 13.84)" font-size="6.07" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">Not P<tspan x="15.99" y="0" letter-spacing="-0.02em">r</tspan><tspan x="18.5" y="0">essed</tspan></text>
+    <line id="PIN_WIRE" x1="11.81" y1="68.23" x2="11.81" y2="85.93" fill="none" stroke="#4cc9c0" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="GND_WIRE" x1="22.68" y1="68.23" x2="22.68" y2="85.93" fill="none" stroke="#4cc9c0" stroke-miterlimit="10" stroke-width="2"/>
+    <text transform="translate(24.53 75.74)" font-size="6.07" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">GND</text>
+    <text transform="translate(0 75.74)" font-size="6.07" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">Pin</text>
+  </g>
+  <g id="button">
+    <rect x="9.61" y="35.21" width="15.48" height="33.01" fill="#39b54a" stroke="#000" stroke-miterlimit="10"/>
+    <rect x="10.69" y="27.43" width="13.37" height="5.21" fill="red" stroke="#000" stroke-miterlimit="10"/>
+    <path d="M6.24,31.45H28.51a2.41,2.41,0,0,1,2.41,2.41v1.69a1.69,1.69,0,0,1-1.69,1.69h-24a1.45,1.45,0,0,1-1.45-1.45V33.86a2.41,2.41,0,0,1,2.41-2.41Z" fill="red" stroke="#000" stroke-miterlimit="10"/>
+  </g>
+  <g id="Hand">
+    <polygon id="THUMB_DOWN" points="33.38 19.57 10.48 19.43 10.44 25.9 33.34 26.04 33.26 39.21 45.08 39.28 45.2 19.64 33.38 19.57" fill="#b2724f" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon id="THUMB_UP" points="33.38 24.57 10.48 24.43 10.44 30.9 33.34 31.04 33.26 44.21 45.08 44.28 45.2 24.64 33.38 24.57" fill="#b2724f" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="61 48.37 45.2 48.37 45.2 39.27 5.99 39.27 5.99 63.88 45.2 63.88 45.2 59.25 61 59.25 61 48.37" fill="#b2724f" stroke="#000" stroke-miterlimit="10"/>
+    <line x1="6.14" y1="59.25" x2="31.82" y2="59.25" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    <line x1="6.06" y1="52.16" x2="31.92" y2="52.16" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    <line x1="6.06" y1="45.35" x2="32.98" y2="45.35" fill="none" stroke="#000" stroke-miterlimit="10"/>
+  </g>
+</svg>

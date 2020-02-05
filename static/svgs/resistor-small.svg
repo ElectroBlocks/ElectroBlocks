@@ -1,0 +1,16 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="6" height="16.25" viewBox="0 0 6 16.25">
+  <title>resistor-small</title>
+  <g id="WIRE_2">
+    <line x1="3" y1="1" x2="3" y2="3" style="fill: none;stroke: #999;stroke-linecap: round;stroke-linejoin: round;stroke-width: 2px"/>
+  </g>
+  <g id="WIRE_1">
+    <line x1="3" y1="11.75" x2="3" y2="15.25" style="fill: none;stroke: #999;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+  </g>
+  <g id="base">
+    <rect y="2.57" width="6" height="10" style="fill: #efd49e"/>
+  </g>
+  <line id="BAND_4" x1="6" y1="4" y2="4" style="fill: #c1272d;stroke: #93581c;stroke-miterlimit: 10"/>
+  <line id="BAND_3" x1="6" y1="8.52" y2="8.52" style="fill: #c1272d;stroke: #93581c;stroke-miterlimit: 10"/>
+  <line id="BAND_2" x1="6" y1="11" y2="11" style="fill: #c1272d;stroke: #ffff4d;stroke-miterlimit: 10"/>
+  <line id="BAND_1" x1="6" y1="6.26" y2="6.26" style="fill: #c1272d;stroke: #1d9135;stroke-miterlimit: 10"/>
+</svg>
