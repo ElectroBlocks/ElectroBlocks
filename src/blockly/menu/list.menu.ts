@@ -1,5 +1,6 @@
 import Blockly, { WorkspaceSvg } from 'blockly';
-import { createBlock, getVariableByName } from '../helpers/workspace';
+import {  getVariableByName } from '../helpers/variable.helper';
+import { createBlock } from '../helpers/block.helper';
 /**
  * Crappy code to register the button listeners for blockly
  */

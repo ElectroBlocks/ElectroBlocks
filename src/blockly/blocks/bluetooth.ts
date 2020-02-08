@@ -113,6 +113,13 @@ const bluetoothSetupBlock: any = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip('');
     this.setHelpUrl('');
+  },
+  getSensorData() {
+    return {
+      receiving_message: this.getFieldValue('receiving_message') === 'TRUE',
+      message: this.getFieldValue('message'),
+      loop: this.getFieldValue('LOOP')
+    };
   }
 };
 

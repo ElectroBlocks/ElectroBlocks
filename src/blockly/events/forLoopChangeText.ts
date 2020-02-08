@@ -1,4 +1,4 @@
-import { getBlocksByName } from '../helpers/workspace';
+import { getBlocksByName } from '../helpers/block.helper';
 
 // Changes the text on the for loop block to adding or subtracting
 // Depending on whether the from is greater than to.

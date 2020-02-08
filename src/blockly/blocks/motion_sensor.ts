@@ -59,6 +59,12 @@ const ultraSonicSensorBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
+  },
+  getSensorData() {
+    return {
+      cm: +this.getFieldValue('cm'),
+      loop: this.getFieldValue('LOOP')
+    };
   }
 };
 

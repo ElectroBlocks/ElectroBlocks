@@ -1,9 +1,10 @@
 import Blockly, { WorkspaceSvg, Workspace, BlockSvg } from 'blockly';
 import {
   createBlock,
-  getVariableByName,
-  getBlockByName
-} from '../helpers/workspace';
+  getBlockByType
+} from '../helpers/block.helper';
+import { getVariableByName } from '../helpers/variable.helper';
+
 
 Blockly.Variables.flyoutCategory = function(workspace: Blockly.Workspace) {
   let xmlList: Element[] = [];
@@ -208,7 +209,7 @@ Blockly.Variables.flyoutCategoryBlocks = function(workspace) {
 
 const connectToArduinoBlock = function(variableBlock: BlockSvg) {
   let arduinoBlock =
-    getBlockByName('arduino_setup') || getBlockByName('arduino_loop'); // See if
+    getBlockByType('arduino_setup') || getBlockByType('arduino_loop'); // See if
   const inputToAttachVariableTo =
     arduinoBlock.type == 'arduino_setup' ? 'setup' : 'loop';
 

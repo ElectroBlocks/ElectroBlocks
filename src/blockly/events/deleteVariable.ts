@@ -2,7 +2,7 @@ import {
   getAllVariables,
   isVariableBeingUsed,
   deleteVariable
-} from '../helpers/workspace';
+} from '../helpers/variable.helper';
 
 // Loops through all the variables and
 // makes sure that they are being used in a block

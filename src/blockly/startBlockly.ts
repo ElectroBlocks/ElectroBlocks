@@ -10,7 +10,7 @@ import registerListMenu from './menu/list.menu';
 import getToolBoxString from '../services/toolbox/getToolBoxString';
 import { fetchToolBox } from '../services/toolbox/toolbox';
 
-import { createBlock } from './helpers/workspace';
+import { createBlock } from './helpers/block.helper';
 
 /**
  * This will start up blockly and will add all the event listeners and styles

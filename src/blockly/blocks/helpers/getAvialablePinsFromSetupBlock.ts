@@ -1,5 +1,5 @@
 import selectedBoard from '../../../constants/arduino';
-import { getBlocksByName } from '../../helpers/workspace';
+import { getBlocksByName } from '../../helpers/block.helper';
 
 const getAvialablePinsFromSetupBlock = (setupBlockType: string) => {
   const pins = getBlocksByName(setupBlockType).map((block) => [

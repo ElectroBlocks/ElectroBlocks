@@ -15,8 +15,9 @@
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
   let showLoopExecutionTimesArduinoStartBlock: boolean;
-  $: showLoopExecutionTimesArduinoStartBlock = segment == undefined;
+  $: showLoopExecutionTimesArduinoStartBlock = _.isEmpty(segment);
 
+  
   let height = "500px";
   let leftFlex = 49;
   let rightFlex = 49;

@@ -49,9 +49,7 @@ Blockly.defineBlocksWithJsonArray([
 const timeSetupBlock: any = {
   init: function() {
     this.appendDummyInput()
-      .appendField(
-        new Blockly.FieldImage('./blocks/time/time.png', 15, 15)
-      )
+      .appendField(new Blockly.FieldImage('./blocks/time/time.png', 15, 15))
       .appendField('Setup Time');
 
     this.appendDummyInput()
@@ -64,8 +62,13 @@ const timeSetupBlock: any = {
     this.setColour(COLOR_THEME.ARDUINO);
     this.setTooltip('');
     this.setHelpUrl('');
+  },
+  getSensorData() {
+    return {
+      time_in_seconds: +this.getFieldValue('time_in_seconds'),
+      loop: this.getFieldValue('LOOP')
+    };
   }
 };
-
 
 Blockly.Blocks['time_setup'] = timeSetupBlock;

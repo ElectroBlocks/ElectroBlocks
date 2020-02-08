@@ -131,6 +131,14 @@ const rfidSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
+  },
+  getSensorData() {
+    return {
+      scanned_card: this.getFieldValue('scanned_card') === "TRUE",
+      card_number: this.getFieldValue('card_number'),
+      tag: this.getFieldValue('tag'),
+      loop: this.getFieldValue('LOOP')
+    };
   }
 };
 

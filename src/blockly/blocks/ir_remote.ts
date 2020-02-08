@@ -91,6 +91,13 @@ const irSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
+  },
+  getSensorData() {
+    return {
+      scanned_new_code: this.getFieldValue('scanned_new_code') === 'TRUE',
+      code: this.getFieldValue('code'),
+      loop: this.getFieldValue('LOOP')
+    };
   }
 };
 

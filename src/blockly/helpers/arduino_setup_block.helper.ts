@@ -1,5 +1,4 @@
-import { BlockSvg } from 'blockly';
-import { getBlockByName, createBlock } from './workspace';
+import { getBlockByType, createBlock } from './block.helper';
 
 /**
  * Creates the Arduino Setup Block
@@ -16,7 +15,7 @@ const showArduinoSetupBlock = () => {
  * @param {Blockly.workspace} workspace
  */
 const removeArduinoSetupBlock = () => {
-  const block = getBlockByName('arduino_setup');
+  const block = getBlockByType('arduino_setup');
 
   // If the block was not found there is nothing do
   if (!block) {

@@ -180,6 +180,12 @@ const digitalReadSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
+  },
+  getSensorData() {
+    return {
+      has_power: this.getFieldValue('has_power') === "TRUE",
+      loop: this.getFieldValue('LOOP')
+    };
   }
 };
 
@@ -227,6 +233,12 @@ const analogReadSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
+  },
+  getSensorData() {
+    return {
+      power_level: +this.getFieldValue('power_level'),
+      loop: this.getFieldValue('LOOP')
+    };
   }
 };
 

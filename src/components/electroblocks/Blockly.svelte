@@ -9,12 +9,12 @@
   import {
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop
-  } from "../../blockly/helpers/arduino_loop_block";
+  } from "../../blockly/helpers/arduino_loop_block.helper";
 
   import {
     showArduinoSetupBlock,
     removeArduinoSetupBlock
-  } from "../../blockly/helpers/arduino_setup_block";
+  } from "../../blockly/helpers/arduino_setup_block.helper";
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text
