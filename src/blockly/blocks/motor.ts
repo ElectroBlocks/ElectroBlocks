@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../constants';
+import { COLOR_THEME } from '../colors';
 
 Blockly.defineBlocksWithJsonArray([
   // BEGIN JSON EXTRACT

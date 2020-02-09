@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../constants';
+import { COLOR_THEME } from '../colors';
 
 Blockly.defineBlocksWithJsonArray([
   // If/else block that does not use a mutator.

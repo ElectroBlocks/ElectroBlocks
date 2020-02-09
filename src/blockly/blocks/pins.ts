@@ -2,7 +2,7 @@ import selectedBoard from '../../constants/arduino';
 import Blockly from 'blockly';
 
 import getAvialablePinsFromSetupBlock from './helpers/getAvialablePinsFromSetupBlock';
-import { COLOR_THEME } from '../constants';
+import { COLOR_THEME } from '../colors';
 import loopTimes from './helpers/looptimes';
 
 Blockly.defineBlocksWithJsonArray([

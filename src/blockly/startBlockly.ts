@@ -1,8 +1,12 @@
-import Blockly, { WorkspaceSvg } from 'blockly';
+import Blockly, { WorkspaceSvg, BlocklyOptions } from 'blockly';
 
 import './menu/variable.menu';
 import './menu/function.menu';
 import './blocks/index';
+import './overrides/field_variable.override';
+import './overrides/flyout-parameter.override';
+import './overrides/trashcan.override';
+import { theme } from './theme';
 
 import registerListeners from './events/registerEvents';
 import registerListMenu from './menu/list.menu';
@@ -43,7 +47,7 @@ const createWorkspace = (blocklyElement) => {
  *
  * @returns {Object}
  */
-const createBlockConfig = () => {
+const createBlockConfig = (): BlocklyOptions => {
   const savedToolOptions = fetchToolBox();
   const toolboxString = getToolBoxString(savedToolOptions);
 
@@ -52,15 +56,14 @@ const createBlockConfig = () => {
     collapse: true,
     comments: true,
     disable: false,
-    maxBlocks: Infinity,
     trashcan: true,
     horizontalLayout: false,
     toolboxPosition: 'start',
     css: true,
     media: 'https://blockly-demo.appspot.com/static/media/',
     rtl: false,
-    scrollbars: true,
     sounds: true,
+    theme,
     oneBasedIndex: true,
     grid: {
       spacing: 20,

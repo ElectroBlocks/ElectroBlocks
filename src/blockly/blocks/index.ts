@@ -3,6 +3,7 @@ import './bluetooth';
 import './buttons';
 import './debug';
 import './ir_remote';
+import './functions';
 import './lcd_screen';
 import './led_matrix';
 import './led';

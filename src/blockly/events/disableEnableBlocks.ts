@@ -42,7 +42,6 @@ const standAloneBlocks = [
   'create_list_boolean_block',
   'create_list_colour_block',
   'procedures_defnoreturn',
-  'procedures_defreturn',
   'lcd_setup',
   'neo_pixel_setup',
   'soil_sensor_setup',
@@ -61,7 +60,8 @@ const standAloneBlocks = [
 export const blockMultipleSetup = [
   'button_setup',
   'digital_read_setup',
-  'analog_read_setup'
+  'analog_read_setup',
+  'procedures_defnoreturn'
 ];
 
 export const sensorSetupBlocks = [

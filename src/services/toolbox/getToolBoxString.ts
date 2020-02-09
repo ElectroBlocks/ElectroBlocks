@@ -1,4 +1,4 @@
-import { COLOR_THEME } from '../../blockly/constants';
+import { COLOR_THEME } from '../../blockly/colors';
 import { ToolBoxEntries } from './toolbox';
 
 /**
@@ -52,7 +52,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   }
   if (showToolBoxOption('Functions', toolboxOptions)) {
     toolbox += `<category
-    name="Functions"
+    name="My Blocks"
     colour="${COLOR_THEME.CONTROL}"
     custom="PROCEDURE"
   ></category><sep></sep>`;

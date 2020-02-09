@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../constants';
+import { COLOR_THEME } from '../colors';
 
 import selectedBoard from '../../constants/arduino';
 import loopTimes from './helpers/looptimes';
