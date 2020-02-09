@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../colors';
+import { COLOR_THEME } from '../../constants/colors';
 import selectedBoard from '../../constants/arduino';
 
 Blockly.defineBlocksWithJsonArray([

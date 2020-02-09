@@ -7,6 +7,9 @@ import { changeSensorSetupBlockBecauseLoopDropDownChanged } from './changeSensor
 import { changeLoopNumberInSensorBlocks } from './changeLoopNumberInSensorBlocks';
 import { checkRightPinSelected } from './checkRightPinSelected';
 
+import codeStore from '../../stores/code.store';
+import { getArduinoCode } from '../helpers/workspace.helper';
+
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (event) => {
     console.log(event, 'blockly event');
@@ -41,15 +44,15 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     // This will adjust sensor setup block to down to match it
     changeLoopNumberInSensorBlocks(event);
 
-    // This is a hack to make sure that the drop down box get populated first
-    setTimeout(() => {
-      // Checks that all sensors read blocks have a corresponding sensor setup block with that button setup
-      // So if a user drags a button setup block to workspace then deletes it but another setup button block is there
-      // All the other read blocks should use that button setup block
-      checkRightPinSelected(['is_button_pressed'], 'button_setup');
-      checkRightPinSelected(['digital_read'], 'digital_read_setup');
-      checkRightPinSelected(['analog_read'], 'analog_read_setup');
-    }, 20);
+    // Checks that all sensors read blocks have a corresponding sensor setup block with that button setup
+    // So if a user drags a button setup block to workspace then deletes it but another setup button block is there
+    // All the other read blocks should use that button setup block
+    checkRightPinSelected(['is_button_pressed'], 'button_setup');
+    checkRightPinSelected(['digital_read'], 'digital_read_setup');
+    checkRightPinSelected(['analog_read'], 'analog_read_setup');
+
+    // creates arduino c code and updates store with new code
+    codeStore.set(getArduinoCode());
   });
 };
 

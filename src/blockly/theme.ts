@@ -1,4 +1,4 @@
-import { COLOR_THEME } from './colors';
+import { COLOR_THEME } from '../constants/colors';
 import { BlocklyThemeOptions } from 'blockly';
 
 export const theme: BlocklyThemeOptions = {

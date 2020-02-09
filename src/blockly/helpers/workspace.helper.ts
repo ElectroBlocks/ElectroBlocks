@@ -12,6 +12,10 @@ export const updateToolbox = (toolbox: string) => {
   return getWorkspace().updateToolbox(toolbox);
 };
 
+export const getArduinoCode = () => {
+  return Blockly['Arduino'].workspaceToCode(getWorkspace()) as string;
+}
+
 
 
 

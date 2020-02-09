@@ -2,8 +2,8 @@
   import Blockly from "blockly";
   import { onMount } from "svelte";
 
-  import { WindowType, resizeStore } from "../../stores/resize-store";
-  import settingsStore from "../../stores/settings-store";
+  import { WindowType, resizeStore } from "../../stores/resize.store";
+  import settingsStore from "../../stores/settings.store";
   import startBlocly from "../../blockly/startBlockly";
 
   import {
@@ -41,7 +41,6 @@
 
     workspaceInitialize = true;
 
-    settingsStore.refreshSettingsWithLocalStorage();
     // Hack to make sure that once blockly loads it gets resized
     setTimeout(() => {
       resizeBlockly();

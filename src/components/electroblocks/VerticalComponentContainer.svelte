@@ -2,7 +2,7 @@
   import Nav from "../../components/electroblocks/Nav.svelte";
   import Blockly from "../../components/electroblocks/Blockly.svelte";
   import Player from "../../components/electroblocks/home/Player.svelte";
-  import { resizeStore } from "../../stores/resize-store";
+  import { resizeStore } from "../../stores/resize.store";
 
   // flex size of top window
   let topFlex = 69;

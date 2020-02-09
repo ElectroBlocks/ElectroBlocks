@@ -6,7 +6,7 @@ import { getBlockByType, createBlock } from './block.helper';
  * @param {Blockly.workspace} workspace
  */
 const showArduinoSetupBlock = () => {
-  return createBlock('arduino_setup', 350, 100, false);
+  return createBlock('arduino_setup', 50, 10, false);
 };
 
 /**
@@ -32,6 +32,10 @@ const removeArduinoSetupBlock = () => {
 
   // This will delete the block
   block.dispose();
+};
+
+export const doesArduinoSetupBlockExist = () => {
+  return getBlockByType('arduino_setup') !== undefined;
 };
 
 export { showArduinoSetupBlock, removeArduinoSetupBlock };

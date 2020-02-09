@@ -1,4 +1,4 @@
-import { COLOR_THEME } from '../../blockly/colors';
+import { COLOR_THEME } from '../../constants/colors';
 import { ToolBoxEntries } from './toolbox';
 
 /**

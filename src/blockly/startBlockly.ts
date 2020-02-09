@@ -1,11 +1,10 @@
 import Blockly, { WorkspaceSvg, BlocklyOptions } from 'blockly';
 
-import './menu/variable.menu';
-import './menu/function.menu';
+import './menu/index';
 import './blocks/index';
-import './overrides/field_variable.override';
-import './overrides/flyout-parameter.override';
-import './overrides/trashcan.override';
+import './overrides/index';
+import './generators/index';
+
 import { theme } from './theme';
 
 import registerListeners from './events/registerEvents';
@@ -20,8 +19,11 @@ import { createBlock } from './helpers/block.helper';
  * This will start up blockly and will add all the event listeners and styles
  */
 const startBlockly = (blocklyElement: HTMLElement) => {
+
+  // creates the blockly workspace and toolbox
   const workspace = createWorkspace(blocklyElement);
 
+  // creates the arduino loop block
   createBlock('arduino_loop', 50, 100, false);
 
   // Register custom list menu event for the toolbox
@@ -33,19 +35,14 @@ const startBlockly = (blocklyElement: HTMLElement) => {
 
 /**
  * Creates the Blockly Workspace
- *
- * @param {HTMLElmeent} Blockly workspace container element
- * @returns {Blockly.Workspace}
  */
-const createWorkspace = (blocklyElement) => {
+const createWorkspace = (blocklyElement: HTMLElement) => {
   Blockly.inject(blocklyElement, createBlockConfig());
   return Blockly.getMainWorkspace() as WorkspaceSvg;
 };
 
 /**
  * Returns the blockly config object
- *
- * @returns {Object}
  */
 const createBlockConfig = (): BlocklyOptions => {
   const savedToolOptions = fetchToolBox();

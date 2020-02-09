@@ -8,7 +8,7 @@
   import Blockly from "../../components/electroblocks/Blockly.svelte";
   // @ts-ignore
   import Player from "../../components/electroblocks/home/Player.svelte";
-  import { resizeStore } from "../../stores/resize-store";
+  import { resizeStore } from "../../stores/resize.store";
 
   export let segment: string = "";
 
