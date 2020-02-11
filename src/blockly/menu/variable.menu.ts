@@ -1,10 +1,6 @@
 import Blockly, { WorkspaceSvg, Workspace, BlockSvg } from 'blockly';
-import {
-  createBlock,
-  getBlockByType
-} from '../helpers/block.helper';
+import { createBlock, getBlockByType } from '../helpers/block.helper';
 import { getVariableByName } from '../helpers/variable.helper';
-
 
 Blockly.Variables.flyoutCategory = function(workspace: Blockly.Workspace) {
   let xmlList: Element[] = [];
@@ -21,7 +17,7 @@ Blockly.Variables.flyoutCategory = function(workspace: Blockly.Workspace) {
       createVariableBtnHanlder(
         'variables_set_number',
         'math_number',
-        'MATH_NUM',
+        'NUM',
         '33'
       ),
       'Number'
@@ -40,7 +36,7 @@ Blockly.Variables.flyoutCategory = function(workspace: Blockly.Workspace) {
   ) {
     Blockly.Variables.createVariableButtonHandler(
       button.getTargetWorkspace(),
-      createVariableBtnHanlder('variables_set_string', 'text', 'abc', 'TEXT'),
+      createVariableBtnHanlder('variables_set_string', 'text', 'TEXT', 'abc'),
       'String'
     );
   });
@@ -221,8 +217,8 @@ const connectToArduinoBlock = function(variableBlock: BlockSvg) {
 const createVariableBtnHanlder = (
   variableBlockType: string,
   valueBlockType: string,
-  defaultValue?: string,
-  defaultField?: string
+  defaultField?: string,
+  defaultValue?: string
 ) => {
   return (variableName: string) => {
     if (variableName === null || !getVariableByName(variableName)) {

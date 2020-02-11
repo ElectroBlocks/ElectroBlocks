@@ -9,7 +9,12 @@ Blockly['Arduino']['arduino_setup'] = function(block: Block) {
   for (const key in Blockly['Arduino'].setupCode_) {
     preSetupCode += Blockly['Arduino'].setupCode_[key] || '';
   }
-  return '\nvoid setup() { \n' + preSetupCode + statementsSetup + '}\n';
+  return (
+    '\nvoid setup() { \n' +
+    preSetupCode +
+    statementsSetup +
+    '}\n'
+  );
 };
 
 Blockly['Arduino']['arduino_loop'] = function(block: Block) {

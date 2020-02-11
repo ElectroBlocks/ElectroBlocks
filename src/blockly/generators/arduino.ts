@@ -179,7 +179,7 @@ Blockly['Arduino'].finish = function(code) {
       preSetupCode += Blockly['Arduino'].setupCode_[key] || '';
     }
     setupCode = '\nvoid setup() { \n' + preSetupCode + '\n}\n';
-  }
+  } 
 
   // Convert the definitions dictionary into a list.
   code =
@@ -253,10 +253,9 @@ Blockly['Arduino'].scrub_ = function(block, code) {
     // Collect comment for this block.
     let comment = block.getCommentText();
     //@ts-ignore
-    comment = comment ? Blockly.utils.string.wrap(
-      comment,
-      Blockly['Arduino'].COMMENT_WRAP - 3
-    ) : null;
+    comment = comment
+      ? Blockly.utils._string.wrap(comment, Blockly['Arduino'].COMMENT_WRAP - 3)
+      : null;
     if (comment) {
       if (block.getProcedureDef) {
         // Use a comment block for function comments.
@@ -286,4 +285,3 @@ Blockly['Arduino'].scrub_ = function(block, code) {
   const nextCode = Blockly['Arduino'].blockToCode(nextBlock);
   return commentCode + code + nextCode;
 };
-
