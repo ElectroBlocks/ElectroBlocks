@@ -1,5 +1,4 @@
 import Blockly from 'blockly';
-import { Block } from 'blockly';
 import selectedBoard from '../../../constants/arduino';
 
 Blockly['Arduino']['bluetooth_setup'] = function(block) {

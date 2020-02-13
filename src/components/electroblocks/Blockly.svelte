@@ -4,17 +4,17 @@
 
   import { WindowType, resizeStore } from "../../stores/resize.store";
   import settingsStore from "../../stores/settings.store";
-  import startBlocly from "../../blockly/startBlockly";
+  import startBlocly from "../../core/blockly/startBlockly";
 
   import {
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop
-  } from "../../blockly/helpers/arduino_loop_block.helper";
+  } from "../../core/blockly/helpers/arduino_loop_block.helper";
 
   import {
     showArduinoSetupBlock,
     removeArduinoSetupBlock
-  } from "../../blockly/helpers/arduino_setup_block.helper";
+  } from "../../core/blockly/helpers/arduino_setup_block.helper";
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text

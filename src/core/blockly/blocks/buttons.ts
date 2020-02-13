@@ -1,9 +1,8 @@
 import Blockly from 'blockly';
-import getAvialablePinsFromSetupBlock from './helpers/getAvialablePinsFromSetupBlock';
+import { getAvailablePins, configuredPins } from './helpers/getAvialablePinsFromSetupBlock';
 import { COLOR_THEME } from '../../../constants/colors';
 import loopTimes from './helpers/looptimes';
 import selectedBoard from '../../../constants/arduino';
-
 const buttonSetupBlock: any = {
   init: function() {
     this.appendDummyInput()
@@ -13,7 +12,7 @@ const buttonSetupBlock: any = {
       .appendField('Connected to PIN# ')
       .appendField(
         new Blockly.FieldDropdown(() => {
-          return selectedBoard().digitalPins;
+          return getAvailablePins('button_setup', this.getFieldValue('PIN'), selectedBoard().digitalPins)
         }),
         'PIN'
       );
@@ -35,10 +34,11 @@ const buttonSetupBlock: any = {
     this.setTooltip('');
     this.setHelpUrl('');
   },
-  getSensorData() {
+  sensorData() {
     return {
-      is_pressed: this.getFieldValue('is_pressed') === "TRUE",
-      loop: this.getFieldValue('LOOP')
+      is_pressed: this.getFieldValue('is_pressed') === 'TRUE',
+      pin: this.getFieldValue('PIN'),
+      loop: +this.getFieldValue('LOOP')
     };
   }
 };
@@ -54,7 +54,7 @@ const isBtnPressedBlock: any = {
       .appendField('Is button')
       .appendField(
         new Blockly.FieldDropdown(() => {
-          return getAvialablePinsFromSetupBlock('button_setup');
+          return configuredPins('button_setup', selectedBoard().digitalPins);
         }),
         'PIN'
       )

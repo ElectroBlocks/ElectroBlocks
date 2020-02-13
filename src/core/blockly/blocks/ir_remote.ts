@@ -92,11 +92,11 @@ const irSetupBlock: any = {
     this.setTooltip('');
     this.setHelpUrl('');
   },
-  getSensorData() {
+  sensorData() {
     return {
       scanned_new_code: this.getFieldValue('scanned_new_code') === 'TRUE',
       code: this.getFieldValue('code'),
-      loop: this.getFieldValue('LOOP')
+      loop: +this.getFieldValue('LOOP')
     };
   }
 };

@@ -2,7 +2,7 @@ import { ARDUINO_UNO_PINS } from '../../constants/arduino';
 
 export interface ArduinoState {
   blockId: string;
-  frameLocation: FrameLocation;
+  frameLocation: Timeline;
   explanation: string;
   components: ArduinoComponentState[];
   variables: { [key: string]: Variable };
@@ -40,7 +40,7 @@ export interface Color {
   blue: number;
 }
 
-export interface FrameLocation {
+export interface Timeline {
   iteration: number;
 
   function: 'setup' | 'loop';

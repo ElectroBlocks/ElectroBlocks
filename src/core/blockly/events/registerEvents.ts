@@ -10,6 +10,9 @@ import { checkRightPinSelected } from './checkRightPinSelected';
 import codeStore from '../../../stores/code.store';
 import { getArduinoCode } from '../helpers/workspace.helper';
 
+import { getSensorData } from '../../state-generator/sensor-data.generator';
+import { disableMaxPinsBlocks } from './disableMaxPinBlocks';
+
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (event) => {
     console.log(event, 'blockly event');
@@ -34,6 +37,9 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     // Enables or disables blocks
     disableEnableBlocks();
 
+    // Disable / Enable Blocks that can be enable because pins ran out
+    disableMaxPinsBlocks();
+
     // Saves the fake sensor loop data in the block
     saveSensorSetupBlockState(event);
 
@@ -53,6 +59,8 @@ const registerEvents = (workspace: WorkspaceSvg) => {
 
     // creates arduino c code and updates store with new code
     codeStore.set(getArduinoCode());
+
+    console.log(getSensorData());
   });
 };
 

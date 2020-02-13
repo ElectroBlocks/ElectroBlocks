@@ -6,7 +6,7 @@ export interface ArduinoMessageState extends ArduinoComponentState {
   message: string;
 }
 
-export interface Bluetooth extends ArduinoComponentState {
+export interface BluetoothState extends ArduinoComponentState {
   rxPin: ARDUINO_UNO_PINS;
   txPin: ARDUINO_UNO_PINS;
   hasMessage: boolean;
@@ -18,13 +18,13 @@ export interface Button {
   isPressed: boolean;
 }
 
-export interface IRRemote extends ArduinoComponentState {
+export interface IRRemoteState extends ArduinoComponentState {
   hasCode: boolean;
   code: string;
   analogPin: ARDUINO_UNO_PINS;
 }
 
-export interface LCDScreen extends ArduinoComponentState {
+export interface LCDScreenState extends ArduinoComponentState {
   rows: number;
   columns: number;
   memoryType: LCD_SCREEN_MEMORY_TYPE;
@@ -38,7 +38,7 @@ export enum LCD_SCREEN_MEMORY_TYPE {
   '0X27' = '0x27'
 }
 
-export interface LedColor extends ArduinoComponentState {
+export interface LedColorState extends ArduinoComponentState {
   redPin: ARDUINO_UNO_PINS;
   greenPin: ARDUINO_UNO_PINS;
   bluePin: ARDUINO_UNO_PINS;
@@ -46,11 +46,11 @@ export interface LedColor extends ArduinoComponentState {
   color: Color;
 }
 
-export interface LedMatrix extends ArduinoComponentState {
+export interface LedMatrixState extends ArduinoComponentState {
   leds: Array<{ col: number; row: number; isOn: boolean }>;
 }
 
-export interface Motor extends ArduinoComponentState {
+export interface MotorState extends ArduinoComponentState {
   motorNumber: number;
   speed: number;
   direction: MOTOR_DIRECTION;
@@ -61,12 +61,12 @@ export enum MOTOR_DIRECTION {
   BACKWARD = 'BACKWARD'
 }
 
-export interface NeoPixel extends ArduinoComponentState {
+export interface NeoPixelState extends ArduinoComponentState {
   numberOfLeds: number;
   neoPixels: Array<{ position: number; color: Color }>;
 }
 
-export interface Pin extends ArduinoComponentState {
+export interface PinState extends ArduinoComponentState {
   pin: ARDUINO_UNO_PINS;
   pinType: PIN_TYPE;
   state: number;
@@ -91,7 +91,7 @@ export enum PinPicture {
   SOIL_SENSOR = 'SOIL_SENSOR'
 }
 
-export interface Rfid extends ArduinoComponentState {
+export interface RfidState extends ArduinoComponentState {
   rxPin: ARDUINO_UNO_PINS;
   txPin: ARDUINO_UNO_PINS;
   scannedCard: boolean;
@@ -99,20 +99,20 @@ export interface Rfid extends ArduinoComponentState {
   tag: string;
 }
 
-export interface Servo extends ArduinoComponentState {
+export interface ServoState extends ArduinoComponentState {
   degree: number;
 }
 
-export interface Temperature extends ArduinoComponentState {
+export interface TemperatureState extends ArduinoComponentState {
   temperature: number;
   humidity: number;
 }
 
-export interface Time extends ArduinoComponentState {
+export interface TimeState extends ArduinoComponentState {
   timeInSeconds: number;
 }
 
-export interface UltraSonicSensor extends ArduinoComponentState {
+export interface UltraSonicSensorState extends ArduinoComponentState {
   cm: number;
   trigPin: ARDUINO_UNO_PINS;
   echoPin: ARDUINO_UNO_PINS;

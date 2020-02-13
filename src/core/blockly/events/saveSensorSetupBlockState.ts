@@ -1,4 +1,4 @@
-import {  getBlockById } from '../helpers/block.helper';
+import { getBlockById } from '../helpers/block.helper';
 import { sensorSetupBlocks } from './disableEnableBlocks';
 import { BlockSvg } from 'blockly';
 import _ from 'lodash';
@@ -46,7 +46,7 @@ export const saveSensorSetupBlockState = (event) => {
 };
 
 const populatedSensorLoopData = (block: BlockSvg) => {
-  const sensorData = (block as any).getSensorData();
+  const sensorData = (block as any).sensorData();
   // Reason for +1 is because it does not include end number
   return _.range(1, getTimesThroughLoop() + 1).map((loop) => {
     return {

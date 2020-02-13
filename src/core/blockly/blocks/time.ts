@@ -63,10 +63,10 @@ const timeSetupBlock: any = {
     this.setTooltip('');
     this.setHelpUrl('');
   },
-  getSensorData() {
+  sensorData() {
     return {
       time_in_seconds: +this.getFieldValue('time_in_seconds'),
-      loop: this.getFieldValue('LOOP')
+      loop: +this.getFieldValue('LOOP')
     };
   }
 };

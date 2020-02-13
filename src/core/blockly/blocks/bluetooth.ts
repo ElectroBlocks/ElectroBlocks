@@ -114,11 +114,11 @@ const bluetoothSetupBlock: any = {
     this.setTooltip('');
     this.setHelpUrl('');
   },
-  getSensorData() {
+  sensorData() {
     return {
       receiving_message: this.getFieldValue('receiving_message') === 'TRUE',
       message: this.getFieldValue('message'),
-      loop: this.getFieldValue('LOOP')
+      loop: +this.getFieldValue('LOOP')
     };
   }
 };

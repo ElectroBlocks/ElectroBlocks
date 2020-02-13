@@ -71,9 +71,7 @@ Blockly.defineBlocksWithJsonArray([
 const rfidSetupBlock: any = {
   init: function() {
     this.appendDummyInput()
-      .appendField(
-        new Blockly.FieldImage('./blocks/rfid/rfid.png', 15, 15)
-      )
+      .appendField(new Blockly.FieldImage('./blocks/rfid/rfid.png', 15, 15))
       .appendField('RFID Setup');
     this.appendDummyInput()
       .appendField('RX Pin#')
@@ -132,12 +130,12 @@ const rfidSetupBlock: any = {
     this.setTooltip('');
     this.setHelpUrl('');
   },
-  getSensorData() {
+  sensorData() {
     return {
-      scanned_card: this.getFieldValue('scanned_card') === "TRUE",
+      scanned_card: this.getFieldValue('scanned_card') === 'TRUE',
       card_number: this.getFieldValue('card_number'),
       tag: this.getFieldValue('tag'),
-      loop: this.getFieldValue('LOOP')
+      loop: +this.getFieldValue('LOOP')
     };
   }
 };

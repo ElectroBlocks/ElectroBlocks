@@ -1,9 +1,13 @@
 import selectedBoard from '../../../constants/arduino';
 import Blockly from 'blockly';
 
-import getAvialablePinsFromSetupBlock from './helpers/getAvialablePinsFromSetupBlock';
 import { COLOR_THEME } from '../../../constants/colors';
 import loopTimes from './helpers/looptimes';
+import { PIN_TYPE } from '../../arduino-state/arduino-components.state';
+import {
+  configuredPins,
+  getAvailablePins
+} from './helpers/getAvialablePinsFromSetupBlock';
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -105,7 +109,10 @@ const analogReadBlock: any = {
       .appendField('Read number from analog pin#')
       .appendField(
         new Blockly.FieldDropdown(() => {
-          return getAvialablePinsFromSetupBlock('analog_read_setup');
+          return configuredPins(
+            'digital_read_setup',
+            selectedBoard().analogPins
+          );
         }),
         'PIN'
       );
@@ -128,7 +135,10 @@ const digitalReadBlock: any = {
       .appendField('Is electricity running through pin#')
       .appendField(
         new Blockly.FieldDropdown(() => {
-          return getAvialablePinsFromSetupBlock('digital_read_setup');
+          return configuredPins(
+            'digital_read_setup',
+            selectedBoard().digitalPins
+          );
         }),
         'PIN'
       );
@@ -152,7 +162,13 @@ const digitalReadSetupBlock: any = {
     this.appendDummyInput()
       .appendField('PIN #')
       .appendField(
-        new Blockly.FieldDropdown(selectedBoard().digitalPins),
+        new Blockly.FieldDropdown(() => {
+          return getAvailablePins(
+            'digital_read_setup',
+            this.getFieldValue('PIN'),
+            selectedBoard().digitalPins
+          );
+        }),
         'PIN'
       );
 
@@ -181,10 +197,12 @@ const digitalReadSetupBlock: any = {
     this.setTooltip('');
     this.setHelpUrl('');
   },
-  getSensorData() {
+  sensorData() {
     return {
-      has_power: this.getFieldValue('has_power') === "TRUE",
-      loop: this.getFieldValue('LOOP')
+      pinType: PIN_TYPE.DIGITAL_INPUT,
+      state: this.getFieldValue('has_power') === 'TRUE' ? 1 : 0,
+      loop: +this.getFieldValue('LOOP'),
+      pin: this.getFieldValue('PIN')
     };
   }
 };
@@ -201,7 +219,13 @@ const analogReadSetupBlock: any = {
     this.appendDummyInput()
       .appendField('PIN #')
       .appendField(
-        new Blockly.FieldDropdown(selectedBoard().analogPins),
+        new Blockly.FieldDropdown(() => {
+          return getAvailablePins(
+            'analog_read_setup',
+            this.getFieldValue('PIN'),
+            selectedBoard().analogPins
+          );
+        }),
         'PIN'
       );
     this.appendDummyInput('SHOW_CODE_VIEW')
@@ -234,10 +258,12 @@ const analogReadSetupBlock: any = {
     this.setTooltip('');
     this.setHelpUrl('');
   },
-  getSensorData() {
+  sensorData() {
     return {
-      power_level: +this.getFieldValue('power_level'),
-      loop: this.getFieldValue('LOOP')
+      pinType: PIN_TYPE.ANALOG_INPUT,
+      state: +this.getFieldValue('power_level'),
+      loop: +this.getFieldValue('LOOP'),
+      pin: this.getFieldValue('PIN')
     };
   }
 };

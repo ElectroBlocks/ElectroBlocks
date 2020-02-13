@@ -76,11 +76,11 @@ const tempSetupBlock: any = {
     this.setTooltip('');
     this.setHelpUrl('');
   },
-  getSensorData() {
+  sensorData() {
     return {
       temp: +this.getFieldValue('temp'),
       humidity: +this.getFieldValue('humidity'),
-      loop: this.getFieldValue('LOOP')
+      loop: +this.getFieldValue('LOOP')
     };
   }
 };

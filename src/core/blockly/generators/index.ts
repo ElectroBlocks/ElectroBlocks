@@ -1,6 +1,7 @@
 import './arduino';
 import './arduino_blocks';
 import './bluetooth';
+import './button';
 import './colour';
 import './debug';
 import './ir_remote';

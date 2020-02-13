@@ -36,7 +36,8 @@ export const changeSensorSetupBlockBecauseLoopDropDownChanged = (event) => {
   }
 
   Object.keys(sensorDataForLoop)
-    .filter((key) => key !== 'loop')
+    .filter((key) => key !== 'loop' && block.getField(key)) // sometimes we add extra data to make it easy 
+    // example pin state
     .forEach((key) => {
       block.getField(key).setValue(sensorDataForLoop[key]);
     });
