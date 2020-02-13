@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import getToolBoxString from './getToolBoxString';
-import { updateToolbox } from '../../blockly/helpers/workspace.helper';
+import { updateToolbox } from '../../core/blockly/helpers/workspace.helper';
 
 const toolboxKey = 'blockly_tool_box';
 
