@@ -90,7 +90,6 @@ const getPinCategories = (): { [category: string]: ARDUINO_UNO_PINS[] } => {
 
   return getAllBlocks()
     .filter((block) => pinBlocks.includes(block.type))
-    .filter((block) => block.isEnabled())
     .map((block) => {
       return blockToPin[block.type](block);
     })
