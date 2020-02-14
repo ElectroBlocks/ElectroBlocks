@@ -1,9 +1,13 @@
-import  Blockly, { WorkspaceSvg, Trashcan } from 'blockly';
+import Blockly, { WorkspaceSvg, Trashcan } from 'blockly';
 
-export const overrideTrashBlocks = workspace => {
+export const overrideTrashBlocks = (workspace) => {
   workspace.trashcan.flyout_.workspace_.addChangeListener(function(event) {
-    const workspace = Blockly.Workspace.getById(event.workspaceId) as WorkspaceSvg;
-    const trashCan: any|Trashcan = (Blockly.getMainWorkspace() as WorkspaceSvg).trashcan;
+    const workspace = Blockly.Workspace.getById(
+      event.workspaceId
+    ) as WorkspaceSvg;
+    const trashCan:
+      | any
+      | Trashcan = (Blockly.getMainWorkspace() as WorkspaceSvg).trashcan;
 
     // This handles removing items from the trash can
     // after they have been used
@@ -40,7 +44,7 @@ export const overrideTrashBlocks = workspace => {
       if (block.type === 'arduino_start') {
         block.dispose(true);
       } else {
-        block.setDisabled(false);
+        block.setEnabled(true);
       }
     });
   });

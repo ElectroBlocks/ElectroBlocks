@@ -75,13 +75,6 @@ const tempSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  },
-  sensorData() {
-    return {
-      temp: +this.getFieldValue('temp'),
-      humidity: +this.getFieldValue('humidity'),
-      loop: +this.getFieldValue('LOOP')
-    };
   }
 };
 

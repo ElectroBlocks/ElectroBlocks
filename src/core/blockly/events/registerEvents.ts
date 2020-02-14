@@ -5,13 +5,11 @@ import { saveSensorSetupBlockState } from './saveSensorSetupBlockState';
 import { WorkspaceSvg } from 'blockly';
 import { changeSensorSetupBlockBecauseLoopDropDownChanged } from './changeSensorSetupBlockBecauseLoopDropDownChanged';
 import { changeLoopNumberInSensorBlocks } from './changeLoopNumberInSensorBlocks';
-import { checkRightPinSelected } from './checkRightPinSelected';
 
 import codeStore from '../../../stores/code.store';
 import { getArduinoCode } from '../helpers/workspace.helper';
 
 import { getSensorData } from '../../state-generator/sensor-data.generator';
-import { disableMaxPinsBlocks } from './disableMaxPinBlocks';
 
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (event) => {
@@ -37,9 +35,6 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     // Enables or disables blocks
     disableEnableBlocks();
 
-    // Disable / Enable Blocks that can be enable because pins ran out
-    disableMaxPinsBlocks();
-
     // Saves the fake sensor loop data in the block
     saveSensorSetupBlockState(event);
 
@@ -50,17 +45,18 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     // This will adjust sensor setup block to down to match it
     changeLoopNumberInSensorBlocks(event);
 
-    // Checks that all sensors read blocks have a corresponding sensor setup block with that button setup
-    // So if a user drags a button setup block to workspace then deletes it but another setup button block is there
-    // All the other read blocks should use that button setup block
-    checkRightPinSelected(['is_button_pressed'], 'button_setup');
-    checkRightPinSelected(['digital_read'], 'digital_read_setup');
-    checkRightPinSelected(['analog_read'], 'analog_read_setup');
+    // // Checks that all sensors read blocks have a corresponding sensor setup block with that button setup
+    // // So if a user drags a button setup block to workspace then deletes it but another setup button block is there
+    // // All the other read blocks should use that button setup block
+    // checkRightPinSelected(['is_button_pressed'], 'button_setup');
+    // checkRightPinSelected(['digital_read'], 'digital_read_setup');
+    // checkRightPinSelected(['analog_read'], 'analog_read_setup');
 
     // creates arduino c code and updates store with new code
     codeStore.set(getArduinoCode());
 
     console.log(getSensorData());
+
   });
 };
 

@@ -33,13 +33,6 @@ const buttonSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  },
-  sensorData() {
-    return {
-      is_pressed: this.getFieldValue('is_pressed') === 'TRUE',
-      pin: this.getFieldValue('PIN'),
-      loop: +this.getFieldValue('LOOP')
-    };
   }
 };
 

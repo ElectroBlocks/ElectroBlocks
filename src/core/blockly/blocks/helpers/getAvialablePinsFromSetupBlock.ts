@@ -15,7 +15,7 @@ export const configuredPins = (
     return potentialListOfPins;
   }
 
-  return pins || [['MAX_PINS', 'MAX_PINS']];
+  return pins || [['NO_PINS', 'NO_PINS']];
 };
 
 export const getAvailablePins = (
@@ -34,9 +34,8 @@ export const getAvailablePins = (
     ([pin]) => !takenPinSingle.includes(pin) || pin === selectedPin
   );
 
-
   if (_.isEmpty(pinList)) {
-    return [['MAX_PINS', 'MAX_PINS']];
+    return [['NO_PINS', 'NO_PINS']];
   }
 
   return pinList;

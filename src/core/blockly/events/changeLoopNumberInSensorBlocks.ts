@@ -4,7 +4,8 @@ import {
   getTimesThroughLoop
 } from '../helpers/arduino_loop_block.helper';
 import _ from 'lodash';
-import { sensorSetupBlocks } from './disableEnableBlocks';
+import { sensorSetupBlocks } from '../helpers/block.contants';
+
 export const changeLoopNumberInSensorBlocks = (event) => {
   if (
     event['element'] !== 'field' ||

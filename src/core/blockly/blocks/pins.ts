@@ -196,14 +196,6 @@ const digitalReadSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  },
-  sensorData() {
-    return {
-      pinType: PIN_TYPE.DIGITAL_INPUT,
-      state: this.getFieldValue('has_power') === 'TRUE' ? 1 : 0,
-      loop: +this.getFieldValue('LOOP'),
-      pin: this.getFieldValue('PIN')
-    };
   }
 };
 
@@ -257,14 +249,6 @@ const analogReadSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  },
-  sensorData() {
-    return {
-      pinType: PIN_TYPE.ANALOG_INPUT,
-      state: +this.getFieldValue('power_level'),
-      loop: +this.getFieldValue('LOOP'),
-      pin: this.getFieldValue('PIN')
-    };
   }
 };
 

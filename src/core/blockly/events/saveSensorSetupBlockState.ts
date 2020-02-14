@@ -1,36 +1,31 @@
 import { getBlockById } from '../helpers/block.helper';
-import { sensorSetupBlocks } from './disableEnableBlocks';
-import { BlockSvg } from 'blockly';
 import _ from 'lodash';
-import { getTimesThroughLoop } from '../helpers/arduino_loop_block.helper';
+import { sensorStates } from '../../state-generator/sensor-data.generator';
+import { BlockSvg } from 'blockly';
+import { SensorData } from '../../arduino-state/sensors.state';
+import { sensorSetupBlocks } from '../helpers/block.contants';
 
 export const saveSensorSetupBlockState = (event) => {
-  // If the loop field is changing don't save anything
-  // This means that they are changing the loop drop down box
-  if (event.name === 'LOOP' && event.element === 'field') {
+  if (!processEvent(event)) {
     return;
   }
 
   const block = getBlockById(event.blockId);
-  // If the block does not exist
-  if (!block) {
-    return;
-  }
 
-  // only save sensor setup blocks
-  if (!sensorSetupBlocks.includes(block.type)) {
-    return;
-  }
+  const newDataToSave = createData(block);
 
-  const loopSensorData = populatedSensorLoopData(block);
+  block.data = JSON.stringify(newDataToSave);
+};
+
+const createData = (block: BlockSvg) => {
+  const loopSensorData = sensorStates(block);
   if (_.isEmpty(block.data)) {
-    block.data = JSON.stringify(loopSensorData);
-    return;
+    return loopSensorData;
   }
-  const savedData = JSON.parse(block.data) as any[];
+  const savedData = JSON.parse(block.data) as SensorData[];
   const currentLoop = +block.getFieldValue('LOOP');
 
-  const newDataToSave = loopSensorData.map((possibleReplace) => {
+  return loopSensorData.map((possibleReplace) => {
     if (currentLoop === possibleReplace.loop) {
       return possibleReplace;
     }
@@ -41,17 +36,25 @@ export const saveSensorSetupBlockState = (event) => {
 
     return savedLoopData || possibleReplace;
   });
-
-  block.data = JSON.stringify(newDataToSave);
 };
 
-const populatedSensorLoopData = (block: BlockSvg) => {
-  const sensorData = (block as any).sensorData();
-  // Reason for +1 is because it does not include end number
-  return _.range(1, getTimesThroughLoop() + 1).map((loop) => {
-    return {
-      ...sensorData,
-      loop
-    };
-  });
+const processEvent = (event) => {
+  // If the loop field is changing don't save anything
+  // This means that they are changing the loop drop down box
+  if (event.name === 'LOOP' && event.element === 'field') {
+    return false;
+  }
+
+  const block = getBlockById(event.blockId);
+  // If the block does not exist
+  if (!block) {
+    return false;
+  }
+
+  // only save sensor setup blocks
+  if (!sensorSetupBlocks.includes(block.type)) {
+    return false;
+  }
+
+  return true;
 };

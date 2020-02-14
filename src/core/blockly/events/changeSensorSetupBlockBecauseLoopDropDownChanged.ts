@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { getBlockById } from '../helpers/block.helper';
-import { sensorSetupBlocks } from './disableEnableBlocks';
+import { sensorSetupBlocks } from '../helpers/block.contants';
 
 // This is fired when a sensor block changes the loop drop down box so that
 export const changeSensorSetupBlockBecauseLoopDropDownChanged = (event) => {

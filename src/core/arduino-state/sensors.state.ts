@@ -1,4 +1,5 @@
 import { PIN_TYPE } from './arduino-components.state';
+import { ARDUINO_UNO_PINS } from '../../constants/arduino';
 
 export interface SensorData {
   loop: number;
@@ -11,6 +12,7 @@ export interface BluetoothData extends SensorData {
 
 export interface ButtonData extends SensorData {
   is_pressed: boolean;
+  pin: ARDUINO_UNO_PINS;
 }
 
 export interface IRRemoteData extends SensorData {
@@ -25,6 +27,7 @@ export interface MotionSensorData extends SensorData {
 export interface PinData extends SensorData {
   pinType: PIN_TYPE;
   state: number;
+  pin: ARDUINO_UNO_PINS;
 }
 
 export interface RFIDData extends SensorData {

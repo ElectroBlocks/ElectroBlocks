@@ -62,12 +62,6 @@ const timeSetupBlock: any = {
     this.setColour(COLOR_THEME.ARDUINO);
     this.setTooltip('');
     this.setHelpUrl('');
-  },
-  sensorData() {
-    return {
-      time_in_seconds: +this.getFieldValue('time_in_seconds'),
-      loop: +this.getFieldValue('LOOP')
-    };
   }
 };
 
