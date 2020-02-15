@@ -56,16 +56,9 @@ export const blocksRequireSetup = (): DisableBlock[] => {
   const blocks = getAllBlocks();
 
   return blocks
-    .filter((block) => {
-      // Exclude all stand alone blocks
-      return !standAloneBlocks.includes(block.type);
-    })
+    .filter((block) => !standAloneBlocks.includes(block.type))
     .filter((block) => blocksThatRequireSetup[block.type])
-    .filter((block) => {
-      const requiredSetupBlockType = blocksRequireSetup[block.type];
-
-      return getBlockByType(requiredSetupBlockType) === undefined;
-    })
+    .filter((block) => getBlockByType(blocksThatRequireSetup[block.type]) === undefined)
     .map((block) => {
       const warningText = `This block requires a ${
         setupBlockTypeToHumanName[blocksThatRequireSetup[block.type]]

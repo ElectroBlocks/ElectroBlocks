@@ -22,7 +22,11 @@ export const getBlockById = (id: string) => {
 
 export const getTopBlocks = () => {
   return getWorkspace().getTopBlocks(true) as BlockSvg[];
-}
+};
+
+export const isNumberBlock = (block: BlockSvg | undefined): boolean => {
+  return block && block.type === 'math_number';
+};
 
 export const createBlock = (
   name: string,

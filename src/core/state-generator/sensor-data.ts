@@ -1,4 +1,6 @@
 import { BlockSvg } from 'blockly';
+import _ from 'lodash';
+
 import {
   SensorData,
   BluetoothData,
@@ -9,7 +11,6 @@ import {
 } from '../arduino-state/sensors.state';
 import { getTopBlocks } from '../blockly/helpers/block.helper';
 import { getTimesThroughLoop } from '../blockly/helpers/arduino_loop_block.helper';
-import _ from 'lodash';
 import { PIN_TYPE } from '../arduino-state/arduino-components.state';
 import { sensorSetupBlocks } from '../blockly/helpers/block.contants';
 

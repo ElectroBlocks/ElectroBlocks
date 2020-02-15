@@ -13,8 +13,7 @@ export const blockRequireToBeInSetupLoopOrFunction = (): DisableBlock[] => {
     .map((block) => {
       return {
         blockId: block.id,
-        warningText:
-          'Block must be inside a function, Arduino loop, or  Arduino setup block'
+        warningText: null
       };
     });
 };

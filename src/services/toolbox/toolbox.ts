@@ -18,7 +18,7 @@ const saveToolBox = (entries: ToolBoxEntries[]) => {
  */
 const fetchToolBox = (): ToolBoxEntries[] => {
   if (_.isEmpty(localStorage.getItem(toolboxKey))) {
-    saveToolBox(defaultToolbox);
+    return defaultToolbox;
   }
   return JSON.parse(localStorage.getItem(toolboxKey) || '');
 };

@@ -20,9 +20,8 @@ export const changeLoopNumberInSensorBlocks = (event) => {
 
   getTopBlocks()
     .filter((block) => sensorSetupBlocks.includes(block.type))
+    .filter((block) => +block.getFieldValue('LOOP') > loopTimes)
     .forEach((setupBlock) => {
-      if (+setupBlock.getFieldValue('LOOP') > loopTimes) {
-        setupBlock.getField('LOOP').setValue(loopTimes.toString());
-      }
+      setupBlock.getField('LOOP').setValue(loopTimes.toString());
     });
 };

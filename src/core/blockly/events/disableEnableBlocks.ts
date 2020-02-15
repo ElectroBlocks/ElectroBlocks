@@ -58,7 +58,9 @@ const blocksIdsToDisableWithMessage = (): { [key: string]: null | string } => {
     }
 
     if (_.isEmpty(prev[curr.blockId])) {
-      prev[curr.blockId] = curr.warningText.replace('.', '') + '.';
+      prev[curr.blockId] = curr.warningText
+        ? curr.warningText.replace('.', '') + '.'
+        : null;
       return prev;
     }
 

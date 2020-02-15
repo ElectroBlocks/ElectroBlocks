@@ -9,7 +9,7 @@ import { changeLoopNumberInSensorBlocks } from './changeLoopNumberInSensorBlocks
 import codeStore from '../../../stores/code.store';
 import { getArduinoCode } from '../helpers/workspace.helper';
 
-import { getSensorData } from '../../state-generator/sensor-data.generator';
+import { getSensorData } from '../../state-generator/sensor-data';
 
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (event) => {

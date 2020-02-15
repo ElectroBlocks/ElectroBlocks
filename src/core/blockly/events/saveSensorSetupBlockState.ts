@@ -1,16 +1,28 @@
 import { getBlockById } from '../helpers/block.helper';
 import _ from 'lodash';
-import { sensorStates } from '../../state-generator/sensor-data.generator';
+import { sensorStates } from '../../state-generator/sensor-data';
 import { BlockSvg } from 'blockly';
 import { SensorData } from '../../arduino-state/sensors.state';
 import { sensorSetupBlocks } from '../helpers/block.contants';
 
 export const saveSensorSetupBlockState = (event) => {
-  if (!processEvent(event)) {
-    return;
+  // If the loop field is changing don't save anything
+  // This means that they are changing the loop drop down box
+  if (event.name === 'LOOP' && event.element === 'field') {
+    return false;
   }
 
   const block = getBlockById(event.blockId);
+  // If the block does not exist
+  if (!block) {
+    return false;
+  }
+
+  // only save sensor setup blocks
+  if (!sensorSetupBlocks.includes(block.type)) {
+    return false;
+  }
+
 
   const newDataToSave = createData(block);
 
@@ -38,23 +50,4 @@ const createData = (block: BlockSvg) => {
   });
 };
 
-const processEvent = (event) => {
-  // If the loop field is changing don't save anything
-  // This means that they are changing the loop drop down box
-  if (event.name === 'LOOP' && event.element === 'field') {
-    return false;
-  }
 
-  const block = getBlockById(event.blockId);
-  // If the block does not exist
-  if (!block) {
-    return false;
-  }
-
-  // only save sensor setup blocks
-  if (!sensorSetupBlocks.includes(block.type)) {
-    return false;
-  }
-
-  return true;
-};

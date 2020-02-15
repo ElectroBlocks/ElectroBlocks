@@ -44,5 +44,5 @@ export const sensorSetupBlocks = [
 
 export interface DisableBlock {
   blockId: string;
-  warningText: string;
+  warningText: string | null;
 }
