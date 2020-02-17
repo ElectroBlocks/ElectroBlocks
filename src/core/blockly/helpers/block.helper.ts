@@ -28,6 +28,17 @@ export const isNumberBlock = (block: BlockSvg | undefined): boolean => {
   return block && block.type === 'math_number';
 };
 
+export const connectToArduinoBlock = function(variableBlock: BlockSvg) {
+  let arduinoBlock =
+    getBlockByType('arduino_setup') || getBlockByType('arduino_loop'); // See if
+  const inputToAttachVariableTo =
+    arduinoBlock.type == 'arduino_setup' ? 'setup' : 'loop';
+
+  const parentConnection = arduinoBlock.getInput(inputToAttachVariableTo)
+    .connection;
+  parentConnection.connect(variableBlock.previousConnection);
+};
+
 export const createBlock = (
   name: string,
   x: number,

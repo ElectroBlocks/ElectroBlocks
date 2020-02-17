@@ -1,4 +1,4 @@
-import Blockly, { WorkspaceSvg, BlockSvg } from 'blockly';
+import Blockly, { WorkspaceSvg } from 'blockly';
 
 export const getWorkspace = () => {
   return Blockly.getMainWorkspace() as WorkspaceSvg;

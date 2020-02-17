@@ -1,103 +1,33 @@
-# sapper-template
+# Architecture
 
-## Install
+Core Ideas
 
-### For Linux users
-```bash
-mkdir sapper-app
-curl -L https://github.com/pyoner/svelte-typescript/tarball/master > svelte-typescript.tar
-tar --strip-components=3 --wildcards --one-top-level=sapper-app -xf svelte-typescript.tar */packages/sapper-template
-```
+- Objects / Data should live separately from things that manipulate data. In
+  other words objects should not have methods. They should be kept plain.
+  - Separates out concerns. It's easier to think of functions maninpulating
+    data.
+  - Prevents complex ideas like dependency injection. If all the your services
+    are singletons that don't store state there is no adavance to classes.
+  - Allows for no mock tests. These are tests that don't try follow the
+    implementation of the code. It's easier to do stuff like TTD when you are
+    testing inputs and outputs.
+- We don't use complex function based language in the code. Please do not
+  mention things like monad, they confuse me and a lot of other people. Instead
+  we use easy to understand high value terms. Like immunitablity, and pure
+  functions which are easy to explain.
 
-### For Mac users
-```zsh
-mkdir sapper-app
-curl -L https://github.com/pyoner/svelte-typescript/tarball/master > svelte-typescript.tar
-tar --strip-components=3 -C sapper-app -xf svelte-typescript.tar '*/packages/sapper-template/' 
-```
+- Functions should be pure whenever possible
+  - Pure functions are things that don't affect things that live outside themselves and return a single value.
+  - Pure functions are used to tell other functions how to update the state.
+  - All rule based logic should go into pure functions.
+  - Examples:
+    - Dupicate Pin Logic
+    - Disabling duplicate setup blocks
+- Interfaces heavily used
+  - Interface function allow hash table functions which I believe will allow 3rd party modules in the future.
 
-### For Windows users
-Download https://github.com/pyoner/svelte-typescript/archive/master.zip and extract template from `packages/sapper-template`
+## How things are updated
 
-## Usage
+The idea that the business logic, aka the what happens can be easily tested in the pure functions.  While the how it happens is done in the updater and will be tested with end to end tests later on.
 
-```bash
-cd sapper-app
-npm install # or yarn!
-npm run dev
-```
-
-Open up [localhost:3000](http://localhost:3000) and start clicking around.
-
-Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
-
-
-## Structure
-
-Sapper expects to find two directories in the root of your project —  `src` and `static`.
-
-
-### src
-
-The [src](src) directory contains the entry points for your app — `client.js`, `server.js` and (optionally) a `service-worker.js` — along with a `template.html` file and a `routes` directory.
-
-
-#### src/routes
-
-This is the heart of your Sapper app. There are two kinds of routes — *pages*, and *server routes*.
-
-**Pages** are Svelte components written in `.svelte` files. When a user first visits the application, they will be served a server-rendered version of the route in question, plus some JavaScript that 'hydrates' the page and initialises a client-side router. From that point forward, navigating to other pages is handled entirely on the client for a fast, app-like feel. (Sapper will preload and cache the code for these subsequent pages, so that navigation is instantaneous.)
-
-**Server routes** are modules written in `.js` files, that export functions corresponding to HTTP methods. Each function receives Express `request` and `response` objects as arguments, plus a `next` function. This is useful for creating a JSON API, for example.
-
-There are three simple rules for naming the files that define your routes:
-
-* A file called `src/routes/about.svelte` corresponds to the `/about` route. A file called `src/routes/blog/[slug].svelte` corresponds to the `/blog/:slug` route, in which case `params.slug` is available to the route
-* The file `src/routes/index.svelte` (or `src/routes/index.js`) corresponds to the root of your app. `src/routes/about/index.svelte` is treated the same as `src/routes/about.svelte`.
-* Files and directories with a leading underscore do *not* create routes. This allows you to colocate helper modules and components with the routes that depend on them — for example you could have a file called `src/routes/_helpers/datetime.js` and it would *not* create a `/_helpers/datetime` route
-
-
-### static
-
-The [static](static) directory contains any static assets that should be available. These are served using [sirv](https://github.com/lukeed/sirv).
-
-In your [service-worker.js](app/service-worker.js) file, you can import these as `files` from the generated manifest...
-
-```js
-import { files } from '@sapper/service-worker';
-```
-
-...so that you can cache them (though you can choose not to, for example if you don't want to cache very large files).
-
-
-## Bundler config
-
-Sapper uses Rollup or webpack to provide code-splitting and dynamic imports, as well as compiling your Svelte components. With webpack, it also provides hot module reloading. As long as you don't do anything daft, you can edit the configuration files to add whatever plugins you'd like.
-
-
-## Production mode and deployment
-
-To start a production version of your app, run `npm run build && npm start`. This will disable live reloading, and activate the appropriate bundler plugins.
-
-You can deploy your application to any environment that supports Node 8 or above. As an example, to deploy to [Now](https://zeit.co/now), run these commands:
-
-```bash
-npm install -g now
-now
-```
-
-
-## Using external components with webpack
-
-When using Svelte components installed from npm, such as [@sveltejs/svelte-virtual-list](https://github.com/sveltejs/svelte-virtual-list), Svelte needs the original component source (rather than any precompiled JavaScript that ships with the component). This allows the component to be rendered server-side, and also keeps your client-side app smaller.
-
-Because of that, it's essential that webpack doesn't treat the package as an *external dependency*. You can either modify the `externals` option under `server` in [webpack.config.js](webpack.config.js), or simply install the package to `devDependencies` rather than `dependencies`, which will cause it to get bundled (and therefore compiled) with your app:
-
-```bash
-npm install -D @sveltejs/svelte-virtual-list
-```
-
-
-## Bugs and feedback
-
-Sapper is in early development, and may have the odd rough edge here and there. Please be vocal over on the [Sapper issue tracker](https://github.com/sveltejs/sapper/issues).
+![general idea](docs/electroblock-design.png)

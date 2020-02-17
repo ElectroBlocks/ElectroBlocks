@@ -10,6 +10,8 @@ import codeStore from '../../../stores/code.store';
 import { getArduinoCode } from '../helpers/workspace.helper';
 
 import { getSensorData } from '../../state-generator/sensor-data';
+import { getAllBlocks } from '../helpers/block.helper';
+import { transformBlock } from '../../transformers/block.transformer';
 
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (event) => {
@@ -56,7 +58,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     codeStore.set(getArduinoCode());
 
     console.log(getSensorData());
-
+    console.log(getAllBlocks().map(transformBlock), 'blocks transformed');
   });
 };
 

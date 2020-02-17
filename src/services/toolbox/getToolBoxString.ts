@@ -21,7 +21,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
     <block type="logic_boolean"></block>
   </category>`;
   }
-
+  
   if (showToolBoxOption('Loops', toolboxOptions)) {
     toolbox += `<category name="Loops" colour="${COLOR_THEME.CONTROL}">
     <block type="controls_repeat_ext">
@@ -31,7 +31,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
         </block>
       </value>
     </block>
-    <block type="controls_for">
+    <block type="">
       <value name="FROM">
         <block type="math_number">
           <field name="NUM">1</field>

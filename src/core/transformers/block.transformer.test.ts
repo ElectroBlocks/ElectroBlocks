@@ -1,0 +1,111 @@
+import 'jest';
+import '../blockly/blocks';
+import { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
+import { transformBlock } from './block.transformer';
+import { BlockType, PinCategory } from './block.data';
+import * as helpers from '../blockly/helpers/workspace.helper';
+import { connectToArduinoBlock } from '../blockly/helpers/block.helper';
+import _ from 'lodash';
+
+describe('block transformer', () => {
+  let workspace: Workspace;
+  let arduinoLoopBlock: BlockSvg;
+
+  beforeEach(() => {
+    workspace = new Workspace();
+    jest
+      .spyOn(helpers, 'getWorkspace')
+      .mockReturnValue(workspace as WorkspaceSvg);
+    arduinoLoopBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+  });
+
+  it('should be able to be able to parse arduino loop block and blocks inside', () => {
+    const debugBlock1 = workspace.newBlock('debug_block') as BlockSvg;
+    const debugBlock2 = workspace.newBlock('debug_block') as BlockSvg;
+    const servoBlock = workspace.newBlock('rotate_servo') as BlockSvg;
+
+    // Connects it to the top part of the input statement
+    connectToArduinoBlock(debugBlock2);
+    connectToArduinoBlock(servoBlock);
+    connectToArduinoBlock(debugBlock1);
+
+    const arduinoLoopData = transformBlock(arduinoLoopBlock);
+    expect(arduinoLoopData.inputStatements[0].name).toBe('loop');
+    expect(arduinoLoopData.inputStatements[0].blockId).toBe(debugBlock1.id);
+    expect(arduinoLoopData.fieldValues).toEqual([
+      { name: 'LOOP_TIMES', value: 3 }
+    ]);
+    expect(arduinoLoopData.inputBlocks).toEqual([]);
+
+    const debug1Data = transformBlock(debugBlock1);
+    expect(debug1Data.nextBlockId).toBe(servoBlock.id);
+    expect(debug1Data.blockName).toBe('debug_block');
+    expect(debug1Data.id).toBe(debugBlock1.id);
+
+    const servoData = transformBlock(servoBlock);
+    expect(servoData.nextBlockId).toBe(debugBlock2.id);
+    expect(servoData.blockName).toBe('rotate_servo');
+    expect(servoData.id).toBe(servoBlock.id);
+
+    const debug2Data = transformBlock(debugBlock2);
+    expect(debug2Data.nextBlockId).toBeUndefined();
+    expect(debug2Data.id).toBe(debugBlock2.id);
+  });
+
+  it('should be able to parse servo block with inputs', () => {
+    const servoBlock = workspace.newBlock('rotate_servo') as BlockSvg;
+    const numberBlock = workspace.newBlock('math_number') as BlockSvg;
+    const servoDataNoDegree = transformBlock(servoBlock);
+
+    expect(servoDataNoDegree.inputBlocks).toEqual([
+      { name: 'DEGREE', blockId: undefined }
+    ]);
+
+    servoBlock
+      .getInput('DEGREE')
+      .connection.connect(numberBlock.outputConnection);
+
+    const servoDataWithDegree = transformBlock(servoBlock);
+
+    expect(servoDataWithDegree.inputBlocks).toEqual([
+      { name: 'DEGREE', blockId: numberBlock.id }
+    ]);
+  });
+
+  it('should be able to parse a value block', () => {
+    const numberBlock = workspace.newBlock('math_number') as BlockSvg;
+    numberBlock.setFieldValue('40', 'NUM');
+    const numberBlockData = transformBlock(numberBlock);
+    expect(numberBlockData.fieldValues[0].name).toBe('NUM');
+    expect(numberBlockData.fieldValues[0].value).toBe(40);
+  });
+
+  it('should be able to transform a setup block', () => {
+    const bluetoothSetupBlock = workspace.newBlock(
+      'bluetooth_setup'
+    ) as BlockSvg;
+    const bluetooothSetupData = transformBlock(bluetoothSetupBlock);
+    expect(bluetooothSetupData.id).toBe(bluetoothSetupBlock.id);
+    expect(bluetooothSetupData.blockName).toBe('bluetooth_setup');
+    expect(bluetooothSetupData.type).toBe(BlockType.SENSOR_SETUP);
+    expect(bluetooothSetupData.inputBlocks).toEqual([]);
+    expect(bluetooothSetupData.inputStatements).toEqual([]);
+    expect(bluetooothSetupData.fieldValues.map((field) => field.name)).toEqual([
+      'RX',
+      'TX',
+      'LOOP',
+      'receiving_message',
+      'message'
+    ]);
+    bluetooothSetupData.fieldValues.forEach(field => {
+      expect(field.value).toBeDefined();
+    })
+    expect(bluetooothSetupData.rootBlockId).toBeUndefined();
+    expect(bluetooothSetupData.pins).toEqual([
+      bluetoothSetupBlock.getFieldValue('RX'),
+      bluetoothSetupBlock.getFieldValue('TX')
+    ]);
+    expect(bluetooothSetupData.pinCategory).toBe(PinCategory.BLUETOOTH);
+    expect(bluetooothSetupData.nextBlockId).toBeUndefined();
+  });
+});
