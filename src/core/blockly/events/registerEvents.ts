@@ -1,7 +1,5 @@
 import updateForLoopText from '../actions/factories/updateForLoopText';
-import deleteVariable from './deleteVariable';
 import { disableEnableBlocks } from './disableEnableBlocks';
-import { saveSensorSetupBlockState } from './saveSensorSetupBlockState';
 import { WorkspaceSvg } from 'blockly';
 
 import codeStore from '../../../stores/code.store';

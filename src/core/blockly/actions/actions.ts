@@ -36,3 +36,7 @@ export interface UpdateSetupSensorBlockLoop extends BlockAction {
 export interface SaveSetupSensorData extends BlockAction {
   data: string;
 }
+
+export interface DisableBlock extends BlockAction {
+  warningText: string;
+}

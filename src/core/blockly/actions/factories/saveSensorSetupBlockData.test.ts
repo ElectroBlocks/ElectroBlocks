@@ -88,7 +88,7 @@ describe('saveSensorSetupBlockData', () => {
     expect(actions[0].blockId).toEqual(sensorBlock.id);
   });
 
-  test.only('create an action for a block already has metadata.  Should replace what is ther for the loop selected', () => {
+  test('create an action for a block already has metadata.  Should replace what is ther for the loop selected', () => {
     const sensorBlock = workspace.newBlock('ultra_sonic_sensor_setup');
     const currentMetadata = [
       {
