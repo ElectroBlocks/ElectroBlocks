@@ -1,10 +1,10 @@
 import 'jest';
-import '../blockly/blocks';
+import '../blocks';
 import { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import { transformBlock } from './block.transformer';
 import { BlockType, PinCategory } from './block.data';
-import * as helpers from '../blockly/helpers/workspace.helper';
-import { connectToArduinoBlock } from '../blockly/helpers/block.helper';
+import * as helpers from '../helpers/workspace.helper';
+import { connectToArduinoBlock } from '../helpers/block.helper';
 import _ from 'lodash';
 
 describe('block transformer', () => {
@@ -84,28 +84,39 @@ describe('block transformer', () => {
     const bluetoothSetupBlock = workspace.newBlock(
       'bluetooth_setup'
     ) as BlockSvg;
-    const bluetooothSetupData = transformBlock(bluetoothSetupBlock);
-    expect(bluetooothSetupData.id).toBe(bluetoothSetupBlock.id);
-    expect(bluetooothSetupData.blockName).toBe('bluetooth_setup');
-    expect(bluetooothSetupData.type).toBe(BlockType.SENSOR_SETUP);
-    expect(bluetooothSetupData.inputBlocks).toEqual([]);
-    expect(bluetooothSetupData.inputStatements).toEqual([]);
-    expect(bluetooothSetupData.fieldValues.map((field) => field.name)).toEqual([
+    bluetoothSetupBlock.data = JSON.stringify([
+      { recieved_message: true, message: 'test', loop: 1 }
+    ]);
+    const bluetoothSetupData = transformBlock(bluetoothSetupBlock);
+    expect(bluetoothSetupData.id).toBe(bluetoothSetupBlock.id);
+    expect(bluetoothSetupData.blockName).toBe('bluetooth_setup');
+    expect(bluetoothSetupData.type).toBe(BlockType.SENSOR_SETUP);
+    expect(bluetoothSetupData.inputBlocks).toEqual([]);
+    expect(bluetoothSetupData.inputStatements).toEqual([]);
+    expect(bluetoothSetupData.fieldValues.map((field) => field.name)).toEqual([
       'RX',
       'TX',
       'LOOP',
       'receiving_message',
       'message'
     ]);
-    bluetooothSetupData.fieldValues.forEach(field => {
+    
+    bluetoothSetupData.metaData = bluetoothSetupBlock.data;
+    bluetoothSetupData.fieldValues.forEach((field) => {
       expect(field.value).toBeDefined();
-    })
-    expect(bluetooothSetupData.rootBlockId).toBeUndefined();
-    expect(bluetooothSetupData.pins).toEqual([
+    });
+    expect(bluetoothSetupData.rootBlockId).toBeUndefined();
+    expect(bluetoothSetupData.pins).toEqual([
       bluetoothSetupBlock.getFieldValue('RX'),
       bluetoothSetupBlock.getFieldValue('TX')
     ]);
-    expect(bluetooothSetupData.pinCategory).toBe(PinCategory.BLUETOOTH);
-    expect(bluetooothSetupData.nextBlockId).toBeUndefined();
+    expect(bluetoothSetupData.pinCategory).toBe(PinCategory.BLUETOOTH);
+    expect(bluetoothSetupData.nextBlockId).toBeUndefined();
+    expect(bluetoothSetupData.disabled).toBeFalsy();
+
+    bluetoothSetupBlock.setEnabled(false);
+    const bluetoothSetupData2 = transformBlock(bluetoothSetupBlock);
+    expect(bluetoothSetupData2.disabled).toBeTruthy();
+
   });
 });

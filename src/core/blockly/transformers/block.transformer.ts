@@ -9,7 +9,7 @@ import {
   BlocklyInputTypes
 } from './block.data';
 import _ from 'lodash';
-import { ARDUINO_UNO_PINS } from '../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 
 export interface BlockTransformer {
   (block: BlockSvg): BlockData;
@@ -94,6 +94,8 @@ export const transformBlock = (block: BlockSvg): BlockData => {
     nextBlockId: getNextBlockId(block),
     rootBlockId: getRootBlockId(block),
     pinCategory: blocksToBlockTypes[block.type].pinCategory,
-    pins: getPins(block)
+    pins: getPins(block),
+    metaData: block.data,
+    disabled: !block.isEnabled()
   };
 };
