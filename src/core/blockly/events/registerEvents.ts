@@ -7,12 +7,13 @@ import { WorkspaceSvg } from 'blockly';
 import codeStore from '../../../stores/code.store';
 import { getArduinoCode } from '../helpers/workspace.helper';
 
-import { getSensorData } from '../../state-generator/sensor-data';
 import { getAllBlocks } from '../helpers/block.helper';
 import { transformBlock } from '../transformers/block.transformer';
 
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (event) => {
+    console.log(getAllBlocks().map(transformBlock), event.type, 'events transformed');
+
     console.log(event, 'blockly event');
     if (
       event.element === 'disabled' ||

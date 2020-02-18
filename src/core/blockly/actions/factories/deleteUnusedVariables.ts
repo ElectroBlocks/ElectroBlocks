@@ -1,4 +1,4 @@
-import { BlockEvent } from '../../transformers/event.data';
+import { BlockEvent } from '../../state/event.data';
 import { VariableAction, ActionType } from '../actions';
 
 export const deleteUnusedVariables = (event: BlockEvent): VariableAction[] => {

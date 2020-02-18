@@ -1,14 +1,12 @@
 import 'jest';
-import 'jest';
 import '../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import * as helpers from '../../helpers/workspace.helper';
 import { getAllBlocks } from '../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../transformers/event.data';
+import { BlockEvent } from '../../state/event.data';
 import { transformBlock } from '../../transformers/block.transformer';
 import { deleteUnusedVariables } from './deleteUnusedVariables';
-import { ForLoopTextChange, ActionType } from '../actions';
 import { getAllVariables } from '../../helpers/variable.helper';
 import { transformVariable } from '../../transformers/variables.transformer';
 

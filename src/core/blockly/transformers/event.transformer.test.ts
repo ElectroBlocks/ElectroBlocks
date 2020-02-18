@@ -7,7 +7,7 @@ import * as helpers from '../helpers/workspace.helper';
 import { getAllBlocks } from '../helpers/block.helper';
 import _ from 'lodash';
 import { getAllVariables } from '../helpers/variable.helper';
-import { VariableTypes } from './variable.data';
+import { VariableTypes } from '../state/variable.data';
 
 describe('event transformer', () => {
   let workspace: Workspace;

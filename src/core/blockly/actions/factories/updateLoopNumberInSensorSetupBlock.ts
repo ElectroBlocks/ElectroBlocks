@@ -1,6 +1,6 @@
-import { BlockEvent } from '../../transformers/event.data';
+import { BlockEvent } from '../../state/event.data';
 import { UpdateSetupSensorBlockLoop, ActionType } from '../actions';
-import { BlockType } from '../../transformers/block.data';
+import { BlockType } from '../../state/block.data';
 
 export const updateLoopNumberInSensorSetupBlock = (
   event: BlockEvent

@@ -1,8 +1,7 @@
 import { getBlockById } from '../helpers/block.helper';
 import _ from 'lodash';
-import { sensorStates } from '../../state-generator/sensor-data';
 import { BlockSvg } from 'blockly';
-import { SensorData } from '../../arduino-state/sensors.state';
+import { SensorData } from '../state/sensors.state';
 import { sensorSetupBlocks } from '../helpers/block.contants';
 
 export const saveSensorSetupBlockState = (event) => {

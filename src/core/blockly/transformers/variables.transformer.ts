@@ -1,6 +1,6 @@
 import { getAllVariables, isVariableBeingUsed } from '../helpers/variable.helper';
 import { VariableModel } from 'blockly';
-import { VariableData, VariableTypes } from './variable.data';
+import { VariableData, VariableTypes } from '../state/variable.data';
 
 export const transformVariable = (variable: VariableModel): VariableData => {
   return {

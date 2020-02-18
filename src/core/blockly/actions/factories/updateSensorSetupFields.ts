@@ -1,7 +1,7 @@
-import { BlockEvent } from '../../transformers/event.data';
+import { BlockEvent } from '../../state/event.data';
 import { UpdateSetupSensorBlockFields, ActionType } from '../actions';
 import _ from 'lodash';
-import { BlockType } from '../../transformers/block.data';
+import { BlockType } from '../../state/block.data';
 
 export const updateSensorSetupFields = (
   event: BlockEvent

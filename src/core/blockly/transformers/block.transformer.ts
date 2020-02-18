@@ -7,7 +7,7 @@ import {
   FieldValue,
   PinFieldNames,
   BlocklyInputTypes
-} from './block.data';
+} from '../state/block.data';
 import _ from 'lodash';
 import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 

@@ -1,6 +1,6 @@
 import { BlockSvg, VariableModel } from 'blockly';
 import { transformBlock } from './block.transformer';
-import { BlockEvent } from './event.data';
+import { BlockEvent } from '../state/event.data';
 import _ from 'lodash';
 import { transformVariable } from './variables.transformer';
 
