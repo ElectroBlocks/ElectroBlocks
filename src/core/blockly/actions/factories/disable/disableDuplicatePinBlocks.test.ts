@@ -2,7 +2,10 @@ import 'jest';
 import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
 import * as helpers from '../../../helpers/workspace.helper';
-import { getAllBlocks } from '../../../helpers/block.helper';
+import {
+  getAllBlocks,
+  connectToArduinoBlock
+} from '../../../helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../state/event.data';
 import { transformBlock } from '../../../transformers/block.transformer';
@@ -57,11 +60,11 @@ describe('disableDuplicatePinBlocks', () => {
   });
 
   test('should allow fade and regular leds to use the same pins', () => {
-    const setupBlock = workspace.newBlock('led');
-    setupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'PIN');
+    const ledBlock = workspace.newBlock('led');
+    ledBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'PIN');
 
-    const setupBlock2 = workspace.newBlock('led_fade');
-    setupBlock2.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'PIN');
+    const ledFadeBlock = workspace.newBlock('led_fade');
+    ledFadeBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'PIN');
 
     const event: BlockEvent = {
       blockId: arduinoBlock.id,
@@ -90,6 +93,10 @@ describe('disableDuplicatePinBlocks', () => {
     const sensorBlock = workspace.newBlock('rfid_setup');
     sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
     sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');
+    connectToArduinoBlock(servoBlock);
+    connectToArduinoBlock(servoBlock1);
+    connectToArduinoBlock(servoBlock2);
+    connectToArduinoBlock(servoBlock3);
 
     const event: BlockEvent = {
       blockId: arduinoBlock.id,
@@ -101,26 +108,75 @@ describe('disableDuplicatePinBlocks', () => {
     const actions = disableDuplicatePinBlocks(event);
 
     expect(actions.length).toBe(4);
-    expect(actions.map((a) => a.blockId)).toEqual([
-      servoBlock.id,
-      servoBlock1.id,
-      servoBlock3.id,
-      sensorBlock.id
-    ]);
-    expect(actions[0].warningText).toBe(
-      'This blocks has these duplicate pins: ' + ARDUINO_UNO_PINS.PIN_5
+    expect(actions.map((a) => a.blockId).sort()).toEqual(
+      [servoBlock.id, servoBlock1.id, servoBlock3.id, sensorBlock.id].sort()
     );
-    expect(actions[1].warningText).toBe(
-      'This blocks has these duplicate pins: ' + ARDUINO_UNO_PINS.PIN_5
-    );
-    expect(actions[2].warningText).toBe(
-      'This blocks has these duplicate pins: ' + ARDUINO_UNO_PINS.PIN_9
-    );
-    expect(actions[3].warningText).toBe(
+
+    const setupBlockAction = actions.find((a) => a.blockId === sensorBlock.id);
+
+    expect(setupBlockAction.warningText).toBe(
       'This blocks has these duplicate pins: ' +
         ARDUINO_UNO_PINS.PIN_5 +
         ', ' +
         ARDUINO_UNO_PINS.PIN_9
     );
+
+    const servo3Action = actions.find((a) => a.blockId == servoBlock3.id);
+
+    expect(servo3Action.warningText).toBe(
+      'This blocks has these duplicate pins: ' + ARDUINO_UNO_PINS.PIN_9
+    );
+
+    const servo1Action = actions.find((a) => a.blockId === servoBlock1.id);
+
+    expect(servo1Action.warningText).toBe(
+      'This blocks has these duplicate pins: ' + ARDUINO_UNO_PINS.PIN_5
+    );
   });
+
+  test('should not disable setup block and non setup block if non setup block is not connected a function, loop, or arduino setup ', () => {
+    const servoBlock = workspace.newBlock('rotate_servo') as BlockSvg;
+    servoBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'PIN');
+
+    const sensorBlock = workspace.newBlock('rfid_setup');
+    sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
+    sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');
+
+    const event: BlockEvent = {
+      blockId: arduinoBlock.id,
+      variables: getAllVariables().map(transformVariable),
+      blocks: getAllBlocks().map(transformBlock),
+      type: Blockly.Events.BLOCK_MOVE
+    };
+
+    const actions = disableDuplicatePinBlocks(event);
+
+    expect(actions).toEqual([]);
+  });
+
+  test('sensor read block pins do not count against pin count', () => {
+    const rfidBlockSetup = workspace.newBlock('rfid_setup');
+    rfidBlockSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
+    rfidBlockSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');
+    
+    const buttonSetupBlock = workspace.newBlock('button_setup');
+    buttonSetupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_10, 'PIN');
+
+    const buttonPressedBlock = workspace.newBlock('is_button_pressed') as BlockSvg;
+    buttonPressedBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'PIN');
+
+    const event: BlockEvent = {
+      blockId: arduinoBlock.id,
+      variables: getAllVariables().map(transformVariable),
+      blocks: getAllBlocks().map(transformBlock),
+      type: Blockly.Events.BLOCK_MOVE
+    };
+
+    const actions = disableDuplicatePinBlocks(event);
+
+    expect(actions).toEqual([]);
+
+
+  });
+
 });
