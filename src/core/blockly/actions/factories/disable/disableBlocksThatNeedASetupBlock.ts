@@ -8,6 +8,11 @@ import {
 } from '../../../state/block.data';
 import _ from 'lodash';
 
+// This will disable blocks that require a setup block to run
+// If there are more than 2 setup blocks it will disable all the blocks
+// if multiple blocks are not allowed.  Example would be it would disable
+// RFID block because only one RFID component is allowed but would not do
+// The same for the button block
 export const disableBlocksThatNeedASetupBlock = (
   event: BlockEvent
 ): DisableBlock[] => {
@@ -31,7 +36,7 @@ const shouldDisableBlock = (block: BlockData, blocks: BlockData[]): boolean => {
   const nameOfSetupBlock = blocksThatRequireSetup[block.blockName];
 
   const numberOfSetupBlocks = blocks.filter(
-    (b) => !b.disabled && b.blockName === nameOfSetupBlock
+    (b) => b.blockName === nameOfSetupBlock && !b.disabled
   ).length;
 
   if (numberOfSetupBlocks == 1) {
@@ -44,6 +49,5 @@ const shouldDisableBlock = (block: BlockData, blocks: BlockData[]): boolean => {
   }
 
   // If the user has more that one setup block than it must be marked as multiple allowed
-  return !multipleTopBlocks.includes(nameOfSetupBlock)
-
+  return !multipleTopBlocks.includes(nameOfSetupBlock);
 };

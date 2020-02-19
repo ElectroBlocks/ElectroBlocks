@@ -8,6 +8,10 @@ import {
 
 import _ from 'lodash';
 
+/**
+ * Disable Sensor Read blocks that do not have the right pin selected.
+ * This happens when the user changes the setup bin on a button or analog read setup block but has not changed it on the is_button_pressed block.  So there is a mismatch for the pins.
+ */
 export const disableSensorReadBlocksWithWrongPins = (
   event: BlockEvent
 ): DisableBlock[] => {
@@ -20,14 +24,13 @@ export const disableSensorReadBlocksWithWrongPins = (
     )
     .filter((b) => {
       const setupBlockName = blocksThatRequireSetup[b.blockName];
-      // The setup block must exist 
+      // The setup block must exist
       return blocks.find((bl) => bl.blockName == setupBlockName) !== undefined;
     });
 
   const setupBlockNames = sensorReadBlocks.map(
     (b) => blocksThatRequireSetup[b.blockName]
   );
-
 
   const setupBlocks = blocks.filter((b) =>
     setupBlockNames.includes(b.blockName)
@@ -36,7 +39,11 @@ export const disableSensorReadBlocksWithWrongPins = (
   return sensorReadBlocks
     .filter((block) => {
       const availablePins = setupBlocks
-        .filter((b) => blocksThatRequireSetup[block.blockName] === b.blockName)
+        .filter(
+          (b) =>
+            blocksThatRequireSetup[block.blockName] === b.blockName &&
+            !b.disabled
+        )
         .reduce((prev, next) => _.union(prev, next.pins), []);
       return _.intersection(block.pins, availablePins).length === 0;
     })

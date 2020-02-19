@@ -12,5 +12,5 @@ export const getLoopTimeFromBlockData = (blocks: BlockData[]): number => {
 };
 
 export const findRootBlock = (block: BlockData, blocks: BlockData[]) => {
-  return blocks.find((b) => block.rootBlockId == b.id);
+  return blocks.find((b) => block.rootBlockId === b.id);
 };

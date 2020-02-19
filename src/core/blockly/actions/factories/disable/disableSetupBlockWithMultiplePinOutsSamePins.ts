@@ -2,6 +2,9 @@ import { BlockEvent } from '../../../state/event.data';
 import { DisableBlock, ActionType } from '../../actions';
 import _ from 'lodash';
 
+/**
+ * Disables blocks where both the same pins where selected in the block.
+ */
 export const disableSetupBlockWithMultiplePinOutsSamePins = (
   event: BlockEvent
 ): DisableBlock[] => {

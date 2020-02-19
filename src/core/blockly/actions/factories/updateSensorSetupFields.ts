@@ -21,7 +21,7 @@ export const updateSensorSetupFields = (
   const blockData = blocks.find((block) => block.id === blockId);
   
   // Is the block a sensor only block
-  if (blockData.type !== BlockType.SENSOR_SETUP) {
+  if (!blockData || blockData.type !== BlockType.SENSOR_SETUP) {
     return [];
   }
 

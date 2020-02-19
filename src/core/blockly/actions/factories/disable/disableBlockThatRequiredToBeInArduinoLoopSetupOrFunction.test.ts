@@ -59,4 +59,24 @@ describe('disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction', () => {
     expect(actions[0].type).toBe(ActionType.DISABLE_BLOCK);
     expect(actions.map((b) => b.warningText)).toEqual([null, null, null]);
   });
+
+  test('should disable blocks that are connected but not to a function, loop or setup', () => {
+    const debugBlock1 = workspace.newBlock('debug_block') as BlockSvg;
+    const debugBlock2 = workspace.newBlock('debug_block') as BlockSvg;
+
+    debugBlock1.nextConnection.connect(debugBlock2.previousConnection);
+
+    const event: BlockEvent = {
+      blockId: arduinoBlock.id,
+      variables: getAllVariables().map(transformVariable),
+      blocks: getAllBlocks().map(transformBlock),
+      type: Blockly.Events.BLOCK_MOVE
+    };
+
+    const actions = disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(
+      event
+    );
+
+    expect(actions.length).toBe(2);
+  })
 });

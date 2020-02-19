@@ -10,11 +10,10 @@ import { BlockEvent } from '../../../state/event.data';
 import { transformBlock } from '../../../transformers/block.transformer';
 import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';
-import { disableBlocksThatNeedASetupBlock } from './disableBlocksThatNeedASetupBlock';
 import { ActionType } from '../../actions';
-import { disableBlocksThatHaveNoPinInPinDropDown } from './disableBlocksThatHaveNoPinInPinDropDown';
+import { disableSetupBlocksUsingSamePinNumbers } from './disableSetupBlocksUsingSamePinNumbers';
 
-describe('disableBlocksThatNeedASetupBlock', () => {
+describe('disableSetupBlocksUsingSamePinNumbers', () => {
   let workspace: Workspace;
   let arduinoBlock;
 
@@ -42,7 +41,7 @@ describe('disableBlocksThatNeedASetupBlock', () => {
       blocks: getAllBlocks().map(transformBlock),
       type: Blockly.Events.BLOCK_MOVE
     };
-    const actions = disableBlocksThatHaveNoPinInPinDropDown(event);
+    const actions = disableSetupBlocksUsingSamePinNumbers(event);
     expect(actions.length).toBe(1);
     expect(actions[0].blockId).toBeDefined();
     expect(actions[0].warningText).toBeDefined();

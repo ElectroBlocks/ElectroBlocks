@@ -10,7 +10,7 @@ export const updateLoopNumberInSensorSetupBlock = (
   const block = blocks.find((block) => block.id === blockId);
 
   // Only want to update the sensor setup blocks if the arduino loop block changed
-  if (block.blockName !== 'arduino_loop') {
+  if (!block || block.blockName !== 'arduino_loop') {
     return [];
   }
 

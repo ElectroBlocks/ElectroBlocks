@@ -21,6 +21,7 @@ export enum PinCategory {
   LED_MATRIX = 'LED_MATRIX',
   LED_COLOR = 'LED_COLOR',
   ULTRA_SONIC = 'ULTRA_SONIC',
+  LED = 'LED',
   DIGITAL_WRITE = 'DIGITAL_WRITE',
   ANALOG_WRITE = 'ANALOG_WRITE',
   DIGITAL_READ_SETUP = 'DIGITAL_READ_SETUP',
@@ -331,8 +332,8 @@ export const blocksToBlockTypes: {
   lcd_blink: { type: BlockType.STATE, pinCategory: PinCategory.NONE },
   lcd_backlight: { type: BlockType.STATE, pinCategory: PinCategory.NONE },
 
-  led: { type: BlockType.STATE, pinCategory: PinCategory.NONE },
-  led_fade: { type: BlockType.STATE, pinCategory: PinCategory.NONE },
+  led: { type: BlockType.STATE, pinCategory: PinCategory.LED },
+  led_fade: { type: BlockType.STATE, pinCategory: PinCategory.LED },
 
   neo_pixel_setup: {
     type: BlockType.SETUP,

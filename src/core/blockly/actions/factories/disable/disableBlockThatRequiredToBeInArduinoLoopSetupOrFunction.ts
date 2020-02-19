@@ -2,6 +2,9 @@ import { BlockEvent } from '../../../state/event.data';
 import { DisableBlock, ActionType } from '../../actions';
 import { BlockTypeRequireRootBlock } from '../../../state/block.data';
 
+/**
+ * Disables Blocks that are required to be in loop, setup, or prodecure function.
+ */
 export const disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction = (
   event: BlockEvent
 ): DisableBlock[] => {
@@ -12,7 +15,7 @@ export const disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction = (
       (block) =>
         block.rootBlockId === undefined ||
         BlockTypeRequireRootBlock.includes(
-          blocks.find((b) => block.rootBlockId).type
+          blocks.find((b) => b.id === block.rootBlockId).type
         )
     )
     .map((block) => {

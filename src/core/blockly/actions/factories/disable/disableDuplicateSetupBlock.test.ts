@@ -48,4 +48,17 @@ describe('disableDuplicatePinBlocks', () => {
       'Duplicate setup blocks, please remove one'
     );
   });
+
+  test('should not disable setup block where there is only one setup block', () => {
+    const setupBlock = workspace.newBlock('rfid_setup');
+
+    const event: BlockEvent = {
+      blockId: arduinoBlock.id,
+      variables: getAllVariables().map(transformVariable),
+      blocks: getAllBlocks().map(transformBlock),
+      type: Blockly.Events.BLOCK_MOVE
+    };
+    const actions = disableDuplicateSetupBlocks(event);
+    expect(actions).toEqual([]);
+  })
 });

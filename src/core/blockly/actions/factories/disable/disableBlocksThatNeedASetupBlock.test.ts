@@ -49,7 +49,22 @@ describe('disableBlocksThatNeedASetupBlock', () => {
     disableActions.forEach((a) => {
       expect(a.warningText).toContain('This block requires a ');
       expect(a.warningText).not.toContain('undefined');
-      console.log(a.warningText);
     });
+  });
+
+  test.only('if setup block is disabled then it should disable blocks that require it', () => {
+    const setupBlock = workspace.newBlock('message_setup');
+    setupBlock.setEnabled(false);
+    workspace.newBlock('arduino_send_message');
+
+    const event: BlockEvent = {
+      blockId: arduinoBlock.id,
+      variables: getAllVariables().map(transformVariable),
+      blocks: getAllBlocks().map(transformBlock),
+      type: Blockly.Events.BLOCK_MOVE
+    };
+    const disableActions = disableBlocksThatNeedASetupBlock(event);
+
+    expect(disableActions.length).toBe(1);
   });
 });

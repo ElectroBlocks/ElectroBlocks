@@ -16,7 +16,7 @@ export const saveSensorSetupBlockData = (
 
   const block = blocks.find((b) => b.id == blockId);
 
-  if (block.type !== BlockType.SENSOR_SETUP) {
+  if (!block || block.type !== BlockType.SENSOR_SETUP) {
     return [];
   }
 

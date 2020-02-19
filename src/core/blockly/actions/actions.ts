@@ -40,3 +40,7 @@ export interface SaveSetupSensorData extends BlockAction {
 export interface DisableBlock extends BlockAction {
   warningText: string;
 }
+
+export interface EnableBlock extends BlockAction {
+  
+}

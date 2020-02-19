@@ -3,7 +3,10 @@ import { DisableBlock, ActionType } from '../../actions';
 import { multipleTopBlocks } from '../../../state/block.data';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 
-export const disableBlocksThatHaveNoPinInPinDropDown = (
+// This happens when the arduino runs out of a certain type of pin
+// The drop down box will populate with NO_PINS in it
+// These blocks should be disabled so that don't get processed
+export const disableSetupBlocksUsingSamePinNumbers = (
   event: BlockEvent
 ): DisableBlock[] => {
   const { blocks } = event;

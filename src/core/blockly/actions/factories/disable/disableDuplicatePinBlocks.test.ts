@@ -175,7 +175,30 @@ describe('disableDuplicatePinBlocks', () => {
     const actions = disableDuplicatePinBlocks(event);
 
     expect(actions).toEqual([]);
+  });
 
+  test.only('if 3 block intersect it should block all three of them', () => {
+    const sensorBlock = workspace.newBlock('rfid_setup');
+    sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
+    sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');
+
+    const ledBlock = workspace.newBlock('led') as BlockSvg;
+    ledBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'PIN');
+    connectToArduinoBlock(ledBlock);
+
+    const buttonSetupBlock = workspace.newBlock('button_setup');
+    buttonSetupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'PIN');
+
+    const event: BlockEvent = {
+      blockId: arduinoBlock.id,
+      variables: getAllVariables().map(transformVariable),
+      blocks: getAllBlocks().map(transformBlock),
+      type: Blockly.Events.BLOCK_MOVE
+    };
+
+    const actions = disableDuplicatePinBlocks(event);
+
+    expect(actions.length).toBe(3);
 
   });
 
