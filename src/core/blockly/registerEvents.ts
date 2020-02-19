@@ -8,7 +8,6 @@ import { getAllBlocks } from './helpers/block.helper';
 import { transformBlock } from './transformers/block.transformer';
 import { transformEvent } from './transformers/event.transformer';
 import { getAllVariables } from './helpers/variable.helper';
-import { transformVariable } from './transformers/variables.transformer';
 import { deleteUnusedVariables } from './actions/factories/deleteUnusedVariables';
 import { saveSensorSetupBlockData } from './actions/factories/saveSensorSetupBlockData';
 import { updateLoopNumberInSensorSetupBlock } from './actions/factories/updateLoopNumberInSensorSetupBlock';
@@ -63,6 +62,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
         (a) => a.type === ActionType.DISABLE_BLOCK
       ) as DisableBlock[]
     );
+
     const refreshEvent = transformEvent(
       getAllBlocks(),
       getAllVariables(),
@@ -75,11 +75,14 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     ];
 
     secondActionPass.forEach((a) => updater(a));
+
     enableBlocks(
       [...secondActionPass, ...firstActionPass].filter(
         (a) => a.type === ActionType.DISABLE_BLOCK
       ) as DisableBlock[]
     );
+
+    codeStore.set(getArduinoCode());
   });
 };
 

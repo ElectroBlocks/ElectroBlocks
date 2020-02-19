@@ -1,42 +1,43 @@
 
-export interface SensorData {
+export interface Sensor {
   loop: number;
+  blockName: string;
 }
 
-export interface BluetoothData extends SensorData {
+export interface BluetoothSensor extends Sensor {
   receiving_message: boolean;
   message: string;
 }
 
-export interface ButtonData extends SensorData {
+export interface ButtonSensor extends Sensor {
   is_pressed: boolean;
 }
 
-export interface IRRemoteData extends SensorData {
+export interface IRRemoteSensor extends Sensor {
   scanned_new_code: boolean;
   code: string;
 }
 
-export interface MotionSensorData extends SensorData {
+export interface MotionSensor extends Sensor {
   cm: number;
 }
 
-export interface PinData extends SensorData {
+export interface PinSensor extends Sensor {
   state: number;
 }
 
-export interface RFIDData extends SensorData {
+export interface RFIDSensor extends Sensor {
   scanned_card: boolean;
   card_number: string;
   tag: string;
 }
 
-export interface TempData extends SensorData {
+export interface TempSensor extends Sensor {
   temp: number;
   humidity: number;
   loop: number;
 }
 
-export interface TimeData extends SensorData {
+export interface TimeSensor extends Sensor {
   time_in_seconds: number;
 }

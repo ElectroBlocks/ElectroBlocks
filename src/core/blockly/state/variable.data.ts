@@ -1,4 +1,4 @@
-import { Color } from '../../arduino-state/arduino.state';
+import { Color } from '../../frames/state/arduino.state';
 
 export enum VariableTypes {
   NUMBER = 'Number',

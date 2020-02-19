@@ -52,7 +52,7 @@ describe('disableBlocksThatNeedASetupBlock', () => {
     });
   });
 
-  test.only('if setup block is disabled then it should disable blocks that require it', () => {
+  test('if setup block is disabled then it should disable blocks that require it', () => {
     const setupBlock = workspace.newBlock('message_setup');
     setupBlock.setEnabled(false);
     workspace.newBlock('arduino_send_message');

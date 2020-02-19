@@ -177,7 +177,7 @@ describe('disableDuplicatePinBlocks', () => {
     expect(actions).toEqual([]);
   });
 
-  test.only('if 3 block intersect it should block all three of them', () => {
+  test('if 3 block intersect it should block all three of them', () => {
     const sensorBlock = workspace.newBlock('rfid_setup');
     sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
     sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');

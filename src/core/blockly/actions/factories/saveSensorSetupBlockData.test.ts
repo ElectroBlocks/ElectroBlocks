@@ -9,7 +9,7 @@ import { transformBlock } from '../../transformers/block.transformer';
 import { getAllVariables } from '../../helpers/variable.helper';
 import { transformVariable } from '../../transformers/variables.transformer';
 import { saveSensorSetupBlockData } from './saveSensorSetupBlockData';
-import { MotionSensorData } from '../../state/sensors.state';
+import { MotionSensor } from '../../state/sensors.state';
 import { ActionType } from '../actions';
 
 describe('saveSensorSetupBlockData', () => {
@@ -67,15 +67,18 @@ describe('saveSensorSetupBlockData', () => {
     const expectedData = [
       {
         loop: 1,
-        cm: 1
+        cm: 1,
+        blockName: sensorBlock.type
       },
       {
         loop: 2,
-        cm: 1
+        cm: 1,
+        blockName: sensorBlock.type
       },
       {
         loop: 3,
-        cm: 1
+        cm: 1,
+        blockName: sensorBlock.type
       }
     ];
 
@@ -93,15 +96,18 @@ describe('saveSensorSetupBlockData', () => {
     const currentMetadata = [
       {
         loop: 1,
-        cm: 1
+        cm: 1,
+        blockName: sensorBlock.type
       },
       {
         loop: 2,
-        cm: 1
+        cm: 1,
+        blockName: sensorBlock.type
       },
       {
         loop: 3,
-        cm: 1
+        cm: 1,
+        blockName: sensorBlock.type
       }
     ];
 
@@ -120,7 +126,7 @@ describe('saveSensorSetupBlockData', () => {
     };
 
     const actions = saveSensorSetupBlockData(event);
-    const metadataToSave = JSON.parse(actions[0].data) as MotionSensorData[];
+    const metadataToSave = JSON.parse(actions[0].data) as MotionSensor[];
     expect(metadataToSave.length).toBe(3);
     metadataToSave.forEach((data) => {
       const expectedcm = data.loop == 2 ? 10 : 1;

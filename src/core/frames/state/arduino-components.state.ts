@@ -1,5 +1,5 @@
 import { ArduinoComponentState, Color } from './arduino.state';
-import { ARDUINO_UNO_PINS } from '../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 
 export interface ArduinoMessageState extends ArduinoComponentState {
   recievingMessage: boolean;

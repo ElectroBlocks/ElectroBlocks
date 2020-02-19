@@ -1,12 +1,13 @@
-import { ARDUINO_UNO_PINS } from '../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 
 export interface ArduinoState {
   blockId: string;
-  frameLocation: Timeline;
+  timeLine: Timeline;
   explanation: string;
   components: ArduinoComponentState[];
   variables: { [key: string]: Variable };
   txLedOn: boolean;
+  rxLedOn: boolean
   sendMessage: string; // message arduino is sending
   delay: number; // Number of milliseconds to delay
   powerLedOn: boolean;
@@ -43,7 +44,7 @@ export interface Color {
 export interface Timeline {
   iteration: number;
 
-  function: 'setup' | 'loop';
+  function: 'setup' | 'loop' | 'pre-setup';
 }
 
 export interface ArduinoComponentState {
