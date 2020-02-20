@@ -9,12 +9,17 @@ import { transformVariable } from '../../blockly/transformers/variables.transfor
 import { eventToFrameFactory } from '../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 import { ArduinoState, ArduinoComponentType } from '../state/arduino.state';
-import { LCDScreenState, LCD_SCREEN_MEMORY_TYPE } from '../state/arduino-components.state';
+import {
+  LCDScreenState,
+  LCD_SCREEN_MEMORY_TYPE,
+  LedColorState,
+  PinPicture
+} from '../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
 
 describe('lcd  factories', () => {
   let workspace: Workspace;
-  let lcdsetup;
+  let ledColor;
 
   afterEach(() => {
     workspace.dispose();
@@ -22,37 +27,38 @@ describe('lcd  factories', () => {
 
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
-    lcdsetup = workspace.newBlock('lcd_setup');
-
-    lcdsetup.setFieldValue('0x27', 'MEMORY_TYPE');
-    lcdsetup.setFieldValue('20 x 4', 'SIZE');
-
+    ledColor = workspace.newBlock('led_color_setup');
+    ledColor.setFieldValue('11-10-9', 'WIRE');
+    ledColor.setFieldValue('BUILT_IN', 'PICTURE_TYPE');
   });
 
-  test('should be able generate state for lcd setup block', () => {
+  test('should be able generate state for led color setup block', () => {
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: lcdsetup.id
+      blockId: ledColor.id
     };
 
-    const lcdState: LCDScreenState = {
-      pins: [ARDUINO_UNO_PINS.PIN_A4, ARDUINO_UNO_PINS.PIN_A5],
-      backLightOn: true,
-      blink: {row: 0, column: 0, blinking: false},
-      memoryType: LCD_SCREEN_MEMORY_TYPE['0X27'],
-      rowsOfText: [],
-      rows: 4,
-      columns: 20,
-      type: ArduinoComponentType.LCD_SCREEN
+    const ledColorState: LedColorState = {
+      pins: [
+        ARDUINO_UNO_PINS.PIN_11,
+        ARDUINO_UNO_PINS.PIN_10,
+        ARDUINO_UNO_PINS.PIN_9
+      ],
+      redPin: ARDUINO_UNO_PINS.PIN_11,
+      greenPin: ARDUINO_UNO_PINS.PIN_10,
+      bluePin: ARDUINO_UNO_PINS.PIN_9,
+      pictureType: 'BUILT_IN',
+      color: { green: 0, red: 0, blue: 0 },
+      type: ArduinoComponentType.NEO_PIXEL_STRIP
     };
 
     const state: ArduinoState = {
-      blockId: lcdsetup.id,
+      blockId: ledColor.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
-      explanation: 'Setting up LCD Screen.',
-      components: [lcdState],
+      explanation: 'Setting up color led.',
+      components: [ledColorState],
       variables: {},
       txLedOn: false,
       rxLedOn: false,
@@ -62,7 +68,5 @@ describe('lcd  factories', () => {
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);
-
   });
-
 });

@@ -54,6 +54,10 @@ const getPins = (block: BlockSvg): ARDUINO_UNO_PINS[] => {
     return [ARDUINO_UNO_PINS.PIN_A4, ARDUINO_UNO_PINS.PIN_A5];
   }
 
+  if (block.type === 'led_color_setup') {
+    return block.getFieldValue('WIRE').split('-');
+  }
+
   if (
     block.type === 'led_matrix_make_draw' ||
     block.type === 'led_matrix_turn_one_on_off'
