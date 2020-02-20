@@ -5,6 +5,7 @@ import { bluetoothSetup } from './bluetooth';
 import { messageSetup } from './message';
 import { timeSetup } from './time';
 import { lcdScreenSetup } from './lcd';
+import { neoPixelSetup } from './neopixel';
 
 export interface StateGenerator {
   (
@@ -20,7 +21,8 @@ const stateList: { [blockName: string]: StateGenerator } = {
   bluetooth_setup: bluetoothSetup,
   message_setup: messageSetup,
   time_setup: timeSetup,
-  lcd_setup: lcdScreenSetup
+  lcd_setup: lcdScreenSetup,
+  neo_pixel_setup: neoPixelSetup
 };
 
 export const generateState: StateGenerator = (
