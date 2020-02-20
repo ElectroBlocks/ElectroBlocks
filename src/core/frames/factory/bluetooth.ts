@@ -4,6 +4,7 @@ import { BluetoothSensor } from '../../blockly/state/sensors.state';
 import { BluetoothState } from '../state/arduino-components.state';
 import { ArduinoComponentType } from '../state/arduino.state';
 import { createArduinoState } from './factory.helpers';
+import { findFieldValue } from '../../blockly/helpers/block-data.helper';
 
 
 export const bluetoothSetup: StateGenerator = (
@@ -23,8 +24,8 @@ export const bluetoothSetup: StateGenerator = (
   const bluetoothComponent: BluetoothState = {
     pins: block.pins,
     type: ArduinoComponentType.BLUE_TOOTH,
-    rxPin: block.fieldValues.find((f) => f.name == 'RX').value,
-    txPin: block.fieldValues.find((f) => f.name == 'TX').value,
+    rxPin: findFieldValue(block,'RX'),
+    txPin: findFieldValue(block,'TX'),
     hasMessage: bluetoothSensorLoop1.receiving_message,
     message: bluetoothSensorLoop1.message,
     sendMessage: ''

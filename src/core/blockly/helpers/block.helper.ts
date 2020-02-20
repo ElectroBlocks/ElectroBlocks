@@ -24,10 +24,6 @@ export const getTopBlocks = () => {
   return getWorkspace().getTopBlocks(true) as BlockSvg[];
 };
 
-export const isNumberBlock = (block: BlockSvg | undefined): boolean => {
-  return block && block.type === 'math_number';
-};
-
 export const connectToArduinoBlock = function(variableBlock: BlockSvg) {
   let arduinoBlock =
     getBlockByType('arduino_setup') || getBlockByType('arduino_loop'); // See if

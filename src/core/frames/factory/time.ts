@@ -2,6 +2,7 @@ import { StateGenerator } from './state.factories';
 import { TimeState } from '../state/arduino-components.state';
 import { ArduinoComponentType } from '../state/arduino.state';
 import { createArduinoState } from './factory.helpers';
+import { findFieldValue } from '../../blockly/helpers/block-data.helper';
 
 export const timeSetup: StateGenerator = (
   blocks,
@@ -11,7 +12,7 @@ export const timeSetup: StateGenerator = (
 ) => {
   const messageComponent: TimeState = {
     pins: block.pins,
-    timeInSeconds: +block.fieldValues.find(f => f.name == 'time_in_seconds').value,
+    timeInSeconds: +findFieldValue(block, 'time_in_seconds'),
     type: ArduinoComponentType.TIME
   };
 

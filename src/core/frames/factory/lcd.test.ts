@@ -11,12 +11,12 @@ import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../blockly/updater';
 import { ArduinoState, ArduinoComponentType } from '../state/arduino.state';
-import { TimeState } from '../state/arduino-components.state';
+import { TimeState, LCDScreenState, LCD_SCREEN_MEMORY_TYPE } from '../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
 
-describe('time frame factories', () => {
+describe('lcd  factories', () => {
   let workspace: Workspace;
-  let timesetup;
+  let lcdsetup;
 
   afterEach(() => {
     workspace.dispose();
@@ -24,30 +24,37 @@ describe('time frame factories', () => {
 
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
-    timesetup = workspace.newBlock('time_setup');
+    lcdsetup = workspace.newBlock('lcd_setup');
 
-    timesetup.setFieldValue('.3', 'time_in_seconds');
+    lcdsetup.setFieldValue('0x27', 'MEMORY_TYPE');
+    lcdsetup.setFieldValue('20 x 4', 'SIZE');
+
   });
 
-  test('should be able generate state for time setup block', () => {
+  test('should be able generate state for lcd setup block', () => {
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: timesetup.id
+      blockId: lcdsetup.id
     };
 
-    const timeState: TimeState = {
-      pins: [],
-      timeInSeconds: 0.3,
-      type: ArduinoComponentType.TIME
+    const lcdState: LCDScreenState = {
+      pins: [ARDUINO_UNO_PINS.PIN_A4, ARDUINO_UNO_PINS.PIN_A5],
+      backLightOn: true,
+      blink: {row: 0, column: 0, blinking: false},
+      memoryType: LCD_SCREEN_MEMORY_TYPE['0X27'],
+      rowsOfText: [],
+      rows: 4,
+      columns: 20,
+      type: ArduinoComponentType.LCD_SCREEN
     };
 
     const state: ArduinoState = {
-      blockId: timesetup.id,
+      blockId: lcdsetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
-      explanation: 'Setting up Arduino time.',
-      components: [timeState],
+      explanation: 'Setting up LCD Screen.',
+      components: [lcdState],
       variables: {},
       txLedOn: false,
       rxLedOn: false,
@@ -57,5 +64,7 @@ describe('time frame factories', () => {
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);
+
   });
+
 });

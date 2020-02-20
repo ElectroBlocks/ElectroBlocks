@@ -4,6 +4,7 @@ import { getSensorData } from '../../blockly/transformers/sensor-data.transforme
 import { RfidState } from '../state/arduino-components.state';
 import { RFIDSensor } from '../../blockly/state/sensors.state';
 import { createArduinoState } from './factory.helpers';
+import { findFieldValue } from '../../blockly/helpers/block-data.helper';
 
 export const rfidSetup: StateGenerator = (
   blocks,
@@ -22,8 +23,8 @@ export const rfidSetup: StateGenerator = (
   const rfidComponent: RfidState = {
     pins: block.pins,
     type: ArduinoComponentType.RFID,
-    rxPin: block.fieldValues.find((f) => f.name == 'RX').value,
-    txPin: block.fieldValues.find((f) => f.name == 'TX').value,
+    rxPin: findFieldValue(block,'RX'),
+    txPin: findFieldValue(block,'TX'),
     scannedCard: rfidSensorLoop1.scanned_card,
     tag: rfidSensorLoop1.tag,
     cardNumber: rfidSensorLoop1.card_number

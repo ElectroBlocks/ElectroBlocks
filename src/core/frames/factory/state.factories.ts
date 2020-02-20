@@ -4,6 +4,7 @@ import { rfidSetup } from './rfid';
 import { bluetoothSetup } from './bluetooth';
 import { messageSetup } from './message';
 import { timeSetup } from './time';
+import { lcdScreenSetup } from './lcd';
 
 export interface StateGenerator {
   (
@@ -18,7 +19,8 @@ const stateList: { [blockName: string]: StateGenerator } = {
   rfid_setup: rfidSetup,
   bluetooth_setup: bluetoothSetup,
   message_setup: messageSetup,
-  time_setup: timeSetup
+  time_setup: timeSetup,
+  lcd_setup: lcdScreenSetup
 };
 
 export const generateState: StateGenerator = (
