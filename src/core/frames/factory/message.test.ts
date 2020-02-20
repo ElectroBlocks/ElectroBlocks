@@ -12,12 +12,14 @@ import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../blockly/updater';
 import { ArduinoState, ArduinoComponentType } from '../state/arduino.state';
-import { RfidState } from '../state/arduino-components.state';
+import { RfidState, BluetoothState, ArduinoMessageState } from '../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
+import { BluetoothSensor } from '../../blockly/state/sensors.state';
 
-describe('rfid frame factories', () => {
+
+describe('bluetooth frame factories', () => {
   let workspace: Workspace;
-  let rfidBlock;
+  let messageSetup;
 
   afterEach(() => {
     workspace.dispose();
@@ -25,47 +27,42 @@ describe('rfid frame factories', () => {
 
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
+    messageSetup = workspace.newBlock('message_setup');
 
-    rfidBlock = workspace.newBlock('rfid_setup');
-    rfidBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_7, 'RX');
-    rfidBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_6, 'TX');
-
-    rfidBlock.setFieldValue('TRUE', 'scanned_card');
-    rfidBlock.setFieldValue('card_num', 'card_number');
-    rfidBlock.setFieldValue('tag', 'tag');
+    messageSetup.setFieldValue('TRUE', 'receiving_message');
+    messageSetup.setFieldValue('hello world', 'message');
 
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: rfidBlock.id
+      blockId: messageSetup.id
     };
     saveSensorSetupBlockData(event).forEach(updater);
+
   });
 
-  test('should be able generate state for rfid setup block', () => {
+  test('should be able generate state for message setup block', () => {
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: rfidBlock.id
+      blockId: messageSetup.id
     };
 
-    const rfidComponent: RfidState = {
-      pins: [ARDUINO_UNO_PINS.PIN_7, ARDUINO_UNO_PINS.PIN_6],
-      rxPin: ARDUINO_UNO_PINS.PIN_7,
-      txPin: ARDUINO_UNO_PINS.PIN_6,
-      scannedCard: true,
-      cardNumber: 'card_num',
-      tag: 'tag',
-      type: ArduinoComponentType.RFID
+    const message: ArduinoMessageState = {
+      pins: [],
+      hasMessage: true,
+      message: 'hello world',
+      sendMessage: '',
+      type: ArduinoComponentType.MESSAGE
     };
 
-    const rfidSetupState: ArduinoState = {
-      blockId: rfidBlock.id,
+    const state: ArduinoState = {
+      blockId: messageSetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
-      explanation: 'Setting up RFID.',
-      components: [rfidComponent],
+      explanation: 'Setting up Arduino messages.',
+      components: [message],
       variables: {},
       txLedOn: false,
       rxLedOn: false,
@@ -74,6 +71,6 @@ describe('rfid frame factories', () => {
       powerLedOn: true
     };
 
-    expect(eventToFrameFactory(event)).toEqual([rfidSetupState]);
+    expect(eventToFrameFactory(event)).toEqual([state]);
   });
 });

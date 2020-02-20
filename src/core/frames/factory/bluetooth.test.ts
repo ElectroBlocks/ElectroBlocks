@@ -44,7 +44,7 @@ describe('bluetooth frame factories', () => {
 
   });
 
-  test.only('should be able generate an rfid setup block', () => {
+  test('should be able generate state for bluetooth setup block', () => {
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
@@ -57,7 +57,7 @@ describe('bluetooth frame factories', () => {
       rxPin: ARDUINO_UNO_PINS.PIN_7,
       txPin: ARDUINO_UNO_PINS.PIN_6,
       hasMessage: true,
-      receivedMessage: 'hello world',
+      message: 'hello world',
       sendMessage: '',
       type: ArduinoComponentType.BLUE_TOOTH
     };

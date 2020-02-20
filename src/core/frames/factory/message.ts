@@ -1,12 +1,14 @@
 import { StateGenerator } from './state.factories';
+import {
+  ArduinoMessageState,
+  BluetoothState
+} from '../state/arduino-components.state';
 import { getSensorData } from '../../blockly/transformers/sensor-data.transformer';
 import { BluetoothSensor } from '../../blockly/state/sensors.state';
-import { BluetoothState } from '../state/arduino-components.state';
-import { ArduinoComponentType } from '../state/arduino.state';
 import { createArduinoState } from './factory.helpers';
+import { ArduinoComponentType } from '../state/arduino.state';
 
-
-export const bluetoothSetup: StateGenerator = (
+export const messageSetup: StateGenerator = (
   blocks,
   block,
   timeline,
@@ -14,31 +16,27 @@ export const bluetoothSetup: StateGenerator = (
 ) => {
   const sensorData = getSensorData(blocks);
 
-  const bluetoothSensorLoop1 = sensorData.find(
+  const messageState = sensorData.find(
     // loop should always be 1 because it's a pre setup block
     // Meaning it's never in the loop or setup
     (s) => s.blockName === block.blockName && s.loop === 1
   ) as BluetoothSensor;
 
-  const bluetoothComponent: BluetoothState = {
+  const messageComponent: ArduinoMessageState = {
     pins: block.pins,
-    type: ArduinoComponentType.BLUE_TOOTH,
-    rxPin: block.fieldValues.find((f) => f.name == 'RX').value,
-    txPin: block.fieldValues.find((f) => f.name == 'TX').value,
-    hasMessage: bluetoothSensorLoop1.receiving_message,
-    message: bluetoothSensorLoop1.message,
-    sendMessage: ''
+    hasMessage: messageState.receiving_message,
+    message: messageState.message,
+    sendMessage: '',
+    type: ArduinoComponentType.MESSAGE
   };
 
   return [
     createArduinoState(
       block.id,
       timeline,
-      bluetoothComponent,
-      'Setting up Bluetooth.',
+      messageComponent,
+      'Setting up Arduino messages.',
       previousState
     )
   ];
-
-
-}
+};

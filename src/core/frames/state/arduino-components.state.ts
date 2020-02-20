@@ -2,15 +2,16 @@ import { ArduinoComponentState, Color } from './arduino.state';
 import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 
 export interface ArduinoMessageState extends ArduinoComponentState {
-  recievingMessage: boolean;
+  hasMessage: boolean;
   message: string;
+  sendMessage: string;
 }
 
 export interface BluetoothState extends ArduinoComponentState {
   rxPin: ARDUINO_UNO_PINS;
   txPin: ARDUINO_UNO_PINS;
   hasMessage: boolean;
-  receivedMessage: string;
+  message: string;
   sendMessage: string;
 }
 
