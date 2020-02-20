@@ -11,7 +11,7 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoState[] => {
   );
 
   const setupFrames = setupBlocks.reduce((prevStates, block) => {
-    const [previousState] = prevStates.reverse();
+    const [previousState] = [...prevStates.reverse()];
     return [
       ...prevStates,
       ...generateState(

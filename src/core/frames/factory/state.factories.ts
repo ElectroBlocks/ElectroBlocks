@@ -3,6 +3,7 @@ import { Timeline, ArduinoState } from '../state/arduino.state';
 import { rfidSetup } from './rfid';
 import { bluetoothSetup } from './bluetooth';
 import { messageSetup } from './message';
+import { timeSetup } from './time';
 
 export interface StateGenerator {
   (
@@ -16,7 +17,8 @@ export interface StateGenerator {
 const stateList: { [blockName: string]: StateGenerator } = {
   rfid_setup: rfidSetup,
   bluetooth_setup: bluetoothSetup,
-  message_setup: messageSetup
+  message_setup: messageSetup,
+  time_setup: timeSetup
 };
 
 export const generateState: StateGenerator = (

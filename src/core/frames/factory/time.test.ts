@@ -1,4 +1,3 @@
-import 'jest';
 import '../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import { getAllBlocks, getBlockById } from '../../blockly/helpers/block.helper';
@@ -12,14 +11,18 @@ import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../blockly/updater';
 import { ArduinoState, ArduinoComponentType } from '../state/arduino.state';
-import { RfidState, BluetoothState, ArduinoMessageState } from '../state/arduino-components.state';
+import {
+  RfidState,
+  BluetoothState,
+  ArduinoMessageState,
+  TimeState
+} from '../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
 import { BluetoothSensor } from '../../blockly/state/sensors.state';
 
-
-describe('arduino message frame factories', () => {
+describe('time frame factories', () => {
   let workspace: Workspace;
-  let messageSetup;
+  let timesetup;
 
   afterEach(() => {
     workspace.dispose();
@@ -27,42 +30,30 @@ describe('arduino message frame factories', () => {
 
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
-    messageSetup = workspace.newBlock('message_setup');
+    timesetup = workspace.newBlock('time_setup');
 
-    messageSetup.setFieldValue('TRUE', 'receiving_message');
-    messageSetup.setFieldValue('hello world', 'message');
-
-    const event: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: messageSetup.id
-    };
-    saveSensorSetupBlockData(event).forEach(updater);
-
+    timesetup.setFieldValue('.3', 'time_in_seconds');
   });
 
-  test('should be able generate state for message setup block', () => {
+  test('should be able generate state for time setup block', () => {
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: messageSetup.id
+      blockId: timesetup.id
     };
 
-    const message: ArduinoMessageState = {
+    const timeState: TimeState = {
       pins: [],
-      hasMessage: true,
-      message: 'hello world',
-      sendMessage: '',
-      type: ArduinoComponentType.MESSAGE
+      timeInSeconds: 0.3,
+      type: ArduinoComponentType.TIME
     };
 
     const state: ArduinoState = {
-      blockId: messageSetup.id,
+      blockId: timesetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
-      explanation: 'Setting up Arduino messages.',
-      components: [message],
+      explanation: 'Setting up Arduino time.',
+      components: [timeState],
       variables: {},
       txLedOn: false,
       rxLedOn: false,

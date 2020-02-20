@@ -24,7 +24,6 @@ describe('saveSensorSetupBlockData', () => {
     workspace.dispose();
   });
 
-
   test('no action if block is not a sensor setup block', () => {
     const event: BlockEvent = {
       blockId: arduinoBlock.id,
@@ -138,5 +137,21 @@ describe('saveSensorSetupBlockData', () => {
       ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA
     );
     expect(actions[0].blockId).toEqual(sensorBlock.id);
+  });
+
+  test('should exclude the time block because there is no loop drop down for it.  Time is consider constant through the loop', () => {
+    const sensorBlock = workspace.newBlock('time_setup');
+    const event: BlockEvent = {
+      blockId: sensorBlock.id,
+      variables: getAllVariables().map(transformVariable),
+      blocks: getAllBlocks().map(transformBlock),
+      type: Blockly.Events.BLOCK_CHANGE,
+      newValue: '2',
+      oldValue: '1',
+      fieldName: 'time_in_seconds',
+      fieldType: 'field'
+    };
+    const actions = saveSensorSetupBlockData(event);
+    expect(actions).toEqual([]);
   });
 });

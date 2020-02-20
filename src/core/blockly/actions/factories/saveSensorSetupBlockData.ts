@@ -16,7 +16,9 @@ export const saveSensorSetupBlockData = (
 
   const block = blocks.find((b) => b.id == blockId);
 
-  if (!block || block.type !== BlockType.SENSOR_SETUP) {
+  // We want to block the time setup because it does not have a loop drop down and time should remain constant for each loop to 
+  // simplify the simulator.
+  if (!block || block.type !== BlockType.SENSOR_SETUP || block.blockName === 'time_setup') {
     return [];
   }
 
