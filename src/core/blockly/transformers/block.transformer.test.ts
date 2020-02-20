@@ -6,18 +6,20 @@ import { BlockType, PinCategory } from '../state/block.data';
 import * as helpers from '../helpers/workspace.helper';
 import { connectToArduinoBlock } from '../helpers/block.helper';
 import _ from 'lodash';
+import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
 
 describe('block transformer', () => {
   let workspace: Workspace;
   let arduinoLoopBlock: BlockSvg;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    arduinoLoopBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace, arduinoLoopBlock] = createArduinoAndWorkSpace();
   });
+
+  afterEach(() => {
+    workspace.dispose();
+  });
+
 
   it('should be able to be able to parse arduino loop block and blocks inside', () => {
     const debugBlock1 = workspace.newBlock('debug_block') as BlockSvg;

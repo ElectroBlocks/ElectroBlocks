@@ -10,18 +10,20 @@ import { updateSensorSetupFields } from './updateSensorSetupFields';
 import { UpdateSetupSensorBlockFields, ActionType } from '../actions';
 import { getAllVariables } from '../../helpers/variable.helper';
 import { transformVariable } from '../../transformers/variables.transformer';
+import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
 
 describe('updateSensorSetup', () => {
   let workspace;
   let arduinoBlock;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    arduinoBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
+
+  afterEach(() => {
+    workspace.dispose();
+  });
+
 
   test('should return an event that is not change event', () => {
     // NO Sensor blocks

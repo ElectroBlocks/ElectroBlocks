@@ -1,11 +1,12 @@
 import { StateGenerator } from './state.factories';
-import { ArduinoComponentType } from '../state/arduino.state';
 import { getSensorData } from '../../blockly/transformers/sensor-data.transformer';
-import { RfidState } from '../state/arduino-components.state';
-import { RFIDSensor } from '../../blockly/state/sensors.state';
+import { BluetoothSensor } from '../../blockly/state/sensors.state';
+import { BluetoothState } from '../state/arduino-components.state';
+import { ArduinoComponentType } from '../state/arduino.state';
 import { createArduinoState } from './factory.helpers';
 
-export const rfidSetup: StateGenerator = (
+
+export const bluetoothSetup: StateGenerator = (
   blocks,
   block,
   timeline,
@@ -13,29 +14,31 @@ export const rfidSetup: StateGenerator = (
 ) => {
   const sensorData = getSensorData(blocks);
 
-  const rfidSensorLoop1 = sensorData.find(
+  const bluetoothSensorLoop1 = sensorData.find(
     // loop should always be 1 because it's a pre setup block
     // Meaning it's never in the loop or setup
     (s) => s.blockName === block.blockName && s.loop === 1
-  ) as RFIDSensor;
+  ) as BluetoothSensor;
 
-  const rfidComponent: RfidState = {
+  const bluetoothComponent: BluetoothState = {
     pins: block.pins,
-    type: ArduinoComponentType.RFID,
+    type: ArduinoComponentType.BLUE_TOOTH,
     rxPin: block.fieldValues.find((f) => f.name == 'RX').value,
     txPin: block.fieldValues.find((f) => f.name == 'TX').value,
-    scannedCard: rfidSensorLoop1.scanned_card,
-    tag: rfidSensorLoop1.tag,
-    cardNumber: rfidSensorLoop1.card_number
+    hasMessage: bluetoothSensorLoop1.receiving_message,
+    receivedMessage: bluetoothSensorLoop1.message,
+    sendMessage: ''
   };
 
   return [
     createArduinoState(
       block.id,
       timeline,
-      rfidComponent,
-      'Setting up RFID.',
+      bluetoothComponent,
+      'Setting up Bluetooth.',
       previousState
     )
   ];
-};
+
+
+}

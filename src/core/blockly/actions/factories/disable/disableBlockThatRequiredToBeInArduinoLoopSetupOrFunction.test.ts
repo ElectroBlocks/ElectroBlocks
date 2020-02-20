@@ -1,7 +1,6 @@
 import 'jest';
 import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import * as helpers from '../../../helpers/workspace.helper';
 import {
   getAllBlocks,
   connectToArduinoBlock
@@ -13,18 +12,20 @@ import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';
 import { disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction } from './disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction';
 import { ActionType } from '../../actions';
+import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 
 describe('disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction', () => {
   let workspace: Workspace;
   let arduinoBlock;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    arduinoBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
+
+  afterEach(() => {
+    workspace.dispose();
+  });
+
 
   test('blocks that require to be in an arduino loop block setup or function should be disabled', () => {
     const debugBlock1 = workspace.newBlock('debug_block') as BlockSvg;

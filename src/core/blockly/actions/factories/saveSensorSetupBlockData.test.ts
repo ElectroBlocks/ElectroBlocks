@@ -1,7 +1,6 @@
 import 'jest';
 import '../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import * as helpers from '../../helpers/workspace.helper';
 import { getAllBlocks } from '../../helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../state/event.data';
@@ -11,18 +10,20 @@ import { transformVariable } from '../../transformers/variables.transformer';
 import { saveSensorSetupBlockData } from './saveSensorSetupBlockData';
 import { MotionSensor } from '../../state/sensors.state';
 import { ActionType } from '../actions';
+import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
 
 describe('saveSensorSetupBlockData', () => {
   let workspace: Workspace;
   let arduinoBlock;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    arduinoBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
+
+  afterEach(() => {
+    workspace.dispose();
+  });
+
 
   test('no action if block is not a sensor setup block', () => {
     const event: BlockEvent = {

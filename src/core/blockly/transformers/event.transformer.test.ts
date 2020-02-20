@@ -3,22 +3,23 @@ import '../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import { transformBlock } from './block.transformer';
 import { transformEvent } from './event.transformer';
-import * as helpers from '../helpers/workspace.helper';
 import { getAllBlocks } from '../helpers/block.helper';
 import _ from 'lodash';
 import { getAllVariables } from '../helpers/variable.helper';
 import { VariableTypes } from '../state/variable.data';
+import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
 
 describe('event transformer', () => {
   let workspace: Workspace;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace] = createArduinoAndWorkSpace();
   });
+
+  afterEach(() => {
+    workspace.dispose();
+  });
+
 
   it('should transform a change event', () => {
     const changeEvent = transformEvent(getAllBlocks(), [], {

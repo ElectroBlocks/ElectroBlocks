@@ -1,7 +1,6 @@
 import 'jest';
 import '../../blocks';
-import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import * as helpers from '../../helpers/workspace.helper';
+import Blockly, {  BlockSvg } from 'blockly';
 import { getAllBlocks } from '../../helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../state/event.data';
@@ -10,18 +9,20 @@ import { updateLoopNumberInSensorSetupBlock } from './updateLoopNumberInSensorSe
 import { ActionType } from '../actions';
 import { getAllVariables } from '../../helpers/variable.helper';
 import { transformVariable } from '../../transformers/variables.transformer';
+import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
 
 describe('changeLoopNumberInSensorBlock', () => {
   let workspace;
   let arduinoBlock;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    arduinoBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
+
+  afterEach(() => {
+    workspace.dispose();
+  });
+
 
   test('should only change when arduino block has field has changed', () => {
     const block = workspace.newBlock('math_number');

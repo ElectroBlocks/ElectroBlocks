@@ -1,7 +1,7 @@
 import 'jest';
 import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import * as helpers from '../../../helpers/workspace.helper';
+import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 import { getAllBlocks } from '../../../helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../state/event.data';
@@ -13,14 +13,14 @@ import { ActionType } from '../../actions';
 
 describe('disableBlocksThatNeedASetupBlock', () => {
   let workspace: Workspace;
-  let arduinoBlock;
+  let arduinoBlock: BlockSvg;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    arduinoBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
+  });
+
+  afterEach(() => {
+    workspace.dispose();
   });
 
   test('disable blocks require a setup block', () => {

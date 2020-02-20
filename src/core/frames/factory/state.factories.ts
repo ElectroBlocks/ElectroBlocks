@@ -1,6 +1,7 @@
 import { BlockData } from '../../blockly/state/block.data';
 import { Timeline, ArduinoState } from '../state/arduino.state';
 import { rfidSetup } from './rfid';
+import { bluetoothSetup } from './bluetooth';
 
 export interface StateGenerator {
   (
@@ -12,7 +13,8 @@ export interface StateGenerator {
 }
 
 const stateList: { [blockName: string]: StateGenerator } = {
-  rfid_setup: rfidSetup
+  rfid_setup: rfidSetup,
+  bluetooth_setup: bluetoothSetup
 };
 
 export const generateState: StateGenerator = (

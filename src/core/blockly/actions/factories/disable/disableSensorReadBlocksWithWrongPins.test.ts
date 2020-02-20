@@ -1,7 +1,6 @@
 import 'jest';
 import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
-import * as helpers from '../../../helpers/workspace.helper';
 import { getAllBlocks } from '../../../helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../state/event.data';
@@ -11,18 +10,20 @@ import { transformVariable } from '../../../transformers/variables.transformer';
 import { ActionType } from '../../actions';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { disableSensorReadBlocksWithWrongPins } from './disableSensorReadBlocksWithWrongPins';
+import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 
 describe('disableSensorReadBlocksWithWrongPins', () => {
   let workspace: Workspace;
   let arduinoBlock;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    arduinoBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
+
+  afterEach(() => {
+    workspace.dispose();
+  });
+
 
   test('sensor read blocks that have pins select that are not selected by the setup block are disabled', () => {
     const btnSetup1 = workspace.newBlock('button_setup');

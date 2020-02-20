@@ -1,7 +1,6 @@
 import 'jest';
 import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
-import * as helpers from '../../../helpers/workspace.helper';
 import { getAllBlocks } from '../../../helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../state/event.data';
@@ -9,20 +8,20 @@ import { transformBlock } from '../../../transformers/block.transformer';
 import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';
 import { ActionType } from '../../actions';
-import { disableDuplicateSetupBlocks } from './disableDuplicateSetupBlock';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { disableSetupBlockWithMultiplePinOutsSamePins } from './disableSetupBlockWithMultiplePinOutsSamePins';
+import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 
 describe('disableSensorReadBlocksWithWrongPins', () => {
   let workspace: Workspace;
   let arduinoBlock;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    arduinoBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
+  });
+
+  afterEach(() => {
+    workspace.dispose();
   });
 
   test('should disable blocks that use same pin twice', () => {

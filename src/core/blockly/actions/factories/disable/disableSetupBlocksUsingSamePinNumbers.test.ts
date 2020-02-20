@@ -3,7 +3,6 @@
 import 'jest';
 import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import * as helpers from '../../../helpers/workspace.helper';
 import { getAllBlocks } from '../../../helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../state/event.data';
@@ -12,18 +11,20 @@ import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';
 import { ActionType } from '../../actions';
 import { disableSetupBlocksUsingSamePinNumbers } from './disableSetupBlocksUsingSamePinNumbers';
+import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 
 describe('disableSetupBlocksUsingSamePinNumbers', () => {
   let workspace: Workspace;
   let arduinoBlock;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    arduinoBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
+
+  afterEach(() => {
+    workspace.dispose();
+  });
+
 
   test('should disble blocks with NO_PINS in the pin dropdown', () => {
     

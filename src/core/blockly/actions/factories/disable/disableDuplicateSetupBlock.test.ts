@@ -1,7 +1,6 @@
 import 'jest';
 import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
-import * as helpers from '../../../helpers/workspace.helper';
 import { getAllBlocks } from '../../../helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../state/event.data';
@@ -10,18 +9,20 @@ import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';
 import { ActionType } from '../../actions';
 import { disableDuplicateSetupBlocks } from './disableDuplicateSetupBlock';
+import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 
 describe('disableDuplicatePinBlocks', () => {
   let workspace: Workspace;
   let arduinoBlock;
 
   beforeEach(() => {
-    workspace = new Workspace();
-    jest
-      .spyOn(helpers, 'getWorkspace')
-      .mockReturnValue(workspace as WorkspaceSvg);
-    arduinoBlock = workspace.newBlock('arduino_loop') as BlockSvg;
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
+
+  afterEach(() => {
+    workspace.dispose();
+  });
+
 
   it('if there are more than one setup blocks it should disable both unless multiple are allowed like the button or analog read setup blocks.', () => {
     const setupBlock = workspace.newBlock('rfid_setup');
