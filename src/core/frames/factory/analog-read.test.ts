@@ -12,13 +12,12 @@ import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../blockly/updater';
 import { ArduinoState, ArduinoComponentType } from '../state/arduino.state';
-import {  BluetoothState } from '../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
-
+import { PinState, PIN_TYPE, PinPicture } from '../state/arduino-components.state';
 
 describe('bluetooth frame factories', () => {
   let workspace: Workspace;
-  let bluethoothsetupblock;
+  let analogReadSetup;
 
   afterEach(() => {
     workspace.dispose();
@@ -26,46 +25,43 @@ describe('bluetooth frame factories', () => {
 
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
-    bluethoothsetupblock = workspace.newBlock('bluetooth_setup');
-    bluethoothsetupblock.setFieldValue(ARDUINO_UNO_PINS.PIN_7, 'RX');
-    bluethoothsetupblock.setFieldValue(ARDUINO_UNO_PINS.PIN_6, 'TX');
-
-    bluethoothsetupblock.setFieldValue('TRUE', 'receiving_message');
-    bluethoothsetupblock.setFieldValue('hello world', 'message');
+    analogReadSetup = workspace.newBlock('analog_read_setup') as BlockSvg;
+    analogReadSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_A1, 'PIN');
+    analogReadSetup.setFieldValue('PHOTO_SENSOR', 'TYPE');
+    analogReadSetup.setFieldValue('30', 'power_level');
 
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: bluethoothsetupblock.id
+      blockId: analogReadSetup.id
     };
-    saveSensorSetupBlockData(event).forEach(updater);
 
+    saveSensorSetupBlockData(event).forEach(updater);
   });
 
-  test('should be able generate state for bluetooth setup block', () => {
+  test('should be able generate state for analog read setup block', () => {
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: bluethoothsetupblock.id
+      blockId: analogReadSetup.id
     };
 
-    const btComponent: BluetoothState = {
-      pins: [ARDUINO_UNO_PINS.PIN_7, ARDUINO_UNO_PINS.PIN_6],
-      rxPin: ARDUINO_UNO_PINS.PIN_7,
-      txPin: ARDUINO_UNO_PINS.PIN_6,
-      hasMessage: true,
-      message: 'hello world',
-      sendMessage: '',
-      type: ArduinoComponentType.BLUE_TOOTH
+    const sensor: PinState = {
+      pins: [ARDUINO_UNO_PINS.PIN_A1],
+      pin: ARDUINO_UNO_PINS.PIN_A1,
+      pinType: PIN_TYPE.ANALOG_INPUT,
+      state: 30,
+      pinPicture: PinPicture.PHOTO_SENSOR,
+      type: ArduinoComponentType.PIN
     };
 
     const state: ArduinoState = {
-      blockId: bluethoothsetupblock.id,
+      blockId: analogReadSetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
-      explanation: 'Setting up Bluetooth.',
-      components: [btComponent],
+      explanation: 'Setting up photo sensor.',
+      components: [sensor],
       variables: {},
       txLedOn: false,
       rxLedOn: false,

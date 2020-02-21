@@ -92,6 +92,25 @@ export enum PinPicture {
   SOIL_SENSOR = 'SOIL_SENSOR'
 }
 
+export const pinPictureToWork = (pinPicture: PinPicture) => {
+  switch (pinPicture) {
+    case PinPicture.LED:
+      return 'led';
+    case PinPicture.LED_DIGITAL_WRITE:
+      return 'digital pin';
+    case PinPicture.LED_ANALOG_WRITE:
+      return 'analog pin';
+    case PinPicture.PHOTO_SENSOR:
+      return 'photo sensor';
+    case PinPicture.TOUCH_SENSOR:
+      return 'touch sensor';
+    case PinPicture.SOIL_SENSOR:
+      return 'soil sensor';
+    default:
+      return 'sensor';
+  }
+};
+
 export interface RfidState extends ArduinoComponentState {
   rxPin: ARDUINO_UNO_PINS;
   txPin: ARDUINO_UNO_PINS;
