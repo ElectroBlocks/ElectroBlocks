@@ -13,11 +13,16 @@ import { saveSensorSetupBlockData } from '../../blockly/actions/factories/saveSe
 import { updater } from '../../blockly/updater';
 import { ArduinoState, ArduinoComponentType } from '../state/arduino.state';
 import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
-import { PinState, PIN_TYPE, PinPicture } from '../state/arduino-components.state';
+import {
+  PinState,
+  PIN_TYPE,
+  PinPicture
+} from '../state/arduino-components.state';
 
 describe('analog pin frame factories', () => {
   let workspace: Workspace;
   let analogReadSetup;
+  let digitalReadSetup;
 
   afterEach(() => {
     workspace.dispose();
@@ -30,6 +35,11 @@ describe('analog pin frame factories', () => {
     analogReadSetup.setFieldValue('PHOTO_SENSOR', 'TYPE');
     analogReadSetup.setFieldValue('30', 'power_level');
 
+    digitalReadSetup = workspace.newBlock('digital_read_setup') as BlockSvg;
+    digitalReadSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_6, 'PIN');
+    digitalReadSetup.setFieldValue('TOUCH_SENSOR', 'TYPE');
+    digitalReadSetup.setFieldValue('1', 'has_power');
+
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
@@ -38,9 +48,18 @@ describe('analog pin frame factories', () => {
     };
 
     saveSensorSetupBlockData(event).forEach(updater);
+
+    const event2: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: digitalReadSetup.id
+    };
+
+    saveSensorSetupBlockData(event2).forEach(updater);
   });
 
-  test('should be able generate state for analog read setup block', () => {
+  test('should be able generate state for analog and digital read setup block', () => {
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
@@ -48,19 +67,47 @@ describe('analog pin frame factories', () => {
       blockId: analogReadSetup.id
     };
 
+    expect(eventToFrameFactory(event)).toEqual([
+      createSetupFrame(
+        analogReadSetup.id,
+        PinPicture.PHOTO_SENSOR,
+        ARDUINO_UNO_PINS.PIN_A1,
+        PIN_TYPE.ANALOG_INPUT,
+        'Setting up photo sensor.',
+        30
+      ),
+      createSetupFrame(
+        digitalReadSetup.id,
+        PinPicture.TOUCH_SENSOR,
+        ARDUINO_UNO_PINS.PIN_6,
+        PIN_TYPE.DIGITAL_INPUT,
+        'Setting up touch sensor.',
+        1
+      ),
+    ]);
+  });
+
+  const createSetupFrame = (
+    blockId: string,
+    pinPicture: PinPicture,
+    pin: ARDUINO_UNO_PINS,
+    pinType: PIN_TYPE,
+    explanation: string,
+    state: number
+  ): ArduinoState => {
     const sensor: PinState = {
-      pins: [ARDUINO_UNO_PINS.PIN_A1],
-      pin: ARDUINO_UNO_PINS.PIN_A1,
-      pinType: PIN_TYPE.ANALOG_INPUT,
-      state: 30,
-      pinPicture: PinPicture.PHOTO_SENSOR,
+      pins: [pin],
+      pin,
+      pinType,
+      state,
+      pinPicture,
       type: ArduinoComponentType.PIN
     };
 
-    const state: ArduinoState = {
-      blockId: analogReadSetup.id,
+    return {
+      blockId,
       timeLine: { function: 'pre-setup', iteration: 0 },
-      explanation: 'Setting up photo sensor.',
+      explanation,
       components: [sensor],
       variables: {},
       txLedOn: false,
@@ -69,7 +116,5 @@ describe('analog pin frame factories', () => {
       delay: 0, // Number of milliseconds to delay
       powerLedOn: true
     };
-
-    expect(eventToFrameFactory(event)).toEqual([state]);
-  });
+  };
 });

@@ -10,7 +10,6 @@ import { getAllVariables } from '../blockly/helpers/variable.helper';
 import { transformVariable } from '../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from './event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../constants/arduino';
-import { getSensorData } from '../blockly/transformers/sensor-data.transformer';
 import { saveSensorSetupBlockData } from '../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../blockly/updater';
 import { ArduinoState, ArduinoComponentType } from './state/arduino.state';

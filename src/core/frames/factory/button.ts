@@ -1,7 +1,6 @@
 import { StateGenerator } from './state.factories';
 import { ButtonState } from '../state/arduino-components.state';
 import { ArduinoComponentType } from '../state/arduino.state';
-import { getSensorData } from '../../blockly/transformers/sensor-data.transformer';
 import { ButtonSensor } from '../../blockly/state/sensors.state';
 import { createArduinoState } from './factory.helpers';
 
@@ -11,10 +10,8 @@ export const buttonSetup: StateGenerator = (
   timeline,
   previousState
 ) => {
-  const sensorData = getSensorData(blocks);
-  const btnData = sensorData.find(
-    (d) => d.loop == 1 && d.blockName === 'button_setup'
-  ) as ButtonSensor;
+  const btnDatum = JSON.parse(block.metaData) as ButtonSensor[];
+  const btnData = btnDatum.find(d => d.loop === 1);
 
   const [pin] = block.pins;
 

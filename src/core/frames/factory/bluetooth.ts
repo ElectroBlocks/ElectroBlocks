@@ -1,5 +1,4 @@
 import { StateGenerator } from './state.factories';
-import { getSensorData } from '../../blockly/transformers/sensor-data.transformer';
 import { BluetoothSensor } from '../../blockly/state/sensors.state';
 import { BluetoothState } from '../state/arduino-components.state';
 import { ArduinoComponentType } from '../state/arduino.state';
@@ -13,21 +12,16 @@ export const bluetoothSetup: StateGenerator = (
   timeline,
   previousState
 ) => {
-  const sensorData = getSensorData(blocks);
-
-  const bluetoothSensorLoop1 = sensorData.find(
-    // loop should always be 1 because it's a pre setup block
-    // Meaning it's never in the loop or setup
-    (s) => s.blockName === block.blockName && s.loop === 1
-  ) as BluetoothSensor;
+  const btSensorDatum = JSON.parse(block.metaData) as BluetoothSensor[];
+  const btSensor = btSensorDatum.find(d => d.loop === 1);
 
   const bluetoothComponent: BluetoothState = {
     pins: block.pins,
     type: ArduinoComponentType.BLUE_TOOTH,
     rxPin: findFieldValue(block,'RX'),
     txPin: findFieldValue(block,'TX'),
-    hasMessage: bluetoothSensorLoop1.receiving_message,
-    message: bluetoothSensorLoop1.message,
+    hasMessage: btSensor.receiving_message,
+    message: btSensor.message,
     sendMessage: ''
   };
 

@@ -115,10 +115,3 @@ export const convertToSensorData = (block: BlockData): Sensor => {
 
   return blockToSensorData[block.blockName](block);
 };
-
-export const getSensorData = (blocks: BlockData[]): Sensor[] => {
-  return blocks
-    .filter((b) => b.type === BlockType.SENSOR_SETUP)
-    .map((b) => JSON.parse(b.metaData) as Sensor[])
-    .reduce((p, n) => [...p, ...n], []);
-};
