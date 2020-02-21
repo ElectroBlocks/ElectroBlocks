@@ -8,6 +8,7 @@ import { lcdScreenSetup } from './lcd';
 import { neoPixelSetup } from './neopixel';
 import { ledColorSetup } from './led-color';
 import { analogReadSetup } from './analog-read';
+import { buttonSetup } from './button';
 
 export interface StateGenerator {
   (
@@ -26,7 +27,8 @@ const stateList: { [blockName: string]: StateGenerator } = {
   lcd_setup: lcdScreenSetup,
   neo_pixel_setup: neoPixelSetup,
   led_color_setup: ledColorSetup,
-  analog_read_setup: analogReadSetup
+  analog_read_setup: analogReadSetup,
+  button_setup: buttonSetup
 };
 
 export const generateState: StateGenerator = (

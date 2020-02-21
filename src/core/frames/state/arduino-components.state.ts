@@ -1,4 +1,4 @@
-import { ArduinoComponentState, Color } from './arduino.state';
+import { ArduinoComponentState, Color, ArduinoState } from './arduino.state';
 import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 
 export interface ArduinoMessageState extends ArduinoComponentState {
@@ -15,7 +15,7 @@ export interface BluetoothState extends ArduinoComponentState {
   sendMessage: string;
 }
 
-export interface Button {
+export interface ButtonState extends ArduinoComponentState {
   isPressed: boolean;
 }
 

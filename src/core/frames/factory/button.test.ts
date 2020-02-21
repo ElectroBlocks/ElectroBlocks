@@ -7,17 +7,17 @@ import { BlockEvent } from '../../blockly/state/event.data';
 import { transformBlock } from '../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../blockly/transformers/variables.transformer';
-import { eventToFrameFactory } from '../event-to-frame.factory';
-import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../blockly/updater';
-import { ArduinoState, ArduinoComponentType } from '../state/arduino.state';
 import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
-import { PinState, PIN_TYPE, PinPicture } from '../state/arduino-components.state';
+import { ButtonState } from '../state/arduino-components.state';
+import { eventToFrameFactory } from '../event-to-frame.factory';
+import { ArduinoState, ArduinoComponentType } from '../state/arduino.state';
+import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 
-describe('analog pin frame factories', () => {
+describe('button frame factories', () => {
   let workspace: Workspace;
-  let analogReadSetup;
+  let buttonSetup;
 
   afterEach(() => {
     workspace.dispose();
@@ -25,43 +25,38 @@ describe('analog pin frame factories', () => {
 
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
-    analogReadSetup = workspace.newBlock('analog_read_setup') as BlockSvg;
-    analogReadSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_A1, 'PIN');
-    analogReadSetup.setFieldValue('PHOTO_SENSOR', 'TYPE');
-    analogReadSetup.setFieldValue('30', 'power_level');
+    buttonSetup = workspace.newBlock('button_setup') as BlockSvg;
+    buttonSetup.setFieldValue('3', 'PIN');
+    buttonSetup.setFieldValue(true, 'is_pressed');
 
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: analogReadSetup.id
+      blockId: buttonSetup.id
     };
-
     saveSensorSetupBlockData(event).forEach(updater);
   });
 
-  test('should be able generate state for analog read setup block', () => {
+  test('should be able generate state for button setup block', () => {
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: analogReadSetup.id
+      blockId: buttonSetup.id
     };
 
-    const sensor: PinState = {
-      pins: [ARDUINO_UNO_PINS.PIN_A1],
-      pin: ARDUINO_UNO_PINS.PIN_A1,
-      pinType: PIN_TYPE.ANALOG_INPUT,
-      state: 30,
-      pinPicture: PinPicture.PHOTO_SENSOR,
-      type: ArduinoComponentType.PIN
+    const buttonState: ButtonState = {
+      isPressed: true,
+      pins: [ARDUINO_UNO_PINS.PIN_3],
+      type: ArduinoComponentType.BUTTON
     };
 
     const state: ArduinoState = {
-      blockId: analogReadSetup.id,
+      blockId: buttonSetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
-      explanation: 'Setting up photo sensor.',
-      components: [sensor],
+      explanation: 'button 3 is being setup.',
+      components: [buttonState],
       variables: {},
       txLedOn: false,
       rxLedOn: false,
