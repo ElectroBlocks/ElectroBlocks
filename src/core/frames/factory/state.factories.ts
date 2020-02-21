@@ -11,6 +11,7 @@ import { setupReadPin } from './pin';
 import { buttonSetup } from './button';
 import { irRemoteSetup } from './ir_remote';
 import { ultraSonicSensor } from './ultra_sonic_sensor';
+import { tempSetupSensor } from './temp_setup';
 
 export interface StateGenerator {
   (
@@ -33,7 +34,8 @@ const stateList: { [blockName: string]: StateGenerator } = {
   digital_read_setup: setupReadPin,
   button_setup: buttonSetup,
   ir_remote_setup: irRemoteSetup,
-  ultra_sonic_sensor_setup: ultraSonicSensor
+  ultra_sonic_sensor_setup: ultraSonicSensor,
+  temp_setup: tempSetupSensor
 };
 
 export const generateState: StateGenerator = (
