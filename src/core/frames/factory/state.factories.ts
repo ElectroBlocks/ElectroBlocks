@@ -10,6 +10,7 @@ import { ledColorSetup } from './led-color';
 import { setupReadPin } from './pin';
 import { buttonSetup } from './button';
 import { irRemoteSetup } from './ir_remote';
+import { ultraSonicSensor } from './ultra_sonic_sensor';
 
 export interface StateGenerator {
   (
@@ -31,7 +32,8 @@ const stateList: { [blockName: string]: StateGenerator } = {
   analog_read_setup: setupReadPin,
   digital_read_setup: setupReadPin,
   button_setup: buttonSetup,
-  ir_remote_setup: irRemoteSetup
+  ir_remote_setup: irRemoteSetup,
+  ultra_sonic_sensor_setup: ultraSonicSensor
 };
 
 export const generateState: StateGenerator = (
