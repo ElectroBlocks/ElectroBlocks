@@ -1,17 +1,18 @@
-import { StateGenerator } from './state.factories';
-import { findFieldValue } from '../../blockly/helpers/block-data.helper';
+import { StateGenerator } from '../state.factories';
+import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import {
   PinState,
   PIN_TYPE,
   pinPictureToWork as pinPictureToWord
-} from '../state/arduino-components.state';
-import { ArduinoComponentType } from '../state/arduino.state';
-import { PinSensor } from '../../blockly/state/sensors.state';
-import { createArduinoState } from './factory.helpers';
+} from '../../state/arduino-components.state';
+import { ArduinoComponentType } from '../../state/arduino.state';
+import { PinSensor } from '../../../blockly/state/sensors.state';
+import { arduinoStateByComponent } from './factory.helpers';
 
 export const setupReadPin: StateGenerator = (
   blocks,
   block,
+  variables,
   timeline,
   previousState
 ) => {
@@ -34,7 +35,7 @@ export const setupReadPin: StateGenerator = (
   };
 
   return [
-    createArduinoState(
+    arduinoStateByComponent(
       block.id,
       timeline,
       setupState,

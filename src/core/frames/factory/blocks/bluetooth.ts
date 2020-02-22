@@ -1,14 +1,15 @@
-import { StateGenerator } from './state.factories';
-import { BluetoothSensor } from '../../blockly/state/sensors.state';
-import { BluetoothState } from '../state/arduino-components.state';
-import { ArduinoComponentType } from '../state/arduino.state';
-import { createArduinoState } from './factory.helpers';
-import { findFieldValue } from '../../blockly/helpers/block-data.helper';
+import { StateGenerator } from '../state.factories';
+import { BluetoothSensor } from '../../../blockly/state/sensors.state';
+import { BluetoothState } from '../../state/arduino-components.state';
+import { ArduinoComponentType } from '../../state/arduino.state';
+import { arduinoStateByComponent } from './factory.helpers';
+import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 
 
 export const bluetoothSetup: StateGenerator = (
   blocks,
   block,
+  variables,
   timeline,
   previousState
 ) => {
@@ -26,7 +27,7 @@ export const bluetoothSetup: StateGenerator = (
   };
 
   return [
-    createArduinoState(
+    arduinoStateByComponent(
       block.id,
       timeline,
       bluetoothComponent,

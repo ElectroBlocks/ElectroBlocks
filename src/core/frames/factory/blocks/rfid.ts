@@ -1,13 +1,14 @@
-import { StateGenerator } from './state.factories';
-import { ArduinoComponentType } from '../state/arduino.state';
-import { RfidState } from '../state/arduino-components.state';
-import { RFIDSensor } from '../../blockly/state/sensors.state';
-import { createArduinoState } from './factory.helpers';
-import { findFieldValue } from '../../blockly/helpers/block-data.helper';
+import { StateGenerator } from '../state.factories';
+import { ArduinoComponentType } from '../../state/arduino.state';
+import { RfidState } from '../../state/arduino-components.state';
+import { RFIDSensor } from '../../../blockly/state/sensors.state';
+import { arduinoStateByComponent } from './factory.helpers';
+import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 
 export const rfidSetup: StateGenerator = (
   blocks,
   block,
+  variables,
   timeline,
   previousState
 ) => {
@@ -26,7 +27,7 @@ export const rfidSetup: StateGenerator = (
   };
 
   return [
-    createArduinoState(
+    arduinoStateByComponent(
       block.id,
       timeline,
       rfidComponent,

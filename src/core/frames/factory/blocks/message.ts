@@ -1,12 +1,13 @@
-import { StateGenerator } from './state.factories';
-import { ArduinoMessageState } from '../state/arduino-components.state';
-import { BluetoothSensor } from '../../blockly/state/sensors.state';
-import { createArduinoState } from './factory.helpers';
-import { ArduinoComponentType } from '../state/arduino.state';
+import { StateGenerator } from '../state.factories';
+import { ArduinoMessageState } from '../../state/arduino-components.state';
+import { BluetoothSensor } from '../../../blockly/state/sensors.state';
+import { arduinoStateByComponent } from './factory.helpers';
+import { ArduinoComponentType } from '../../state/arduino.state';
 
 export const messageSetup: StateGenerator = (
   blocks,
   block,
+  variables,
   timeline,
   previousState
 ) => {
@@ -23,7 +24,7 @@ export const messageSetup: StateGenerator = (
   };
 
   return [
-    createArduinoState(
+    arduinoStateByComponent(
       block.id,
       timeline,
       messageComponent,

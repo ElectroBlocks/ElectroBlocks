@@ -1,13 +1,14 @@
-import { StateGenerator } from './state.factories';
-import { IRRemoteState } from '../state/arduino-components.state';
-import { IRRemoteSensor } from '../../blockly/state/sensors.state';
-import { ArduinoComponentType } from '../state/arduino.state';
-import { findFieldValue } from '../../blockly/helpers/block-data.helper';
-import { createArduinoState } from './factory.helpers';
+import { StateGenerator } from '../state.factories';
+import { IRRemoteState } from '../../state/arduino-components.state';
+import { IRRemoteSensor } from '../../../blockly/state/sensors.state';
+import { ArduinoComponentType } from '../../state/arduino.state';
+import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
+import { arduinoStateByComponent } from './factory.helpers';
 
 export const irRemoteSetup: StateGenerator = (
   blocks,
   block,
+  variables,
   timeline,
   previousState
 ) => {
@@ -26,6 +27,6 @@ export const irRemoteSetup: StateGenerator = (
   };
 
   return [
-    createArduinoState(block.id, timeline, irRemoteState, 'Setting up ir remote.')
+    arduinoStateByComponent(block.id, timeline, irRemoteState, 'Setting up ir remote.')
   ]
 };

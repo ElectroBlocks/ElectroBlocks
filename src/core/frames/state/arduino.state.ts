@@ -1,4 +1,5 @@
 import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
+import { VariableTypes } from '../../blockly/state/variable.data';
 
 export interface ArduinoState {
   blockId: string;
@@ -14,6 +15,7 @@ export interface ArduinoState {
 }
 
 export interface Variable {
+  id: string;
   name: string;
   value:
     | number
@@ -24,15 +26,7 @@ export interface Variable {
     | string[]
     | boolean[]
     | Color[];
-  type:
-    | 'color'
-    | 'number'
-    | 'string'
-    | 'boolean'
-    | 'List Number'
-    | 'List String'
-    | 'List Boolean'
-    | 'List Colour';
+  type: VariableTypes;
 }
 
 export interface Color {

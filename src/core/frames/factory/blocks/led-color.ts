@@ -1,12 +1,13 @@
-import { StateGenerator } from './state.factories';
-import { createArduinoState } from './factory.helpers';
-import { LedColorState } from '../state/arduino-components.state';
-import { ArduinoComponentType } from '../state/arduino.state';
-import { findFieldValue } from '../../blockly/helpers/block-data.helper';
+import { StateGenerator } from '../state.factories';
+import { arduinoStateByComponent } from './factory.helpers';
+import { LedColorState } from '../../state/arduino-components.state';
+import { ArduinoComponentType } from '../../state/arduino.state';
+import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 
 export const ledColorSetup: StateGenerator = (
   blocks,
   block,
+  variables,
   timeline,
   previousState
 ) => {
@@ -23,7 +24,7 @@ export const ledColorSetup: StateGenerator = (
   };
 
   return [
-    createArduinoState(
+    arduinoStateByComponent(
       block.id,
       timeline,
       ledColorState,

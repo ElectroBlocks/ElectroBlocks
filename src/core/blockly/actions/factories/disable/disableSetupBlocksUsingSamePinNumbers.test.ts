@@ -1,5 +1,3 @@
-
-
 import 'jest';
 import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
@@ -25,17 +23,15 @@ describe('disableSetupBlocksUsingSamePinNumbers', () => {
     workspace.dispose();
   });
 
-
   test('should disble blocks with NO_PINS in the pin dropdown', () => {
-    
     workspace.newBlock('analog_read_setup');
     workspace.newBlock('analog_read_setup');
     workspace.newBlock('analog_read_setup');
     workspace.newBlock('analog_read_setup');
     workspace.newBlock('analog_read_setup');
-    workspace.newBlock('analog_read_setup'); 
-   const block =  workspace.newBlock('analog_read_setup'); // because there are only 6 analog pins the last block should be disabled
-   console.log(block.getFieldValue('PIN'), 'test pin');
+    workspace.newBlock('analog_read_setup');
+    workspace.newBlock('analog_read_setup'); // because there are only 6 analog pins the last block should be disabled
+
     const event: BlockEvent = {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
@@ -48,5 +44,4 @@ describe('disableSetupBlocksUsingSamePinNumbers', () => {
     expect(actions[0].warningText).toBeDefined();
     expect(actions[0].type).toBe(ActionType.DISABLE_BLOCK);
   });
-
 });

@@ -1,13 +1,14 @@
-import { StateGenerator } from './state.factories';
-import { MotionSensor } from '../../blockly/state/sensors.state';
-import { UltraSonicSensorState } from '../state/arduino-components.state';
-import { findFieldValue } from '../../blockly/helpers/block-data.helper';
-import { ArduinoComponentType } from '../state/arduino.state';
-import { createArduinoState } from './factory.helpers';
+import { StateGenerator } from '../state.factories';
+import { MotionSensor } from '../../../blockly/state/sensors.state';
+import { UltraSonicSensorState } from '../../state/arduino-components.state';
+import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
+import { ArduinoComponentType } from '../../state/arduino.state';
+import { arduinoStateByComponent } from './factory.helpers';
 
 export const ultraSonicSensor: StateGenerator = (
   blocks,
   block,
+  variables,
   timeline,
   previousState
 ) => {
@@ -23,7 +24,7 @@ export const ultraSonicSensor: StateGenerator = (
   };
 
   return [
-    createArduinoState(
+    arduinoStateByComponent(
       block.id,
       timeline,
       ultraSonicState,

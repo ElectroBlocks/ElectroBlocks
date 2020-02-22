@@ -1,18 +1,18 @@
 import 'jest';
-import '../../blockly/blocks';
+import '../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
-import { getAllBlocks } from '../../blockly/helpers/block.helper';
+import { getAllBlocks } from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../blockly/state/event.data';
-import { transformBlock } from '../../blockly/transformers/block.transformer';
-import { getAllVariables } from '../../blockly/helpers/variable.helper';
-import { transformVariable } from '../../blockly/transformers/variables.transformer';
-import { eventToFrameFactory } from '../event-to-frame.factory';
-import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
-import { ArduinoState, ArduinoComponentType } from '../state/arduino.state';
-import { NeoPixelState } from '../state/arduino-components.state';
-import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
-import { BluetoothSensor } from '../../blockly/state/sensors.state';
+import { BlockEvent } from '../../../blockly/state/event.data';
+import { transformBlock } from '../../../blockly/transformers/block.transformer';
+import { getAllVariables } from '../../../blockly/helpers/variable.helper';
+import { transformVariable } from '../../../blockly/transformers/variables.transformer';
+import { eventToFrameFactory } from '../../event-to-frame.factory';
+import { ARDUINO_UNO_PINS } from '../../../../constants/arduino';
+import { ArduinoState, ArduinoComponentType } from '../../state/arduino.state';
+import { NeoPixelState } from '../../state/arduino-components.state';
+import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
+import { BluetoothSensor } from '../../../blockly/state/sensors.state';
 
 describe('neo pixle frame factories', () => {
   let workspace: Workspace;

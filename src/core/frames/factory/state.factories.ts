@@ -1,22 +1,30 @@
 import { BlockData } from '../../blockly/state/block.data';
 import { Timeline, ArduinoState } from '../state/arduino.state';
-import { rfidSetup } from './rfid';
-import { bluetoothSetup } from './bluetooth';
-import { messageSetup } from './message';
-import { timeSetup } from './time';
-import { lcdScreenSetup } from './lcd';
-import { neoPixelSetup } from './neopixel';
-import { ledColorSetup } from './led-color';
-import { setupReadPin } from './pin';
-import { buttonSetup } from './button';
-import { irRemoteSetup } from './ir_remote';
-import { ultraSonicSensor } from './ultra_sonic_sensor';
-import { tempSetupSensor } from './temp_setup';
+import { rfidSetup } from './blocks/rfid';
+import { bluetoothSetup } from './blocks/bluetooth';
+import { messageSetup } from './blocks/message';
+import { timeSetup } from './blocks/time';
+import { lcdScreenSetup } from './blocks/lcd';
+import { neoPixelSetup } from './blocks/neopixel';
+import { ledColorSetup } from './blocks/led-color';
+import { setupReadPin } from './blocks/pin';
+import { buttonSetup } from './blocks/button';
+import { irRemoteSetup } from './blocks/ir_remote';
+import { ultraSonicSensor } from './blocks/ultra_sonic_sensor';
+import { tempSetupSensor } from './blocks/temp_setup';
+import { VariableData } from '../../blockly/state/variable.data';
+import {
+  createListNumberState,
+  createListStringState,
+  createListBoolState,
+  createListColorState
+} from './blocks/list';
 
 export interface StateGenerator {
   (
     blocks: BlockData[],
     block: BlockData,
+    variables: VariableData[],
     timeline: Timeline,
     previousState?: ArduinoState
   ): ArduinoState[];
@@ -35,14 +43,19 @@ const stateList: { [blockName: string]: StateGenerator } = {
   button_setup: buttonSetup,
   ir_remote_setup: irRemoteSetup,
   ultra_sonic_sensor_setup: ultraSonicSensor,
-  temp_setup: tempSetupSensor
+  temp_setup: tempSetupSensor,
+  create_list_number_block: createListNumberState,
+  create_list_string_block: createListStringState,
+  create_list_boolean_block: createListBoolState,
+  create_list_colour_block: createListColorState
 };
 
 export const generateState: StateGenerator = (
   blocks,
   block,
+  variables,
   timeline,
   previousState
 ) => {
-  return stateList[block.blockName](blocks, block, timeline, previousState);
+  return stateList[block.blockName](blocks, block, variables, timeline, previousState);
 };

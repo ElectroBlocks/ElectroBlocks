@@ -1,13 +1,14 @@
-import { NeoPixelState } from '../state/arduino-components.state';
-import { ArduinoComponentType } from '../state/arduino.state';
-import { findFieldValue } from '../../blockly/helpers/block-data.helper';
+import { NeoPixelState } from '../../state/arduino-components.state';
+import { ArduinoComponentType } from '../../state/arduino.state';
+import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import _ from 'lodash';
-import { createArduinoState } from './factory.helpers';
-import { StateGenerator } from './state.factories';
+import { arduinoStateByComponent } from './factory.helpers';
+import { StateGenerator } from '../state.factories';
 
 export const neoPixelSetup: StateGenerator = (
   blocks,
   block,
+  variables,
   timeline,
   previousState
 ) => {
@@ -29,7 +30,7 @@ export const neoPixelSetup: StateGenerator = (
     })
   };
   return [
-    createArduinoState(
+    arduinoStateByComponent(
       block.id,
       timeline,
       ledStripState,
