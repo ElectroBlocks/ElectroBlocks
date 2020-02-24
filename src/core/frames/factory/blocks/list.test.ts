@@ -80,7 +80,6 @@ describe('list  factories', () => {
       4,
       state4.variables
     );
-    expect(_.keys(state4.variables).length).toBe(4);
   });
 
   const createListSetupBlock = (

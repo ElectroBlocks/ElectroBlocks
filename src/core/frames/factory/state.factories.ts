@@ -19,6 +19,7 @@ import {
   createListBoolState,
   createListColorState
 } from './blocks/list';
+import { setVariable } from './blocks/variables';
 
 export interface StateGenerator {
   (
@@ -47,7 +48,11 @@ const stateList: { [blockName: string]: StateGenerator } = {
   create_list_number_block: createListNumberState,
   create_list_string_block: createListStringState,
   create_list_boolean_block: createListBoolState,
-  create_list_colour_block: createListColorState
+  create_list_colour_block: createListColorState,
+  variables_set_number: setVariable,
+  variables_set_string: setVariable,
+  variables_set_boolean: setVariable,
+  variables_set_colour: setVariable
 };
 
 export const generateState: StateGenerator = (
@@ -57,5 +62,16 @@ export const generateState: StateGenerator = (
   timeline,
   previousState
 ) => {
-  return stateList[block.blockName](blocks, block, variables, timeline, previousState);
+  try {
+    return stateList[block.blockName](
+      blocks,
+      block,
+      variables,
+      timeline,
+      previousState
+    );
+  } catch (e) {
+    console.log(block.blockName, 'block name');
+    throw e;
+  }
 };

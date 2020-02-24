@@ -81,7 +81,12 @@ const registerEvents = (workspace: WorkspaceSvg) => {
         (a) => a.type === ActionType.DISABLE_BLOCK
       ) as DisableBlock[]
     );
-
+    const refreshEvent2 = transformEvent(
+      getAllBlocks(),
+      getAllVariables(),
+      blocklyEvent
+    );
+    console.log(refreshEvent2, 'final event loop');
     codeStore.set(getArduinoCode());
   });
 };

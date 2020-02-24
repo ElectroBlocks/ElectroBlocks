@@ -1,9 +1,15 @@
 import { BlockEvent } from '../blockly/state/event.data';
-import { ArduinoState } from './state/arduino.state';
-import { Sensor } from '../blockly/state/sensors.state';
-import { BlockType } from '../blockly/state/block.data';
-import { generateState } from './factory/state.factories';
+import { ArduinoState, Timeline } from './state/arduino.state';
+import { BlockType, BlockData } from '../blockly/state/block.data';
+import { generateState, StateGenerator } from './factory/state.factories';
 import _ from 'lodash';
+import {
+  getLoopTimeFromBlockData,
+  findInputStatementStartBlock,
+  findArduinoLoopBlock
+} from '../blockly/helpers/block-data.helper';
+import { findBlockById } from '../blockly/helpers/block-data.helper';
+import { VariableData } from '../blockly/state/variable.data';
 
 export const eventToFrameFactory = (event: BlockEvent): ArduinoState[] => {
   const { blocks } = event;
@@ -18,12 +24,12 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoState[] => {
     preSetupBlockType.includes(b.type)
   );
 
-  const setupFrames = preSetupBlocks.reduce((prevStates, block) => {
+  const preSetupStates = preSetupBlocks.reduce((prevStates, block) => {
     const previousState =
       prevStates.length === 0
         ? undefined
         : _.cloneDeep(prevStates[prevStates.length - 1]);
-    
+
     return [
       ...prevStates,
       ...generateState(
@@ -36,5 +42,56 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoState[] => {
     ];
   }, []);
 
-  return setupFrames;
+  const arduinoLoopBlock = findArduinoLoopBlock(blocks);
+  const loopTimes = getLoopTimeFromBlockData(blocks);
+
+  return _.range(1, loopTimes + 1).reduce((prevStates, loopTime) => {
+    const previousState =
+      prevStates.length === 0
+        ? undefined
+        : _.cloneDeep(prevStates[prevStates.length - 1]);
+    const timeLine: Timeline = { iteration: loopTime, function: 'loop' };
+    return [
+      ...prevStates,
+      ...generateInputState(
+        arduinoLoopBlock,
+        blocks,
+        event.variables,
+        timeLine,
+        'loop',
+        previousState
+      )
+    ];
+  }, preSetupStates);
+};
+
+const generateInputState = (
+  block: BlockData,
+  blocks: BlockData[],
+  variables: VariableData[],
+  timeline: Timeline,
+  inputName: string,
+  previousState?: ArduinoState
+): ArduinoState[] => {
+  const startingBlock = findInputStatementStartBlock(blocks, block, inputName);
+  if (!startingBlock) {
+    return [];
+  }
+  const arduinoStates = [];
+  let nextBlock = startingBlock;
+  do {
+    const states = generateState(
+      blocks,
+      nextBlock,
+      variables,
+      timeline,
+      previousState
+    );
+    arduinoStates.push(...states);
+    const newPreviousState = states[states.length - 1];
+    previousState = _.cloneDeep(newPreviousState);
+    nextBlock = findBlockById(blocks, nextBlock.nextBlockId);
+  } while (nextBlock !== undefined);
+
+  return arduinoStates;
 };

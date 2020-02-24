@@ -5,10 +5,29 @@ export const findFieldValue = (block: BlockData, fieldName: string) => {
   return field ? field.value : undefined;
 };
 
+export const findArduinoLoopBlock = (blocks: BlockData[]) => {
+  return blocks.find((block) => block.blockName == 'arduino_loop');
+};
+
+export const findBlockById = (blocks: BlockData[], blockId: string) => {
+  return blocks.find((b) => b.id === blockId);
+};
+
+export const findInputStatementStartBlock = (
+  blocks: BlockData[],
+  block: BlockData,
+  inputStatement: string
+) => {
+  const blockId = block.inputStatements.find((i) => i.name == inputStatement)
+    .blockId;
+
+  return findBlockById(blocks, blockId);
+};
+
 export const getLoopTimeFromBlockData = (blocks: BlockData[]): number => {
-  return +blocks
-    .find((block) => block.blockName == 'arduino_loop')
-    .fieldValues.find((field) => field.name === 'LOOP_TIMES').value;
+  return +findArduinoLoopBlock(blocks).fieldValues.find(
+    (field) => field.name === 'LOOP_TIMES'
+  ).value;
 };
 
 export const findRootBlock = (block: BlockData, blocks: BlockData[]) => {

@@ -6,6 +6,7 @@ import {
 } from '../../state/arduino.state';
 
 import _ from 'lodash';
+import { BlockData } from '../../../blockly/state/block.data';
 
 export const arduinoStateByVariable = (
   blockId: string,
@@ -69,4 +70,14 @@ export const arduinoStateByComponent = (
     delay,
     powerLedOn: true
   };
+};
+
+export const getInputBlock = (
+  blocks: BlockData[],
+  block: BlockData,
+  input: string
+) => {
+  const blockId = block.inputBlocks.find((i) => i.name == input).blockId;
+
+  return blocks.find((b) => b.id === blockId);
 };
