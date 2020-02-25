@@ -58,3 +58,45 @@ export const textLength: ValueGenerator = (
     previousState
   ).length;
 };
+
+export const textParse: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const delimiter = findFieldValue(block, 'DELIMITER');
+  let position = +getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'POSITION',
+    1,
+    previousState
+  );
+
+  if (position < 0) {
+    return '';
+  }
+  position = position == 0 ? 1 : position;
+
+  const stringToParse = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'VALUE',
+    '',
+    previousState
+  ) as string;
+
+  if (!stringToParse.includes(delimiter)) {
+    return '';
+  }
+
+  const parts = stringToParse.split(delimiter);
+
+  return parts.length < position ? '' : parts[position - 1];
+};

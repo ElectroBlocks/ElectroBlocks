@@ -17,7 +17,7 @@ import { transformVariable } from '../../../../blockly/transformers/variables.tr
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import _ from 'lodash';
 
-describe('text_join state factories', () => {
+describe('text_length state factories', () => {
   let workspace: Workspace;
   let arduinoBlock: BlockSvg;
 

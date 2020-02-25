@@ -10,7 +10,7 @@ import {
   numberToString
 } from './blocks/value/math';
 import { logicBoolean } from './blocks/value/logic';
-import { text, textJoin, textLength } from './blocks/value/text';
+import { text, textJoin, textLength, textParse } from './blocks/value/text';
 import { VariableData } from '../../blockly/state/variable.data';
 import { colorPicker } from './blocks/state/colors';
 import { findBlockInput } from './factory.helpers';
@@ -50,7 +50,8 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   math_random_int: mathRandom,
   string_to_number: numberToString,
   text_join: textJoin,
-  text_length: textLength
+  text_length: textLength,
+  parse_string_block: textParse
 };
 
 export const getInputValue = (
