@@ -40,3 +40,21 @@ export const textJoin: ValueGenerator = (
     );
   }, '');
 };
+
+export const textLength: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  return getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'VALUE',
+    '',
+    previousState
+  ).length;
+};

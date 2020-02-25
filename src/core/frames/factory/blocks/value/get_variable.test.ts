@@ -29,7 +29,7 @@ describe('math_arithmetic state factories', () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test.only('if the variable we are trying to get does not exist it should use default value', () => {
+  test('if the variable we are trying to get does not exist it should use default value', () => {
     const numberVariableBlock = createSetVariableBlockWithValue(
       workspace,
       'num',
