@@ -6,7 +6,8 @@ import {
   mathArithmetic,
   mathRound,
   mathModulus,
-  mathRandom
+  mathRandom,
+  numberToString
 } from './blocks/math';
 import { logicBoolean } from './blocks/logic';
 import { text } from './blocks/text';
@@ -46,7 +47,8 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   variables_get_colour: getVariable,
   math_modulo: mathModulus,
   math_round: mathRound,
-  math_random_int: mathRandom
+  math_random_int: mathRandom,
+  string_to_number: numberToString
 };
 
 export const getInputValue = (

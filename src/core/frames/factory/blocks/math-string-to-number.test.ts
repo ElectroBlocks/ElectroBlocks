@@ -17,7 +17,7 @@ import { transformVariable } from '../../../blockly/transformers/variables.trans
 import { eventToFrameFactory } from '../../event-to-frame.factory';
 import _ from 'lodash';
 
-describe('math_random_int state factories', () => {
+describe('math_round state factories', () => {
   let workspace: Workspace;
   let arduinoBlock: BlockSvg;
 
@@ -29,27 +29,35 @@ describe('math_random_int state factories', () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test('math_random_int block should be able to generate random numbers', () => {
+  test('should be able to take a variable string and turn it into a number', () => {
     arduinoBlock.setFieldValue('1', 'LOOP_TIMES');
+    const stringVariableBlock = createSetVariableBlockWithValue(
+      workspace,
+      'num_string',
+      VariableTypes.STRING,
+      '3.432'
+    );
+    const getVariableTextBlock = workspace.newBlock('variables_get_string');
+    getVariableTextBlock.setFieldValue(
+      stringVariableBlock.getFieldValue('VAR'),
+      'VAR'
+    );
+
+    const stringToNumberBlock = workspace.newBlock('string_to_number');
+    stringToNumberBlock
+      .getInput('VALUE')
+      .connection.connect(getVariableTextBlock.outputConnection);
     const variableNumTest = workspace.createVariable('num_test', 'Number');
     const setNumberBlock = workspace.newBlock(
       'variables_set_number'
     ) as BlockSvg;
     setNumberBlock.setFieldValue(variableNumTest.getId(), 'VAR');
-
-    const mathRandomBlock = workspace.newBlock('math_random_int');
-    const fromBlock = workspace.newBlock('math_number');
-    fromBlock.setFieldValue('-30', 'NUM');
-    const toBlock = workspace.newBlock('math_number');
-    toBlock.setFieldValue('2', 'NUM');
-    mathRandomBlock
-      .getInput('FROM')
-      .connection.connect(fromBlock.outputConnection);
-    mathRandomBlock.getInput('TO').connection.connect(toBlock.outputConnection);
     setNumberBlock
       .getInput('VALUE')
-      .connection.connect(mathRandomBlock.outputConnection);
+      .connection.connect(stringToNumberBlock.outputConnection);
+
     connectToArduinoBlock(setNumberBlock);
+    connectToArduinoBlock(stringVariableBlock);
 
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
@@ -57,26 +65,24 @@ describe('math_random_int state factories', () => {
       type: Blockly.Events.BLOCK_MOVE,
       blockId: setNumberBlock.id
     };
-    const [state] = eventToFrameFactory(event);
-    expect(state.explanation).toContain(`Variable "num_test" stores `);
-    const value = state.variables['num_test'].value;
-    expect(-30 <= value).toBeTruthy();
-    expect(2 >= value).toBeTruthy();
-    expect(_.keys(state.variables).length).toBe(1);
+    const [state1, state2] = eventToFrameFactory(event);
+    expect(state2.explanation).toContain(`Variable "num_test" stores 3.432.`);
+    expect(state2.variables['num_test'].value).toBe(3.432);
+    expect(_.keys(state1.variables).length).toBe(1);
+    expect(_.keys(state2.variables).length).toBe(2);
   });
 
-  test('math_random_int block should be able to generate random numbers', () => {
-    arduinoBlock.setFieldValue('1', 'LOOP_TIMES');
+  test('should be able to string_to_number if no block is connected', () => {
+    const stringToNumberBlock = workspace.newBlock('string_to_number');
     const variableNumTest = workspace.createVariable('num_test', 'Number');
     const setNumberBlock = workspace.newBlock(
       'variables_set_number'
     ) as BlockSvg;
     setNumberBlock.setFieldValue(variableNumTest.getId(), 'VAR');
-
-    const mathRandomBlock = workspace.newBlock('math_random_int');
     setNumberBlock
       .getInput('VALUE')
-      .connection.connect(mathRandomBlock.outputConnection);
+      .connection.connect(stringToNumberBlock.outputConnection);
+
     connectToArduinoBlock(setNumberBlock);
 
     const event: BlockEvent = {
@@ -86,8 +92,7 @@ describe('math_random_int state factories', () => {
       blockId: setNumberBlock.id
     };
     const [state] = eventToFrameFactory(event);
-    expect(state.explanation).toContain(`Variable "num_test" stores `);
+    expect(state.explanation).toContain(`Variable "num_test" stores 1.`);
     expect(state.variables['num_test'].value).toBe(1);
-    expect(_.keys(state.variables).length).toBe(1);
   });
 });

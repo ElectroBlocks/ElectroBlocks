@@ -146,6 +146,24 @@ export const mathRandom: ValueGenerator = (
   return mathRandomInt(from, to);
 };
 
+export const numberToString: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  return +getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'VALUE',
+    1,
+    previousState
+  );
+};
+
 function mathRandomInt(a: number, b: number) {
   if (a > b) {
     // Swap a and b to ensure a is smaller.
