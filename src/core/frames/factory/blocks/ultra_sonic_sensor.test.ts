@@ -1,7 +1,10 @@
 import 'jest';
 import '../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import { getAllBlocks, getBlockById } from '../../../blockly/helpers/block.helper';
+import {
+  getAllBlocks,
+  getBlockById
+} from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../blockly/state/event.data';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
@@ -15,7 +18,7 @@ import { eventToFrameFactory } from '../../event-to-frame.factory';
 import { ArduinoState, ArduinoComponentType } from '../../state/arduino.state';
 import { ARDUINO_UNO_PINS } from '../../../../constants/arduino';
 
-describe('ultra sonic sensor frame factories', () => {
+describe('ultra sonic sensor state factories', () => {
   let workspace: Workspace;
   let ultraSonicSensor;
 

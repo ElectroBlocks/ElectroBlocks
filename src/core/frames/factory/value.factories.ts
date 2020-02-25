@@ -1,7 +1,7 @@
 import { Timeline, ArduinoState } from '../state/arduino.state';
 import { Color } from '../state/arduino.state';
 import { BlockData } from '../../blockly/state/block.data';
-import { mathNumber, mathArithmetic } from './blocks/math';
+import { mathNumber, mathArithmetic, mathRound } from './blocks/math';
 import { logicBoolean } from './blocks/logic';
 import { text } from './blocks/text';
 import { VariableData } from '../../blockly/state/variable.data';
@@ -39,7 +39,8 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   variables_get_string: getVariable,
   variables_get_boolean: getVariable,
   variables_get_colour: getVariable,
-  math_modulo: mathModulus
+  math_modulo: mathModulus,
+  math_round: mathRound
 };
 
 export const getInputValue = (

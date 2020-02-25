@@ -1,6 +1,9 @@
 import '../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import { getAllBlocks, getBlockById } from '../../../blockly/helpers/block.helper';
+import {
+  getAllBlocks,
+  getBlockById
+} from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../blockly/state/event.data';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
@@ -14,7 +17,7 @@ import { ArduinoState, ArduinoComponentType } from '../../state/arduino.state';
 import { TimeState } from '../../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
 
-describe('time frame factories', () => {
+describe('time state factories', () => {
   let workspace: Workspace;
   let timesetup;
 

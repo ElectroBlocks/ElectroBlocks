@@ -1,7 +1,10 @@
 import 'jest';
 import '../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import { getAllBlocks, getBlockById } from '../../../blockly/helpers/block.helper';
+import {
+  getAllBlocks,
+  getBlockById
+} from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../blockly/state/event.data';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
@@ -12,11 +15,10 @@ import { ARDUINO_UNO_PINS } from '../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../blockly/updater';
 import { ArduinoState, ArduinoComponentType } from '../../state/arduino.state';
-import {  BluetoothState } from '../../state/arduino-components.state';
+import { BluetoothState } from '../../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
 
-
-describe('bluetooth frame factories', () => {
+describe('bluetooth state factories', () => {
   let workspace: Workspace;
   let bluethoothsetupblock;
 
@@ -40,7 +42,6 @@ describe('bluetooth frame factories', () => {
       blockId: bluethoothsetupblock.id
     };
     saveSensorSetupBlockData(event).forEach(updater);
-
   });
 
   test('should be able generate state for bluetooth setup block', () => {

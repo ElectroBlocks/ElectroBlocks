@@ -1,7 +1,10 @@
 import 'jest';
 import '../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import { getAllBlocks, getBlockById } from '../../../blockly/helpers/block.helper';
+import {
+  getAllBlocks,
+  getBlockById
+} from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../blockly/state/event.data';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
@@ -12,12 +15,15 @@ import { ARDUINO_UNO_PINS } from '../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../blockly/updater';
 import { ArduinoState, ArduinoComponentType } from '../../state/arduino.state';
-import { RfidState, BluetoothState, ArduinoMessageState } from '../../state/arduino-components.state';
+import {
+  RfidState,
+  BluetoothState,
+  ArduinoMessageState
+} from '../../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
 import { BluetoothSensor } from '../../../blockly/state/sensors.state';
 
-
-describe('arduino message frame factories', () => {
+describe('arduino message state factories', () => {
   let workspace: Workspace;
   let messageSetup;
 
@@ -39,7 +45,6 @@ describe('arduino message frame factories', () => {
       blockId: messageSetup.id
     };
     saveSensorSetupBlockData(event).forEach(updater);
-
   });
 
   test('should be able generate state for message setup block', () => {

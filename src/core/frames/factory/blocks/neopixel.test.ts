@@ -14,7 +14,7 @@ import { NeoPixelState } from '../../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
 import { BluetoothSensor } from '../../../blockly/state/sensors.state';
 
-describe('neo pixle frame factories', () => {
+describe('neo pixle state factories', () => {
   let workspace: Workspace;
   let neoPixelSetup: BlockSvg;
 

@@ -17,16 +17,15 @@ import { transformVariable } from '../../../blockly/transformers/variables.trans
 import { eventToFrameFactory } from '../../event-to-frame.factory';
 import _ from 'lodash';
 
-describe('math_modulo frame factories', () => {
+describe('math_modulo state factories', () => {
   let workspace: Workspace;
-  let arduinoBlock: BlockSvg;
 
   afterEach(() => {
     workspace.dispose();
   });
 
   beforeEach(() => {
-    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
+    [workspace] = createArduinoAndWorkSpace();
   });
 
   test('math_modulo block should be able to 2 math_number blocks together', () => {

@@ -58,6 +58,36 @@ export const mathArithmetic: ValueGenerator = (
   }
 };
 
+export const mathRound: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const roundNumber = +getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'NUM',
+    1,
+    previousState
+  );
+  const operator = findFieldValue(block, 'OP');
+
+  switch (operator) {
+    case 'ROUND':
+      return Math.round(roundNumber);
+    case 'ROUNDUP':
+      return Math.ceil(roundNumber);
+    case 'ROUNDDOWN':
+      return Math.floor(roundNumber);
+    default:
+      return 1;
+  }
+};
+
 export const mathModulus: ValueGenerator = (
   blocks,
   block,

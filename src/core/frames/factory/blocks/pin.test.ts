@@ -1,7 +1,10 @@
 import 'jest';
 import '../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import { getAllBlocks, getBlockById } from '../../../blockly/helpers/block.helper';
+import {
+  getAllBlocks,
+  getBlockById
+} from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../blockly/state/event.data';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
@@ -19,7 +22,7 @@ import {
   PinPicture
 } from '../../state/arduino-components.state';
 
-describe('analog pin frame factories', () => {
+describe('analog pin state factories', () => {
   let workspace: Workspace;
   let analogReadSetup;
   let digitalReadSetup;
@@ -83,7 +86,7 @@ describe('analog pin frame factories', () => {
         PIN_TYPE.DIGITAL_INPUT,
         'Setting up touch sensor.',
         1
-      ),
+      )
     ]);
   });
 
