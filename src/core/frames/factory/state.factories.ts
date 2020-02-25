@@ -1,25 +1,25 @@
 import { BlockData } from '../../blockly/state/block.data';
 import { Timeline, ArduinoState } from '../state/arduino.state';
-import { rfidSetup } from './blocks/rfid';
-import { bluetoothSetup } from './blocks/bluetooth';
-import { messageSetup } from './blocks/message';
-import { timeSetup } from './blocks/time';
-import { lcdScreenSetup } from './blocks/lcd';
-import { neoPixelSetup } from './blocks/neopixel';
-import { ledColorSetup } from './blocks/led-color';
-import { setupReadPin } from './blocks/pin';
-import { buttonSetup } from './blocks/button';
-import { irRemoteSetup } from './blocks/ir_remote';
-import { ultraSonicSensor } from './blocks/ultra_sonic_sensor';
-import { tempSetupSensor } from './blocks/temp_setup';
+import { rfidSetup } from './blocks/state/rfid';
+import { bluetoothSetup } from './blocks/state/bluetooth';
+import { messageSetup } from './blocks/state/message';
+import { timeSetup } from './blocks/state/time';
+import { lcdScreenSetup } from './blocks/state/lcd';
+import { neoPixelSetup } from './blocks/state/neopixel';
+import { ledColorSetup } from './blocks/state/led-color';
+import { setupReadPin } from './blocks/state/pin';
+import { buttonSetup } from './blocks/state/button';
+import { irRemoteSetup } from './blocks/state/ir_remote';
+import { ultraSonicSensor } from './blocks/state/ultra_sonic_sensor';
+import { tempSetupSensor } from './blocks/state/temp_setup';
 import { VariableData } from '../../blockly/state/variable.data';
 import {
   createListNumberState,
   createListStringState,
   createListBoolState,
   createListColorState
-} from './blocks/list';
-import { setVariable } from './blocks/set_variables';
+} from './blocks/state/list';
+import { setVariable } from './blocks/state/set_variables';
 
 export interface StateGenerator {
   (

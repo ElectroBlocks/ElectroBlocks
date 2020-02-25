@@ -8,14 +8,14 @@ import {
   mathModulus,
   mathRandom,
   numberToString
-} from './blocks/math';
-import { logicBoolean } from './blocks/logic';
-import { text } from './blocks/text';
+} from './blocks/value/math';
+import { logicBoolean } from './blocks/value/logic';
+import { text, textJoin } from './blocks/value/text';
 import { VariableData } from '../../blockly/state/variable.data';
-import { colorPicker } from './blocks/colors';
-import { findBlockInput } from './blocks/factory.helpers';
+import { colorPicker } from './blocks/state/colors';
+import { findBlockInput } from './factory.helpers';
 import _ from 'lodash';
-import { getVariable } from './blocks/get_variables';
+import { getVariable } from './blocks/value/get_variables';
 
 export interface ValueGenerator {
   (
@@ -48,7 +48,8 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   math_modulo: mathModulus,
   math_round: mathRound,
   math_random_int: mathRandom,
-  string_to_number: numberToString
+  string_to_number: numberToString,
+  text_join: textJoin
 };
 
 export const getInputValue = (
@@ -66,7 +67,15 @@ export const getInputValue = (
     return defaultValue;
   }
 
-  return getValue(blocks, inputBlock, variables, timeline, previousState);
+  const value = getValue(
+    blocks,
+    inputBlock,
+    variables,
+    timeline,
+    previousState
+  );
+
+  return value === undefined ? defaultValue : value;
 };
 
 export const getValue: ValueGenerator = (

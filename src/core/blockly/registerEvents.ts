@@ -21,6 +21,7 @@ import { updater } from './updater';
 import { disableSensorReadBlocksWithWrongPins } from './actions/factories/disable/disableSensorReadBlocksWithWrongPins';
 import { disableBlocksThatNeedASetupBlock } from './actions/factories/disable/disableBlocksThatNeedASetupBlock';
 import { ActionType, DisableBlock, EnableBlock } from './actions/actions';
+import { eventToFrameFactory } from '../frames/event-to-frame.factory';
 
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (blocklyEvent) => {
@@ -81,12 +82,12 @@ const registerEvents = (workspace: WorkspaceSvg) => {
         (a) => a.type === ActionType.DISABLE_BLOCK
       ) as DisableBlock[]
     );
-    const refreshEvent2 = transformEvent(
+    const arduinoStateEvent = transformEvent(
       getAllBlocks(),
       getAllVariables(),
       blocklyEvent
     );
-    console.log(refreshEvent2, 'final event loop');
+    console.log(eventToFrameFactory(arduinoStateEvent), 'arduino state event');
     codeStore.set(getArduinoCode());
   });
 };
