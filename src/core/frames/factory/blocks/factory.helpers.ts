@@ -7,6 +7,7 @@ import {
 
 import _ from 'lodash';
 import { BlockData } from '../../../blockly/state/block.data';
+import { findBlockById } from '../../../blockly/helpers/block-data.helper';
 
 export const arduinoStateByVariable = (
   blockId: string,
@@ -37,6 +38,19 @@ export const arduinoStateByVariable = (
   };
 };
 
+export const findBlockInput = (
+  blocks: BlockData[],
+  block: BlockData,
+  inputName: string
+) => {
+  const input = block.inputBlocks.find(i => i.name == inputName);
+  if (!input || !input.blockId) {
+    return undefined;
+  }
+
+  return findBlockById(blocks, input.blockId);
+};
+
 export const arduinoStateByComponent = (
   blockId: string,
   timeline: Timeline,
@@ -52,8 +66,7 @@ export const arduinoStateByComponent = (
 
   const components = [
     ...previousComponents.filter(
-      (c) =>
-        c.type !== newComponent.type && _.isEqual(c.pins, newComponent.pins)
+      c => c.type !== newComponent.type && _.isEqual(c.pins, newComponent.pins)
     ),
     newComponent
   ];
@@ -77,7 +90,7 @@ export const getInputBlock = (
   block: BlockData,
   input: string
 ) => {
-  const blockId = block.inputBlocks.find((i) => i.name == input).blockId;
+  const blockId = block.inputBlocks.find(i => i.name == input).blockId;
 
-  return blocks.find((b) => b.id === blockId);
+  return blocks.find(b => b.id === blockId);
 };

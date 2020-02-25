@@ -1,6 +1,6 @@
 import 'jest';
 import '../../../blockly/blocks';
-import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
+import { createArduinoAndWorkSpace, verifyVariable, createSetVariableBlockWithValue } from '../../../../tests/tests.helper';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
 import { VariableTypes } from '../../../blockly/state/variable.data';
 import {
@@ -27,15 +27,49 @@ describe('test variables factories', () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
+  test('a number variable should be able to change', () => {
+    arduinoBlock.setFieldValue('1', 'LOOP_TIMES');
+    const setNumberBlock1 = createSetVariableBlockWithValue(
+      workspace,
+      'num_var',
+      VariableTypes.NUMBER,
+      '30'
+    );
+
+    const setNumberBlock2 = createSetVariableBlockWithValue(
+      workspace,
+      'num_var',
+      VariableTypes.NUMBER,
+      '50'
+    );
+    connectToArduinoBlock(setNumberBlock2);
+    connectToArduinoBlock(setNumberBlock1);
+
+    const event: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: setNumberBlock2.id
+    };
+    const states = eventToFrameFactory(event);
+    expect(states.length).toEqual(2);
+
+    const [state1, state2] = states;
+    expect(state1.variables['num_var'].value).toBe(30);
+    expect(state2.variables['num_var'].value).toBe(50);
+  });
+
   test('all the set variables blocks should work', () => {
     arduinoBlock.setFieldValue('1', 'LOOP_TIMES');
     const setNumberBlock = createSetVariableBlockWithValue(
+      workspace,
       'num_var',
       VariableTypes.NUMBER,
       '30'
     );
     connectToArduinoBlock(setNumberBlock);
     const setStringBlock = createSetVariableBlockWithValue(
+      workspace,
       'string_var',
       VariableTypes.STRING,
       'test'
@@ -43,6 +77,7 @@ describe('test variables factories', () => {
     connectToArduinoBlock(setStringBlock);
 
     const setBooleanBlock = createSetVariableBlockWithValue(
+      workspace,
       'bool_var',
       VariableTypes.BOOLEAN,
       'TRUE'
@@ -50,6 +85,7 @@ describe('test variables factories', () => {
     connectToArduinoBlock(setBooleanBlock);
 
     const setColorBlock = createSetVariableBlockWithValue(
+      workspace,
       'color_var',
       VariableTypes.COLOUR,
       '#FF0000'
@@ -66,7 +102,7 @@ describe('test variables factories', () => {
     expect(states.length).toEqual(4);
 
     const [state1, state2, state3, state4] = states;
-    const actualExplanation = states.map((s) => s.explanation).sort();
+    const actualExplanation = states.map(s => s.explanation).sort();
     const expectedExplanations = [
       'Variable "num_var" stores 30.',
       'Variable "string_var" stores "test".',
@@ -95,67 +131,4 @@ describe('test variables factories', () => {
     );
   });
 
-  const verifyVariable = (
-    variableName: string,
-    type: VariableTypes,
-    value: any,
-    variables: { [key: string]: Variable }
-  ) => {
-    const variable = variables[variableName];
-    expect(variable).toBeDefined();
-    expect(variable.id).toBeDefined();
-    expect(variable.value).toEqual(value);
-    expect(variable.type).toBe(type);
-  };
-
-  const createSetVariableBlockWithValue = (
-    name: string,
-    type: VariableTypes,
-    value: string
-  ) => {
-    const variableModel = workspace.createVariable(name, type);
-    const block = createSetVariableBlock(type, value);
-    block.setFieldValue(variableModel.getId(), 'VAR');
-
-    return block;
-  };
-
-  const createSetVariableBlock = (
-    type: VariableTypes,
-    value: any
-  ): BlockSvg => {
-    if (type === VariableTypes.NUMBER) {
-      const block = workspace.newBlock('variables_set_number');
-      const valueBlock = workspace.newBlock('math_number');
-      valueBlock.setFieldValue(value, 'NUM');
-      block.getInput('VALUE').connection.connect(valueBlock.outputConnection);
-      return block as BlockSvg;
-    }
-    if (type === VariableTypes.BOOLEAN) {
-      const block = workspace.newBlock('variables_set_boolean');
-      const valueBlock = workspace.newBlock('logic_boolean');
-      valueBlock.setFieldValue(value, 'BOOL');
-      block.getInput('VALUE').connection.connect(valueBlock.outputConnection);
-
-      return block as BlockSvg;
-    }
-
-    if (type === VariableTypes.STRING) {
-      const block = workspace.newBlock('variables_set_string');
-      const valueBlock = workspace.newBlock('text');
-      valueBlock.setFieldValue(value, 'TEXT');
-      block.getInput('VALUE').connection.connect(valueBlock.outputConnection);
-
-      return block as BlockSvg;
-    }
-
-    if (type === VariableTypes.COLOUR) {
-      const block = workspace.newBlock('variables_set_colour');
-      const valueBlock = workspace.newBlock('colour_picker');
-      valueBlock.setFieldValue(value, 'COLOUR');
-      block.getInput('VALUE').connection.connect(valueBlock.outputConnection);
-
-      return block as BlockSvg;
-    }
-  };
 });

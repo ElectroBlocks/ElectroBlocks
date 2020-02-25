@@ -1,12 +1,24 @@
 import { StateGenerator } from '../state.factories';
 import { Variable, Color } from '../../state/arduino.state';
-import {
-  VariableTypes,
-  VariableData
-} from '../../../blockly/state/variable.data';
-import { getInputBlock, arduinoStateByVariable } from './factory.helpers';
-import { getValue } from '../value.factories';
+import { VariableTypes } from '../../../blockly/state/variable.data';
+import { arduinoStateByVariable } from './factory.helpers';
+import { getInputValue } from '../value.factories';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
+
+const getDefaultValue = (type: VariableTypes) => {
+  switch (type) {
+    case VariableTypes.COLOUR:
+      return { red: 0, green: 0, blue: 0 };
+    case VariableTypes.STRING:
+      return '';
+    case VariableTypes.BOOLEAN:
+      return true;
+    case VariableTypes.NUMBER:
+      return 1;
+    default:
+      return undefined;
+  }
+};
 
 export const setVariable: StateGenerator = (
   blocks,
@@ -15,14 +27,19 @@ export const setVariable: StateGenerator = (
   timeline,
   previousState
 ) => {
-  const inputBlock = getInputBlock(blocks, block, 'VALUE');
-  const value = inputBlock
-    ? getValue(blocks, inputBlock, variables, timeline, previousState)
-    : 1;
-
   const variableId = findFieldValue(block, 'VAR');
-  const variable = variables.find((v) => v.id === variableId);
+  const variable = variables.find(v => v.id === variableId);
+  const defaultValue = getDefaultValue(variable.type);
 
+  const value = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'VALUE',
+    defaultValue,
+    previousState
+  );
   const newVariable: Variable = {
     type: variable.type,
     value,
@@ -40,6 +57,8 @@ export const setVariable: StateGenerator = (
     )
   ];
 };
+
+
 
 const createExplanation = (variable: Variable) => {
   if (variable.type === VariableTypes.COLOUR) {

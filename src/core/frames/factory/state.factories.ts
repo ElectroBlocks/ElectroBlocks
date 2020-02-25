@@ -19,7 +19,7 @@ import {
   createListBoolState,
   createListColorState
 } from './blocks/list';
-import { setVariable } from './blocks/variables';
+import { setVariable } from './blocks/set_variables';
 
 export interface StateGenerator {
   (

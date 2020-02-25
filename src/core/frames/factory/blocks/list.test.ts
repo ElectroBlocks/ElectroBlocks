@@ -23,7 +23,7 @@ describe('list  factories', () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test.only('should be able generate state for list create block', () => {
+  test('should be able generate state for list create block', () => {
     const numListBlock = createListSetupBlock(
       'nums',
       VariableTypes.LIST_NUMBER,
