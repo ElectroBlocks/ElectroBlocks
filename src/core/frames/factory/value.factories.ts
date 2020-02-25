@@ -1,7 +1,13 @@
 import { Timeline, ArduinoState } from '../state/arduino.state';
 import { Color } from '../state/arduino.state';
 import { BlockData } from '../../blockly/state/block.data';
-import { mathNumber, mathArithmetic, mathRound } from './blocks/math';
+import {
+  mathNumber,
+  mathArithmetic,
+  mathRound,
+  mathModulus,
+  mathRandom
+} from './blocks/math';
 import { logicBoolean } from './blocks/logic';
 import { text } from './blocks/text';
 import { VariableData } from '../../blockly/state/variable.data';
@@ -9,7 +15,6 @@ import { colorPicker } from './blocks/colors';
 import { findBlockInput } from './blocks/factory.helpers';
 import _ from 'lodash';
 import { getVariable } from './blocks/get_variables';
-import { mathModulus } from './blocks/math';
 
 export interface ValueGenerator {
   (
@@ -40,7 +45,8 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   variables_get_boolean: getVariable,
   variables_get_colour: getVariable,
   math_modulo: mathModulus,
-  math_round: mathRound
+  math_round: mathRound,
+  math_random_int: mathRandom
 };
 
 export const getInputValue = (

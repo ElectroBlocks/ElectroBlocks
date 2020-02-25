@@ -116,3 +116,42 @@ export const mathModulus: ValueGenerator = (
 
   return dividend % divisor;
 };
+
+export const mathRandom: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const from = +getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'FROM',
+    1,
+    previousState
+  );
+  const to = +getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'TO',
+    1,
+    previousState
+  );
+
+  return mathRandomInt(from, to);
+};
+
+function mathRandomInt(a: number, b: number) {
+  if (a > b) {
+    // Swap a and b to ensure a is smaller.
+    let c = a;
+    a = b;
+    b = c;
+  }
+  return Math.floor(Math.random() * (b - a + 1) + a);
+}
