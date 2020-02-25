@@ -16,9 +16,8 @@ import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from '../../event-to-frame.factory';
 import _ from 'lodash';
-import { getValue } from '../value.factories';
 
-describe('math frame factories', () => {
+describe('math_arithmetic frame factories', () => {
   let workspace: Workspace;
   let arduinoBlock: BlockSvg;
 

@@ -8,6 +8,7 @@ import {
 import _ from 'lodash';
 import { BlockData } from '../../../blockly/state/block.data';
 import { findBlockById } from '../../../blockly/helpers/block-data.helper';
+import { VariableTypes } from '../../../blockly/state/variable.data';
 
 export const arduinoStateByVariable = (
   blockId: string,
@@ -93,4 +94,19 @@ export const getInputBlock = (
   const blockId = block.inputBlocks.find(i => i.name == input).blockId;
 
   return blocks.find(b => b.id === blockId);
+};
+
+export const getDefaultValue = (type: VariableTypes) => {
+  switch (type) {
+    case VariableTypes.COLOUR:
+      return { red: 0, green: 0, blue: 0 };
+    case VariableTypes.STRING:
+      return '';
+    case VariableTypes.BOOLEAN:
+      return true;
+    case VariableTypes.NUMBER:
+      return 1;
+    default:
+      return undefined;
+  }
 };

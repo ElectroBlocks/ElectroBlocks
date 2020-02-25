@@ -57,3 +57,32 @@ export const mathArithmetic: ValueGenerator = (
       return 1;
   }
 };
+
+export const mathModulus: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const dividend = +getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'DIVIDEND',
+    1,
+    previousState
+  );
+  const divisor = +getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'DIVISOR',
+    1,
+    previousState
+  );
+
+  return dividend % divisor;
+};

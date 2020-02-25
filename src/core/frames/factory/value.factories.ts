@@ -9,6 +9,7 @@ import { colorPicker } from './blocks/colors';
 import { findBlockInput } from './blocks/factory.helpers';
 import _ from 'lodash';
 import { getVariable } from './blocks/get_variables';
+import { mathModulus } from './blocks/math';
 
 export interface ValueGenerator {
   (
@@ -37,7 +38,8 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   variables_get_number: getVariable,
   variables_get_string: getVariable,
   variables_get_boolean: getVariable,
-  variables_get_colour: getVariable
+  variables_get_colour: getVariable,
+  math_modulo: mathModulus
 };
 
 export const getInputValue = (
@@ -76,7 +78,7 @@ export const getValue: ValueGenerator = (
   } catch (e) {
     console.trace();
     console.log(block);
-   
+
     console.log(e);
     throw e;
   }

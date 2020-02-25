@@ -1,24 +1,11 @@
 import { StateGenerator } from '../state.factories';
 import { Variable, Color } from '../../state/arduino.state';
 import { VariableTypes } from '../../../blockly/state/variable.data';
-import { arduinoStateByVariable } from './factory.helpers';
+import { arduinoStateByVariable, getDefaultValue } from './factory.helpers';
 import { getInputValue } from '../value.factories';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 
-const getDefaultValue = (type: VariableTypes) => {
-  switch (type) {
-    case VariableTypes.COLOUR:
-      return { red: 0, green: 0, blue: 0 };
-    case VariableTypes.STRING:
-      return '';
-    case VariableTypes.BOOLEAN:
-      return true;
-    case VariableTypes.NUMBER:
-      return 1;
-    default:
-      return undefined;
-  }
-};
+
 
 export const setVariable: StateGenerator = (
   blocks,
