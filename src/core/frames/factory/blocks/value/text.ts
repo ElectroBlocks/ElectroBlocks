@@ -3,6 +3,7 @@ import {
   findFieldValue,
   findBlockById
 } from '../../../../blockly/helpers/block-data.helper';
+import { mathModulus, numberToString } from './math';
 
 export const text: ValueGenerator = (
   blocks,
@@ -99,4 +100,29 @@ export const textParse: ValueGenerator = (
   const parts = stringToParse.split(delimiter);
 
   return parts.length < position ? '' : parts[position - 1];
+};
+
+export const numberToText: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const precision = +findFieldValue(block, 'PRECISION');
+  const numberAttached = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'NUMBER',
+    '',
+    previousState
+  );
+  if (numberAttached === '') {
+    const number = 0;
+    return number.toFixed(precision);
+  }
+
+  return numberAttached.toFixed(precision);
 };
