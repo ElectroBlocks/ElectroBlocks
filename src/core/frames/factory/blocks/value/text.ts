@@ -146,3 +146,34 @@ export const numberToText: ValueGenerator = (
 
   return numberAttached.toFixed(precision);
 };
+
+export const changeCase: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const value = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'TEXT',
+    '',
+    previousState
+  ) as string;
+
+  const type = findFieldValue(block, 'CASE');
+
+  switch (type) {
+    case 'UPPERCASE':
+      return value.toUpperCase();
+    case 'LOWERCASE':
+      return value.toLowerCase();
+    default:
+      return '';
+  }
+
+  return _.isEmpty(value);
+};

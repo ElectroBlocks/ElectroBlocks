@@ -77,3 +77,23 @@ Blockly.defineBlocksWithJsonArray([
     helpUrl: ''
   }
 ]); // END JSON EXTRACT (Do not delete this comment.)
+
+Blockly.Blocks['text_changeCase'] = {
+  /**
+   * Block for changing capitalization.
+   * @this {Blockly.Block}
+   */
+  init: function() {
+    var OPERATORS = [
+      [Blockly.Msg['TEXT_CHANGECASE_OPERATOR_UPPERCASE'], 'UPPERCASE'],
+      [Blockly.Msg['TEXT_CHANGECASE_OPERATOR_LOWERCASE'], 'LOWERCASE']
+    ];
+    this.setHelpUrl(Blockly.Msg['TEXT_CHANGECASE_HELPURL']);
+    this.setStyle('text_blocks');
+    this.appendValueInput('TEXT')
+      .setCheck('String')
+      .appendField(new Blockly.FieldDropdown(OPERATORS), 'CASE');
+    this.setOutput(true, 'String');
+    this.setTooltip(Blockly.Msg['TEXT_CHANGECASE_TOOLTIP']);
+  }
+};

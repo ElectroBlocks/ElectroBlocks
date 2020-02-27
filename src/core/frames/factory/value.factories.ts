@@ -16,6 +16,7 @@ import {
   textLength,
   textParse,
   textIsEmpty,
+  changeCase,
   numberToText
 } from './blocks/value/text';
 import { VariableData } from '../../blockly/state/variable.data';
@@ -60,7 +61,8 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   text_length: textLength,
   parse_string_block: textParse,
   text_isEmpty: textIsEmpty,
-  number_to_string: numberToText
+  number_to_string: numberToText,
+  text_changeCase: changeCase
 };
 
 export const getInputValue = (
