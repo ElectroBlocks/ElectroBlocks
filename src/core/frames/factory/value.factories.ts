@@ -15,7 +15,8 @@ import {
   textJoin,
   textLength,
   textParse,
-  textIsEmpty
+  textIsEmpty,
+  numberToText
 } from './blocks/value/text';
 import { VariableData } from '../../blockly/state/variable.data';
 import { colorPicker } from './blocks/state/colors';
@@ -58,7 +59,8 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   text_join: textJoin,
   text_length: textLength,
   parse_string_block: textParse,
-  text_isEmpty: textIsEmpty
+  text_isEmpty: textIsEmpty,
+  number_to_string: numberToText
 };
 
 export const getInputValue = (

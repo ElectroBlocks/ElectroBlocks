@@ -121,3 +121,28 @@ export const textIsEmpty: ValueGenerator = (
 
   return _.isEmpty(value);
 };
+
+export const numberToText: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const precision = +findFieldValue(block, 'PRECISION');
+  const numberAttached = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'NUMBER',
+    '',
+    previousState
+  );
+  if (numberAttached === '') {
+    const number = 0;
+    return number.toFixed(precision);
+  }
+
+  return numberAttached.toFixed(precision);
+};
