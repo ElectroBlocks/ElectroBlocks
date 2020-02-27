@@ -3,6 +3,7 @@ import {
   findFieldValue,
   findBlockById
 } from '../../../../blockly/helpers/block-data.helper';
+import _ from 'lodash';
 
 export const text: ValueGenerator = (
   blocks,
@@ -99,4 +100,24 @@ export const textParse: ValueGenerator = (
   const parts = stringToParse.split(delimiter);
 
   return parts.length < position ? '' : parts[position - 1];
+};
+
+export const textIsEmpty: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const value = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'VALUE',
+    '',
+    previousState
+  );
+
+  return _.isEmpty(value);
 };
