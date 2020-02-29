@@ -15,6 +15,8 @@ import {
   textJoin,
   textLength,
   textParse,
+  textIsEmpty,
+  changeCase,
   numberToText
 } from './blocks/value/text';
 import { VariableData } from '../../blockly/state/variable.data';
@@ -45,7 +47,6 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   math_number: mathNumber,
   logic_boolean: logicBoolean,
   text,
-  colour_picker: colorPicker,
   math_arithmetic: mathArithmetic,
   variables_get_number: getVariable,
   variables_get_string: getVariable,
@@ -58,7 +59,11 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   text_join: textJoin,
   text_length: textLength,
   parse_string_block: textParse,
+  text_isEmpty: textIsEmpty,
   number_to_string: numberToText,
+  text_changeCase: changeCase,
+
+  colour_picker: colorPicker,
   colour_random: randomColor,
   colour_rgb: rgbColor
 };

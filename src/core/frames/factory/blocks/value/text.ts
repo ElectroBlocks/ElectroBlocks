@@ -3,7 +3,7 @@ import {
   findFieldValue,
   findBlockById
 } from '../../../../blockly/helpers/block-data.helper';
-import { mathModulus, numberToString } from './math';
+import _ from 'lodash';
 
 export const text: ValueGenerator = (
   blocks,
@@ -102,6 +102,26 @@ export const textParse: ValueGenerator = (
   return parts.length < position ? '' : parts[position - 1];
 };
 
+export const textIsEmpty: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const value = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'VALUE',
+    '',
+    previousState
+  );
+
+  return _.isEmpty(value);
+};
+
 export const numberToText: ValueGenerator = (
   blocks,
   block,
@@ -125,4 +145,35 @@ export const numberToText: ValueGenerator = (
   }
 
   return numberAttached.toFixed(precision);
+};
+
+export const changeCase: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const value = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'TEXT',
+    '',
+    previousState
+  ) as string;
+
+  const type = findFieldValue(block, 'CASE');
+
+  switch (type) {
+    case 'UPPERCASE':
+      return value.toUpperCase();
+    case 'LOWERCASE':
+      return value.toLowerCase();
+    default:
+      return '';
+  }
+
+  return _.isEmpty(value);
 };
