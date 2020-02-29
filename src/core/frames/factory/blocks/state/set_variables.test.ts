@@ -1,5 +1,6 @@
 import 'jest';
 import '../../../../blockly/blocks';
+import '../../../../../tests/fake-block';
 import {
   createArduinoAndWorkSpace,
   verifyVariable,
@@ -92,7 +93,7 @@ describe('test variables factories', () => {
       workspace,
       'color_var',
       VariableTypes.COLOUR,
-      '#FF0000'
+      '#AA00AA'
     );
     connectToArduinoBlock(setColorBlock);
 
@@ -111,7 +112,7 @@ describe('test variables factories', () => {
       'Variable "num_var" stores 30.',
       'Variable "string_var" stores "test".',
       'Variable "bool_var" stores true.',
-      'Variable "color_var" stores [red=255,green=0,blue=0].'
+      'Variable "color_var" stores [red=170,green=0,blue=170].'
     ].sort();
     expect(actualExplanation).toEqual(expectedExplanations);
     expect(_.keys(state1.variables).length).toBe(1);
@@ -130,7 +131,7 @@ describe('test variables factories', () => {
     verifyVariable(
       'color_var',
       VariableTypes.COLOUR,
-      { red: 255, green: 0, blue: 0 },
+      { red: 170, green: 0, blue: 170 },
       state4.variables
     );
   });

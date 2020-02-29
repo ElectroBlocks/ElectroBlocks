@@ -1,5 +1,5 @@
 import 'jest';
-import { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
+import  { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
 import * as helpers from '../core/blockly/helpers/workspace.helper';
 import { VariableTypes } from '../core/blockly/state/variable.data';
 import { Variable } from '../core/frames/state/arduino.state';

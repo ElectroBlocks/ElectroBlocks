@@ -18,7 +18,7 @@ import {
   numberToText
 } from './blocks/value/text';
 import { VariableData } from '../../blockly/state/variable.data';
-import { colorPicker } from './blocks/state/colors';
+import { colorPicker, randomColor, rgbColor } from './blocks/value/colors';
 import { findBlockInput } from './factory.helpers';
 import _ from 'lodash';
 import { getVariable } from './blocks/value/get_variables';
@@ -58,7 +58,9 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   text_join: textJoin,
   text_length: textLength,
   parse_string_block: textParse,
-  number_to_string: numberToText
+  number_to_string: numberToText,
+  colour_random: randomColor,
+  colour_rgb: rgbColor
 };
 
 export const getInputValue = (
