@@ -43,7 +43,7 @@ describe('text_isEmpty state factories', () => {
       workspace,
       'test_bool',
       VariableTypes.BOOLEAN,
-      'FALSE'
+      false
     );
     testBoolVariable
       .getInput('VALUE')

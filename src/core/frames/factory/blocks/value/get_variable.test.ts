@@ -34,7 +34,7 @@ describe('math_arithmetic state factories', () => {
       workspace,
       'num',
       VariableTypes.NUMBER,
-      '33'
+      33
     );
 
     const getVariableNumberBlock = workspace.newBlock('variables_get_number');

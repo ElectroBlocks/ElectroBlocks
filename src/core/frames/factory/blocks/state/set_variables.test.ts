@@ -38,14 +38,14 @@ describe('test variables factories', () => {
       workspace,
       'num_var',
       VariableTypes.NUMBER,
-      '30'
+      30
     );
 
     const setNumberBlock2 = createSetVariableBlockWithValue(
       workspace,
       'num_var',
       VariableTypes.NUMBER,
-      '50'
+      50
     );
     connectToArduinoBlock(setNumberBlock2);
     connectToArduinoBlock(setNumberBlock1);
@@ -70,7 +70,7 @@ describe('test variables factories', () => {
       workspace,
       'num_var',
       VariableTypes.NUMBER,
-      '30'
+      30
     );
     connectToArduinoBlock(setNumberBlock);
     const setStringBlock = createSetVariableBlockWithValue(
@@ -85,7 +85,7 @@ describe('test variables factories', () => {
       workspace,
       'bool_var',
       VariableTypes.BOOLEAN,
-      'TRUE'
+      true
     );
     connectToArduinoBlock(setBooleanBlock);
 
@@ -93,7 +93,7 @@ describe('test variables factories', () => {
       workspace,
       'color_var',
       VariableTypes.COLOUR,
-      '#AA00AA'
+      { red: 170, green: 0, blue: 170 }
     );
     connectToArduinoBlock(setColorBlock);
 

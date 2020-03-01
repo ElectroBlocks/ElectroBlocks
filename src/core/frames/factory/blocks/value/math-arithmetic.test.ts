@@ -78,14 +78,14 @@ describe('math_arithmetic state factories', () => {
       workspace,
       'num_varA',
       VariableTypes.NUMBER,
-      '30'
+      30
     );
 
     const setNumberBlockB = createSetVariableBlockWithValue(
       workspace,
       'num_varB',
       VariableTypes.NUMBER,
-      '2'
+      2
     );
     const variableNumTest = workspace.createVariable('num_test', 'Number');
     const setNumberBlock = workspace.newBlock(

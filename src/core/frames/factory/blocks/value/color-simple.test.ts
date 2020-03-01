@@ -37,7 +37,7 @@ describe('simple color state factories', () => {
       workspace,
       'color_test',
       VariableTypes.COLOUR,
-      '#5ce693'
+      { red: 92, green: 230, blue: 147 }
     );
     connectToArduinoBlock(colorPickerVariable);
 

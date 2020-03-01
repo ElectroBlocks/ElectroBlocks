@@ -2,7 +2,8 @@ import {
   ArduinoState,
   Timeline,
   ArduinoComponentState,
-  Variable
+  Variable,
+  Color
 } from '../state/arduino.state';
 
 import _ from 'lodash';
@@ -110,4 +111,35 @@ export const getDefaultValue = (type: VariableTypes) => {
     default:
       return undefined;
   }
+};
+
+export const getDefaultValueList = (type: VariableTypes) => {
+  switch (type) {
+    case VariableTypes.COLOUR:
+      return { red: 0, green: 0, blue: 0 };
+    case VariableTypes.STRING:
+      return '';
+    case VariableTypes.BOOLEAN:
+      return false;
+    case VariableTypes.NUMBER:
+      return 0;
+    default:
+      return undefined;
+  }
+};
+
+export const valueToString = (
+  value: Color | string | boolean | number,
+  type: VariableTypes
+) => {
+  if (type === VariableTypes.COLOUR) {
+    const color = value as Color;
+    return `[red=${color.red},green=${color.green},blue=${color.blue}]`;
+  }
+
+  if (type === VariableTypes.STRING) {
+    return `"${value}"`;
+  }
+
+  return value;
 };

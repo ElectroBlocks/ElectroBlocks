@@ -41,7 +41,7 @@ describe('color rgb state factories', () => {
       workspace,
       'color',
       VariableTypes.NUMBER,
-      '100'
+      100
     );
 
     const getVariableNumberBlock = workspace.newBlock('variables_get_number');
@@ -54,7 +54,7 @@ describe('color rgb state factories', () => {
       workspace,
       'color_test',
       VariableTypes.COLOUR,
-      '#FF0000'
+      { red: 255, green: 0, blue: 0 }
     );
     setColorVariable
       .getInput('VALUE')

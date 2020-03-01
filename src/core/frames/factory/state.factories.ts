@@ -17,7 +17,11 @@ import {
   createListNumberState,
   createListStringState,
   createListBoolState,
-  createListColorState
+  createListColorState,
+  setStringInList,
+  setNumberInList,
+  setColorInList,
+  setBooleanInList
 } from './blocks/state/list';
 import { setVariable } from './blocks/state/set_variables';
 
@@ -49,6 +53,10 @@ const stateList: { [blockName: string]: StateGenerator } = {
   create_list_string_block: createListStringState,
   create_list_boolean_block: createListBoolState,
   create_list_colour_block: createListColorState,
+  set_string_list_block: setStringInList,
+  set_boolean_list_block: setBooleanInList,
+  set_colour_list_block: setColorInList,
+  set_number_list_block: setNumberInList,
   variables_set_number: setVariable,
   variables_set_string: setVariable,
   variables_set_boolean: setVariable,

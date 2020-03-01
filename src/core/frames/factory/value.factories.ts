@@ -82,7 +82,6 @@ export const getInputValue = (
   if (!inputBlock) {
     return defaultValue;
   }
-
   const value = getValue(
     blocks,
     inputBlock,

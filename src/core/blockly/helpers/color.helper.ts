@@ -14,3 +14,17 @@ export const hexToRgb = (hex: string): Color => {
     blue: parseInt(result[3], 16)
   };
 };
+
+export const rgbToHex = (color: Color) => {
+  return (
+    '#' +
+    componentToHex(color.red) +
+    componentToHex(color.green) +
+    componentToHex(color.blue)
+  );
+};
+
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? '0' + hex : hex;
+}

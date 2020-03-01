@@ -35,7 +35,7 @@ describe('math_round state factories', () => {
       workspace,
       'num_string',
       VariableTypes.STRING,
-      '3.432'
+      3.432
     );
     const getVariableTextBlock = workspace.newBlock('variables_get_string');
     getVariableTextBlock.setFieldValue(

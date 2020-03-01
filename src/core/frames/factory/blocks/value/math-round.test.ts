@@ -77,7 +77,7 @@ describe('math_round state factories', () => {
       workspace,
       'num_varB',
       VariableTypes.NUMBER,
-      '3.4'
+      3.4
     );
     const variableNumTest = workspace.createVariable('num_test', 'Number');
     const setNumberBlock = workspace.newBlock(

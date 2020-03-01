@@ -80,6 +80,7 @@ const getInputs = (block: BlockSvg): Input[] => {
     .map((input) => {
       const targetBlock = input.connection.targetBlock();
       const name = input.name;
+
       const blockId = targetBlock ? targetBlock.id : undefined;
       return {
         name,

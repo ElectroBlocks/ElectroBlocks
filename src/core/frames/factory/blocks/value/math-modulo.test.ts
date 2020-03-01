@@ -75,14 +75,14 @@ describe('math_modulo state factories', () => {
       workspace,
       'dividend',
       VariableTypes.NUMBER,
-      '30'
+      30
     );
 
     const divisorBlock = createSetVariableBlockWithValue(
       workspace,
       'divisor',
       VariableTypes.NUMBER,
-      '2'
+      2
     );
 
     const getDividendBlock = workspace.newBlock(

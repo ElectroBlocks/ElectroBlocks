@@ -1,11 +1,7 @@
 import 'jest';
 import '../../../../blockly/blocks';
-import {
-  createArduinoAndWorkSpace,
-  createSetVariableBlockWithValue
-} from '../../../../../tests/tests.helper';
+import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
-import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { BlockEvent } from '../../../../blockly/state/event.data';
 import {
   getAllBlocks,
