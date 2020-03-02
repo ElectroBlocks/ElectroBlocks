@@ -19,8 +19,6 @@ import {
   ArduinoComponentType
 } from '../../../state/arduino.state';
 import {
-  RfidState,
-  BluetoothState,
   ArduinoMessageState
 } from '../../../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';

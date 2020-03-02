@@ -10,6 +10,7 @@ import { ledColorSetup } from './blocks/state/led-color';
 import { setupReadPin } from './blocks/state/pin';
 import { buttonSetup } from './blocks/state/button';
 import { irRemoteSetup } from './blocks/state/ir_remote';
+import { debugBlock } from './blocks/state/debug';
 import { ultraSonicSensor } from './blocks/state/ultra_sonic_sensor';
 import { tempSetupSensor } from './blocks/state/temp_setup';
 import { VariableData } from '../../blockly/state/variable.data';
@@ -60,7 +61,8 @@ const stateList: { [blockName: string]: StateGenerator } = {
   variables_set_number: setVariable,
   variables_set_string: setVariable,
   variables_set_boolean: setVariable,
-  variables_set_colour: setVariable
+  variables_set_colour: setVariable,
+  debug_block: debugBlock
 };
 
 export const generateState: StateGenerator = (

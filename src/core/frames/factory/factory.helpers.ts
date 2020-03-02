@@ -53,6 +53,33 @@ export const findBlockInput = (
   return findBlockById(blocks, input.blockId);
 };
 
+export const arduinoStateByExplanation = (blockId: string,
+  timeline: Timeline,
+  explanation: string,
+  previousState: ArduinoState = undefined,
+  txLedOn = false,
+  rxLedOn = false,
+  delay = 0
+) => {
+
+  const components = previousState ? _.cloneDeep(previousState.components) : [];
+
+  const variables = previousState ? { ...previousState.variables } : {};
+
+  return {
+    blockId,
+    sendMessage: '',
+    timeLine: { ...timeline },
+    variables,
+    txLedOn,
+    rxLedOn,
+    components,
+    explanation,
+    delay,
+    powerLedOn: true
+  };
+}
+
 export const arduinoStateByComponent = (
   blockId: string,
   timeline: Timeline,
