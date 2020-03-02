@@ -5,7 +5,9 @@ import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
   createGetVariable,
-  createValueBlock
+  createValueBlock,
+  createListSetupBlock,
+  createSetListBlock
 } from '../../../../../tests/tests.helper';
 import Blockly, { Workspace, blockAnimations, BlockSvg } from 'blockly';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
@@ -265,62 +267,4 @@ const transformValueToString = (value: any, listType: VariableTypes) => {
   return value;
 };
 
-const createSetListBlock = (
-  workspace: Workspace,
-  variableId: string,
-  type: VariableTypes,
-  positionBlock: BlockSvg,
-  valueBlock: BlockSvg
-) => {
-  const block = workspace.newBlock(getSetVariableBlock(type));
-  block.getInput('VALUE').connection.connect(valueBlock.outputConnection);
-  block.setFieldValue(variableId, 'VAR');
-  block.getInput('POSITION').connection.connect(positionBlock.outputConnection);
 
-  return block as BlockSvg;
-};
-
-const createListSetupBlock = (
-  workspace: Workspace,
-  name: string,
-  type: VariableTypes,
-  size: number
-) => {
-  const variableModel = workspace.createVariable(name, type);
-  const block = createBlock(type, workspace);
-  block.setFieldValue(variableModel.getId(), 'VAR');
-  block.setFieldValue(size.toString(), 'SIZE');
-
-  return block as BlockSvg;
-};
-
-const createBlock = (type: VariableTypes, workspace: Workspace) => {
-  switch (type) {
-    case VariableTypes.LIST_NUMBER:
-      return workspace.newBlock('create_list_number_block');
-    case VariableTypes.LIST_BOOLEAN:
-      return workspace.newBlock('create_list_boolean_block');
-    case VariableTypes.LIST_STRING:
-      return workspace.newBlock('create_list_string_block');
-    case VariableTypes.LIST_COLOUR:
-      return workspace.newBlock('create_list_colour_block');
-    default:
-      throw new Error('un supported list');
-  }
-};
-
-const getSetVariableBlock = (type: VariableTypes) => {
-  switch (type) {
-    case VariableTypes.LIST_NUMBER:
-      return 'set_number_list_block';
-    case VariableTypes.LIST_COLOUR:
-      return 'set_colour_list_block';
-    case VariableTypes.LIST_BOOLEAN:
-      return 'set_boolean_list_block';
-    case VariableTypes.LIST_STRING:
-      return 'set_string_list_block';
-
-    default:
-      return 'set_number_list_block';
-  }
-};

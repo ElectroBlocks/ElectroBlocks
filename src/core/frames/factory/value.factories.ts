@@ -24,6 +24,7 @@ import { colorPicker, randomColor, rgbColor } from './blocks/value/colors';
 import { findBlockInput } from './factory.helpers';
 import _ from 'lodash';
 import { getVariable } from './blocks/value/get_variables';
+import { getItemInList } from './blocks/value/list-get-item';
 
 export interface ValueGenerator {
   (
@@ -46,18 +47,26 @@ export interface ValueGenerator {
 export const valueList: { [blockName: string]: ValueGenerator } = {
   math_number: mathNumber,
   logic_boolean: logicBoolean,
-  text,
   math_arithmetic: mathArithmetic,
+
   variables_get_number: getVariable,
   variables_get_string: getVariable,
   variables_get_boolean: getVariable,
   variables_get_colour: getVariable,
+
+  get_colour_from_list: getItemInList,
+  get_string_from_list: getItemInList,
+  get_number_from_list: getItemInList,
+  get_boolean_from_list: getItemInList,
+
   math_modulo: mathModulus,
   math_round: mathRound,
   math_random_int: mathRandom,
+
   string_to_number: numberToString,
   text_join: textJoin,
   text_length: textLength,
+  text,
   parse_string_block: textParse,
   text_isEmpty: textIsEmpty,
   number_to_string: numberToText,

@@ -14,9 +14,7 @@ import {
 import _ from 'lodash';
 import {
   arduinoStateByVariable,
-  getDefaultValue,
   valueToString,
-  findBlockInput,
   getDefaultValueList
 } from '../../factory.helpers';
 import { getInputValue } from '../../value.factories';

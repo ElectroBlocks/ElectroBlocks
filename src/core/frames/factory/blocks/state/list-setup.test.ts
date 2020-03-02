@@ -1,6 +1,9 @@
 import 'jest';
 import '../../../../blockly/blocks';
-import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
+import {
+  createArduinoAndWorkSpace,
+  createListSetupBlock
+} from '../../../../../tests/tests.helper';
 import Blockly, { Workspace, blockAnimations } from 'blockly';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { getAllBlocks } from '../../../../blockly/helpers/block.helper';
@@ -25,13 +28,14 @@ describe('list  factories', () => {
 
   test('should be able generate state for list create block', () => {
     const numListBlock = createListSetupBlock(
+      workspace,
       'nums',
       VariableTypes.LIST_NUMBER,
       10
     );
-    createListSetupBlock('texts', VariableTypes.LIST_STRING, 8);
-    createListSetupBlock('bools', VariableTypes.LIST_BOOLEAN, 6);
-    createListSetupBlock('colors', VariableTypes.LIST_COLOUR, 4);
+    createListSetupBlock(workspace,'texts', VariableTypes.LIST_STRING, 8);
+    createListSetupBlock(workspace,'bools', VariableTypes.LIST_BOOLEAN, 6);
+    createListSetupBlock(workspace,'colors', VariableTypes.LIST_COLOUR, 4);
 
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
@@ -82,19 +86,6 @@ describe('list  factories', () => {
     );
   });
 
-  const createListSetupBlock = (
-    name: string,
-    type: VariableTypes,
-    size: number
-  ) => {
-    const variableModel = workspace.createVariable(name, type);
-    const block = createBlock(type);
-    block.setFieldValue(variableModel.getId(), 'VAR');
-    block.setFieldValue(size.toString(), 'SIZE');
-
-    return block;
-  };
-
   const verifyListSetupVariable = (
     name: string,
     type: VariableTypes,
@@ -106,20 +97,5 @@ describe('list  factories', () => {
     expect(variable.name).toBe(name);
     expect(variable.id).toBeDefined();
     expect(variable.value).toEqual([..._.range(0, size).map(() => null)]);
-  };
-
-  const createBlock = (type: VariableTypes) => {
-    switch (type) {
-      case VariableTypes.LIST_NUMBER:
-        return workspace.newBlock('create_list_number_block');
-      case VariableTypes.LIST_BOOLEAN:
-        return workspace.newBlock('create_list_boolean_block');
-      case VariableTypes.LIST_STRING:
-        return workspace.newBlock('create_list_string_block');
-      case VariableTypes.LIST_COLOUR:
-        return workspace.newBlock('create_list_colour_block');
-      default:
-        throw new Error('un supported list');
-    }
   };
 });

@@ -134,7 +134,9 @@ export const valueToString = (
 ) => {
   if (type === VariableTypes.COLOUR) {
     const color = value as Color;
-    return `[red=${color.red},green=${color.green},blue=${color.blue}]`;
+    return value
+      ? `[red=${color.red},green=${color.green},blue=${color.blue}]`
+      : '[red=0,green=0,blue=0]';
   }
 
   if (type === VariableTypes.STRING) {
