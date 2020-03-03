@@ -8,8 +8,9 @@ import {
 
 import _ from 'lodash';
 import { BlockData } from '../../blockly/state/block.data';
-import { findBlockById } from '../../blockly/helpers/block-data.helper';
-import { VariableTypes } from '../../blockly/state/variable.data';
+import { findBlockById, findInputStatementStartBlock } from '../../blockly/helpers/block-data.helper';
+import { VariableTypes, VariableData } from '../../blockly/state/variable.data';
+import { generateState } from './state.factories';
 
 export const arduinoStateByVariable = (
   blockId: string,
@@ -171,4 +172,35 @@ export const valueToString = (
   }
 
   return value;
+};
+
+export const generateInputState = (
+  block: BlockData,
+  blocks: BlockData[],
+  variables: VariableData[],
+  timeline: Timeline,
+  inputName: string,
+  previousState?: ArduinoState
+): ArduinoState[] => {
+  const startingBlock = findInputStatementStartBlock(blocks, block, inputName);
+  if (!startingBlock) {
+    return [];
+  }
+  const arduinoStates = [];
+  let nextBlock = startingBlock;
+  do {
+    const states = generateState(
+      blocks,
+      nextBlock,
+      variables,
+      timeline,
+      previousState
+    );
+    arduinoStates.push(...states);
+    const newPreviousState = states[states.length - 1];
+    previousState = _.cloneDeep(newPreviousState);
+    nextBlock = findBlockById(blocks, nextBlock.nextBlockId);
+  } while (nextBlock !== undefined);
+
+  return arduinoStates;
 };

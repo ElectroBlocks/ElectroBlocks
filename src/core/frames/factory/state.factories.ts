@@ -25,6 +25,7 @@ import {
   setBooleanInList
 } from './blocks/state/list';
 import { setVariable } from './blocks/state/set_variables';
+import { ifBlockElse as ifElse } from './blocks/state/logic';
 
 export interface StateGenerator {
   (
@@ -62,7 +63,9 @@ const stateList: { [blockName: string]: StateGenerator } = {
   variables_set_string: setVariable,
   variables_set_boolean: setVariable,
   variables_set_colour: setVariable,
-  debug_block: debugBlock
+  debug_block: debugBlock,
+  control_if: ifElse,
+  controls_ifelse: ifElse
 };
 
 export const generateState: StateGenerator = (

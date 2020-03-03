@@ -1,15 +1,13 @@
 import { BlockEvent } from '../blockly/state/event.data';
 import { ArduinoState, Timeline } from './state/arduino.state';
-import { BlockType, BlockData } from '../blockly/state/block.data';
-import { generateState, StateGenerator } from './factory/state.factories';
+import { BlockType } from '../blockly/state/block.data';
+import { generateState } from './factory/state.factories';
 import _ from 'lodash';
 import {
   getLoopTimeFromBlockData,
-  findInputStatementStartBlock,
   findArduinoLoopBlock
 } from '../blockly/helpers/block-data.helper';
-import { findBlockById } from '../blockly/helpers/block-data.helper';
-import { VariableData } from '../blockly/state/variable.data';
+import { generateInputState } from './factory/factory.helpers';
 
 export const eventToFrameFactory = (event: BlockEvent): ArduinoState[] => {
   const { blocks } = event;
@@ -65,33 +63,3 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoState[] => {
   }, preSetupStates);
 };
 
-const generateInputState = (
-  block: BlockData,
-  blocks: BlockData[],
-  variables: VariableData[],
-  timeline: Timeline,
-  inputName: string,
-  previousState?: ArduinoState
-): ArduinoState[] => {
-  const startingBlock = findInputStatementStartBlock(blocks, block, inputName);
-  if (!startingBlock) {
-    return [];
-  }
-  const arduinoStates = [];
-  let nextBlock = startingBlock;
-  do {
-    const states = generateState(
-      blocks,
-      nextBlock,
-      variables,
-      timeline,
-      previousState
-    );
-    arduinoStates.push(...states);
-    const newPreviousState = states[states.length - 1];
-    previousState = _.cloneDeep(newPreviousState);
-    nextBlock = findBlockById(blocks, nextBlock.nextBlockId);
-  } while (nextBlock !== undefined);
-
-  return arduinoStates;
-};
