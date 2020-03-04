@@ -15,7 +15,6 @@ import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { BlockEvent } from '../../../../blockly/state/event.data';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import { ifBlockElse } from './logic';
 
 describe('factories if block tests', () => {
   let workspace: Workspace;
@@ -58,7 +57,7 @@ describe('factories if block tests', () => {
     expect(state2).toBeDefined();
     expect(state3).toBeDefined();
 
-    ['FALSE', 'delete'].forEach(action => {
+    ['FALSE', 'delete'].forEach((action) => {
       if (action === 'delete') {
         booleanBlock.dispose(true);
       } else {
@@ -107,7 +106,7 @@ describe('factories if block tests', () => {
       'Executing blocks inside "DO" because what is connected is true.'
     );
 
-    ['FALSE', 'delete'].forEach(action => {
+    ['FALSE', 'delete'].forEach((action) => {
       if (action === 'delete') {
         booleanBlock.dispose(true);
       } else {

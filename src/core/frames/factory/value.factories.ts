@@ -9,7 +9,11 @@ import {
   mathRandom,
   numberToString
 } from './blocks/value/math';
-import { logicBoolean, logicCompare } from './blocks/value/logic';
+import {
+  logicBoolean,
+  logicCompare,
+  logicOperation
+} from './blocks/value/logic';
 import {
   text,
   textJoin,
@@ -53,6 +57,7 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
 
   logic_boolean: logicBoolean,
   logic_compare: logicCompare,
+  logic_operation: logicOperation,
 
   variables_get_number: getVariable,
   variables_get_string: getVariable,

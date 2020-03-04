@@ -19,7 +19,7 @@ import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { BlockEvent } from '../../../../blockly/state/event.data';
 
-describe('logic compare blocks', () => {
+describe('logic operators blocks', () => {
   let workspace: Workspace;
 
   afterEach(() => {
@@ -45,41 +45,37 @@ describe('logic compare blocks', () => {
     connectToArduinoBlock(boolTest);
     [
       {
-        A: 'blue',
-        B: 'blue',
-        type: VariableTypes.STRING,
-        OP: 'EQ',
+        A: true,
+        B: true,
+        OP: 'OR',
         expectValue: true
       },
       {
-        A: 'moo',
-        B: 'blue',
-        type: VariableTypes.STRING,
-        OP: 'EQ',
-        expectValue: false
-      },
-      {
-        A: 'blue',
-        B: 'red',
-        type: VariableTypes.STRING,
-        OP: 'NEQ',
+        A: true,
+        B: false,
+        OP: 'OR',
         expectValue: true
       },
       {
-        A: 'blue',
-        B: 'blue',
-        type: VariableTypes.STRING,
-        OP: 'NEQ',
+        A: false,
+        B: false,
+        OP: 'OR',
         expectValue: false
       },
-      { A: 3, B: 4, OP: 'LT', type: VariableTypes.NUMBER, expectValue: true },
-      { A: 3, B: 4, OP: 'LTE', type: VariableTypes.NUMBER, expectValue: true },
-      { A: 4, B: 4, OP: 'LTE', type: VariableTypes.NUMBER, expectValue: true },
-      { A: 4, B: 4, OP: 'GTE', type: VariableTypes.NUMBER, expectValue: true },
-      { A: 4, B: 4, OP: 'GT', type: VariableTypes.NUMBER, expectValue: false },
-      { A: 6, B: 4, OP: 'GT', type: VariableTypes.NUMBER, expectValue: true }
-    ].forEach(({ A, B, OP, type, expectValue }) => {
-      const testBlock = createLogicCompareBlock(workspace, type, A, B, OP);
+      {
+        A: true,
+        B: true,
+        OP: 'AND',
+        expectValue: true
+      },
+      {
+        A: true,
+        B: false,
+        OP: 'AND',
+        expectValue: false
+      }
+    ].forEach(({ A, B, OP, expectValue }) => {
+      const testBlock = createLogicCompareBlock(workspace, A, B, OP);
       boolTest.getInput('VALUE').connection.connect(testBlock.outputConnection);
       const event: BlockEvent = {
         blocks: getAllBlocks().map(transformBlock),
@@ -93,7 +89,9 @@ describe('logic compare blocks', () => {
     });
 
     // If any value are blank it should return false o
-    const logicOperatorBlock = workspace.newBlock('logic_compare') as BlockSvg;
+    const logicOperatorBlock = workspace.newBlock(
+      'logic_operation'
+    ) as BlockSvg;
     boolTest
       .getInput('VALUE')
       .connection.connect(logicOperatorBlock.outputConnection);
@@ -110,14 +108,23 @@ describe('logic compare blocks', () => {
 
   const createLogicCompareBlock = (
     workspace: Workspace,
-    typeCompare: VariableTypes,
-    value1: string | boolean | number,
-    value2: string | boolean | number,
+    value1: boolean,
+    value2: boolean,
     operator: string
   ) => {
-    const value1Block = createValueBlock(workspace, typeCompare, value1);
-    const value2Block = createValueBlock(workspace, typeCompare, value2);
-    const logicOperatorBlock = workspace.newBlock('logic_compare') as BlockSvg;
+    const value1Block = createValueBlock(
+      workspace,
+      VariableTypes.BOOLEAN,
+      value1
+    );
+    const value2Block = createValueBlock(
+      workspace,
+      VariableTypes.BOOLEAN,
+      value2
+    );
+    const logicOperatorBlock = workspace.newBlock(
+      'logic_operation'
+    ) as BlockSvg;
     logicOperatorBlock.setFieldValue(operator, 'OP');
     logicOperatorBlock
       .getInput('A')

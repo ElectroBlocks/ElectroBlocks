@@ -59,3 +59,45 @@ export const logicCompare: ValueGenerator = (
       return false;
   }
 };
+
+export const logicOperation: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const operator = findFieldValue(block, 'OP');
+  const aValue = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'A',
+    undefined,
+    previousState
+  );
+  const bValue = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'B',
+    undefined,
+    previousState
+  );
+
+  if (aValue === undefined || bValue === undefined) {
+    return false;
+  }
+
+  switch (operator) {
+    case 'AND':
+      return aValue && bValue;
+    case 'OR':
+      return aValue || bValue;
+
+    default:
+      return false;
+  }
+};
