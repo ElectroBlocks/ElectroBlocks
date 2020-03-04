@@ -9,7 +9,7 @@ import {
   mathRandom,
   numberToString
 } from './blocks/value/math';
-import { logicBoolean } from './blocks/value/logic';
+import { logicBoolean, logicCompare } from './blocks/value/logic';
 import {
   text,
   textJoin,
@@ -46,8 +46,13 @@ export interface ValueGenerator {
 
 export const valueList: { [blockName: string]: ValueGenerator } = {
   math_number: mathNumber,
-  logic_boolean: logicBoolean,
   math_arithmetic: mathArithmetic,
+  math_modulo: mathModulus,
+  math_round: mathRound,
+  math_random_int: mathRandom,
+
+  logic_boolean: logicBoolean,
+  logic_compare: logicCompare,
 
   variables_get_number: getVariable,
   variables_get_string: getVariable,
@@ -58,10 +63,6 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   get_string_from_list: getItemInList,
   get_number_from_list: getItemInList,
   get_boolean_from_list: getItemInList,
-
-  math_modulo: mathModulus,
-  math_round: mathRound,
-  math_random_int: mathRandom,
 
   string_to_number: numberToString,
   text_join: textJoin,

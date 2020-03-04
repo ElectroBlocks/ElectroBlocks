@@ -5,7 +5,7 @@ import {
   generateInputState
 } from '../../factory.helpers';
 
-export const ifBlockElse: StateGenerator = (
+export const ifElse: StateGenerator = (
   blocks,
   block,
   variables,
@@ -39,7 +39,7 @@ export const ifBlockElse: StateGenerator = (
     ];
   }
 
-  if (block.inputStatements.find(i => i.name === 'ELSE')) {
+  if (block.inputStatements.find((i) => i.name === 'ELSE')) {
     const explanation =
       'Executing blocks inside "ELSE" because what is connected is false.';
     const ifFrame = arduinoStateByExplanation(block.id, timeline, explanation);

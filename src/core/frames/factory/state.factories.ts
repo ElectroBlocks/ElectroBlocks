@@ -25,7 +25,7 @@ import {
   setBooleanInList
 } from './blocks/state/list';
 import { setVariable } from './blocks/state/set_variables';
-import { ifBlockElse as ifElse } from './blocks/state/logic';
+import { ifElse } from './blocks/state/logic';
 
 export interface StateGenerator {
   (
