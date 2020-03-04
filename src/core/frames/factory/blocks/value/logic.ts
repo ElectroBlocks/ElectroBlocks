@@ -101,3 +101,23 @@ export const logicOperation: ValueGenerator = (
       return false;
   }
 };
+
+export const logicNot: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const boolValue = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'BOOL',
+    false,
+    previousState
+  );
+
+  return !boolValue;
+};

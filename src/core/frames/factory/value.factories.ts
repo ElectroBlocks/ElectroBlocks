@@ -12,7 +12,8 @@ import {
 import {
   logicBoolean,
   logicCompare,
-  logicOperation
+  logicOperation,
+  logicNot
 } from './blocks/value/logic';
 import {
   text,
@@ -58,6 +59,7 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   logic_boolean: logicBoolean,
   logic_compare: logicCompare,
   logic_operation: logicOperation,
+  logic_negate: logicNot,
 
   variables_get_number: getVariable,
   variables_get_string: getVariable,
