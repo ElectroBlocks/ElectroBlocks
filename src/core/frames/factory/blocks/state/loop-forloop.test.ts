@@ -15,7 +15,6 @@ import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import { debugBlock } from './debug';
 
 describe('generate states controls_for block', () => {
   let workspace: Workspace;
@@ -32,100 +31,71 @@ describe('generate states controls_for block', () => {
 
   test('should loop -3 to -10 subtracting by 2', () => {
     // -3 -5, -7, -9
-    const info = generateFrameForLoop(workspace, -3, -10, 2);
-    const [
-      state1,
-      state2,
-      state3,
-      state4,
-      state5,
-      state6,
-      state7,
-      state8
-    ] = info.frames;
-
-    expect(state1.explanation).toBe('Running loop 1 out 4 times; i = -3');
-    expect(state1.variables['i'].value).toBe(-3);
-    expect(state3.explanation).toBe('Running loop 2 out 4 times; i = -5');
-    expect(state3.variables['i'].value).toBe(-5);
-    expect(state5.explanation).toBe('Running loop 3 out 4 times; i = -5');
-    expect(state5.variables['i'].value).toBe(-5);
-    expect(state7.explanation).toBe('Running loop 4 out 4 times; i = -5');
-    expect(state7.variables['i'].value).toBe(-5);
-    expect(
-      [state1, state3, state5, state7].reduce((prev, next) => {
-        return prev && next.blockId === info.loopBlock.id;
-      }, true)
-    );
-
-    const debugBlock = info.loopBlock.getInput('DO').connection.targetBlock();
-
-    expect(
-      [state2, state4, state6, state8].reduce((prev, next) => {
-        return prev && debugBlock && next.blockId === debugBlock.id;
-      }, true)
-    );
+    testloop(workspace, -3, -10, 2, [-3, -5, -7, -9]);
   });
 
   test('should loop -3 to 0 substracting by 1', () => {
     // -3, -2, -1, 0
+    testloop(workspace, -3, 0, 1, [-3, -2, -1, 0, 1]);
   });
 
-  test('should loop 1 to 10 by adding by 3', () => {});
+  test('should loop 1 to 10 by adding by 3', () => {
+    // 1, 4, 7, 10
+    testloop(workspace, 1, 10, 3, [1, 4, 7, 10]);
+  });
 
-  test('should loop 1 to 10 by adding by 2', () => {});
+  test('should loop 1 to 10 by adding by 2', () => {
+    testloop(workspace, 1, 10, 2, [1, 3, 5, 7, 9]);
+  });
 
-  test('should be able to handle having nothing inside the loop 1 to 10', () => {});
+  test('should be able to handle having nothing inside the loop 1 to 10', () => {
+    testloop(workspace, 1, 10, 1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  });
 
-  test('should be able to handler nothing in the from, by, and to inputs', () => {});
+  test('should be able to handler nothing in the from, by, and to inputs', () => {
+    testloop(workspace, null, null, null, [1]);
+  });
+
+  test('shoudl be able to handle nothing inside the for loop', () => {
+    testloop(workspace, 1, 10, 1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], true);
+  });
 });
 
 const testloop = (
   workspace: Workspace,
-  from: number,
-  to: number,
-  by: number,
-  expectedNumberOfState: number
+  from: number = null,
+  to: number = null,
+  by: number = null,
+  expectedIValuesInOrder: number[] = [],
+  nothingInLoop = false
 ) => {
-  const info = generateFrameForLoop(workspace, from, to, by);
+  const info = generateFrameForLoop(workspace, from, to, by, nothingInLoop);
   const states = info.frames;
   const debugBlock = info.loopBlock.getInput('DO').connection.targetBlock();
-
-  expect(states.length).toBe(expectedNumberOfState);
+  const expectedNumberOfFrames =
+    debugBlock && !nothingInLoop
+      ? expectedIValuesInOrder.length * 2
+      : expectedIValuesInOrder.length;
+  expect(states.length).toBe(expectedNumberOfFrames);
+  let counter = 0;
   states.forEach((state, index) => {
-    if (index % 2 == 0) {
+    if (index % 2 == 1 && debugBlock && !nothingInLoop) {
+      expect(state.blockId).toBe(debugBlock.id);
+      return;
     }
+    if (index % 2 == 1 && !nothingInLoop) {
+      return;
+    }
+
+    const iValue = expectedIValuesInOrder[counter];
+    expect(state.explanation).toBe(
+      `Running loop ${counter + 1} out ${
+        expectedIValuesInOrder.length
+      } times; i = ${iValue}`
+    );
+    expect(state.variables['i'].value).toBe(iValue);
+    counter += 1;
   });
-  const [
-    state1,
-    state2,
-    state3,
-    state4,
-    state5,
-    state6,
-    state7,
-    state8
-  ] = info.frames;
-
-  expect(state1.explanation).toBe('Running loop 1 out 4 times; i = -3');
-  expect(state1.variables['i'].value).toBe(-3);
-  expect(state3.explanation).toBe('Running loop 2 out 4 times; i = -2');
-  expect(state3.variables['i'].value).toBe(-5);
-  expect(state5.explanation).toBe('Running loop 3 out 4 times; i = -1');
-  expect(state5.variables['i'].value).toBe(-5);
-  expect(state7.explanation).toBe('Running loop 4 out 4 times; i = 0');
-  expect(state7.variables['i'].value).toBe(-5);
-  expect(
-    [state1, state3, state5, state7].reduce((prev, next) => {
-      return prev && next.blockId === info.loopBlock.id;
-    }, true)
-  );
-
-  expect(
-    [state2, state4, state6, state8].reduce((prev, next) => {
-      return prev && debugBlock && next.blockId === debugBlock.id;
-    }, true)
-  );
 };
 
 const generateFrameForLoop = (
