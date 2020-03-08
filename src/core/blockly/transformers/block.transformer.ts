@@ -36,7 +36,11 @@ const getFieldValues = (block: BlockSvg): FieldValue[] => {
   return block.inputList
     .map((input) => {
       return input.fieldRow
-        .filter((field) => field.EDITABLE)
+        .filter(
+          (field) =>
+            field.EDITABLE ||
+            (block.type === 'procedures_callnoreturn' && field.name === 'NAME')
+        )
         .map((field) => {
           return {
             name: field.name,

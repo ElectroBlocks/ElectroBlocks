@@ -87,7 +87,9 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       getAllVariables(),
       blocklyEvent
     );
-    console.log(eventToFrameFactory(arduinoStateEvent), 'arduino state event');
+
+    console.log(arduinoStateEvent, 'arduinoStateEvent');
+    // console.log(eventToFrameFactory(arduinoStateEvent), 'arduino state event');
     codeStore.set(getArduinoCode());
   });
 };

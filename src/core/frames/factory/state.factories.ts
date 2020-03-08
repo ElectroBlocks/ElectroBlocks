@@ -27,6 +27,7 @@ import {
 import { setVariable } from './blocks/state/set_variables';
 import { ifElse } from './blocks/state/logic';
 import { simpleLoop, forLoop } from './blocks/state/loop';
+import { customBlock } from './blocks/state/function';
 
 export interface StateGenerator {
   (
@@ -69,7 +70,8 @@ const stateList: { [blockName: string]: StateGenerator } = {
   controls_ifelse: ifElse,
 
   controls_repeat_ext: simpleLoop,
-  controls_for: forLoop
+  controls_for: forLoop,
+  procedures_callnoreturn: customBlock
 };
 
 export const generateState: StateGenerator = (

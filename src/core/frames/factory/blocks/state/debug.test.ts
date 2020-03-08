@@ -15,7 +15,6 @@ import { eventToFrameFactory } from '../../../event-to-frame.factory';
 describe('factories debug state', () => {
 
     let workspace: Workspace;
-    let arduinoBlock;
 
     afterEach(() => {
         workspace.dispose();
