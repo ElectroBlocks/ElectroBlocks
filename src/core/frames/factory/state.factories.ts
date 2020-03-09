@@ -2,7 +2,7 @@ import { BlockData } from '../../blockly/state/block.data';
 import { Timeline, ArduinoState } from '../state/arduino.state';
 import { rfidSetup } from './blocks/state/rfid';
 import { bluetoothSetup } from './blocks/state/bluetooth';
-import { messageSetup } from './blocks/state/message';
+import { messageSetup, arduinoSendMessage } from './blocks/state/message';
 import { timeSetup } from './blocks/state/time';
 import { lcdScreenSetup } from './blocks/state/lcd';
 import { neoPixelSetup } from './blocks/state/neopixel';
@@ -71,7 +71,9 @@ const stateList: { [blockName: string]: StateGenerator } = {
 
   controls_repeat_ext: simpleLoop,
   controls_for: forLoop,
-  procedures_callnoreturn: customBlock
+  procedures_callnoreturn: customBlock,
+
+  arduino_send_message: arduinoSendMessage
 };
 
 export const generateState: StateGenerator = (
