@@ -30,6 +30,7 @@ import { findBlockInput } from './factory.helpers';
 import _ from 'lodash';
 import { getVariable } from './blocks/value/get_variables';
 import { getItemInList } from './blocks/value/list-get-item';
+import { getArduinoMessage } from './blocks/value/message';
 
 export interface ValueGenerator {
   (
@@ -82,7 +83,9 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
 
   colour_picker: colorPicker,
   colour_random: randomColor,
-  colour_rgb: rgbColor
+  colour_rgb: rgbColor,
+
+  arduino_get_message: getArduinoMessage
 };
 
 export const getInputValue = (
