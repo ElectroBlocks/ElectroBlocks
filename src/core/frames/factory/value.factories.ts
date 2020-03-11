@@ -31,6 +31,7 @@ import _ from 'lodash';
 import { getVariable } from './blocks/value/get_variables';
 import { getItemInList } from './blocks/value/list-get-item';
 import { getArduinoMessage, arduinoHasMessage } from './blocks/value/message';
+import { timeSeconds } from './blocks/value/time_seconds';
 
 export interface ValueGenerator {
   (
@@ -86,7 +87,9 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   colour_rgb: rgbColor,
 
   arduino_get_message: getArduinoMessage,
-  arduino_receive_message: arduinoHasMessage
+  arduino_receive_message: arduinoHasMessage,
+
+  time_seconds: timeSeconds
 };
 
 export const getInputValue = (

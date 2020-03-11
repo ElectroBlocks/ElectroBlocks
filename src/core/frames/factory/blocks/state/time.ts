@@ -11,7 +11,7 @@ export const timeSetup: StateGenerator = (
   timeline,
   previousState
 ) => {
-  const messageComponent: TimeState = {
+  const timeComonent: TimeState = {
     pins: block.pins,
     timeInSeconds: +findFieldValue(block, 'time_in_seconds'),
     type: ArduinoComponentType.TIME
@@ -21,7 +21,7 @@ export const timeSetup: StateGenerator = (
     arduinoStateByComponent(
       block.id,
       timeline,
-      messageComponent,
+      timeComonent,
       'Setting up Arduino time.',
       previousState
     )

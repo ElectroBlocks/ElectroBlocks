@@ -28,6 +28,7 @@ import { setVariable } from './blocks/state/set_variables';
 import { ifElse } from './blocks/state/logic';
 import { simpleLoop, forLoop } from './blocks/state/loop';
 import { customBlock } from './blocks/state/function';
+import { delayBlock } from './blocks/state/delay';
 
 export interface StateGenerator {
   (
@@ -72,6 +73,8 @@ const stateList: { [blockName: string]: StateGenerator } = {
   controls_repeat_ext: simpleLoop,
   controls_for: forLoop,
   procedures_callnoreturn: customBlock,
+
+  delay_block: delayBlock,
 
   arduino_send_message: arduinoSendMessage
 };
