@@ -32,6 +32,7 @@ import { getVariable } from './blocks/value/get_variables';
 import { getItemInList } from './blocks/value/list-get-item';
 import { getArduinoMessage, arduinoHasMessage } from './blocks/value/message';
 import { timeSeconds } from './blocks/value/time_seconds';
+import { hasBtMessage, getBtMessage } from './blocks/value/bluetooth';
 
 export interface ValueGenerator {
   (
@@ -89,7 +90,10 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   arduino_get_message: getArduinoMessage,
   arduino_receive_message: arduinoHasMessage,
 
-  time_seconds: timeSeconds
+  time_seconds: timeSeconds,
+
+  bluetooth_has_message: hasBtMessage,
+  bluetooth_get_message: getBtMessage
 };
 
 export const getInputValue = (

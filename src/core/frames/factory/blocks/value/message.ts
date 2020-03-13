@@ -1,8 +1,6 @@
 import { ValueGenerator } from '../../value.factories';
-import { convertToSensorData } from '../../../../blockly/transformers/sensor-data.transformer';
 import { BluetoothSensor } from '../../../../blockly/state/sensors.state';
-import { BlockData } from '../../../../blockly/state/block.data';
-import { Timeline } from '../../../state/arduino.state';
+import { getSensorForLoop } from '../../factory.helpers';
 
 export const getArduinoMessage: ValueGenerator = (
   blocks,
@@ -11,7 +9,11 @@ export const getArduinoMessage: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  const loopSensorData = getSensorForLoop(blocks, timeline);
+  const loopSensorData = getSensorForLoop<BluetoothSensor>(
+    blocks,
+    timeline,
+    'message_setup'
+  );
 
   return loopSensorData.message;
 };
@@ -23,15 +25,11 @@ export const arduinoHasMessage: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  const loopSensorData = getSensorForLoop(blocks, timeline);
+  const loopSensorData = getSensorForLoop<BluetoothSensor>(
+    blocks,
+    timeline,
+    'message_setup'
+  );
 
   return loopSensorData.receiving_message;
-};
-
-const getSensorForLoop = (blocks: BlockData[], timeline: Timeline) => {
-  const setupBlock = blocks.find((b) => b.blockName === 'message_setup');
-
-  const sensorData = JSON.parse(setupBlock.metaData) as BluetoothSensor[];
-
-  return sensorData.find((s) => s.loop === timeline.iteration);
 };

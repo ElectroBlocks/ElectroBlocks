@@ -8,9 +8,13 @@ import {
 
 import _ from 'lodash';
 import { BlockData } from '../../blockly/state/block.data';
-import { findBlockById, findInputStatementStartBlock } from '../../blockly/helpers/block-data.helper';
+import {
+  findBlockById,
+  findInputStatementStartBlock
+} from '../../blockly/helpers/block-data.helper';
 import { VariableTypes, VariableData } from '../../blockly/state/variable.data';
 import { generateState } from './state.factories';
+import { Sensor } from '../../blockly/state/sensors.state';
 
 export const arduinoStateByVariable = (
   blockId: string,
@@ -54,7 +58,8 @@ export const findBlockInput = (
   return findBlockById(blocks, input.blockId);
 };
 
-export const arduinoStateByExplanation = (blockId: string,
+export const arduinoStateByExplanation = (
+  blockId: string,
   timeline: Timeline,
   explanation: string,
   previousState: ArduinoState = undefined,
@@ -62,7 +67,6 @@ export const arduinoStateByExplanation = (blockId: string,
   rxLedOn = false,
   delay = 0
 ) => {
-
   const components = previousState ? _.cloneDeep(previousState.components) : [];
 
   const variables = previousState ? { ...previousState.variables } : {};
@@ -79,7 +83,7 @@ export const arduinoStateByExplanation = (blockId: string,
     delay,
     powerLedOn: true
   };
-}
+};
 
 export const arduinoStateByComponent = (
   blockId: string,
@@ -203,4 +207,16 @@ export const generateInputState = (
   } while (nextBlock !== undefined);
 
   return arduinoStates;
+};
+
+export const getSensorForLoop = <T extends Sensor>(
+  blocks: BlockData[],
+  timeline: Timeline,
+  setupBlockName: string
+) => {
+  const setupBlock = blocks.find((b) => b.blockName === setupBlockName);
+
+  const sensorData = JSON.parse(setupBlock.metaData) as T[];
+
+  return sensorData.find((s) => s.loop === timeline.iteration);
 };
