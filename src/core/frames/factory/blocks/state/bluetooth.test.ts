@@ -3,7 +3,8 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
-  getBlockById
+  getBlockById,
+  connectToArduinoBlock
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -19,18 +20,23 @@ import {
   ArduinoComponentType
 } from '../../../state/arduino.state';
 import { BluetoothState } from '../../../state/arduino-components.state';
-import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
+import {
+  createArduinoAndWorkSpace,
+  createValueBlock
+} from '../../../../../tests/tests.helper';
+import { VariableTypes } from '../../../../blockly/state/variable.data';
 
 describe('bluetooth state factories', () => {
   let workspace: Workspace;
   let bluethoothsetupblock;
+  let arduinoBlock: BlockSvg;
 
   afterEach(() => {
     workspace.dispose();
   });
 
   beforeEach(() => {
-    [workspace] = createArduinoAndWorkSpace();
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
     bluethoothsetupblock = workspace.newBlock('bluetooth_setup');
     bluethoothsetupblock.setFieldValue(ARDUINO_UNO_PINS.PIN_7, 'RX');
     bluethoothsetupblock.setFieldValue(ARDUINO_UNO_PINS.PIN_6, 'TX');
@@ -79,5 +85,68 @@ describe('bluetooth state factories', () => {
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);
+  });
+
+  test('should be able to send a message via bluetooth block', () => {
+    arduinoBlock.setFieldValue('2', 'LOOP_TIMES');
+
+    const btSendMessageBlock = workspace.newBlock(
+      'bluetooth_send_message'
+    ) as BlockSvg;
+    const textMessage = createValueBlock(
+      workspace,
+      VariableTypes.STRING,
+      'HELLO WORLD'
+    );
+    btSendMessageBlock
+      .getInput('MESSAGE')
+      .connection.connect(textMessage.outputConnection);
+
+    connectToArduinoBlock(btSendMessageBlock);
+
+    const event1: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: bluethoothsetupblock.id
+    };
+
+    const [state1, state2, state3] = eventToFrameFactory(event1);
+
+    expect(state2.explanation).toEqual(
+      'Sending "HELLO WORLD" from bluetooth to computer.'
+    );
+    expect(state2.blockId).toBe(btSendMessageBlock.id);
+    expect(state2.components.length).toBe(1);
+    const btComponentS2 = state2.components.find(
+      c => c.type === ArduinoComponentType.BLUE_TOOTH
+    ) as BluetoothState;
+    expect(btComponentS2.sendMessage).toBe('HELLO WORLD');
+
+    expect(state3.blockId).toBe(btSendMessageBlock.id);
+    expect(state3.components.length).toBe(1);
+    const btComponentS3 = state3.components.find(
+      c => c.type === ArduinoComponentType.BLUE_TOOTH
+    ) as BluetoothState;
+    expect(btComponentS3.sendMessage).toBe('HELLO WORLD');
+
+    btSendMessageBlock
+      .getInput('MESSAGE')
+      .connection.targetBlock()
+      .dispose(true);
+
+    const event2: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: bluethoothsetupblock.id
+    };
+
+    const [state1e2, state2e2] = eventToFrameFactory(event2);
+
+    expect(state2e2.explanation).toEqual(
+      'Sending "" from bluetooth to computer.'
+    );
+    expect(state2e2.blockId).toBe(btSendMessageBlock.id);
   });
 });

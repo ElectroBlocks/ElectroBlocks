@@ -1,7 +1,7 @@
 import { BlockData } from '../../blockly/state/block.data';
 import { Timeline, ArduinoState } from '../state/arduino.state';
 import { rfidSetup } from './blocks/state/rfid';
-import { bluetoothSetup } from './blocks/state/bluetooth';
+import { bluetoothSetup, bluetoothMessage } from './blocks/state/bluetooth';
 import { messageSetup, arduinoSendMessage } from './blocks/state/message';
 import { timeSetup } from './blocks/state/time';
 import { lcdScreenSetup } from './blocks/state/lcd';
@@ -76,7 +76,9 @@ const stateList: { [blockName: string]: StateGenerator } = {
 
   delay_block: delayBlock,
 
-  arduino_send_message: arduinoSendMessage
+  arduino_send_message: arduinoSendMessage,
+
+  bluetooth_send_message: bluetoothMessage
 };
 
 export const generateState: StateGenerator = (
