@@ -8,7 +8,7 @@ export interface ArduinoState {
   components: ArduinoComponentState[];
   variables: { [key: string]: Variable };
   txLedOn: boolean;
-  rxLedOn: boolean
+  rxLedOn: boolean;
   sendMessage: string; // message arduino is sending
   delay: number; // Number of milliseconds to delay
   powerLedOn: boolean;
@@ -65,3 +65,14 @@ export enum ArduinoComponentType {
   ULTRASONICE_SENSOR = 'ULTRASONICE_SENSOR',
   TEMPERATURE_SENSOR = 'TEMPERATURE_SENSOR'
 }
+
+export const SENSOR_COMPONENTS = [
+  ArduinoComponentType.TEMPERATURE_SENSOR,
+  ArduinoComponentType.TIME,
+  ArduinoComponentType.BUTTON,
+  ArduinoComponentType.BLUE_TOOTH,
+  ArduinoComponentType.IR_REMOTE,
+  ArduinoComponentType.RFID,
+  ArduinoComponentType.ULTRASONICE_SENSOR,
+  ArduinoComponentType.MESSAGE,
+];

@@ -10,11 +10,8 @@ export const timeSeconds: ValueGenerator = (
   previousState
 ) => {
   const timeState = previousState.components.find(
-    c => c.type === ArduinoComponentType.TIME
+    (c) => c.type === ArduinoComponentType.TIME
   ) as TimeState;
 
-  return (
-    Math.floor(Math.round(timeline.iteration * timeState.timeInSeconds * 100)) /
-    100
-  );
+  return Math.floor(Math.round(timeState.timeInSeconds * 100)) / 100;
 };

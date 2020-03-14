@@ -3,7 +3,8 @@ import {
   Timeline,
   ArduinoComponentState,
   Variable,
-  Color
+  Color,
+  ArduinoComponentType
 } from '../state/arduino.state';
 
 import _ from 'lodash';
@@ -28,7 +29,6 @@ export const arduinoStateByVariable = (
 ) => {
   const variables = previousState ? _.cloneDeep(previousState.variables) : {};
   variables[newVariable.name] = newVariable;
-
   const components = previousState ? _.cloneDeep(previousState.components) : [];
 
   return {
@@ -219,4 +219,11 @@ export const getSensorForLoop = <T extends Sensor>(
   const sensorData = JSON.parse(setupBlock.metaData) as T[];
 
   return sensorData.find((s) => s.loop === timeline.iteration);
+};
+
+export const findComponent = <T extends ArduinoComponentState>(
+  state: ArduinoState,
+  type: ArduinoComponentType
+) => {
+  return state.components.find((c) => c.type === type) as T;
 };

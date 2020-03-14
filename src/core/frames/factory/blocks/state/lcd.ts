@@ -3,6 +3,8 @@ import { LCDScreenState } from '../../../state/arduino-components.state';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { ArduinoComponentType } from '../../../state/arduino.state';
 import { arduinoStateByComponent } from '../../factory.helpers';
+import _ from 'lodash';
+import { getInputValue } from '../../value.factories';
 
 export const lcdScreenSetup: StateGenerator = (
   blocks,
@@ -32,6 +34,60 @@ export const lcdScreenSetup: StateGenerator = (
       lcdState,
       'Setting up LCD Screen.',
       previousState
+    )
+  ];
+};
+
+export const lcdSimplePrint: StateGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const lcdState = _.cloneDeep(
+    previousState.components.find(
+      (c) => c.type == ArduinoComponentType.LCD_SCREEN
+    )
+  ) as LCDScreenState;
+
+  const rows = _.range(1, 5).map((i) => {
+    return getInputValue(
+      blocks,
+      block,
+      variables,
+      timeline,
+      'ROW_' + i,
+      '',
+      previousState
+    );
+  });
+
+  const delay = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'DELAY',
+    1,
+    previousState
+  );
+
+  const newComponent: LCDScreenState = {
+    ...lcdState,
+    rowsOfText: rows
+  };
+
+  return [
+    arduinoStateByComponent(
+      block.id,
+      timeline,
+      newComponent,
+      `Printing message for ${delay.toFixed(2)} seconds.`,
+      previousState,
+      false,
+      false,
+      delay * 1000
     )
   ];
 };

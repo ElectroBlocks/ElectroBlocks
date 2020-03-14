@@ -66,7 +66,6 @@ describe('get time block factories', () => {
     };
 
     const [state1, state2, state3, state4] = eventToFrameFactory(event);
-
     expect(state2.variables['seconds'].value).toBe(0.3);
     expect(state3.variables['seconds'].value).toBe(0.6);
     expect(state4.variables['seconds'].value).toBe(0.9);
