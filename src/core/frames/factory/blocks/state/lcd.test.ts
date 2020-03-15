@@ -295,17 +295,326 @@ describe('lcd  factories', () => {
     );
   });
 
-  test('test print block an row and column over flow', () => {});
+  test('test print block an row and column over flow gets cut off.', () => {
+    const textBlock = createValueBlock(
+      workspace,
+      VariableTypes.STRING,
+      'THIS IS GOOFY'
+    );
+    const rowNumBlock = createValueBlock(workspace, VariableTypes.NUMBER, 5);
 
-  test('should be able to write over text with the print block', () => {});
+    const colNumBlock = createValueBlock(workspace, VariableTypes.NUMBER, 20);
+    const printBlock = workspace.newBlock('lcd_screen_print') as BlockSvg;
 
-  test('should be able to make the lcd blink and save the state', () => {});
+    printBlock.getInput('PRINT').connection.connect(textBlock.outputConnection);
+    printBlock.getInput('ROW').connection.connect(rowNumBlock.outputConnection);
+    printBlock
+      .getInput('COLUMN')
+      .connection.connect(colNumBlock.outputConnection);
 
-  test('should be able to blink continously through the frames', () => {});
+    connectToArduinoBlock(printBlock);
 
-  test('should be able to clear everything off a screen', () => {});
+    const event: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: lcdsetup.id
+    };
 
-  test('should be able to turn the back light on and off', () => {});
+    const [state1, state2] = eventToFrameFactory(event);
+
+    expect(state2.explanation).toBe(
+      'Printing "THIS IS GOOFY" to the screen at position (20, 4).'
+    );
+    const lcdState = findComponent<LCDScreenState>(
+      state2,
+      ArduinoComponentType.LCD_SCREEN
+    );
+    expect(lcdState.rowsOfText[3]).toBe('                   T');
+  });
+
+  test('should be able to write over text with the print block', () => {
+    const textBlock1 = createValueBlock(
+      workspace,
+      VariableTypes.STRING,
+      'Score: 10'
+    );
+    const rowNumBlock1 = createValueBlock(workspace, VariableTypes.NUMBER, 2);
+
+    const colNumBlock1 = createValueBlock(workspace, VariableTypes.NUMBER, 2);
+    const printBlock1 = workspace.newBlock('lcd_screen_print') as BlockSvg;
+
+    printBlock1
+      .getInput('PRINT')
+      .connection.connect(textBlock1.outputConnection);
+    printBlock1
+      .getInput('ROW')
+      .connection.connect(rowNumBlock1.outputConnection);
+    printBlock1
+      .getInput('COLUMN')
+      .connection.connect(colNumBlock1.outputConnection);
+
+    const textBlock2 = createValueBlock(
+      workspace,
+      VariableTypes.STRING,
+      'Score: 20'
+    );
+    const rowNumBlock2 = createValueBlock(workspace, VariableTypes.NUMBER, 2);
+
+    const colNumBlock2 = createValueBlock(workspace, VariableTypes.NUMBER, 2);
+    const printBlock2 = workspace.newBlock('lcd_screen_print') as BlockSvg;
+
+    printBlock2
+      .getInput('PRINT')
+      .connection.connect(textBlock2.outputConnection);
+    printBlock2
+      .getInput('ROW')
+      .connection.connect(rowNumBlock2.outputConnection);
+    printBlock2
+      .getInput('COLUMN')
+      .connection.connect(colNumBlock2.outputConnection);
+
+    connectToArduinoBlock(printBlock2);
+    connectToArduinoBlock(printBlock1);
+
+    const event: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: lcdsetup.id
+    };
+
+    const [state1, state2, state3] = eventToFrameFactory(event);
+
+    expect(state2.explanation).toBe(
+      'Printing "Score: 10" to the screen at position (2, 2).'
+    );
+    const lcdState1 = findComponent<LCDScreenState>(
+      state2,
+      ArduinoComponentType.LCD_SCREEN
+    );
+
+    expect(lcdState1.rowsOfText[1]).toBe(' Score: 10          ');
+
+    expect(state2.explanation).toBe(
+      'Printing "Score: 10" to the screen at position (2, 2).'
+    );
+    const lcdState2 = findComponent<LCDScreenState>(
+      state3,
+      ArduinoComponentType.LCD_SCREEN
+    );
+
+    expect(lcdState2.rowsOfText[1]).toBe(' Score: 20          ');
+
+    expect(state3.explanation).toBe(
+      'Printing "Score: 20" to the screen at position (2, 2).'
+    );
+  });
+
+  test('should be able to make the lcd blink and save the state', () => {
+    const turnOnBlink = workspace.newBlock('lcd_blink') as BlockSvg;
+    const colBlockBlinkOn = createValueBlock(
+      workspace,
+      VariableTypes.NUMBER,
+      20
+    );
+    const rowBlockBlinkOn = createValueBlock(
+      workspace,
+      VariableTypes.NUMBER,
+      2
+    );
+
+    turnOnBlink.setFieldValue('BLINK', 'BLINK');
+    turnOnBlink
+      .getInput('ROW')
+      .connection.connect(rowBlockBlinkOn.outputConnection);
+    turnOnBlink
+      .getInput('COLUMN')
+      .connection.connect(colBlockBlinkOn.outputConnection);
+
+    const textBlock1 = createValueBlock(
+      workspace,
+      VariableTypes.STRING,
+      'What is your name?'
+    );
+    const rowNumBlock1 = createValueBlock(workspace, VariableTypes.NUMBER, 2);
+
+    const colNumBlock1 = createValueBlock(workspace, VariableTypes.NUMBER, 2);
+    const printBlock1 = workspace.newBlock('lcd_screen_print') as BlockSvg;
+
+    printBlock1
+      .getInput('PRINT')
+      .connection.connect(textBlock1.outputConnection);
+    printBlock1
+      .getInput('ROW')
+      .connection.connect(rowNumBlock1.outputConnection);
+    printBlock1
+      .getInput('COLUMN')
+      .connection.connect(colNumBlock1.outputConnection);
+
+    const colBlockBlinkOff = createValueBlock(
+      workspace,
+      VariableTypes.NUMBER,
+      20
+    );
+    const rowBlockBlinkOff = createValueBlock(
+      workspace,
+      VariableTypes.NUMBER,
+      2
+    );
+
+    const turnoffBlink = workspace.newBlock('lcd_blink');
+
+    turnoffBlink.setFieldValue('OFF', 'BLINK');
+    turnoffBlink
+      .getInput('ROW')
+      .connection.connect(rowBlockBlinkOff.outputConnection);
+    turnoffBlink
+      .getInput('COLUMN')
+      .connection.connect(colBlockBlinkOff.outputConnection);
+
+    connectToArduinoBlock(turnOnBlink);
+    turnOnBlink.nextConnection.connect(printBlock1.previousConnection);
+    printBlock1.nextConnection.connect(turnoffBlink.previousConnection);
+
+    const event: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: lcdsetup.id
+    };
+
+    const [state1, state2, state3, state4] = eventToFrameFactory(event);
+    confirmBlinkAndExplanation(
+      state2,
+      turnOnBlink.id,
+      true,
+      2,
+      20,
+      'Turning on blinking at (20, 2).'
+    );
+
+    confirmBlinkAndExplanation(
+      state3,
+      printBlock1.id,
+      true,
+      2,
+      20,
+      'Printing "What is your name?" to the screen at position (2, 2).'
+    );
+
+    confirmBlinkAndExplanation(
+      state4,
+      turnoffBlink.id,
+      false,
+      0,
+      0,
+      'Turning off blinking.'
+    );
+  });
+
+  test('should be able to clear everything off a screen', () => {
+    const textBlock1 = createValueBlock(
+      workspace,
+      VariableTypes.STRING,
+      'What is your name?'
+    );
+    const rowNumBlock1 = createValueBlock(workspace, VariableTypes.NUMBER, 2);
+
+    const colNumBlock1 = createValueBlock(workspace, VariableTypes.NUMBER, 2);
+    const printBlock1 = workspace.newBlock('lcd_screen_print') as BlockSvg;
+
+    printBlock1
+      .getInput('PRINT')
+      .connection.connect(textBlock1.outputConnection);
+    printBlock1
+      .getInput('ROW')
+      .connection.connect(rowNumBlock1.outputConnection);
+    printBlock1
+      .getInput('COLUMN')
+      .connection.connect(colNumBlock1.outputConnection);
+
+    const clearBlock = workspace.newBlock('lcd_screen_clear');
+
+    printBlock1.nextConnection.connect(clearBlock.previousConnection);
+
+    connectToArduinoBlock(printBlock1);
+
+    const event: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: lcdsetup.id
+    };
+
+    const [state1, state2, state3] = eventToFrameFactory(event);
+    const lcdState2 = findComponent<LCDScreenState>(
+      state2,
+      ArduinoComponentType.LCD_SCREEN
+    );
+
+    expect(lcdState2.rowsOfText[1]).toBe(' What is your name? ');
+
+    const lcdState3 = findComponent<LCDScreenState>(
+      state2,
+      ArduinoComponentType.LCD_SCREEN
+    );
+
+    expect(lcdState3.rowsOfText[0]).toBe('                    ');
+    expect(state3.explanation).toBe('Clearing the screen.');
+  });
+
+  test('should be able to turn the back light on and off', () => {
+    const backLightOn = workspace.newBlock('lcd_backlight') as BlockSvg;
+    const backLightOff = workspace.newBlock('lcd_backlight');
+
+    backLightOn.setFieldValue('ON', 'BACKLIGHT');
+    backLightOff.setFieldValue('OFF', 'BACKLIGHT');
+    connectToArduinoBlock(backLightOn);
+    backLightOn.nextConnection.connect(backLightOff.previousConnection);
+
+    const event: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: lcdsetup.id
+    };
+
+    const [state1, state2, state3] = eventToFrameFactory(event);
+
+    expect(state2.explanation).toBe('Turning on backlight.');
+    const lcdState1 = findComponent<LCDScreenState>(
+      state2,
+      ArduinoComponentType.LCD_SCREEN
+    );
+    expect(lcdState1.backLightOn).toBeTruthy();
+
+    expect(state3.explanation).toBe('Turning off backlight.');
+    const lcdState2 = findComponent<LCDScreenState>(
+      state3,
+      ArduinoComponentType.LCD_SCREEN
+    );
+    expect(lcdState2.backLightOn).toBeFalsy();
+  });
+
+  const confirmBlinkAndExplanation = (
+    actualState: ArduinoState,
+    blockId: string,
+    isBlinking: boolean,
+    blinkRow: number,
+    blinkCol: number,
+    explanationText: string
+  ) => {
+    expect(actualState.blockId).toBe(blockId);
+    expect(actualState.explanation).toBe(explanationText);
+    const lcdState = findComponent<LCDScreenState>(
+      actualState,
+      ArduinoComponentType.LCD_SCREEN
+    );
+    expect(lcdState.blink.blinking).toBe(isBlinking);
+    expect(lcdState.blink.row).toBe(blinkRow);
+    expect(lcdState.blink.column).toBe(blinkCol);
+  };
 
   const confirmScrollMove = (
     actualState: ArduinoState,

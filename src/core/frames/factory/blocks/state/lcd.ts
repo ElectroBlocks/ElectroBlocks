@@ -47,6 +47,74 @@ export const lcdScreenSetup: StateGenerator = (
   ];
 };
 
+export const lcdBlink: StateGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const isBlinking = findFieldValue(block, 'BLINK') === 'BLINK';
+  const lcdState = _.cloneDeep(
+    findComponent<LCDScreenState>(
+      previousState,
+      ArduinoComponentType.LCD_SCREEN
+    )
+  );
+
+  if (!isBlinking) {
+    const newComponent: LCDScreenState = {
+      ...lcdState,
+      blink: { row: 0, column: 0, blinking: false }
+    };
+
+    return [
+      arduinoStateByComponent(
+        block.id,
+        timeline,
+        newComponent,
+        `Turning off blinking.`,
+        previousState
+      )
+    ];
+  }
+
+  const row = getDefaultIndeValue(
+    1,
+    4,
+    getInputValue(blocks, block, variables, timeline, 'ROW', 1, previousState)
+  );
+
+  const column = getDefaultIndeValue(
+    1,
+    20,
+    getInputValue(
+      blocks,
+      block,
+      variables,
+      timeline,
+      'COLUMN',
+      1,
+      previousState
+    )
+  );
+
+  const newComponent: LCDScreenState = {
+    ...lcdState,
+    blink: { row, column, blinking: true }
+  };
+
+  return [
+    arduinoStateByComponent(
+      block.id,
+      timeline,
+      newComponent,
+      `Turning on blinking at (${column}, ${row}).`,
+      previousState
+    )
+  ];
+};
+
 export const lcdScroll: StateGenerator = (
   blocks,
   block,
@@ -102,7 +170,7 @@ export const lcdPrint: StateGenerator = (
 
   const row = getDefaultIndeValue(
     1,
-    20,
+    4,
     getInputValue(blocks, block, variables, timeline, 'ROW', 1, previousState)
   );
 
@@ -136,11 +204,13 @@ export const lcdPrint: StateGenerator = (
     }
 
     const actualColumn = column - 1;
-    _.range(actualColumn, print.length).forEach((textIndex, rangeIndex) => {
-      text = replaceAt(text, textIndex, print[rangeIndex]);
-    });
+    _.range(actualColumn, actualColumn + print.length).forEach(
+      (textIndex, rangeIndex) => {
+        text = replaceAt(text, textIndex, print[rangeIndex]);
+      }
+    );
 
-    return text;
+    return text.substr(0, 20);
   });
 
   const newComponent: LCDScreenState = {
@@ -162,6 +232,74 @@ export const lcdPrint: StateGenerator = (
 function replaceAt(string: string, index: number, replace: string) {
   return string.substring(0, index) + replace + string.substring(index + 1);
 }
+
+export const lcdClear: StateGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const lcdState = _.cloneDeep(
+    previousState.components.find(
+      (c) => c.type == ArduinoComponentType.LCD_SCREEN
+    )
+  ) as LCDScreenState;
+
+  const clearComponent: LCDScreenState = {
+    ..._.cloneDeep(lcdState),
+    rowsOfText: [
+      '                    ',
+      '                    ',
+      '                    ',
+      '                    '
+    ]
+  };
+
+  return [
+    arduinoStateByComponent(
+      block.id,
+      timeline,
+      clearComponent,
+      `Clearing the screen.`,
+      previousState,
+      false,
+      false,
+      0
+    )
+  ];
+};
+
+export const lcdBacklight: StateGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const lcdState = _.cloneDeep(
+    previousState.components.find(
+      (c) => c.type == ArduinoComponentType.LCD_SCREEN
+    )
+  ) as LCDScreenState;
+
+  const backLightOn = findFieldValue(block, 'BACKLIGHT') == 'ON';
+
+  const newComponent: LCDScreenState = {
+    ...lcdState,
+    backLightOn
+  };
+
+  return [
+    arduinoStateByComponent(
+      block.id,
+      timeline,
+      newComponent,
+      `Turning ${backLightOn ? 'on' : 'off'} backlight.`,
+      previousState
+    )
+  ];
+};
 
 export const lcdSimplePrint: StateGenerator = (
   blocks,

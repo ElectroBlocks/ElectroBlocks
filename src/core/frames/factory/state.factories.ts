@@ -8,7 +8,10 @@ import {
   lcdScreenSetup,
   lcdSimplePrint,
   lcdScroll,
-  lcdPrint
+  lcdPrint,
+  lcdBlink,
+  lcdClear,
+  lcdBacklight
 } from './blocks/state/lcd';
 import { neoPixelSetup } from './blocks/state/neopixel';
 import { ledColorSetup } from './blocks/state/led-color';
@@ -87,7 +90,10 @@ const stateList: { [blockName: string]: StateGenerator } = {
 
   lcd_screen_simple_print: lcdSimplePrint,
   lcd_scroll: lcdScroll,
-  lcd_screen_print: lcdPrint
+  lcd_screen_print: lcdPrint,
+  lcd_blink: lcdBlink,
+  lcd_screen_clear: lcdClear,
+  lcd_backlight: lcdBacklight
 };
 
 export const generateState: StateGenerator = (
