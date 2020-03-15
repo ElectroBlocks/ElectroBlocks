@@ -4,7 +4,12 @@ import { rfidSetup } from './blocks/state/rfid';
 import { bluetoothSetup, bluetoothMessage } from './blocks/state/bluetooth';
 import { messageSetup, arduinoSendMessage } from './blocks/state/message';
 import { timeSetup } from './blocks/state/time';
-import { lcdScreenSetup, lcdSimplePrint } from './blocks/state/lcd';
+import {
+  lcdScreenSetup,
+  lcdSimplePrint,
+  lcdScroll,
+  lcdPrint
+} from './blocks/state/lcd';
 import { neoPixelSetup } from './blocks/state/neopixel';
 import { ledColorSetup } from './blocks/state/led-color';
 import { setupReadPin } from './blocks/state/pin';
@@ -80,7 +85,9 @@ const stateList: { [blockName: string]: StateGenerator } = {
 
   bluetooth_send_message: bluetoothMessage,
 
-  lcd_screen_simple_print: lcdSimplePrint
+  lcd_screen_simple_print: lcdSimplePrint,
+  lcd_scroll: lcdScroll,
+  lcd_screen_print: lcdPrint
 };
 
 export const generateState: StateGenerator = (

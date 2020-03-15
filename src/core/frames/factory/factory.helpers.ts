@@ -85,6 +85,22 @@ export const arduinoStateByExplanation = (
   };
 };
 
+export const getDefaultIndeValue = (
+  min: number,
+  max: number,
+  index: number
+) => {
+  if (index < min) {
+    return min;
+  }
+
+  if (index > max) {
+    return max;
+  }
+
+  return index;
+};
+
 export const arduinoStateByComponent = (
   blockId: string,
   timeline: Timeline,
