@@ -16,6 +16,7 @@ import {
 import { VariableTypes, VariableData } from '../../blockly/state/variable.data';
 import { generateState } from './state.factories';
 import { Sensor } from '../../blockly/state/sensors.state';
+import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 
 export const arduinoStateByVariable = (
   blockId: string,
@@ -50,7 +51,7 @@ export const findBlockInput = (
   block: BlockData,
   inputName: string
 ) => {
-  const input = block.inputBlocks.find((i) => i.name == inputName);
+  const input = block.inputBlocks.find(i => i.name == inputName);
   if (!input || !input.blockId) {
     return undefined;
   }
@@ -116,8 +117,8 @@ export const arduinoStateByComponent = (
 
   const components = [
     ...previousComponents.filter(
-      (c) =>
-        c.type !== newComponent.type && _.isEqual(c.pins, newComponent.pins)
+      c =>
+        !(c.type === newComponent.type && _.isEqual(c.pins, newComponent.pins))
     ),
     newComponent
   ];
@@ -141,9 +142,9 @@ export const getInputBlock = (
   block: BlockData,
   input: string
 ) => {
-  const blockId = block.inputBlocks.find((i) => i.name == input).blockId;
+  const blockId = block.inputBlocks.find(i => i.name == input).blockId;
 
-  return blocks.find((b) => b.id === blockId);
+  return blocks.find(b => b.id === blockId);
 };
 
 export const getDefaultValue = (type: VariableTypes) => {
@@ -230,16 +231,23 @@ export const getSensorForLoop = <T extends Sensor>(
   timeline: Timeline,
   setupBlockName: string
 ) => {
-  const setupBlock = blocks.find((b) => b.blockName === setupBlockName);
+  const setupBlock = blocks.find(b => b.blockName === setupBlockName);
 
   const sensorData = JSON.parse(setupBlock.metaData) as T[];
 
-  return sensorData.find((s) => s.loop === timeline.iteration);
+  return sensorData.find(s => s.loop === timeline.iteration);
 };
 
 export const findComponent = <T extends ArduinoComponentState>(
   state: ArduinoState,
-  type: ArduinoComponentType
+  type: ArduinoComponentType,
+  pin: ARDUINO_UNO_PINS = undefined
 ) => {
-  return state.components.find((c) => c.type === type) as T;
+  if (type === ArduinoComponentType.PIN) {
+    return state.components.find(
+      c => c.type === type && c.pins.includes(pin)
+    ) as T;
+  }
+
+  return state.components.find(c => c.type === type) as T;
 };

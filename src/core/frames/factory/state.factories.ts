@@ -37,6 +37,7 @@ import { ifElse } from './blocks/state/logic';
 import { simpleLoop, forLoop } from './blocks/state/loop';
 import { customBlock } from './blocks/state/function';
 import { delayBlock } from './blocks/state/delay';
+import { led } from './blocks/state/led';
 
 export interface StateGenerator {
   (
@@ -93,7 +94,9 @@ const stateList: { [blockName: string]: StateGenerator } = {
   lcd_screen_print: lcdPrint,
   lcd_blink: lcdBlink,
   lcd_screen_clear: lcdClear,
-  lcd_backlight: lcdBacklight
+  lcd_backlight: lcdBacklight,
+
+  led: led
 };
 
 export const generateState: StateGenerator = (
