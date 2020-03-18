@@ -36,20 +36,32 @@ describe('lcd  factories', () => {
   });
 
   test('should be able to turn on and off and leds', () => {
+    testDigitalWriteBlocks('led', PinPicture.LED);
+  });
+
+  test('should be able to turn on and off and pins', () => {
+    testDigitalWriteBlocks('digital_write', PinPicture.LED_DIGITAL_WRITE);
+  });
+
+  const testDigitalWriteBlocks = (
+    blockType: string,
+    pinPicture: PinPicture
+  ) => {
+    const pinWord = pinPicture == PinPicture.LED ? 'led' : 'pin';
     arduinoBlock.setFieldValue('1', 'LOOP_TIMES');
-    const ledPin4On = workspace.newBlock('led') as BlockSvg;
+    const ledPin4On = workspace.newBlock(blockType) as BlockSvg;
     ledPin4On.setFieldValue('4', 'PIN');
     ledPin4On.setFieldValue('ON', 'STATE');
 
-    const ledPin4Off = workspace.newBlock('led') as BlockSvg;
+    const ledPin4Off = workspace.newBlock(blockType) as BlockSvg;
     ledPin4Off.setFieldValue('4', 'PIN');
     ledPin4Off.setFieldValue('OFF', 'STATE');
 
-    const ledPin10On = workspace.newBlock('led') as BlockSvg;
+    const ledPin10On = workspace.newBlock(blockType) as BlockSvg;
     ledPin10On.setFieldValue('10', 'PIN');
     ledPin10On.setFieldValue('ON', 'STATE');
 
-    const ledPin10Off = workspace.newBlock('led') as BlockSvg;
+    const ledPin10Off = workspace.newBlock(blockType) as BlockSvg;
     ledPin10Off.setFieldValue('10', 'PIN');
     ledPin10Off.setFieldValue('OFF', 'STATE');
 
@@ -69,21 +81,22 @@ describe('lcd  factories', () => {
 
     const pin4State1 = state1.components[0] as PinState;
 
-    expect(state1.explanation).toBe('Turn led 4 on.');
-    expect(pin4State1.pinPicture).toBe(PinPicture.LED);
+    expect(state1.explanation).toBe(`Turn ${pinWord} 4 on.`);
+    expect(pin4State1.pinPicture).toBe(pinPicture);
     expect(pin4State1.state).toBe(1);
     expect(pin4State1.pin).toBe(ARDUINO_UNO_PINS.PIN_4);
 
-    verifyState(true, true, state2, 'Turn led 10 on.');
-    verifyState(true, false, state3, 'Turn led 10 off.');
-    verifyState(false, false, state4, 'Turn led 4 off.');
-  });
+    verifyState(true, true, state2, `Turn ${pinWord} 10 on.`, pinPicture);
+    verifyState(true, false, state3, `Turn ${pinWord} 10 off.`, pinPicture);
+    verifyState(false, false, state4, `Turn ${pinWord} 4 off.`, pinPicture);
+  };
 
   const verifyState = (
     pin4On: boolean,
     pin10On: boolean,
     state: ArduinoState,
-    explanation: string
+    explanation: string,
+    pictureType: PinPicture
   ) => {
     const led4State = findComponent<PinState>(
       state,
@@ -99,11 +112,11 @@ describe('lcd  factories', () => {
 
     expect(state.explanation).toBe(explanation);
 
-    expect(led4State.pinPicture).toBe(PinPicture.LED);
+    expect(led4State.pinPicture).toBe(pictureType);
     expect(led4State.state).toBe(pin4On ? 1 : 0);
     expect(led4State.pin).toBe(ARDUINO_UNO_PINS.PIN_4);
 
-    expect(led10State.pinPicture).toBe(PinPicture.LED);
+    expect(led10State.pinPicture).toBe(pictureType);
     expect(led10State.state).toBe(pin10On ? 1 : 0);
     expect(led10State.pin).toBe(ARDUINO_UNO_PINS.PIN_10);
   };
