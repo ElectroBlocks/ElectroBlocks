@@ -37,7 +37,7 @@ import { ifElse } from './blocks/state/logic';
 import { simpleLoop, forLoop } from './blocks/state/loop';
 import { customBlock } from './blocks/state/function';
 import { delayBlock } from './blocks/state/delay';
-import { digitalWrite } from './blocks/state/led';
+import { digitalWrite, analogWrite } from './blocks/state/led';
 import { PinPicture } from '../state/arduino-components.state';
 
 export interface StateGenerator {
@@ -98,7 +98,9 @@ const stateList: { [blockName: string]: StateGenerator } = {
   lcd_backlight: lcdBacklight,
 
   led: digitalWrite(PinPicture.LED),
-  digital_write: digitalWrite(PinPicture.LED_DIGITAL_WRITE)
+  digital_write: digitalWrite(PinPicture.LED_DIGITAL_WRITE),
+  analog_write: analogWrite(PinPicture.LED_ANALOG_WRITE, 'WRITE_VALUE'),
+  led_fade: analogWrite(PinPicture.LED, 'FADE')
 };
 
 export const generateState: StateGenerator = (
