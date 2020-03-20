@@ -1,8 +1,9 @@
 import { StateGenerator } from '../../state.factories';
-import { arduinoStateByComponent } from '../../factory.helpers';
+import { arduinoStateByComponent, findComponent } from '../../factory.helpers';
 import { LedColorState } from '../../../state/arduino-components.state';
 import { ArduinoComponentType } from '../../../state/arduino.state';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
+import { getInputValue } from '../../value.factories';
 
 export const ledColorSetup: StateGenerator = (
   blocks,
@@ -14,7 +15,7 @@ export const ledColorSetup: StateGenerator = (
   const [redPin, greenPin, bluePin] = findFieldValue(block, 'WIRE').split('-');
   const pictureType = findFieldValue(block, 'PICTURE_TYPE');
   const ledColorState: LedColorState = {
-    type: ArduinoComponentType.NEO_PIXEL_STRIP,
+    type: ArduinoComponentType.LED_COLOR,
     pins: block.pins,
     redPin,
     greenPin,
@@ -29,6 +30,40 @@ export const ledColorSetup: StateGenerator = (
       timeline,
       ledColorState,
       'Setting up color led.',
+      previousState
+    )
+  ];
+};
+
+export const setLedColor: StateGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const color = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'COLOUR',
+    { red: 0, green: 0, blue: 0 },
+    previousState
+  );
+
+  const ledColor = findComponent<LedColorState>(
+    previousState,
+    ArduinoComponentType.LED_COLOR
+  );
+  const newComponent = { ...ledColor, color };
+
+  return [
+    arduinoStateByComponent(
+      block.id,
+      timeline,
+      newComponent,
+      `Setting led color to [red=${color.red},green=${color.green},blue=${color.blue}].`,
       previousState
     )
   ];

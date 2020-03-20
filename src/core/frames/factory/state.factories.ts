@@ -14,7 +14,7 @@ import {
   lcdBacklight
 } from './blocks/state/lcd';
 import { neoPixelSetup } from './blocks/state/neopixel';
-import { ledColorSetup } from './blocks/state/led-color';
+import { ledColorSetup, setLedColor } from './blocks/state/led-color';
 import { setupReadPin } from './blocks/state/pin';
 import { buttonSetup } from './blocks/state/button';
 import { irRemoteSetup } from './blocks/state/ir_remote';
@@ -100,7 +100,8 @@ const stateList: { [blockName: string]: StateGenerator } = {
   led: digitalWrite(PinPicture.LED),
   digital_write: digitalWrite(PinPicture.LED_DIGITAL_WRITE),
   analog_write: analogWrite(PinPicture.LED_ANALOG_WRITE, 'WRITE_VALUE'),
-  led_fade: analogWrite(PinPicture.LED, 'FADE')
+  led_fade: analogWrite(PinPicture.LED, 'FADE'),
+  set_color_led: setLedColor
 };
 
 export const generateState: StateGenerator = (
