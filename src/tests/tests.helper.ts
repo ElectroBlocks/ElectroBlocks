@@ -118,7 +118,6 @@ export const createSetListBlock = (
   return block as BlockSvg;
 };
 
-
 const getSetVariableBlock = (type: VariableTypes) => {
   switch (type) {
     case VariableTypes.LIST_NUMBER:

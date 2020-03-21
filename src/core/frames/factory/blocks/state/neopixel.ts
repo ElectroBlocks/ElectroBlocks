@@ -2,8 +2,13 @@ import { NeoPixelState } from '../../../state/arduino-components.state';
 import { ArduinoComponentType } from '../../../state/arduino.state';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import _ from 'lodash';
-import { arduinoStateByComponent } from '../../factory.helpers';
+import {
+  arduinoStateByComponent,
+  findComponent,
+  getDefaultIndeValue
+} from '../../factory.helpers';
 import { StateGenerator } from '../../state.factories';
+import { getInputValue } from '../../value.factories';
 
 export const neoPixelSetup: StateGenerator = (
   blocks,
@@ -18,7 +23,7 @@ export const neoPixelSetup: StateGenerator = (
     pins: block.pins,
     type: ArduinoComponentType.NEO_PIXEL_STRIP,
     numberOfLeds,
-    neoPixels: _.range(0, numberOfLeds).map((i) => {
+    neoPixels: _.range(0, numberOfLeds).map(i => {
       return {
         position: i,
         color: {
@@ -35,6 +40,53 @@ export const neoPixelSetup: StateGenerator = (
       timeline,
       ledStripState,
       'Setting up led light strip.',
+      previousState
+    )
+  ];
+};
+
+export const setNeoPixelColor: StateGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const neoPixel = findComponent<NeoPixelState>(
+    previousState,
+    ArduinoComponentType.NEO_PIXEL_STRIP
+  );
+  const color = getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    'COLOR',
+    { red: 0, green: 0, blue: 0 },
+    previousState
+  );
+  const position = getDefaultIndeValue(
+    1,
+    Infinity,
+    getInputValue(
+      blocks,
+      block,
+      variables,
+      timeline,
+      'POSITION',
+      1,
+      previousState
+    )
+  );
+  neoPixel.neoPixels[position - 1] = { position: position - 1, color };
+  const newComponent = _.cloneDeep(neoPixel);
+
+  return [
+    arduinoStateByComponent(
+      block.id,
+      timeline,
+      newComponent,
+      `Setting LED ${position} on light strip to color [red=${color.red},green=${color.green},blue=${color.blue}]`,
       previousState
     )
   ];
