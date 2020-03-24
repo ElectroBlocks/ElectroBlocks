@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {
   arduinoStateByComponent,
   findComponent,
-  getDefaultIndeValue
+  getDefaultIndexValue
 } from '../../factory.helpers';
 import { StateGenerator } from '../../state.factories';
 import { getInputValue } from '../../value.factories';
@@ -23,7 +23,7 @@ export const neoPixelSetup: StateGenerator = (
     pins: block.pins,
     type: ArduinoComponentType.NEO_PIXEL_STRIP,
     numberOfLeds,
-    neoPixels: _.range(0, numberOfLeds).map(i => {
+    neoPixels: _.range(0, numberOfLeds).map((i) => {
       return {
         position: i,
         color: {
@@ -65,7 +65,7 @@ export const setNeoPixelColor: StateGenerator = (
     { red: 0, green: 0, blue: 0 },
     previousState
   );
-  const position = getDefaultIndeValue(
+  const position = getDefaultIndexValue(
     1,
     Infinity,
     getInputValue(

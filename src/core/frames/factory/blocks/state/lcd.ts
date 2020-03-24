@@ -4,7 +4,7 @@ import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { ArduinoComponentType } from '../../../state/arduino.state';
 import {
   arduinoStateByComponent,
-  getDefaultIndeValue,
+  getDefaultIndexValue,
   findComponent
 } from '../../factory.helpers';
 import _ from 'lodash';
@@ -79,13 +79,13 @@ export const lcdBlink: StateGenerator = (
     ];
   }
 
-  const row = getDefaultIndeValue(
+  const row = getDefaultIndexValue(
     1,
     4,
     getInputValue(blocks, block, variables, timeline, 'ROW', 1, previousState)
   );
 
-  const column = getDefaultIndeValue(
+  const column = getDefaultIndexValue(
     1,
     20,
     getInputValue(
@@ -168,13 +168,13 @@ export const lcdPrint: StateGenerator = (
     )
   );
 
-  const row = getDefaultIndeValue(
+  const row = getDefaultIndexValue(
     1,
     4,
     getInputValue(blocks, block, variables, timeline, 'ROW', 1, previousState)
   );
 
-  const column = getDefaultIndeValue(
+  const column = getDefaultIndexValue(
     1,
     20,
     getInputValue(
