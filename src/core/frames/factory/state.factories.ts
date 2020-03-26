@@ -20,6 +20,7 @@ import { buttonSetup } from './blocks/state/button';
 import { irRemoteSetup } from './blocks/state/ir_remote';
 import { debugBlock } from './blocks/state/debug';
 import { ultraSonicSensor } from './blocks/state/ultra_sonic_sensor';
+import { servoRotate } from './blocks/state/servo';
 import { tempSetupSensor } from './blocks/state/temp_setup';
 import { VariableData } from '../../blockly/state/variable.data';
 import {
@@ -40,6 +41,7 @@ import { delayBlock } from './blocks/state/delay';
 import { digitalWrite, analogWrite } from './blocks/state/led';
 import { PinPicture } from '../state/arduino-components.state';
 import { ledMatrixDraw, ledMatrixOnLed } from './blocks/state/led-matrix';
+import { moveMotor } from './blocks/state/motor';
 
 export interface StateGenerator {
   (
@@ -106,7 +108,10 @@ const stateList: { [blockName: string]: StateGenerator } = {
   neo_pixel_set_color: setNeoPixelColor,
 
   led_matrix_make_draw: ledMatrixDraw,
-  led_matrix_turn_one_on_off: ledMatrixOnLed
+  led_matrix_turn_one_on_off: ledMatrixOnLed,
+
+  rotate_servo: servoRotate,
+  move_motor: moveMotor
 };
 
 export const generateState: StateGenerator = (

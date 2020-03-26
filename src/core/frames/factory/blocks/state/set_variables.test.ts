@@ -18,7 +18,6 @@ import { transformBlock } from '../../../../blockly/transformers/block.transform
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import _ from 'lodash';
-import { Variable } from '../../../state/arduino.state';
 
 describe('test variables factories', () => {
   let workspace: Workspace;

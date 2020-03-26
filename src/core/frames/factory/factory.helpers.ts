@@ -17,6 +17,7 @@ import { VariableTypes, VariableData } from '../../blockly/state/variable.data';
 import { generateState } from './state.factories';
 import { Sensor } from '../../blockly/state/sensors.state';
 import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
+import { MotorState } from '../state/arduino-components.state';
 
 export const arduinoStateByVariable = (
   blockId: string,
@@ -116,10 +117,18 @@ export const arduinoStateByComponent = (
   const previousComponents = previousState ? [...previousState.components] : [];
 
   const components = [
-    ...previousComponents.filter(
-      (c) =>
-        !(c.type === newComponent.type && _.isEqual(c.pins, newComponent.pins))
-    ),
+    ...previousComponents.filter((c) => {
+      if (c.type === ArduinoComponentType.MOTOR) {
+        return !(
+          c.type === newComponent.type &&
+          (<MotorState>c).motorNumber === (<MotorState>newComponent).motorNumber
+        );
+      }
+
+      return !(
+        c.type === newComponent.type && _.isEqual(c.pins, newComponent.pins)
+      );
+    }),
     newComponent
   ];
 
@@ -241,9 +250,21 @@ export const getSensorForLoop = <T extends Sensor>(
 export const findComponent = <T extends ArduinoComponentState>(
   state: ArduinoState,
   type: ArduinoComponentType,
-  pin: ARDUINO_UNO_PINS = undefined
+  pin: ARDUINO_UNO_PINS = undefined,
+  motorNumber: number = undefined
 ) => {
-  if (type === ArduinoComponentType.PIN) {
+  if (type === ArduinoComponentType.MOTOR) {
+    return state.components.find(
+      (c) =>
+        c.type === type &&
+        (<MotorState>c).motorNumber.toString() === motorNumber.toString()
+    ) as T;
+  }
+
+  if (
+    type === ArduinoComponentType.PIN ||
+    type === ArduinoComponentType.SERVO
+  ) {
     return state.components.find(
       (c) => c.type === type && c.pins.includes(pin)
     ) as T;
