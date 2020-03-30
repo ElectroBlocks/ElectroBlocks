@@ -72,8 +72,9 @@ describe('analog pin state factories', () => {
       type: Blockly.Events.BLOCK_MOVE,
       blockId: analogReadSetup.id
     };
+    const [state1, state2] = eventToFrameFactory(event);
 
-    expect(eventToFrameFactory(event)).toEqual([
+    expect(state1).toEqual(
       createSetupFrame(
         analogReadSetup.id,
         PinPicture.PHOTO_SENSOR,
@@ -81,16 +82,19 @@ describe('analog pin state factories', () => {
         PIN_TYPE.ANALOG_INPUT,
         'Setting up photo sensor.',
         30
-      ),
+      )
+    );
+    expect(
       createSetupFrame(
         digitalReadSetup.id,
         PinPicture.TOUCH_SENSOR,
         ARDUINO_UNO_PINS.PIN_6,
         PIN_TYPE.DIGITAL_INPUT,
         'Setting up touch sensor.',
-        1
+        1,
+        state1
       )
-    ]);
+    ).toEqual(state2);
   });
 
   const createSetupFrame = (
@@ -99,7 +103,8 @@ describe('analog pin state factories', () => {
     pin: ARDUINO_UNO_PINS,
     pinType: PIN_TYPE,
     explanation: string,
-    state: number
+    state: number,
+    arduinoState: ArduinoState = undefined
   ): ArduinoState => {
     const sensor: PinState = {
       pins: [pin],
@@ -110,11 +115,14 @@ describe('analog pin state factories', () => {
       type: ArduinoComponentType.PIN
     };
 
+    const previousComponent =
+      arduinoState === undefined ? [] : arduinoState.components;
+
     return {
       blockId,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation,
-      components: [sensor],
+      components: [...previousComponent, sensor],
       variables: {},
       txLedOn: false,
       rxLedOn: false,
