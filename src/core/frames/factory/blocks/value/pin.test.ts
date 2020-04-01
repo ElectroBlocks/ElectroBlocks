@@ -45,10 +45,11 @@ describe('analog pin state factories', () => {
   });
 
   test('should be able digital pins', () => {
-    const event = runSetup(
+    runTest(
       workspace,
       'digital_read_setup',
       'digital_read',
+      'has_power',
       VariableTypes.BOOLEAN,
       ARDUINO_UNO_PINS.PIN_6,
       PinPicture.SENSOR,
@@ -58,12 +59,29 @@ describe('analog pin state factories', () => {
       [0, 1]
     );
   });
+
+  test('should be able to get analog read', () => {
+    runTest(
+      workspace,
+      'analog_read_setup',
+      'analog_read',
+      'power_level',
+      VariableTypes.NUMBER,
+      ARDUINO_UNO_PINS.PIN_A0,
+      PinPicture.PHOTO_SENSOR,
+      [30, 53],
+      ARDUINO_UNO_PINS.PIN_A1,
+      PinPicture.SOIL_SENSOR,
+      [43, 212]
+    );
+  });
 });
 
-const runSetup = (
+const runTest = (
   workspace: Workspace,
-  blockType: string,
-  sensorBlockType: string,
+  setupBlockType: string,
+  sensorReadBlockType: string,
+  sensorStateField: string,
   variableType: VariableTypes,
   block1Pin: ARDUINO_UNO_PINS,
   block1PictureType: PinPicture,
@@ -72,36 +90,44 @@ const runSetup = (
   block2PictureType: PinPicture,
   block2State: [number, number]
 ) => {
-  const block1 = workspace.newBlock(blockType) as BlockSvg;
-  block1.setFieldValue(block1Pin, 'PIN');
-  block1.setFieldValue(block1PictureType, 'TYPE');
-  block1.setFieldValue(block1State[0].toString(), 'power_level');
+  const setupBlock1 = workspace.newBlock(setupBlockType) as BlockSvg;
+  setupBlock1.setFieldValue(block1Pin, 'PIN');
+  setupBlock1.setFieldValue(block1PictureType, 'TYPE');
+  setupBlock1.setFieldValue(block1State[0].toString(), sensorStateField);
 
-  const block2 = workspace.newBlock(blockType) as BlockSvg;
-  block2.setFieldValue(block2Pin, 'PIN');
-  block2.setFieldValue(block2PictureType, 'TYPE');
-  block2.setFieldValue(block2State[0].toString(), 'has_power');
+  const setupBlock2 = workspace.newBlock(setupBlockType) as BlockSvg;
+  setupBlock2.setFieldValue(block2Pin, 'PIN');
+  setupBlock2.setFieldValue(block2PictureType, 'TYPE');
+  setupBlock2.setFieldValue(block2State[0].toString(), sensorStateField);
 
-  const event: BlockEvent = {
+  saveSensorSetupBlockData({
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: block2.id
-  };
-
-  saveSensorSetupBlockData(event).forEach(updater);
-
-  block1.setFieldValue(block1State[1].toString(), 'power_level');
-  block2.setFieldValue(block2State[1].toString(), 'has_power');
-
-  const event2: BlockEvent = {
+    blockId: setupBlock1.id
+  }).forEach(updater);
+  saveSensorSetupBlockData({
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: block2.id
-  };
+    blockId: setupBlock2.id
+  }).forEach(updater);
 
-  saveSensorSetupBlockData(event2).forEach(updater);
+  setupBlock1.setFieldValue(block1State[1].toString(), sensorStateField);
+  setupBlock2.setFieldValue(block2State[1].toString(), sensorStateField);
+
+  saveSensorSetupBlockData({
+    blocks: getAllBlocks().map(transformBlock),
+    variables: getAllVariables().map(transformVariable),
+    type: Blockly.Events.BLOCK_MOVE,
+    blockId: setupBlock1.id
+  }).forEach(updater);
+  saveSensorSetupBlockData({
+    blocks: getAllBlocks().map(transformBlock),
+    variables: getAllVariables().map(transformVariable),
+    type: Blockly.Events.BLOCK_MOVE,
+    blockId: setupBlock2.id
+  }).forEach(updater);
 
   const variable1Block = createSetVariableBlockWithValue(
     workspace,
@@ -110,10 +136,10 @@ const runSetup = (
     getDefaultValue(variableType)
   );
 
-  const sensorBlock1 = workspace.newBlock(sensorBlockType) as BlockSvg;
+  const sensorBlock1 = workspace.newBlock(sensorReadBlockType) as BlockSvg;
   sensorBlock1.setFieldValue(block1Pin, 'PIN');
 
-  const sensorBlock2 = workspace.newBlock(sensorBlockType) as BlockSvg;
+  const sensorBlock2 = workspace.newBlock(sensorReadBlockType) as BlockSvg;
   sensorBlock1.setFieldValue(block2Pin, 'PIN');
 
   variable1Block

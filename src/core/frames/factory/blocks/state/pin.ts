@@ -23,6 +23,7 @@ export const setupReadPin: StateGenerator = (
     block.blockName === 'digital_read_setup'
       ? PIN_TYPE.DIGITAL_INPUT
       : PIN_TYPE.ANALOG_INPUT;
+
   const pinState = sensorData.find((s) => s.loop === 1);
 
   const setupState: PinState = {
