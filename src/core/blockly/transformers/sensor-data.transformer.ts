@@ -270,11 +270,8 @@ const messageState = (
   ) as BluetoothSensor;
 
   return {
-    type: ArduinoComponentType.BLUE_TOOTH,
-    pins: [
-      findFieldValue(block, 'TX') as ARDUINO_UNO_PINS,
-      findFieldValue(block, 'RX') as ARDUINO_UNO_PINS
-    ],
+    type: ArduinoComponentType.MESSAGE,
+    pins: [],
     hasMessage: btState.receiving_message,
     message: btState.message,
     sendMessage: ''

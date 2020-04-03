@@ -235,18 +235,6 @@ export const generateInputState = (
   return arduinoStates;
 };
 
-export const getSensorForLoop = <T extends Sensor>(
-  blocks: BlockData[],
-  timeline: Timeline,
-  setupBlockName: string
-) => {
-  const setupBlock = blocks.find((b) => b.blockName === setupBlockName);
-
-  const sensorData = JSON.parse(setupBlock.metaData) as T[];
-
-  return sensorData.find((s) => s.loop === timeline.iteration);
-};
-
 export const findComponent = <T extends ArduinoComponentState>(
   state: ArduinoState,
   type: ArduinoComponentType,
@@ -263,7 +251,8 @@ export const findComponent = <T extends ArduinoComponentState>(
 
   if (
     type === ArduinoComponentType.PIN ||
-    type === ArduinoComponentType.SERVO
+    type === ArduinoComponentType.SERVO ||
+    type === ArduinoComponentType.BUTTON
   ) {
     return state.components.find(
       (c) => c.type === type && c.pins.includes(pin)

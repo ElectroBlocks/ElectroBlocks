@@ -34,6 +34,7 @@ import { getArduinoMessage, arduinoHasMessage } from './blocks/value/message';
 import { timeSeconds } from './blocks/value/time_seconds';
 import { hasBtMessage, getBtMessage } from './blocks/value/bluetooth';
 import { getPinState } from './blocks/value/pin';
+import { isButtonPressed } from './blocks/value/button';
 
 export interface ValueGenerator {
   (
@@ -97,7 +98,9 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   bluetooth_get_message: getBtMessage,
 
   digital_read: getPinState('digital_read_setup'),
-  analog_read: getPinState('analog_read_setup')
+  analog_read: getPinState('analog_read_setup'),
+
+  is_button_pressed: isButtonPressed
 };
 
 export const getInputValue = (

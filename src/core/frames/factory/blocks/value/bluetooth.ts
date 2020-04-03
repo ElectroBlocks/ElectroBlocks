@@ -1,6 +1,9 @@
 import { BluetoothSensor } from '../../../../blockly/state/sensors.state';
-import { getSensorForLoop } from '../../factory.helpers';
+import { findComponent } from '../../factory.helpers';
 import { ValueGenerator } from '../../value.factories';
+import { BluetoothState } from '../../../state/arduino-components.state';
+import { ArduinoComponentType } from '../../../state/arduino.state';
+import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 
 export const getBtMessage: ValueGenerator = (
   blocks,
@@ -9,8 +12,11 @@ export const getBtMessage: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  return getSensorForLoop<BluetoothSensor>(blocks, timeline, 'bluetooth_setup')
-    .message;
+  return findComponent<BluetoothState>(
+    previousState,
+    ArduinoComponentType.BLUE_TOOTH,
+    findFieldValue(block, 'PIN')
+  ).message;
 };
 
 export const hasBtMessage: ValueGenerator = (
@@ -20,6 +26,9 @@ export const hasBtMessage: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  return getSensorForLoop<BluetoothSensor>(blocks, timeline, 'bluetooth_setup')
-    .receiving_message;
+  return findComponent<BluetoothState>(
+    previousState,
+    ArduinoComponentType.BLUE_TOOTH,
+    findFieldValue(block, 'PIN')
+  ).hasMessage;
 };

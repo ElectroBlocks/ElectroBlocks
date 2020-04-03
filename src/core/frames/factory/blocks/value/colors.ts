@@ -23,9 +23,9 @@ export const randomColor: ValueGenerator = (
   previousState
 ) => {
   return {
-    red: _.random(0, 255),
-    green: _.random(0, 255),
-    blue: _.random(0, 255)
+    red: _.random(1, 256),
+    green: _.random(1, 256),
+    blue: _.random(1, 256)
   };
 };
 
