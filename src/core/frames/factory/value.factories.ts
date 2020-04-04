@@ -7,13 +7,13 @@ import {
   mathRound,
   mathModulus,
   mathRandom,
-  numberToString
+  numberToString,
 } from './blocks/value/math';
 import {
   logicBoolean,
   logicCompare,
   logicOperation,
-  logicNot
+  logicNot,
 } from './blocks/value/logic';
 import {
   text,
@@ -22,7 +22,7 @@ import {
   textParse,
   textIsEmpty,
   changeCase,
-  numberToText
+  numberToText,
 } from './blocks/value/text';
 import { VariableData } from '../../blockly/state/variable.data';
 import { colorPicker, randomColor, rgbColor } from './blocks/value/colors';
@@ -35,6 +35,7 @@ import { timeSeconds } from './blocks/value/time_seconds';
 import { hasBtMessage, getBtMessage } from './blocks/value/bluetooth';
 import { getPinState } from './blocks/value/pin';
 import { isButtonPressed } from './blocks/value/button';
+import { irRemoteHasCode, irRemoteGetCode } from './blocks/value/ir_remote';
 
 export interface ValueGenerator {
   (
@@ -100,7 +101,10 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   digital_read: getPinState('digital_read_setup'),
   analog_read: getPinState('analog_read_setup'),
 
-  is_button_pressed: isButtonPressed
+  is_button_pressed: isButtonPressed,
+
+  ir_remote_get_code: irRemoteGetCode,
+  ir_remote_has_code_receive: irRemoteHasCode,
 };
 
 export const getInputValue = (
