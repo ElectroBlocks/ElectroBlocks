@@ -36,6 +36,7 @@ import { hasBtMessage, getBtMessage } from './blocks/value/bluetooth';
 import { getPinState } from './blocks/value/pin';
 import { isButtonPressed } from './blocks/value/button';
 import { irRemoteHasCode, irRemoteGetCode } from './blocks/value/ir_remote';
+import { ultraSonicSensorDistance } from './blocks/value/ultra_sonic_sensor';
 
 export interface ValueGenerator {
   (
@@ -105,6 +106,8 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
 
   ir_remote_get_code: irRemoteGetCode,
   ir_remote_has_code_receive: irRemoteHasCode,
+
+  ultra_sonic_sensor_motion: ultraSonicSensorDistance,
 };
 
 export const getInputValue = (
