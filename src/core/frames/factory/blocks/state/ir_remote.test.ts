@@ -10,10 +10,7 @@ import { transformVariable } from '../../../../blockly/transformers/variables.tr
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
-import {
-  ButtonState,
-  IRRemoteState,
-} from '../../../state/arduino-components.state';
+import { IRRemoteState } from '../../../state/arduino-components.state';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import {
   ArduinoState,

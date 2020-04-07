@@ -37,6 +37,7 @@ import { getPinState } from './blocks/value/pin';
 import { isButtonPressed } from './blocks/value/button';
 import { irRemoteHasCode, irRemoteGetCode } from './blocks/value/ir_remote';
 import { ultraSonicSensorDistance } from './blocks/value/ultra_sonic_sensor';
+import { rfidScannedCard, rfidCardNumber, rfidTag } from './blocks/value/rfid';
 
 export interface ValueGenerator {
   (
@@ -108,6 +109,10 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   ir_remote_has_code_receive: irRemoteHasCode,
 
   ultra_sonic_sensor_motion: ultraSonicSensorDistance,
+
+  rfid_scan: rfidScannedCard,
+  rfid_card: rfidCardNumber,
+  rfid_tag: rfidTag,
 };
 
 export const getInputValue = (

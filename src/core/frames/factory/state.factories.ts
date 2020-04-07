@@ -11,7 +11,7 @@ import {
   lcdPrint,
   lcdBlink,
   lcdClear,
-  lcdBacklight
+  lcdBacklight,
 } from './blocks/state/lcd';
 import { neoPixelSetup, setNeoPixelColor } from './blocks/state/neopixel';
 import { ledColorSetup, setLedColor } from './blocks/state/led-color';
@@ -31,7 +31,7 @@ import {
   setStringInList,
   setNumberInList,
   setColorInList,
-  setBooleanInList
+  setBooleanInList,
 } from './blocks/state/list';
 import { setVariable } from './blocks/state/set_variables';
 import { ifElse } from './blocks/state/logic';
@@ -42,6 +42,7 @@ import { digitalWrite, analogWrite } from './blocks/state/led';
 import { PinPicture } from '../state/arduino-components.state';
 import { ledMatrixDraw, ledMatrixOnLed } from './blocks/state/led-matrix';
 import { moveMotor } from './blocks/state/motor';
+import { rfidScannedCard } from './blocks/value/rfid';
 
 export interface StateGenerator {
   (
@@ -111,7 +112,7 @@ const stateList: { [blockName: string]: StateGenerator } = {
   led_matrix_turn_one_on_off: ledMatrixOnLed,
 
   rotate_servo: servoRotate,
-  move_motor: moveMotor
+  move_motor: moveMotor,
 };
 
 export const generateState: StateGenerator = (
