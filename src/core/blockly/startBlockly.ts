@@ -7,7 +7,7 @@ import './generators/index';
 
 import { theme } from './theme';
 
-import registerListeners from './events/registerEvents';
+import registerListeners from './registerEvents';
 import registerListMenu from './menu/list.menu';
 
 import getToolBoxString from '../../services/toolbox/getToolBoxString';
