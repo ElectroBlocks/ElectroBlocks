@@ -3,7 +3,6 @@ import Blockly from 'blockly';
 
 import { COLOR_THEME } from '../../../constants/colors';
 import loopTimes from './helpers/looptimes';
-import { PIN_TYPE } from '../../arduino-state/arduino-components.state';
 import {
   configuredPins,
   getAvailablePins

@@ -179,7 +179,7 @@ Blockly['Arduino'].finish = function(code) {
       preSetupCode += Blockly['Arduino'].setupCode_[key] || '';
     }
     setupCode = '\nvoid setup() { \n' + preSetupCode + '\n}\n';
-  } 
+  }
 
   // Convert the definitions dictionary into a list.
   code =
@@ -254,7 +254,10 @@ Blockly['Arduino'].scrub_ = function(block, code) {
     let comment = block.getCommentText();
     //@ts-ignore
     comment = comment
-      ? Blockly.utils._string.wrap(comment, Blockly['Arduino'].COMMENT_WRAP - 3)
+      ? (Blockly.utils as any).string.wrap(
+          comment,
+          Blockly['Arduino'].COMMENT_WRAP - 3
+        )
       : null;
     if (comment) {
       if (block.getProcedureDef) {

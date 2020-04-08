@@ -73,7 +73,8 @@ export enum ARDUINO_UNO_PINS {
   PIN_A2 = 'A2',
   PIN_A3 = 'A3',
   PIN_A4 = 'A4',
-  PIN_A5 = 'A5'
+  PIN_A5 = 'A5',
+  NO_PINS = 'NO_PINS'
 }
 
 
