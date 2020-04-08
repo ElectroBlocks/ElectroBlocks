@@ -9,14 +9,14 @@ import {
   TimeSensor,
   MotionSensor,
   TempSensor,
-  RFIDSensor
+  RFIDSensor,
 } from '../state/sensors.state';
 import { BlockData, BlockType } from '../state/block.data';
 import { findFieldValue } from '../helpers/block-data.helper';
 import {
   Timeline,
   ArduinoComponentState,
-  ArduinoComponentType
+  ArduinoComponentType,
 } from '../../frames/state/arduino.state';
 import {
   BluetoothState,
@@ -28,7 +28,7 @@ import {
   TemperatureState,
   TimeState,
   UltraSonicSensorState,
-  ArduinoMessageState
+  ArduinoMessageState,
 } from '../../frames/state/arduino-components.state';
 import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 
@@ -45,7 +45,7 @@ const bluetoothData = (block: BlockData): BluetoothSensor => {
     receiving_message: findFieldValue(block, 'receiving_message') === 'TRUE',
     message: findFieldValue(block, 'message'),
     loop: +findFieldValue(block, 'LOOP'),
-    blockName: block.blockName
+    blockName: block.blockName,
   };
 };
 
@@ -65,11 +65,11 @@ const bluetoothState = (
     txPin: findFieldValue(block, 'TX') as ARDUINO_UNO_PINS,
     pins: [
       findFieldValue(block, 'TX') as ARDUINO_UNO_PINS,
-      findFieldValue(block, 'RX') as ARDUINO_UNO_PINS
+      findFieldValue(block, 'RX') as ARDUINO_UNO_PINS,
     ],
     hasMessage: btState.receiving_message,
     message: btState.message,
-    sendMessage: ''
+    sendMessage: '',
   };
 };
 
@@ -77,7 +77,7 @@ const buttonData = (block: BlockData): ButtonSensor => {
   return {
     is_pressed: findFieldValue(block, 'is_pressed') === 'TRUE',
     loop: +findFieldValue(block, 'LOOP'),
-    blockName: block.blockName
+    blockName: block.blockName,
   };
 };
 
@@ -91,7 +91,7 @@ const buttonState = (block: BlockData, timeline: Timeline): ButtonState => {
   return {
     type: ArduinoComponentType.BUTTON,
     pins: [findFieldValue(block, 'PIN') as ARDUINO_UNO_PINS],
-    isPressed: btState.is_pressed
+    isPressed: btState.is_pressed,
   };
 };
 
@@ -100,7 +100,7 @@ const irRemoteData = (block: BlockData): IRRemoteSensor => {
     scanned_new_code: findFieldValue(block, 'scanned_new_code') === 'TRUE',
     code: findFieldValue(block, 'code'),
     loop: +findFieldValue(block, 'LOOP'),
-    blockName: block.blockName
+    blockName: block.blockName,
   };
 };
 
@@ -116,7 +116,7 @@ const irRemoteState = (block: BlockData, timeline: Timeline): IRRemoteState => {
     analogPin: findFieldValue(block, 'PIN') as ARDUINO_UNO_PINS,
     pins: [findFieldValue(block, 'PIN') as ARDUINO_UNO_PINS],
     code: irRemoteData.code,
-    hasCode: irRemoteData.scanned_new_code
+    hasCode: irRemoteData.scanned_new_code,
   };
 };
 
@@ -124,7 +124,7 @@ const digitalReadSetup = (block: BlockData): PinSensor => {
   return {
     state: findFieldValue(block, 'has_power') === 'TRUE' ? 1 : 0,
     loop: +findFieldValue(block, 'LOOP'),
-    blockName: block.blockName
+    blockName: block.blockName,
   };
 };
 
@@ -144,7 +144,7 @@ const pinReadState = (pinType: PIN_TYPE) => {
       pins: [findFieldValue(block, 'PIN') as ARDUINO_UNO_PINS],
       state: pinSensor.state,
       pinType: pinType,
-      pinPicture: pictureType
+      pinPicture: pictureType,
     };
   };
 };
@@ -153,7 +153,7 @@ const analogReadSetup = (block: BlockData): PinSensor => {
   return {
     state: +findFieldValue(block, 'power_level'),
     loop: +findFieldValue(block, 'LOOP'),
-    blockName: block.blockName
+    blockName: block.blockName,
   };
 };
 
@@ -163,7 +163,7 @@ const rfidSetup = (block: BlockData): RFIDSensor => {
     card_number: findFieldValue(block, 'card_number'),
     tag: findFieldValue(block, 'tag'),
     loop: +findFieldValue(block, 'LOOP'),
-    blockName: block.blockName
+    blockName: block.blockName,
   };
 };
 
@@ -180,11 +180,11 @@ const rfidState = (block: BlockData, timeline): RfidState => {
     txPin: findFieldValue(block, 'TX') as ARDUINO_UNO_PINS,
     pins: [
       findFieldValue(block, 'TX') as ARDUINO_UNO_PINS,
-      findFieldValue(block, 'RX') as ARDUINO_UNO_PINS
+      findFieldValue(block, 'RX') as ARDUINO_UNO_PINS,
     ],
     scannedCard: rfidSensor.scanned_card,
     cardNumber: rfidSensor.card_number,
-    tag: rfidSensor.tag
+    tag: rfidSensor.tag,
   };
 };
 
@@ -193,7 +193,7 @@ const tempSetup = (block: BlockData): TempSensor => {
     temp: +findFieldValue(block, 'temp'),
     humidity: +findFieldValue(block, 'humidity'),
     loop: +findFieldValue(block, 'LOOP'),
-    blockName: block.blockName
+    blockName: block.blockName,
   };
 };
 
@@ -205,10 +205,10 @@ const tempState = (block: BlockData, timeline: Timeline): TemperatureState => {
   ) as TempSensor;
 
   return {
-    type: ArduinoComponentType.RFID,
+    type: ArduinoComponentType.TEMPERATURE_SENSOR,
     pins: [findFieldValue(block, 'PIN') as ARDUINO_UNO_PINS],
     temperature: tempSensor.temp,
-    humidity: tempSensor.humidity
+    humidity: tempSensor.humidity,
   };
 };
 
@@ -216,7 +216,7 @@ const timeSetup = (block: BlockData): TimeSensor => {
   return {
     time_in_seconds: +findFieldValue(block, 'time_in_seconds'),
     loop: +findFieldValue(block, 'LOOP'),
-    blockName: block.blockName
+    blockName: block.blockName,
   };
 };
 
@@ -225,7 +225,7 @@ const timeState = (block: BlockData, timeline: Timeline): TimeState => {
     type: ArduinoComponentType.TIME,
     pins: [],
     timeInSeconds:
-      +timeline.iteration * +findFieldValue(block, 'time_in_seconds')
+      +timeline.iteration * +findFieldValue(block, 'time_in_seconds'),
   };
 };
 
@@ -233,7 +233,7 @@ const ultraSonicSensor = (block: BlockData): MotionSensor => {
   return {
     cm: +findFieldValue(block, 'cm'),
     loop: +findFieldValue(block, 'LOOP'),
-    blockName: block.blockName
+    blockName: block.blockName,
   };
 };
 
@@ -253,9 +253,9 @@ const ultraSonicState = (
     echoPin: findFieldValue(block, 'ECHO') as ARDUINO_UNO_PINS,
     pins: [
       findFieldValue(block, 'TRIG') as ARDUINO_UNO_PINS,
-      findFieldValue(block, 'ECHO') as ARDUINO_UNO_PINS
+      findFieldValue(block, 'ECHO') as ARDUINO_UNO_PINS,
     ],
-    cm: ultraSensor.cm
+    cm: ultraSensor.cm,
   };
 };
 
@@ -274,7 +274,7 @@ const messageState = (
     pins: [],
     hasMessage: btState.receiving_message,
     message: btState.message,
-    sendMessage: ''
+    sendMessage: '',
   };
 };
 
@@ -288,7 +288,7 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   temp_setup: tempSetup,
   time_setup: timeSetup,
   ultra_sonic_sensor_setup: ultraSonicSensor,
-  message_setup: bluetoothData
+  message_setup: bluetoothData,
 };
 
 const blockToSensorComponent: {
@@ -303,7 +303,7 @@ const blockToSensorComponent: {
   temp_setup: tempState,
   time_setup: timeState,
   ultra_sonic_sensor_setup: ultraSonicState,
-  message_setup: messageState
+  message_setup: messageState,
 };
 
 export const sensorSetupBlockName = _.keys(blockToSensorComponent);

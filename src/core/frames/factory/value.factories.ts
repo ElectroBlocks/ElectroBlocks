@@ -38,6 +38,7 @@ import { isButtonPressed } from './blocks/value/button';
 import { irRemoteHasCode, irRemoteGetCode } from './blocks/value/ir_remote';
 import { ultraSonicSensorDistance } from './blocks/value/ultra_sonic_sensor';
 import { rfidScannedCard, rfidCardNumber, rfidTag } from './blocks/value/rfid';
+import { getHumidity, getTemp } from './blocks/value/temp';
 
 export interface ValueGenerator {
   (
@@ -113,6 +114,9 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   rfid_scan: rfidScannedCard,
   rfid_card: rfidCardNumber,
   rfid_tag: rfidTag,
+
+  temp_get_humidity: getHumidity,
+  temp_get_temp: getTemp,
 };
 
 export const getInputValue = (

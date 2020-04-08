@@ -4,7 +4,7 @@ import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
   getBlockById,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -18,12 +18,12 @@ import { updater } from '../../../../blockly/updater';
 import {
   ArduinoState,
   ArduinoComponentType,
-  ArduinoComponentState
+  ArduinoComponentState,
 } from '../../../state/arduino.state';
 import { BluetoothState } from '../../../state/arduino-components.state';
 import {
   createArduinoAndWorkSpace,
-  createSetVariableBlockWithValue
+  createSetVariableBlockWithValue,
 } from '../../../../../tests/tests.helper';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { findComponent } from '../../factory.helpers';
@@ -53,7 +53,7 @@ describe('bluetooth state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: btSetupBlock.id
+      blockId: btSetupBlock.id,
     }).forEach(updater);
 
     btSetupBlock.setFieldValue('FALSE', 'receiving_message');
@@ -64,7 +64,7 @@ describe('bluetooth state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: btSetupBlock.id
+      blockId: btSetupBlock.id,
     }).forEach(updater);
 
     btSetupBlock.setFieldValue('TRUE', 'receiving_message');
@@ -75,7 +75,7 @@ describe('bluetooth state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: btSetupBlock.id
+      blockId: btSetupBlock.id,
     }).forEach(updater);
 
     const getBtMessageBlock = workspace.newBlock('bluetooth_get_message');
@@ -120,7 +120,7 @@ describe('bluetooth state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: btSetupBlock.id
+      blockId: btSetupBlock.id,
     };
 
     const states = eventToFrameFactory(event);
@@ -155,7 +155,6 @@ describe('bluetooth state factories', () => {
     // LOOP 2
     expect(state4.variables['hasMessage'].value).toBe(false);
     expect(state4.variables['message'].value).toBe('MESSAGE_1');
-    console.log(state4.components, 'timeline');
     expect(_.keys(state4.variables).length).toBe(2);
     expect(
       findComponent<BluetoothState>(state4, ArduinoComponentType.BLUE_TOOTH)

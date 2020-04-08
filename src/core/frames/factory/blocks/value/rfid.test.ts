@@ -34,7 +34,7 @@ import {
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { getDefaultValue, findComponent } from '../../factory.helpers';
 
-describe('rfid state factories', () => {
+describe('rfid value factories', () => {
   let workspace: Workspace;
 
   afterEach(() => {
