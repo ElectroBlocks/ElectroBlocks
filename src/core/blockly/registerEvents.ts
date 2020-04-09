@@ -2,6 +2,7 @@ import updateForLoopText from './actions/factories/updateForLoopText';
 import { WorkspaceSvg } from 'blockly';
 
 import codeStore from '../../stores/code.store';
+import stateStore from '../../stores/state.store';
 import { getArduinoCode } from './helpers/workspace.helper';
 
 import { getAllBlocks } from './helpers/block.helper';
@@ -54,7 +55,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       ...disableSetupBlockWithMultiplePinOutsSamePins(event),
       ...disableDuplicateSetupBlocks(event),
       ...disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(event),
-      ...disableDuplicatePinBlocks(event)
+      ...disableDuplicatePinBlocks(event),
     ];
 
     firstActionPass.forEach((a) => updater(a));
@@ -72,7 +73,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
 
     const secondActionPass = [
       ...disableSensorReadBlocksWithWrongPins(refreshEvent),
-      ...disableBlocksThatNeedASetupBlock(refreshEvent)
+      ...disableBlocksThatNeedASetupBlock(refreshEvent),
     ];
 
     secondActionPass.forEach((a) => updater(a));
@@ -89,7 +90,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     );
 
     console.log(arduinoStateEvent, 'arduinoStateEvent');
-    // console.log(eventToFrameFactory(arduinoStateEvent), 'arduino state event');
+    stateStore.set(eventToFrameFactory(arduinoStateEvent));
     codeStore.set(getArduinoCode());
   });
 };
@@ -105,7 +106,7 @@ const enableBlocks = (actions: DisableBlock[]) => {
     .map((b) => {
       return {
         type: ActionType.ENABLE_BLOCK,
-        blockId: b.id
+        blockId: b.id,
       };
     });
 
