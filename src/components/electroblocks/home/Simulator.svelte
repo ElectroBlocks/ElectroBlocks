@@ -1,5 +1,11 @@
 <script>
+  import currentState from "../../../stores/currentState.store";
+  let state;
+  currentState.subscribe(currentState => {
+    state = currentState;
+  });
 </script>
+
 <style>
   #simulator {
     width: 100%;
@@ -9,5 +15,5 @@
 </style>
 
 <div id="simulator">
-  <h2>simulator</h2>
+  <h2>{state ? state.explanation : 'nothing'}</h2>
 </div>

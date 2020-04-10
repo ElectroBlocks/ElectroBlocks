@@ -1,11 +1,69 @@
 <script lang="typescript">
-  
   import stateStore from "../../../stores/state.store";
+  import currentStateStore from "../../../stores/currentState.store";
   let frames = [];
+  let frameNumber = 0;
+  let playing = false;
+
   stateStore.subscribe(newFrames => {
     frames = newFrames;
+    currentStateStore.set(frames[frameNumber]);
   });
 
+  async function play() {
+    playing = !playing;
+    if (playing) {
+      playing = true;
+      await playFrame();
+    }
+  }
+
+  async function playFrame() {
+    if (!playing || isLastFrame()) {
+      return;
+    }
+    currentStateStore.set(frames[frameNumber]);
+    frameNumber += 1;
+    await sleep(1000);
+    await playFrame();
+  }
+
+  function stop() {
+    playing = false;
+  }
+
+  function moveSlider(e) {
+    console.log(e);
+    currentStateStore.set(frames[frameNumber]);
+    playing = false;
+  }
+
+  function prev() {
+    playing = false;
+    if (frameNumber <= 0) {
+      return;
+    }
+    frameNumber -= 1;
+    currentStateStore.set(frames[frameNumber]);
+  }
+
+  function next() {
+    playing = false;
+    if (isLastFrame()) {
+      return;
+    }
+
+    frameNumber += 1;
+    currentStateStore.set(frames[frameNumber]);
+  }
+
+  function isLastFrame() {
+    return frameNumber >= frames.length - 1;
+  }
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 </script>
 
 <style>
@@ -177,21 +235,23 @@
 
 <div id="slide-container">
   <input
+    on:change={moveSlider}
     type="range"
     min="0"
+    bind:value={frameNumber}
     max={frames.length}
     class="slider"
     id="scrub-bar" />
 </div>
 <div id="video-controls-container" class="icon-bar">
-  <span id="video-debug-backward">
+  <span on:click={prev} id="video-debug-backward">
     <i class="fa fa-backward" />
   </span>
-  <span id="video-debug-play">
+  <span on:click={play} id="video-debug-play">
     <i class="fa fa-play" />
   </span>
 
-  <span id="video-debug-forward">
+  <span on:click={next} id="video-debug-forward">
     <i class="fa fa-forward" />
   </span>
 
