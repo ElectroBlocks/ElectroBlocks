@@ -1,17 +1,26 @@
-<script lang="typescript">
+<script>
   import stateStore from "../../../stores/state.store";
   import currentStateStore from "../../../stores/currentState.store";
   let frames = [];
-  let frameNumber = 0;
+  let frameNumber = 1;
   let playing = false;
+  let speedDivisor = 1;
+  $: console.log(frameNumber, "frameNumber");
+  $: disablePlayer = frames.length === 0;
+  $: frameIndex = frameNumber - 1;
 
   stateStore.subscribe(newFrames => {
     frames = newFrames;
-    currentStateStore.set(frames[frameNumber]);
+    currentStateStore.set(frames[0]);
   });
 
   async function play() {
     playing = !playing;
+
+    if (playing && isLastFrame()) {
+      frameNumber = 0;
+    }
+
     if (playing) {
       playing = true;
       await playFrame();
@@ -24,17 +33,25 @@
     }
     currentStateStore.set(frames[frameNumber]);
     frameNumber += 1;
-    await sleep(1000);
+    await moveWait();
     await playFrame();
+    if (isLastFrame()) {
+      playing = false;
+    }
+  }
+
+  async function resetPlayer() {
+    frameNumber = 0;
+    playing = false;
+    currentStateStore.set(frames[frameIndex]);
   }
 
   function stop() {
     playing = false;
   }
 
-  function moveSlider(e) {
-    console.log(e);
-    currentStateStore.set(frames[frameNumber]);
+  function moveSlider() {
+    currentStateStore.set(frames[frameIndex]);
     playing = false;
   }
 
@@ -44,7 +61,7 @@
       return;
     }
     frameNumber -= 1;
-    currentStateStore.set(frames[frameNumber]);
+    currentStateStore.set(frames[frameIndex]);
   }
 
   function next() {
@@ -54,15 +71,16 @@
     }
 
     frameNumber += 1;
-    currentStateStore.set(frames[frameNumber]);
+    currentStateStore.set(frames[frameIndex]);
   }
 
   function isLastFrame() {
     return frameNumber >= frames.length - 1;
   }
 
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  function moveWait() {
+    console.log(800 / speedDivisor, speedDivisor, "wait time");
+    return new Promise(resolve => setTimeout(resolve, 800 / speedDivisor));
   }
 </script>
 
@@ -237,29 +255,32 @@
   <input
     on:change={moveSlider}
     type="range"
-    min="0"
+    min="1"
     bind:value={frameNumber}
-    max={frames.length}
+    max={frames.length - 1}
     class="slider"
     id="scrub-bar" />
 </div>
-<div id="video-controls-container" class="icon-bar">
-  <span on:click={prev} id="video-debug-backward">
+<div
+  id="video-controls-container"
+  class:disable={disablePlayer}
+  class="icon-bar">
+  <span on:click={prev} class:disable={disablePlayer} id="video-debug-backward">
     <i class="fa fa-backward" />
   </span>
-  <span on:click={play} id="video-debug-play">
-    <i class="fa fa-play" />
+  <span on:click={play} id="video-debug-play" class:disable={disablePlayer}>
+    <i class="fa" class:fa-play={!playing} class:fa-stop={playing} />
   </span>
 
-  <span on:click={next} id="video-debug-forward">
+  <span on:click={next} id="video-debug-forward" class:disable={disablePlayer}>
     <i class="fa fa-forward" />
   </span>
 
+  <span class:disable={disablePlayer}>
+    <i on:click={resetPlayer} class="fa fa-repeat" />
+  </span>
   <div id="speed-control" class="menu-section">
     <label for="speed">Speed:</label>
-    <input id="speed" type="range" min="1" max="10" value="1" />
+    <input bind:value={speedDivisor} id="speed" type="range" min="1" max="10" />
   </div>
-  <span>
-    <i class="fa fa-repeat" />
-  </span>
 </div>
