@@ -5,14 +5,44 @@
   let frameNumber = 1;
   let playing = false;
   let speedDivisor = 1;
-  $: console.log(frameNumber, "frameNumber");
+  $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
   $: frameIndex = frameNumber - 1;
 
   stateStore.subscribe(newFrames => {
+    playing = false;
+    const currentFrame = frames[frameNumber];
     frames = newFrames;
-    currentStateStore.set(frames[0]);
+
+    // If we are starting out with set to first frame.
+    if (frames.length === 0 || !currentFrame) {
+      frameNumber = 0;
+      return;
+    }
+
+    frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
   });
+
+  function navigateToClosestTimeline(timeLine) {
+    if (timeLine.function !== "loop") {
+      return 0;
+    }
+
+    const lastFrameTimeLine = frames[frames.length - 1].timeLine;
+
+    if (timeLine.iteration > lastFrameTimeLine.iteration) {
+      const loopNumber = lastFrameTimeLine.iteration;
+      return frames.findIndex(f => f.timeLine.iteration === loopNumber);
+    }
+
+    const loopNumber = timeLine.iteration;
+
+    return frames.findIndex(f => f.timeLine.iteration === loopNumber);
+  }
+
+  function setCurrentFrame(frameNumber) {
+    currentStateStore.set(frames[frameNumber]);
+  }
 
   async function play() {
     playing = !playing;
@@ -79,7 +109,6 @@
   }
 
   function moveWait() {
-    console.log(800 / speedDivisor, speedDivisor, "wait time");
     return new Promise(resolve => setTimeout(resolve, 800 / speedDivisor));
   }
 </script>
@@ -100,6 +129,10 @@
     opacity: 0.7;
     -webkit-transition: 0.2s;
     transition: opacity 0.2s;
+  }
+
+  .slider[disabled] {
+    cursor: not-allowed;
   }
 
   .slider:hover {
@@ -159,12 +192,6 @@
     cursor: not-allowed;
   }
 
-  #video-controls-container > button {
-    padding: 5px;
-    border-radius: 5px;
-    margin-left: 20px;
-  }
-
   .icon-bar {
     width: 100%;
     overflow: auto;
@@ -174,11 +201,6 @@
     color: #505bda;
     opacity: 0.5;
     cursor: pointer;
-  }
-
-  .icon-bar .active .fa {
-    color: #505bda !important;
-    opacity: 1;
   }
 
   .icon-bar span:first-of-type {
@@ -193,11 +215,6 @@
     transition: all 0.3s ease;
     color: white;
     font-size: 36px;
-  }
-
-  .icon-bar-bottom span,
-  .icon-bar-bottom span {
-    float: right;
   }
 
   .slider {
@@ -242,10 +259,6 @@
     width: 30%;
   }
 
-  #frameInfo {
-    width: 25%;
-  }
-
   input:invalid {
     box-shadow: none;
   }
@@ -256,8 +269,9 @@
     on:change={moveSlider}
     type="range"
     min="1"
+    disabled={frames.length === 0}
     bind:value={frameNumber}
-    max={frames.length - 1}
+    max={frames.length === 0 ? 0 : frames.length - 1}
     class="slider"
     id="scrub-bar" />
 </div>
