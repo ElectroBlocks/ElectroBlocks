@@ -13,6 +13,7 @@
   "dependencies": {
     "@svgdotjs/svg.draggable.js": "^3.0.2",
     "@svgdotjs/svg.js": "^3.0.16",
+    "@svgdotjs/svg.panzoom.js": "^2.1.0",
     "@types/lodash": "^4.14.149",
     "blockly": "^3.20200123.1",
     "compression": "^1.7.1",

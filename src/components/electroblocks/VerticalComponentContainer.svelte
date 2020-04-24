@@ -5,9 +5,9 @@
   import { resizeStore } from "../../stores/resize.store";
 
   // flex size of top window
-  let topFlex = 69;
+  let topFlex = 29;
   // flex size of bottom window
-  let bottomFlex = 29;
+  let bottomFlex = 69;
   // true if resizing windows
   let isResizing = false;
   // container element
