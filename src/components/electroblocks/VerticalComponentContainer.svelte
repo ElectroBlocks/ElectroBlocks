@@ -5,9 +5,9 @@
   import { resizeStore } from "../../stores/resize.store";
 
   // flex size of top window
-  let topFlex = 29;
+  let topFlex = 69;
   // flex size of bottom window
-  let bottomFlex = 69;
+  let bottomFlex = 29;
   // true if resizing windows
   let isResizing = false;
   // container element
@@ -70,14 +70,9 @@
 
 <style>
   main {
-    background: greenyellow;
     display: flex;
     flex-direction: column;
     height: 100%;
-  }
-
-  #top {
-    background-color: bisque;
   }
 
   #bottom {
