@@ -1,6 +1,6 @@
 <script>
   import { SVG } from "@svgdotjs/svg.js";
-
+  import "./test.js";
   import currentState from "../../../stores/currentState.store";
   import { resizeStore } from "../../../stores/resize.store";
 
