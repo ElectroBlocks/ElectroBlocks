@@ -1,7 +1,7 @@
 import { SyncComponent } from '../svg.component';
 import { ArduinoComponentType } from '../../frames/state/arduino.state';
 import { ServoState } from '../../frames/state/arduino-components.state';
-import { componentToSvgId } from '../svg-helpers';
+import { componentToSvgId, positionComponent } from '../svg-helpers';
 import servoSVGText from '../svgs/servo-1.svg';
 import pinHelerSVGText from '../svgs/pin-helper.svg';
 import { Svg, Text, Element } from '@svgdotjs/svg.js';
@@ -16,7 +16,7 @@ export const servoSync: SyncComponent = (state, draw) => {
   const id = componentToSvgId(servoState);
 
   let servoEl = draw.find('#' + id).pop();
-
+  const arduino = draw.findOne('#arduino_main_svg') as Element;
   if (!servoEl) {
     servoEl = draw.svg(servoSVGText).last();
     servoEl.addClass('component');
@@ -24,6 +24,15 @@ export const servoSync: SyncComponent = (state, draw) => {
     servoEl.attr('degrees', 0);
     (servoEl as any).draggable();
     (window as any).servoEl = servoEl;
+    positionComponent(servoEl, arduino, draw, state.pins[0], 'DATA_BOX');
+    // servoEl.x(
+    //   arduino.x() +
+    //     (draw.findOne('#pin51B') as Element).cx() -
+    //     draw.width() * paddingWidth -
+    //     (servoEl.findOne('#DATA_BOX') as Element).cx()
+    // );
+
+    // servoEl.y(100);
   }
 
   servoEl.findOne('#GND_BOX').on('mouseover', () => {

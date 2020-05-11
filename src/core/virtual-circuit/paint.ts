@@ -18,6 +18,9 @@ export default (draw: Svg, state: ArduinoState = undefined) => {
   if (state) {
     console.log('sync called', state);
     syncComponents(state.components, draw);
+    state.components
+      .flatMap((b) => b.pins)
+      .forEach((wire) => showWire(arduino, wire));
   }
 };
 
@@ -41,4 +44,8 @@ const hideAllWires = (arduino: Element) => {
     .map((key) => arduino.find('#' + key)[0])
     .filter((wire) => wire !== undefined)
     .forEach((wire) => wire.hide());
+};
+
+const showWire = (arduino: Element, wire: string) => {
+  arduino.findOne('#PIN_' + wire).show();
 };
