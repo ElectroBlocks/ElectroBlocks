@@ -21,6 +21,8 @@
     }
 
     frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
+
+    setCurrentFrame(frameNumber);
   });
 
   function navigateToClosestTimeline(timeLine) {
@@ -73,7 +75,9 @@
   async function resetPlayer() {
     frameNumber = 0;
     playing = false;
+    await moveWait();
     currentStateStore.set(frames[frameIndex]);
+    await play();
   }
 
   function stop() {
@@ -268,7 +272,7 @@
   <input
     on:change={moveSlider}
     type="range"
-    min="1"
+    min="0"
     disabled={frames.length === 0}
     bind:value={frameNumber}
     max={frames.length === 0 ? 0 : frames.length - 1}

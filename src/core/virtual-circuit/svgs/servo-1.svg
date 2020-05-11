@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="41.05" height="86.82" viewBox="0 0 41.05 86.82">
+  <title>servo-1</title>
+  <g id="base">
+    <g>
+      <rect x="2.69" y="22.12" width="27.22" height="53.94" fill="#2a90ff"/>
+      <path d="M35.62,24.48v53.7H8.75V24.48H35.62m.35-.25H8.41V78.42H36Z" transform="translate(-5.88 -2.24)"/>
+    </g>
+  </g>
+  <g id="Angle_Text" data-name="Angle Text">
+    <text id="servo_pin" transform="translate(5.97 71.94)" font-size="18" font-family="Biryani-ExtraLight, Biryani" font-weight="200">12</text>
+    <text id="degrees" transform="translate(0 15.82)" font-size="18" font-family="Biryani-ExtraLight, Biryani" font-weight="200">180°</text>
+  </g>
+  <g id="Layer_3" data-name="Layer 3">
+    <rect id="DATA_BOX" data-name="DATA BOX" x="23.19" y="76.01" width="3.45" height="10.68" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <rect id="_5V_BOX" data-name=" 5V BOX" x="14.58" y="76.01" width="3.45" height="10.68" fill="#ff422a" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <polygon id="GND_BOX" data-name="GND BOX" points="5.97 76.01 5.97 86.69 7.69 86.69 9.41 86.69 9.41 76.01 5.97 76.01" fill="#9e6b18" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+  </g>
+  <g id="spinning_part" data-name="spinning part">
+    <rect id="black_fill" data-name="black fill" x="13.72" y="44.1" width="8.61" height="9.3" stroke="#000" stroke-miterlimit="10"/>
+    <path id="moving_part" data-name="moving part" d="M46.42,51.61a4.89,4.89,0,0,0-4.08-4.8L21.37,44a7.1,7.1,0,0,0-4.48,6.6c-.15,3.23,1.59,6.2,4.19,7.14l21.09-.43C44.7,57.06,46.58,54.41,46.42,51.61Zm-22.9,3.13a3.79,3.79,0,0,1,.26-7.51,3.79,3.79,0,0,1-.26,7.51Z" transform="translate(-5.88 -2.24)" fill="#fbb03b" stroke="#000" stroke-miterlimit="10"/>
+    <path id="CenterOfCicle" d="M24.08,50.82" transform="translate(-5.88 -2.24)" fill="#fbb03b" stroke="#000" stroke-miterlimit="10"/>
+  </g>
+</svg>

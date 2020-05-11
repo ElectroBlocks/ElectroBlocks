@@ -3,39 +3,42 @@
   import "./test.js";
   import currentState from "../../../stores/currentState.store";
   import { resizeStore } from "../../../stores/resize.store";
-
-  import svgArduino from "./arduino-breadboard-wired-2.svg";
+  import paint from "../../../core/virtual-circuit/paint.ts";
   // What if we made everything a series of components.
   import { onMount } from "svelte";
   let state;
   let container;
   let svgContainer;
+  let virtualCircuit;
   onMount(async () => {
     await import("@svgdotjs/svg.draggable.js");
+
     await import("@svgdotjs/svg.panzoom.js");
+
     var draw = SVG()
       .addTo(container)
       .size(container.clientWidth * 0.9, container.clientHeight * 0.9)
       .viewbox(0, 0, container.clientWidth * 0.9, container.clientHeight * 0.8)
       .panZoom();
 
-    var rect = draw.svg(svgArduino).first();
-    console.log(rect);
-    rect.draggable();
+    paint(draw, state);
+
+    currentState.subscribe(currentState => {
+      state = currentState;
+      console.log(state, "new state");
+      paint(draw, state);
+    });
 
     resizeStore.subscribe(() => {
       draw
-        .size(container.clientWidth * 0.9, container.clientHeight * 0.9)
+        .size(container.clientWidth * 0.95, container.clientHeight * 0.95)
         .viewbox(
           0,
           0,
-          container.clientWidth * 0.9,
-          container.clientHeight * 0.8
+          container.clientWidth * 0.95,
+          container.clientHeight * 0.95
         );
     });
-  });
-  currentState.subscribe(currentState => {
-    state = currentState;
   });
 </script>
 
