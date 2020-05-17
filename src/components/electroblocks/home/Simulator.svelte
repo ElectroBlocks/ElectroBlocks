@@ -15,13 +15,18 @@
 
     await import("@svgdotjs/svg.panzoom.js");
 
+    // THE VIEWBOX MUST BE THE SAME SIZE AS THE COMPONENT OR VIEW
+    // OTHERWISE WE DEAL WITH 2 COORDINATE SYSTEMS AND MATRIX MATH
+    // DON'T DO IT!!!!!
     var draw = SVG()
       .addTo(container)
-      .size(container.clientWidth * 0.9, container.clientHeight * 0.9)
-      .viewbox(0, 0, container.clientWidth * 0.9, container.clientHeight * 0.8)
+      .size(container.clientWidth * 0.95, container.clientHeight * 0.95)
+      .viewbox(0, 0, container.clientWidth * 0.95, container.clientWidth * 0.95)
       .panZoom();
-
-    paint(draw, state);
+    setTimeout(() => {
+      // Make Sure Everything Loaded before calculating width and heights
+      paint(draw, state);
+    }, 10);
 
     currentState.subscribe(currentState => {
       state = currentState;
@@ -32,12 +37,7 @@
     resizeStore.subscribe(() => {
       draw
         .size(container.clientWidth * 0.95, container.clientHeight * 0.95)
-        .viewbox(
-          0,
-          0,
-          container.clientWidth * 0.95,
-          container.clientHeight * 0.95
-        );
+        .viewbox(0, 0, draw.width(), draw.height());
     });
   });
 </script>

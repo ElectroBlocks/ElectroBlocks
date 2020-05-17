@@ -19,8 +19,11 @@ export const servoSync: SyncComponent = (state, draw) => {
   const arduino = draw.findOne('#arduino_main_svg') as Element;
   if (!servoEl) {
     servoEl = draw.svg(servoSVGText).last();
+    servoEl.width(draw.height() * 0.2);
+    console.log(draw.width() * 0.2, 'servo width');
     servoEl.addClass('component');
     servoEl.attr('id', id);
+    (servoEl as Svg).viewbox(0, 0, servoEl.width(), servoEl.height());
     servoEl.attr('degrees', 0);
     (servoEl as any).draggable();
     (window as any).servoEl = servoEl;

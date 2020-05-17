@@ -14,30 +14,25 @@ export const positionComponent = (
   arduino: Element,
   draw: Element,
   wire: ARDUINO_UNO_PINS,
-  pinId: string
+  boxId: string
 ) => {
-  // padding percentage around the arduino viewbox
-  const paddingWidth = 0.05;
+  // 1 Take the Arduino X position
+  // 2 Add to it the hole's x position
+  // 3 minus the center of the pin in the virtual component
+  // 4 -2 because that about the size of hte of pin
 
-  // X position where the arduino is
-  const arduinoXPosition = arduino.x();
-  // padding percentage converted to pixels
-  const svgContainerPaddingWidth = draw.width() * paddingWidth;
-  // This is the center x of pin the pin relative to breadboard
-  const breadboardWholeCenterXRelativeToArduino = (draw.findOne(
-    '#' + connectionToBreadboard(wire)
-  ) as Element).cx();
-  const elementPinCenterX = (element.findOne('#' + pinId) as Element).cx();
-
-  const xPosition =
-    arduinoXPosition +
-    breadboardWholeCenterXRelativeToArduino -
-    svgContainerPaddingWidth -
-    elementPinCenterX;
-
-  element.x(xPosition);
-
-  element.y(100);
+  element.x(
+    arduino.x() +
+      (arduino.findOne('#' + pinToBreadboardHole(wire)) as Element).x() -
+      (element.findOne('#' + boxId) as Element).cx() +
+      2
+  );
+  element.y(
+    arduino.y() +
+      (arduino.findOne('#breadboard') as Element).y() -
+      5 -
+      element.height()
+  );
 };
 
 export enum ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS {
@@ -61,7 +56,7 @@ export enum ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS {
   PIN_A5 = 'pin16H',
 }
 
-export const connectionToBreadboard = (pin: ARDUINO_UNO_PINS) => {
+export const pinToBreadboardHole = (pin: ARDUINO_UNO_PINS) => {
   switch (pin) {
     case ARDUINO_UNO_PINS.PIN_2:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_2;

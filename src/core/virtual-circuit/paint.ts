@@ -10,18 +10,22 @@ export default (draw: Svg, state: ArduinoState = undefined) => {
 
   arduino.node.id = 'arduino_main_svg';
   arduino.find('#MESSAGE')[0].hide();
-  arduino.height(draw.height() * 0.7);
-  arduino.y(draw.height() * 0.3);
-  arduino.cx(draw.width() / 2);
   (window as any).arduino = arduino;
+  (window as any).draw = draw;
+  (window as any).arduinoText = arduinoSVGText;
+  arduino.cx(draw.cx());
+  (draw as any).zoom((0.5 / 650) * draw.width());
+
   hideAllWires(arduino);
   if (state) {
-    console.log('sync called', state);
     syncComponents(state.components, draw);
     state.components
       .flatMap((b) => b.pins)
       .forEach((wire) => showWire(arduino, wire));
   }
+
+  arduino.y(draw.viewbox().y2 - arduino.height());
+  (draw as any).zoom((0.5 / 650) * draw.width());
 };
 
 const findOrCreateArduino = (draw: Svg) => {
@@ -32,9 +36,6 @@ const findOrCreateArduino = (draw: Svg) => {
   }
 
   arduino = draw.svg(arduinoSVGText).first() as Element | Svg;
-
-  //(arduino as any).draggable();
-  // (arduino as any).zoom(1);
 
   return arduino;
 };
