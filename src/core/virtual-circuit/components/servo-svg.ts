@@ -1,10 +1,15 @@
 import { SyncComponent } from '../svg.component';
 import { ArduinoComponentType } from '../../frames/state/arduino.state';
 import { ServoState } from '../../frames/state/arduino-components.state';
-import { componentToSvgId, positionComponent } from '../svg-helpers';
+import {
+  componentToSvgId,
+  positionComponent,
+  findSvgElement,
+} from '../svg-helpers';
 import servoSVGText from '../svgs/servo-1.svg';
 import pinHelerSVGText from '../svgs/pin-helper.svg';
-import { Svg, Text, Element } from '@svgdotjs/svg.js';
+import { Svg, Text, Element, Line } from '@svgdotjs/svg.js';
+import { createWire, updateWire } from '../wire';
 
 export const servoSync: SyncComponent = (state, draw) => {
   if (state.type !== ArduinoComponentType.SERVO) {
@@ -25,9 +30,25 @@ export const servoSync: SyncComponent = (state, draw) => {
     servoEl.attr('id', id);
     (servoEl as Svg).viewbox(0, 0, servoEl.width(), servoEl.height());
     servoEl.attr('degrees', 0);
-    (servoEl as any).draggable();
     (window as any).servoEl = servoEl;
+    draw.line();
     positionComponent(servoEl, arduino, draw, state.pins[0], 'DATA_BOX');
+    createWire(
+      servoEl,
+      state.pins[0],
+      'DATA_BOX',
+      arduino,
+      draw,
+      '#FFA502',
+      id + '_data'
+    );
+
+    (servoEl as any).draggable().on('dragmove', () => {
+      const dataWire = draw.findOne(`[data-component-id=${id}_data]`) as Line;
+
+      updateWire(servoEl, state.pins[0], 'DATA_BOX', arduino, draw, dataWire);
+    });
+
     // servoEl.x(
     //   arduino.x() +
     //     (draw.findOne('#pin51B') as Element).cx() -

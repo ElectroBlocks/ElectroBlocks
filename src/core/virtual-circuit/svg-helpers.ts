@@ -2,7 +2,7 @@ import {
   ArduinoComponentType,
   ArduinoComponentState,
 } from '../frames/state/arduino.state';
-import { Element } from '@svgdotjs/svg.js';
+import { Element, Svg } from '@svgdotjs/svg.js';
 import { ARDUINO_UNO_PINS } from '../../constants/arduino';
 
 export const componentToSvgId = (component: ArduinoComponentState) => {
@@ -12,27 +12,56 @@ export const componentToSvgId = (component: ArduinoComponentState) => {
 export const positionComponent = (
   element: Element,
   arduino: Element,
-  draw: Element,
+  draw: Svg,
   wire: ARDUINO_UNO_PINS,
-  boxId: string
+  connectionId: string
 ) => {
   // 1 Take the Arduino X position
   // 2 Add to it the hole's x position
   // 3 minus the center of the pin in the virtual component
-  // 4 -2 because that about the size of hte of pin
 
   element.x(
     arduino.x() +
-      (arduino.findOne('#' + pinToBreadboardHole(wire)) as Element).x() -
-      (element.findOne('#' + boxId) as Element).cx() +
-      2
+      findSvgElement(pinToBreadboardHole(wire), draw).cx() -
+      findSvgElement(connectionId, element).cx()
   );
+
   element.y(
     arduino.y() +
-      (arduino.findOne('#breadboard') as Element).y() -
+      findSvgElement('breadboard', arduino).y() -
       5 -
       element.height()
   );
+};
+
+export const findBreadboardHoleXY = (
+  pin: ARDUINO_UNO_PINS,
+  arduino: Element,
+  draw: Svg
+) => {
+  const hole = findSvgElement(pinToBreadboardHole(pin), draw);
+  return {
+    x: hole.cx() + arduino.x(),
+    y: hole.cy() + arduino.y(),
+  };
+};
+
+export const findComponentConnection = (
+  element: Element,
+  connectionId: string
+) => {
+  const connection = findSvgElement(connectionId, element);
+  return {
+    x: connection.cx() + element.x(),
+    y: connection.cy() + element.y(),
+  };
+};
+
+export const findSvgElement = (
+  id: string,
+  draw: Svg | Element
+): Svg | Element => {
+  return draw.findOne('#' + id) as Svg | Element;
 };
 
 export enum ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS {
