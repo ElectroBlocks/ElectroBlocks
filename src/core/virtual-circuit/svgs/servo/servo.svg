@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="165.82" height="166.85" viewBox="0 0 165.82 166.85">
+  <title>servo-3</title>
+  <g id="base">
+    <g>
+      <rect x="5.18" y="42.54" width="52.35" height="103.74" fill="#2a90ff"/>
+      <path d="M64,47.06V150.32H12.27V47.06H64m.66-.48h-53V150.8h53Z" transform="translate(-6.76 -4.28)"/>
+    </g>
+  </g>
+  <g id="Angle_Text" data-name="Angle Text">
+    <text id="servo_pin" transform="translate(11.47 138.36)" font-size="34.62" font-family="Biryani-ExtraLight, Biryani" font-weight="200">12</text>
+    <text id="degrees" transform="translate(0 30.43)" font-size="34.62" font-family="Biryani-ExtraLight, Biryani" font-weight="200">180°</text>
+  </g>
+  <g id="HELPER_TEXT">
+    <text id="WIRE_TEXT" transform="translate(90.94 81.74)" font-size="23.08" font-family="Biryani-ExtraLight, Biryani" font-weight="200">WIRE</text>
+    <text id="WIRE_TYPE" transform="translate(77.38 58.78)" font-size="23.08" font-family="Biryani-ExtraLight, Biryani" font-weight="200">POWER</text>
+    <rect id="WIRE_DISPLAY" x="112.67" y="92.15" width="17.85" height="55.34" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+  </g>
+  <g id="Layer_3" data-name="Layer 3">
+    <rect id="DATA_BOX" data-name="DATA BOX" x="44.6" y="146.19" width="6.63" height="20.54" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <rect id="_5V_BOX" data-name=" 5V BOX" x="28.04" y="146.19" width="6.63" height="20.54" fill="#ff422a" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <polygon id="GND_BOX" data-name="GND BOX" points="11.47 146.19 11.47 166.73 14.79 166.73 18.1 166.73 18.1 146.19 11.47 146.19" fill="#9e6b18" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+  </g>
+  <g id="spinning_part" data-name="spinning part">
+    <rect id="black_fill" data-name="black fill" x="26.38" y="84.82" width="16.57" height="17.89" stroke="#000" stroke-miterlimit="10"/>
+    <path id="moving_part" data-name="moving part" d="M84.72,99.23c-.26-4.77-3.57-8.82-7.85-9.23L36.53,84.56c-4.85,1.57-8.35,6.76-8.61,12.69-.28,6.22,3,11.93,8.07,13.73l40.55-.83C81.41,109.71,85,104.61,84.72,99.23Zm-44,6c-3.46-.12-6.15-3.45-6-7.44s3.06-7.11,6.52-7,6.15,3.45,6,7.43S44.13,105.36,40.67,105.24Z" transform="translate(-6.76 -4.28)" fill="#fbb03b" stroke="#000" stroke-miterlimit="10"/>
+    <path id="CenterOfCicle" d="M41.75,97.71" transform="translate(-6.76 -4.28)" fill="#fbb03b" stroke="#000" stroke-miterlimit="10"/>
+  </g>
+</svg>

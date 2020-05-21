@@ -53,7 +53,7 @@ export const findComponentConnection = (
   const connection = findSvgElement(connectionId, element);
   return {
     x: connection.cx() + element.x(),
-    y: connection.cy() + element.y(),
+    y: connection.y() + connection.height() + element.y(),
   };
 };
 

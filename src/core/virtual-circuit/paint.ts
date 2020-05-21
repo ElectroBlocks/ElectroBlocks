@@ -4,6 +4,7 @@ import { Svg, Element } from '@svgdotjs/svg.js';
 import { ArduinoState } from '../frames/state/arduino.state';
 import { ARDUINO_UNO_PINS } from '../../constants/arduino';
 import { syncComponents } from './svg.component';
+import { resetBreadBoardWholes } from './wire';
 
 export default (draw: Svg, state: ArduinoState = undefined) => {
   const arduino = findOrCreateArduino(draw);
@@ -16,6 +17,7 @@ export default (draw: Svg, state: ArduinoState = undefined) => {
   arduino.cx(draw.cx());
   (draw as any).zoom((0.5 / 650) * draw.width());
 
+  resetBreadBoardWholes();
   hideAllWires(arduino);
   if (state) {
     syncComponents(state.components, draw);

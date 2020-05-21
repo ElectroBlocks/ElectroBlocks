@@ -1,5 +1,0 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="64.24" height="26.78" viewBox="0 0 64.24 26.78">
-  <title>pin-helper</title>
-  <path d="M59.38,23.76,11.83,24c-9.31,2.66-14.9,10.47-4.6-3.43L6.9,6.66c-.21-3.15,3.91-3.84,9.31-3.84H61.27c4.75.84,3.55,3.23,3.54,6.87v7.19C64.81,20.65,64.79,23.76,59.38,23.76Z" transform="translate(-1.21 -2.32)" fill="#fcfbfa" stroke="#000" stroke-miterlimit="10"/>
-  <text transform="translate(9.47 15.85)" font-size="12" font-family="Biryani-ExtraLight, Biryani" font-weight="200">GND PIN</text>
-</svg>
