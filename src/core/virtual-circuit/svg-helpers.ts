@@ -1,7 +1,4 @@
-import {
-  ArduinoComponentType,
-  ArduinoComponentState,
-} from '../frames/state/arduino.state';
+import { ArduinoComponentState } from '../frames/state/arduino.state';
 import { Element, Svg } from '@svgdotjs/svg.js';
 import { ARDUINO_UNO_PINS } from '../../constants/arduino';
 

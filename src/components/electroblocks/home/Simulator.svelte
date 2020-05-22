@@ -2,11 +2,13 @@
   import { SVG } from "@svgdotjs/svg.js";
   import "./test.js";
   import currentState from "../../../stores/currentState.store";
+  import stateStore from "../../../stores/state.store";
+  import currentStateStore from "../../../stores/currentState.store";
   import { resizeStore } from "../../../stores/resize.store";
   import paint from "../../../core/virtual-circuit/paint.ts";
+  import update from "../../../core/virtual-circuit/update.ts";
   // What if we made everything a series of components.
   import { onMount } from "svelte";
-  let state;
   let container;
   let svgContainer;
   let virtualCircuit;
@@ -23,15 +25,17 @@
       .size(container.clientWidth * 0.95, container.clientHeight * 0.95)
       .viewbox(0, 0, container.clientWidth * 0.95, container.clientWidth * 0.95)
       .panZoom();
-    setTimeout(() => {
-      // Make Sure Everything Loaded before calculating width and heights
-      paint(draw, state);
-    }, 10);
 
-    currentState.subscribe(currentState => {
-      state = currentState;
-      console.log(state, "new state");
-      paint(draw, state);
+    stateStore.subscribe(frames => {
+      setTimeout(() => {
+        // Make Sure Everything Loaded before calculating width and heights
+        paint(draw, frames[frames.length - 1]);
+        update(draw, frames[0]);
+      }, 10);
+    });
+
+    currentStateStore.subscribe(frame => {
+      update(draw, frame);
     });
 
     resizeStore.subscribe(() => {

@@ -3,8 +3,9 @@ import servoSVGText from './svgs/servo.svg';
 import { Svg, Element } from '@svgdotjs/svg.js';
 import { ArduinoState } from '../frames/state/arduino.state';
 import { ARDUINO_UNO_PINS } from '../../constants/arduino';
-import { syncComponents } from './svg.component';
+import { syncComponents, createComponents } from './svg.component';
 import { resetBreadBoardWholes } from './wire';
+import { componentToSvgId } from './svg-helpers';
 
 export default (draw: Svg, state: ArduinoState = undefined) => {
   const arduino = findOrCreateArduino(draw);
@@ -16,15 +17,37 @@ export default (draw: Svg, state: ArduinoState = undefined) => {
   (window as any).arduinoText = arduinoSVGText;
   arduino.cx(draw.cx());
   (draw as any).zoom((0.5 / 650) * draw.width());
-
+  console.log(state, 'arduino state');
   resetBreadBoardWholes();
   hideAllWires(arduino);
   if (state) {
-    syncComponents(state.components, draw);
+    createComponents(state.components, draw);
     state.components
       .flatMap((b) => b.pins)
       .forEach((wire) => showWire(arduino, wire));
   }
+
+  draw.find('.component').forEach((c: Element) => {
+    const componentId = c.attr('id');
+    if (!state) {
+      c.remove();
+      draw
+        .find(`[data-component-id=${componentId}]`)
+        .forEach((c) => c.remove());
+      console.log('removed');
+      return;
+    }
+
+    if (
+      state.components.filter((c) => componentId === componentToSvgId(c))
+        .length === 0
+    ) {
+      c.remove();
+      draw
+        .find(`[data-component-id=${componentId}]`)
+        .forEach((c) => c.remove());
+    }
+  });
 
   arduino.y(draw.viewbox().y2 - arduino.height());
   (draw as any).zoom((0.5 / 650) * draw.width());
