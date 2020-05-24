@@ -16,7 +16,7 @@ import {
   LedColorState,
   PinState,
   PinPicture,
-} from '../../../state/arduino-components.state';
+} from '../../../arduino-components.state';
 import {
   createArduinoAndWorkSpace,
   createValueBlock,

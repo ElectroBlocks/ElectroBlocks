@@ -16,7 +16,7 @@ import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
 import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
-import { ArduinoMessageState } from '../../../state/arduino-components.state';
+import { ArduinoMessageState } from '../../../arduino-components.state';
 import {
   createArduinoAndWorkSpace,
   createValueBlock,

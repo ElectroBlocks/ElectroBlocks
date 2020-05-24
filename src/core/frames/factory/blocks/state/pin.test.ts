@@ -20,7 +20,7 @@ import {
   PinState,
   PIN_TYPE,
   PinPicture,
-} from '../../../state/arduino-components.state';
+} from '../../../arduino-components.state';
 
 describe('analog pin state factories', () => {
   let workspace: Workspace;

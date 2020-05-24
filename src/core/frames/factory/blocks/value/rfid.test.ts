@@ -22,7 +22,7 @@ import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
 import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
-import { RfidState } from '../../../state/arduino-components.state';
+import { RfidState } from '../../../arduino-components.state';
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,

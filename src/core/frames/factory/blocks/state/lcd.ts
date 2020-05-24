@@ -1,5 +1,5 @@
 import { StateGenerator } from '../../state.factories';
-import { LCDScreenState } from '../../../state/arduino-components.state';
+import { LCDScreenState } from '../../../arduino-components.state';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { ArduinoComponentType } from '../../../arduino.frame';
 import {

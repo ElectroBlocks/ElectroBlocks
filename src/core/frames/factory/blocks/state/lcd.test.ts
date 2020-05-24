@@ -15,7 +15,7 @@ import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import {
   LCDScreenState,
   LCD_SCREEN_MEMORY_TYPE,
-} from '../../../state/arduino-components.state';
+} from '../../../arduino-components.state';
 import {
   createArduinoAndWorkSpace,
   createValueBlock,

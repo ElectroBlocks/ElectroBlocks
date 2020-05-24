@@ -17,7 +17,7 @@ import { VariableTypes, VariableData } from '../../blockly/state/variable.data';
 import { generateState } from './state.factories';
 import { Sensor } from '../../blockly/state/sensors.state';
 import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
-import { MotorState } from '../state/arduino-components.state';
+import { MotorState } from '../arduino-components.state';
 
 export const arduinoStateByVariable = (
   blockId: string,

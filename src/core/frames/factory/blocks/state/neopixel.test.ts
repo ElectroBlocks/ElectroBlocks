@@ -17,7 +17,7 @@ import {
   ArduinoComponentType,
   Color,
 } from '../../../arduino.frame';
-import { NeoPixelState } from '../../../state/arduino-components.state';
+import { NeoPixelState } from '../../../arduino-components.state';
 import {
   createArduinoAndWorkSpace,
   createValueBlock,

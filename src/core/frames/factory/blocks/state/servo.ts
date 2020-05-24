@@ -7,7 +7,7 @@ import {
 import { getInputValue } from '../../value.factories';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
-import { ServoState } from '../../../state/arduino-components.state';
+import { ServoState } from '../../../arduino-components.state';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 
 export const servoRotate: StateGenerator = (

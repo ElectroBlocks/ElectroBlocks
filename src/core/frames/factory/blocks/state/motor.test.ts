@@ -18,7 +18,7 @@ import { BlockEvent } from '../../../../blockly/state/event.data';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { findComponent } from '../../factory.helpers';
-import { MotorState } from '../../../state/arduino-components.state';
+import { MotorState } from '../../../arduino-components.state';
 
 describe('test servos factories', () => {
   let workspace: Workspace;

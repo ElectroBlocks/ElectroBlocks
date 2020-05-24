@@ -14,7 +14,7 @@ import {
   findArduinoLoopBlock,
 } from '../blockly/helpers/block-data.helper';
 import { generateInputState } from './factory/factory.helpers';
-import { PinState, PIN_TYPE } from './state/arduino-components.state';
+import { PinState, PIN_TYPE } from './arduino-components.state';
 import {
   sensorSetupBlockName,
   convertToState,

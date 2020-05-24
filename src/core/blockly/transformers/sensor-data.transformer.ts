@@ -29,7 +29,7 @@ import {
   TimeState,
   UltraSonicSensorState,
   ArduinoMessageState,
-} from '../../frames/state/arduino-components.state';
+} from '../../frames/arduino-components.state';
 import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 
 interface RetrieveSensorData {

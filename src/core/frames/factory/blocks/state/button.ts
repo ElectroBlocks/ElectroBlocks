@@ -1,5 +1,5 @@
 import { StateGenerator } from '../../state.factories';
-import { ButtonState } from '../../../state/arduino-components.state';
+import { ButtonState } from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 import { ButtonSensor } from '../../../../blockly/state/sensors.state';
 import { arduinoStateByComponent } from '../../factory.helpers';

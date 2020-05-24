@@ -24,7 +24,7 @@ import {
   PinState,
   PIN_TYPE,
   PinPicture,
-} from '../../../state/arduino-components.state';
+} from '../../../arduino-components.state';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { getDefaultValue } from '../../factory.helpers';
 

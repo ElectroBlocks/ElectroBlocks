@@ -1,6 +1,6 @@
 import { StateGenerator } from '../../state.factories';
 import { MotionSensor } from '../../../../blockly/state/sensors.state';
-import { UltraSonicSensorState } from '../../../state/arduino-components.state';
+import { UltraSonicSensorState } from '../../../arduino-components.state';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { ArduinoComponentType } from '../../../arduino.frame';
 import { arduinoStateByComponent } from '../../factory.helpers';

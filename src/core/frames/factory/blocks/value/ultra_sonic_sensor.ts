@@ -1,6 +1,6 @@
 import { ValueGenerator } from '../../value.factories';
 import { findComponent } from '../../factory.helpers';
-import { UltraSonicSensorState } from '../../../state/arduino-components.state';
+import { UltraSonicSensorState } from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 
 export const ultraSonicSensorDistance: ValueGenerator = (

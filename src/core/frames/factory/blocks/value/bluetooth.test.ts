@@ -20,7 +20,7 @@ import {
   ArduinoComponentType,
   ArduinoComponentState,
 } from '../../../arduino.frame';
-import { BluetoothState } from '../../../state/arduino-components.state';
+import { BluetoothState } from '../../../arduino-components.state';
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,

@@ -14,7 +14,7 @@ import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
 import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
-import { TimeState } from '../../../state/arduino-components.state';
+import { TimeState } from '../../../arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 
 describe('time state factories', () => {

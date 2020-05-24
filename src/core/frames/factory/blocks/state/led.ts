@@ -5,7 +5,7 @@ import {
   PinState,
   PinPicture,
   PIN_TYPE,
-} from '../../../state/arduino-components.state';
+} from '../../../arduino-components.state';
 
 import _ from 'lodash';
 import { ArduinoComponentType } from '../../../arduino.frame';

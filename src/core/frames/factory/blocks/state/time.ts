@@ -1,5 +1,5 @@
 import { StateGenerator } from '../../state.factories';
-import { TimeState } from '../../../state/arduino-components.state';
+import { TimeState } from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 import { arduinoStateByComponent } from '../../factory.helpers';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';

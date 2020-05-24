@@ -1,7 +1,7 @@
 import { BluetoothSensor } from '../../../../blockly/state/sensors.state';
 import { findComponent } from '../../factory.helpers';
 import { ValueGenerator } from '../../value.factories';
-import { BluetoothState } from '../../../state/arduino-components.state';
+import { BluetoothState } from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 

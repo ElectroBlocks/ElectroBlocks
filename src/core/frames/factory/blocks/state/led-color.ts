@@ -1,6 +1,6 @@
 import { StateGenerator } from '../../state.factories';
 import { arduinoStateByComponent, findComponent } from '../../factory.helpers';
-import { LedColorState } from '../../../state/arduino-components.state';
+import { LedColorState } from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { getInputValue } from '../../value.factories';

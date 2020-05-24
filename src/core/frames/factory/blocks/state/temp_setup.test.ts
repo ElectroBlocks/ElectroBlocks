@@ -16,7 +16,7 @@ import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 import {
   UltraSonicSensorState,
   TemperatureState,
-} from '../../../state/arduino-components.state';
+} from '../../../arduino-components.state';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';

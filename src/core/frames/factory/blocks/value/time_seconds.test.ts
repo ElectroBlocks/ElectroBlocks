@@ -12,7 +12,7 @@ import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
-import { TimeState } from '../../../state/arduino-components.state';
+import { TimeState } from '../../../arduino-components.state';
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,

@@ -12,7 +12,7 @@ import { transformVariable } from '../../../../blockly/transformers/variables.tr
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
-import { LedColorState } from '../../../state/arduino-components.state';
+import { LedColorState } from '../../../arduino-components.state';
 import {
   createArduinoAndWorkSpace,
   createValueBlock,

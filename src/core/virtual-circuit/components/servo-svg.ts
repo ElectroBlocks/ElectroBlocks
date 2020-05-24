@@ -1,6 +1,6 @@
 import { SyncComponent, CreateComponent } from '../svg.component';
 import { ArduinoComponentType } from '../../frames/arduino.frame';
-import { ServoState } from '../../frames/state/arduino-components.state';
+import { ServoState } from '../../frames/arduino-components.state';
 import { componentToSvgId, findSvgElement } from '../svg-helpers';
 import servoSVGText from '../svgs/servo/servo.svg';
 import { Svg, Text, Element } from '@svgdotjs/svg.js';

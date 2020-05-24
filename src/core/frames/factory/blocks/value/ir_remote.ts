@@ -1,6 +1,6 @@
 import { ValueGenerator } from '../../value.factories';
 import { findComponent } from '../../factory.helpers';
-import { IRRemoteState } from '../../../state/arduino-components.state';
+import { IRRemoteState } from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 
 export const irRemoteHasCode: ValueGenerator = (

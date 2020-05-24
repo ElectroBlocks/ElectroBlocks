@@ -4,7 +4,7 @@ import {
   PinState,
   PIN_TYPE,
   pinPictureToWork as pinPictureToWord,
-} from '../../../state/arduino-components.state';
+} from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 import { PinSensor } from '../../../../blockly/state/sensors.state';
 import { arduinoStateByComponent } from '../../factory.helpers';

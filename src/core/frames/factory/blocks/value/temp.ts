@@ -1,6 +1,6 @@
 import { ValueGenerator } from '../../value.factories';
 import { findComponent } from '../../factory.helpers';
-import { TemperatureState } from '../../../state/arduino-components.state';
+import { TemperatureState } from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 
 export const getTemp: ValueGenerator = (

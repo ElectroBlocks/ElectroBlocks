@@ -1,6 +1,6 @@
 import { ValueGenerator } from '../../value.factories';
 import { findComponent } from '../../factory.helpers';
-import { RfidState } from '../../../state/arduino-components.state';
+import { RfidState } from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 
 export const rfidScannedCard: ValueGenerator = (

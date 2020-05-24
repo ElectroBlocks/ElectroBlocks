@@ -18,7 +18,7 @@ import { transformVariable } from '../../../../blockly/transformers/variables.tr
 import { BlockEvent } from '../../../../blockly/state/event.data';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { findComponent } from '../../factory.helpers';
-import { ServoState } from '../../../state/arduino-components.state';
+import { ServoState } from '../../../arduino-components.state';
 import { ArduinoComponentType, ArduinoFrame } from '../../../arduino.frame';
 
 describe('test servos factories', () => {

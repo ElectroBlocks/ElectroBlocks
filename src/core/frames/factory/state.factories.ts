@@ -39,7 +39,7 @@ import { simpleLoop, forLoop } from './blocks/state/loop';
 import { customBlock } from './blocks/state/function';
 import { delayBlock } from './blocks/state/delay';
 import { digitalWrite, analogWrite } from './blocks/state/led';
-import { PinPicture } from '../state/arduino-components.state';
+import { PinPicture } from '../arduino-components.state';
 import { ledMatrixDraw, ledMatrixOnLed } from './blocks/state/led-matrix';
 import { moveMotor } from './blocks/state/motor';
 import { rfidScannedCard } from './blocks/value/rfid';

@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { ArduinoComponentType, ArduinoFrame } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
-import { LedMatrixState } from '../../../state/arduino-components.state';
+import { LedMatrixState } from '../../../arduino-components.state';
 import {
   arduinoStateByComponent,
   findComponent,

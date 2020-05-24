@@ -5,10 +5,7 @@ import {
   findComponent,
   arduinoStateByComponent,
 } from '../../factory.helpers';
-import {
-  MotorState,
-  MOTOR_DIRECTION,
-} from '../../../state/arduino-components.state';
+import { MotorState, MOTOR_DIRECTION } from '../../../arduino-components.state';
 import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 

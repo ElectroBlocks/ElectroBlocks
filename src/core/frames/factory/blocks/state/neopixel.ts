@@ -1,4 +1,4 @@
-import { NeoPixelState } from '../../../state/arduino-components.state';
+import { NeoPixelState } from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import _ from 'lodash';

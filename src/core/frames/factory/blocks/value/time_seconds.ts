@@ -1,5 +1,5 @@
 import { ValueGenerator } from '../../value.factories';
-import { TimeState } from '../../../state/arduino-components.state';
+import { TimeState } from '../../../arduino-components.state';
 import { ArduinoComponentType } from '../../../arduino.frame';
 
 export const timeSeconds: ValueGenerator = (
