@@ -27,6 +27,9 @@ export const createComponents = (
   draw: Svg
 ) => {
   components.forEach((c) => {
-    listCreate.forEach((lc) => lc(c, draw));
+    listCreate.forEach((lc) => {
+      lc(c, draw);
+      
+    });
   });
 };

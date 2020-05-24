@@ -1,28 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="176.66" height="166.85" viewBox="0 0 176.66 166.85">
+<svg xmlns="http://www.w3.org/2000/svg" width="196.16" height="166.85" viewBox="0 0 196.16 166.85">
   <title>servo</title>
   <g id="base">
     <g>
-      <rect x="16.03" y="42.54" width="52.35" height="103.74" fill="#2a90ff"/>
-      <path d="M90,47.06V150.32H38.27V47.06H90m.66-.48h-53V150.8h53Z" transform="translate(-21.91 -4.28)"/>
+      <rect x="35.52" y="42.54" width="52.35" height="103.74" fill="#2a90ff"/>
+      <path d="M90,47.06V150.32H38.27V47.06H90m.66-.48h-53V150.8h53Z" transform="translate(-2.41 -4.28)"/>
     </g>
   </g>
   <g id="Angle_Text" data-name="Angle Text">
-    <text id="servo_pin" transform="translate(22.32 138.36)" font-size="34.62" font-family="Biryani-ExtraLight, Biryani" font-weight="200">12</text>
-    <text id="degrees" transform="translate(10.85 30.43)" font-size="34.62" font-family="Biryani-ExtraLight, Biryani" font-weight="200">180°</text>
+    <text id="servo_pin" transform="translate(41.82 138.36)" font-size="34.62" font-family="Biryani-ExtraLight, Biryani" font-weight="200">12</text>
+    <text id="degrees" transform="translate(30.34 30.43)" font-size="34.62" font-family="Biryani-ExtraLight, Biryani" font-weight="200">180°</text>
   </g>
   <g id="HELPER_TEXT">
-    <text id="WIRE_TEXT" transform="translate(101.78 81.74)" font-size="23.08" font-family="Biryani-ExtraLight, Biryani" font-weight="200">WIRE</text>
-    <text id="WIRE_TYPE" transform="translate(88.22 58.78)" font-size="23.08" font-family="Biryani-ExtraLight, Biryani" font-weight="200">POWER</text>
-    <rect id="WIRE_DISPLAY" x="123.52" y="92.15" width="17.85" height="55.34" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <text id="WIRE_TEXT" transform="translate(121.28 81.74)" font-size="23.08" font-family="Biryani-ExtraLight, Biryani" font-weight="200">WIRE</text>
+    <text id="WIRE_TYPE" transform="translate(107.72 58.78)" font-size="23.08" font-family="Biryani-ExtraLight, Biryani" font-weight="200">POWER</text>
+    <rect id="WIRE_DISPLAY" x="143.01" y="92.15" width="17.85" height="55.34" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
   </g>
   <g id="Layer_3" data-name="Layer 3">
-    <rect id="DATA_BOX" data-name="DATA BOX" x="55.45" y="146.19" width="6.63" height="20.54" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
-    <rect id="_5V_BOX" data-name=" 5V BOX" x="38.89" y="146.19" width="6.63" height="20.54" fill="#ff422a" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
-    <polygon id="GND_BOX" data-name="GND BOX" points="22.32 146.19 22.32 166.73 25.63 166.73 28.95 166.73 28.95 146.19 22.32 146.19" fill="#9e6b18" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <rect id="DATA_BOX" data-name="DATA BOX" x="74.95" y="146.19" width="6.63" height="20.54" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <rect id="_5V_BOX" data-name=" 5V BOX" x="58.38" y="146.19" width="6.63" height="20.54" fill="#ff422a" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <polygon id="GND_BOX" data-name="GND BOX" points="41.82 146.19 41.82 166.73 45.13 166.73 48.44 166.73 48.44 146.19 41.82 146.19" fill="#9e6b18" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
   </g>
   <g id="spinning_part" data-name="spinning part">
-    <rect id="black_fill" data-name="black fill" x="37.23" y="85.69" width="14.33" height="17.02" stroke="#000" stroke-miterlimit="10"/>
-    <path id="moving_part" data-name="moving part" d="M22.47,99.41c.48,4.76,4,8.65,8.26,8.87l40.54,3.62c4.78-1.8,8-7.13,8-13.07,0-6.23-3.59-11.78-8.68-13.35L30.15,88.13C25.3,88.79,21.92,94.05,22.47,99.41Zm43.74-8c3.46,0,6.3,3.17,6.34,7.16s-2.74,7.25-6.2,7.28-6.3-3.17-6.34-7.15S62.75,91.45,66.21,91.42Z" transform="translate(-21.91 -4.28)" fill="#fbb03b" stroke="#000" stroke-miterlimit="10"/>
-    <path id="CenterOfCicle" d="M67.75,97.71" transform="translate(-21.91 -4.28)" fill="#fbb03b" stroke="#000" stroke-miterlimit="10"/>
+    <rect id="black_fill" data-name="black fill" x="56.72" y="85.69" width="14.33" height="17.02" stroke="#000" stroke-miterlimit="10"/>
+    <path id="moving_part" data-name="moving part" d="M109,99.14c-.19-4.78-3.43-8.88-7.7-9.36L61.07,83.69c-4.88,1.5-8.46,6.62-8.82,12.55-.37,6.21,2.87,12,7.85,13.86l40.56-.17C105.54,109.56,109.24,104.52,109,99.14Zm-44.15,5.3c-3.45-.18-6.09-3.55-5.89-7.54s3.18-7.06,6.64-6.89,6.09,3.55,5.89,7.53S68.33,104.61,64.87,104.44Z" transform="translate(-2.41 -4.28)" fill="#fbb03b" stroke="#000" stroke-miterlimit="10"/>
+    <path id="CenterOfCicle" d="M65.24,96.89" transform="translate(-2.41 -4.28)" fill="#fbb03b" stroke="#000" stroke-miterlimit="10"/>
+    <rect y="142.93" width="10.75" height="8.66" fill="none"/>
   </g>
 </svg>
