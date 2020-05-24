@@ -8,13 +8,13 @@ import {
   mathModulus,
   mathRandom,
   numberToString,
-} from './blocks/value/math';
+} from './value/math';
 import {
   logicBoolean,
   logicCompare,
   logicOperation,
   logicNot,
-} from './blocks/value/logic';
+} from './value/logic';
 import {
   text,
   textJoin,
@@ -23,22 +23,22 @@ import {
   textIsEmpty,
   changeCase,
   numberToText,
-} from './blocks/value/text';
+} from './value/text';
 import { VariableData } from '../../blockly/state/variable.data';
-import { colorPicker, randomColor, rgbColor } from './blocks/value/colors';
+import { colorPicker, randomColor, rgbColor } from './value/colors';
 import { findBlockInput } from './factory.helpers';
 import _ from 'lodash';
-import { getVariable } from './blocks/value/get_variables';
-import { getItemInList } from './blocks/value/list-get-item';
-import { getArduinoMessage, arduinoHasMessage } from './blocks/value/message';
-import { timeSeconds } from './blocks/value/time_seconds';
-import { hasBtMessage, getBtMessage } from './blocks/value/bluetooth';
-import { getPinState } from './blocks/value/pin';
-import { isButtonPressed } from './blocks/value/button';
-import { irRemoteHasCode, irRemoteGetCode } from './blocks/value/ir_remote';
-import { ultraSonicSensorDistance } from './blocks/value/ultra_sonic_sensor';
-import { rfidScannedCard, rfidCardNumber, rfidTag } from './blocks/value/rfid';
-import { getHumidity, getTemp } from './blocks/value/temp';
+import { getVariable } from './value/get_variables';
+import { getItemInList } from './value/list-get-item';
+import { getArduinoMessage, arduinoHasMessage } from './value/message';
+import { timeSeconds } from './value/time_seconds';
+import { hasBtMessage, getBtMessage } from './value/bluetooth';
+import { getPinState } from './value/pin';
+import { isButtonPressed } from './value/button';
+import { irRemoteHasCode, irRemoteGetCode } from './value/ir_remote';
+import { ultraSonicSensorDistance } from './value/ultra_sonic_sensor';
+import { rfidScannedCard, rfidCardNumber, rfidTag } from './value/rfid';
+import { getHumidity, getTemp } from './value/temp';
 
 export interface ValueGenerator {
   (

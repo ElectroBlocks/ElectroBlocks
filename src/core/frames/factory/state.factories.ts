@@ -1,9 +1,9 @@
 import { BlockData } from '../../blockly/state/block.data';
 import { Timeline, ArduinoFrame } from '../arduino.frame';
-import { rfidSetup } from './blocks/state/rfid';
-import { bluetoothSetup, bluetoothMessage } from './blocks/state/bluetooth';
-import { messageSetup, arduinoSendMessage } from './blocks/state/message';
-import { timeSetup } from './blocks/state/time';
+import { rfidSetup } from './state/rfid';
+import { bluetoothSetup, bluetoothMessage } from './state/bluetooth';
+import { messageSetup, arduinoSendMessage } from './state/message';
+import { timeSetup } from './state/time';
 import {
   lcdScreenSetup,
   lcdSimplePrint,
@@ -12,16 +12,16 @@ import {
   lcdBlink,
   lcdClear,
   lcdBacklight,
-} from './blocks/state/lcd';
-import { neoPixelSetup, setNeoPixelColor } from './blocks/state/neopixel';
-import { ledColorSetup, setLedColor } from './blocks/state/led-color';
-import { setupReadPin } from './blocks/state/pin';
-import { buttonSetup } from './blocks/state/button';
-import { irRemoteSetup } from './blocks/state/ir_remote';
-import { debugBlock } from './blocks/state/debug';
-import { ultraSonicSensor } from './blocks/state/ultra_sonic_sensor';
-import { servoRotate } from './blocks/state/servo';
-import { tempSetupSensor } from './blocks/state/temp_setup';
+} from './state/lcd';
+import { neoPixelSetup, setNeoPixelColor } from './state/neopixel';
+import { ledColorSetup, setLedColor } from './state/led-color';
+import { setupReadPin } from './state/pin';
+import { buttonSetup } from './state/button';
+import { irRemoteSetup } from './state/ir_remote';
+import { debugBlock } from './state/debug';
+import { ultraSonicSensor } from './state/ultra_sonic_sensor';
+import { servoRotate } from './state/servo';
+import { tempSetupSensor } from './state/temp_setup';
 import { VariableData } from '../../blockly/state/variable.data';
 import {
   createListNumberState,
@@ -32,17 +32,17 @@ import {
   setNumberInList,
   setColorInList,
   setBooleanInList,
-} from './blocks/state/list';
-import { setVariable } from './blocks/state/set_variables';
-import { ifElse } from './blocks/state/logic';
-import { simpleLoop, forLoop } from './blocks/state/loop';
-import { customBlock } from './blocks/state/function';
-import { delayBlock } from './blocks/state/delay';
-import { digitalWrite, analogWrite } from './blocks/state/led';
+} from './state/list';
+import { setVariable } from './state/set_variables';
+import { ifElse } from './state/logic';
+import { simpleLoop, forLoop } from './state/loop';
+import { customBlock } from './state/function';
+import { delayBlock } from './state/delay';
+import { digitalWrite, analogWrite } from './state/led';
 import { PinPicture } from '../arduino-components.state';
-import { ledMatrixDraw, ledMatrixOnLed } from './blocks/state/led-matrix';
-import { moveMotor } from './blocks/state/motor';
-import { rfidScannedCard } from './blocks/value/rfid';
+import { ledMatrixDraw, ledMatrixOnLed } from './state/led-matrix';
+import { moveMotor } from './state/motor';
+import { rfidScannedCard } from './value/rfid';
 
 export interface StateGenerator {
   (

@@ -1,6 +1,5 @@
 <script>
   import { SVG } from "@svgdotjs/svg.js";
-  import "./test.js";
   import currentState from "../../../stores/currentState.store";
   import stateStore from "../../../stores/state.store";
   import currentStateStore from "../../../stores/currentState.store";
