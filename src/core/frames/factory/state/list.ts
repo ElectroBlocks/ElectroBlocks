@@ -1,11 +1,11 @@
 import { StateGenerator } from '../state.factories';
 import { ArduinoFrame, Variable, Timeline, Color } from '../../arduino.frame';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { BlockData } from '../../../blockly/state/block.data';
+import { BlockData } from '../../../blockly/dto/block.data';
 import {
   VariableTypes,
   VariableData,
-} from '../../../blockly/state/variable.data';
+} from '../../../blockly/dto/variable.data';
 import _ from 'lodash';
 import {
   arduinoStateByVariable,

@@ -1,7 +1,7 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
-import selectedBoard from '../../../constants/arduino';
+import selectedBoard from '../selectBoard';
 import loopTimes from './helpers/looptimes';
 
 Blockly.defineBlocksWithJsonArray([
@@ -15,13 +15,13 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     output: 'Number',
     colour: COLOR_THEME.SENSOR,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
 
   {
@@ -34,18 +34,18 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     output: 'Number',
     colour: COLOR_THEME.SENSOR,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);
 
 const tempSetupBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage('./blocks/temp/temp.png', 15, 15))
       .appendField('Setup Temperature Sensor');
@@ -75,7 +75,7 @@ const tempSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['temp_setup'] = tempSetupBlock;

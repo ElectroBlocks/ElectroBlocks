@@ -1,4 +1,4 @@
-import { BlockEvent } from '../../state/event.data';
+import { BlockEvent } from '../../dto/event.data';
 import { VariableAction, ActionType } from '../actions';
 
 export const deleteUnusedVariables = (event: BlockEvent): VariableAction[] => {
@@ -9,7 +9,7 @@ export const deleteUnusedVariables = (event: BlockEvent): VariableAction[] => {
       return {
         variableId: v.id,
         actionType: 'delete',
-        type: ActionType.DELETE_VARIABLE
+        type: ActionType.DELETE_VARIABLE,
       };
     });
 };

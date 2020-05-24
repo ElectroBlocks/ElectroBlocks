@@ -4,7 +4,7 @@ import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import * as helpers from '../../helpers/workspace.helper';
 import { getAllBlocks } from '../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../state/event.data';
+import { BlockEvent } from '../../dto/event.data';
 import { transformBlock } from '../../transformers/block.transformer';
 import { updateSensorSetupFields } from './updateSensorSetupFields';
 import { UpdateSetupSensorBlockFields, ActionType } from '../actions';
@@ -24,14 +24,13 @@ describe('updateSensorSetup', () => {
     workspace.dispose();
   });
 
-
   test('should return an event that is not change event', () => {
     // NO Sensor blocks
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_DELETE,
-      blockId: arduinoBlock.id
+      blockId: arduinoBlock.id,
     };
     expect(updateSensorSetupFields(event)).toEqual([]);
   });
@@ -48,7 +47,7 @@ describe('updateSensorSetup', () => {
       newValue: '3',
       oldValue: '2',
       fieldType: 'field',
-      fieldName: 'NUM'
+      fieldName: 'NUM',
     };
     expect(updateSensorSetupFields(numValueChangingEvent)).toEqual([]);
   });
@@ -80,20 +79,20 @@ describe('updateSensorSetup', () => {
         scanned_card: true,
         card_number: '333',
         tag: 'tag_333',
-        loop: 1
+        loop: 1,
       },
       {
         scanned_card: true,
         card_number: '111',
         tag: 'tag_111',
-        loop: 2
+        loop: 2,
       },
       {
         scanned_card: true,
         card_number: '222',
         tag: 'tag_222',
-        loop: 3
-      }
+        loop: 3,
+      },
     ]);
     sensorBlock.data = jsonData;
     const sensorBlockChangeEvent: BlockEvent = {
@@ -112,20 +111,22 @@ describe('updateSensorSetup', () => {
       fields: [
         {
           name: 'scanned_card',
-          value: true
+          value: true,
         },
         {
           name: 'card_number',
-          value: '222'
+          value: '222',
         },
         {
           name: 'tag',
-          value: 'tag_222'
-        }
+          value: 'tag_222',
+        },
       ],
-      type: ActionType.SETUP_SENSOR_BLOCK_FIELD_UPDATE
+      type: ActionType.SETUP_SENSOR_BLOCK_FIELD_UPDATE,
     };
 
-    expect(updateSensorSetupFields(sensorBlockChangeEvent)).toEqual([expectedAction]);
+    expect(updateSensorSetupFields(sensorBlockChangeEvent)).toEqual([
+      expectedAction,
+    ]);
   });
 });

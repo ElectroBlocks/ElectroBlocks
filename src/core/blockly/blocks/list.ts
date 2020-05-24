@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -13,19 +13,19 @@ Blockly.defineBlocksWithJsonArray([
         defaultType: 'List Number',
         variableTypes: ['List Number'],
         showOnlyVariableAssigned: true,
-        createNewVariable: false
+        createNewVariable: false,
       },
       {
         type: 'field_number',
         name: 'SIZE',
         value: 2,
         min: 1,
-        max: 20000
-      }
+        max: 20000,
+      },
     ],
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
 
   {
@@ -39,19 +39,19 @@ Blockly.defineBlocksWithJsonArray([
         defaultType: 'List String',
         variableTypes: ['List String'],
         showOnlyVariableAssigned: true,
-        createNewVariable: false
+        createNewVariable: false,
       },
       {
         type: 'field_number',
         name: 'SIZE',
         value: 2,
         min: 1,
-        max: 20000
-      }
+        max: 20000,
+      },
     ],
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
 
   {
@@ -65,19 +65,19 @@ Blockly.defineBlocksWithJsonArray([
         defaultType: 'List Colour',
         variableTypes: ['List Colour'],
         showOnlyVariableAssigned: true,
-        createNewVariable: false
+        createNewVariable: false,
       },
       {
         type: 'field_number',
         name: 'SIZE',
         value: 2,
         min: 1,
-        max: 20000
-      }
+        max: 20000,
+      },
     ],
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
 
   {
@@ -91,19 +91,19 @@ Blockly.defineBlocksWithJsonArray([
         defaultType: 'List Boolean',
         variableTypes: ['List Boolean'],
         showOnlyVariableAssigned: true,
-        createNewVariable: false
+        createNewVariable: false,
       },
       {
         type: 'field_number',
         name: 'SIZE',
         value: 2,
         min: 1,
-        max: 20000
-      }
+        max: 20000,
+      },
     ],
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
 
   // NUMBER LIST
@@ -115,30 +115,30 @@ Blockly.defineBlocksWithJsonArray([
         type: 'input_value',
         name: 'VALUE',
         check: 'Number',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'field_variable',
         name: 'VAR',
         variable: null,
         variableTypes: ['List Number'],
-        defaultType: 'List Number'
+        defaultType: 'List Number',
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'input_value',
         name: 'POSITION',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     inputsInline: true,
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'get_number_from_list',
@@ -149,19 +149,19 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['List Number'],
-        defaultType: 'List Number'
+        defaultType: 'List Number',
       },
       {
         type: 'input_value',
         name: 'POSITION',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     inputsInline: false,
     output: 'Number',
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   // STRING LIST
   {
@@ -172,30 +172,30 @@ Blockly.defineBlocksWithJsonArray([
         type: 'input_value',
         name: 'VALUE',
         check: 'String',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'field_variable',
         name: 'VAR',
         variable: null,
         variableTypes: ['List String'],
-        defaultType: 'List String'
+        defaultType: 'List String',
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'input_value',
         name: 'POSITION',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     inputsInline: true,
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'get_string_from_list',
@@ -206,19 +206,19 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['List String'],
-        defaultType: 'List String'
+        defaultType: 'List String',
       },
       {
         type: 'input_value',
         name: 'POSITION',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     inputsInline: false,
     output: 'String',
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
 
   // Boolean List
@@ -230,30 +230,30 @@ Blockly.defineBlocksWithJsonArray([
         type: 'input_value',
         name: 'VALUE',
         check: 'Boolean',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'field_variable',
         name: 'VAR',
         variable: null,
         variableTypes: ['List Boolean'],
-        defaultType: 'List Boolean'
+        defaultType: 'List Boolean',
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'input_value',
         name: 'POSITION',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     inputsInline: true,
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'get_boolean_from_list',
@@ -264,19 +264,19 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['List Boolean'],
-        defaultType: 'List Boolean'
+        defaultType: 'List Boolean',
       },
       {
         type: 'input_value',
         name: 'POSITION',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     inputsInline: false,
     output: 'Boolean',
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
 
   // Colour List
@@ -288,30 +288,30 @@ Blockly.defineBlocksWithJsonArray([
         type: 'input_value',
         name: 'VALUE',
         check: 'Colour',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'field_variable',
         name: 'VAR',
         variable: null,
         variableTypes: ['List Colour'],
-        defaultType: 'List Colour'
+        defaultType: 'List Colour',
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'input_value',
         name: 'POSITION',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     inputsInline: true,
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'get_colour_from_list',
@@ -322,18 +322,18 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['List Colour'],
-        defaultType: 'List Colour'
+        defaultType: 'List Colour',
       },
       {
         type: 'input_value',
         name: 'POSITION',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     inputsInline: false,
     output: 'Colour',
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);

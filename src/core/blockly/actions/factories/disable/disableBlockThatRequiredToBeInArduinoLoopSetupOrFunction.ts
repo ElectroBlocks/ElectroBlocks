@@ -1,6 +1,6 @@
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { DisableBlock, ActionType } from '../../actions';
-import { BlockTypeRequireRootBlock } from '../../../state/block.data';
+import { BlockTypeRequireRootBlock } from '../../../dto/block.data';
 
 /**
  * Disables Blocks that are required to be in loop, setup, or prodecure function.
@@ -22,7 +22,7 @@ export const disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction = (
       return {
         blockId: block.id,
         type: ActionType.DISABLE_BLOCK,
-        warningText: null
+        warningText: null,
       };
     });
 };

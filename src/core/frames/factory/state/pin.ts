@@ -6,7 +6,7 @@ import {
   pinPictureToWork as pinPictureToWord,
 } from '../../arduino-components.state';
 import { ArduinoComponentType } from '../../arduino.frame';
-import { PinSensor } from '../../../blockly/state/sensors.state';
+import { PinSensor } from '../../../blockly/dto/sensors.data';
 import { arduinoStateByComponent } from '../factory.helpers';
 
 export const setupReadPin: StateGenerator = (

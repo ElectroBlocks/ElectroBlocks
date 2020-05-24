@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 import loopTimes from './helpers/looptimes';
 
@@ -14,13 +14,13 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     output: 'Boolean',
     colour: COLOR_THEME.ARDUINO,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'arduino_get_message',
@@ -32,13 +32,13 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     output: 'String',
     colour: COLOR_THEME.ARDUINO,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'arduino_send_message',
@@ -50,24 +50,24 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
         type: 'input_value',
         name: 'MESSAGE',
-        check: 'String'
-      }
+        check: 'String',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.ARDUINO,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);
 
 const messageSetupBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage('./blocks/message/message.png', 15, 15)
@@ -105,7 +105,7 @@ const messageSetupBlock: any = {
     this.setColour(COLOR_THEME.ARDUINO);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['message_setup'] = messageSetupBlock;

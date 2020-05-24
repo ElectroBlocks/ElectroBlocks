@@ -1,8 +1,8 @@
 import {
   VariableTypes,
   VariableData,
-} from '../../../blockly/state/variable.data';
-import { BlockData } from '../../../blockly/state/block.data';
+} from '../../../blockly/dto/variable.data';
+import { BlockData } from '../../../blockly/dto/block.data';
 import { Timeline, ArduinoFrame, Color } from '../../arduino.frame';
 import { ValueGenerator, getInputValue } from '../value.factories';
 import _ from 'lodash';

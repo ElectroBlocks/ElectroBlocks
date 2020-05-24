@@ -8,15 +8,15 @@ import {
 } from '../arduino.frame';
 
 import _ from 'lodash';
-import { BlockData } from '../../blockly/state/block.data';
+import { BlockData } from '../../blockly/dto/block.data';
 import {
   findBlockById,
   findInputStatementStartBlock,
 } from '../../blockly/helpers/block-data.helper';
-import { VariableTypes, VariableData } from '../../blockly/state/variable.data';
+import { VariableTypes, VariableData } from '../../blockly/dto/variable.data';
 import { generateState } from './state.factories';
-import { Sensor } from '../../blockly/state/sensors.state';
-import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
+import { Sensor } from '../../blockly/dto/sensors.data';
+import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { MotorState } from '../arduino-components.state';
 
 export const arduinoStateByVariable = (

@@ -1,6 +1,6 @@
-import { BlockEvent } from '../../state/event.data';
+import { BlockEvent } from '../../dto/event.data';
 import { UpdateSetupSensorBlockLoop, ActionType } from '../actions';
-import { BlockType } from '../../state/block.data';
+import { BlockType } from '../../dto/block.data';
 
 export const updateLoopNumberInSensorSetupBlock = (
   event: BlockEvent
@@ -25,8 +25,8 @@ export const updateLoopNumberInSensorSetupBlock = (
     .filter((block) => block.type === BlockType.SENSOR_SETUP)
     .filter(
       (block) =>
-      // Only update the blocks where the current loop value is greater than the one in the block. 
-      // This is because what is in the block right now is still valid
+        // Only update the blocks where the current loop value is greater than the one in the block.
+        // This is because what is in the block right now is still valid
         +block.fieldValues.find((field) => field.name === 'LOOP').value >
         newLoopNumber
     )
@@ -34,7 +34,7 @@ export const updateLoopNumberInSensorSetupBlock = (
       return {
         blockId: block.id,
         loop: newLoopNumber,
-        type: ActionType.SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE
+        type: ActionType.SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE,
       };
     });
 };

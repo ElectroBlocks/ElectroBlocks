@@ -1,4 +1,4 @@
-import { COLOR_THEME } from '../../constants/colors';
+import { COLOR_THEME } from './constants/colors';
 import { BlocklyThemeOptions } from 'blockly';
 
 export const theme: BlocklyThemeOptions = {
@@ -7,49 +7,49 @@ export const theme: BlocklyThemeOptions = {
       colourPrimary: COLOR_THEME.CONTROL,
       colourSecondary: COLOR_THEME.CONTROL,
       colourTertiary: COLOR_THEME.CONTROL,
-      hat: ''
+      hat: '',
     },
     loop_blocks: {
       colourPrimary: COLOR_THEME.CONTROL,
       colourSecondary: COLOR_THEME.CONTROL,
       colourTertiary: COLOR_THEME.CONTROL,
-      hat: ''
+      hat: '',
     },
     procedure_blocks: {
       colourPrimary: COLOR_THEME.CONTROL,
       colourSecondary: COLOR_THEME.CONTROL,
       colourTertiary: COLOR_THEME.CONTROL,
-      hat: ''
+      hat: '',
     },
     math_blocks: {
       colourPrimary: COLOR_THEME.VALUES,
       colourSecondary: COLOR_THEME.VALUES,
       colourTertiary: COLOR_THEME.VALUES,
-      hat: ''
+      hat: '',
     },
     text_blocks: {
       colourPrimary: COLOR_THEME.VALUES,
       colourSecondary: COLOR_THEME.VALUES,
       colourTertiary: COLOR_THEME.VALUES,
-      hat: ''
+      hat: '',
     },
     colour_blocks: {
       colourPrimary: COLOR_THEME.VALUES,
       colourSecondary: COLOR_THEME.VALUES,
       colourTertiary: COLOR_THEME.VALUES,
-      hat: ''
+      hat: '',
     },
     variable_blocks: {
       colourPrimary: COLOR_THEME.DATA,
       colourSecondary: COLOR_THEME.DATA,
       colourTertiary: COLOR_THEME.DATA,
-      hat: ''
+      hat: '',
     },
     list_blocks: {
       colourPrimary: COLOR_THEME.DATA,
       colourSecondary: COLOR_THEME.DATA,
       colourTertiary: COLOR_THEME.DATA,
-      hat: ''
-    }
-  }
+      hat: '',
+    },
+  },
 };

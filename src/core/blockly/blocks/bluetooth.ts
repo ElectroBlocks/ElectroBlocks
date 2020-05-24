@@ -1,7 +1,7 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
-import selectedBoard from '../../../constants/arduino';
+import selectedBoard from '../selectBoard';
 import loopTimes from './helpers/looptimes';
 
 Blockly.defineBlocksWithJsonArray([
@@ -15,13 +15,13 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     output: 'String',
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'bluetooth_has_message',
@@ -33,13 +33,13 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     output: 'Boolean',
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'bluetooth_send_message',
@@ -51,24 +51,24 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
         type: 'input_value',
         name: 'MESSAGE',
-        check: 'String'
-      }
+        check: 'String',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);
 
 const bluetoothSetupBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage('/blocks/bluetooth/bluetooth.png', 15, 15)
@@ -113,7 +113,7 @@ const bluetoothSetupBlock: any = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['bluetooth_setup'] = bluetoothSetupBlock;

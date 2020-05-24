@@ -1,7 +1,7 @@
 import { StateGenerator } from '../state.factories';
 import { ArduinoComponentType } from '../../arduino.frame';
 import { RfidState } from '../../arduino-components.state';
-import { RFIDSensor } from '../../../blockly/state/sensors.state';
+import { RFIDSensor } from '../../../blockly/dto/sensors.data';
 import { arduinoStateByComponent } from '../factory.helpers';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 

@@ -1,7 +1,7 @@
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { DisableBlock, ActionType } from '../../actions';
-import { multipleTopBlocks } from '../../../state/block.data';
-import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
+import { multipleTopBlocks } from '../../../dto/block.data';
+import { ARDUINO_UNO_PINS } from '../../../selectBoard';
 
 // This happens when the arduino runs out of a certain type of pin
 // The drop down box will populate with NO_PINS in it
@@ -18,7 +18,7 @@ export const disableSetupBlocksUsingSamePinNumbers = (
       return {
         blockId: block.id,
         warningText: 'Arduino is out of pins',
-        type: ActionType.DISABLE_BLOCK
+        type: ActionType.DISABLE_BLOCK,
       };
     });
 };

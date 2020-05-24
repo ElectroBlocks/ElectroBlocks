@@ -10,8 +10,8 @@ import {
   MotionSensor,
   TempSensor,
   RFIDSensor,
-} from '../state/sensors.state';
-import { BlockData, BlockType } from '../state/block.data';
+} from '../dto/sensors.data';
+import { BlockData, BlockType } from '../dto/block.data';
 import { findFieldValue } from '../helpers/block-data.helper';
 import {
   Timeline,
@@ -30,7 +30,7 @@ import {
   UltraSonicSensorState,
   ArduinoMessageState,
 } from '../../frames/arduino-components.state';
-import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../selectBoard';
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;

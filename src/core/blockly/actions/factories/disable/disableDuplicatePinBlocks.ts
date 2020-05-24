@@ -1,13 +1,13 @@
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { DisableBlock, ActionType } from '../../actions';
 import _ from 'lodash';
 import {
   PinCategory,
   BlockData,
   BlockTypeRequireRootBlock,
-  BlockType
-} from '../../../state/block.data';
-import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
+  BlockType,
+} from '../../../dto/block.data';
+import { ARDUINO_UNO_PINS } from '../../../selectBoard';
 import { findRootBlock } from '../../../helpers/block-data.helper';
 
 /**
@@ -22,7 +22,7 @@ export const disableDuplicatePinBlocks = (
   const categoriesWithDuplicatePins = _.keys(pinCategories).map((cat) => {
     return {
       category: cat,
-      pins: getDuplicatePinsForCategory(pinCategories, cat as PinCategory)
+      pins: getDuplicatePinsForCategory(pinCategories, cat as PinCategory),
     };
   });
 
@@ -57,7 +57,7 @@ export const disableDuplicatePinBlocks = (
             block.pins,
             duplicatePins
           ).join(', ')}`,
-          type: ActionType.DISABLE_BLOCK
+          type: ActionType.DISABLE_BLOCK,
         };
       })
   );
@@ -91,7 +91,7 @@ const getPinCategories = (blocks: BlockData[]) => {
     if (prev[next.pinCategory]) {
       return {
         ...prev,
-        [next.pinCategory]: _.union(next.pins, prev[next.pinCategory])
+        [next.pinCategory]: _.union(next.pins, prev[next.pinCategory]),
       };
     }
 
@@ -114,4 +114,3 @@ const getDuplicatePinsForCategory = (
       return _.union(duplicatePins, prev);
     }, []);
 };
-

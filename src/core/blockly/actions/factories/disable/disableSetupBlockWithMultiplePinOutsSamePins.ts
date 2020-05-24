@@ -1,4 +1,4 @@
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { DisableBlock, ActionType } from '../../actions';
 import _ from 'lodash';
 
@@ -16,7 +16,7 @@ export const disableSetupBlockWithMultiplePinOutsSamePins = (
       return {
         type: ActionType.DISABLE_BLOCK,
         warningText: 'Block using the same pin twice',
-        blockId: b.id
+        blockId: b.id,
       };
     });
 };

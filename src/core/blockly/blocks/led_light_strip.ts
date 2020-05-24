@@ -1,7 +1,7 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
-import selectedBoard from '../../../constants/arduino';
+import selectedBoard from '../selectBoard';
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -15,30 +15,30 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_dropdown',
         name: 'PIN',
-        options: selectedBoard().pwmPins
+        options: selectedBoard().pwmPins,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_number',
         name: 'NUMBER_LEDS',
         value: 30,
         min: 1,
-        max: 150
-      }
+        max: 150,
+      },
     ],
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'neo_pixel_set_color',
@@ -50,28 +50,28 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'input_value',
         name: 'POSITION',
         check: 'Number',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'input_value',
         name: 'COLOR',
         check: 'Colour',
-        align: 'RIGHT'
-      }
+        align: 'RIGHT',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);

@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -13,39 +13,39 @@ Blockly.defineBlocksWithJsonArray([
         variableTypes: ['Number'],
         defaultType: 'Number',
         createNewVariable: true,
-        showOnlyVariableAssigned: false
+        showOnlyVariableAssigned: false,
       },
       {
         type: 'input_value',
         name: 'FROM',
         check: 'Number',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'input_value',
         name: 'TO',
         check: 'Number',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'input_value',
         name: 'BY',
         check: 'Number',
-        align: 'RIGHT'
-      }
+        align: 'RIGHT',
+      },
     ],
     message1: '%{BKY_CONTROLS_REPEAT_INPUT_DO} %1',
     args1: [
       {
         type: 'input_statement',
-        name: 'DO'
-      }
+        name: 'DO',
+      },
     ],
     inputsInline: false,
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.CONTROL,
     helpUrl: '%{BKY_CONTROLS_FOR_HELPURL}',
-    extensions: ['contextMenu_newGetVariableBlock', 'controls_for_tooltip']
-  }
+    extensions: ['contextMenu_newGetVariableBlock', 'controls_for_tooltip'],
+  },
 ]);

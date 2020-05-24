@@ -1,5 +1,5 @@
 import { StateGenerator } from '../state.factories';
-import { BluetoothSensor } from '../../../blockly/state/sensors.state';
+import { BluetoothSensor } from '../../../blockly/dto/sensors.data';
 import { BluetoothState } from '../../arduino-components.state';
 import { ArduinoComponentType } from '../../arduino.frame';
 import { arduinoStateByComponent } from '../factory.helpers';

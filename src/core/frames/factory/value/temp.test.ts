@@ -13,7 +13,7 @@ import {
   connectToArduinoBlock,
 } from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../blockly/state/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.data';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';
@@ -29,9 +29,9 @@ import {
 } from '../../arduino-components.state';
 import { eventToFrameFactory } from '../../event-to-frame.factory';
 import { ArduinoFrame, ArduinoComponentType } from '../../arduino.frame';
-import { ARDUINO_UNO_PINS } from '../../../../constants/arduino';
-import { TempSensor } from '../../../blockly/state/sensors.state';
-import { VariableTypes } from '../../../blockly/state/variable.data';
+import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
+import { TempSensor } from '../../../blockly/dto/sensors.data';
+import { VariableTypes } from '../../../blockly/dto/variable.data';
 import { getDefaultValue, findComponent } from '../factory.helpers';
 
 describe('rfid value factories', () => {

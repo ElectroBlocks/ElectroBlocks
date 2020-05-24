@@ -3,12 +3,12 @@ import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
 import { getAllBlocks } from '../../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { transformBlock } from '../../../transformers/block.transformer';
 import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';
 import { ActionType } from '../../actions';
-import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../../../selectBoard';
 import { disableSensorReadBlocksWithWrongPins } from './disableSensorReadBlocksWithWrongPins';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 
@@ -23,7 +23,6 @@ describe('disableSensorReadBlocksWithWrongPins', () => {
   afterEach(() => {
     workspace.dispose();
   });
-
 
   test('sensor read blocks that have pins select that are not selected by the setup block are disabled', () => {
     const btnSetup1 = workspace.newBlock('button_setup');
@@ -54,7 +53,7 @@ describe('disableSensorReadBlocksWithWrongPins', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const actions = disableSensorReadBlocksWithWrongPins(event);

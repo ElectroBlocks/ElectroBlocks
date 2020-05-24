@@ -1,10 +1,10 @@
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { DisableBlock, ActionType } from '../../actions';
 import {
   BlockType,
   blocksThatRequireSetup,
-  multipleTopBlocks
-} from '../../../state/block.data';
+  multipleTopBlocks,
+} from '../../../dto/block.data';
 
 import _ from 'lodash';
 
@@ -51,7 +51,7 @@ export const disableSensorReadBlocksWithWrongPins = (
       return {
         blockId: block.id,
         type: ActionType.DISABLE_BLOCK,
-        warningText: 'Please change the pin number to match the setup block'
+        warningText: 'Please change the pin number to match the setup block',
       };
     });
 };

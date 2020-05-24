@@ -1,7 +1,7 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
-import selectedBoard from '../../../constants/arduino';
+import selectedBoard from '../selectBoard';
 import loopTimes from './helpers/looptimes';
 
 Blockly.defineBlocksWithJsonArray([
@@ -15,18 +15,18 @@ Blockly.defineBlocksWithJsonArray([
         width: 30,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     output: 'Number',
     colour: COLOR_THEME.SENSOR,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);
 
 const ultraSonicSensorBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage(
@@ -59,7 +59,7 @@ const ultraSonicSensorBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['ultra_sonic_sensor_setup'] = ultraSonicSensorBlock;

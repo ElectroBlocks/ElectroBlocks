@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -12,13 +12,13 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     output: 'Number',
     colour: COLOR_THEME.ARDUINO,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'delay_block',
@@ -30,24 +30,24 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
         type: 'input_value',
         name: 'DELAY',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.ARDUINO,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);
 
 const timeSetupBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage('./blocks/time/time.png', 15, 15))
       .appendField('Setup Time');
@@ -62,7 +62,7 @@ const timeSetupBlock: any = {
     this.setColour(COLOR_THEME.ARDUINO);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['time_setup'] = timeSetupBlock;

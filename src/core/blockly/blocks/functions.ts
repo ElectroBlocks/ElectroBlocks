@@ -1,19 +1,19 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 Blockly.Blocks['procedures_defnoreturn'] = {
   /**
    * Block for defining a procedure with no return value.
    * @this Blockly.Block
    */
-  init: function() {
+  init: function () {
     var nameField = new Blockly.FieldTextInput('', Blockly.Procedures.rename);
     nameField.setSpellcheck(false);
     this.appendDummyInput()
       .appendField(Blockly.Msg['PROCEDURES_DEFNORETURN_TITLE'])
       .appendField(nameField, 'NAME')
       .appendField('', 'PARAMS');
-      // Disabling the ability to add parameters to functions
+    // Disabling the ability to add parameters to functions
     // this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
     if (
       (this.workspace.options.comments ||
@@ -36,7 +36,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
    * @param {boolean} hasStatements True if a statement block is needed.
    * @this Blockly.Block
    */
-  setStatements_: function(hasStatements) {
+  setStatements_: function (hasStatements) {
     if (this.hasStatements_ === hasStatements) {
       return;
     }
@@ -58,9 +58,9 @@ Blockly.Blocks['procedures_defnoreturn'] = {
    *     - that it DOES NOT have a return value.
    * @this Blockly.Block
    */
-  getProcedureDef: function() {
+  getProcedureDef: function () {
     return [this.getFieldValue('NAME'), [], false];
   },
 
-  callType_: 'procedures_callnoreturn'
+  callType_: 'procedures_callnoreturn',
 };

@@ -6,7 +6,7 @@ import { transformEvent } from './event.transformer';
 import { getAllBlocks } from '../helpers/block.helper';
 import _ from 'lodash';
 import { getAllVariables } from '../helpers/variable.helper';
-import { VariableTypes } from '../state/variable.data';
+import { VariableTypes } from '../dto/variable.data';
 import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
 
 describe('event transformer', () => {
@@ -20,7 +20,6 @@ describe('event transformer', () => {
     workspace.dispose();
   });
 
-
   it('should transform a change event', () => {
     const changeEvent = transformEvent(getAllBlocks(), [], {
       type: Blockly.Events.CHANGE,
@@ -28,7 +27,7 @@ describe('event transformer', () => {
       element: 'dropdown',
       name: 'loop',
       newValue: '3',
-      oldValue: '2'
+      oldValue: '2',
     });
 
     expect(changeEvent.blocks).toEqual(getAllBlocks().map(transformBlock));
@@ -40,36 +39,37 @@ describe('event transformer', () => {
     expect(changeEvent.oldValue).toEqual('2');
   });
 
-  it ('it should have a list of variables', () => {
+  it('it should have a list of variables', () => {
     workspace.createVariable('b', 'Boolean');
     workspace.createVariable('c', 'String');
     workspace.newBlock('variables_set_number');
     const deleteEvent = transformEvent(getAllBlocks(), getAllVariables(), {
       type: Blockly.Events.DELETE,
-      blockId: 'blockId'
+      blockId: 'blockId',
     });
 
     expect(deleteEvent.variables.length).toBe(3);
-    const bVariable = deleteEvent.variables.find(v => v.name === 'b');
+    const bVariable = deleteEvent.variables.find((v) => v.name === 'b');
     expect(bVariable.isBeingUsed).toBeFalsy();
     expect(bVariable.type).toBe(VariableTypes.BOOLEAN);
-    const cVariable = deleteEvent.variables.find(v => v.name === 'c');
+    const cVariable = deleteEvent.variables.find((v) => v.name === 'c');
     expect(cVariable.isBeingUsed).toBeFalsy();
     expect(cVariable.type).toBe(VariableTypes.STRING);
-    const variable = deleteEvent.variables.find(v => v.name !== 'c' && v.name !== 'b');
+    const variable = deleteEvent.variables.find(
+      (v) => v.name !== 'c' && v.name !== 'b'
+    );
     expect(variable.isBeingUsed).toBeTruthy();
-  })
+  });
 
   it('should transform a delete event', () => {
     const deleteEvent = transformEvent(getAllBlocks(), [], {
       type: Blockly.Events.DELETE,
-      blockId: 'blockId'
+      blockId: 'blockId',
     });
 
     expect(deleteEvent.blocks).toEqual(getAllBlocks().map(transformBlock));
     expect(deleteEvent.type).toEqual(Blockly.Events.DELETE);
     expect(deleteEvent.blockId).toEqual('blockId');
     expect(deleteEvent.oldValue).toBeUndefined();
-
   });
 });

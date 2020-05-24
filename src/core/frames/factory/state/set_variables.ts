@@ -1,6 +1,6 @@
 import { StateGenerator } from '../state.factories';
 import { Variable, Color } from '../../arduino.frame';
-import { VariableTypes } from '../../../blockly/state/variable.data';
+import { VariableTypes } from '../../../blockly/dto/variable.data';
 import {
   arduinoStateByVariable,
   getDefaultValue,

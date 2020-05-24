@@ -1,6 +1,6 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
-import selectedBoard from '../../../constants/arduino';
+import { COLOR_THEME } from '../constants/colors';
+import selectedBoard from '../selectBoard';
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -13,27 +13,27 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
         type: 'field_dropdown',
         name: 'STATE',
         options: [
           ['on', 'ON'],
-          ['off', 'OFF']
-        ]
+          ['off', 'OFF'],
+        ],
       },
       {
         type: 'field_dropdown',
         name: 'PIN',
-        options: selectedBoard().digitalPins
-      }
+        options: selectedBoard().digitalPins,
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'led_fade',
@@ -45,24 +45,24 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
         type: 'field_dropdown',
         name: 'PIN',
-        options: selectedBoard().pwmPins
+        options: selectedBoard().pwmPins,
       },
       {
         type: 'input_value',
         name: 'FADE',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'led_color_setup',
@@ -76,35 +76,35 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_dropdown',
         name: 'PICTURE_TYPE',
         options: [
           ['Breadboard', 'BREADBOARD'],
-          ['Built In', 'BUILT_IN']
-        ]
+          ['Built In', 'BUILT_IN'],
+        ],
       },
       {
         type: 'input_dummy',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'field_dropdown',
         name: 'WIRE',
         options: [
           ['6 - 5 - 3', '6-5-3'],
-          ['11 - 10 - 9', '11-10-9']
-        ]
-      }
+          ['11 - 10 - 9', '11-10-9'],
+        ],
+      },
     ],
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'set_color_led',
@@ -116,18 +116,18 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
         type: 'input_value',
         name: 'COLOUR',
-        check: 'Colour'
-      }
+        check: 'Colour',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);

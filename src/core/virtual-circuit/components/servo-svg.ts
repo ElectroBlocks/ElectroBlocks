@@ -10,7 +10,7 @@ import {
   createPowerWire,
   updateWires,
 } from '../wire';
-import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { positionComponent } from '../svg-position';
 
 export const servoUpdate: SyncComponent = (state, draw) => {

@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -13,358 +13,358 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_checkbox',
         name: '1,1',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '1,2',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '1,3',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '1,4',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '1,5',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '1,6',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '1,7',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '1,8',
-        checked: false
+        checked: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_checkbox',
         name: '2,1',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '2,2',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '2,3',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '2,4',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '2,5',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '2,6',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '2,7',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '2,8',
-        checked: false
+        checked: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_checkbox',
         name: '3,1',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '3,2',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '3,3',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '3,4',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '3,5',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '3,6',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '3,7',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '3,8',
-        checked: false
+        checked: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_checkbox',
         name: '4,1',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '4,2',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '4,3',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '4,4',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '4,5',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '4,6',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '4,7',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '4,8',
-        checked: false
+        checked: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_checkbox',
         name: '5,1',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '5,2',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '5,3',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '5,4',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '5,5',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '5,6',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '5,7',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '5,8',
-        checked: false
+        checked: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_checkbox',
         name: '6,1',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '6,2',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '6,3',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '6,4',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '6,5',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '6,6',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '6,7',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '6,8',
-        checked: false
+        checked: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_checkbox',
         name: '7,1',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '7,2',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '7,3',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '7,4',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '7,5',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '7,6',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '7,7',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '7,8',
-        checked: false
+        checked: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_checkbox',
         name: '8,1',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '8,2',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '8,3',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '8,4',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '8,5',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '8,6',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '8,7',
-        checked: false
+        checked: false,
       },
       {
         type: 'field_checkbox',
         name: '8,8',
-        checked: false
-      }
+        checked: false,
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'led_matrix_turn_one_on_off',
@@ -376,36 +376,36 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
         type: 'field_dropdown',
         name: 'STATE',
         options: [
           ['on', 'ON'],
-          ['off', 'OFF']
-        ]
+          ['off', 'OFF'],
+        ],
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'input_value',
         name: 'ROW',
         check: 'Number',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'input_value',
         name: 'COLUMN',
         check: 'Number',
-        align: 'RIGHT'
-      }
+        align: 'RIGHT',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);

@@ -2,7 +2,7 @@ import arduinoSVGText from './svgs/arduino.svg';
 import servoSVGText from './svgs/servo.svg';
 import { Svg, Element } from '@svgdotjs/svg.js';
 import { ArduinoFrame } from '../frames/arduino.frame';
-import { ARDUINO_UNO_PINS } from '../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
 import { syncComponents, createComponents } from './svg.component';
 import { resetBreadBoardWholes } from './wire';
 import { componentToSvgId } from './svg-helpers';

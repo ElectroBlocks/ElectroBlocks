@@ -3,7 +3,7 @@ import '../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import { getAllBlocks } from '../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../state/event.data';
+import { BlockEvent } from '../../dto/event.data';
 import { transformBlock } from '../../transformers/block.transformer';
 import { deleteUnusedVariables } from './deleteUnusedVariables';
 import { getAllVariables } from '../../helpers/variable.helper';
@@ -31,18 +31,17 @@ describe('deleteUnusedVariables', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_DELETE,
-      blockId: arduinoBlock.id
+      blockId: arduinoBlock.id,
     };
 
     const actions = deleteUnusedVariables(event);
     expect(actions.length).toBe(2);
-    const bAction = actions.find(d => d.variableId == b.getId());
+    const bAction = actions.find((d) => d.variableId == b.getId());
     expect(bAction).toBeDefined();
     expect(bAction.actionType).toBe('delete');
 
-    const cAction = actions.find(d => d.variableId == c.getId());
+    const cAction = actions.find((d) => d.variableId == c.getId());
     expect(cAction).toBeDefined();
     expect(cAction.actionType).toBe('delete');
-
   });
 });

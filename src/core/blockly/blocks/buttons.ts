@@ -1,10 +1,13 @@
 import Blockly from 'blockly';
-import { getAvailablePins, configuredPins } from './helpers/getAvialablePinsFromSetupBlock';
-import { COLOR_THEME } from '../../../constants/colors';
+import {
+  getAvailablePins,
+  configuredPins,
+} from './helpers/getAvialablePinsFromSetupBlock';
+import { COLOR_THEME } from '../constants/colors';
 import loopTimes from './helpers/looptimes';
-import selectedBoard from '../../../constants/arduino';
+import selectedBoard from '../selectBoard';
 const buttonSetupBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage('./blocks/button/button.png', 15, 15))
       .appendField('Button Setup');
@@ -12,7 +15,11 @@ const buttonSetupBlock: any = {
       .appendField('Connected to PIN# ')
       .appendField(
         new Blockly.FieldDropdown(() => {
-          return getAvailablePins('button_setup', this.getFieldValue('PIN'), selectedBoard().digitalPins)
+          return getAvailablePins(
+            'button_setup',
+            this.getFieldValue('PIN'),
+            selectedBoard().digitalPins
+          );
         }),
         'PIN'
       );
@@ -33,13 +40,13 @@ const buttonSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['button_setup'] = buttonSetupBlock;
 
 const isBtnPressedBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage('./blocks/button/button.png', 15, 15, '*')
@@ -58,7 +65,7 @@ const isBtnPressedBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['is_button_pressed'] = isBtnPressedBlock;

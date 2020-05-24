@@ -1,4 +1,4 @@
-import { BlockEvent } from '../../state/event.data';
+import { BlockEvent } from '../../dto/event.data';
 import { ForLoopTextChange, ActionType } from '../actions';
 import _ from 'lodash';
 // Changes the text on the for loop block to adding or subtracting
@@ -16,7 +16,7 @@ const updateForLoopText = (blockEvent: BlockEvent): ForLoopTextChange[] => {
       return {
         blockId: block.id,
         changeText: 'by',
-        type: ActionType.FOR_LOOP_BLOCK_CHANGE
+        type: ActionType.FOR_LOOP_BLOCK_CHANGE,
       };
     }
 
@@ -35,7 +35,7 @@ const updateForLoopText = (blockEvent: BlockEvent): ForLoopTextChange[] => {
       return {
         blockId: block.id,
         changeText: 'by',
-        type: ActionType.FOR_LOOP_BLOCK_CHANGE
+        type: ActionType.FOR_LOOP_BLOCK_CHANGE,
       };
     }
 
@@ -51,7 +51,7 @@ const updateForLoopText = (blockEvent: BlockEvent): ForLoopTextChange[] => {
     return {
       blockId: block.id,
       changeText,
-      type: ActionType.FOR_LOOP_BLOCK_CHANGE
+      type: ActionType.FOR_LOOP_BLOCK_CHANGE,
     };
   });
 };

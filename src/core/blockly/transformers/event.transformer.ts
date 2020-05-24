@@ -1,13 +1,13 @@
 import { BlockSvg, VariableModel } from 'blockly';
 import { transformBlock } from './block.transformer';
-import { BlockEvent } from '../state/event.data';
+import { BlockEvent } from '../dto/event.data';
 import _ from 'lodash';
 import { transformVariable } from './variables.transformer';
 
 export const transformEvent = (
   blocks: BlockSvg[],
   variables: VariableModel[],
-  event: Object | any,
+  event: Object | any
 ): BlockEvent => {
   const blockDatum = blocks.map(transformBlock);
   return {
@@ -18,6 +18,6 @@ export const transformEvent = (
     fieldName: _.get(event, 'name', undefined),
     fieldType: _.get(event, 'element', undefined),
     newValue: _.get(event, 'newValue', undefined),
-    oldValue: _.get(event, 'oldValue', undefined)
+    oldValue: _.get(event, 'oldValue', undefined),
   };
 };

@@ -1,6 +1,6 @@
-import { BlockEvent } from '../../state/event.data';
+import { BlockEvent } from '../../dto/event.data';
 import { SaveSetupSensorData, ActionType } from '../actions';
-import { BlockType } from '../../state/block.data';
+import { BlockType } from '../../dto/block.data';
 import _ from 'lodash';
 import { convertToSensorData } from '../../transformers/sensor-data.transformer';
 import { getLoopTimeFromBlockData } from '../../helpers/block-data.helper';
@@ -16,9 +16,13 @@ export const saveSensorSetupBlockData = (
 
   const block = blocks.find((b) => b.id == blockId);
 
-  // We want to block the time setup because it does not have a loop drop down and time should remain constant for each loop to 
+  // We want to block the time setup because it does not have a loop drop down and time should remain constant for each loop to
   // simplify the simulator.
-  if (!block || block.type !== BlockType.SENSOR_SETUP || block.blockName === 'time_setup') {
+  if (
+    !block ||
+    block.type !== BlockType.SENSOR_SETUP ||
+    block.blockName === 'time_setup'
+  ) {
     return [];
   }
 
@@ -29,14 +33,14 @@ export const saveSensorSetupBlockData = (
     const metadata = JSON.parse(block.metaData);
     const newMetadata = [
       ...metadata.filter((b) => b.loop !== sensorData.loop),
-      sensorData
+      sensorData,
     ];
     return [
       {
         blockId: block.id,
         data: JSON.stringify(newMetadata),
-        type: ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA
-      }
+        type: ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA,
+      },
     ];
   }
 
@@ -48,7 +52,7 @@ export const saveSensorSetupBlockData = (
     {
       blockId: block.id,
       data: JSON.stringify(metadata),
-      type: ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA
-    }
+      type: ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA,
+    },
   ];
 };

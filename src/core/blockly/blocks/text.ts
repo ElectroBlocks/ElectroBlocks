@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 Blockly.defineBlocksWithJsonArray([
   // BEGIN JSON EXTRACT
@@ -13,22 +13,22 @@ Blockly.defineBlocksWithJsonArray([
         value: 2,
         min: 0,
         max: 5,
-        precision: 1
+        precision: 1,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'input_value',
         name: 'NUMBER',
         check: 'Number',
-        align: 'RIGHT'
-      }
+        align: 'RIGHT',
+      },
     ],
     output: 'String',
     colour: COLOR_THEME.VALUES,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'parse_string_block',
@@ -37,13 +37,13 @@ Blockly.defineBlocksWithJsonArray([
     args0: [
       {
         type: 'input_dummy',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'input_value',
         name: 'VALUE',
         check: 'String',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'field_dropdown',
@@ -56,26 +56,26 @@ Blockly.defineBlocksWithJsonArray([
           ['$', '$'],
           ['^', '^'],
           ['|', '|'],
-          ['@', '@']
-        ]
+          ['@', '@'],
+        ],
       },
       {
         type: 'input_dummy',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'input_value',
         name: 'POSITION',
         check: 'Number',
-        align: 'RIGHT'
-      }
+        align: 'RIGHT',
+      },
     ],
     inputsInline: false,
     output: 'String',
     colour: COLOR_THEME.VALUES,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]); // END JSON EXTRACT (Do not delete this comment.)
 
 Blockly.Blocks['text_changeCase'] = {
@@ -83,10 +83,10 @@ Blockly.Blocks['text_changeCase'] = {
    * Block for changing capitalization.
    * @this {Blockly.Block}
    */
-  init: function() {
+  init: function () {
     var OPERATORS = [
       [Blockly.Msg['TEXT_CHANGECASE_OPERATOR_UPPERCASE'], 'UPPERCASE'],
-      [Blockly.Msg['TEXT_CHANGECASE_OPERATOR_LOWERCASE'], 'LOWERCASE']
+      [Blockly.Msg['TEXT_CHANGECASE_OPERATOR_LOWERCASE'], 'LOWERCASE'],
     ];
     this.setHelpUrl(Blockly.Msg['TEXT_CHANGECASE_HELPURL']);
     this.setStyle('text_blocks');
@@ -95,5 +95,5 @@ Blockly.Blocks['text_changeCase'] = {
       .appendField(new Blockly.FieldDropdown(OPERATORS), 'CASE');
     this.setOutput(true, 'String');
     this.setTooltip(Blockly.Msg['TEXT_CHANGECASE_TOOLTIP']);
-  }
+  },
 };

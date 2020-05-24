@@ -1,11 +1,11 @@
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { DisableBlock, ActionType } from '../../actions';
 import {
   multipleTopBlocks,
   blocksThatRequireSetup,
   setupBlockTypeToHumanName,
-  BlockData
-} from '../../../state/block.data';
+  BlockData,
+} from '../../../dto/block.data';
 import _ from 'lodash';
 
 // This will disable blocks that require a setup block to run
@@ -27,7 +27,7 @@ export const disableBlocksThatNeedASetupBlock = (
         type: ActionType.DISABLE_BLOCK,
         warningText: `This block requires a ${
           setupBlockTypeToHumanName[blocksThatRequireSetup[b.blockName]]
-        }.`
+        }.`,
       };
     });
 };

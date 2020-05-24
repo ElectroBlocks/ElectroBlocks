@@ -3,7 +3,7 @@ import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
 import { getAllBlocks } from '../../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { transformBlock } from '../../../transformers/block.transformer';
 import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';
@@ -23,7 +23,6 @@ describe('disableDuplicatePinBlocks', () => {
     workspace.dispose();
   });
 
-
   it('if there are more than one setup blocks it should disable both unless multiple are allowed like the button or analog read setup blocks.', () => {
     const setupBlock = workspace.newBlock('rfid_setup');
     const setupBlock1 = workspace.newBlock('rfid_setup');
@@ -36,7 +35,7 @@ describe('disableDuplicatePinBlocks', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
     const actions = disableDuplicateSetupBlocks(event);
 
@@ -57,9 +56,9 @@ describe('disableDuplicatePinBlocks', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
     const actions = disableDuplicateSetupBlocks(event);
     expect(actions).toEqual([]);
-  })
+  });
 });

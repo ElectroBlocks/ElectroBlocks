@@ -1,11 +1,11 @@
-import selectedBoard from '../../../constants/arduino';
+import selectedBoard from '../selectBoard';
 import Blockly from 'blockly';
 
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 import loopTimes from './helpers/looptimes';
 import {
   configuredPins,
-  getAvailablePins
+  getAvailablePins,
 } from './helpers/getAvialablePinsFromSetupBlock';
 
 Blockly.defineBlocksWithJsonArray([
@@ -19,27 +19,27 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
         type: 'field_dropdown',
         name: 'STATE',
         options: [
           ['on', 'ON'],
-          ['off', 'OFF']
-        ]
+          ['off', 'OFF'],
+        ],
       },
       {
         type: 'field_dropdown',
         name: 'PIN',
-        options: selectedBoard().digitalPins
-      }
+        options: selectedBoard().digitalPins,
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'analog_read',
@@ -51,18 +51,18 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
         type: 'field_dropdown',
         name: 'PIN',
-        options: selectedBoard().analogPins
-      }
+        options: selectedBoard().analogPins,
+      },
     ],
     output: 'Number',
     colour: COLOR_THEME.SENSOR,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'analog_write',
@@ -74,33 +74,33 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 20,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
         type: 'field_dropdown',
         name: 'PIN',
-        options: selectedBoard().pwmPins
+        options: selectedBoard().pwmPins,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'input_value',
         name: 'WRITE_VALUE',
         check: 'Number',
-        align: 'RIGHT'
-      }
+        align: 'RIGHT',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);
 
 const analogReadBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage('./blocks/arduino/analog_read.png', 15, 15)
@@ -120,13 +120,13 @@ const analogReadBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['analog_read'] = analogReadBlock;
 
 const digitalReadBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage('./blocks/arduino/digital_read.png', 15, 15)
@@ -146,13 +146,13 @@ const digitalReadBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['digital_read'] = digitalReadBlock;
 
 const digitalReadSetupBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage('./blocks/arduino/digital_read.png', 15, 15)
@@ -176,7 +176,7 @@ const digitalReadSetupBlock: any = {
       .appendField(
         new Blockly.FieldDropdown([
           ['Touch Sensor', 'TOUCH_SENSOR'],
-          ['Sensor', 'SENSOR']
+          ['Sensor', 'SENSOR'],
         ]),
         'TYPE'
       );
@@ -195,13 +195,13 @@ const digitalReadSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['digital_read_setup'] = digitalReadSetupBlock;
 
 const analogReadSetupBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage('./blocks/arduino/analog_read.png', 15, 15)
@@ -225,7 +225,7 @@ const analogReadSetupBlock: any = {
         new Blockly.FieldDropdown([
           ['Photo Sensor', 'PHOTO_SENSOR'],
           ['Soil Sensor', 'SOIL_SENSOR'],
-          ['Sensor', 'SENSOR']
+          ['Sensor', 'SENSOR'],
         ]),
         'TYPE'
       );
@@ -248,7 +248,7 @@ const analogReadSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['analog_read_setup'] = analogReadSetupBlock;

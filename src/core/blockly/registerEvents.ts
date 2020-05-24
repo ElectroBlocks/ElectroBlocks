@@ -2,7 +2,7 @@ import updateForLoopText from './actions/factories/updateForLoopText';
 import { WorkspaceSvg } from 'blockly';
 
 import codeStore from '../../stores/code.store';
-import stateStore from '../../stores/state.store';
+import stateStore from '../../stores/frame.store';
 import { getArduinoCode } from './helpers/workspace.helper';
 
 import { getAllBlocks } from './helpers/block.helper';

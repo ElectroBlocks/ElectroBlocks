@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 Blockly.defineBlocksWithJsonArray([
   // BEGIN JSON EXTRACT
@@ -13,41 +13,41 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
+        flipRtl: false,
       },
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'input_value',
         name: 'MOTOR',
         check: 'Number',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'field_dropdown',
         name: 'DIRECTION',
         options: [
           ['Forward', 'FORWARD'],
-          ['Backward', 'BACKWARD']
-        ]
+          ['Backward', 'BACKWARD'],
+        ],
       },
       {
         type: 'input_dummy',
-        align: 'RIGHT'
+        align: 'RIGHT',
       },
       {
         type: 'input_value',
         name: 'SPEED',
         check: 'Number',
-        align: 'RIGHT'
-      }
+        align: 'RIGHT',
+      },
     ],
     inputsInline: false,
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);

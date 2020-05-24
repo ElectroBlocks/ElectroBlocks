@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 Blockly.defineBlocksWithJsonArray([
   // BEGIN JSON EXTRACT
@@ -12,13 +12,13 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['Number'],
-        defaultType: 'Number'
-      }
+        defaultType: 'Number',
+      },
     ],
     output: 'Number',
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'variables_set_number',
@@ -30,19 +30,19 @@ Blockly.defineBlocksWithJsonArray([
         variable: null,
         variableTypes: ['Number'],
         defaultType: 'Number',
-        createNewVariable: false
+        createNewVariable: false,
       },
       {
         type: 'input_value',
         name: 'VALUE',
-        check: 'Number'
-      }
+        check: 'Number',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'variables_get_colour',
@@ -53,13 +53,13 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['Colour'],
-        defaultType: 'Colour'
-      }
+        defaultType: 'Colour',
+      },
     ],
     output: 'Colour',
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'variables_set_colour',
@@ -70,19 +70,19 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['Colour'],
-        defaultType: 'Colour'
+        defaultType: 'Colour',
       },
       {
         type: 'input_value',
         name: 'VALUE',
-        check: 'Colour'
-      }
+        check: 'Colour',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'variables_get_string',
@@ -93,13 +93,13 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['String'],
-        defaultType: 'String'
-      }
+        defaultType: 'String',
+      },
     ],
     output: 'String',
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'variables_set_string',
@@ -110,19 +110,19 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['String'],
-        defaultType: 'String'
+        defaultType: 'String',
       },
       {
         type: 'input_value',
         name: 'VALUE',
-        check: 'String'
-      }
+        check: 'String',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'variables_get_boolean',
@@ -133,13 +133,13 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['Boolean'],
-        defaultType: 'Boolean'
-      }
+        defaultType: 'Boolean',
+      },
     ],
     output: 'Boolean',
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'variables_set_boolean',
@@ -150,18 +150,18 @@ Blockly.defineBlocksWithJsonArray([
         name: 'VAR',
         variable: null,
         variableTypes: ['Boolean'],
-        defaultType: 'Boolean'
+        defaultType: 'Boolean',
       },
       {
         type: 'input_value',
         name: 'VALUE',
-        check: 'Boolean'
-      }
+        check: 'Boolean',
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.DATA,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]); // END JSON EXTRACT (Do not delete this comment.)

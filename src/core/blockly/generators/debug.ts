@@ -1,8 +1,8 @@
-import { VARIABLE_TYPES } from '../../../constants/variables';
+import { VARIABLE_TYPES } from '../constants/variables';
 import Blockly from 'blockly';
 import { stepSerialBegin } from './message';
 
-Blockly['Arduino']['debug_block'] = function(block) {
+Blockly['Arduino']['debug_block'] = function (block) {
   stepSerialBegin();
 
   Blockly['Arduino'].functionNames_[

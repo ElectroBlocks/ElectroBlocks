@@ -1,4 +1,4 @@
-import selectedBoard, { ARDUINO_UNO_PINS } from '../../../../constants/arduino';
+import selectedBoard, { ARDUINO_UNO_PINS } from '../../selectBoard';
 import { getBlocksByName } from '../../helpers/block.helper';
 import _ from 'lodash';
 
@@ -8,7 +8,7 @@ export const configuredPins = (
 ) => {
   const pins = getBlocksByName(setupBlockType).map((block) => [
     block.getFieldValue('PIN'),
-    block.getFieldValue('PIN')
+    block.getFieldValue('PIN'),
   ]);
 
   if (pins.length === 0) {

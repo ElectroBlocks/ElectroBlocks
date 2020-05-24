@@ -2,7 +2,7 @@ import 'jest';
 import '../blocks';
 import { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import { transformBlock } from './block.transformer';
-import { BlockType, PinCategory } from '../state/block.data';
+import { BlockType, PinCategory } from '../dto/block.data';
 import * as helpers from '../helpers/workspace.helper';
 import { connectToArduinoBlock } from '../helpers/block.helper';
 import _ from 'lodash';
@@ -20,7 +20,6 @@ describe('block transformer', () => {
     workspace.dispose();
   });
 
-
   it('should be able to be able to parse arduino loop block and blocks inside', () => {
     const debugBlock1 = workspace.newBlock('debug_block') as BlockSvg;
     const debugBlock2 = workspace.newBlock('debug_block') as BlockSvg;
@@ -35,7 +34,7 @@ describe('block transformer', () => {
     expect(arduinoLoopData.inputStatements[0].name).toBe('loop');
     expect(arduinoLoopData.inputStatements[0].blockId).toBe(debugBlock1.id);
     expect(arduinoLoopData.fieldValues).toEqual([
-      { name: 'LOOP_TIMES', value: 3 }
+      { name: 'LOOP_TIMES', value: 3 },
     ]);
     expect(arduinoLoopData.inputBlocks).toEqual([]);
 
@@ -60,7 +59,7 @@ describe('block transformer', () => {
     const servoDataNoDegree = transformBlock(servoBlock);
 
     expect(servoDataNoDegree.inputBlocks).toEqual([
-      { name: 'DEGREE', blockId: undefined }
+      { name: 'DEGREE', blockId: undefined },
     ]);
 
     servoBlock
@@ -70,7 +69,7 @@ describe('block transformer', () => {
     const servoDataWithDegree = transformBlock(servoBlock);
 
     expect(servoDataWithDegree.inputBlocks).toEqual([
-      { name: 'DEGREE', blockId: numberBlock.id }
+      { name: 'DEGREE', blockId: numberBlock.id },
     ]);
   });
 
@@ -87,7 +86,7 @@ describe('block transformer', () => {
       'bluetooth_setup'
     ) as BlockSvg;
     bluetoothSetupBlock.data = JSON.stringify([
-      { recieved_message: true, message: 'test', loop: 1 }
+      { recieved_message: true, message: 'test', loop: 1 },
     ]);
     const bluetoothSetupData = transformBlock(bluetoothSetupBlock);
     expect(bluetoothSetupData.id).toBe(bluetoothSetupBlock.id);
@@ -100,9 +99,9 @@ describe('block transformer', () => {
       'TX',
       'LOOP',
       'receiving_message',
-      'message'
+      'message',
     ]);
-    
+
     bluetoothSetupData.metaData = bluetoothSetupBlock.data;
     bluetoothSetupData.fieldValues.forEach((field) => {
       expect(field.value).toBeDefined();
@@ -110,7 +109,7 @@ describe('block transformer', () => {
     expect(bluetoothSetupData.rootBlockId).toBeUndefined();
     expect(bluetoothSetupData.pins).toEqual([
       bluetoothSetupBlock.getFieldValue('RX'),
-      bluetoothSetupBlock.getFieldValue('TX')
+      bluetoothSetupBlock.getFieldValue('TX'),
     ]);
     expect(bluetoothSetupData.pinCategory).toBe(PinCategory.BLUETOOTH);
     expect(bluetoothSetupData.nextBlockId).toBeUndefined();
@@ -119,6 +118,5 @@ describe('block transformer', () => {
     bluetoothSetupBlock.setEnabled(false);
     const bluetoothSetupData2 = transformBlock(bluetoothSetupBlock);
     expect(bluetoothSetupData2.disabled).toBeTruthy();
-
   });
 });

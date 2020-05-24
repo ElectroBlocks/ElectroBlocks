@@ -4,7 +4,7 @@ import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import * as helpers from '../../helpers/workspace.helper';
 import { getAllBlocks } from '../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../state/event.data';
+import { BlockEvent } from '../../dto/event.data';
 import { transformBlock } from '../../transformers/block.transformer';
 import updateForLoopText from './updateForLoopText';
 import { ForLoopTextChange, ActionType } from '../actions';
@@ -24,13 +24,12 @@ describe('updateForLoopText', () => {
     workspace.dispose();
   });
 
-
   test('should return an empty array if no for blocks are present', () => {
     const event: BlockEvent = {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     expect(updateForLoopText(event)).toEqual([]);
@@ -42,14 +41,14 @@ describe('updateForLoopText', () => {
       blockId: arduinoBlock.id,
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const forTextAction: ForLoopTextChange = {
       blockId: forBlock.id,
       changeText: 'by subtracting',
-      type: ActionType.FOR_LOOP_BLOCK_CHANGE
-    }
+      type: ActionType.FOR_LOOP_BLOCK_CHANGE,
+    };
 
     expect(updateForLoopText(event)).toEqual([forTextAction]);
   });
@@ -60,14 +59,14 @@ describe('updateForLoopText', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const forTextAction: ForLoopTextChange = {
       blockId: forBlock.id,
       changeText: 'by adding',
-      type: ActionType.FOR_LOOP_BLOCK_CHANGE
-    }
+      type: ActionType.FOR_LOOP_BLOCK_CHANGE,
+    };
 
     expect(updateForLoopText(event)).toEqual([forTextAction]);
   });
@@ -78,21 +77,21 @@ describe('updateForLoopText', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const forTextAction: ForLoopTextChange = {
       blockId: forBlock.id,
       changeText: 'by',
-      type: ActionType.FOR_LOOP_BLOCK_CHANGE
-    }
+      type: ActionType.FOR_LOOP_BLOCK_CHANGE,
+    };
 
     expect(updateForLoopText(event)).toEqual([forTextAction]);
   });
 
   test('variables for number block uses by', () => {
     const forBlock = workspace.newBlock('controls_for');
-    const fromBlock = workspace.newBlock('variables_get_number')
+    const fromBlock = workspace.newBlock('variables_get_number');
     const toBlock = workspace.newBlock('math_number');
 
     forBlock.getInput('TO').connection.connect(toBlock.outputConnection);
@@ -102,18 +101,17 @@ describe('updateForLoopText', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const forTextAction: ForLoopTextChange = {
       blockId: forBlock.id,
       changeText: 'by',
-      type: ActionType.FOR_LOOP_BLOCK_CHANGE
-    }
+      type: ActionType.FOR_LOOP_BLOCK_CHANGE,
+    };
 
     expect(updateForLoopText(event)).toEqual([forTextAction]);
   });
-
 
   const createForLoopBlock = (from: number, to: number) => {
     const forBlock = workspace.newBlock('controls_for');

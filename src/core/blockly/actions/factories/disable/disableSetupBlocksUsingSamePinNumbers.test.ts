@@ -3,7 +3,7 @@ import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import { getAllBlocks } from '../../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { transformBlock } from '../../../transformers/block.transformer';
 import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';
@@ -36,7 +36,7 @@ describe('disableSetupBlocksUsingSamePinNumbers', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
     const actions = disableSetupBlocksUsingSamePinNumbers(event);
     expect(actions.length).toBe(1);

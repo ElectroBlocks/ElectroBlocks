@@ -1,4 +1,4 @@
-import { BlockEvent } from '../blockly/state/event.data';
+import { BlockEvent } from '../blockly/dto/event.data';
 import {
   ArduinoFrame,
   Timeline,
@@ -6,14 +6,14 @@ import {
   ArduinoComponentState,
   SENSOR_COMPONENTS,
 } from './arduino.frame';
-import { BlockType, BlockData } from '../blockly/state/block.data';
-import { generateState } from './factory/state.factories';
+import { BlockType, BlockData } from '../blockly/dto/block.data';
+import { generateFrame } from './transformer/block-to-frame.transformer';
 import _ from 'lodash';
 import {
   getLoopTimeFromBlockData,
   findArduinoLoopBlock,
 } from '../blockly/helpers/block-data.helper';
-import { generateInputState } from './factory/factory.helpers';
+import { generateInputState } from './transformer/frame-transformer.helpers';
 import { PinState, PIN_TYPE } from './arduino-components.state';
 import {
   sensorSetupBlockName,
@@ -41,7 +41,7 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
 
     return [
       ...prevStates,
-      ...generateState(
+      ...generateFrame(
         blocks,
         block,
         event.variables,

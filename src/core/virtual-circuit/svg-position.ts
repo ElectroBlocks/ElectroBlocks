@@ -1,6 +1,6 @@
 import { findSvgElement } from './svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
-import { ARDUINO_UNO_PINS } from '../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
 import { pinToBreadboardHole } from './wire';
 
 export const positionComponent = (

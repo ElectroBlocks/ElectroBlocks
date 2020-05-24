@@ -1,7 +1,7 @@
-import selectedBoard from '../../../constants/arduino';
+import selectedBoard from '../selectBoard';
 import loopTimes from './helpers/looptimes';
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -14,13 +14,13 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     output: 'Boolean',
     colour: COLOR_THEME.SENSOR,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'ir_remote_get_code',
@@ -32,18 +32,18 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     output: 'String',
     colour: COLOR_THEME.SENSOR,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);
 
 const irSetupBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage('./blocks/ir_remote/ir_remote.png', 15, 15)
@@ -91,7 +91,7 @@ const irSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['ir_remote_setup'] = irSetupBlock;

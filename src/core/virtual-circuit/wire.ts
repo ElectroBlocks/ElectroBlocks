@@ -1,6 +1,6 @@
 import { findComponentConnection, findSvgElement } from './svg-helpers';
 import { Svg, Element, Line } from '@svgdotjs/svg.js';
-import { ARDUINO_UNO_PINS } from '../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
 import _ from 'lodash';
 
 export interface Wire {

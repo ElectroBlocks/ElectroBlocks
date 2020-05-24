@@ -3,12 +3,12 @@ import '../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import { getAllBlocks } from '../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../state/event.data';
+import { BlockEvent } from '../../dto/event.data';
 import { transformBlock } from '../../transformers/block.transformer';
 import { getAllVariables } from '../../helpers/variable.helper';
 import { transformVariable } from '../../transformers/variables.transformer';
 import { saveSensorSetupBlockData } from './saveSensorSetupBlockData';
-import { MotionSensor } from '../../state/sensors.state';
+import { MotionSensor } from '../../dto/sensors.data';
 import { ActionType } from '../actions';
 import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
 
@@ -29,7 +29,7 @@ describe('saveSensorSetupBlockData', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
     const actions = saveSensorSetupBlockData(event);
     expect(actions).toEqual([]);
@@ -45,7 +45,7 @@ describe('saveSensorSetupBlockData', () => {
       newValue: '2',
       oldValue: '1',
       fieldName: 'LOOP',
-      fieldType: 'field'
+      fieldType: 'field',
     };
     const actions = saveSensorSetupBlockData(event);
     expect(actions).toEqual([]);
@@ -61,25 +61,25 @@ describe('saveSensorSetupBlockData', () => {
       newValue: '2',
       oldValue: '1',
       fieldName: 'cm',
-      fieldType: 'field'
+      fieldType: 'field',
     };
 
     const expectedData = [
       {
         loop: 1,
         cm: 1,
-        blockName: sensorBlock.type
+        blockName: sensorBlock.type,
       },
       {
         loop: 2,
         cm: 1,
-        blockName: sensorBlock.type
+        blockName: sensorBlock.type,
       },
       {
         loop: 3,
         cm: 1,
-        blockName: sensorBlock.type
-      }
+        blockName: sensorBlock.type,
+      },
     ];
 
     const actions = saveSensorSetupBlockData(event);
@@ -97,18 +97,18 @@ describe('saveSensorSetupBlockData', () => {
       {
         loop: 1,
         cm: 1,
-        blockName: sensorBlock.type
+        blockName: sensorBlock.type,
       },
       {
         loop: 2,
         cm: 1,
-        blockName: sensorBlock.type
+        blockName: sensorBlock.type,
       },
       {
         loop: 3,
         cm: 1,
-        blockName: sensorBlock.type
-      }
+        blockName: sensorBlock.type,
+      },
     ];
 
     sensorBlock.setFieldValue('2', 'LOOP');
@@ -122,7 +122,7 @@ describe('saveSensorSetupBlockData', () => {
       newValue: '10',
       oldValue: '1',
       fieldName: 'cm',
-      fieldType: 'field'
+      fieldType: 'field',
     };
 
     const actions = saveSensorSetupBlockData(event);
@@ -149,7 +149,7 @@ describe('saveSensorSetupBlockData', () => {
       newValue: '2',
       oldValue: '1',
       fieldName: 'time_in_seconds',
-      fieldType: 'field'
+      fieldType: 'field',
     };
     const actions = saveSensorSetupBlockData(event);
     expect(actions).toEqual([]);

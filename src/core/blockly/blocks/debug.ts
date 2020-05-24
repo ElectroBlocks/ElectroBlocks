@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -7,7 +7,7 @@ Blockly.defineBlocksWithJsonArray([
     message0: 'Debug %1 %2',
     args0: [
       {
-        type: 'input_dummy'
+        type: 'input_dummy',
       },
       {
         type: 'field_image',
@@ -15,13 +15,13 @@ Blockly.defineBlocksWithJsonArray([
         width: 70,
         height: 50,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.ARDUINO,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);

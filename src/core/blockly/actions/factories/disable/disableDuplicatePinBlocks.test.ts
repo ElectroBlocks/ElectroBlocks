@@ -3,15 +3,15 @@ import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
 import {
   getAllBlocks,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { transformBlock } from '../../../transformers/block.transformer';
 import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';
 import { ActionType } from '../../actions';
-import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../../../selectBoard';
 import { disableDuplicatePinBlocks } from './disableDuplicatePinBlocks';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 
@@ -27,7 +27,6 @@ describe('disableDuplicatePinBlocks', () => {
     workspace.dispose();
   });
 
-
   test('should disable 2 setup blocks that are taking up the same pins', () => {
     const setupBlock = workspace.newBlock('rfid_setup');
     setupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
@@ -41,7 +40,7 @@ describe('disableDuplicatePinBlocks', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const actions = disableDuplicatePinBlocks(event);
@@ -49,7 +48,7 @@ describe('disableDuplicatePinBlocks', () => {
     expect(actions.length).toBe(2);
     expect(actions.map((a) => a.blockId)).toEqual([
       setupBlock.id,
-      setupBlock2.id
+      setupBlock2.id,
     ]);
     expect(actions[0].warningText).toBe(
       'This blocks has these duplicate pins: ' + ARDUINO_UNO_PINS.PIN_5
@@ -71,7 +70,7 @@ describe('disableDuplicatePinBlocks', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
     const actions = disableDuplicatePinBlocks(event);
 
@@ -103,7 +102,7 @@ describe('disableDuplicatePinBlocks', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const actions = disableDuplicatePinBlocks(event);
@@ -147,7 +146,7 @@ describe('disableDuplicatePinBlocks', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const actions = disableDuplicatePinBlocks(event);
@@ -159,18 +158,20 @@ describe('disableDuplicatePinBlocks', () => {
     const rfidBlockSetup = workspace.newBlock('rfid_setup');
     rfidBlockSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
     rfidBlockSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');
-    
+
     const buttonSetupBlock = workspace.newBlock('button_setup');
     buttonSetupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_10, 'PIN');
 
-    const buttonPressedBlock = workspace.newBlock('is_button_pressed') as BlockSvg;
+    const buttonPressedBlock = workspace.newBlock(
+      'is_button_pressed'
+    ) as BlockSvg;
     buttonPressedBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'PIN');
 
     const event: BlockEvent = {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const actions = disableDuplicatePinBlocks(event);
@@ -194,13 +195,11 @@ describe('disableDuplicatePinBlocks', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const actions = disableDuplicatePinBlocks(event);
 
     expect(actions.length).toBe(3);
-
   });
-
 });

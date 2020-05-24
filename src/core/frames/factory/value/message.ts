@@ -1,5 +1,5 @@
 import { ValueGenerator } from '../value.factories';
-import { BluetoothSensor } from '../../../blockly/state/sensors.state';
+import { BluetoothSensor } from '../../../blockly/dto/sensors.data';
 import { findComponent } from '../factory.helpers';
 import { ArduinoMessageState } from '../../arduino-components.state';
 import { ArduinoComponentType } from '../../arduino.frame';

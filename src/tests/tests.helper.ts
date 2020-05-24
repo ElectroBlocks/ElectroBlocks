@@ -1,9 +1,9 @@
 import 'jest';
 import { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
 import * as helpers from '../core/blockly/helpers/workspace.helper';
-import { VariableTypes } from '../core/blockly/state/variable.data';
+import { VariableTypes } from '../core/blockly/dto/variable.data';
 import { Variable, Color } from '../core/frames/arduino.frame';
-import { setVariable } from '../core/frames/factory/state/set_variables';
+import { setVariable } from '../core/frames/transformer/blocktoframe/set_variables';
 import { hexToRgb, rgbToHex } from '../core/blockly/helpers/color.helper';
 
 export const createArduinoAndWorkSpace = (): [WorkspaceSvg, BlockSvg] => {

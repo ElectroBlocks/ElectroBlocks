@@ -3,10 +3,10 @@ import '../../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../state/event.data';
+import { BlockEvent } from '../../../dto/event.data';
 import { transformBlock } from '../../../transformers/block.transformer';
 import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';
@@ -26,7 +26,6 @@ describe('disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction', () => {
     workspace.dispose();
   });
 
-
   test('blocks that require to be in an arduino loop block setup or function should be disabled', () => {
     const debugBlock1 = workspace.newBlock('debug_block') as BlockSvg;
     const debugBlock2 = workspace.newBlock('debug_block') as BlockSvg;
@@ -44,7 +43,7 @@ describe('disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const actions = disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(
@@ -55,7 +54,7 @@ describe('disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction', () => {
     expect(actions.map((a) => a.blockId)).toEqual([
       debugBlock3.id,
       debugBlock4.id,
-      servoBlock1.id
+      servoBlock1.id,
     ]);
     expect(actions[0].type).toBe(ActionType.DISABLE_BLOCK);
     expect(actions.map((b) => b.warningText)).toEqual([null, null, null]);
@@ -71,7 +70,7 @@ describe('disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction', () => {
       blockId: arduinoBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE
+      type: Blockly.Events.BLOCK_MOVE,
     };
 
     const actions = disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(
@@ -79,5 +78,5 @@ describe('disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction', () => {
     );
 
     expect(actions.length).toBe(2);
-  })
+  });
 });

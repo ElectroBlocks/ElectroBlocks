@@ -1,13 +1,13 @@
-import { BlockEvent } from '../../state/event.data';
+import { BlockEvent } from '../../dto/event.data';
 import { UpdateSetupSensorBlockFields, ActionType } from '../actions';
 import _ from 'lodash';
-import { BlockType } from '../../state/block.data';
+import { BlockType } from '../../dto/block.data';
 
 export const updateSensorSetupFields = (
   event: BlockEvent
 ): UpdateSetupSensorBlockFields[] => {
   const { fieldName, fieldType, newValue, oldValue, blockId, blocks } = event;
-  
+
   // Are the right fields in the event
   if (!fieldName || !fieldType || !newValue || !oldValue) {
     return [];
@@ -19,7 +19,7 @@ export const updateSensorSetupFields = (
   }
 
   const blockData = blocks.find((block) => block.id === blockId);
-  
+
   // Is the block a sensor only block
   if (!blockData || blockData.type !== BlockType.SENSOR_SETUP) {
     return [];
@@ -39,7 +39,7 @@ export const updateSensorSetupFields = (
     .map((fieldName) => {
       return {
         name: fieldName,
-        value: sensorData[fieldName]
+        value: sensorData[fieldName],
       };
     });
 
@@ -47,7 +47,7 @@ export const updateSensorSetupFields = (
     {
       blockId: blockData.id,
       fields,
-      type: ActionType.SETUP_SENSOR_BLOCK_FIELD_UPDATE
-    }
+      type: ActionType.SETUP_SENSOR_BLOCK_FIELD_UPDATE,
+    },
   ];
 };

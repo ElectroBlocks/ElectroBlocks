@@ -6,8 +6,8 @@ import {
   createValueBlock,
 } from '../../../../tests/tests.helper';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
-import { VariableTypes } from '../../../blockly/state/variable.data';
-import { ARDUINO_UNO_PINS } from '../../../../constants/arduino';
+import { VariableTypes } from '../../../blockly/dto/variable.data';
+import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
 import {
   connectToArduinoBlock,
   getAllBlocks,
@@ -15,7 +15,7 @@ import {
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';
-import { BlockEvent } from '../../../blockly/state/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.data';
 import { eventToFrameFactory } from '../../event-to-frame.factory';
 import { findComponent } from '../factory.helpers';
 import { ServoState } from '../../arduino-components.state';

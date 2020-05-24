@@ -1,7 +1,7 @@
 import Blockly from 'blockly';
-import { COLOR_THEME } from '../../../constants/colors';
+import { COLOR_THEME } from '../constants/colors';
 
-import selectedBoard from '../../../constants/arduino';
+import selectedBoard from '../selectBoard';
 import loopTimes from './helpers/looptimes';
 
 Blockly.defineBlocksWithJsonArray([
@@ -15,14 +15,14 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     inputsInline: false,
     output: 'Boolean',
     colour: COLOR_THEME.SENSOR,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'rfid_card',
@@ -36,14 +36,14 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     inputsInline: false,
     output: 'String',
     colour: COLOR_THEME.SENSOR,
     tooltip: '',
-    helpUrl: ''
+    helpUrl: '',
   },
   {
     type: 'rfid_tag',
@@ -57,19 +57,19 @@ Blockly.defineBlocksWithJsonArray([
         width: 15,
         height: 15,
         alt: '*',
-        flipRtl: false
-      }
+        flipRtl: false,
+      },
     ],
     inputsInline: false,
     output: 'String',
     colour: COLOR_THEME.SENSOR,
     tooltip: '',
-    helpUrl: ''
-  }
+    helpUrl: '',
+  },
 ]);
 
 const rfidSetupBlock: any = {
-  init: function() {
+  init: function () {
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage('./blocks/rfid/rfid.png', 15, 15))
       .appendField('RFID Setup');
@@ -129,7 +129,7 @@ const rfidSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
-  }
+  },
 };
 
 Blockly.Blocks['rfid_setup'] = rfidSetupBlock;

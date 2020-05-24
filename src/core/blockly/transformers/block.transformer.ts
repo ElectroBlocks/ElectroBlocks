@@ -6,10 +6,10 @@ import {
   blocksToBlockTypes,
   FieldValue,
   PinFieldNames,
-  BlocklyInputTypes
-} from '../state/block.data';
+  BlocklyInputTypes,
+} from '../dto/block.data';
 import _ from 'lodash';
-import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
+import { ARDUINO_UNO_PINS } from '../selectBoard';
 
 export interface BlockTransformer {
   (block: BlockSvg): BlockData;
@@ -44,7 +44,7 @@ const getFieldValues = (block: BlockSvg): FieldValue[] => {
         .map((field) => {
           return {
             name: field.name,
-            value: field.getValue()
+            value: field.getValue(),
           };
         });
     })
@@ -69,7 +69,7 @@ const getPins = (block: BlockSvg): ARDUINO_UNO_PINS[] => {
     return [
       ARDUINO_UNO_PINS.PIN_10,
       ARDUINO_UNO_PINS.PIN_11,
-      ARDUINO_UNO_PINS.PIN_12
+      ARDUINO_UNO_PINS.PIN_12,
     ];
   }
 
@@ -88,7 +88,7 @@ const getInputs = (block: BlockSvg): Input[] => {
       const blockId = targetBlock ? targetBlock.id : undefined;
       return {
         name,
-        blockId
+        blockId,
       };
     });
 };
@@ -102,7 +102,7 @@ const getInputStatements = (block: BlockSvg): InputStatement[] => {
       const blockId = targetBlock ? targetBlock.id : undefined;
       return {
         name,
-        blockId
+        blockId,
       };
     });
 };
@@ -120,6 +120,6 @@ export const transformBlock = (block: BlockSvg): BlockData => {
     pinCategory: blocksToBlockTypes[block.type].pinCategory,
     pins: getPins(block),
     metaData: block.data,
-    disabled: !block.isEnabled()
+    disabled: !block.isEnabled(),
   };
 };

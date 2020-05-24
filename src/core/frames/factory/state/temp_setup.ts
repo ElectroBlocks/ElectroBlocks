@@ -1,5 +1,5 @@
 import { StateGenerator } from '../state.factories';
-import { MotionSensor, TempSensor } from '../../../blockly/state/sensors.state';
+import { MotionSensor, TempSensor } from '../../../blockly/dto/sensors.data';
 import { TemperatureState } from '../../arduino-components.state';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import { ArduinoComponentType } from '../../arduino.frame';

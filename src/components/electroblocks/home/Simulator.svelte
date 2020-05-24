@@ -1,8 +1,8 @@
 <script>
   import { SVG } from "@svgdotjs/svg.js";
   import currentState from "../../../stores/currentState.store";
-  import stateStore from "../../../stores/state.store";
-  import currentStateStore from "../../../stores/currentState.store";
+  import frameStore from "../../../stores/state.store";
+  import currentFrameStore from "../../../stores/currentState.store";
   import { resizeStore } from "../../../stores/resize.store";
   import paint from "../../../core/virtual-circuit/paint.ts";
   import update from "../../../core/virtual-circuit/update.ts";
@@ -25,7 +25,7 @@
       .viewbox(0, 0, container.clientWidth * 0.95, container.clientWidth * 0.95)
       .panZoom();
 
-    stateStore.subscribe(frames => {
+    currentFrameStore.subscribe(frames => {
       setTimeout(() => {
         // Make Sure Everything Loaded before calculating width and heights
         paint(draw, frames[frames.length - 1]);
@@ -33,7 +33,7 @@
       }, 10);
     });
 
-    currentStateStore.subscribe(frame => {
+    currentState.subscribe(frame => {
       update(draw, frame);
     });
 

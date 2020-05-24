@@ -1,7 +1,7 @@
 import { StateGenerator } from '../state.factories';
 import { ButtonState } from '../../arduino-components.state';
 import { ArduinoComponentType } from '../../arduino.frame';
-import { ButtonSensor } from '../../../blockly/state/sensors.state';
+import { ButtonSensor } from '../../../blockly/dto/sensors.data';
 import { arduinoStateByComponent } from '../factory.helpers';
 
 export const buttonSetup: StateGenerator = (
