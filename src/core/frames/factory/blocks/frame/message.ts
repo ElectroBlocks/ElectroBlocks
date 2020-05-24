@@ -1,6 +1,6 @@
 import { FrameGenerator } from '../../frame.factories';
 import { ArduinoMessageState } from '../../../arduino-components.state';
-import { BluetoothSensor } from '../../../../blockly/dto/sensors.data';
+import { BluetoothSensor } from '../../../../blockly/dto/sensors.type';
 import { arduinoStateByComponent } from '../../factory.helpers';
 import { ArduinoComponentType } from '../../../arduino.frame';
 import { getInputValue } from '../../value.factories';

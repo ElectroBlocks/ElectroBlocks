@@ -7,7 +7,7 @@ import {
   connectToArduinoBlock,
 } from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';
@@ -25,7 +25,7 @@ import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
 } from '../../../../tests/tests.helper';
-import { VariableTypes } from '../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../blockly/dto/variable.type';
 import { findComponent } from '../factory.helpers';
 
 describe('bluetooth state factories', () => {

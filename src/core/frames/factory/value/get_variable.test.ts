@@ -5,8 +5,8 @@ import {
   createSetVariableBlockWithValue,
 } from '../../../../tests/tests.helper';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
-import { VariableTypes } from '../../../blockly/dto/variable.data';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { VariableTypes } from '../../../blockly/dto/variable.type';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 import {
   getAllBlocks,
   connectToArduinoBlock,

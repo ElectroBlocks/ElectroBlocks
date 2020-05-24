@@ -10,8 +10,8 @@ import {
   MotionSensor,
   TempSensor,
   RFIDSensor,
-} from '../dto/sensors.data';
-import { BlockData, BlockType } from '../dto/block.data';
+} from '../dto/sensors.type';
+import { BlockData, BlockType } from '../dto/block.type';
 import { findFieldValue } from '../helpers/block-data.helper';
 import {
   Timeline,

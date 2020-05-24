@@ -1,6 +1,6 @@
 import { FrameGenerator } from '../../frame.factories';
 import { IRRemoteState } from '../../../arduino-components.state';
-import { IRRemoteSensor } from '../../../../blockly/dto/sensors.data';
+import { IRRemoteSensor } from '../../../../blockly/dto/sensors.type';
 import { ArduinoComponentType } from '../../../arduino.frame';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { arduinoStateByComponent } from '../../factory.helpers';

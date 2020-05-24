@@ -1,6 +1,6 @@
-import { BlockEvent } from '../../../dto/event.data';
+import { BlockEvent } from '../../../dto/event.type';
 import { DisableBlock, ActionType } from '../../actions';
-import { multipleTopBlocks } from '../../../dto/block.data';
+import { multipleTopBlocks } from '../../../dto/block.type';
 import { ARDUINO_UNO_PINS } from '../../../selectBoard';
 
 // This happens when the arduino runs out of a certain type of pin

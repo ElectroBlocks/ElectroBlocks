@@ -1,6 +1,6 @@
-import { BlockEvent } from '../../dto/event.data';
+import { BlockEvent } from '../../dto/event.type';
 import { UpdateSetupSensorBlockLoop, ActionType } from '../actions';
-import { BlockType } from '../../dto/block.data';
+import { BlockType } from '../../dto/block.type';
 
 export const updateLoopNumberInSensorSetupBlock = (
   event: BlockEvent

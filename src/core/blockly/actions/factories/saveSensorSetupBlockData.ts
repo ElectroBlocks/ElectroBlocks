@@ -1,6 +1,6 @@
-import { BlockEvent } from '../../dto/event.data';
+import { BlockEvent } from '../../dto/event.type';
 import { SaveSetupSensorData, ActionType } from '../actions';
-import { BlockType } from '../../dto/block.data';
+import { BlockType } from '../../dto/block.type';
 import _ from 'lodash';
 import { convertToSensorData } from '../../transformers/sensor-data.transformer';
 import { getLoopTimeFromBlockData } from '../../helpers/block-data.helper';

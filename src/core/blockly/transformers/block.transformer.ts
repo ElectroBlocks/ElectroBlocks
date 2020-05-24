@@ -7,7 +7,7 @@ import {
   FieldValue,
   PinFieldNames,
   BlocklyInputTypes,
-} from '../dto/block.data';
+} from '../dto/block.type';
 import _ from 'lodash';
 import { ARDUINO_UNO_PINS } from '../selectBoard';
 

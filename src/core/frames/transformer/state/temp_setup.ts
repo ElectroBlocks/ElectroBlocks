@@ -1,5 +1,5 @@
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { MotionSensor, TempSensor } from '../../../blockly/dto/sensors.data';
+import { MotionSensor, TempSensor } from '../../../blockly/dto/sensors.type';
 import { TemperatureState } from '../../arduino-components.state';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import { ArduinoComponentType } from '../../arduino.frame';

@@ -1,7 +1,7 @@
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 import { ArduinoComponentType } from '../../arduino.frame';
 import { RfidState } from '../../arduino-components.state';
-import { RFIDSensor } from '../../../blockly/dto/sensors.data';
+import { RFIDSensor } from '../../../blockly/dto/sensors.type';
 import { arduinoStateByComponent } from '../frame-transformer.helpers';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 

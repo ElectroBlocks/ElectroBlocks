@@ -8,7 +8,7 @@ import {
 } from '../frame-transformer.helpers';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import { Variable } from '../../arduino.frame';
-import { VariableTypes } from '../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../blockly/dto/variable.type';
 
 export const simpleLoop: BlockToFrameTransformer = (
   blocks,

@@ -2,7 +2,7 @@ import 'jest';
 import '../blocks';
 import { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import { transformBlock } from './block.transformer';
-import { BlockType, PinCategory } from '../dto/block.data';
+import { BlockType, PinCategory } from '../dto/block.type';
 import * as helpers from '../helpers/workspace.helper';
 import { connectToArduinoBlock } from '../helpers/block.helper';
 import _ from 'lodash';

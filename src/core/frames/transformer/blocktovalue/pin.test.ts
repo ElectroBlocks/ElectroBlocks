@@ -7,7 +7,7 @@ import {
   connectToArduinoBlock,
 } from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';
@@ -21,7 +21,7 @@ import {
   createSetVariableBlockWithValue,
 } from '../../../../tests/tests.helper';
 import { PinState, PIN_TYPE, PinPicture } from '../../arduino-components.state';
-import { VariableTypes } from '../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../blockly/dto/variable.type';
 import { getDefaultValue } from '../frame-transformer.helpers';
 
 describe('analog pin state factories', () => {

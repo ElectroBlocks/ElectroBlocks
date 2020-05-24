@@ -6,7 +6,7 @@ import {
   connectToArduinoBlock,
 } from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';
@@ -21,7 +21,7 @@ import { eventToFrameFactory } from '../../event-to-frame.factory';
 import { ArduinoFrame, ArduinoComponentType } from '../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
 import { VARIABLE_TYPES } from '../../../blockly/constants/variables';
-import { VariableTypes } from '../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../blockly/dto/variable.type';
 import { findComponent } from '../frame-transformer.helpers';
 
 describe('button state factories', () => {

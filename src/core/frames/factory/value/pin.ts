@@ -1,7 +1,7 @@
 import { ValueGenerator } from '../value.factories';
 import { findComponent } from '../factory.helpers';
 import { PinState } from '../../arduino-components.state';
-import { PinSensor } from '../../../blockly/dto/sensors.data';
+import { PinSensor } from '../../../blockly/dto/sensors.type';
 import { ArduinoComponentType } from '../../arduino.frame';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 

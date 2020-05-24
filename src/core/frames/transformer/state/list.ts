@@ -1,11 +1,11 @@
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 import { ArduinoFrame, Variable, Timeline, Color } from '../../arduino.frame';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { BlockData } from '../../../blockly/dto/block.data';
+import { BlockData } from '../../../blockly/dto/block.type';
 import {
   VariableTypes,
   VariableData,
-} from '../../../blockly/dto/variable.data';
+} from '../../../blockly/dto/variable.type';
 import _ from 'lodash';
 import {
   arduinoStateByVariable,

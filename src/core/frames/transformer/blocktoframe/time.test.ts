@@ -5,7 +5,7 @@ import {
   getBlockById,
 } from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';

@@ -1,6 +1,6 @@
 import { FrameGenerator } from '../../frame.factories';
 import { Variable, Color } from '../../../arduino.frame';
-import { VariableTypes } from '../../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../../blockly/dto/variable.type';
 import {
   arduinoStateByVariable,
   getDefaultValue,

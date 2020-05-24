@@ -1,4 +1,4 @@
-import { BlockEvent } from '../../../dto/event.data';
+import { BlockEvent } from '../../../dto/event.type';
 import { DisableBlock, ActionType } from '../../actions';
 import _ from 'lodash';
 import {
@@ -6,7 +6,7 @@ import {
   BlockData,
   BlockTypeRequireRootBlock,
   BlockType,
-} from '../../../dto/block.data';
+} from '../../../dto/block.type';
 import { ARDUINO_UNO_PINS } from '../../../selectBoard';
 import { findRootBlock } from '../../../helpers/block-data.helper';
 

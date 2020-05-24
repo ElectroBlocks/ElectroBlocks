@@ -1,4 +1,4 @@
-import { BlockEvent } from '../../dto/event.data';
+import { BlockEvent } from '../../dto/event.type';
 import { ForLoopTextChange, ActionType } from '../actions';
 import _ from 'lodash';
 // Changes the text on the for loop block to adding or subtracting

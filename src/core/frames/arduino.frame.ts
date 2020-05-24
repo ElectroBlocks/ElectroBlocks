@@ -1,5 +1,5 @@
 import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
-import { VariableTypes } from '../blockly/dto/variable.data';
+import { VariableTypes } from '../blockly/dto/variable.type';
 
 export interface ArduinoFrame {
   blockId: string;

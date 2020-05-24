@@ -1,4 +1,4 @@
-import { BluetoothSensor } from '../../../blockly/dto/sensors.data';
+import { BluetoothSensor } from '../../../blockly/dto/sensors.type';
 import { findComponent } from '../factory.helpers';
 import { ValueGenerator } from '../value.factories';
 import { BluetoothState } from '../../arduino-components.state';

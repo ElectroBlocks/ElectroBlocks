@@ -1,5 +1,5 @@
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { MotionSensor } from '../../../blockly/dto/sensors.data';
+import { MotionSensor } from '../../../blockly/dto/sensors.type';
 import { UltraSonicSensorState } from '../../arduino-components.state';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import { ArduinoComponentType } from '../../arduino.frame';

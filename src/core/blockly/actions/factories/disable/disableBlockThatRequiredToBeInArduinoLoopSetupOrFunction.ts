@@ -1,6 +1,6 @@
-import { BlockEvent } from '../../../dto/event.data';
+import { BlockEvent } from '../../../dto/event.type';
 import { DisableBlock, ActionType } from '../../actions';
-import { BlockTypeRequireRootBlock } from '../../../dto/block.data';
+import { BlockTypeRequireRootBlock } from '../../../dto/block.type';
 
 /**
  * Disables Blocks that are required to be in loop, setup, or prodecure function.

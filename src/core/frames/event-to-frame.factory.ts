@@ -1,4 +1,4 @@
-import { BlockEvent } from '../blockly/dto/event.data';
+import { BlockEvent } from '../blockly/dto/event.type';
 import {
   ArduinoFrame,
   Timeline,
@@ -6,7 +6,7 @@ import {
   ArduinoComponentState,
   SENSOR_COMPONENTS,
 } from './arduino.frame';
-import { BlockType, BlockData } from '../blockly/dto/block.data';
+import { BlockType, BlockData } from '../blockly/dto/block.type';
 import { generateFrame } from './transformer/block-to-frame.transformer';
 import _ from 'lodash';
 import {

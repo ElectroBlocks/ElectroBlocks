@@ -1,4 +1,4 @@
-import { BlockData } from '../../blockly/dto/block.data';
+import { BlockData } from '../../blockly/dto/block.type';
 import { Timeline, ArduinoFrame } from '../arduino.frame';
 import { rfidSetup } from './blocktoframe/rfid';
 import { bluetoothSetup, bluetoothMessage } from './blocktoframe/bluetooth';
@@ -22,7 +22,7 @@ import { debugBlock } from './blocktoframe/debug';
 import { ultraSonicSensor } from './blocktoframe/ultra_sonic_sensor';
 import { servoRotate } from './blocktoframe/servo';
 import { tempSetupSensor } from './blocktoframe/temp_setup';
-import { VariableData } from '../../blockly/dto/variable.data';
+import { VariableData } from '../../blockly/dto/variable.type';
 import {
   createListNumberState,
   createListStringState,

@@ -3,7 +3,7 @@ import '../../blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import { getAllBlocks } from '../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../dto/event.data';
+import { BlockEvent } from '../../dto/event.type';
 import { transformBlock } from '../../transformers/block.transformer';
 import { deleteUnusedVariables } from './deleteUnusedVariables';
 import { getAllVariables } from '../../helpers/variable.helper';

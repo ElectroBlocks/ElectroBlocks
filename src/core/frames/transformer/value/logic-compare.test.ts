@@ -7,7 +7,7 @@ import {
   createSetVariableBlockWithValue,
   createValueBlock,
 } from '../../../../tests/tests.helper';
-import { VariableTypes } from '../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../blockly/dto/variable.type';
 import { Color } from '../../arduino.frame';
 import {
   connectToArduinoBlock,
@@ -17,7 +17,7 @@ import { eventToFrameFactory } from '../../event-to-frame.factory';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 
 describe('logic compare blocks', () => {
   let workspace: Workspace;

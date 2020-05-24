@@ -1,6 +1,6 @@
 import { Timeline, ArduinoFrame } from '../arduino.frame';
 import { Color } from '../arduino.frame';
-import { BlockData } from '../../blockly/dto/block.data';
+import { BlockData } from '../../blockly/dto/block.type';
 import {
   mathNumber,
   mathArithmetic,
@@ -24,7 +24,7 @@ import {
   changeCase,
   numberToText,
 } from './blocktovalue/text';
-import { VariableData } from '../../blockly/dto/variable.data';
+import { VariableData } from '../../blockly/dto/variable.type';
 import { colorPicker, randomColor, rgbColor } from './blocktovalue/colors';
 import { findBlockInput } from './frame-transformer.helpers';
 import _ from 'lodash';

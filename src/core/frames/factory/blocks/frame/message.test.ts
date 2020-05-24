@@ -7,7 +7,7 @@ import {
   connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../../blockly/dto/event.type';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
@@ -21,9 +21,9 @@ import {
   createArduinoAndWorkSpace,
   createValueBlock,
 } from '../../../../../tests/tests.helper';
-import { BluetoothSensor } from '../../../../blockly/dto/sensors.data';
-import { VariableTypes } from '../../../../blockly/dto/variable.data';
-import { sensorSetupBlocks } from '../../../../blockly/dto/block.data';
+import { BluetoothSensor } from '../../../../blockly/dto/sensors.type';
+import { VariableTypes } from '../../../../blockly/dto/variable.type';
+import { sensorSetupBlocks } from '../../../../blockly/dto/block.type';
 
 describe('arduino message state factories', () => {
   let workspace: Workspace;

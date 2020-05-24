@@ -4,7 +4,7 @@ import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import * as helpers from '../../helpers/workspace.helper';
 import { getAllBlocks } from '../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../dto/event.data';
+import { BlockEvent } from '../../dto/event.type';
 import { transformBlock } from '../../transformers/block.transformer';
 import updateForLoopText from './updateForLoopText';
 import { ForLoopTextChange, ActionType } from '../actions';

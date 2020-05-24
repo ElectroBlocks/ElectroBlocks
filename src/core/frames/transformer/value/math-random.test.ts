@@ -2,7 +2,7 @@ import 'jest';
 import '../../../blockly/blocks';
 import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 import {
   getAllBlocks,
   connectToArduinoBlock,

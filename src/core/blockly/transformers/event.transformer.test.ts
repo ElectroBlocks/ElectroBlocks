@@ -6,7 +6,7 @@ import { transformEvent } from './event.transformer';
 import { getAllBlocks } from '../helpers/block.helper';
 import _ from 'lodash';
 import { getAllVariables } from '../helpers/variable.helper';
-import { VariableTypes } from '../dto/variable.data';
+import { VariableTypes } from '../dto/variable.type';
 import { createArduinoAndWorkSpace } from '../../../tests/tests.helper';
 
 describe('event transformer', () => {

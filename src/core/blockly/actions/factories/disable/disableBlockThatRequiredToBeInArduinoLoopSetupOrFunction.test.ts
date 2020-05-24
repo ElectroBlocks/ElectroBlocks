@@ -6,7 +6,7 @@ import {
   connectToArduinoBlock,
 } from '../../../helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../dto/event.data';
+import { BlockEvent } from '../../../dto/event.type';
 import { transformBlock } from '../../../transformers/block.transformer';
 import { getAllVariables } from '../../../helpers/variable.helper';
 import { transformVariable } from '../../../transformers/variables.transformer';

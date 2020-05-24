@@ -1,5 +1,5 @@
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { BluetoothSensor } from '../../../blockly/dto/sensors.data';
+import { BluetoothSensor } from '../../../blockly/dto/sensors.type';
 import { BluetoothState } from '../../arduino-components.state';
 import { ArduinoComponentType } from '../../arduino.frame';
 import { arduinoStateByComponent } from '../frame-transformer.helpers';

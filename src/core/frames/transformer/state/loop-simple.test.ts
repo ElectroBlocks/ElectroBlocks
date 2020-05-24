@@ -5,12 +5,12 @@ import {
   createArduinoAndWorkSpace,
   createValueBlock,
 } from '../../../../tests/tests.helper';
-import { VariableTypes } from '../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../blockly/dto/variable.type';
 import {
   connectToArduinoBlock,
   getAllBlocks,
 } from '../../../blockly/helpers/block.helper';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';

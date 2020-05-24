@@ -5,7 +5,7 @@ import {
   connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../../blockly/dto/event.type';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
@@ -19,8 +19,7 @@ import {
 } from '../../../../../tests/tests.helper';
 import '../../../../../tests/fake-block';
 import { findComponent } from '../../factory.helpers';
-import { ledMatrixDraw } from './led-matrix';
-import { VariableTypes } from '../../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../../blockly/dto/variable.type';
 
 describe('led matrix  factories', () => {
   let workspace: Workspace;

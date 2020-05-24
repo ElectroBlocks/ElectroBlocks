@@ -1,11 +1,11 @@
-import { BlockEvent } from '../../../dto/event.data';
+import { BlockEvent } from '../../../dto/event.type';
 import { DisableBlock, ActionType } from '../../actions';
 import {
   multipleTopBlocks,
   blocksThatRequireSetup,
   setupBlockTypeToHumanName,
   BlockData,
-} from '../../../dto/block.data';
+} from '../../../dto/block.type';
 import _ from 'lodash';
 
 // This will disable blocks that require a setup block to run

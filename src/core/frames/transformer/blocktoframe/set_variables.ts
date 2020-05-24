@@ -1,6 +1,6 @@
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 import { Variable, Color } from '../../arduino.frame';
-import { VariableTypes } from '../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../blockly/dto/variable.type';
 import {
   arduinoStateByVariable,
   getDefaultValue,

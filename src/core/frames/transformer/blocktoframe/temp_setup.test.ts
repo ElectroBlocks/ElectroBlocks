@@ -6,7 +6,7 @@ import {
   getBlockById,
 } from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';
@@ -20,7 +20,7 @@ import {
 import { eventToFrameFactory } from '../../event-to-frame.factory';
 import { ArduinoFrame, ArduinoComponentType } from '../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
-import { TempSensor } from '../../../blockly/dto/sensors.data';
+import { TempSensor } from '../../../blockly/dto/sensors.type';
 
 describe('rfid state factories', () => {
   let workspace: Workspace;

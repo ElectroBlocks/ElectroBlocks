@@ -5,12 +5,12 @@ import {
   createListSetupBlock,
 } from '../../../../tests/tests.helper';
 import Blockly, { Workspace, blockAnimations } from 'blockly';
-import { VariableTypes } from '../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../blockly/dto/variable.type';
 import { getAllBlocks } from '../../../blockly/helpers/block.helper';
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 import { eventToFrameFactory } from '../../event-to-frame.factory';
 import _ from 'lodash';
 import { Variable } from '../../arduino.frame';

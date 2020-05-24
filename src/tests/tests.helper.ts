@@ -1,7 +1,7 @@
 import 'jest';
 import { Workspace, BlockSvg, WorkspaceSvg } from 'blockly';
 import * as helpers from '../core/blockly/helpers/workspace.helper';
-import { VariableTypes } from '../core/blockly/dto/variable.data';
+import { VariableTypes } from '../core/blockly/dto/variable.type';
 import { Variable, Color } from '../core/frames/arduino.frame';
 import { setVariable } from '../core/frames/transformer/blocktoframe/set_variables';
 import { hexToRgb, rgbToHex } from '../core/blockly/helpers/color.helper';

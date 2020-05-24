@@ -1,7 +1,7 @@
-import { BlockEvent } from '../../dto/event.data';
+import { BlockEvent } from '../../dto/event.type';
 import { UpdateSetupSensorBlockFields, ActionType } from '../actions';
 import _ from 'lodash';
-import { BlockType } from '../../dto/block.data';
+import { BlockType } from '../../dto/block.type';
 
 export const updateSensorSetupFields = (
   event: BlockEvent

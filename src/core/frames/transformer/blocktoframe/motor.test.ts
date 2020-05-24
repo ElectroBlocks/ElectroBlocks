@@ -6,7 +6,7 @@ import {
   createArduinoAndWorkSpace,
   createValueBlock,
 } from '../../../../tests/tests.helper';
-import { VariableTypes } from '../../../blockly/dto/variable.data';
+import { VariableTypes } from '../../../blockly/dto/variable.type';
 import {
   connectToArduinoBlock,
   getAllBlocks,
@@ -14,7 +14,7 @@ import {
 import { getAllVariables } from '../../../blockly/helpers/variable.helper';
 import { transformBlock } from '../../../blockly/transformers/block.transformer';
 import { transformVariable } from '../../../blockly/transformers/variables.transformer';
-import { BlockEvent } from '../../../blockly/dto/event.data';
+import { BlockEvent } from '../../../blockly/dto/event.type';
 import { eventToFrameFactory } from '../../event-to-frame.factory';
 import { ArduinoFrame, ArduinoComponentType } from '../../arduino.frame';
 import { findComponent } from '../frame-transformer.helpers';
