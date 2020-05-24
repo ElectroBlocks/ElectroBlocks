@@ -3,7 +3,7 @@ import '../../../../blockly/blocks';
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
-  verifyVariable
+  verifyVariable,
 } from '../../../../../tests/tests.helper';
 import '../../../../../tests/fake-block';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
@@ -11,14 +11,14 @@ import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { BlockEvent } from '../../../../blockly/state/event.data';
 import {
   getAllBlocks,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import _ from 'lodash';
-import { Color } from '../../../state/arduino.state';
+import { Color } from '../../../arduino.frame';
 
 describe('color rgb state factories', () => {
   let workspace: Workspace;
@@ -56,10 +56,7 @@ describe('color rgb state factories', () => {
       VariableTypes.COLOUR,
       { red: 255, green: 0, blue: 0 }
     );
-    setColorVariable
-      .getInput('VALUE')
-      .connection.targetBlock()
-      .dispose(true);
+    setColorVariable.getInput('VALUE').connection.targetBlock().dispose(true);
     setColorVariable
       .getInput('VALUE')
       .connection.connect(rgbColorBlock.outputConnection);
@@ -72,20 +69,20 @@ describe('color rgb state factories', () => {
         expectedValue: { red: 120, green: 100, blue: 0 },
         red: numberBlock,
         green: getVariableNumberBlock,
-        blue: undefined
+        blue: undefined,
       },
       {
         expectedValue: { red: 0, green: 100, blue: 120 },
         red: null,
         green: getVariableNumberBlock,
-        blue: numberBlock
+        blue: numberBlock,
       },
       {
         expectedValue: { red: 120, green: 0, blue: 100 },
         red: numberBlock,
         green: null,
-        blue: getVariableNumberBlock
-      }
+        blue: getVariableNumberBlock,
+      },
     ].forEach(({ red, green, blue, expectedValue }) => {
       if (rgbColorBlock.getInput('RED').connection.isConnected()) {
         rgbColorBlock.getInput('RED').connection.disconnect();
@@ -117,7 +114,7 @@ describe('color rgb state factories', () => {
         blocks: getAllBlocks().map(transformBlock),
         variables: getAllVariables().map(transformVariable),
         type: Blockly.Events.BLOCK_MOVE,
-        blockId: rgbColorBlock.id
+        blockId: rgbColorBlock.id,
       };
 
       const [state1, state2] = eventToFrameFactory(event);

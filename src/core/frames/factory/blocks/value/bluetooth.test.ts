@@ -16,10 +16,10 @@ import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
 import {
-  ArduinoState,
+  ArduinoFrame,
   ArduinoComponentType,
   ArduinoComponentState,
-} from '../../../state/arduino.state';
+} from '../../../arduino.frame';
 import { BluetoothState } from '../../../state/arduino-components.state';
 import {
   createArduinoAndWorkSpace,

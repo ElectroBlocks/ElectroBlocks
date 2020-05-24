@@ -3,14 +3,14 @@ import '../../../../blockly/blocks';
 
 import {
   createArduinoAndWorkSpace,
-  createValueBlock
+  createValueBlock,
 } from '../../../../../tests/tests.helper';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import {
   connectToArduinoBlock,
-  getAllBlocks
+  getAllBlocks,
 } from '../../../../blockly/helpers/block.helper';
 import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
@@ -19,10 +19,7 @@ import { BlockEvent } from '../../../../blockly/state/event.data';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { findComponent } from '../../factory.helpers';
 import { ServoState } from '../../../state/arduino-components.state';
-import {
-  ArduinoComponentType,
-  ArduinoState
-} from '../../../state/arduino.state';
+import { ArduinoComponentType, ArduinoFrame } from '../../../arduino.frame';
 
 describe('test servos factories', () => {
   let workspace: Workspace;
@@ -51,7 +48,7 @@ describe('test servos factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: servo6Block2.id
+      blockId: servo6Block2.id,
     };
 
     const [state1, state2, state3, state4] = eventToFrameFactory(event);
@@ -90,7 +87,7 @@ describe('test servos factories', () => {
   };
 
   const verifyServos = (
-    state: ArduinoState,
+    state: ArduinoFrame,
     servo6Degree: number,
     servo9Degree: number
   ) => {

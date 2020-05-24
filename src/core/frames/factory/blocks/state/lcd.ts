@@ -1,11 +1,11 @@
 import { StateGenerator } from '../../state.factories';
 import { LCDScreenState } from '../../../state/arduino-components.state';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import {
   arduinoStateByComponent,
   getDefaultIndexValue,
-  findComponent
+  findComponent,
 } from '../../factory.helpers';
 import _ from 'lodash';
 import { getInputValue } from '../../value.factories';
@@ -32,8 +32,8 @@ export const lcdScreenSetup: StateGenerator = (
       '                    ',
       '                    ',
       '                    ',
-      '                    '
-    ]
+      '                    ',
+    ],
   };
 
   return [
@@ -43,7 +43,7 @@ export const lcdScreenSetup: StateGenerator = (
       lcdState,
       'Setting up LCD Screen.',
       previousState
-    )
+    ),
   ];
 };
 
@@ -65,7 +65,7 @@ export const lcdBlink: StateGenerator = (
   if (!isBlinking) {
     const newComponent: LCDScreenState = {
       ...lcdState,
-      blink: { row: 0, column: 0, blinking: false }
+      blink: { row: 0, column: 0, blinking: false },
     };
 
     return [
@@ -75,7 +75,7 @@ export const lcdBlink: StateGenerator = (
         newComponent,
         `Turning off blinking.`,
         previousState
-      )
+      ),
     ];
   }
 
@@ -101,7 +101,7 @@ export const lcdBlink: StateGenerator = (
 
   const newComponent: LCDScreenState = {
     ...lcdState,
-    blink: { row, column, blinking: true }
+    blink: { row, column, blinking: true },
   };
 
   return [
@@ -111,7 +111,7 @@ export const lcdBlink: StateGenerator = (
       newComponent,
       `Turning on blinking at (${column}, ${row}).`,
       previousState
-    )
+    ),
   ];
 };
 
@@ -140,7 +140,7 @@ export const lcdScroll: StateGenerator = (
 
   const newComponent: LCDScreenState = {
     ...lcdState,
-    rowsOfText
+    rowsOfText,
   };
 
   return [
@@ -150,7 +150,7 @@ export const lcdScroll: StateGenerator = (
       newComponent,
       `Scrolling text to the ${direction.toLowerCase()}.`,
       previousState
-    )
+    ),
   ];
 };
 
@@ -215,7 +215,7 @@ export const lcdPrint: StateGenerator = (
 
   const newComponent: LCDScreenState = {
     ...lcdState,
-    rowsOfText
+    rowsOfText,
   };
 
   return [
@@ -225,7 +225,7 @@ export const lcdPrint: StateGenerator = (
       newComponent,
       `Printing "${print}" to the screen at position (${column}, ${row}).`,
       previousState
-    )
+    ),
   ];
 };
 
@@ -252,8 +252,8 @@ export const lcdClear: StateGenerator = (
       '                    ',
       '                    ',
       '                    ',
-      '                    '
-    ]
+      '                    ',
+    ],
   };
 
   return [
@@ -266,7 +266,7 @@ export const lcdClear: StateGenerator = (
       false,
       false,
       0
-    )
+    ),
   ];
 };
 
@@ -287,7 +287,7 @@ export const lcdBacklight: StateGenerator = (
 
   const newComponent: LCDScreenState = {
     ...lcdState,
-    backLightOn
+    backLightOn,
   };
 
   return [
@@ -297,7 +297,7 @@ export const lcdBacklight: StateGenerator = (
       newComponent,
       `Turning ${backLightOn ? 'on' : 'off'} backlight.`,
       previousState
-    )
+    ),
   ];
 };
 
@@ -349,7 +349,7 @@ export const lcdSimplePrint: StateGenerator = (
           .map(() => ' ')
           .join('')
       );
-    })
+    }),
   };
 
   const clearComponent: LCDScreenState = {
@@ -358,8 +358,8 @@ export const lcdSimplePrint: StateGenerator = (
       '                    ',
       '                    ',
       '                    ',
-      '                    '
-    ]
+      '                    ',
+    ],
   };
 
   return [
@@ -382,6 +382,6 @@ export const lcdSimplePrint: StateGenerator = (
       false,
       false,
       0
-    )
+    ),
   ];
 };

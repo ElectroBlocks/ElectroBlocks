@@ -1,32 +1,32 @@
 import { BlockEvent } from '../blockly/state/event.data';
 import {
-  ArduinoState,
+  ArduinoFrame,
   Timeline,
   ArduinoComponentType,
   ArduinoComponentState,
-  SENSOR_COMPONENTS
-} from './state/arduino.state';
+  SENSOR_COMPONENTS,
+} from './arduino.frame';
 import { BlockType, BlockData } from '../blockly/state/block.data';
 import { generateState } from './factory/state.factories';
 import _ from 'lodash';
 import {
   getLoopTimeFromBlockData,
-  findArduinoLoopBlock
+  findArduinoLoopBlock,
 } from '../blockly/helpers/block-data.helper';
 import { generateInputState } from './factory/factory.helpers';
 import { PinState, PIN_TYPE } from './state/arduino-components.state';
 import {
   sensorSetupBlockName,
-  convertToState
+  convertToState,
 } from '../blockly/transformers/sensor-data.transformer';
 
-export const eventToFrameFactory = (event: BlockEvent): ArduinoState[] => {
+export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
   const { blocks } = event;
 
   const preSetupBlockType = [
     BlockType.SENSOR_SETUP,
     BlockType.SETUP,
-    BlockType.LIST_CREATE
+    BlockType.LIST_CREATE,
   ];
 
   const preSetupBlocks = blocks.filter((b) =>
@@ -47,7 +47,7 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoState[] => {
         event.variables,
         { iteration: 0, function: 'pre-setup' },
         previousState
-      )
+      ),
     ];
   }, []);
 
@@ -68,7 +68,7 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoState[] => {
         timeLine,
         'loop',
         getPreviousState(blocks, timeLine, previousState)
-      )
+      ),
     ];
   }, preSetupStates);
 };
@@ -76,13 +76,13 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoState[] => {
 const getPreviousState = (
   blocks: BlockData[],
   timeline: Timeline,
-  previousState: ArduinoState = undefined
-): ArduinoState => {
+  previousState: ArduinoFrame = undefined
+): ArduinoFrame => {
   if (previousState === undefined) {
     return undefined;
   }
 
-  const nonSensorComponent = (previousState as ArduinoState).components.filter(
+  const nonSensorComponent = (previousState as ArduinoFrame).components.filter(
     (c) => !isSensorComponent(c)
   );
   const sensorSetupBlocks = blocks.filter((b) =>
@@ -90,7 +90,7 @@ const getPreviousState = (
   );
   const newComponents = [
     ...nonSensorComponent,
-    ...sensorSetupBlocks.map((b) => convertToState(b, timeline))
+    ...sensorSetupBlocks.map((b) => convertToState(b, timeline)),
   ];
   return { ...previousState, components: newComponents };
 };

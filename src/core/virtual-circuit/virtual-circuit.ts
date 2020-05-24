@@ -1,11 +1,9 @@
 import { Svg, Element } from '@svgdotjs/svg.js';
-import { ArduinoState } from '../frames/state/arduino.state';
+import { ArduinoFrame } from '../frames/arduino.frame';
 
-export const sync = (state: ArduinoState, draw: Svg) => {
+export const sync = (state: ArduinoFrame, draw: Svg) => {
   state.components.forEach((s) => {});
 };
-
-
 
 // export class VirtualCircuit {
 //   private arduinoSVG: Element | any;

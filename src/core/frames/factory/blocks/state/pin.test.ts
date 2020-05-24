@@ -3,7 +3,7 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
-  getBlockById
+  getBlockById,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -14,15 +14,12 @@ import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 import {
   PinState,
   PIN_TYPE,
-  PinPicture
+  PinPicture,
 } from '../../../state/arduino-components.state';
 
 describe('analog pin state factories', () => {
@@ -50,7 +47,7 @@ describe('analog pin state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: analogReadSetup.id
+      blockId: analogReadSetup.id,
     };
 
     saveSensorSetupBlockData(event).forEach(updater);
@@ -59,7 +56,7 @@ describe('analog pin state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: digitalReadSetup.id
+      blockId: digitalReadSetup.id,
     };
 
     saveSensorSetupBlockData(event2).forEach(updater);
@@ -70,7 +67,7 @@ describe('analog pin state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: analogReadSetup.id
+      blockId: analogReadSetup.id,
     };
     const [state1, state2] = eventToFrameFactory(event);
 
@@ -104,15 +101,15 @@ describe('analog pin state factories', () => {
     pinType: PIN_TYPE,
     explanation: string,
     state: number,
-    arduinoState: ArduinoState = undefined
-  ): ArduinoState => {
+    arduinoState: ArduinoFrame = undefined
+  ): ArduinoFrame => {
     const sensor: PinState = {
       pins: [pin],
       pin,
       pinType,
       state,
       pinPicture,
-      type: ArduinoComponentType.PIN
+      type: ArduinoComponentType.PIN,
     };
 
     const previousComponent =
@@ -128,7 +125,7 @@ describe('analog pin state factories', () => {
       rxLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
-      powerLedOn: true
+      powerLedOn: true,
     };
   };
 });

@@ -2,7 +2,7 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
 import {
   getAllBlocks,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -11,18 +11,15 @@ import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import {
   LedColorState,
   PinState,
-  PinPicture
+  PinPicture,
 } from '../../../state/arduino-components.state';
 import {
   createArduinoAndWorkSpace,
-  createValueBlock
+  createValueBlock,
 } from '../../../../../tests/tests.helper';
 import { findComponent } from '../../factory.helpers';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
@@ -104,7 +101,7 @@ describe('lcd  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: led10Block2.id
+      blockId: led10Block2.id,
     };
 
     const [state1, state2, state3, state4] = eventToFrameFactory(event);
@@ -171,7 +168,7 @@ describe('lcd  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: ledPin10Off.id
+      blockId: ledPin10Off.id,
     };
 
     const [state1, state2, state3, state4] = eventToFrameFactory(event);
@@ -191,7 +188,7 @@ describe('lcd  factories', () => {
   const verifyState = (
     pin5On: number,
     pin10On: number,
-    state: ArduinoState,
+    state: ArduinoFrame,
     explanation: string,
     pictureType: PinPicture
   ) => {

@@ -1,9 +1,9 @@
-import { Color } from '../../frames/state/arduino.state';
+import { Color } from '../../frames/arduino.frame';
 
 export const hexToRgb = (hex: string): Color => {
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
   var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+  hex = hex.replace(shorthandRegex, function (m, r, g, b) {
     return r + r + g + g + b + b;
   });
 
@@ -11,7 +11,7 @@ export const hexToRgb = (hex: string): Color => {
   return {
     red: parseInt(result[1], 16),
     green: parseInt(result[2], 16),
-    blue: parseInt(result[3], 16)
+    blue: parseInt(result[3], 16),
   };
 };
 

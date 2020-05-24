@@ -1,4 +1,4 @@
-import { Color } from '../../frames/state/arduino.state';
+import { Color } from '../../frames/arduino.frame';
 
 export enum VariableTypes {
   NUMBER = 'Number',
@@ -8,14 +8,14 @@ export enum VariableTypes {
   LIST_STRING = 'List String',
   LIST_NUMBER = 'List Number',
   LIST_BOOLEAN = 'List Boolean',
-  LIST_COLOUR = 'List Colour'
+  LIST_COLOUR = 'List Colour',
 }
 
 export interface VariableData {
   id: string;
   name: string;
   type: VariableTypes;
-  isBeingUsed: boolean; 
+  isBeingUsed: boolean;
   value?:
     | number
     | string

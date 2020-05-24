@@ -4,10 +4,10 @@ import _ from 'lodash';
 import {
   generateInputState,
   arduinoStateByExplanation,
-  arduinoStateByVariable
+  arduinoStateByVariable,
 } from '../../factory.helpers';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
-import { Variable } from '../../../state/arduino.state';
+import { Variable } from '../../../arduino.frame';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 
 export const simpleLoop: StateGenerator = (
@@ -34,7 +34,14 @@ export const simpleLoop: StateGenerator = (
     return [
       ...prev,
       loopFrame,
-      ...generateInputState(block, blocks, variables, timeline, 'DO', loopFrame)
+      ...generateInputState(
+        block,
+        blocks,
+        variables,
+        timeline,
+        'DO',
+        loopFrame
+      ),
     ];
   }, []);
 };
@@ -76,14 +83,14 @@ export const forLoop: StateGenerator = (
   return _.range(from, to + multiplyBy, by * multiplyBy)
     .map((i, counter, array) => {
       const variableData = variables.find(
-        v => v.id === findFieldValue(block, 'VAR')
+        (v) => v.id === findFieldValue(block, 'VAR')
       );
 
       const newVariable: Variable = {
         id: variableData.id,
         name: variableData.name,
         value: i,
-        type: VariableTypes.NUMBER
+        type: VariableTypes.NUMBER,
       };
       const loopFrame = arduinoStateByVariable(
         block.id,
@@ -101,7 +108,7 @@ export const forLoop: StateGenerator = (
           timeline,
           'DO',
           loopFrame
-        )
+        ),
       ];
       prevState = _.cloneDeep(states[states.length - 1]);
 

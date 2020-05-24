@@ -7,13 +7,13 @@ import {
   createGetVariable,
   createValueBlock,
   createListSetupBlock,
-  createSetListBlock
+  createSetListBlock,
 } from '../../../../../tests/tests.helper';
 import Blockly, { Workspace, blockAnimations, BlockSvg } from 'blockly';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import {
   getAllBlocks,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
@@ -21,7 +21,7 @@ import { transformVariable } from '../../../../blockly/transformers/variables.tr
 import { BlockEvent } from '../../../../blockly/state/event.data';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import _ from 'lodash';
-import { Variable, Color } from '../../../state/arduino.state';
+import { Variable, Color } from '../../../arduino.frame';
 import { VARIABLE_TYPES } from '../../../../../constants/variables';
 import { hexToRgb } from '../../../../blockly/helpers/color.helper';
 
@@ -182,7 +182,7 @@ const testSetListBlock = (
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: listBlockSetup.id
+    blockId: listBlockSetup.id,
   };
 
   const [
@@ -192,13 +192,13 @@ const testSetListBlock = (
     state4,
     state5,
     state6,
-    state7
+    state7,
   ] = eventToFrameFactory(event);
 
   expect(state3.variables['list'].value).toEqual([
     valueBlock1Value,
     null,
-    null
+    null,
   ]);
   expect(state3.explanation).toBe(
     `List "list" stores ${transformValueToString(
@@ -211,7 +211,7 @@ const testSetListBlock = (
   expect(state4.variables['list'].value).toEqual([
     setVariableBlockValue,
     null,
-    null
+    null,
   ]);
   expect(state4.explanation).toBe(
     `List "list" stores ${transformValueToString(
@@ -239,7 +239,7 @@ const testSetListBlock = (
   expect(state6.variables['list'].value).toEqual([
     defaultValue,
     null,
-    setVariableBlockValue
+    setVariableBlockValue,
   ]);
 
   expect(state7.explanation).toBe(
@@ -251,7 +251,7 @@ const testSetListBlock = (
   expect(state7.variables['list'].value).toEqual([
     defaultValue,
     valueBlock2Value,
-    setVariableBlockValue
+    setVariableBlockValue,
   ]);
 };
 
@@ -266,5 +266,3 @@ const transformValueToString = (value: any, listType: VariableTypes) => {
 
   return value;
 };
-
-

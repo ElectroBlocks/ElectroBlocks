@@ -2,7 +2,7 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
 import {
   getAllBlocks,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -11,15 +11,14 @@ import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { LedMatrixState } from '../../../state/arduino-components.state';
 import {
   createArduinoAndWorkSpace,
-  createValueBlock
+  createValueBlock,
 } from '../../../../../tests/tests.helper';
 import '../../../../../tests/fake-block';
 import { findComponent } from '../../factory.helpers';
-import { ledMatrixDraw } from './led-matrix';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 
 describe('led matrix  factories', () => {
@@ -56,7 +55,7 @@ describe('led matrix  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: ledmatrixdraw1.id
+      blockId: ledmatrixdraw1.id,
     };
 
     const [state1, state2] = eventToFrameFactory(event);
@@ -97,7 +96,7 @@ describe('led matrix  factories', () => {
       [
         ARDUINO_UNO_PINS.PIN_10,
         ARDUINO_UNO_PINS.PIN_11,
-        ARDUINO_UNO_PINS.PIN_12
+        ARDUINO_UNO_PINS.PIN_12,
       ].sort()
     );
 
@@ -118,7 +117,7 @@ describe('led matrix  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: ledMatrix2.id
+      blockId: ledMatrix2.id,
     };
 
     const [state1, state2, state3] = eventToFrameFactory(event);

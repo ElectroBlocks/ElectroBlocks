@@ -3,7 +3,7 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
-  getBlockById
+  getBlockById,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -15,13 +15,10 @@ import { updater } from '../../../../blockly/updater';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 import {
   UltraSonicSensorState,
-  TemperatureState
+  TemperatureState,
 } from '../../../state/arduino-components.state';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { TempSensor } from '../../../../blockly/state/sensors.state';
 
@@ -44,7 +41,7 @@ describe('rfid state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: tempBlock.id
+      blockId: tempBlock.id,
     };
     saveSensorSetupBlockData(event).forEach(updater);
   });
@@ -54,17 +51,17 @@ describe('rfid state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: tempBlock.id
+      blockId: tempBlock.id,
     };
 
     const tempSensorState: TemperatureState = {
       pins: [ARDUINO_UNO_PINS.PIN_8],
       temperature: 50,
       humidity: 70,
-      type: ArduinoComponentType.TEMPERATURE_SENSOR
+      type: ArduinoComponentType.TEMPERATURE_SENSOR,
     };
 
-    const state: ArduinoState = {
+    const state: ArduinoFrame = {
       blockId: tempBlock.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up temperature sensor.',
@@ -74,7 +71,7 @@ describe('rfid state factories', () => {
       rxLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
-      powerLedOn: true
+      powerLedOn: true,
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);

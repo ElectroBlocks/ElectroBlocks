@@ -2,7 +2,7 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
-  getBlockById
+  getBlockById,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -13,10 +13,7 @@ import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { TimeState } from '../../../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 
@@ -40,16 +37,16 @@ describe('time state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: timesetup.id
+      blockId: timesetup.id,
     };
 
     const timeState: TimeState = {
       pins: [],
       timeInSeconds: 0.3,
-      type: ArduinoComponentType.TIME
+      type: ArduinoComponentType.TIME,
     };
 
-    const state: ArduinoState = {
+    const state: ArduinoFrame = {
       blockId: timesetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up Arduino time.',
@@ -59,11 +56,9 @@ describe('time state factories', () => {
       rxLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
-      powerLedOn: true
+      powerLedOn: true,
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);
   });
-
-  
 });

@@ -1,8 +1,8 @@
 import { Svg } from '@svgdotjs/svg.js';
-import { ArduinoState } from '../frames/state/arduino.state';
+import { ArduinoFrame } from '../frames/arduino.frame';
 import { syncComponents } from './svg.component';
 
-export default (draw: Svg, state: ArduinoState = undefined) => {
+export default (draw: Svg, state: ArduinoFrame = undefined) => {
   if (!state) {
     return;
   }

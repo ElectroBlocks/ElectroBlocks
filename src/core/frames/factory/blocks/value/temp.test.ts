@@ -28,10 +28,7 @@ import {
   TemperatureState,
 } from '../../../state/arduino-components.state';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import {
-  ArduinoState,
-  ArduinoComponentType,
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { TempSensor } from '../../../../blockly/state/sensors.state';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
@@ -134,7 +131,7 @@ const setSetupBlock = (
 };
 
 const verifyComponent = (
-  state: ArduinoState,
+  state: ArduinoFrame,
   temp: number,
   humidity: number
 ) => {
@@ -148,7 +145,7 @@ const verifyComponent = (
 };
 
 const verifyVariables = (
-  state: ArduinoState,
+  state: ArduinoFrame,
   temp: number | undefined,
   humidity: number | undefined
 ) => {

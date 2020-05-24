@@ -1,16 +1,13 @@
 import { StateGenerator } from '../../state.factories';
 import _ from 'lodash';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
-import {
-  ArduinoComponentType,
-  ArduinoState
-} from '../../../state/arduino.state';
+import { ArduinoComponentType, ArduinoFrame } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { LedMatrixState } from '../../../state/arduino-components.state';
 import {
   arduinoStateByComponent,
   findComponent,
-  getDefaultIndexValue
+  getDefaultIndexValue,
 } from '../../factory.helpers';
 import { getInputValue } from '../../value.factories';
 
@@ -28,9 +25,9 @@ export const ledMatrixDraw: StateGenerator = (
         return {
           row,
           col,
-          isOn: findFieldValue(block, `${col},${row}`) === 'TRUE'
+          isOn: findFieldValue(block, `${col},${row}`) === 'TRUE',
         };
-      })
+      }),
     ];
   }, []);
 
@@ -39,9 +36,9 @@ export const ledMatrixDraw: StateGenerator = (
     pins: [
       ARDUINO_UNO_PINS.PIN_10,
       ARDUINO_UNO_PINS.PIN_11,
-      ARDUINO_UNO_PINS.PIN_12
+      ARDUINO_UNO_PINS.PIN_12,
     ],
-    leds
+    leds,
   };
 
   return [
@@ -50,7 +47,7 @@ export const ledMatrixDraw: StateGenerator = (
       timeline,
       ledMatrixState,
       'Drawing on LED Matrix.'
-    )
+    ),
   ];
 };
 
@@ -96,7 +93,7 @@ export const ledMatrixOnLed: StateGenerator = (
   const newComponent: LedMatrixState = {
     pins,
     type,
-    leds: newLeds
+    leds: newLeds,
   };
 
   return [
@@ -105,11 +102,11 @@ export const ledMatrixOnLed: StateGenerator = (
       timeline,
       newComponent,
       `Led Matrix turn (${row},${col}) ${isOn ? 'on' : 'off'}.`
-    )
+    ),
   ];
 };
 
-const getLedMatrix = (previousState?: ArduinoState): LedMatrixState => {
+const getLedMatrix = (previousState?: ArduinoFrame): LedMatrixState => {
   if (_.isEmpty(previousState)) {
     return createBlankLedMatrix();
   }
@@ -130,9 +127,9 @@ const createBlankLedMatrix = () => {
         return {
           row,
           col,
-          isOn: false
+          isOn: false,
         };
-      })
+      }),
     ];
   }, []);
 
@@ -141,8 +138,8 @@ const createBlankLedMatrix = () => {
     pins: [
       ARDUINO_UNO_PINS.PIN_10,
       ARDUINO_UNO_PINS.PIN_11,
-      ARDUINO_UNO_PINS.PIN_12
+      ARDUINO_UNO_PINS.PIN_12,
     ],
-    leds
+    leds,
   };
 };

@@ -1,5 +1,5 @@
 import { StateGenerator } from '../../state.factories';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { RfidState } from '../../../state/arduino-components.state';
 import { RFIDSensor } from '../../../../blockly/state/sensors.state';
 import { arduinoStateByComponent } from '../../factory.helpers';
@@ -23,7 +23,7 @@ export const rfidSetup: StateGenerator = (
     txPin: findFieldValue(block, 'TX'),
     scannedCard: rfidSensorLoop1.scanned_card,
     tag: rfidSensorLoop1.tag,
-    cardNumber: rfidSensorLoop1.card_number
+    cardNumber: rfidSensorLoop1.card_number,
   };
 
   return [
@@ -33,6 +33,6 @@ export const rfidSetup: StateGenerator = (
       rfidComponent,
       'Setting up RFID.',
       previousState
-    )
+    ),
   ];
 };

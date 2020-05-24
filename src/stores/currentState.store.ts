@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { ArduinoState } from '../core/frames/state/arduino.state';
+import { ArduinoFrame } from '../core/frames/arduino.frame';
 
 const currentStateState = writable(undefined);
 

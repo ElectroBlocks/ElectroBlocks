@@ -4,7 +4,7 @@ import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
   getBlockById,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -15,14 +15,11 @@ import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ArduinoMessageState } from '../../../state/arduino-components.state';
 import {
   createArduinoAndWorkSpace,
-  createValueBlock
+  createValueBlock,
 } from '../../../../../tests/tests.helper';
 import { BluetoothSensor } from '../../../../blockly/state/sensors.state';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
@@ -49,7 +46,7 @@ describe('arduino message state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: messageSetup.id
+      blockId: messageSetup.id,
     };
     saveSensorSetupBlockData(event).forEach(updater);
   });
@@ -73,7 +70,7 @@ describe('arduino message state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: messageSetup.id
+      blockId: messageSetup.id,
     };
 
     const [state1, state2] = eventToFrameFactory(event);
@@ -90,7 +87,7 @@ describe('arduino message state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: messageSetup.id
+      blockId: messageSetup.id,
     };
 
     const message: ArduinoMessageState = {
@@ -98,10 +95,10 @@ describe('arduino message state factories', () => {
       hasMessage: true,
       message: 'hello world',
       sendMessage: '',
-      type: ArduinoComponentType.MESSAGE
+      type: ArduinoComponentType.MESSAGE,
     };
 
-    const state: ArduinoState = {
+    const state: ArduinoFrame = {
       blockId: messageSetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up Arduino messages.',
@@ -111,7 +108,7 @@ describe('arduino message state factories', () => {
       rxLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
-      powerLedOn: true
+      powerLedOn: true,
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);

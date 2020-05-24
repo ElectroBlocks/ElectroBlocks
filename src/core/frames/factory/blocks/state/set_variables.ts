@@ -1,10 +1,10 @@
 import { StateGenerator } from '../../state.factories';
-import { Variable, Color } from '../../../state/arduino.state';
+import { Variable, Color } from '../../../arduino.frame';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import {
   arduinoStateByVariable,
   getDefaultValue,
-  valueToString
+  valueToString,
 } from '../../factory.helpers';
 import { getInputValue } from '../../value.factories';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
@@ -33,7 +33,7 @@ export const setVariable: StateGenerator = (
     type: variable.type,
     value,
     name: variable.name,
-    id: variableId
+    id: variableId,
   };
 
   const explanation = `Variable "${variable.name}" stores ${valueToString(
@@ -48,6 +48,6 @@ export const setVariable: StateGenerator = (
       newVariable,
       explanation,
       previousState
-    )
+    ),
   ];
 };

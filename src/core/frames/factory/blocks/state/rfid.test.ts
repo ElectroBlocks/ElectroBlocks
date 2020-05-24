@@ -3,7 +3,7 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
-  getBlockById
+  getBlockById,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -14,10 +14,7 @@ import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { RfidState } from '../../../state/arduino-components.state';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 
@@ -44,7 +41,7 @@ describe('rfid state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: rfidBlock.id
+      blockId: rfidBlock.id,
     };
     saveSensorSetupBlockData(event).forEach(updater);
   });
@@ -54,7 +51,7 @@ describe('rfid state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: rfidBlock.id
+      blockId: rfidBlock.id,
     };
 
     const rfidComponent: RfidState = {
@@ -64,10 +61,10 @@ describe('rfid state factories', () => {
       scannedCard: true,
       cardNumber: 'card_num',
       tag: 'tag',
-      type: ArduinoComponentType.RFID
+      type: ArduinoComponentType.RFID,
     };
 
-    const rfidSetupState: ArduinoState = {
+    const rfidSetupState: ArduinoFrame = {
       blockId: rfidBlock.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up RFID.',
@@ -77,7 +74,7 @@ describe('rfid state factories', () => {
       rxLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
-      powerLedOn: true
+      powerLedOn: true,
     };
 
     expect(eventToFrameFactory(event)).toEqual([rfidSetupState]);

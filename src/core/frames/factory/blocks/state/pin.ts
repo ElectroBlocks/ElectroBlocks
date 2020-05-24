@@ -3,9 +3,9 @@ import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import {
   PinState,
   PIN_TYPE,
-  pinPictureToWork as pinPictureToWord
+  pinPictureToWork as pinPictureToWord,
 } from '../../../state/arduino-components.state';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { PinSensor } from '../../../../blockly/state/sensors.state';
 import { arduinoStateByComponent } from '../../factory.helpers';
 
@@ -32,7 +32,7 @@ export const setupReadPin: StateGenerator = (
     pin: pin,
     pins: block.pins,
     pinPicture: pictureType,
-    pinType
+    pinType,
   };
 
   return [
@@ -42,6 +42,6 @@ export const setupReadPin: StateGenerator = (
       setupState,
       `Setting up ${pinPictureToWord(pictureType)}.`,
       previousState
-    )
+    ),
   ];
 };

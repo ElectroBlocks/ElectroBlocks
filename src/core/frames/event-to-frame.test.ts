@@ -12,7 +12,7 @@ import { eventToFrameFactory } from './event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../constants/arduino';
 import { saveSensorSetupBlockData } from '../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../blockly/updater';
-import { ArduinoState, ArduinoComponentType } from './state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from './arduino.frame';
 import { RfidState } from './state/arduino-components.state';
 
 describe('generator', () => {
@@ -32,9 +32,8 @@ describe('generator', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_DELETE,
-      blockId: arduinoBlock.id
+      blockId: arduinoBlock.id,
     };
-
 
     expect(eventToFrameFactory(event)).toEqual([]);
   });

@@ -4,7 +4,7 @@ import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
   getBlockById,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -15,18 +15,15 @@ import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import {
   createArduinoAndWorkSpace,
-  createSetVariableBlockWithValue
+  createSetVariableBlockWithValue,
 } from '../../../../../tests/tests.helper';
 import {
   PinState,
   PIN_TYPE,
-  PinPicture
+  PinPicture,
 } from '../../../state/arduino-components.state';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { getDefaultValue } from '../../factory.helpers';
@@ -104,13 +101,13 @@ const runTest = (
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: setupBlock1.id
+    blockId: setupBlock1.id,
   }).forEach(updater);
   saveSensorSetupBlockData({
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: setupBlock2.id
+    blockId: setupBlock2.id,
   }).forEach(updater);
 
   setupBlock1.setFieldValue(block1State[1].toString(), sensorStateField);
@@ -120,13 +117,13 @@ const runTest = (
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: setupBlock1.id
+    blockId: setupBlock1.id,
   }).forEach(updater);
   saveSensorSetupBlockData({
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: setupBlock2.id
+    blockId: setupBlock2.id,
   }).forEach(updater);
 
   const variable1Block = createSetVariableBlockWithValue(
@@ -142,10 +139,7 @@ const runTest = (
   const sensorBlock2 = workspace.newBlock(sensorReadBlockType) as BlockSvg;
   sensorBlock1.setFieldValue(block2Pin, 'PIN');
 
-  variable1Block
-    .getInput('VALUE')
-    .connection.targetBlock()
-    .dispose(true);
+  variable1Block.getInput('VALUE').connection.targetBlock().dispose(true);
   variable1Block
     .getInput('VALUE')
     .connection.connect(sensorBlock1.outputConnection);
@@ -156,10 +150,7 @@ const runTest = (
     variableType,
     getDefaultValue(variableType)
   );
-  variable2Block
-    .getInput('VALUE')
-    .connection.targetBlock()
-    .dispose(true);
+  variable2Block.getInput('VALUE').connection.targetBlock().dispose(true);
   variable1Block
     .getInput('VALUE')
     .connection.connect(sensorBlock2.outputConnection);
@@ -171,7 +162,7 @@ const runTest = (
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: variable2Block.id
+    blockId: variable2Block.id,
   };
 
   const [setup1, setup2, state1, state2, state3, state4] = eventToFrameFactory(

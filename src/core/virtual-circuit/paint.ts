@@ -1,13 +1,13 @@
 import arduinoSVGText from './svgs/arduino.svg';
 import servoSVGText from './svgs/servo.svg';
 import { Svg, Element } from '@svgdotjs/svg.js';
-import { ArduinoState } from '../frames/state/arduino.state';
+import { ArduinoFrame } from '../frames/arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../constants/arduino';
 import { syncComponents, createComponents } from './svg.component';
 import { resetBreadBoardWholes } from './wire';
 import { componentToSvgId } from './svg-helpers';
 
-export default (draw: Svg, state: ArduinoState = undefined) => {
+export default (draw: Svg, state: ArduinoFrame = undefined) => {
   const arduino = findOrCreateArduino(draw);
 
   arduino.node.id = 'arduino_main_svg';

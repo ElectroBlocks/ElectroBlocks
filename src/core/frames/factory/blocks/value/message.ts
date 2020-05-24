@@ -2,7 +2,7 @@ import { ValueGenerator } from '../../value.factories';
 import { BluetoothSensor } from '../../../../blockly/state/sensors.state';
 import { findComponent } from '../../factory.helpers';
 import { ArduinoMessageState } from '../../../state/arduino-components.state';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 
 export const getArduinoMessage: ValueGenerator = (
   blocks,

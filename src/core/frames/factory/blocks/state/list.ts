@@ -1,21 +1,21 @@
 import { StateGenerator } from '../../state.factories';
 import {
-  ArduinoState,
+  ArduinoFrame,
   Variable,
   Timeline,
-  Color
-} from '../../../state/arduino.state';
+  Color,
+} from '../../../arduino.frame';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { BlockData } from '../../../../blockly/state/block.data';
 import {
   VariableTypes,
-  VariableData
+  VariableData,
 } from '../../../../blockly/state/variable.data';
 import _ from 'lodash';
 import {
   arduinoStateByVariable,
   valueToString,
-  getDefaultValueList
+  getDefaultValueList,
 } from '../../factory.helpers';
 import { getInputValue } from '../../value.factories';
 
@@ -24,7 +24,7 @@ const createListState = (
   block: BlockData,
   variables: VariableData[],
   timeline: Timeline,
-  previousState: ArduinoState = undefined
+  previousState: ArduinoFrame = undefined
 ) => {
   const newVariable = createVariable(block, variables, type);
 
@@ -35,7 +35,7 @@ const createListState = (
       newVariable,
       createExplanation(newVariable, +findFieldValue(block, 'SIZE')),
       previousState
-    )
+    ),
   ];
 };
 
@@ -45,8 +45,8 @@ const setItemInList = (
   block: BlockData,
   variables: VariableData[],
   timeline: Timeline,
-  previousState: ArduinoState = undefined
-): ArduinoState[] => {
+  previousState: ArduinoFrame = undefined
+): ArduinoFrame[] => {
   const variableName = variables.find(
     (v) => v.id === findFieldValue(block, 'VAR')
   ).name;
@@ -56,7 +56,7 @@ const setItemInList = (
       | string[]
       | Color[]
       | boolean[]
-      | number[])
+      | number[]),
   ]) as string[] | Color[] | boolean[] | number[];
   let position: number = getInputValue(
     blocks,
@@ -88,7 +88,7 @@ const setItemInList = (
     type: previousState.variables[variableName].type,
     value: _.cloneDeep(currentValue),
     name: previousState.variables[variableName].name,
-    id: previousState.variables[variableName].id
+    id: previousState.variables[variableName].id,
   };
 
   const stringValue = valueToString(
@@ -110,7 +110,7 @@ const setItemInList = (
       newVariable,
       explanation,
       previousState
-    )
+    ),
   ];
 };
 
@@ -147,7 +147,7 @@ const createVariable = (
     id: variableId,
     type,
     name: variableFound.name,
-    value: _.range(0, size).map(() => null)
+    value: _.range(0, size).map(() => null),
   };
 };
 

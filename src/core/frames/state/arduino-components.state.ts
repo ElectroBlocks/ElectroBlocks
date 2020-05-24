@@ -1,4 +1,4 @@
-import { ArduinoComponentState, Color, ArduinoState } from './arduino.state';
+import { ArduinoComponentState, Color, ArduinoFrame } from '../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
 
 export interface ArduinoMessageState extends ArduinoComponentState {
@@ -36,7 +36,7 @@ export interface LCDScreenState extends ArduinoComponentState {
 
 export enum LCD_SCREEN_MEMORY_TYPE {
   'OX3F' = '0x3F',
-  '0X27' = '0x27'
+  '0X27' = '0x27',
 }
 
 export interface LedColorState extends ArduinoComponentState {
@@ -59,7 +59,7 @@ export interface MotorState extends ArduinoComponentState {
 
 export enum MOTOR_DIRECTION {
   FORWARD = 'FORWARD',
-  BACKWARD = 'BACKWARD'
+  BACKWARD = 'BACKWARD',
 }
 
 export interface NeoPixelState extends ArduinoComponentState {
@@ -79,7 +79,7 @@ export enum PIN_TYPE {
   DIGITAL_OUTPUT = 'DIGITAL_OUTPUT',
   ANALOG_OUTPUT = 'ANALOG_OUTPUT',
   ANALOG_INPUT = 'ANALOG_INPUT',
-  DIGITAL_INPUT = 'DIGITAL_INPUT'
+  DIGITAL_INPUT = 'DIGITAL_INPUT',
 }
 
 export enum PinPicture {
@@ -89,7 +89,7 @@ export enum PinPicture {
   SENSOR = 'SENSOR',
   PHOTO_SENSOR = 'PHOTO_SENSOR',
   TOUCH_SENSOR = 'TOUCH_SENSOR',
-  SOIL_SENSOR = 'SOIL_SENSOR'
+  SOIL_SENSOR = 'SOIL_SENSOR',
 }
 
 export const pinPictureToWork = (pinPicture: PinPicture) => {

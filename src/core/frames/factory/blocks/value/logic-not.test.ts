@@ -5,13 +5,13 @@ import Blockly, { Workspace, BlockSvg } from 'blockly';
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
-  createValueBlock
+  createValueBlock,
 } from '../../../../../tests/tests.helper';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
-import { Color } from '../../../state/arduino.state';
+import { Color } from '../../../arduino.frame';
 import {
   connectToArduinoBlock,
-  getAllBlocks
+  getAllBlocks,
 } from '../../../../blockly/helpers/block.helper';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
@@ -46,7 +46,7 @@ describe('logic not blocks', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: boolTest.id
+      blockId: boolTest.id,
     };
     const [event1state1] = eventToFrameFactory(event1);
     expect(event1state1.variables['bool_test'].value).toBeFalsy();
@@ -63,7 +63,7 @@ describe('logic not blocks', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: boolTest.id
+      blockId: boolTest.id,
     };
     const [event2state1] = eventToFrameFactory(event2);
     expect(event2state1.variables['bool_test'].value).toBeTruthy();
@@ -79,7 +79,7 @@ describe('logic not blocks', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: boolTest.id
+      blockId: boolTest.id,
     };
     const [event3state1] = eventToFrameFactory(event3);
     expect(event3state1.variables['bool_test'].value).toBeTruthy();

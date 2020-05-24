@@ -2,7 +2,7 @@ import { StateGenerator } from '../../state.factories';
 import { MotionSensor } from '../../../../blockly/state/sensors.state';
 import { UltraSonicSensorState } from '../../../state/arduino-components.state';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { arduinoStateByComponent } from '../../factory.helpers';
 
 export const ultraSonicSensor: StateGenerator = (
@@ -20,7 +20,7 @@ export const ultraSonicSensor: StateGenerator = (
     pins: block.pins,
     trigPin: findFieldValue(block, 'TRIG'),
     echoPin: findFieldValue(block, 'ECHO'),
-    type: ArduinoComponentType.ULTRASONICE_SENSOR
+    type: ArduinoComponentType.ULTRASONICE_SENSOR,
   };
 
   return [
@@ -29,6 +29,6 @@ export const ultraSonicSensor: StateGenerator = (
       timeline,
       ultraSonicState,
       'Setting up ultra sonic sensor.'
-    )
+    ),
   ];
 };

@@ -5,13 +5,13 @@ import Blockly, { Workspace, BlockSvg } from 'blockly';
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
-  createValueBlock
+  createValueBlock,
 } from '../../../../../tests/tests.helper';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
-import { Color } from '../../../state/arduino.state';
+import { Color } from '../../../arduino.frame';
 import {
   connectToArduinoBlock,
-  getAllBlocks
+  getAllBlocks,
 } from '../../../../blockly/helpers/block.helper';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
@@ -37,10 +37,7 @@ describe('logic operators blocks', () => {
       VariableTypes.BOOLEAN,
       true
     );
-    boolTest
-      .getInput('VALUE')
-      .connection.targetBlock()
-      .dispose(true);
+    boolTest.getInput('VALUE').connection.targetBlock().dispose(true);
 
     connectToArduinoBlock(boolTest);
     [
@@ -48,32 +45,32 @@ describe('logic operators blocks', () => {
         A: true,
         B: true,
         OP: 'OR',
-        expectValue: true
+        expectValue: true,
       },
       {
         A: true,
         B: false,
         OP: 'OR',
-        expectValue: true
+        expectValue: true,
       },
       {
         A: false,
         B: false,
         OP: 'OR',
-        expectValue: false
+        expectValue: false,
       },
       {
         A: true,
         B: true,
         OP: 'AND',
-        expectValue: true
+        expectValue: true,
       },
       {
         A: true,
         B: false,
         OP: 'AND',
-        expectValue: false
-      }
+        expectValue: false,
+      },
     ].forEach(({ A, B, OP, expectValue }) => {
       const testBlock = createLogicCompareBlock(workspace, A, B, OP);
       boolTest.getInput('VALUE').connection.connect(testBlock.outputConnection);
@@ -81,7 +78,7 @@ describe('logic operators blocks', () => {
         blocks: getAllBlocks().map(transformBlock),
         variables: getAllVariables().map(transformVariable),
         type: Blockly.Events.BLOCK_MOVE,
-        blockId: testBlock.id
+        blockId: testBlock.id,
       };
       const events = eventToFrameFactory(event);
       const [state1] = events;
@@ -99,7 +96,7 @@ describe('logic operators blocks', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: logicOperatorBlock.id
+      blockId: logicOperatorBlock.id,
     };
     const events = eventToFrameFactory(event);
     const [state1] = events;

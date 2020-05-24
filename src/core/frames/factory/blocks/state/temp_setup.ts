@@ -1,11 +1,11 @@
 import { StateGenerator } from '../../state.factories';
 import {
   MotionSensor,
-  TempSensor
+  TempSensor,
 } from '../../../../blockly/state/sensors.state';
 import { TemperatureState } from '../../../state/arduino-components.state';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { arduinoStateByComponent } from '../../factory.helpers';
 
 export const tempSetupSensor: StateGenerator = (
@@ -22,7 +22,7 @@ export const tempSetupSensor: StateGenerator = (
     pins: block.pins,
     temperature: sensorData.temp,
     humidity: sensorData.humidity,
-    type: ArduinoComponentType.TEMPERATURE_SENSOR
+    type: ArduinoComponentType.TEMPERATURE_SENSOR,
   };
 
   return [
@@ -31,6 +31,6 @@ export const tempSetupSensor: StateGenerator = (
       timeline,
       tempSensorState,
       'Setting up temperature sensor.'
-    )
+    ),
   ];
 };

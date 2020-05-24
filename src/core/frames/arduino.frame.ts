@@ -1,7 +1,7 @@
-import { ARDUINO_UNO_PINS } from '../../../constants/arduino';
-import { VariableTypes } from '../../blockly/state/variable.data';
+import { ARDUINO_UNO_PINS } from '../../constants/arduino';
+import { VariableTypes } from '../blockly/state/variable.data';
 
-export interface ArduinoState {
+export interface ArduinoFrame {
   blockId: string;
   timeLine: Timeline;
   explanation: string;

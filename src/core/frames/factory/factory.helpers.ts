@@ -1,17 +1,17 @@
 import {
-  ArduinoState,
+  ArduinoFrame,
   Timeline,
   ArduinoComponentState,
   Variable,
   Color,
-  ArduinoComponentType
-} from '../state/arduino.state';
+  ArduinoComponentType,
+} from '../arduino.frame';
 
 import _ from 'lodash';
 import { BlockData } from '../../blockly/state/block.data';
 import {
   findBlockById,
-  findInputStatementStartBlock
+  findInputStatementStartBlock,
 } from '../../blockly/helpers/block-data.helper';
 import { VariableTypes, VariableData } from '../../blockly/state/variable.data';
 import { generateState } from './state.factories';
@@ -24,7 +24,7 @@ export const arduinoStateByVariable = (
   timeline: Timeline,
   newVariable: Variable,
   explanation: string,
-  previousState: ArduinoState = undefined,
+  previousState: ArduinoFrame = undefined,
   txLedOn = false,
   rxLedOn = false,
   delay = 0
@@ -43,7 +43,7 @@ export const arduinoStateByVariable = (
     components,
     explanation,
     delay,
-    powerLedOn: true
+    powerLedOn: true,
   };
 };
 
@@ -64,7 +64,7 @@ export const arduinoStateByExplanation = (
   blockId: string,
   timeline: Timeline,
   explanation: string,
-  previousState: ArduinoState = undefined,
+  previousState: ArduinoFrame = undefined,
   txLedOn = false,
   rxLedOn = false,
   delay = 0
@@ -83,7 +83,7 @@ export const arduinoStateByExplanation = (
     components,
     explanation,
     delay,
-    powerLedOn: true
+    powerLedOn: true,
   };
 };
 
@@ -108,11 +108,11 @@ export const arduinoStateByComponent = (
   timeline: Timeline,
   newComponent: ArduinoComponentState,
   explanation: string,
-  previousState: ArduinoState = undefined,
+  previousState: ArduinoFrame = undefined,
   txLedOn = false,
   rxLedOn = false,
   delay = 0
-): ArduinoState => {
+): ArduinoFrame => {
   const variables = previousState ? { ...previousState.variables } : {};
   const previousComponents = previousState ? [...previousState.components] : [];
 
@@ -129,7 +129,7 @@ export const arduinoStateByComponent = (
         c.type === newComponent.type && _.isEqual(c.pins, newComponent.pins)
       );
     }),
-    newComponent
+    newComponent,
   ];
 
   return {
@@ -142,7 +142,7 @@ export const arduinoStateByComponent = (
     components,
     explanation,
     delay,
-    powerLedOn: true
+    powerLedOn: true,
   };
 };
 
@@ -210,8 +210,8 @@ export const generateInputState = (
   variables: VariableData[],
   timeline: Timeline,
   inputName: string,
-  previousState?: ArduinoState
-): ArduinoState[] => {
+  previousState?: ArduinoFrame
+): ArduinoFrame[] => {
   const startingBlock = findInputStatementStartBlock(blocks, block, inputName);
   if (!startingBlock) {
     return [];
@@ -236,7 +236,7 @@ export const generateInputState = (
 };
 
 export const findComponent = <T extends ArduinoComponentState>(
-  state: ArduinoState,
+  state: ArduinoFrame,
   type: ArduinoComponentType,
   pin: ARDUINO_UNO_PINS = undefined,
   motorNumber: number = undefined

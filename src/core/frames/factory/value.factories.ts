@@ -1,5 +1,5 @@
-import { Timeline, ArduinoState } from '../state/arduino.state';
-import { Color } from '../state/arduino.state';
+import { Timeline, ArduinoFrame } from '../arduino.frame';
+import { Color } from '../arduino.frame';
 import { BlockData } from '../../blockly/state/block.data';
 import {
   mathNumber,
@@ -46,7 +46,7 @@ export interface ValueGenerator {
     currentBlock: BlockData,
     variables: VariableData[],
     timeline: Timeline,
-    previousState?: ArduinoState
+    previousState?: ArduinoFrame
   ):
     | number
     | string
@@ -126,7 +126,7 @@ export const getInputValue = (
   timeline: Timeline,
   inputName: string,
   defaultValue: any,
-  previousState: ArduinoState = undefined
+  previousState: ArduinoFrame = undefined
 ) => {
   const inputBlock = findBlockInput(blocks, block, inputName);
 

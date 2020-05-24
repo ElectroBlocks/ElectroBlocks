@@ -19,10 +19,7 @@ import {
 } from '../../../../../tests/tests.helper';
 import { UltraSonicSensorState } from '../../../state/arduino-components.state';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import {
-  ArduinoState,
-  ArduinoComponentType,
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 
@@ -79,7 +76,7 @@ describe('ultra sonic sensor state factories', () => {
   });
 });
 
-const verifyState = (state: ArduinoState, distance: number) => {
+const verifyState = (state: ArduinoFrame, distance: number) => {
   const component = state.components[0] as UltraSonicSensorState;
   expect(state.variables['distance'].value).toBe(distance);
   expect(component.cm).toBe(distance);

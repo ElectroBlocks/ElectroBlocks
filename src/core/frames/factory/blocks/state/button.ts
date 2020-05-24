@@ -1,6 +1,6 @@
 import { StateGenerator } from '../../state.factories';
 import { ButtonState } from '../../../state/arduino-components.state';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { ButtonSensor } from '../../../../blockly/state/sensors.state';
 import { arduinoStateByComponent } from '../../factory.helpers';
 
@@ -19,7 +19,7 @@ export const buttonSetup: StateGenerator = (
   const buttonState: ButtonState = {
     type: ArduinoComponentType.BUTTON,
     pins: block.pins,
-    isPressed: btnData.is_pressed
+    isPressed: btnData.is_pressed,
   };
 
   return [
@@ -28,6 +28,6 @@ export const buttonSetup: StateGenerator = (
       timeline,
       buttonState,
       `button ${pin} is being setup.`
-    )
+    ),
   ];
 };

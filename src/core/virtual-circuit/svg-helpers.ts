@@ -1,4 +1,4 @@
-import { ArduinoComponentState } from '../frames/state/arduino.state';
+import { ArduinoComponentState } from '../frames/arduino.frame';
 import { Element, Svg } from '@svgdotjs/svg.js';
 
 export const componentToSvgId = (component: ArduinoComponentState) => {

@@ -1,5 +1,5 @@
 import { BlockData } from '../../blockly/state/block.data';
-import { Timeline, ArduinoState } from '../state/arduino.state';
+import { Timeline, ArduinoFrame } from '../arduino.frame';
 import { rfidSetup } from './blocks/state/rfid';
 import { bluetoothSetup, bluetoothMessage } from './blocks/state/bluetooth';
 import { messageSetup, arduinoSendMessage } from './blocks/state/message';
@@ -50,8 +50,8 @@ export interface StateGenerator {
     block: BlockData,
     variables: VariableData[],
     timeline: Timeline,
-    previousState?: ArduinoState
-  ): ArduinoState[];
+    previousState?: ArduinoFrame
+  ): ArduinoFrame[];
 }
 
 const stateList: { [blockName: string]: StateGenerator } = {

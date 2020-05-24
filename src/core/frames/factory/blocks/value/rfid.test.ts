@@ -21,10 +21,7 @@ import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
-import {
-  ArduinoState,
-  ArduinoComponentType,
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { RfidState } from '../../../state/arduino-components.state';
 import {
   createArduinoAndWorkSpace,
@@ -128,7 +125,7 @@ describe('rfid value factories', () => {
 });
 
 const verifyComponent = (
-  state: ArduinoState,
+  state: ArduinoFrame,
   hasCard: boolean,
   tag: string,
   cardNumer: string
@@ -141,7 +138,7 @@ const verifyComponent = (
 };
 
 const verifyVariables = (
-  state: ArduinoState,
+  state: ArduinoFrame,
   hasCard: boolean | undefined,
   cardNumber: string | undefined,
   tag: string | undefined

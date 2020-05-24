@@ -3,7 +3,7 @@ import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
   getBlockById,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -11,14 +11,11 @@ import { transformBlock } from '../../../../blockly/transformers/block.transform
 import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { TimeState } from '../../../state/arduino-components.state';
 import {
   createArduinoAndWorkSpace,
-  createSetVariableBlockWithValue
+  createSetVariableBlockWithValue,
 } from '../../../../../tests/tests.helper';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 describe('get time block factories', () => {
@@ -62,7 +59,7 @@ describe('get time block factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: timesetup.id
+      blockId: timesetup.id,
     };
 
     const [state1, state2, state3, state4] = eventToFrameFactory(event);

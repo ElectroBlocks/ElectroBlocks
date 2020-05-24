@@ -21,10 +21,7 @@ import {
   IRRemoteState,
 } from '../../../state/arduino-components.state';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import {
-  ArduinoState,
-  ArduinoComponentType,
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { findComponent } from '../../factory.helpers';
@@ -114,7 +111,7 @@ describe('button state factories', () => {
 });
 
 const verifyVariables = (
-  state: ArduinoState,
+  state: ArduinoFrame,
   code: string,
   hasCode: boolean
 ) => {
@@ -123,7 +120,7 @@ const verifyVariables = (
 };
 
 const verifyComponent = (
-  state: ArduinoState,
+  state: ArduinoFrame,
   code: string,
   hasCode: boolean
 ) => {

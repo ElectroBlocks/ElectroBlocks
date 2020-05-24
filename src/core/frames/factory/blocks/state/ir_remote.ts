@@ -1,7 +1,7 @@
 import { StateGenerator } from '../../state.factories';
 import { IRRemoteState } from '../../../state/arduino-components.state';
 import { IRRemoteSensor } from '../../../../blockly/state/sensors.state';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { arduinoStateByComponent } from '../../factory.helpers';
 
@@ -23,7 +23,7 @@ export const irRemoteSetup: StateGenerator = (
     code: irRemoteData.code,
     type: ArduinoComponentType.IR_REMOTE,
     pins: block.pins,
-    analogPin
+    analogPin,
   };
 
   return [
@@ -32,6 +32,6 @@ export const irRemoteSetup: StateGenerator = (
       timeline,
       irRemoteState,
       'Setting up ir remote.'
-    )
+    ),
   ];
 };

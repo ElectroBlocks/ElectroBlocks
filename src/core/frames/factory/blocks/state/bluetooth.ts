@@ -1,7 +1,7 @@
 import { StateGenerator } from '../../state.factories';
 import { BluetoothSensor } from '../../../../blockly/state/sensors.state';
 import { BluetoothState } from '../../../state/arduino-components.state';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { arduinoStateByComponent } from '../../factory.helpers';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { getInputValue } from '../../value.factories';
@@ -15,7 +15,7 @@ export const bluetoothSetup: StateGenerator = (
   previousState
 ) => {
   const btSensorDatum = JSON.parse(block.metaData) as BluetoothSensor[];
-  const btSensor = btSensorDatum.find(d => d.loop === 1);
+  const btSensor = btSensorDatum.find((d) => d.loop === 1);
 
   const bluetoothComponent: BluetoothState = {
     pins: block.pins,
@@ -24,7 +24,7 @@ export const bluetoothSetup: StateGenerator = (
     txPin: findFieldValue(block, 'TX'),
     hasMessage: btSensor.receiving_message,
     message: btSensor.message,
-    sendMessage: ''
+    sendMessage: '',
   };
 
   return [
@@ -34,7 +34,7 @@ export const bluetoothSetup: StateGenerator = (
       bluetoothComponent,
       'Setting up Bluetooth.',
       previousState
-    )
+    ),
   ];
 };
 
@@ -55,7 +55,7 @@ export const bluetoothMessage: StateGenerator = (
     previousState
   );
   const btComponent = previousState.components.find(
-    c => c.type === ArduinoComponentType.BLUE_TOOTH
+    (c) => c.type === ArduinoComponentType.BLUE_TOOTH
   ) as BluetoothState;
   const newComponent = _.cloneDeep(btComponent);
   newComponent.sendMessage = message;
@@ -67,6 +67,6 @@ export const bluetoothMessage: StateGenerator = (
       newComponent,
       `Sending "${message}" from bluetooth to computer.`,
       previousState
-    )
+    ),
   ];
 };

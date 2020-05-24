@@ -3,7 +3,7 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
-  getBlockById
+  getBlockById,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -15,10 +15,7 @@ import { updater } from '../../../../blockly/updater';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 import { UltraSonicSensorState } from '../../../state/arduino-components.state';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 
 describe('ultra sonic sensor state factories', () => {
@@ -42,7 +39,7 @@ describe('ultra sonic sensor state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: ultraSonicSensor.id
+      blockId: ultraSonicSensor.id,
     };
     saveSensorSetupBlockData(event).forEach(updater);
   });
@@ -52,7 +49,7 @@ describe('ultra sonic sensor state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: ultraSonicSensor.id
+      blockId: ultraSonicSensor.id,
     };
 
     const ultraSonicSensorState: UltraSonicSensorState = {
@@ -60,10 +57,10 @@ describe('ultra sonic sensor state factories', () => {
       echoPin: ARDUINO_UNO_PINS.PIN_12,
       trigPin: ARDUINO_UNO_PINS.PIN_11,
       cm: 10,
-      type: ArduinoComponentType.ULTRASONICE_SENSOR
+      type: ArduinoComponentType.ULTRASONICE_SENSOR,
     };
 
-    const state: ArduinoState = {
+    const state: ArduinoFrame = {
       blockId: ultraSonicSensor.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up ultra sonic sensor.',
@@ -73,7 +70,7 @@ describe('ultra sonic sensor state factories', () => {
       rxLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
-      powerLedOn: true
+      powerLedOn: true,
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);

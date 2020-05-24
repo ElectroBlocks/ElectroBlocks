@@ -12,10 +12,7 @@ import { updater } from '../../../../blockly/updater';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 import { IRRemoteState } from '../../../state/arduino-components.state';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import {
-  ArduinoState,
-  ArduinoComponentType,
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 
 describe('button state factories', () => {
@@ -58,7 +55,7 @@ describe('button state factories', () => {
       type: ArduinoComponentType.IR_REMOTE,
     };
 
-    const state: ArduinoState = {
+    const state: ArduinoFrame = {
       blockId: irRemoteSetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up ir remote.',

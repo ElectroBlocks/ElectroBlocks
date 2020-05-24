@@ -3,7 +3,7 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
 import {
   getAllBlocks,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -13,14 +13,14 @@ import { transformVariable } from '../../../../blockly/transformers/variables.tr
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import {
-  ArduinoState,
+  ArduinoFrame,
   ArduinoComponentType,
-  Color
-} from '../../../state/arduino.state';
+  Color,
+} from '../../../arduino.frame';
 import { NeoPixelState } from '../../../state/arduino-components.state';
 import {
   createArduinoAndWorkSpace,
-  createValueBlock
+  createValueBlock,
 } from '../../../../../tests/tests.helper';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import '../../../../../tests/fake-block';
@@ -45,22 +45,22 @@ describe('neo pixle state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: neoPixelSetup.id
+      blockId: neoPixelSetup.id,
     };
 
     const ledLightStrip: NeoPixelState = {
       pins: [ARDUINO_UNO_PINS.PIN_6],
       numberOfLeds: 60,
       type: ArduinoComponentType.NEO_PIXEL_STRIP,
-      neoPixels: _.range(0, 60).map(i => {
+      neoPixels: _.range(0, 60).map((i) => {
         return {
           position: i,
-          color: { red: 0, green: 0, blue: 0 }
+          color: { red: 0, green: 0, blue: 0 },
         };
-      })
+      }),
     };
 
-    const state: ArduinoState = {
+    const state: ArduinoFrame = {
       blockId: neoPixelSetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up led light strip.',
@@ -70,7 +70,7 @@ describe('neo pixle state factories', () => {
       rxLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
-      powerLedOn: true
+      powerLedOn: true,
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);
@@ -90,12 +90,12 @@ describe('neo pixle state factories', () => {
     const color1Block = createValueBlock(workspace, VariableTypes.COLOUR, {
       red: 0,
       green: 0,
-      blue: 100
+      blue: 100,
     });
     const color2Block = createValueBlock(workspace, VariableTypes.COLOUR, {
       red: 100,
       green: 0,
-      blue: 100
+      blue: 100,
     });
 
     setNeoPixel1Block
@@ -120,7 +120,7 @@ describe('neo pixle state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: neoPixelSetup.id
+      blockId: neoPixelSetup.id,
     };
 
     const [state1, state2, state3] = eventToFrameFactory(event);
@@ -130,19 +130,19 @@ describe('neo pixle state factories', () => {
     );
     expect(state2.components.length).toBe(1);
     const [component1] = state2.components as NeoPixelState[];
-    component1.neoPixels.forEach(pixel => {
+    component1.neoPixels.forEach((pixel) => {
       if (pixel.position === 0) {
         expect(pixel.color).toEqual({
           red: 0,
           green: 0,
-          blue: 100
+          blue: 100,
         });
         return;
       }
       expect(pixel.color).toEqual({
         red: 0,
         green: 0,
-        blue: 0
+        blue: 0,
       });
     });
     expect(state3.blockId).toBe(setNeoPixel2Block.id);
@@ -151,12 +151,12 @@ describe('neo pixle state factories', () => {
     // );
     expect(state3.components.length).toBe(1);
     const [componentv2] = state3.components as NeoPixelState[];
-    componentv2.neoPixels.forEach(pixel => {
+    componentv2.neoPixels.forEach((pixel) => {
       if (pixel.position === 0) {
         expect(pixel.color).toEqual({
           red: 0,
           green: 0,
-          blue: 100
+          blue: 100,
         });
         return;
       }
@@ -165,14 +165,14 @@ describe('neo pixle state factories', () => {
         expect(pixel.color).toEqual({
           red: 100,
           green: 0,
-          blue: 100
+          blue: 100,
         });
         return;
       }
       expect(pixel.color).toEqual({
         red: 0,
         green: 0,
-        blue: 0
+        blue: 0,
       });
     });
   });

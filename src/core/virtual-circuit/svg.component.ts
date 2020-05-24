@@ -1,4 +1,4 @@
-import { ArduinoComponentState } from '../frames/state/arduino.state';
+import { ArduinoComponentState } from '../frames/arduino.frame';
 import { Svg } from '@svgdotjs/svg.js';
 import { servoCreate, servoUpdate } from './components/servo-svg';
 
@@ -29,7 +29,6 @@ export const createComponents = (
   components.forEach((c) => {
     listCreate.forEach((lc) => {
       lc(c, draw);
-      
     });
   });
 };

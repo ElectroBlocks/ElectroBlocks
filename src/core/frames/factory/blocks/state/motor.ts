@@ -3,16 +3,13 @@ import { getInputValue } from '../../value.factories';
 import {
   getDefaultIndexValue,
   findComponent,
-  arduinoStateByComponent
+  arduinoStateByComponent,
 } from '../../factory.helpers';
 import {
   MotorState,
-  MOTOR_DIRECTION
+  MOTOR_DIRECTION,
 } from '../../../state/arduino-components.state';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 
 export const moveMotor: StateGenerator = (
@@ -52,12 +49,12 @@ export const moveMotor: StateGenerator = (
         motorState.speed
       }.`,
       previousState
-    )
+    ),
   ];
 };
 
 const getMotorState = (
-  state: ArduinoState,
+  state: ArduinoFrame,
   motorNumber: number,
   speed: number,
   direction: MOTOR_DIRECTION
@@ -68,7 +65,7 @@ const getMotorState = (
       type: ArduinoComponentType.MOTOR,
       direction,
       speed,
-      motorNumber
+      motorNumber,
     };
   }
 
@@ -85,7 +82,7 @@ const getMotorState = (
       type: ArduinoComponentType.MOTOR,
       direction,
       speed,
-      motorNumber
+      motorNumber,
     };
   }
 

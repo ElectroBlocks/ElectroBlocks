@@ -2,7 +2,7 @@ import { StateGenerator } from '../../state.factories';
 import { ArduinoMessageState } from '../../../state/arduino-components.state';
 import { BluetoothSensor } from '../../../../blockly/state/sensors.state';
 import { arduinoStateByComponent } from '../../factory.helpers';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { getInputValue } from '../../value.factories';
 import _ from 'lodash';
 
@@ -21,7 +21,7 @@ export const messageSetup: StateGenerator = (
     hasMessage: messbtnData.receiving_message,
     message: messbtnData.message,
     sendMessage: '',
-    type: ArduinoComponentType.MESSAGE
+    type: ArduinoComponentType.MESSAGE,
   };
 
   return [
@@ -31,7 +31,7 @@ export const messageSetup: StateGenerator = (
       messageComponent,
       'Setting up Arduino messages.',
       previousState
-    )
+    ),
   ];
 };
 
@@ -67,7 +67,7 @@ export const arduinoSendMessage: StateGenerator = (
       components,
       explanation: `Arduino sending message: "${message}".`,
       delay: 0,
-      powerLedOn: true
-    }
+      powerLedOn: true,
+    },
   ];
 };

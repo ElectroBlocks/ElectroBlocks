@@ -1,6 +1,6 @@
 import { StateGenerator } from '../../state.factories';
 import { TimeState } from '../../../state/arduino-components.state';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { arduinoStateByComponent } from '../../factory.helpers';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 
@@ -14,7 +14,7 @@ export const timeSetup: StateGenerator = (
   const timeComonent: TimeState = {
     pins: block.pins,
     timeInSeconds: +findFieldValue(block, 'time_in_seconds'),
-    type: ArduinoComponentType.TIME
+    type: ArduinoComponentType.TIME,
   };
 
   return [
@@ -24,6 +24,6 @@ export const timeSetup: StateGenerator = (
       timeComonent,
       'Setting up Arduino time.',
       previousState
-    )
+    ),
   ];
 };

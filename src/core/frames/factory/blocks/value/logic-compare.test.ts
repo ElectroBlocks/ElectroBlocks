@@ -5,13 +5,13 @@ import Blockly, { Workspace, BlockSvg } from 'blockly';
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
-  createValueBlock
+  createValueBlock,
 } from '../../../../../tests/tests.helper';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
-import { Color } from '../../../state/arduino.state';
+import { Color } from '../../../arduino.frame';
 import {
   connectToArduinoBlock,
-  getAllBlocks
+  getAllBlocks,
 } from '../../../../blockly/helpers/block.helper';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
@@ -37,10 +37,7 @@ describe('logic compare blocks', () => {
       VariableTypes.BOOLEAN,
       true
     );
-    boolTest
-      .getInput('VALUE')
-      .connection.targetBlock()
-      .dispose(true);
+    boolTest.getInput('VALUE').connection.targetBlock().dispose(true);
 
     connectToArduinoBlock(boolTest);
     [
@@ -49,35 +46,35 @@ describe('logic compare blocks', () => {
         B: 'blue',
         type: VariableTypes.STRING,
         OP: 'EQ',
-        expectValue: true
+        expectValue: true,
       },
       {
         A: 'moo',
         B: 'blue',
         type: VariableTypes.STRING,
         OP: 'EQ',
-        expectValue: false
+        expectValue: false,
       },
       {
         A: 'blue',
         B: 'red',
         type: VariableTypes.STRING,
         OP: 'NEQ',
-        expectValue: true
+        expectValue: true,
       },
       {
         A: 'blue',
         B: 'blue',
         type: VariableTypes.STRING,
         OP: 'NEQ',
-        expectValue: false
+        expectValue: false,
       },
       { A: 3, B: 4, OP: 'LT', type: VariableTypes.NUMBER, expectValue: true },
       { A: 3, B: 4, OP: 'LTE', type: VariableTypes.NUMBER, expectValue: true },
       { A: 4, B: 4, OP: 'LTE', type: VariableTypes.NUMBER, expectValue: true },
       { A: 4, B: 4, OP: 'GTE', type: VariableTypes.NUMBER, expectValue: true },
       { A: 4, B: 4, OP: 'GT', type: VariableTypes.NUMBER, expectValue: false },
-      { A: 6, B: 4, OP: 'GT', type: VariableTypes.NUMBER, expectValue: true }
+      { A: 6, B: 4, OP: 'GT', type: VariableTypes.NUMBER, expectValue: true },
     ].forEach(({ A, B, OP, type, expectValue }) => {
       const testBlock = createLogicCompareBlock(workspace, type, A, B, OP);
       boolTest.getInput('VALUE').connection.connect(testBlock.outputConnection);
@@ -85,7 +82,7 @@ describe('logic compare blocks', () => {
         blocks: getAllBlocks().map(transformBlock),
         variables: getAllVariables().map(transformVariable),
         type: Blockly.Events.BLOCK_MOVE,
-        blockId: testBlock.id
+        blockId: testBlock.id,
       };
       const events = eventToFrameFactory(event);
       const [state1] = events;
@@ -101,7 +98,7 @@ describe('logic compare blocks', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: logicOperatorBlock.id
+      blockId: logicOperatorBlock.id,
     };
     const events = eventToFrameFactory(event);
     const [state1] = events;

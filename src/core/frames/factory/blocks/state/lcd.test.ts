@@ -2,7 +2,7 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
 import {
   getAllBlocks,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -11,17 +11,14 @@ import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import {
   LCDScreenState,
-  LCD_SCREEN_MEMORY_TYPE
+  LCD_SCREEN_MEMORY_TYPE,
 } from '../../../state/arduino-components.state';
 import {
   createArduinoAndWorkSpace,
-  createValueBlock
+  createValueBlock,
 } from '../../../../../tests/tests.helper';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { findComponent } from '../../factory.helpers';
@@ -48,7 +45,7 @@ describe('lcd  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: lcdsetup.id
+      blockId: lcdsetup.id,
     };
 
     const lcdState: LCDScreenState = {
@@ -60,14 +57,14 @@ describe('lcd  factories', () => {
         '                    ',
         '                    ',
         '                    ',
-        '                    '
+        '                    ',
       ],
       rows: 4,
       columns: 20,
-      type: ArduinoComponentType.LCD_SCREEN
+      type: ArduinoComponentType.LCD_SCREEN,
     };
 
-    const state: ArduinoState = {
+    const state: ArduinoFrame = {
       blockId: lcdsetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up LCD Screen.',
@@ -77,7 +74,7 @@ describe('lcd  factories', () => {
       rxLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
-      powerLedOn: true
+      powerLedOn: true,
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);
@@ -119,7 +116,7 @@ describe('lcd  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: lcdsetup.id
+      blockId: lcdsetup.id,
     };
 
     const [state1, state2, state3] = eventToFrameFactory(event);
@@ -207,7 +204,7 @@ describe('lcd  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: lcdsetup.id
+      blockId: lcdsetup.id,
     };
 
     const [
@@ -228,7 +225,7 @@ describe('lcd  factories', () => {
       loopLeft3State,
       moveLeft3State,
       loopLeft4State,
-      moveLeft4State
+      moveLeft4State,
     ] = eventToFrameFactory(event);
 
     confirmScrollMove(
@@ -318,7 +315,7 @@ describe('lcd  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: lcdsetup.id
+      blockId: lcdsetup.id,
     };
 
     const [state1, state2] = eventToFrameFactory(event);
@@ -381,7 +378,7 @@ describe('lcd  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: lcdsetup.id
+      blockId: lcdsetup.id,
     };
 
     const [state1, state2, state3] = eventToFrameFactory(event);
@@ -481,7 +478,7 @@ describe('lcd  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: lcdsetup.id
+      blockId: lcdsetup.id,
     };
 
     const [state1, state2, state3, state4] = eventToFrameFactory(event);
@@ -544,7 +541,7 @@ describe('lcd  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: lcdsetup.id
+      blockId: lcdsetup.id,
     };
 
     const [state1, state2, state3] = eventToFrameFactory(event);
@@ -577,7 +574,7 @@ describe('lcd  factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: lcdsetup.id
+      blockId: lcdsetup.id,
     };
 
     const [state1, state2, state3] = eventToFrameFactory(event);
@@ -598,7 +595,7 @@ describe('lcd  factories', () => {
   });
 
   const confirmBlinkAndExplanation = (
-    actualState: ArduinoState,
+    actualState: ArduinoFrame,
     blockId: string,
     isBlinking: boolean,
     blinkRow: number,
@@ -617,7 +614,7 @@ describe('lcd  factories', () => {
   };
 
   const confirmScrollMove = (
-    actualState: ArduinoState,
+    actualState: ArduinoFrame,
     blockId: string,
     row1Text: string,
     explanationText: string

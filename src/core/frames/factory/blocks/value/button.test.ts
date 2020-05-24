@@ -3,7 +3,7 @@ import '../../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
 import {
   getAllBlocks,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -14,14 +14,11 @@ import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/
 import { updater } from '../../../../blockly/updater';
 import {
   createArduinoAndWorkSpace,
-  createSetVariableBlockWithValue
+  createSetVariableBlockWithValue,
 } from '../../../../../tests/tests.helper';
 import { ButtonState } from '../../../state/arduino-components.state';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { VARIABLE_TYPES } from '../../../../../constants/variables';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
@@ -72,7 +69,7 @@ describe('button state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: buttonSetup1.id
+      blockId: buttonSetup1.id,
     };
 
     const [
@@ -81,7 +78,7 @@ describe('button state factories', () => {
       state1,
       state2,
       state3,
-      state4
+      state4,
     ] = eventToFrameFactory(event);
 
     expect(state1.variables['block1'].value).toBeTruthy();
@@ -96,7 +93,7 @@ describe('button state factories', () => {
 });
 
 const verifyVariables = (
-  state: ArduinoState,
+  state: ArduinoFrame,
   block1Value: boolean,
   block2Value: boolean
 ) => {
@@ -105,7 +102,7 @@ const verifyVariables = (
 };
 
 const verifyState = (
-  state: ArduinoState,
+  state: ArduinoFrame,
   pin3Pressed: boolean,
   pin5Pressed: boolean
 ) => {
@@ -136,10 +133,7 @@ const createSetVariableBlock = (
     VariableTypes.BOOLEAN,
     true
   );
-  setBoolVariableBlock
-    .getInput('VALUE')
-    .connection.targetBlock()
-    .dispose(true);
+  setBoolVariableBlock.getInput('VALUE').connection.targetBlock().dispose(true);
 
   const isButtonPressed = workspace.newBlock('is_button_pressed');
   isButtonPressed.setFieldValue(pin, 'PIN');
@@ -155,13 +149,13 @@ const saveDebugData = (buttonSetup1: BlockSvg, buttonSetup2: BlockSvg) => {
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: buttonSetup1.id
+    blockId: buttonSetup1.id,
   }).forEach(updater);
 
   saveSensorSetupBlockData({
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: buttonSetup2.id
+    blockId: buttonSetup2.id,
   }).forEach(updater);
 };

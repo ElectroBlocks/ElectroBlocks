@@ -7,15 +7,15 @@ import {
   createSetVariableBlockWithValue,
   createListSetupBlock,
   createSetListBlock,
-  createArduinoAndWorkSpace
+  createArduinoAndWorkSpace,
 } from '../../../../../tests/tests.helper';
-import { Color } from '../../../state/arduino.state';
+import { Color } from '../../../arduino.frame';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
 import { getDefaultValue } from '../../factory.helpers';
 import {
   connectToArduinoBlock,
-  getAllBlocks
+  getAllBlocks,
 } from '../../../../blockly/helpers/block.helper';
 import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
@@ -198,7 +198,7 @@ const testGetItemsInList = (
     blocks: getAllBlocks().map(transformBlock),
     variables: getAllVariables().map(transformVariable),
     type: Blockly.Events.BLOCK_MOVE,
-    blockId: listBlockSetup.id
+    blockId: listBlockSetup.id,
   };
 
   const [
@@ -211,7 +211,7 @@ const testGetItemsInList = (
     state7,
     state8,
     state9,
-    state10
+    state10,
   ] = eventToFrameFactory(event);
 
   // Testing variables are not being creating
@@ -264,10 +264,7 @@ const createSetVariableBlockWithListItemAttached = (
     position
   );
 
-  variableBlock
-    .getInput('VALUE')
-    .connection.targetBlock()
-    .dispose(true);
+  variableBlock.getInput('VALUE').connection.targetBlock().dispose(true);
 
   variableBlock
     .getInput('VALUE')

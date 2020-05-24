@@ -3,7 +3,7 @@ import '../../../../blockly/blocks';
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
-  verifyVariable
+  verifyVariable,
 } from '../../../../../tests/tests.helper';
 import '../../../../../tests/fake-block';
 import Blockly, { Workspace, BlockSvg } from 'blockly';
@@ -11,14 +11,14 @@ import { VariableTypes } from '../../../../blockly/state/variable.data';
 import { BlockEvent } from '../../../../blockly/state/event.data';
 import {
   getAllBlocks,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import { transformBlock } from '../../../../blockly/transformers/block.transformer';
 import { getAllVariables } from '../../../../blockly/helpers/variable.helper';
 import { transformVariable } from '../../../../blockly/transformers/variables.transformer';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import _ from 'lodash';
-import { Color } from '../../../state/arduino.state';
+import { Color } from '../../../arduino.frame';
 
 describe('simple color state factories', () => {
   let workspace: Workspace;
@@ -45,7 +45,7 @@ describe('simple color state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: colorPickerVariable.id
+      blockId: colorPickerVariable.id,
     };
     const [state1event1] = eventToFrameFactory(event);
 
@@ -72,7 +72,7 @@ describe('simple color state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: colorPickerVariable.id
+      blockId: colorPickerVariable.id,
     };
     const [state1event2] = eventToFrameFactory(event2);
 

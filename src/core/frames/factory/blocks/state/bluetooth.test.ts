@@ -4,7 +4,7 @@ import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
   getBlockById,
-  connectToArduinoBlock
+  connectToArduinoBlock,
 } from '../../../../blockly/helpers/block.helper';
 import _ from 'lodash';
 import { BlockEvent } from '../../../../blockly/state/event.data';
@@ -15,14 +15,11 @@ import { eventToFrameFactory } from '../../../event-to-frame.factory';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import { saveSensorSetupBlockData } from '../../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../../blockly/updater';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { BluetoothState } from '../../../state/arduino-components.state';
 import {
   createArduinoAndWorkSpace,
-  createValueBlock
+  createValueBlock,
 } from '../../../../../tests/tests.helper';
 import { VariableTypes } from '../../../../blockly/state/variable.data';
 
@@ -48,7 +45,7 @@ describe('bluetooth state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: bluethoothsetupblock.id
+      blockId: bluethoothsetupblock.id,
     };
     saveSensorSetupBlockData(event).forEach(updater);
   });
@@ -58,7 +55,7 @@ describe('bluetooth state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: bluethoothsetupblock.id
+      blockId: bluethoothsetupblock.id,
     };
 
     const btComponent: BluetoothState = {
@@ -68,10 +65,10 @@ describe('bluetooth state factories', () => {
       hasMessage: true,
       message: 'hello world',
       sendMessage: '',
-      type: ArduinoComponentType.BLUE_TOOTH
+      type: ArduinoComponentType.BLUE_TOOTH,
     };
 
-    const state: ArduinoState = {
+    const state: ArduinoFrame = {
       blockId: bluethoothsetupblock.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up Bluetooth.',
@@ -81,7 +78,7 @@ describe('bluetooth state factories', () => {
       rxLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
-      powerLedOn: true
+      powerLedOn: true,
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);
@@ -108,7 +105,7 @@ describe('bluetooth state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: bluethoothsetupblock.id
+      blockId: bluethoothsetupblock.id,
     };
 
     const [state1, state2, state3] = eventToFrameFactory(event1);
@@ -119,14 +116,14 @@ describe('bluetooth state factories', () => {
     expect(state2.blockId).toBe(btSendMessageBlock.id);
     expect(state2.components.length).toBe(1);
     const btComponentS2 = state2.components.find(
-      c => c.type === ArduinoComponentType.BLUE_TOOTH
+      (c) => c.type === ArduinoComponentType.BLUE_TOOTH
     ) as BluetoothState;
     expect(btComponentS2.sendMessage).toBe('HELLO WORLD');
 
     expect(state3.blockId).toBe(btSendMessageBlock.id);
     expect(state3.components.length).toBe(1);
     const btComponentS3 = state3.components.find(
-      c => c.type === ArduinoComponentType.BLUE_TOOTH
+      (c) => c.type === ArduinoComponentType.BLUE_TOOTH
     ) as BluetoothState;
     expect(btComponentS3.sendMessage).toBe('HELLO WORLD');
 
@@ -139,7 +136,7 @@ describe('bluetooth state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: bluethoothsetupblock.id
+      blockId: bluethoothsetupblock.id,
     };
 
     const [state1e2, state2e2] = eventToFrameFactory(event2);

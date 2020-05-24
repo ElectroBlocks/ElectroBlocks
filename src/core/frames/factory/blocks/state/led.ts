@@ -4,11 +4,11 @@ import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 import {
   PinState,
   PinPicture,
-  PIN_TYPE
+  PIN_TYPE,
 } from '../../../state/arduino-components.state';
 
 import _ from 'lodash';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { arduinoStateByComponent } from '../../factory.helpers';
 import { getInputValue } from '../../value.factories';
 
@@ -35,7 +35,7 @@ export const analogWrite = (
       state,
       pinPicture,
       type: ArduinoComponentType.PIN,
-      pinType: PIN_TYPE.ANALOG_OUTPUT
+      pinType: PIN_TYPE.ANALOG_OUTPUT,
     };
 
     const explanation = `Setting ${pinWord} ${pin}${
@@ -49,7 +49,7 @@ export const analogWrite = (
         ledState,
         explanation,
         previousState
-      )
+      ),
     ];
   };
 };
@@ -65,7 +65,7 @@ export const digitalWrite = (pinPicture: PinPicture) => {
       state,
       pinPicture,
       type: ArduinoComponentType.PIN,
-      pinType: PIN_TYPE.DIGITAL_OUTPUT
+      pinType: PIN_TYPE.DIGITAL_OUTPUT,
     };
 
     const explanation = `Turn ${pinWord} ${pin} ${state === 1 ? 'on' : 'off'}.`;
@@ -77,7 +77,7 @@ export const digitalWrite = (pinPicture: PinPicture) => {
         ledState,
         explanation,
         previousState
-      )
+      ),
     ];
   };
 };

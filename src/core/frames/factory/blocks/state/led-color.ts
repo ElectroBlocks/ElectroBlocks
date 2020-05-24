@@ -1,7 +1,7 @@
 import { StateGenerator } from '../../state.factories';
 import { arduinoStateByComponent, findComponent } from '../../factory.helpers';
 import { LedColorState } from '../../../state/arduino-components.state';
-import { ArduinoComponentType } from '../../../state/arduino.state';
+import { ArduinoComponentType } from '../../../arduino.frame';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 import { getInputValue } from '../../value.factories';
 
@@ -21,7 +21,7 @@ export const ledColorSetup: StateGenerator = (
     greenPin,
     bluePin,
     color: { green: 0, red: 0, blue: 0 },
-    pictureType
+    pictureType,
   };
 
   return [
@@ -31,7 +31,7 @@ export const ledColorSetup: StateGenerator = (
       ledColorState,
       'Setting up color led.',
       previousState
-    )
+    ),
   ];
 };
 
@@ -65,6 +65,6 @@ export const setLedColor: StateGenerator = (
       newComponent,
       `Setting led color to [red=${color.red},green=${color.green},blue=${color.blue}].`,
       previousState
-    )
+    ),
   ];
 };

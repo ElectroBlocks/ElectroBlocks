@@ -2,14 +2,11 @@ import { StateGenerator } from '../../state.factories';
 import {
   getDefaultIndexValue,
   findComponent,
-  arduinoStateByComponent
+  arduinoStateByComponent,
 } from '../../factory.helpers';
 import { getInputValue } from '../../value.factories';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ServoState } from '../../../state/arduino-components.state';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
 
@@ -47,14 +44,14 @@ export const servoRotate: StateGenerator = (
       newComponent,
       `Servo ${newComponent.pins[0]} is rotating to ${newComponent.degree} degrees.`,
       previousState
-    )
+    ),
   ];
 };
 
 const getServo = (
   degree: number,
   pin: ARDUINO_UNO_PINS,
-  previousState: ArduinoState
+  previousState: ArduinoFrame
 ): ServoState => {
   if (!previousState) {
     return { pins: [pin], degree, type: ArduinoComponentType.SERVO };

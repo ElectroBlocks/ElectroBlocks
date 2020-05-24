@@ -17,7 +17,7 @@ import {
   Timeline,
   ArduinoComponentState,
   ArduinoComponentType,
-} from '../../frames/state/arduino.state';
+} from '../../frames/arduino.frame';
 import {
   BluetoothState,
   ButtonState,

@@ -12,10 +12,7 @@ import { updater } from '../../../../blockly/updater';
 import { createArduinoAndWorkSpace } from '../../../../../tests/tests.helper';
 import { ButtonState } from '../../../state/arduino-components.state';
 import { eventToFrameFactory } from '../../../event-to-frame.factory';
-import {
-  ArduinoState,
-  ArduinoComponentType
-} from '../../../state/arduino.state';
+import { ArduinoFrame, ArduinoComponentType } from '../../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../../../constants/arduino';
 
 describe('button state factories', () => {
@@ -36,7 +33,7 @@ describe('button state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: buttonSetup.id
+      blockId: buttonSetup.id,
     };
     saveSensorSetupBlockData(event).forEach(updater);
   });
@@ -46,16 +43,16 @@ describe('button state factories', () => {
       blocks: getAllBlocks().map(transformBlock),
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
-      blockId: buttonSetup.id
+      blockId: buttonSetup.id,
     };
 
     const buttonState: ButtonState = {
       isPressed: true,
       pins: [ARDUINO_UNO_PINS.PIN_3],
-      type: ArduinoComponentType.BUTTON
+      type: ArduinoComponentType.BUTTON,
     };
 
-    const state: ArduinoState = {
+    const state: ArduinoFrame = {
       blockId: buttonSetup.id,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'button 3 is being setup.',
@@ -65,7 +62,7 @@ describe('button state factories', () => {
       rxLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
-      powerLedOn: true
+      powerLedOn: true,
     };
 
     expect(eventToFrameFactory(event)).toEqual([state]);

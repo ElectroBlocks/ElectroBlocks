@@ -1,9 +1,9 @@
 import {
   VariableTypes,
-  VariableData
+  VariableData,
 } from '../../../../blockly/state/variable.data';
 import { BlockData } from '../../../../blockly/state/block.data';
-import { Timeline, ArduinoState, Color } from '../../../state/arduino.state';
+import { Timeline, ArduinoFrame, Color } from '../../../arduino.frame';
 import { ValueGenerator, getInputValue } from '../../value.factories';
 import _ from 'lodash';
 import { findFieldValue } from '../../../../blockly/helpers/block-data.helper';
@@ -13,7 +13,7 @@ export const getItemInList = (
   block: BlockData,
   variables: VariableData[],
   timeline: Timeline,
-  previousState: ArduinoState = undefined
+  previousState: ArduinoFrame = undefined
 ) => {
   const variableName = variables.find(
     (v) => v.id === findFieldValue(block, 'VAR')
@@ -24,7 +24,7 @@ export const getItemInList = (
       | string[]
       | Color[]
       | boolean[]
-      | number[])
+      | number[]),
   ]) as string[] | Color[] | boolean[] | number[];
   let position: number = getInputValue(
     blocks,
