@@ -37,7 +37,7 @@ export const delayBlock: BlockToFrameTransformer = (
       timeLine: { ...timeline },
       variables: newVariables,
       txLedOn: false,
-      rxLedOn: false,
+      builtInLedOn: false,
       components: newComponets,
       explanation,
       delay,

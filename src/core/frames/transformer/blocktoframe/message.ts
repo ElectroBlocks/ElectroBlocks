@@ -1,5 +1,5 @@
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { ArduinoMessageState } from '../../arduino-components.state';
+import { ArduinoReceiveMessageState } from '../../arduino-components.state';
 import { BluetoothSensor } from '../../../blockly/dto/sensors.type';
 import { arduinoStateByComponent } from '../frame-transformer.helpers';
 import { ArduinoComponentType } from '../../arduino.frame';
@@ -16,11 +16,10 @@ export const messageSetup: BlockToFrameTransformer = (
   const messageDatum = JSON.parse(block.metaData) as BluetoothSensor[];
   const messbtnData = messageDatum.find((d) => d.loop == 1);
 
-  const messageComponent: ArduinoMessageState = {
+  const messageComponent: ArduinoReceiveMessageState = {
     pins: block.pins,
     hasMessage: messbtnData.receiving_message,
     message: messbtnData.message,
-    sendMessage: '',
     type: ArduinoComponentType.MESSAGE,
   };
 
@@ -63,7 +62,7 @@ export const arduinoSendMessage: BlockToFrameTransformer = (
       timeLine: { ...timeline },
       variables: replaceVariables,
       txLedOn: true,
-      rxLedOn: false,
+      builtInLedOn: false,
       components,
       explanation: `Arduino sending message: "${message}".`,
       delay: 0,

@@ -118,7 +118,7 @@ describe('analog pin state factories', () => {
       components: [...previousComponent, sensor],
       variables: {},
       txLedOn: false,
-      rxLedOn: false,
+      builtInLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
       powerLedOn: true,

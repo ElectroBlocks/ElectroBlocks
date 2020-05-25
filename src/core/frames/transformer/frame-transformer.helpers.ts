@@ -26,9 +26,9 @@ export const arduinoStateByVariable = (
   explanation: string,
   previousState: ArduinoFrame = undefined,
   txLedOn = false,
-  rxLedOn = false,
+  builtInLedOn = false,
   delay = 0
-) => {
+): ArduinoFrame => {
   const variables = previousState ? _.cloneDeep(previousState.variables) : {};
   variables[newVariable.name] = newVariable;
   const components = previousState ? _.cloneDeep(previousState.components) : [];
@@ -39,7 +39,7 @@ export const arduinoStateByVariable = (
     timeLine: { ...timeline },
     variables,
     txLedOn,
-    rxLedOn,
+    builtInLedOn,
     components,
     explanation,
     delay,
@@ -66,9 +66,9 @@ export const arduinoStateByExplanation = (
   explanation: string,
   previousState: ArduinoFrame = undefined,
   txLedOn = false,
-  rxLedOn = false,
+  builtInLedOn = false,
   delay = 0
-) => {
+): ArduinoFrame => {
   const components = previousState ? _.cloneDeep(previousState.components) : [];
 
   const variables = previousState ? { ...previousState.variables } : {};
@@ -79,7 +79,7 @@ export const arduinoStateByExplanation = (
     timeLine: { ...timeline },
     variables,
     txLedOn,
-    rxLedOn,
+    builtInLedOn,
     components,
     explanation,
     delay,
@@ -138,7 +138,7 @@ export const arduinoStateByComponent = (
     timeLine: { ...timeline },
     variables,
     txLedOn,
-    rxLedOn,
+    builtInLedOn: rxLedOn,
     components,
     explanation,
     delay,

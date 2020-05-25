@@ -8,7 +8,7 @@ export interface ArduinoFrame {
   components: ArduinoComponentState[];
   variables: { [key: string]: Variable };
   txLedOn: boolean;
-  rxLedOn: boolean;
+  builtInLedOn: boolean;
   sendMessage: string; // message arduino is sending
   delay: number; // Number of milliseconds to delay
   powerLedOn: boolean;

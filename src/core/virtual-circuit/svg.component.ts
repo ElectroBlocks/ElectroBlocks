@@ -1,34 +1,32 @@
-import { ArduinoComponentState } from '../frames/arduino.frame';
+import { ArduinoComponentState, ArduinoFrame } from '../frames/arduino.frame';
 import { Svg } from '@svgdotjs/svg.js';
-import { servoCreate, servoUpdate } from './components/servo-svg';
+import { servoCreate, servoUpdate } from './components/servo.sync';
+import {
+  arduinoMessageUpdate,
+  arduinoMessageCreate,
+} from './components/arduino-message.sync';
 
 export interface SyncComponent {
-  (state: ArduinoComponentState, draw: Svg): void;
+  (state: ArduinoComponentState, ArduinoFrame: ArduinoFrame, draw: Svg): void;
 }
 
 export interface CreateComponent {
-  (state: ArduinoComponentState, draw: Svg): void;
+  (state: ArduinoComponentState, frame: ArduinoFrame, draw: Svg): void;
 }
 
-const listSyncs = [servoUpdate];
-const listCreate = [servoCreate];
+const listSyncs = [servoUpdate, arduinoMessageUpdate];
+const listCreate = [servoCreate, arduinoMessageCreate];
 
-export const syncComponents = (
-  components: ArduinoComponentState[],
-  draw: Svg
-) => {
-  components.forEach((c) => {
-    listSyncs.forEach((s) => s(c, draw));
+export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
+  frame.components.forEach((c) => {
+    listSyncs.forEach((s) => s(c, frame, draw));
   });
 };
 
-export const createComponents = (
-  components: ArduinoComponentState[],
-  draw: Svg
-) => {
-  components.forEach((c) => {
+export const createComponents = (frame: ArduinoFrame, draw: Svg) => {
+  frame.components.forEach((c) => {
     listCreate.forEach((lc) => {
-      lc(c, draw);
+      lc(c, frame, draw);
     });
   });
 };

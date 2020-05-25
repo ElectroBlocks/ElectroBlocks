@@ -1,7 +1,7 @@
 import { ValueGenerator } from '../block-to-value.factories';
 import { BluetoothSensor } from '../../../blockly/dto/sensors.type';
 import { findComponent } from '../frame-transformer.helpers';
-import { ArduinoMessageState } from '../../arduino-components.state';
+import { ArduinoReceiveMessageState } from '../../arduino-components.state';
 import { ArduinoComponentType } from '../../arduino.frame';
 
 export const getArduinoMessage: ValueGenerator = (
@@ -11,7 +11,7 @@ export const getArduinoMessage: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  return findComponent<ArduinoMessageState>(
+  return findComponent<ArduinoReceiveMessageState>(
     previousState,
     ArduinoComponentType.MESSAGE
   ).message;
@@ -24,7 +24,7 @@ export const arduinoHasMessage: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  return findComponent<ArduinoMessageState>(
+  return findComponent<ArduinoReceiveMessageState>(
     previousState,
     ArduinoComponentType.MESSAGE
   ).hasMessage;

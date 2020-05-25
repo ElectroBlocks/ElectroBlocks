@@ -22,3 +22,9 @@ export const findSvgElement = (
 ): Svg | Element => {
   return draw.findOne('#' + id) as Svg | Element;
 };
+
+export enum LED_COLORS {
+  LED_ON = '#ffa922',
+  LED_OFF = '#F2F2F2',
+  POWER_ON = '#49ff7e',
+}

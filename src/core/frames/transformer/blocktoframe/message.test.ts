@@ -16,7 +16,7 @@ import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
 import { saveSensorSetupBlockData } from '../../../blockly/actions/factories/saveSensorSetupBlockData';
 import { updater } from '../../../blockly/updater';
 import { ArduinoFrame, ArduinoComponentType } from '../../arduino.frame';
-import { ArduinoMessageState } from '../../arduino-components.state';
+import { ArduinoReceiveMessageState } from '../../arduino-components.state';
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
@@ -79,7 +79,7 @@ describe('arduino message state factories', () => {
     expect(state2.explanation).toBe('Arduino sending message: "Hello World!".');
     expect(state2.sendMessage).toBe('Hello World!');
     expect(state2.txLedOn).toBeTruthy();
-    expect(state2.rxLedOn).toBeFalsy();
+    expect(state2.builtInLedOn).toBeFalsy();
   });
 
   test('should be able generate state for message setup block', () => {
@@ -90,11 +90,10 @@ describe('arduino message state factories', () => {
       blockId: messageSetup.id,
     };
 
-    const message: ArduinoMessageState = {
+    const message: ArduinoReceiveMessageState = {
       pins: [],
       hasMessage: true,
       message: 'hello world',
-      sendMessage: '',
       type: ArduinoComponentType.MESSAGE,
     };
 
@@ -105,7 +104,7 @@ describe('arduino message state factories', () => {
       components: [message],
       variables: {},
       txLedOn: false,
-      rxLedOn: false,
+      builtInLedOn: false,
       sendMessage: '', // message arduino is sending
       delay: 0, // Number of milliseconds to delay
       powerLedOn: true,

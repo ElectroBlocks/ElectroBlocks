@@ -1,10 +1,9 @@
 import { ArduinoComponentState, Color, ArduinoFrame } from './arduino.frame';
 import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
 
-export interface ArduinoMessageState extends ArduinoComponentState {
+export interface ArduinoReceiveMessageState extends ArduinoComponentState {
   hasMessage: boolean;
   message: string;
-  sendMessage: string;
 }
 
 export interface BluetoothState extends ArduinoComponentState {

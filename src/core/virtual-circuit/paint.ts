@@ -11,17 +11,17 @@ export default (draw: Svg, state: ArduinoFrame = undefined) => {
   const arduino = findOrCreateArduino(draw);
 
   arduino.node.id = 'arduino_main_svg';
-  arduino.find('#MESSAGE')[0].hide();
+  arduino.findOne('#MESSAGE').hide();
   (window as any).arduino = arduino;
   (window as any).draw = draw;
   (window as any).arduinoText = arduinoSVGText;
   arduino.cx(draw.cx());
   (draw as any).zoom((0.5 / 650) * draw.width());
-  console.log(state, 'arduino state');
   resetBreadBoardWholes();
   hideAllWires(arduino);
+  console.log(state, 'did state exist');
   if (state) {
-    createComponents(state.components, draw);
+    createComponents(state, draw);
     state.components
       .flatMap((b) => b.pins)
       .forEach((wire) => showWire(arduino, wire));

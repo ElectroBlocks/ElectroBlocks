@@ -13,7 +13,7 @@ import {
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { positionComponent } from '../svg-position';
 
-export const servoUpdate: SyncComponent = (state, draw) => {
+export const servoUpdate: SyncComponent = (state, _, draw) => {
   if (state.type !== ArduinoComponentType.SERVO) {
     return;
   }
@@ -29,7 +29,7 @@ export const servoUpdate: SyncComponent = (state, draw) => {
   setText(servoEl, servoState);
 };
 
-export const servoCreate: CreateComponent = (state, draw) => {
+export const servoCreate: CreateComponent = (state, _, draw) => {
   if (state.type !== ArduinoComponentType.SERVO) {
     return;
   }

@@ -24,12 +24,14 @@
       .viewbox(0, 0, container.clientWidth * 0.95, container.clientWidth * 0.95)
       .panZoom();
 
-    currentFrameStore.subscribe(frames => {
+    frameStore.subscribe(frames => {
+      console.log(frames, "new frames");
       setTimeout(() => {
         const lastFrame = frames ? frames[frames.length - 1] : undefined;
+        const firstFrame = frames ? frames[0] : undefined;
         // Make Sure Everything Loaded before calculating width and heights
         paint(draw, lastFrame);
-        update(draw, frames[0]);
+        update(draw, firstFrame);
       }, 10);
     });
 

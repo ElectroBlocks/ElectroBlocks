@@ -28,7 +28,7 @@ import {
   TemperatureState,
   TimeState,
   UltraSonicSensorState,
-  ArduinoMessageState,
+  ArduinoReceiveMessageState,
 } from '../../frames/arduino-components.state';
 import { ARDUINO_UNO_PINS } from '../selectBoard';
 
@@ -262,7 +262,7 @@ const ultraSonicState = (
 const messageState = (
   block: BlockData,
   timeline: Timeline
-): ArduinoMessageState => {
+): ArduinoReceiveMessageState => {
   const sensorStates = JSON.parse(block.metaData) as BluetoothSensor[];
 
   const btState = sensorStates.find(
@@ -274,7 +274,6 @@ const messageState = (
     pins: [],
     hasMessage: btState.receiving_message,
     message: btState.message,
-    sendMessage: '',
   };
 };
 
