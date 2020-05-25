@@ -1,8 +1,7 @@
 <script>
   import { SVG } from "@svgdotjs/svg.js";
-  import currentState from "../../../stores/currentState.store";
-  import frameStore from "../../../stores/state.store";
-  import currentFrameStore from "../../../stores/currentState.store";
+  import frameStore from "../../../stores/frame.store";
+  import currentFrameStore from "../../../stores/currentFrame.store";
   import { resizeStore } from "../../../stores/resize.store";
   import paint from "../../../core/virtual-circuit/paint.ts";
   import update from "../../../core/virtual-circuit/update.ts";
@@ -27,13 +26,14 @@
 
     currentFrameStore.subscribe(frames => {
       setTimeout(() => {
+        const lastFrame = frames ? frames[frames.length - 1] : undefined;
         // Make Sure Everything Loaded before calculating width and heights
-        paint(draw, frames[frames.length - 1]);
+        paint(draw, lastFrame);
         update(draw, frames[0]);
       }, 10);
     });
 
-    currentState.subscribe(frame => {
+    currentFrameStore.subscribe(frame => {
       update(draw, frame);
     });
 

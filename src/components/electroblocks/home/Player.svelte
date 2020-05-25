@@ -1,6 +1,6 @@
 <script>
-  import stateStore from "../../../stores/state.store";
-  import currentStateStore from "../../../stores/currentState.store";
+  import frameStore from "../../../stores/frame.store";
+  import currentFrameStore from "../../../stores/currentFrame.store";
   let frames = [];
   let frameNumber = 1;
   let playing = false;
@@ -9,7 +9,7 @@
   $: disablePlayer = frames.length === 0;
   $: frameIndex = frameNumber - 1;
 
-  stateStore.subscribe(newFrames => {
+  frameStore.subscribe(newFrames => {
     playing = false;
     const currentFrame = frames[frameNumber];
     frames = newFrames;
@@ -43,7 +43,7 @@
   }
 
   function setCurrentFrame(frameNumber) {
-    currentStateStore.set(frames[frameNumber]);
+    currentFrameStore.set(frames[frameNumber]);
   }
 
   async function play() {
@@ -63,7 +63,7 @@
     if (!playing || isLastFrame()) {
       return;
     }
-    currentStateStore.set(frames[frameNumber]);
+    currentFrameStore.set(frames[frameNumber]);
     frameNumber += 1;
     await moveWait();
     await playFrame();
@@ -76,7 +76,7 @@
     frameNumber = 0;
     playing = false;
     await moveWait();
-    currentStateStore.set(frames[frameIndex]);
+    currentFrameStore.set(frames[frameIndex]);
     await play();
   }
 
@@ -85,7 +85,7 @@
   }
 
   function moveSlider() {
-    currentStateStore.set(frames[frameIndex]);
+    currentFrameStore.set(frames[frameIndex]);
     playing = false;
   }
 
@@ -95,7 +95,7 @@
       return;
     }
     frameNumber -= 1;
-    currentStateStore.set(frames[frameIndex]);
+    currentFrameStore.set(frames[frameIndex]);
   }
 
   function next() {
@@ -105,7 +105,7 @@
     }
 
     frameNumber += 1;
-    currentStateStore.set(frames[frameIndex]);
+    currentFrameStore.set(frames[frameIndex]);
   }
 
   function isLastFrame() {
