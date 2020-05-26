@@ -48,7 +48,7 @@ export default (draw: Svg, frame: ArduinoFrame = undefined) => {
     }
   });
 
-  arduino.y(draw.viewbox().y2 - arduino.height());
+  arduino.y(draw.viewbox().y2 - arduino.height() + 80);
   (draw as any).zoom((0.5 / 650) * draw.width());
 };
 

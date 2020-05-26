@@ -5,6 +5,7 @@
   import { WindowType, resizeStore } from "../../stores/resize.store";
   import settingsStore from "../../stores/settings.store";
   import startBlocly from "../../core/blockly/startBlockly";
+  import currentFrameStore from "../../stores/currentFrame.store";
 
   import {
     arduinoLoopBlockShowLoopForeverText,
@@ -15,6 +16,8 @@
     showArduinoSetupBlock,
     removeArduinoSetupBlock
   } from "../../core/blockly/helpers/arduino_setup_block.helper";
+
+  import { getBlockById } from "../../core/blockly/helpers/block.helper";
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text
@@ -45,6 +48,14 @@
     setTimeout(() => {
       resizeBlockly();
     }, 200);
+
+    currentFrameStore.subscribe(frame => {
+      if (!frame) {
+        return;
+      }
+      (window as any).selectedBlock = getBlockById(frame.blockId);
+      getBlockById(frame.blockId).select();
+    });
 
     // We don't have to unsubscribe because this block is always visible
     settingsStore.subscribe(settings => {
