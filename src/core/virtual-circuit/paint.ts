@@ -1,13 +1,12 @@
 import arduinoSVGText from './svgs/arduino.svg';
-import servoSVGText from './svgs/servo.svg';
 import { Svg, Element } from '@svgdotjs/svg.js';
 import { ArduinoFrame } from '../frames/arduino.frame';
 import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
-import { syncComponents, createComponents } from './svg.component';
+import { createComponents } from './svg.component';
 import { resetBreadBoardWholes } from './wire';
 import { componentToSvgId } from './svg-helpers';
 
-export default (draw: Svg, state: ArduinoFrame = undefined) => {
+export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   const arduino = findOrCreateArduino(draw);
 
   arduino.node.id = 'arduino_main_svg';
@@ -19,17 +18,17 @@ export default (draw: Svg, state: ArduinoFrame = undefined) => {
   (draw as any).zoom((0.5 / 650) * draw.width());
   resetBreadBoardWholes();
   hideAllWires(arduino);
-  console.log(state, 'did state exist');
-  if (state) {
-    createComponents(state, draw);
-    state.components
+  console.log(frame, 'did state exist');
+  if (frame) {
+    createComponents(frame, draw);
+    frame.components
       .flatMap((b) => b.pins)
       .forEach((wire) => showWire(arduino, wire));
   }
 
   draw.find('.component').forEach((c: Element) => {
     const componentId = c.attr('id');
-    if (!state) {
+    if (!frame) {
       c.remove();
       draw
         .find(`[data-component-id=${componentId}]`)
@@ -39,7 +38,7 @@ export default (draw: Svg, state: ArduinoFrame = undefined) => {
     }
 
     if (
-      state.components.filter((c) => componentId === componentToSvgId(c))
+      frame.components.filter((c) => componentId === componentToSvgId(c))
         .length === 0
     ) {
       c.remove();

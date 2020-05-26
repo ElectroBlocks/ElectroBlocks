@@ -56,6 +56,32 @@ describe('lcd  factories', () => {
     );
   });
 
+  test('turning on pin 13 should turn on the built in led', () => {
+    arduinoBlock.setFieldValue('1', 'LOOP_TIMES');
+    const ledPin13On = workspace.newBlock('digital_write') as BlockSvg;
+    ledPin13On.setFieldValue('13', 'PIN');
+    ledPin13On.setFieldValue('ON', 'STATE');
+
+    const ledPin13Off = workspace.newBlock('digital_write') as BlockSvg;
+    ledPin13Off.setFieldValue('13', 'PIN');
+    ledPin13Off.setFieldValue('OFF', 'STATE');
+
+    connectToArduinoBlock(ledPin13On);
+    ledPin13On.nextConnection.connect(ledPin13Off.previousConnection);
+
+    const event: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: ledPin13On.id,
+    };
+
+    const [state1, state2] = eventToFrameFactory(event);
+
+    expect(state1.builtInLedOn).toBeTruthy();
+    expect(state2.builtInLedOn).toBeFalsy();
+  });
+
   const testAnalogWriteBlocks = (
     blockType: string,
     numberBlockConnection: string,

@@ -110,7 +110,7 @@ export const arduinoStateByComponent = (
   explanation: string,
   previousState: ArduinoFrame = undefined,
   txLedOn = false,
-  rxLedOn = false,
+  builtInLedOn = false,
   delay = 0
 ): ArduinoFrame => {
   const variables = previousState ? { ...previousState.variables } : {};
@@ -138,7 +138,7 @@ export const arduinoStateByComponent = (
     timeLine: { ...timeline },
     variables,
     txLedOn,
-    builtInLedOn: rxLedOn,
+    builtInLedOn: builtInLedOn,
     components,
     explanation,
     delay,

@@ -4,7 +4,7 @@ import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
 import { PinState, PinPicture, PIN_TYPE } from '../../arduino-components.state';
 
 import _ from 'lodash';
-import { ArduinoComponentType } from '../../arduino.frame';
+import { ArduinoComponentType, ArduinoFrame } from '../../arduino.frame';
 import { arduinoStateByComponent } from '../frame-transformer.helpers';
 import { getInputValue } from '../block-to-value.factories';
 
@@ -72,7 +72,9 @@ export const digitalWrite = (pinPicture: PinPicture) => {
         timeline,
         ledState,
         explanation,
-        previousState
+        previousState,
+        previousState ? (previousState as ArduinoFrame).txLedOn : false,
+        pin === ARDUINO_UNO_PINS.PIN_13 && state === 1
       ),
     ];
   };
