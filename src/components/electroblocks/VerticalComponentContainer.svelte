@@ -76,7 +76,7 @@
   }
 
   #bottom {
-    background-color: aqua;
+    overflow-y: scroll;
   }
 
   /** the div used to resize the windows */

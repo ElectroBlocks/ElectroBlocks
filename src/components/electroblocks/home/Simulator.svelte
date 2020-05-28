@@ -42,7 +42,12 @@
     resizeStore.subscribe(() => {
       draw
         .size(container.clientWidth * 0.95, container.clientHeight * 0.95)
-        .viewbox(0, 0, draw.width(), draw.height());
+        .viewbox(
+          0,
+          0,
+          container.clientWidth * 0.95,
+          container.clientWidth * 0.95
+        );
     });
   });
 </script>

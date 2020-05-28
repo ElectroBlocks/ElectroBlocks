@@ -1,6 +1,7 @@
 <script>
   import frameStore from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
+  import currentStepStore from "../../../stores/currentStep.store";
   let frames = [];
   let frameNumber = 1;
   let playing = false;
@@ -21,8 +22,6 @@
     }
 
     frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
-
-    setCurrentFrame(frameNumber);
   });
 
   function navigateToClosestTimeline(timeLine) {
@@ -44,6 +43,7 @@
 
   function setCurrentFrame(frameNumber) {
     currentFrameStore.set(frames[frameNumber]);
+    currentStepStore.set(frameNumber);
   }
 
   async function play() {
