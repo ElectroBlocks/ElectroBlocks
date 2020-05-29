@@ -10,8 +10,8 @@ import { theme } from './theme';
 import registerListeners from './registerEvents';
 import registerListMenu from './menu/list.menu';
 
-import getToolBoxString from '../../services/toolbox/getToolBoxString';
-import { fetchToolBox } from '../../services/toolbox/toolbox';
+import getToolBoxString from './toolbox/getToolBoxString';
+import { fetchToolBox } from './toolbox/toolbox';
 
 import { createBlock } from './helpers/block.helper';
 
@@ -19,7 +19,6 @@ import { createBlock } from './helpers/block.helper';
  * This will start up blockly and will add all the event listeners and styles
  */
 const startBlockly = (blocklyElement: HTMLElement) => {
-
   // creates the blockly workspace and toolbox
   const workspace = createWorkspace(blocklyElement);
 
@@ -66,7 +65,7 @@ const createBlockConfig = (): BlocklyOptions => {
       spacing: 20,
       length: 1,
       colour: '#888',
-      snap: false
+      snap: false,
     },
     zoom: {
       controls: true,
@@ -74,8 +73,8 @@ const createBlockConfig = (): BlocklyOptions => {
       startScale: 1,
       maxScale: 3,
       minScale: 0.3,
-      scaleSpeed: 1.2
-    }
+      scaleSpeed: 1.2,
+    },
   };
 };
 

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import getToolBoxString from './getToolBoxString';
-import { updateToolbox } from '../../core/blockly/helpers/workspace.helper';
+import { updateToolbox } from '../helpers/workspace.helper';
 
 const toolboxKey = 'blockly_tool_box';
 
@@ -52,7 +52,7 @@ const defaultToolbox: ToolBoxEntries[] = [
   { name: 'IR Remote', show: true },
   { name: 'Motion', show: true },
   { name: 'RFID', show: true },
-  { name: 'Temp', show: true }
+  { name: 'Temp', show: true },
 ];
 
 export { saveToolBox, fetchToolBox };

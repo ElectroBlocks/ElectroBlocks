@@ -23,7 +23,6 @@ export const servoUpdate: SyncComponent = (state, _, draw) => {
   if (!servoEl) {
     return;
   }
-  console.log('update called');
   setDegrees(servoEl, servoState.degree);
 
   setText(servoEl, servoState);

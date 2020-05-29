@@ -1,6 +1,7 @@
 import { ArduinoComponentState, ArduinoFrame } from '../frames/arduino.frame';
 import { Svg } from '@svgdotjs/svg.js';
 import { servoCreate, servoUpdate } from './components/servo.sync';
+import { bluetoothCreate } from './components/bluetooth.sync';
 import {
   arduinoMessageUpdate,
   arduinoMessageCreate,
@@ -15,7 +16,7 @@ export interface CreateComponent {
 }
 
 const listSyncs = [servoUpdate, arduinoMessageUpdate];
-const listCreate = [servoCreate, arduinoMessageCreate];
+const listCreate = [servoCreate, arduinoMessageCreate, bluetoothCreate];
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
   frame.components.forEach((c) => {
