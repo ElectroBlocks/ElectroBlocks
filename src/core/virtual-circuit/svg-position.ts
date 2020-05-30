@@ -13,7 +13,6 @@ export const positionComponent = (
   // 1 Take the Arduino X position
   // 2 Add to it the hole's x position
   // 3 minus the center of the pin in the virtual component
-
   element.x(
     arduino.x() +
       findSvgElement(pinToBreadboardHole(wire), draw).cx() -
