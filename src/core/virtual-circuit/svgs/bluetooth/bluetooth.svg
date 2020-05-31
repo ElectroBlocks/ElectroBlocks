@@ -82,13 +82,13 @@
   <rect id="WIRE_TX" x="246.36" y="158.2" width="4.5" height="20" fill="#c9bfb5"/>
   <rect id="WIRE_RX" x="234.23" y="158.2" width="4.5" height="20" fill="#c9bfb5"/>
   <g id="HELPER_TEXT">
-    <rect id="HELPER_PIN_VCC" x="316.14" y="115.05" width="9.25" height="38.67" fill="#c9bfb5" stroke="#cc0e2a" stroke-miterlimit="10" stroke-width="4"/>
-    <rect id="HELPER_PIN_GND" x="354.17" y="115.05" width="9.25" height="38.67" fill="#c9bfb5" stroke="#cc0e2a" stroke-miterlimit="10" stroke-width="4"/>
-    <rect id="HELPER_PIN_TX" x="392.21" y="115.05" width="9.25" height="38.67" fill="#c9bfb5" stroke="#cc0e2a" stroke-miterlimit="10" stroke-width="4"/>
-    <rect id="HELPER_PIN_RX" x="430.25" y="115.05" width="9.25" height="38.67" fill="#c9bfb5" stroke="#cc0e2a" stroke-miterlimit="10" stroke-width="4"/>
+    <rect id="HELPER_PIN_RX" x="316.14" y="115.05" width="9.25" height="38.67" fill="#c9bfb5" stroke="#cc0e2a" stroke-miterlimit="10" stroke-width="4"/>
+    <rect id="HELPER_PIN_TX" x="354.17" y="115.05" width="9.25" height="38.67" fill="#c9bfb5" stroke="#cc0e2a" stroke-miterlimit="10" stroke-width="4"/>
+    <rect id="HELPER_PIN_GND" x="392.21" y="115.05" width="9.25" height="38.67" fill="#c9bfb5" stroke="#cc0e2a" stroke-miterlimit="10" stroke-width="4"/>
+    <rect id="HELPER_PIN_VCC" x="430.25" y="115.05" width="9.25" height="38.67" fill="#c9bfb5" stroke="#cc0e2a" stroke-miterlimit="10" stroke-width="4"/>
     <rect id="HELPER_BASE" x="306.2" y="96.96" width="141.78" height="20.6" fill="#0f0f0f"/>
-    <text transform="translate(358.8 90.25) scale(1.04 1)" font-size="24" font-family="Biryani-Regular, Biryani">PIN</text>
-    <text id="WIRE_TYPE" transform="translate(305.97 61.6) scale(1.04 1)" font-size="21" font-family="Biryani-Regular, Biryani">VCC / POWER</text>
+    <text id="PIN_BOTTOM" transform="translate(358.8 90.25) scale(1.04 1)" font-size="24" font-family="Biryani-Regular, Biryani">PIN</text>
+    <text id="PIN_TOP" transform="translate(305.97 61.6) scale(1.04 1)" font-size="21" font-family="Biryani-Regular, Biryani">VCC / POWER</text>
   </g>
   <g id="MESSAGE_LAYER">
     <path id="MESSAGE_BUBBLE" d="M28.53,9.5H199.91c5.54,0,10.14,2.9,10.14,16.74v57.1s7.61,14.36,30.43,39.76l-69.3-25.2H28.53C23,97.9,18.39,95,18.39,91.4V15.9C18.39,12.4,23,9.5,28.53,9.5Z" transform="translate(-16.89 -8)" fill="#fff" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>

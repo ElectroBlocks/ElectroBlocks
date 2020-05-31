@@ -1,8 +1,8 @@
 import { SyncComponent, CreateComponent } from '../svg.component';
 import { ArduinoComponentType } from '../../frames/arduino.frame';
 import { BluetoothState } from '../../frames/arduino-components.state';
-import { componentToSvgId } from '../svg-helpers';
-import { Element, Svg } from '@svgdotjs/svg.js';
+import { componentToSvgId, findSvgElement } from '../svg-helpers';
+import { Element, Svg, Text } from '@svgdotjs/svg.js';
 import { positionComponent } from '../svg-position';
 import {
   updateWires,
@@ -70,8 +70,29 @@ export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
   bluetoothEl.findOne('#GND_BOX').addClass('wire-connection');
   bluetoothEl.findOne('#_5V_BOX').addClass('wire-connection');
 
-  (bluetoothEl as any).draggable().on('dragmove', () => {
+  (bluetoothEl as any).draggable().on('dragmove', (e) => {
+    bluetoothEl.findOne('#HELPER_TEXT').hide();
     updateWires(bluetoothEl, draw, arduino as Svg);
+  });
+
+  bluetoothEl.findOne('#GND_BOX').on('click', (e) => {
+    e.stopPropagation();
+    showToolTip(bluetoothEl, 'GND');
+  });
+
+  bluetoothEl.findOne('#WIRE_RX').on('click', (e) => {
+    e.stopPropagation();
+    showToolTip(bluetoothEl, 'RX');
+  });
+
+  bluetoothEl.findOne('#WIRE_TX').on('click', (e) => {
+    e.stopPropagation();
+    showToolTip(bluetoothEl, 'TX');
+  });
+
+  bluetoothEl.findOne('#_5V_BOX').on('click', (e) => {
+    e.stopPropagation();
+    showToolTip(bluetoothEl, 'VCC');
   });
 };
 
@@ -99,7 +120,7 @@ const createWires = (
     'WIRE_TX',
     arduino,
     draw,
-    '#31eb75',
+    '#0f5873',
     'rx'
   );
 
@@ -122,6 +143,44 @@ const createWires = (
     componentId,
     'right'
   );
+};
+
+const showToolTip = (bluetooth: Element, pinType: string) => {
+  const helpTextEl = bluetooth.findOne('#HELPER_TEXT') as Element;
+  helpTextEl.show();
+  const pinTypeTextTop = findSvgElement('PIN_TOP', helpTextEl) as Text;
+  const pinTypeTextBottom = findSvgElement('PIN_BOTTOM', helpTextEl) as Text;
+
+  findSvgElement('HELPER_PIN_VCC', helpTextEl).stroke({ width: 0 });
+  findSvgElement('HELPER_PIN_GND', helpTextEl).stroke({ width: 0 });
+  findSvgElement('HELPER_PIN_TX', helpTextEl).stroke({ width: 0 });
+  findSvgElement('HELPER_PIN_RX', helpTextEl).stroke({ width: 0 });
+  if (pinType === 'GND') {
+    findSvgElement('HELPER_PIN_GND', helpTextEl).stroke({ width: 4 });
+    pinTypeTextTop.node.textContent = '';
+    pinTypeTextBottom.node.textContent = 'GND PIN';
+  }
+
+  if (pinType === 'VCC') {
+    findSvgElement('HELPER_PIN_VCC', helpTextEl).stroke({ width: 4 });
+    pinTypeTextTop.node.textContent = 'Power';
+    pinTypeTextBottom.node.textContent = 'VCC PIN';
+  }
+
+  if (pinType === 'TX') {
+    findSvgElement('HELPER_PIN_TX', helpTextEl).stroke({ width: 4 });
+    pinTypeTextTop.node.textContent = 'Transmit Data';
+    pinTypeTextBottom.node.textContent = 'TXD PIN';
+  }
+
+  if (pinType === 'RX') {
+    findSvgElement('HELPER_PIN_RX', helpTextEl).stroke({ width: 4 });
+    pinTypeTextTop.node.textContent = 'Recieve Data';
+    pinTypeTextBottom.node.textContent = 'RXD PIN';
+  }
+
+  pinTypeTextTop.cx(72);
+  pinTypeTextBottom.cx(18);
 };
 
 // HIGHLIGHTING WIRES

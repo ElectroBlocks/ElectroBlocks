@@ -59,6 +59,7 @@ export const servoCreate: CreateComponent = (state, _, draw) => {
 
   (servoEl as any).draggable().on('dragmove', () => {
     updateWires(servoEl, draw, arduino as Svg);
+    findSvgElement('HELPER_TEXT', servoEl).hide();
   });
 
   servoEl.findOne('#GND_BOX').addClass('wire-connection');
@@ -77,10 +78,6 @@ export const servoCreate: CreateComponent = (state, _, draw) => {
     e.stopPropagation();
     showToolTip(servoEl, '#ff422a', 'POWER');
   });
-
-  draw.on('click', () => {
-    hideToolTip(servoEl);
-  });
 };
 
 const showToolTip = (servoEl: Element, color: string, wireType: string) => {
@@ -90,10 +87,6 @@ const showToolTip = (servoEl: Element, color: string, wireType: string) => {
   wireText.node.textContent = wireType;
   wireText.cx(43);
   findSvgElement('HELPER_TEXT', servoEl).show();
-};
-
-const hideToolTip = (servoEl: Element) => {
-  servoEl.findOne('#HELPER_TEXT').hide();
 };
 
 const setServoPinText = (servoEl: Element, servoState: ServoState) => {

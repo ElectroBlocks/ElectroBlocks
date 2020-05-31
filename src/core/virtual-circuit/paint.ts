@@ -29,6 +29,10 @@ export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   }
 
   deleteUnusedComponents(draw, frame);
+
+  draw.on('click', () => {
+    draw.find('#HELPER_TEXT').forEach((s) => s.hide());
+  });
 };
 
 const findOrCreateArduino = (draw: Svg) => {
