@@ -18,6 +18,44 @@ export const bluetoothSync: SyncComponent = (state, frame, draw) => {
   if (state.type !== ArduinoComponentType.BLUE_TOOTH) {
     return;
   }
+
+  const bluetoothState = state as BluetoothState;
+  const id = componentToSvgId(bluetoothState);
+  let bluetoothEl = draw.findOne('#' + id) as Element;
+  if (!bluetoothEl) {
+    console.error('bluetooth id not found: ' + id);
+    return;
+  }
+
+  const textBubble = bluetoothEl.findOne('#MESSAGE_LAYER');
+  const textLine1 = bluetoothEl.findOne('#MESSAGE_LINE_1') as Text;
+  const textLine2 = bluetoothEl.findOne('#MESSAGE_LINE_2') as Text;
+  const textLine3 = bluetoothEl.findOne('#MESSAGE_LINE_3') as Text;
+
+  if (
+    bluetoothState.sendMessage.length > 0 &&
+    frame.explanation.includes('from bluetooth to computer.')
+  ) {
+    // only display if we are on the bluetooth block that is sending the message.
+    const message = getMessage(bluetoothState.sendMessage);
+    textLine1.node.textContent = 'Send Message';
+    textLine2.node.textContent = message.slice(0, 19);
+    textLine3.node.textContent = message.slice(19);
+    textBubble.show();
+    return;
+  }
+
+  if (bluetoothState.hasMessage) {
+    // if the bluetooth has message display the message
+    const message = getMessage(bluetoothState.message);
+    textLine1.node.textContent = 'Receive Message';
+    textLine2.node.textContent = message.slice(0, 19);
+    textLine3.node.textContent = message.slice(19);
+    textBubble.show();
+    return;
+  }
+
+  textBubble.hide();
 };
 
 export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
@@ -181,6 +219,10 @@ const showToolTip = (bluetooth: Element, pinType: string) => {
 
   pinTypeTextTop.cx(72);
   pinTypeTextBottom.cx(18);
+};
+
+const getMessage = (message: string) => {
+  return message.length > 38 ? message.slice(0, 35) + '...' : message;
 };
 
 // HIGHLIGHTING WIRES
