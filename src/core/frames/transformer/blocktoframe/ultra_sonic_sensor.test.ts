@@ -62,6 +62,7 @@ describe('ultra sonic sensor state factories', () => {
 
     const state: ArduinoFrame = {
       blockId: ultraSonicSensor.id,
+      blockName: 'ultra_sonic_sensor_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up ultra sonic sensor.',
       components: [ultraSonicSensorState],

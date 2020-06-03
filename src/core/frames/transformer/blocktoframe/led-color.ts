@@ -1,5 +1,8 @@
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { arduinoStateByComponent, findComponent } from '../frame-transformer.helpers';
+import {
+  arduinoStateByComponent,
+  findComponent,
+} from '../frame-transformer.helpers';
 import { LedColorState } from '../../arduino-components.state';
 import { ArduinoComponentType } from '../../arduino.frame';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
@@ -27,6 +30,7 @@ export const ledColorSetup: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       ledColorState,
       'Setting up color led.',
@@ -61,6 +65,7 @@ export const setLedColor: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       newComponent,
       `Setting led color to [red=${color.red},green=${color.green},blue=${color.blue}].`,

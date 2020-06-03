@@ -37,6 +37,7 @@ export const neoPixelSetup: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       ledStripState,
       'Setting up led light strip.',
@@ -84,6 +85,7 @@ export const setNeoPixelColor: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       newComponent,
       `Setting LED ${position} on light strip to color [red=${color.red},green=${color.green},blue=${color.blue}]`,

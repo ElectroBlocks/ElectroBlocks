@@ -20,8 +20,8 @@ import { PinState, PIN_TYPE, PinPicture } from '../../arduino-components.state';
 
 describe('analog pin state factories', () => {
   let workspace: Workspace;
-  let analogReadSetup;
-  let digitalReadSetup;
+  let analogReadSetup: BlockSvg;
+  let digitalReadSetup: BlockSvg;
 
   afterEach(() => {
     workspace.dispose();
@@ -70,6 +70,7 @@ describe('analog pin state factories', () => {
     expect(state1).toEqual(
       createSetupFrame(
         analogReadSetup.id,
+        analogReadSetup.type,
         PinPicture.PHOTO_SENSOR,
         ARDUINO_UNO_PINS.PIN_A1,
         PIN_TYPE.ANALOG_INPUT,
@@ -80,6 +81,7 @@ describe('analog pin state factories', () => {
     expect(
       createSetupFrame(
         digitalReadSetup.id,
+        digitalReadSetup.type,
         PinPicture.TOUCH_SENSOR,
         ARDUINO_UNO_PINS.PIN_6,
         PIN_TYPE.DIGITAL_INPUT,
@@ -92,6 +94,7 @@ describe('analog pin state factories', () => {
 
   const createSetupFrame = (
     blockId: string,
+    blockName: string,
     pinPicture: PinPicture,
     pin: ARDUINO_UNO_PINS,
     pinType: PIN_TYPE,
@@ -113,6 +116,7 @@ describe('analog pin state factories', () => {
 
     return {
       blockId,
+      blockName,
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation,
       components: [...previousComponent, sensor],

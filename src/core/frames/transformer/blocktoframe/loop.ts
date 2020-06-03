@@ -26,6 +26,7 @@ export const simpleLoop: BlockToFrameTransformer = (
 
     const loopFrame = arduinoStateByExplanation(
       block.id,
+      block.blockName,
       timeline,
       `Running loop ${next} out of ${times} times.`,
       beforeState
@@ -94,6 +95,7 @@ export const forLoop: BlockToFrameTransformer = (
       };
       const loopFrame = arduinoStateByVariable(
         block.id,
+        block.blockName,
         timeline,
         newVariable,
         `Running loop ${counter + 1} out ${array.length} times; i = ${i}`,

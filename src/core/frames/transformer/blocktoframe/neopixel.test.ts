@@ -58,6 +58,7 @@ describe('neo pixle state factories', () => {
 
     const state: ArduinoFrame = {
       blockId: neoPixelSetup.id,
+      blockName: 'neo_pixel_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up led light strip.',
       components: [ledLightStrip],

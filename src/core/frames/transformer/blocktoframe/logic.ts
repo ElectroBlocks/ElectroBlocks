@@ -25,7 +25,12 @@ export const ifElse: BlockToFrameTransformer = (
   if (excuteBlocksInsideIf) {
     const explanation =
       'Executing blocks inside "DO" because what is connected is true.';
-    const ifFrame = arduinoStateByExplanation(block.id, timeline, explanation);
+    const ifFrame = arduinoStateByExplanation(
+      block.id,
+      block.blockName,
+      timeline,
+      explanation
+    );
     return [
       ifFrame,
       ...generateInputState(
@@ -42,7 +47,12 @@ export const ifElse: BlockToFrameTransformer = (
   if (block.inputStatements.find((i) => i.name === 'ELSE')) {
     const explanation =
       'Executing blocks inside "ELSE" because what is connected is false.';
-    const ifFrame = arduinoStateByExplanation(block.id, timeline, explanation);
+    const ifFrame = arduinoStateByExplanation(
+      block.id,
+      block.blockName,
+      timeline,
+      explanation
+    );
     return [
       ifFrame,
       ...generateInputState(
@@ -57,5 +67,7 @@ export const ifElse: BlockToFrameTransformer = (
   }
   const explanation =
     'Not executing blocks inside "DO" because waht is connected is false.';
-  return [arduinoStateByExplanation(block.id, timeline, explanation)];
+  return [
+    arduinoStateByExplanation(block.id, block.blockName, timeline, explanation),
+  ];
 };

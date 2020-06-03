@@ -34,7 +34,7 @@ export const bluetoothSync: SyncComponent = (state, frame, draw) => {
 
   if (
     bluetoothState.sendMessage.length > 0 &&
-    frame.explanation.includes('from bluetooth to computer.')
+    frame.blockName == 'bluetooth_send_message'
   ) {
     // only display if we are on the bluetooth block that is sending the message.
     const message = getMessage(bluetoothState.sendMessage);

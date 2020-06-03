@@ -25,6 +25,7 @@ export const buttonSetup: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       buttonState,
       `button ${pin} is being setup.`

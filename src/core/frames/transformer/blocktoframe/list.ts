@@ -26,6 +26,7 @@ const createListState = (
   return [
     arduinoStateByVariable(
       block.id,
+      block.blockName,
       timeline,
       newVariable,
       createExplanation(newVariable, +findFieldValue(block, 'SIZE')),
@@ -101,6 +102,7 @@ const setItemInList = (
   return [
     arduinoStateByVariable(
       block.id,
+      block.blockName,
       timeline,
       newVariable,
       explanation,

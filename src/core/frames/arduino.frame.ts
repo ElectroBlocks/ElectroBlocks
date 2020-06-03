@@ -3,6 +3,7 @@ import { VariableTypes } from '../blockly/dto/variable.type';
 
 export interface ArduinoFrame {
   blockId: string;
+  blockName: string;
   timeLine: Timeline;
   explanation: string;
   components: ArduinoComponentState[];

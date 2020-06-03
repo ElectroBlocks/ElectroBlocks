@@ -30,6 +30,7 @@ export const bluetoothSetup: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       bluetoothComponent,
       'Setting up Bluetooth.',
@@ -63,6 +64,7 @@ export const bluetoothMessage: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       newComponent,
       `Sending "${message}" from bluetooth to computer.`,

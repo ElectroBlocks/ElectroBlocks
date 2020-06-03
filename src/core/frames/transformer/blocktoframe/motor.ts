@@ -38,6 +38,7 @@ export const moveMotor: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       motorState,
       `Motor ${

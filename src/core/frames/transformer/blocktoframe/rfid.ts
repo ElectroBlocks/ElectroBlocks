@@ -29,6 +29,7 @@ export const rfidSetup: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       rfidComponent,
       'Setting up RFID.',

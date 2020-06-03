@@ -57,6 +57,7 @@ describe('button state factories', () => {
 
     const state: ArduinoFrame = {
       blockId: irRemoteSetup.id,
+      blockName: 'ir_remote_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up ir remote.',
       components: [irRemote],

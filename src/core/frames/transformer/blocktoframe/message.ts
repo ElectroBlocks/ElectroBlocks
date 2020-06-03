@@ -26,6 +26,7 @@ export const messageSetup: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       messageComponent,
       'Setting up Arduino messages.',
@@ -58,6 +59,7 @@ export const arduinoSendMessage: BlockToFrameTransformer = (
   return [
     {
       blockId: block.id,
+      blockName: block.blockName,
       sendMessage: message,
       timeLine: { ...timeline },
       variables: replaceVariables,

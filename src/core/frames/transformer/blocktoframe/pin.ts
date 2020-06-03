@@ -38,6 +38,7 @@ export const setupReadPin: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       setupState,
       `Setting up ${pinPictureToWord(pictureType)}.`,

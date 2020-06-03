@@ -11,6 +11,7 @@ export const debugBlock: BlockToFrameTransformer = (
   return [
     arduinoStateByExplanation(
       block.id,
+      block.blockName,
       timeline,
       'Debug [will pause in Arduino Code.]',
       preivousState

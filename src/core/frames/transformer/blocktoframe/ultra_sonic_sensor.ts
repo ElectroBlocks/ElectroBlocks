@@ -26,6 +26,7 @@ export const ultraSonicSensor: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       ultraSonicState,
       'Setting up ultra sonic sensor.'

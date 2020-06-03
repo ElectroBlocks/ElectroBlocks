@@ -54,6 +54,7 @@ describe('button state factories', () => {
 
     const state: ArduinoFrame = {
       blockId: buttonSetup.id,
+      blockName: 'button_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'button 3 is being setup.',
       components: [buttonState],

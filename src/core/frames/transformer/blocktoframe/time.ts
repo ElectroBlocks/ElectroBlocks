@@ -20,6 +20,7 @@ export const timeSetup: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       timeComonent,
       'Setting up Arduino time.',

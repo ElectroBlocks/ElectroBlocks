@@ -66,6 +66,7 @@ describe('lcd  factories', () => {
 
     const state: ArduinoFrame = {
       blockId: lcdsetup.id,
+      blockName: 'lcd_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up LCD Screen.',
       components: [lcdState],

@@ -44,6 +44,7 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       ledMatrixState,
       'Drawing on LED Matrix.'
@@ -99,6 +100,7 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       newComponent,
       `Led Matrix turn (${row},${col}) ${isOn ? 'on' : 'off'}.`

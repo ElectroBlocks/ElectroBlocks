@@ -15,6 +15,7 @@ export const customBlock: BlockToFrameTransformer = (
   const functionName = findFieldValue(block, 'NAME');
   const functionCallState = arduinoStateByExplanation(
     block.id,
+    block.blockName,
     timeline,
     `Calling function ${functionName}.`,
     preivousState

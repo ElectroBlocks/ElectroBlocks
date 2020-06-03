@@ -99,6 +99,7 @@ describe('arduino message state factories', () => {
 
     const state: ArduinoFrame = {
       blockId: messageSetup.id,
+      blockName: 'message_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up Arduino messages.',
       components: [message],

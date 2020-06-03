@@ -3,7 +3,6 @@ import '../../../blockly/blocks';
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
 import {
   getAllBlocks,
-  getBlockById,
   connectToArduinoBlock,
 } from '../../../blockly/helpers/block.helper';
 import _ from 'lodash';
@@ -70,6 +69,7 @@ describe('bluetooth state factories', () => {
 
     const state: ArduinoFrame = {
       blockId: bluethoothsetupblock.id,
+      blockName: 'bluetooth_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up Bluetooth.',
       components: [btComponent],

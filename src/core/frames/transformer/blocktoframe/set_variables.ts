@@ -44,6 +44,7 @@ export const setVariable: BlockToFrameTransformer = (
   return [
     arduinoStateByVariable(
       block.id,
+      block.blockName,
       timeline,
       newVariable,
       explanation,

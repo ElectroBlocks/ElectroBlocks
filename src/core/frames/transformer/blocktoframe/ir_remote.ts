@@ -29,6 +29,7 @@ export const irRemoteSetup: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       irRemoteState,
       'Setting up ir remote.'

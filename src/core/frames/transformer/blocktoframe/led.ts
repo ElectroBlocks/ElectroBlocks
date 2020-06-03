@@ -41,6 +41,7 @@ export const analogWrite = (
     return [
       arduinoStateByComponent(
         block.id,
+        block.blockName,
         timeline,
         ledState,
         explanation,
@@ -69,6 +70,7 @@ export const digitalWrite = (pinPicture: PinPicture) => {
     return [
       arduinoStateByComponent(
         block.id,
+        block.blockName,
         timeline,
         ledState,
         explanation,

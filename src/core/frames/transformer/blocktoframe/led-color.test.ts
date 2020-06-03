@@ -59,6 +59,7 @@ describe('lcd  factories', () => {
 
     const state: ArduinoFrame = {
       blockId: ledColorSetup.id,
+      blockName: 'led_color_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up color led.',
       components: [ledColorState],

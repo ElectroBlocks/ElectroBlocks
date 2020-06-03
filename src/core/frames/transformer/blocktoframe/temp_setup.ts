@@ -25,6 +25,7 @@ export const tempSetupSensor: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       tempSensorState,
       'Setting up temperature sensor.'

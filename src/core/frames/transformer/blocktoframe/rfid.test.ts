@@ -66,6 +66,7 @@ describe('rfid state factories', () => {
 
     const rfidSetupState: ArduinoFrame = {
       blockId: rfidBlock.id,
+      blockName: 'rfid_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up RFID.',
       components: [rfidComponent],

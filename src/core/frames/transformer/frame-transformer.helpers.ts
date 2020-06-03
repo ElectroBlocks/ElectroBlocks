@@ -21,6 +21,7 @@ import { MotorState } from '../arduino-components.state';
 
 export const arduinoStateByVariable = (
   blockId: string,
+  blockName: string,
   timeline: Timeline,
   newVariable: Variable,
   explanation: string,
@@ -35,6 +36,7 @@ export const arduinoStateByVariable = (
 
   return {
     blockId,
+    blockName,
     sendMessage: '',
     timeLine: { ...timeline },
     variables,
@@ -62,6 +64,7 @@ export const findBlockInput = (
 
 export const arduinoStateByExplanation = (
   blockId: string,
+  blockName: string,
   timeline: Timeline,
   explanation: string,
   previousState: ArduinoFrame = undefined,
@@ -75,6 +78,7 @@ export const arduinoStateByExplanation = (
 
   return {
     blockId,
+    blockName,
     sendMessage: '',
     timeLine: { ...timeline },
     variables,
@@ -105,6 +109,7 @@ export const getDefaultIndexValue = (
 
 export const arduinoStateByComponent = (
   blockId: string,
+  blockName: string,
   timeline: Timeline,
   newComponent: ArduinoComponentState,
   explanation: string,
@@ -134,6 +139,7 @@ export const arduinoStateByComponent = (
 
   return {
     blockId,
+    blockName,
     sendMessage: '',
     timeLine: { ...timeline },
     variables,

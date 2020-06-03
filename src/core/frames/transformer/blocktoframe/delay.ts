@@ -33,6 +33,7 @@ export const delayBlock: BlockToFrameTransformer = (
   return [
     {
       blockId: block.id,
+      blockName: block.blockName,
       sendMessage: '',
       timeLine: { ...timeline },
       variables: newVariables,

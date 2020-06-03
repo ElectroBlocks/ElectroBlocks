@@ -63,6 +63,7 @@ describe('rfid state factories', () => {
 
     const state: ArduinoFrame = {
       blockId: tempBlock.id,
+      blockName: 'temp_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up temperature sensor.',
       components: [tempSensorState],

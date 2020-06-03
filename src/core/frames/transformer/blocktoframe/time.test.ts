@@ -48,6 +48,7 @@ describe('time state factories', () => {
 
     const state: ArduinoFrame = {
       blockId: timesetup.id,
+      blockName: 'time_setup',
       timeLine: { function: 'pre-setup', iteration: 0 },
       explanation: 'Setting up Arduino time.',
       components: [timeState],

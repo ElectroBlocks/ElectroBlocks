@@ -39,6 +39,7 @@ export const lcdScreenSetup: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       lcdState,
       'Setting up LCD Screen.',
@@ -71,6 +72,7 @@ export const lcdBlink: BlockToFrameTransformer = (
     return [
       arduinoStateByComponent(
         block.id,
+        block.blockName,
         timeline,
         newComponent,
         `Turning off blinking.`,
@@ -107,6 +109,7 @@ export const lcdBlink: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       newComponent,
       `Turning on blinking at (${column}, ${row}).`,
@@ -146,6 +149,7 @@ export const lcdScroll: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       newComponent,
       `Scrolling text to the ${direction.toLowerCase()}.`,
@@ -221,6 +225,7 @@ export const lcdPrint: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       newComponent,
       `Printing "${print}" to the screen at position (${column}, ${row}).`,
@@ -259,6 +264,7 @@ export const lcdClear: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       clearComponent,
       `Clearing the screen.`,
@@ -293,6 +299,7 @@ export const lcdBacklight: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       newComponent,
       `Turning ${backLightOn ? 'on' : 'off'} backlight.`,
@@ -365,6 +372,7 @@ export const lcdSimplePrint: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       newComponent,
       `Printing message for ${delay.toFixed(2)} seconds.`,
@@ -375,6 +383,7 @@ export const lcdSimplePrint: BlockToFrameTransformer = (
     ),
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       clearComponent,
       `Clearing the screen.`,

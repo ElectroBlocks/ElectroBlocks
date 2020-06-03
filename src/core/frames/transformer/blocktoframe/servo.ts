@@ -40,6 +40,7 @@ export const servoRotate: BlockToFrameTransformer = (
   return [
     arduinoStateByComponent(
       block.id,
+      block.blockName,
       timeline,
       newComponent,
       `Servo ${newComponent.pins[0]} is rotating to ${newComponent.degree} degrees.`,
