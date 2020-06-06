@@ -83,7 +83,6 @@ export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
   bluetoothEl = draw.svg(bluetoothSvg).last();
   bluetoothEl.addClass('component');
   bluetoothEl.attr('id', id);
-  bluetoothEl.findOne('#HELPER_TEXT').hide();
   (bluetoothEl as Svg).viewbox(0, 0, bluetoothEl.width(), bluetoothEl.height());
   (window as any).bluetooth = bluetoothEl;
   positionComponent(
@@ -103,13 +102,19 @@ export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
     id
   );
 
+  hideAllWireTipHighLights(bluetoothEl.findOne('#HELPER_TEXT') as Element);
   bluetoothEl.findOne('#WIRE_RX').addClass('wire-connection');
   bluetoothEl.findOne('#WIRE_TX').addClass('wire-connection');
   bluetoothEl.findOne('#GND_BOX').addClass('wire-connection');
   bluetoothEl.findOne('#_5V_BOX').addClass('wire-connection');
+  bluetoothEl.findOne('#HELPER_PIN_VCC').addClass('wire-connection');
+  bluetoothEl.findOne('#HELPER_PIN_GND').addClass('wire-connection');
+  bluetoothEl.findOne('#HELPER_PIN_TX').addClass('wire-connection');
+  bluetoothEl.findOne('#HELPER_PIN_RX').addClass('wire-connection');
+  const titleText = findSvgElement('HELPER_TITLE', bluetoothEl) as Text;
+  titleText.node.innerHTML = '';
 
   (bluetoothEl as any).draggable().on('dragmove', (e) => {
-    bluetoothEl.findOne('#HELPER_TEXT').hide();
     updateWires(bluetoothEl, draw, arduino as Svg);
   });
 
@@ -131,6 +136,26 @@ export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
   bluetoothEl.findOne('#_5V_BOX').on('click', (e) => {
     e.stopPropagation();
     showToolTip(bluetoothEl, 'VCC');
+  });
+
+  bluetoothEl.findOne('#HELPER_PIN_GND').on('click', (e) => {
+    e.stopPropagation();
+    showToolTip(bluetoothEl, 'GND');
+  });
+
+  bluetoothEl.findOne('#HELPER_PIN_VCC').on('click', (e) => {
+    e.stopPropagation();
+    showToolTip(bluetoothEl, 'VCC');
+  });
+
+  bluetoothEl.findOne('#HELPER_PIN_RX').on('click', (e) => {
+    e.stopPropagation();
+    showToolTip(bluetoothEl, 'RX');
+  });
+
+  bluetoothEl.findOne('#HELPER_PIN_TX').on('click', (e) => {
+    e.stopPropagation();
+    showToolTip(bluetoothEl, 'TX');
   });
 };
 
@@ -183,42 +208,39 @@ const createWires = (
   );
 };
 
-const showToolTip = (bluetooth: Element, pinType: string) => {
-  const helpTextEl = bluetooth.findOne('#HELPER_TEXT') as Element;
-  helpTextEl.show();
-  const pinTypeTextTop = findSvgElement('PIN_TOP', helpTextEl) as Text;
-  const pinTypeTextBottom = findSvgElement('PIN_BOTTOM', helpTextEl) as Text;
-
+const hideAllWireTipHighLights = (helpTextEl: Element) => {
   findSvgElement('HELPER_PIN_VCC', helpTextEl).stroke({ width: 0 });
   findSvgElement('HELPER_PIN_GND', helpTextEl).stroke({ width: 0 });
   findSvgElement('HELPER_PIN_TX', helpTextEl).stroke({ width: 0 });
   findSvgElement('HELPER_PIN_RX', helpTextEl).stroke({ width: 0 });
+};
+
+const showToolTip = (bluetooth: Element, pinType: string) => {
+  const helpTextEl = bluetooth.findOne('#HELPER_TEXT') as Element;
+  const titleText = findSvgElement('HELPER_TITLE', helpTextEl) as Text;
+  (window as any).titleText = titleText;
+  hideAllWireTipHighLights(helpTextEl);
   if (pinType === 'GND') {
     findSvgElement('HELPER_PIN_GND', helpTextEl).stroke({ width: 4 });
-    pinTypeTextTop.node.textContent = '';
-    pinTypeTextBottom.node.textContent = 'GND PIN';
+    titleText.node.textContent = 'Ground Pin';
   }
 
   if (pinType === 'VCC') {
     findSvgElement('HELPER_PIN_VCC', helpTextEl).stroke({ width: 4 });
-    pinTypeTextTop.node.textContent = 'Power';
-    pinTypeTextBottom.node.textContent = 'VCC PIN';
+    titleText.node.textContent = 'Power Pin';
   }
 
   if (pinType === 'TX') {
     findSvgElement('HELPER_PIN_TX', helpTextEl).stroke({ width: 4 });
-    pinTypeTextTop.node.textContent = 'Transmit Data';
-    pinTypeTextBottom.node.textContent = 'TXD PIN';
+    titleText.node.textContent = 'Transmit Data Pin';
   }
 
   if (pinType === 'RX') {
     findSvgElement('HELPER_PIN_RX', helpTextEl).stroke({ width: 4 });
-    pinTypeTextTop.node.textContent = 'Recieve Data';
-    pinTypeTextBottom.node.textContent = 'RXD PIN';
+    titleText.node.textContent = 'Recieve Data Pin';
   }
 
-  pinTypeTextTop.cx(72);
-  pinTypeTextBottom.cx(18);
+  titleText.cx(85);
 };
 
 const getMessage = (message: string) => {

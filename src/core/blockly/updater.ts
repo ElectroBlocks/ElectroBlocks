@@ -7,7 +7,7 @@ import {
   EnableBlock,
   SaveSetupSensorData,
   ActionType,
-  Action
+  Action,
 } from './actions/actions';
 import { deleteVariable } from './helpers/variable.helper';
 import { getBlockById } from './helpers/block.helper';
@@ -30,9 +30,11 @@ const updateForLoop = (action: ForLoopTextChange) => {
 
 const updateSetupSensorBlockFields = (action: UpdateSetupSensorBlockFields) => {
   const block = getBlockById(action.blockId);
-  action.fields.forEach((field) => {
-    block.setFieldValue(field.value, field.name);
-  });
+  action.fields
+    .filter((field) => block.getField(field.name))
+    .forEach((field) => {
+      block.setFieldValue(field.value, field.name);
+    });
 };
 
 const updateSetupSensorBlockLoopField = (
@@ -74,7 +76,7 @@ const updaterList: { [key: string]: Updater } = {
   [ActionType.FOR_LOOP_BLOCK_CHANGE]: updateForLoop,
   [ActionType.SETUP_SENSOR_BLOCK_FIELD_UPDATE]: updateSetupSensorBlockFields,
   [ActionType.SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE]: updateSetupSensorBlockLoopField,
-  [ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA]: updateSensorBlockData
+  [ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA]: updateSensorBlockData,
 };
 
 export const updater = (action: Action) => {
