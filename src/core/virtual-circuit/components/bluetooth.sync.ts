@@ -44,11 +44,10 @@ export const bluetoothSync: SyncComponent = (state, frame, draw) => {
     textBubble.show();
     return;
   }
-
   if (bluetoothState.hasMessage) {
     // if the bluetooth has message display the message
     const message = getMessage(bluetoothState.message);
-    textLine1.node.textContent = 'Receive Message';
+    textLine1.node.textContent = 'Incoming Message:';
     textLine2.node.textContent = message.slice(0, 19);
     textLine3.node.textContent = message.slice(19);
     textBubble.show();
@@ -102,7 +101,7 @@ export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
     id
   );
 
-  hideAllWireTipHighLights(bluetoothEl.findOne('#HELPER_TEXT') as Element);
+  hideAllWireTipHighLights(bluetoothEl as Element);
   bluetoothEl.findOne('#WIRE_RX').addClass('wire-connection');
   bluetoothEl.findOne('#WIRE_TX').addClass('wire-connection');
   bluetoothEl.findOne('#GND_BOX').addClass('wire-connection');
@@ -111,8 +110,8 @@ export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
   bluetoothEl.findOne('#HELPER_PIN_GND').addClass('wire-connection');
   bluetoothEl.findOne('#HELPER_PIN_TX').addClass('wire-connection');
   bluetoothEl.findOne('#HELPER_PIN_RX').addClass('wire-connection');
-  const titleText = findSvgElement('HELPER_TITLE', bluetoothEl) as Text;
-  titleText.node.innerHTML = '';
+  bluetoothEl.findOne('#CLOSE').addClass('wire-connection');
+  findSvgElement('HELPER_TEXT', bluetoothEl).hide();
 
   (bluetoothEl as any).draggable().on('dragmove', (e) => {
     updateWires(bluetoothEl, draw, arduino as Svg);
@@ -155,7 +154,14 @@ export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
 
   bluetoothEl.findOne('#HELPER_PIN_TX').on('click', (e) => {
     e.stopPropagation();
+    hideAllWireTipHighLights(bluetoothEl);
     showToolTip(bluetoothEl, 'TX');
+  });
+
+  bluetoothEl.findOne('#CLOSE').on('click', (e) => {
+    e.stopPropagation();
+    findSvgElement('HELPER_TEXT', bluetoothEl).hide();
+    hideAllWireTipHighLights(bluetoothEl);
   });
 };
 
@@ -213,34 +219,35 @@ const hideAllWireTipHighLights = (helpTextEl: Element) => {
   findSvgElement('HELPER_PIN_GND', helpTextEl).stroke({ width: 0 });
   findSvgElement('HELPER_PIN_TX', helpTextEl).stroke({ width: 0 });
   findSvgElement('HELPER_PIN_RX', helpTextEl).stroke({ width: 0 });
+
+  findSvgElement('WIRE_TX', helpTextEl).stroke({ width: 0 });
+  findSvgElement('WIRE_RX', helpTextEl).stroke({ width: 0 });
+  findSvgElement('GND_BOX', helpTextEl).stroke({ width: 0 });
+  findSvgElement('_5V_BOX', helpTextEl).stroke({ width: 0 });
 };
 
 const showToolTip = (bluetooth: Element, pinType: string) => {
-  const helpTextEl = bluetooth.findOne('#HELPER_TEXT') as Element;
-  const titleText = findSvgElement('HELPER_TITLE', helpTextEl) as Text;
-  (window as any).titleText = titleText;
-  hideAllWireTipHighLights(helpTextEl);
+  hideAllWireTipHighLights(bluetooth);
+  findSvgElement('HELPER_TEXT', bluetooth).show();
   if (pinType === 'GND') {
-    findSvgElement('HELPER_PIN_GND', helpTextEl).stroke({ width: 4 });
-    titleText.node.textContent = 'Ground Pin';
+    findSvgElement('HELPER_PIN_GND', bluetooth).stroke({ width: 4 });
+    findSvgElement('GND_BOX', bluetooth).stroke({ width: 2 });
   }
 
   if (pinType === 'VCC') {
-    findSvgElement('HELPER_PIN_VCC', helpTextEl).stroke({ width: 4 });
-    titleText.node.textContent = 'Power Pin';
+    findSvgElement('HELPER_PIN_VCC', bluetooth).stroke({ width: 4 });
+    findSvgElement('_5V_BOX', bluetooth).stroke({ width: 2 });
   }
 
   if (pinType === 'TX') {
-    findSvgElement('HELPER_PIN_TX', helpTextEl).stroke({ width: 4 });
-    titleText.node.textContent = 'Transmit Data Pin';
+    findSvgElement('HELPER_PIN_TX', bluetooth).stroke({ width: 4 });
+    findSvgElement('WIRE_TX', bluetooth).stroke({ width: 2 });
   }
 
   if (pinType === 'RX') {
-    findSvgElement('HELPER_PIN_RX', helpTextEl).stroke({ width: 4 });
-    titleText.node.textContent = 'Recieve Data Pin';
+    findSvgElement('HELPER_PIN_RX', bluetooth).stroke({ width: 4 });
+    findSvgElement('WIRE_RX', bluetooth).stroke({ width: 2 });
   }
-
-  titleText.cx(85);
 };
 
 const getMessage = (message: string) => {
