@@ -94,7 +94,7 @@ const messageSetupBlock: any = {
     this.appendDummyInput()
       .appendField('Message:')
       .appendField(
-        new Blockly.FieldTextInput('message', (value) => {
+        new Blockly.FieldTextInput('Hello World :)', (value) => {
           if (this.getFieldValue('receiving_message') === 'FALSE') {
             return null;
           }

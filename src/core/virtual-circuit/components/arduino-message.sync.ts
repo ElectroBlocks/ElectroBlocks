@@ -25,12 +25,12 @@ export const arduinoMessageUpdate: SyncComponent = (state, frame, draw) => {
   arduino.findOne('#MESSAGE').show();
 
   const title = arduino.findOne('#MESSAGE_ARDUINO_TITLE') as Text;
-  const textSvg1 = arduino.findOne('#MESSAGE_ARDUINO_LINE_1') as Text;
-  const textSvg2 = arduino.findOne('#MESSAGE_ARDUINO_LINE_2') as Text;
+  const textSvg1 = arduino.findOne('#MESSAGE_LINE_2') as Text;
+  const textSvg2 = arduino.findOne('#MESSAGE_LINE_3') as Text;
   arduino.findOne('#MESSAGE').show();
   title.node.innerHTML = frame.sendMessage
     ? 'Sending Message:'
-    : 'Receiving Message:';
+    : 'Incoming Message:';
   textSvg1.node.innerHTML = message.slice(0, 17);
   textSvg2.node.innerHTML = message.slice(17);
   findSvgElement('RX_LED', arduino as Svg).fill(
