@@ -1,5 +1,6 @@
 import updateForLoopText from './actions/factories/updateForLoopText';
 import { WorkspaceSvg } from 'blockly';
+import _ from 'lodash';
 
 import codeStore from '../../stores/code.store';
 import stateStore from '../../stores/frame.store';
@@ -23,6 +24,11 @@ import { disableSensorReadBlocksWithWrongPins } from './actions/factories/disabl
 import { disableBlocksThatNeedASetupBlock } from './actions/factories/disable/disableBlocksThatNeedASetupBlock';
 import { ActionType, DisableBlock, EnableBlock } from './actions/actions';
 import { eventToFrameFactory } from '../frames/event-to-frame.factory';
+import { ArduinoFrame } from '../frames/arduino.frame';
+
+// This is the current frame list
+// We use this diff the new frame list so that we only update when things change
+let currentFrames: ArduinoFrame[] = [];
 
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (blocklyEvent) => {
@@ -89,9 +95,14 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       blocklyEvent
     );
 
-    console.log(arduinoStateEvent, 'arduinoStateEvent');
-    stateStore.set(eventToFrameFactory(arduinoStateEvent));
-    codeStore.set(getArduinoCode());
+    const newFrames = eventToFrameFactory(arduinoStateEvent);
+
+    if (!_.isEqual(newFrames, currentFrames)) {
+      currentFrames = newFrames;
+      console.log(arduinoStateEvent, 'arduinoStateEvent');
+      stateStore.set(currentFrames);
+      codeStore.set(getArduinoCode());
+    }
   });
 };
 
