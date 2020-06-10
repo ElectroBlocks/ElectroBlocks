@@ -1,5 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="196.16" height="166.85" viewBox="0 0 196.16 166.85">
+<svg xmlns="http://www.w3.org/2000/svg" width="341.34" height="174.26" viewBox="0 0 341.34 174.26">
   <title>servo</title>
+  <g id="Layer_3" data-name="Layer 3">
+    <rect id="DATA_BOX" data-name="DATA BOX" x="74.95" y="145.19" width="6.63" height="20.54" fill="orange" stroke="#000" stroke-miterlimit="10"/>
+    <rect id="_5V_BOX" x="58.38" y="145.19" width="6.63" height="20.54" fill="#ff422a" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <polygon id="GND_BOX" data-name="GND BOX" points="41.82 145.19 41.82 165.73 45.13 165.73 48.44 165.73 48.44 145.19 41.82 145.19" fill="#9e6b18" stroke="#020202" stroke-miterlimit="10" stroke-width="0.25"/>
+  </g>
   <g id="base">
     <g>
       <rect x="35.52" y="42.54" width="52.35" height="103.74" fill="#2a90ff"/>
@@ -11,14 +16,16 @@
     <text id="degrees" transform="translate(30.34 30.43)" font-size="34.62" font-family="Biryani-ExtraLight, Biryani" font-weight="200">180°</text>
   </g>
   <g id="HELPER_TEXT">
-    <text id="WIRE_TEXT" transform="translate(121.28 81.74)" font-size="23.08" font-family="Biryani-ExtraLight, Biryani" font-weight="200">WIRE</text>
-    <text id="WIRE_TYPE" transform="translate(107.72 58.78)" font-size="23.08" font-family="Biryani-ExtraLight, Biryani" font-weight="200">POWER</text>
-    <rect id="WIRE_DISPLAY" x="143.01" y="92.15" width="17.85" height="55.34" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
-  </g>
-  <g id="Layer_3" data-name="Layer 3">
-    <rect id="DATA_BOX" data-name="DATA BOX" x="74.95" y="146.19" width="6.63" height="20.54" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
-    <rect id="_5V_BOX" data-name=" 5V BOX" x="58.38" y="146.19" width="6.63" height="20.54" fill="#ff422a" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
-    <polygon id="GND_BOX" data-name="GND BOX" points="41.82 146.19 41.82 166.73 45.13 166.73 48.44 166.73 48.44 146.19 41.82 146.19" fill="#9e6b18" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <rect id="SMALL_BOX" x="26.56" y="142.93" width="72.98" height="29.83" fill="none" stroke="#c9bfb5" stroke-miterlimit="10" stroke-width="3"/>
+    <line id="CONNECTION" x1="99.54" y1="155.52" x2="162.17" y2="112.2" fill="none" stroke="#c9bfb5" stroke-miterlimit="10" stroke-width="3"/>
+    <text transform="translate(276.87 96.72)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">Data</text>
+    <text transform="translate(228.12 96.72)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">(+)</text>
+    <text transform="translate(171.12 96.72)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">(-)</text>
+    <text id="CLOSE" transform="translate(330.22 62.48)" font-size="14" fill="#c9bfb5" font-family="Biryani-ExtraBold, Biryani" font-weight="800">X</text>
+    <rect id="LARGE_BOX" x="162.17" y="66.55" width="177.24" height="91.3" fill="none" stroke="#c9bfb5" stroke-miterlimit="10" stroke-width="3"/>
+    <rect id="HELPER_PIN_DATA" x="298.33" y="106.82" width="12.29" height="42.82" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <rect id="HELPER_PIN_VCC" x="237.12" y="105.82" width="12.29" height="42.82" fill="#ff422a" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <polygon id="HELPER_PIN_GND" points="178.97 105.82 178.97 148.63 185.11 148.63 191.26 148.63 191.26 105.82 178.97 105.82" fill="#9e6b18" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
   </g>
   <g id="spinning_part" data-name="spinning part">
     <rect id="black_fill" data-name="black fill" x="56.72" y="85.69" width="14.33" height="17.02" stroke="#000" stroke-miterlimit="10"/>

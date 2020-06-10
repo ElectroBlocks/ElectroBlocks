@@ -101,7 +101,7 @@ export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
     id
   );
 
-  hideAllWireTipHighLights(bluetoothEl as Element);
+  unHighlightAllPins(bluetoothEl as Element);
   bluetoothEl.findOne('#WIRE_RX').addClass('wire-connection');
   bluetoothEl.findOne('#WIRE_TX').addClass('wire-connection');
   bluetoothEl.findOne('#GND_BOX').addClass('wire-connection');
@@ -154,14 +154,14 @@ export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
 
   bluetoothEl.findOne('#HELPER_PIN_TX').on('click', (e) => {
     e.stopPropagation();
-    hideAllWireTipHighLights(bluetoothEl);
+    unHighlightAllPins(bluetoothEl);
     showToolTip(bluetoothEl, 'TX');
   });
 
   bluetoothEl.findOne('#CLOSE').on('click', (e) => {
     e.stopPropagation();
     findSvgElement('HELPER_TEXT', bluetoothEl).hide();
-    hideAllWireTipHighLights(bluetoothEl);
+    unHighlightAllPins(bluetoothEl);
   });
 };
 
@@ -214,7 +214,7 @@ const createWires = (
   );
 };
 
-const hideAllWireTipHighLights = (helpTextEl: Element) => {
+const unHighlightAllPins = (helpTextEl: Element) => {
   findSvgElement('HELPER_PIN_VCC', helpTextEl).stroke({ width: 0 });
   findSvgElement('HELPER_PIN_GND', helpTextEl).stroke({ width: 0 });
   findSvgElement('HELPER_PIN_TX', helpTextEl).stroke({ width: 0 });
@@ -227,7 +227,7 @@ const hideAllWireTipHighLights = (helpTextEl: Element) => {
 };
 
 const showToolTip = (bluetooth: Element, pinType: string) => {
-  hideAllWireTipHighLights(bluetooth);
+  unHighlightAllPins(bluetooth);
   findSvgElement('HELPER_TEXT', bluetooth).show();
   if (pinType === 'GND') {
     findSvgElement('HELPER_PIN_GND', bluetooth).stroke({ width: 4 });
