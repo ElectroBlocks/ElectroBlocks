@@ -1,7 +1,23 @@
-import { ArduinoComponentState } from '../frames/arduino.frame';
+import {
+  ArduinoComponentState,
+  ArduinoComponentType,
+} from '../frames/arduino.frame';
 import { Element, Svg } from '@svgdotjs/svg.js';
+import { LCDScreenState } from '../frames/arduino-components.state';
 
 export const componentToSvgId = (component: ArduinoComponentState) => {
+  if (component.type === ArduinoComponentType.LCD_SCREEN) {
+    const lcd = component as LCDScreenState;
+    return (
+      component.type +
+      '_' +
+      lcd.columns +
+      '_' +
+      lcd.rows +
+      component.pins.join('-')
+    );
+  }
+
   return component.type + '_' + component.pins.join('-');
 };
 

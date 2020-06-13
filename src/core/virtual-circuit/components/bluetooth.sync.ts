@@ -14,7 +14,7 @@ import {
 import bluetoothSvg from '../svgs/bluetooth/bluetooth.svg';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 
-export const bluetoothSync: SyncComponent = (state, frame, draw) => {
+export const bluetoothUpdate: SyncComponent = (state, frame, draw) => {
   if (state.type !== ArduinoComponentType.BLUE_TOOTH) {
     return;
   }
