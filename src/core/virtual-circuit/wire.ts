@@ -96,6 +96,7 @@ const createBottomBreadboardWire = (
   const holeX = hole.cx() + arduino.x();
   const holeY = hole.cy() + arduino.y();
   const componentPin = findComponentConnection(element, componentBoxId);
+  (window as any).componentPin = componentPin;
   const line = draw
     .line()
     .plot(holeX, holeY, componentPin.x, componentPin.y)
@@ -104,7 +105,7 @@ const createBottomBreadboardWire = (
   line.data('connection-id', componentBoxId);
   line.data('hole-id', `pin${holeId}${breadBoardLetter}`);
   line.data('wire-type', 'POWER');
-
+  (window as any).line = line;
   return line;
 };
 

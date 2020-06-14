@@ -2,7 +2,7 @@ import {
   ArduinoComponentState,
   ArduinoComponentType,
 } from '../frames/arduino.frame';
-import { Element, Svg } from '@svgdotjs/svg.js';
+import { Element, Svg, Line } from '@svgdotjs/svg.js';
 import { LCDScreenState } from '../frames/arduino-components.state';
 
 export const componentToSvgId = (component: ArduinoComponentState) => {
@@ -26,6 +26,15 @@ export const findComponentConnection = (
   connectionId: string
 ) => {
   const connection = findSvgElement(connectionId, element);
+
+  // if (connection instanceof Line) {
+  //   const [point1, point2] = connection.plot();
+  //   return {
+  //     x: point1[0] + point2[0] ,
+  //     y: point1[1] + point2[1]  ,
+  //   };
+  // }
+
   return {
     x: connection.cx() + element.x(),
     y: connection.y() + connection.height() + element.y(),
