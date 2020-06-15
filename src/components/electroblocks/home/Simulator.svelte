@@ -26,13 +26,10 @@
 
     frameStore.subscribe(frames => {
       console.log(frames, "new frames");
-      setTimeout(() => {
-        const lastFrame = frames ? frames[frames.length - 1] : undefined;
-        const firstFrame = frames ? frames[0] : undefined;
-        // Make Sure Everything Loaded before calculating width and heights
-        paint(draw, lastFrame);
-        update(draw, firstFrame);
-      }, 10);
+      const lastFrame = frames ? frames[frames.length - 1] : undefined;
+      const firstFrame = frames ? frames[0] : undefined;
+      paint(draw, lastFrame);
+      update(draw, firstFrame);
     });
 
     currentFrameStore.subscribe(frame => {

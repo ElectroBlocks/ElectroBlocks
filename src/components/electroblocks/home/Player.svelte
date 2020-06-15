@@ -22,6 +22,7 @@
     }
 
     frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
+    currentFrameStore.set(frames[frameNumber]);
   });
 
   function navigateToClosestTimeline(timeLine) {

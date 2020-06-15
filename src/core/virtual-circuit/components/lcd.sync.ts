@@ -32,8 +32,9 @@ export const lcdCreate: CreateComponent = (state, frame, draw) => {
       arduino,
       draw,
       ARDUINO_UNO_PINS.PIN_12,
-      '_5V_BOX'
+      'SCL_WIRE'
     );
+    lcdScreenEl.y(lcdScreenEl.y() + 30);
 
     return;
   }
@@ -41,27 +42,42 @@ export const lcdCreate: CreateComponent = (state, frame, draw) => {
   lcdScreenEl.addClass('component');
   lcdScreenEl.attr('id', id);
   lcdScreenEl.size(lcdScreenEl.width() * 1.5, lcdScreenEl.height() * 1.5);
-
   (lcdScreenEl as Svg).viewbox(0, 0, lcdScreenEl.width(), lcdScreenEl.height());
   positionComponent(
     lcdScreenEl,
     arduino,
     draw,
     ARDUINO_UNO_PINS.PIN_12,
-    '_5V_BOX'
+    'SCL_WIRE'
   );
+  lcdScreenEl.y(lcdScreenEl.y() + 30);
+
   (window as any).lcd = lcdScreenEl;
   (lcdScreenEl as any).draggable().on('dragmove', (e) => {
     updateWires(lcdScreenEl, draw, arduino as Svg);
   });
   centerLetters(lcdScreenEl, lcdState);
-  //clearLetters(lcdScreenEl, lcdState);
+  clearLetters(lcdScreenEl, lcdState);
   createWries(lcdScreenEl, ARDUINO_UNO_PINS.PIN_12, arduino as Svg, draw, id);
 };
 
 export const lcdUpdate: SyncComponent = (state, frame, draw) => {
   if (state.type !== ArduinoComponentType.LCD_SCREEN) {
     return;
+  }
+  const lcdState = state as LCDScreenState;
+  const id = componentToSvgId(lcdState);
+  let lcdScreenEl = draw.findOne('#' + id) as Element;
+  if (!lcdScreenEl) {
+    console.error('No LCD Screen Element');
+    return;
+  }
+  for (let row = 1; row <= lcdState.rows; row += 1) {
+    for (let col = 1; col <= lcdState.columns; col += 1) {
+      const letterEl = lcdScreenEl.findOne(`#letter-${col}-${row}`) as Element;
+      (letterEl as Text).node.innerHTML = lcdState.rowsOfText[row - 1][col - 1];
+      letterEl.cx(lcdState.rows === 4 ? 10 : 14); // 4 by 20 the squares are smaller
+    }
   }
 };
 
