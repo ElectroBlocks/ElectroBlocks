@@ -17,6 +17,21 @@ import {
   updateWires,
 } from '../wire';
 
+/**
+ * Timer for blinking
+ */
+let blinkingTimer;
+
+/**
+ * Blink Position
+ */
+let blinkPosition = { row: 0, col: 0 };
+
+/**
+ * If true it will go dark
+ */
+let isDarkBlinking = false;
+
 export const lcdCreate: CreateComponent = (state, frame, draw) => {
   if (state.type !== ArduinoComponentType.LCD_SCREEN) {
     return;
@@ -79,6 +94,36 @@ export const lcdUpdate: SyncComponent = (state, frame, draw) => {
       letterEl.cx(lcdState.rows === 4 ? 10 : 14); // 4 by 20 the squares are smaller
     }
   }
+  if (!lcdState.blink.blinking) {
+    const space = lcdScreenEl.findOne(
+      `#space-${blinkPosition.col}-${blinkPosition.row} rect`
+    ) as Element;
+
+    if (space) {
+      space.fill('#fff');
+    }
+    blinkPosition.row = 0;
+    blinkPosition.col = 0;
+    isDarkBlinking = false;
+    clearInterval(blinkingTimer);
+  }
+
+  if (lcdState.blink.blinking) {
+    const { row, column } = lcdState.blink;
+    if (blinkPosition.row !== row || blinkPosition.col !== column) {
+      clearInterval(blinkingTimer);
+      blinkPosition.row = row;
+      blinkPosition.col = column;
+      blinkingTimer = setInterval(() => {
+        (lcdScreenEl.findOne(
+          `#space-${blinkPosition.col}-${blinkPosition.row} rect`
+        ) as Element).fill(isDarkBlinking ? '#292827' : '#fff');
+        isDarkBlinking = !isDarkBlinking;
+      }, 500);
+    }
+  }
+
+  toggleDarkLightScreen(lcdScreenEl, lcdState);
 };
 
 const centerLetters = (lcdScreenEl: Element, lcdState: LCDScreenState) => {
@@ -104,6 +149,19 @@ const getSvgString = (state: LCDScreenState) => {
   }
 
   return lcd_16_2_svg;
+};
+
+const toggleDarkLightScreen = (
+  lcdScreenEl: Element,
+  lcdState: LCDScreenState
+) => {
+  for (let row = 1; row <= lcdState.rows; row += 1) {
+    for (let col = 1; col <= lcdState.columns; col += 1) {
+      (lcdScreenEl.findOne(`#space-${col}-${row} rect`) as Element).fill(
+        lcdState.backLightOn ? '#fff' : '#292827'
+      );
+    }
+  }
 };
 
 const createWries = (
