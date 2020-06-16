@@ -50,6 +50,7 @@ export const lcdCreate: CreateComponent = (state, frame, draw) => {
       'SCL_WIRE'
     );
     lcdScreenEl.y(lcdScreenEl.y() + 30);
+    updateWires(lcdScreenEl, draw, arduino as Svg);
 
     return;
   }
@@ -114,12 +115,15 @@ export const lcdUpdate: SyncComponent = (state, frame, draw) => {
       clearInterval(blinkingTimer);
       blinkPosition.row = row;
       blinkPosition.col = column;
-      blinkingTimer = setInterval(() => {
-        (lcdScreenEl.findOne(
-          `#space-${blinkPosition.col}-${blinkPosition.row} rect`
-        ) as Element).fill(isDarkBlinking ? '#292827' : '#fff');
-        isDarkBlinking = !isDarkBlinking;
-      }, 500);
+      const space = lcdScreenEl.findOne(
+        `#space-${blinkPosition.col}-${blinkPosition.row} rect`
+      ) as Element;
+      if (space) {
+        blinkingTimer = setInterval(() => {
+          space.fill(isDarkBlinking ? '#292827' : '#fff');
+          isDarkBlinking = !isDarkBlinking;
+        }, 500);
+      }
     }
   }
 
