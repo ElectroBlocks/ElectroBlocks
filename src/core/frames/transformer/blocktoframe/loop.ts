@@ -2,9 +2,9 @@ import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 import { getInputValue } from '../block-to-value.factories';
 import _ from 'lodash';
 import {
-  generateInputState,
-  arduinoStateByExplanation,
-  arduinoStateByVariable,
+  generateInputFrame,
+  arduinoFrameByExplanation,
+  arduinoFrameByVariable,
 } from '../frame-transformer.helpers';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import { Variable } from '../../arduino.frame';
@@ -24,7 +24,7 @@ export const simpleLoop: BlockToFrameTransformer = (
   return _.range(1, times + 1).reduce((prev, next) => {
     const beforeState = _.isEmpty(prev) ? previousState : prev[prev.length - 1];
 
-    const loopFrame = arduinoStateByExplanation(
+    const loopFrame = arduinoFrameByExplanation(
       block.id,
       block.blockName,
       timeline,
@@ -35,7 +35,7 @@ export const simpleLoop: BlockToFrameTransformer = (
     return [
       ...prev,
       loopFrame,
-      ...generateInputState(
+      ...generateInputFrame(
         block,
         blocks,
         variables,
@@ -93,7 +93,7 @@ export const forLoop: BlockToFrameTransformer = (
         value: i,
         type: VariableTypes.NUMBER,
       };
-      const loopFrame = arduinoStateByVariable(
+      const loopFrame = arduinoFrameByVariable(
         block.id,
         block.blockName,
         timeline,
@@ -103,7 +103,7 @@ export const forLoop: BlockToFrameTransformer = (
       );
       const states = [
         loopFrame,
-        ...generateInputState(
+        ...generateInputFrame(
           block,
           blocks,
           variables,

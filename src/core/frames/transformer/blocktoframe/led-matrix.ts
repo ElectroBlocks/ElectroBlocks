@@ -5,7 +5,7 @@ import { ArduinoComponentType, ArduinoFrame } from '../../arduino.frame';
 import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
 import { LedMatrixState } from '../../arduino-components.state';
 import {
-  arduinoStateByComponent,
+  arduinoFrameByComponent,
   findComponent,
   getDefaultIndexValue,
 } from '../frame-transformer.helpers';
@@ -42,7 +42,7 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,
@@ -98,7 +98,7 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,

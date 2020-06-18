@@ -1,7 +1,7 @@
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 import { TimeState } from '../../arduino-components.state';
 import { ArduinoComponentType } from '../../arduino.frame';
-import { arduinoStateByComponent } from '../frame-transformer.helpers';
+import { arduinoFrameByComponent } from '../frame-transformer.helpers';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 
 export const timeSetup: BlockToFrameTransformer = (
@@ -18,7 +18,7 @@ export const timeSetup: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,

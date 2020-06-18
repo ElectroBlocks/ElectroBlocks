@@ -3,7 +3,7 @@ import { MotionSensor } from '../../../blockly/dto/sensors.type';
 import { UltraSonicSensorState } from '../../arduino-components.state';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import { ArduinoComponentType } from '../../arduino.frame';
-import { arduinoStateByComponent } from '../frame-transformer.helpers';
+import { arduinoFrameByComponent } from '../frame-transformer.helpers';
 
 export const ultraSonicSensor: BlockToFrameTransformer = (
   blocks,
@@ -24,7 +24,7 @@ export const ultraSonicSensor: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,

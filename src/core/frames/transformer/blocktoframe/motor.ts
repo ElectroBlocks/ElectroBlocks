@@ -3,7 +3,7 @@ import { getInputValue } from '../block-to-value.factories';
 import {
   getDefaultIndexValue,
   findComponent,
-  arduinoStateByComponent,
+  arduinoFrameByComponent,
 } from '../frame-transformer.helpers';
 import { MotorState, MOTOR_DIRECTION } from '../../arduino-components.state';
 import { ArduinoFrame, ArduinoComponentType } from '../../arduino.frame';
@@ -36,7 +36,7 @@ export const moveMotor: BlockToFrameTransformer = (
   );
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,

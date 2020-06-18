@@ -53,11 +53,7 @@ const bluetoothState = (
   block: BlockData,
   timeline: Timeline
 ): BluetoothState => {
-  const sensorStates = JSON.parse(block.metaData) as BluetoothSensor[];
-
-  const btState = sensorStates.find(
-    (s) => s.loop === timeline.iteration
-  ) as BluetoothSensor;
+  const btState = findSensorState<BluetoothSensor>(block, timeline);
 
   return {
     type: ArduinoComponentType.BLUE_TOOTH,
@@ -82,11 +78,7 @@ const buttonData = (block: BlockData): ButtonSensor => {
 };
 
 const buttonState = (block: BlockData, timeline: Timeline): ButtonState => {
-  const sensorStates = JSON.parse(block.metaData) as ButtonSensor[];
-
-  const btState = sensorStates.find(
-    (s) => s.loop === timeline.iteration
-  ) as ButtonSensor;
+  const btState = findSensorState<ButtonSensor>(block, timeline);
 
   return {
     type: ArduinoComponentType.BUTTON,
@@ -105,11 +97,7 @@ const irRemoteData = (block: BlockData): IRRemoteSensor => {
 };
 
 const irRemoteState = (block: BlockData, timeline: Timeline): IRRemoteState => {
-  const sensorStates = JSON.parse(block.metaData) as IRRemoteSensor[];
-
-  const irRemoteData = sensorStates.find(
-    (s) => s.loop === timeline.iteration
-  ) as IRRemoteSensor;
+  const irRemoteData = findSensorState<IRRemoteSensor>(block, timeline);
 
   return {
     type: ArduinoComponentType.IR_REMOTE,
@@ -130,11 +118,7 @@ const digitalReadSetup = (block: BlockData): PinSensor => {
 
 const pinReadState = (pinType: PIN_TYPE) => {
   return (block: BlockData, timeline: Timeline) => {
-    const sensorStates = JSON.parse(block.metaData) as PinSensor[];
-
-    const pinSensor = sensorStates.find(
-      (s) => s.loop === timeline.iteration
-    ) as PinSensor;
+    const pinSensor = findSensorState<PinSensor>(block, timeline);
 
     const pictureType = findFieldValue(block, 'TYPE');
 
@@ -168,11 +152,7 @@ const rfidSetup = (block: BlockData): RFIDSensor => {
 };
 
 const rfidState = (block: BlockData, timeline): RfidState => {
-  const sensorStates = JSON.parse(block.metaData) as RFIDSensor[];
-
-  const rfidSensor = sensorStates.find(
-    (s) => s.loop === timeline.iteration
-  ) as RFIDSensor;
+  const rfidSensor = findSensorState<RFIDSensor>(block, timeline);
 
   return {
     type: ArduinoComponentType.RFID,
@@ -198,11 +178,7 @@ const tempSetup = (block: BlockData): TempSensor => {
 };
 
 const tempState = (block: BlockData, timeline: Timeline): TemperatureState => {
-  const sensorStates = JSON.parse(block.metaData) as TempSensor[];
-
-  const tempSensor = sensorStates.find(
-    (s) => s.loop === timeline.iteration
-  ) as TempSensor;
+  const tempSensor = findSensorState<TempSensor>(block, timeline);
 
   return {
     type: ArduinoComponentType.TEMPERATURE_SENSOR,
@@ -241,11 +217,7 @@ const ultraSonicState = (
   block: BlockData,
   timeline: Timeline
 ): UltraSonicSensorState => {
-  const sensorStates = JSON.parse(block.metaData) as MotionSensor[];
-
-  const ultraSensor = sensorStates.find(
-    (s) => s.loop === timeline.iteration
-  ) as MotionSensor;
+  const ultraSensor = findSensorState<MotionSensor>(block, timeline);
 
   return {
     type: ArduinoComponentType.ULTRASONICE_SENSOR,
@@ -263,11 +235,7 @@ const messageState = (
   block: BlockData,
   timeline: Timeline
 ): ArduinoReceiveMessageState => {
-  const sensorStates = JSON.parse(block.metaData) as BluetoothSensor[];
-
-  const btState = sensorStates.find(
-    (s) => s.loop === timeline.iteration
-  ) as BluetoothSensor;
+  const btState = findSensorState<BluetoothSensor>(block, timeline);
 
   return {
     type: ArduinoComponentType.MESSAGE,
@@ -275,6 +243,21 @@ const messageState = (
     hasMessage: btState.receiving_message,
     message: btState.message,
   };
+};
+
+const findSensorState = <S extends Sensor>(
+  block: BlockData,
+  timeline: Timeline
+): S => {
+  const sensorStates = JSON.parse(block.metaData) as S[];
+
+  return sensorStates.find((s) => {
+    return (
+      s.loop === timeline.iteration ||
+      ((timeline.function === 'pre-setup' || timeline.function === 'setup') &&
+        s.loop === 1)
+    );
+  }) as S;
 };
 
 const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {

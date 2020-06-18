@@ -8,7 +8,7 @@ import {
 } from '../../../blockly/dto/variable.type';
 import _ from 'lodash';
 import {
-  arduinoStateByVariable,
+  arduinoFrameByVariable,
   valueToString,
   getDefaultValueList,
 } from '../frame-transformer.helpers';
@@ -24,7 +24,7 @@ const createListState = (
   const newVariable = createVariable(block, variables, type);
 
   return [
-    arduinoStateByVariable(
+    arduinoFrameByVariable(
       block.id,
       block.blockName,
       timeline,
@@ -100,7 +100,7 @@ const setItemInList = (
   }" stores ${stringValue} at position ${position + 1}.`;
 
   return [
-    arduinoStateByVariable(
+    arduinoFrameByVariable(
       block.id,
       block.blockName,
       timeline,

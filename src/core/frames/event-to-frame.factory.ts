@@ -12,8 +12,9 @@ import _ from 'lodash';
 import {
   getLoopTimeFromBlockData,
   findArduinoLoopBlock,
+  findArduinoSetupBlock,
 } from '../blockly/helpers/block-data.helper';
-import { generateInputState } from './transformer/frame-transformer.helpers';
+import { generateInputFrame } from './transformer/frame-transformer.helpers';
 import { PinState, PIN_TYPE } from './arduino-components.state';
 import {
   sensorSetupBlockName,
@@ -33,14 +34,14 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
     preSetupBlockType.includes(b.type)
   );
 
-  const preSetupStates = preSetupBlocks.reduce((prevStates, block) => {
+  const frames: ArduinoFrame[] = preSetupBlocks.reduce((prevFrames, block) => {
     const previousState =
-      prevStates.length === 0
+      prevFrames.length === 0
         ? undefined
-        : _.cloneDeep(prevStates[prevStates.length - 1]);
+        : _.cloneDeep(prevFrames[prevFrames.length - 1]);
 
     return [
-      ...prevStates,
+      ...prevFrames,
       ...generateFrame(
         blocks,
         block,
@@ -51,38 +52,61 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
     ];
   }, []);
 
+  const arduinoSetupBlock = findArduinoSetupBlock(blocks);
+
+  const previousFrame = _.isEmpty(frames)
+    ? undefined
+    : frames[frames.length - 1];
+
+  const setupFrames = arduinoSetupBlock
+    ? generateInputFrame(
+        arduinoSetupBlock,
+        blocks,
+        event.variables,
+        { iteration: 0, function: 'setup' },
+        'setup',
+        getPreviousState(
+          blocks,
+          { iteration: 0, function: 'pre-setup' },
+          previousFrame
+        )
+      )
+    : [];
+
+  setupFrames.forEach((f) => frames.push(f));
+
   const arduinoLoopBlock = findArduinoLoopBlock(blocks);
   const loopTimes = getLoopTimeFromBlockData(blocks);
-  return _.range(1, loopTimes + 1).reduce((prevStates, loopTime) => {
+  return _.range(1, loopTimes + 1).reduce((prevFrames, loopTime) => {
     const timeLine: Timeline = { iteration: loopTime, function: 'loop' };
-    const previousState = _.isEmpty(prevStates)
+    const previousFrame = _.isEmpty(prevFrames)
       ? undefined
-      : prevStates[prevStates.length - 1];
+      : prevFrames[prevFrames.length - 1];
 
     return [
-      ...prevStates,
-      ...generateInputState(
+      ...prevFrames,
+      ...generateInputFrame(
         arduinoLoopBlock,
         blocks,
         event.variables,
         timeLine,
         'loop',
-        getPreviousState(blocks, timeLine, previousState)
+        getPreviousState(blocks, timeLine, previousFrame)
       ),
     ];
-  }, preSetupStates);
+  }, frames);
 };
 
 const getPreviousState = (
   blocks: BlockData[],
   timeline: Timeline,
-  previousState: ArduinoFrame = undefined
+  previousFrame: ArduinoFrame = undefined
 ): ArduinoFrame => {
-  if (previousState === undefined) {
+  if (previousFrame === undefined) {
     return undefined;
   }
 
-  const nonSensorComponent = (previousState as ArduinoFrame).components.filter(
+  const nonSensorComponent = (previousFrame as ArduinoFrame).components.filter(
     (c) => !isSensorComponent(c)
   );
   const sensorSetupBlocks = blocks.filter((b) =>
@@ -92,7 +116,7 @@ const getPreviousState = (
     ...nonSensorComponent,
     ...sensorSetupBlocks.map((b) => convertToState(b, timeline)),
   ];
-  return { ...previousState, components: newComponents };
+  return { ...previousFrame, components: newComponents };
 };
 
 const isSensorComponent = (component: ArduinoComponentState) => {

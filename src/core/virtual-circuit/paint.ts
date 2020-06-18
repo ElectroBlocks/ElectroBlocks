@@ -16,7 +16,7 @@ export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   (window as any).arduinoText = arduinoSVGText;
   (draw as any).zoom((0.5 / 650) * draw.width()); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
   arduino.y(draw.viewbox().y2 - arduino.height() + 20);
-  arduino.cx(draw.cx());
+  arduino.x((arduino.bbox().width / 3) * -1);
 
   resetBreadBoardWholes();
   hideAllWires(arduino);

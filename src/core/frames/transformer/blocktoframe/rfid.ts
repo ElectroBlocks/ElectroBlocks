@@ -2,7 +2,7 @@ import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 import { ArduinoComponentType } from '../../arduino.frame';
 import { RfidState } from '../../arduino-components.state';
 import { RFIDSensor } from '../../../blockly/dto/sensors.type';
-import { arduinoStateByComponent } from '../frame-transformer.helpers';
+import { arduinoFrameByComponent } from '../frame-transformer.helpers';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 
 export const rfidSetup: BlockToFrameTransformer = (
@@ -27,7 +27,7 @@ export const rfidSetup: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,

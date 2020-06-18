@@ -1,5 +1,5 @@
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { arduinoStateByExplanation } from '../frame-transformer.helpers';
+import { arduinoFrameByExplanation } from '../frame-transformer.helpers';
 
 export const debugBlock: BlockToFrameTransformer = (
   blocks,
@@ -9,7 +9,7 @@ export const debugBlock: BlockToFrameTransformer = (
   preivousState
 ) => {
   return [
-    arduinoStateByExplanation(
+    arduinoFrameByExplanation(
       block.id,
       block.blockName,
       timeline,

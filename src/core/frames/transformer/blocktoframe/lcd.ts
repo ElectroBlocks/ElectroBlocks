@@ -3,7 +3,7 @@ import { LCDScreenState } from '../../arduino-components.state';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import { ArduinoComponentType } from '../../arduino.frame';
 import {
-  arduinoStateByComponent,
+  arduinoFrameByComponent,
   getDefaultIndexValue,
   findComponent,
 } from '../frame-transformer.helpers';
@@ -37,7 +37,7 @@ export const lcdScreenSetup: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,
@@ -70,7 +70,7 @@ export const lcdBlink: BlockToFrameTransformer = (
     };
 
     return [
-      arduinoStateByComponent(
+      arduinoFrameByComponent(
         block.id,
         block.blockName,
         timeline,
@@ -107,7 +107,7 @@ export const lcdBlink: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,
@@ -147,7 +147,7 @@ export const lcdScroll: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,
@@ -223,7 +223,7 @@ export const lcdPrint: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,
@@ -262,7 +262,7 @@ export const lcdClear: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,
@@ -297,7 +297,7 @@ export const lcdBacklight: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,
@@ -370,7 +370,7 @@ export const lcdSimplePrint: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,
@@ -381,7 +381,7 @@ export const lcdSimplePrint: BlockToFrameTransformer = (
       false,
       delay * 1000
     ),
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,

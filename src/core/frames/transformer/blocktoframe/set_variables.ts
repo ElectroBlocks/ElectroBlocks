@@ -2,7 +2,7 @@ import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 import { Variable, Color } from '../../arduino.frame';
 import { VariableTypes } from '../../../blockly/dto/variable.type';
 import {
-  arduinoStateByVariable,
+  arduinoFrameByVariable,
   getDefaultValue,
   valueToString,
 } from '../frame-transformer.helpers';
@@ -42,7 +42,7 @@ export const setVariable: BlockToFrameTransformer = (
   )}.`;
 
   return [
-    arduinoStateByVariable(
+    arduinoFrameByVariable(
       block.id,
       block.blockName,
       timeline,

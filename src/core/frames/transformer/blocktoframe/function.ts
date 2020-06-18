@@ -1,7 +1,7 @@
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import {
-  arduinoStateByExplanation,
-  generateInputState,
+  arduinoFrameByExplanation,
+  generateInputFrame,
 } from '../frame-transformer.helpers';
 import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 
@@ -13,7 +13,7 @@ export const customBlock: BlockToFrameTransformer = (
   preivousState
 ) => {
   const functionName = findFieldValue(block, 'NAME');
-  const functionCallState = arduinoStateByExplanation(
+  const functionCallState = arduinoFrameByExplanation(
     block.id,
     block.blockName,
     timeline,
@@ -29,7 +29,7 @@ export const customBlock: BlockToFrameTransformer = (
 
   return [
     functionCallState,
-    ...generateInputState(
+    ...generateInputFrame(
       functionDefinitionBlock,
       blocks,
       variables,

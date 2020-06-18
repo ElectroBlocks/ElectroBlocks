@@ -19,20 +19,20 @@ import { Sensor } from '../../blockly/dto/sensors.type';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { MotorState } from '../arduino-components.state';
 
-export const arduinoStateByVariable = (
+export const arduinoFrameByVariable = (
   blockId: string,
   blockName: string,
   timeline: Timeline,
   newVariable: Variable,
   explanation: string,
-  previousState: ArduinoFrame = undefined,
+  previousFrame: ArduinoFrame = undefined,
   txLedOn = false,
   builtInLedOn = false,
   delay = 0
 ): ArduinoFrame => {
-  const variables = previousState ? _.cloneDeep(previousState.variables) : {};
+  const variables = previousFrame ? _.cloneDeep(previousFrame.variables) : {};
   variables[newVariable.name] = newVariable;
-  const components = previousState ? _.cloneDeep(previousState.components) : [];
+  const components = previousFrame ? _.cloneDeep(previousFrame.components) : [];
 
   return {
     blockId,
@@ -62,19 +62,19 @@ export const findBlockInput = (
   return findBlockById(blocks, input.blockId);
 };
 
-export const arduinoStateByExplanation = (
+export const arduinoFrameByExplanation = (
   blockId: string,
   blockName: string,
   timeline: Timeline,
   explanation: string,
-  previousState: ArduinoFrame = undefined,
+  previousFrame: ArduinoFrame = undefined,
   txLedOn = false,
   builtInLedOn = false,
   delay = 0
 ): ArduinoFrame => {
-  const components = previousState ? _.cloneDeep(previousState.components) : [];
+  const components = previousFrame ? _.cloneDeep(previousFrame.components) : [];
 
-  const variables = previousState ? { ...previousState.variables } : {};
+  const variables = previousFrame ? { ...previousFrame.variables } : {};
 
   return {
     blockId,
@@ -107,19 +107,19 @@ export const getDefaultIndexValue = (
   return index;
 };
 
-export const arduinoStateByComponent = (
+export const arduinoFrameByComponent = (
   blockId: string,
   blockName: string,
   timeline: Timeline,
   newComponent: ArduinoComponentState,
   explanation: string,
-  previousState: ArduinoFrame = undefined,
+  previousFrame: ArduinoFrame = undefined,
   txLedOn = false,
   builtInLedOn = false,
   delay = 0
 ): ArduinoFrame => {
-  const variables = previousState ? { ...previousState.variables } : {};
-  const previousComponents = previousState ? [...previousState.components] : [];
+  const variables = previousFrame ? { ...previousFrame.variables } : {};
+  const previousComponents = previousFrame ? [...previousFrame.components] : [];
 
   const components = [
     ...previousComponents.filter((c) => {
@@ -210,7 +210,7 @@ export const valueToString = (
   return value;
 };
 
-export const generateInputState = (
+export const generateInputFrame = (
   block: BlockData,
   blocks: BlockData[],
   variables: VariableData[],

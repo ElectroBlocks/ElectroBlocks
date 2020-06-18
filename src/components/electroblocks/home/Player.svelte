@@ -18,6 +18,9 @@
     // If we are starting out with set to first frame.
     if (frames.length === 0 || !currentFrame) {
       frameNumber = 0;
+      if (frames.length > 0) {
+        currentFrameStore.set(frames[frameNumber]);
+      }
       return;
     }
 

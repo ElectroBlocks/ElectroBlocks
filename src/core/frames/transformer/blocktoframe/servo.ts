@@ -2,7 +2,7 @@ import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 import {
   getDefaultIndexValue,
   findComponent,
-  arduinoStateByComponent,
+  arduinoFrameByComponent,
 } from '../frame-transformer.helpers';
 import { getInputValue } from '../block-to-value.factories';
 import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
@@ -38,7 +38,7 @@ export const servoRotate: BlockToFrameTransformer = (
   );
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,

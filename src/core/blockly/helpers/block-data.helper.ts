@@ -9,6 +9,10 @@ export const findArduinoLoopBlock = (blocks: BlockData[]) => {
   return blocks.find((block) => block.blockName == 'arduino_loop');
 };
 
+export const findArduinoSetupBlock = (blocks: BlockData[]) => {
+  return blocks.find((block) => block.blockName == 'arduino_setup');
+};
+
 export const findBlockById = (blocks: BlockData[], blockId: string) => {
   return blocks.find((b) => b.id === blockId);
 };

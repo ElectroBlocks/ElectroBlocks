@@ -7,7 +7,7 @@ import {
 } from '../../arduino-components.state';
 import { ArduinoComponentType } from '../../arduino.frame';
 import { PinSensor } from '../../../blockly/dto/sensors.type';
-import { arduinoStateByComponent } from '../frame-transformer.helpers';
+import { arduinoFrameByComponent } from '../frame-transformer.helpers';
 
 export const setupReadPin: BlockToFrameTransformer = (
   blocks,
@@ -36,7 +36,7 @@ export const setupReadPin: BlockToFrameTransformer = (
   };
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,

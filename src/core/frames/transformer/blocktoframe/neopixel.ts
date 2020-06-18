@@ -3,7 +3,7 @@ import { ArduinoComponentType } from '../../arduino.frame';
 import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
 import _ from 'lodash';
 import {
-  arduinoStateByComponent,
+  arduinoFrameByComponent,
   findComponent,
   getDefaultIndexValue,
 } from '../frame-transformer.helpers';
@@ -35,7 +35,7 @@ export const neoPixelSetup: BlockToFrameTransformer = (
     }),
   };
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,
@@ -83,7 +83,7 @@ export const setNeoPixelColor: BlockToFrameTransformer = (
   const newComponent = _.cloneDeep(neoPixel);
 
   return [
-    arduinoStateByComponent(
+    arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,

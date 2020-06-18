@@ -5,7 +5,7 @@ import { PinState, PinPicture, PIN_TYPE } from '../../arduino-components.state';
 
 import _ from 'lodash';
 import { ArduinoComponentType, ArduinoFrame } from '../../arduino.frame';
-import { arduinoStateByComponent } from '../frame-transformer.helpers';
+import { arduinoFrameByComponent } from '../frame-transformer.helpers';
 import { getInputValue } from '../block-to-value.factories';
 
 export const analogWrite = (
@@ -39,7 +39,7 @@ export const analogWrite = (
     } to ${state}.`;
 
     return [
-      arduinoStateByComponent(
+      arduinoFrameByComponent(
         block.id,
         block.blockName,
         timeline,
@@ -68,7 +68,7 @@ export const digitalWrite = (pinPicture: PinPicture) => {
     const explanation = `Turn ${pinWord} ${pin} ${state === 1 ? 'on' : 'off'}.`;
 
     return [
-      arduinoStateByComponent(
+      arduinoFrameByComponent(
         block.id,
         block.blockName,
         timeline,
