@@ -46,6 +46,15 @@
   .color {
     background-color: #fff;
   }
+  .color-item {
+    padding: 5px;
+    margin-left: 5px;
+    display: inline-block;
+    margin-top: 5px;
+  }
+  .color-list-name-equal {
+    display: inline-block;
+  }
 </style>
 
 <div class="debugger" class:open={variables.length > 0} id="debugger">
@@ -67,6 +76,24 @@
             style="border-bottom: {rgbToHex(variable.value)} solid 2px;">
             {variable.name} = (r={variable.value.red},g={variable.value.green},b={variable.value.blue})
           </span>
+        </li>
+      {/if}
+      {#if 'List Colour' === variable.type}
+        <li>
+          <span class="color-list-name-equal">{variable.name} =</span>
+          {#each variable.value as color, i}
+            {#if color}
+              <span
+                class="color-item"
+                style="border: solid {rgbToHex(color)} 4px;">
+                {i + 1}
+              </span>
+            {:else}
+              <span class="color-item" style="border: dotted gray 4px;">
+                {i + 1}
+              </span>
+            {/if}
+          {/each}
         </li>
       {/if}
     {/each}
