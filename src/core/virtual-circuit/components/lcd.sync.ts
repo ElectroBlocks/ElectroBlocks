@@ -32,7 +32,7 @@ let blinkPosition = { row: 0, col: 0 };
  */
 let isDarkBlinking = false;
 
-export const lcdCreate: CreateComponent = (state, frame, draw) => {
+export const lcdCreate: CreateComponent = (state, frame, draw, showArduino) => {
   if (state.type !== ArduinoComponentType.LCD_SCREEN) {
     return;
   }
@@ -57,6 +57,8 @@ export const lcdCreate: CreateComponent = (state, frame, draw) => {
   lcdScreenEl = draw.svg(getSvgString(lcdState)).last();
   lcdScreenEl.addClass('component');
   lcdScreenEl.attr('id', id);
+  lcdScreenEl.data('component-type', state.type);
+
   lcdScreenEl.size(lcdScreenEl.width() * 1.5, lcdScreenEl.height() * 1.5);
   (lcdScreenEl as Svg).viewbox(0, 0, lcdScreenEl.width(), lcdScreenEl.height());
   positionComponent(

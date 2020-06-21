@@ -12,7 +12,6 @@
     padding: 2em;
     margin: 0 auto;
     box-sizing: border-box;
-    border: green solid 2px;
   }
 </style>
 

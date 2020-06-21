@@ -6,23 +6,29 @@ import { createComponents } from './svg.component';
 import { resetBreadBoardWholes } from './wire';
 import { componentToSvgId } from './svg-helpers';
 
-export default (draw: Svg, frame: ArduinoFrame = undefined) => {
+export default (
+  draw: Svg,
+  frame: ArduinoFrame = undefined,
+  showArduino = true
+) => {
   const arduino = findOrCreateArduino(draw);
 
-  arduino.node.id = 'arduino_main_svg';
-  arduino.findOne('#MESSAGE').hide();
-  (window as any).arduino = arduino;
-  (window as any).draw = draw;
-  (window as any).arduinoText = arduinoSVGText;
-  (draw as any).zoom((0.5 / 650) * draw.width()); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
-  arduino.y(draw.viewbox().y2 - arduino.height() + 20);
-  arduino.x((arduino.bbox().width / 3) * -1);
+  if (showArduino) {
+    resetBreadBoardWholes();
+    hideAllWires(arduino);
+  }
 
-  resetBreadBoardWholes();
-  hideAllWires(arduino);
+  if (!showArduino) {
+    arduino.remove();
+  }
+
   console.log(frame, 'did state exist');
   if (frame) {
-    createComponents(frame, draw);
+    createComponents(frame, draw, showArduino);
+  }
+
+  if (showArduino && frame) {
+    const arduino = findOrCreateArduino(draw);
     frame.components
       .flatMap((b) => b.pins)
       .forEach((wire) => showWire(arduino, wire));
@@ -38,7 +44,16 @@ const findOrCreateArduino = (draw: Svg) => {
     return arduino;
   }
 
-  arduino = draw.svg(arduinoSVGText).first() as Element | Svg;
+  draw.svg(arduinoSVGText);
+  arduino = draw.findOne('#Layer_1') as Element;
+  arduino.node.id = 'arduino_main_svg';
+  arduino.findOne('#MESSAGE').hide();
+  (window as any).arduino = arduino;
+  (window as any).draw = draw;
+  (window as any).arduinoText = arduinoSVGText;
+  (draw as any).zoom((0.5 / 650) * draw.width()); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
+  arduino.y(draw.viewbox().y2 - arduino.height() + 20);
+  arduino.x((arduino.bbox().width / 3) * -1);
 
   return arduino;
 };

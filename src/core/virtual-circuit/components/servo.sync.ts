@@ -1,4 +1,8 @@
-import { SyncComponent, CreateComponent } from '../svg.component';
+import {
+  SyncComponent,
+  CreateComponent,
+  ResetComponent,
+} from '../svg.component';
 import { ArduinoComponentType } from '../../frames/arduino.frame';
 import { ServoState } from '../../frames/arduino-components.state';
 import { componentToSvgId, findSvgElement } from '../svg-helpers';
@@ -13,22 +17,38 @@ import {
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { positionComponent } from '../svg-position';
 
-export const servoUpdate: SyncComponent = (state, _, draw) => {
+export const servoReset: ResetComponent = (servoEl) => {
+  if (servoEl.data('component-type') === ArduinoComponentType.SERVO) {
+    setDegrees(servoEl, 0);
+    setText(servoEl, 0);
+  }
+};
+
+export const servoUpdate: SyncComponent = (state, frame, draw) => {
   if (state.type !== ArduinoComponentType.SERVO) {
+    // wait for the state
     return;
   }
+
   const servoState = state as ServoState;
   const id = componentToSvgId(servoState);
   let servoEl = draw.find('#' + id).pop();
+
   if (!servoEl) {
     return;
   }
+
   setDegrees(servoEl, servoState.degree);
 
-  setText(servoEl, servoState);
+  setText(servoEl, servoState.degree);
 };
 
-export const servoCreate: CreateComponent = (state, _, draw) => {
+export const servoCreate: CreateComponent = (
+  state,
+  frame,
+  draw,
+  showArduino
+) => {
   if (state.type !== ArduinoComponentType.SERVO) {
     return;
   }
@@ -37,11 +57,32 @@ export const servoCreate: CreateComponent = (state, _, draw) => {
   const id = componentToSvgId(servoState);
   const pin = state.pins[0];
   let servoEl = draw.find('#' + id).pop();
+
+  if (servoEl && !showArduino) {
+    draw
+      .find('line')
+      .filter((w) => w.data('component-id') === id)
+      .forEach((w) => w.remove());
+    setDegrees(servoEl, 0);
+    setText(servoEl, 0);
+
+    return;
+  }
+
   const arduino = draw.findOne('#arduino_main_svg') as Element;
 
-  if (servoEl) {
+  if (servoEl && showArduino) {
+    const wiresExist = draw.find(`[component-id=${id}]`).length > 0;
+
+    if (!wiresExist) {
+      createWires(servoEl, pin, arduino as Svg, draw, id);
+    }
+
     positionComponent(servoEl, arduino, draw, pin, 'DATA_BOX');
     updateWires(servoEl, draw, arduino as Svg);
+    setDegrees(servoEl, 0);
+    setText(servoEl, 0);
+
     return;
   }
 
@@ -49,17 +90,17 @@ export const servoCreate: CreateComponent = (state, _, draw) => {
   servoEl.addClass('component');
   servoEl.attr('id', id);
   servoEl.findOne('#HELPER_TEXT').hide();
+  servoEl.data('component-type', state.type);
   (servoEl as Svg).viewbox(0, 0, servoEl.width(), servoEl.height());
   servoEl.attr('degrees', 0);
+
+  if (!arduino) {
+    servoEl.y(300);
+    servoEl.x(-100);
+    // (draw as any).zoom(2);
+  }
   (window as any).servoEl = servoEl;
   setServoPinText(servoEl, state as ServoState);
-
-  positionComponent(servoEl, arduino, draw, pin, 'DATA_BOX');
-  createWires(servoEl, pin, arduino as Svg, draw, id);
-
-  (servoEl as any).draggable().on('dragmove', () => {
-    updateWires(servoEl, draw, arduino as Svg);
-  });
 
   unHighlightAllPins(servoEl);
   servoEl.findOne('#GND_BOX').addClass('wire-connection');
@@ -102,6 +143,20 @@ export const servoCreate: CreateComponent = (state, _, draw) => {
     unHighlightAllPins(servoEl);
     servoEl.findOne('#HELPER_TEXT').hide();
   });
+
+  if (showArduino) {
+    positionComponent(servoEl, arduino, draw, pin, 'DATA_BOX');
+    createWires(servoEl, pin, arduino as Svg, draw, id);
+  }
+
+  (servoEl as any).draggable().on('dragmove', () => {
+    if (showArduino) {
+      updateWires(servoEl, draw, arduino as Svg);
+    }
+  });
+
+  setDegrees(servoEl, 0);
+  setText(servoEl, 0);
 };
 
 const showToolTip = (servoEl: Element, wireType: string) => {
@@ -130,10 +185,10 @@ const setServoPinText = (servoEl: Element, servoState: ServoState) => {
   servoName.cx(20);
 };
 
-const setText = (servoEl: Element, servoState: ServoState) => {
+const setText = (servoEl: Element, degrees: number) => {
   const degreeText = servoEl.findOne('#degrees') as Text;
 
-  degreeText.node.textContent = `${servoState.degree}˚`;
+  degreeText.node.textContent = `${degrees}˚`;
   degreeText.cx(40);
 
   servoEl.findOne('title').node.innerHTML = 'Servo';

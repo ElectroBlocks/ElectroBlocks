@@ -29,7 +29,9 @@
   });
 
   function navigateToClosestTimeline(timeLine) {
-    if (timeLine.function !== "loop") {
+    console.log(timeLine, "timeline used for find closest frame");
+    // If the loop times = 1 then just set it back to the beginning
+    if (timeLine.function !== "loop" || timeLine.iteration <= 1) {
       return 0;
     }
 

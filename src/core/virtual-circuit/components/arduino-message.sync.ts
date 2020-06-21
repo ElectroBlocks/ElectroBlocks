@@ -38,12 +38,19 @@ export const arduinoMessageUpdate: SyncComponent = (state, frame, draw) => {
   );
 };
 
-export const arduinoMessageCreate: CreateComponent = (state, frame, draw) => {
+export const arduinoMessageCreate: CreateComponent = (
+  state,
+  frame,
+  draw,
+  showArduino
+) => {
   if (state.type !== ArduinoComponentType.MESSAGE) {
     return;
   }
   const arduino = draw.findOne('#arduino_main_svg');
-  arduino.findOne('#MESSAGE').show();
+  if (arduino) {
+    arduino.findOne('#MESSAGE').show();
+  }
 };
 
 const getMessage = (sendMessage: string, receiveMessage: string) => {

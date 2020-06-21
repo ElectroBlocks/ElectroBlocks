@@ -12,13 +12,16 @@ export default (draw: Svg, frame: ArduinoFrame = undefined) => {
     syncComponents(frame, draw);
   }
   const arduino = findSvgElement('arduino_main_svg', draw);
-  // BUILT IN LED ID BELOW
-  // TODO BUILT IN LED
-  findSvgElement('TX_LED', arduino as Svg).fill(
-    frame.sendMessage.length > 0 ? LED_COLORS.LED_ON : LED_COLORS.LED_OFF
-  );
 
-  findSvgElement('BUILT_IN_LED', arduino as Svg).fill(
-    frame.builtInLedOn ? LED_COLORS.LED_ON : LED_COLORS.LED_OFF
-  );
+  if (arduino) {
+    // BUILT IN LED ID BELOW
+    // TODO BUILT IN LED
+    findSvgElement('TX_LED', arduino as Svg).fill(
+      frame.sendMessage.length > 0 ? LED_COLORS.LED_ON : LED_COLORS.LED_OFF
+    );
+
+    findSvgElement('BUILT_IN_LED', arduino as Svg).fill(
+      frame.builtInLedOn ? LED_COLORS.LED_ON : LED_COLORS.LED_OFF
+    );
+  }
 };

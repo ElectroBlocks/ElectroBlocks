@@ -57,7 +57,12 @@ export const bluetoothUpdate: SyncComponent = (state, frame, draw) => {
   textBubble.hide();
 };
 
-export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
+export const bluetoothCreate: CreateComponent = (
+  state,
+  frame,
+  draw,
+  showArduino
+) => {
   if (state.type !== ArduinoComponentType.BLUE_TOOTH) {
     return;
   }
@@ -81,6 +86,8 @@ export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
 
   bluetoothEl = draw.svg(bluetoothSvg).last();
   bluetoothEl.addClass('component');
+  bluetoothEl.data('component-type', state.type);
+
   bluetoothEl.attr('id', id);
   (bluetoothEl as Svg).viewbox(0, 0, bluetoothEl.width(), bluetoothEl.height());
   (window as any).bluetooth = bluetoothEl;

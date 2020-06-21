@@ -57,7 +57,7 @@
   }
 </style>
 
-<div class="debugger" class:open={variables.length > 0} id="debugger">
+<div class="debugger" class:open={variables.length > 0 && show} id="debugger">
   <ul>
     {#each variables as variable}
       {#if ['Number', 'Boolean'].includes(variable.type)}

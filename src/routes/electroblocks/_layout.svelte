@@ -17,7 +17,6 @@
   let showLoopExecutionTimesArduinoStartBlock: boolean;
   $: showLoopExecutionTimesArduinoStartBlock = _.isEmpty(segment);
 
-  
   let height = "500px";
   let leftFlex = 49;
   let rightFlex = 49;
@@ -82,7 +81,8 @@
   main {
     width: 100%;
     display: flex;
-    border: solid maroon 3px;
+    box-sizing: border-box; /** */
+    overflow: hidden;
   }
 
   /** div used to resize both items */
