@@ -39,7 +39,7 @@ const defaultToolbox: ToolBoxEntries[] = [
   { name: 'Text', show: true },
   { name: 'Bluetooth', show: true },
   { name: 'Buttons', show: true },
-  { name: 'Debug', show: true },
+  { name: 'Code', show: true },
   { name: 'Message', show: true },
   { name: 'Analog', show: true },
   { name: 'Digital', show: true },

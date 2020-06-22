@@ -9,6 +9,7 @@ import { theme } from './theme';
 
 import registerListeners from './registerEvents';
 import registerListMenu from './menu/list.menu';
+import registerCodeMenu from './menu/code.menu';
 
 import getToolBoxString from './toolbox/getToolBoxString';
 import { fetchToolBox } from './toolbox/toolbox';
@@ -30,6 +31,9 @@ const startBlockly = (blocklyElement: HTMLElement) => {
 
   // Setups all the listeners for the blockly events
   registerListeners(workspace);
+
+  // Registers the code menu
+  registerCodeMenu(workspace);
 };
 
 /**

@@ -9,20 +9,6 @@ const settings =
 // creates the store
 const settingsStore = writable(settings);
 
-// Updates the store to show the arduino setup block
-const showSetupBlock = () => {
-  settingsStore.update((settings) => {
-    return { ...settings, showSetupBlock: true };
-  });
-};
-
-// Updates the store to hide the arduino setup block
-const hideSetupBlock = () => {
-  settingsStore.update((settings) => {
-    return { ...settings, showSetupBlock: false };
-  });
-};
-
 // updates local store with the new settings
 settingsStore.subscribe((settings) => {
   if (is_browser()) {
@@ -32,6 +18,4 @@ settingsStore.subscribe((settings) => {
 
 export default {
   subscribe: settingsStore.subscribe,
-  showSetupBlock,
-  hideSetupBlock,
 };

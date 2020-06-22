@@ -212,10 +212,8 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   toolbox += `
   <category name="Arduino" colour="${COLOR_THEME.ARDUINO}">`;
 
-  if (showToolBoxOption('Debug', toolboxOptions)) {
-    toolbox += `<category name="Debug" colour="${COLOR_THEME.ARDUINO}">
-  <block type="debug_block"></block>
-  </category>`;
+  if (showToolBoxOption('Code', toolboxOptions)) {
+    toolbox += `<category name="Code" colour="${COLOR_THEME.ARDUINO}" custom="CODE"></category>`;
   }
 
   if (showToolBoxOption('Message', toolboxOptions)) {

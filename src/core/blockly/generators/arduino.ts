@@ -1,6 +1,6 @@
 import Blockly from 'blockly';
 import _ from 'lodash';
-import { doesArduinoSetupBlockExist } from '../helpers/arduino_setup_block.helper';
+import { getBlockByType } from '../helpers/block.helper';
 
 /**
  * Arduino code generator.
@@ -60,7 +60,7 @@ Blockly['Arduino'].ORDER_NONE = 99; // (...)
  * Initialise the database of variable names.
  * @param {!Blockly.Workspace} workspace Workspace to generate code from.
  */
-Blockly['Arduino'].init = function(workspace) {
+Blockly['Arduino'].init = function (workspace) {
   // Create a dictionary of definitions to be printed before the code.
   Blockly['Arduino'].libraries_ = Object.create(null);
 
@@ -145,7 +145,7 @@ Blockly['Arduino'].init = function(workspace) {
  * @param {string} code Generated code.
  * @return {string} Completed code.
  */
-Blockly['Arduino'].finish = function(code) {
+Blockly['Arduino'].finish = function (code) {
   let libraryCode = '';
   let functionsCode = '';
   let devVariables = 'int simple_loop_variable = 0; \n';
@@ -172,7 +172,11 @@ Blockly['Arduino'].finish = function(code) {
 
   let setupCode = '';
 
-  if (!doesArduinoSetupBlockExist()) {
+  // If the setup block does not exist and the setup function is still required.
+  if (
+    getBlockByType('arduino_setup') === undefined &&
+    !_.isEmpty(Blockly['Arduino'].setupCode_)
+  ) {
     let preSetupCode = '';
 
     for (const key in Blockly['Arduino'].setupCode_) {
@@ -215,7 +219,7 @@ Blockly['Arduino'].finish = function(code) {
  * @param {string} line Line of generated code.
  * @return {string} Legal line of code.
  */
-Blockly['Arduino'].scrubNakedValue = function(line) {
+Blockly['Arduino'].scrubNakedValue = function (line) {
   return line + ';\n';
 };
 
@@ -226,7 +230,7 @@ Blockly['Arduino'].scrubNakedValue = function(line) {
  * @return {string} Arduino string.
  * @private
  */
-Blockly['Arduino'].quote_ = function(string) {
+Blockly['Arduino'].quote_ = function (string) {
   // Can't use goog.string.quote since Google's style guide recommends
   // JS string literals use single quotes.
   string = string
@@ -246,7 +250,7 @@ Blockly['Arduino'].quote_ = function(string) {
  * @return {string} Arduino code with comments and subsequent blocks added.
  * @private
  */
-Blockly['Arduino'].scrub_ = function(block, code) {
+Blockly['Arduino'].scrub_ = function (block, code) {
   let commentCode = '';
   // Only collect comments for blocks that aren't inline.
   if (!block.outputConnection || !block.outputConnection.targetConnection) {

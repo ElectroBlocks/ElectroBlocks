@@ -3,7 +3,6 @@
   import { onMount } from "svelte";
 
   import { WindowType, resizeStore } from "../../stores/resize.store";
-  import settingsStore from "../../stores/settings.store";
   import startBlocly from "../../core/blockly/startBlockly";
   import currentFrameStore from "../../stores/currentFrame.store";
 
@@ -11,11 +10,6 @@
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop
   } from "../../core/blockly/helpers/arduino_loop_block.helper";
-
-  import {
-    showArduinoSetupBlock,
-    removeArduinoSetupBlock
-  } from "../../core/blockly/helpers/arduino_setup_block.helper";
 
   import { getBlockById } from "../../core/blockly/helpers/block.helper";
 
@@ -55,15 +49,6 @@
       }
       (window as any).selectedBlock = getBlockById(frame.blockId);
       getBlockById(frame.blockId).select();
-    });
-
-    // We don't have to unsubscribe because this block is always visible
-    settingsStore.subscribe(settings => {
-      if (settings.showSetupBlock) {
-        showArduinoSetupBlock();
-        return;
-      }
-      removeArduinoSetupBlock();
     });
   });
 
