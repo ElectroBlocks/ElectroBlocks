@@ -41,7 +41,7 @@ export const lcdCreate: CreateComponent = (state, frame, draw, showArduino) => {
   let lcdScreenEl = draw.findOne('#' + id) as Element;
   const arduino = draw.findOne('#arduino_main_svg') as Element;
 
-  if (lcdScreenEl) {
+  if (lcdScreenEl && showArduino) {
     positionComponent(
       lcdScreenEl,
       arduino,
@@ -49,34 +49,58 @@ export const lcdCreate: CreateComponent = (state, frame, draw, showArduino) => {
       ARDUINO_UNO_PINS.PIN_12,
       'SCL_WIRE'
     );
-    lcdScreenEl.y(lcdScreenEl.y() + 30);
+    lcdScreenEl.findOne('#WIRES').show();
+    (lcdScreenEl as any).draggable().on('dragmove', (e) => {
+      updateWires(lcdScreenEl, draw, arduino as Svg);
+    });
+    arduino.y(arduino.y() + 70);
+    lcdScreenEl.y(lcdScreenEl.y() + 110);
+    createWries(lcdScreenEl, ARDUINO_UNO_PINS.PIN_12, arduino as Svg, draw, id);
     updateWires(lcdScreenEl, draw, arduino as Svg);
 
     return;
   }
+
+  if (lcdScreenEl && !showArduino) {
+    lcdScreenEl.findOne('#WIRES').hide();
+    draw
+      .find('line')
+      .filter((w) => w.data('component-id') === id)
+      .forEach((w) => w.remove());
+    centerLetters(lcdScreenEl, lcdState);
+    clearLetters(lcdScreenEl, lcdState);
+
+    return;
+  }
+
   lcdScreenEl = draw.svg(getSvgString(lcdState)).last();
   lcdScreenEl.addClass('component');
   lcdScreenEl.attr('id', id);
   lcdScreenEl.data('component-type', state.type);
-
   lcdScreenEl.size(lcdScreenEl.width() * 1.5, lcdScreenEl.height() * 1.5);
   (lcdScreenEl as Svg).viewbox(0, 0, lcdScreenEl.width(), lcdScreenEl.height());
-  positionComponent(
-    lcdScreenEl,
-    arduino,
-    draw,
-    ARDUINO_UNO_PINS.PIN_12,
-    'SCL_WIRE'
-  );
-  lcdScreenEl.y(lcdScreenEl.y() + 30);
+
+  if (showArduino) {
+    positionComponent(
+      lcdScreenEl,
+      arduino,
+      draw,
+      ARDUINO_UNO_PINS.PIN_12,
+      'SCL_WIRE'
+    );
+    (lcdScreenEl as any).draggable().on('dragmove', (e) => {
+      updateWires(lcdScreenEl, draw, arduino as Svg);
+    });
+    createWries(lcdScreenEl, ARDUINO_UNO_PINS.PIN_12, arduino as Svg, draw, id);
+  } else {
+    lcdScreenEl.findOne('#WIRES').hide();
+    lcdScreenEl.y(100);
+  }
 
   (window as any).lcd = lcdScreenEl;
-  (lcdScreenEl as any).draggable().on('dragmove', (e) => {
-    updateWires(lcdScreenEl, draw, arduino as Svg);
-  });
+
   centerLetters(lcdScreenEl, lcdState);
   clearLetters(lcdScreenEl, lcdState);
-  createWries(lcdScreenEl, ARDUINO_UNO_PINS.PIN_12, arduino as Svg, draw, id);
 };
 
 export const lcdUpdate: SyncComponent = (state, frame, draw) => {
