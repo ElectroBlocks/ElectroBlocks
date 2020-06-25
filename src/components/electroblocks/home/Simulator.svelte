@@ -85,6 +85,6 @@
   <SimDebugger show={showDebugger} />
   <div id="controls">
     <ToggleSwitch bind:checked={showArduino} label="Show Arduino" />
-    <ToggleSwitch bind:checked={showDebugger} label="Show Debugger" />
+    <ToggleSwitch bind:checked={showDebugger} label="Show Variables" />
   </div>
 </div>

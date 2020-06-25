@@ -42,6 +42,11 @@ export const lcdCreate: CreateComponent = (state, frame, draw, showArduino) => {
   const arduino = draw.findOne('#arduino_main_svg') as Element;
 
   if (lcdScreenEl && showArduino) {
+    lcdScreenEl.findOne('#WIRES').show();
+    (lcdScreenEl as any).draggable().on('dragmove', (e) => {
+      updateWires(lcdScreenEl, draw, arduino as Svg);
+    });
+    arduino.y(draw.viewbox().y2 - arduino.height() + 70);
     positionComponent(
       lcdScreenEl,
       arduino,
@@ -49,12 +54,8 @@ export const lcdCreate: CreateComponent = (state, frame, draw, showArduino) => {
       ARDUINO_UNO_PINS.PIN_12,
       'SCL_WIRE'
     );
-    lcdScreenEl.findOne('#WIRES').show();
-    (lcdScreenEl as any).draggable().on('dragmove', (e) => {
-      updateWires(lcdScreenEl, draw, arduino as Svg);
-    });
-    arduino.y(arduino.y() + 70);
-    lcdScreenEl.y(lcdScreenEl.y() + 110);
+    lcdScreenEl.y(lcdScreenEl.y() - 30);
+
     createWries(lcdScreenEl, ARDUINO_UNO_PINS.PIN_12, arduino as Svg, draw, id);
     updateWires(lcdScreenEl, draw, arduino as Svg);
 
@@ -77,10 +78,11 @@ export const lcdCreate: CreateComponent = (state, frame, draw, showArduino) => {
   lcdScreenEl.addClass('component');
   lcdScreenEl.attr('id', id);
   lcdScreenEl.data('component-type', state.type);
-  lcdScreenEl.size(lcdScreenEl.width() * 1.5, lcdScreenEl.height() * 1.5);
   (lcdScreenEl as Svg).viewbox(0, 0, lcdScreenEl.width(), lcdScreenEl.height());
 
   if (showArduino) {
+    arduino.y(draw.viewbox().y2 - arduino.height() + 70);
+
     positionComponent(
       lcdScreenEl,
       arduino,
@@ -88,6 +90,9 @@ export const lcdCreate: CreateComponent = (state, frame, draw, showArduino) => {
       ARDUINO_UNO_PINS.PIN_12,
       'SCL_WIRE'
     );
+
+    lcdScreenEl.y(lcdScreenEl.y() - 30);
+
     (lcdScreenEl as any).draggable().on('dragmove', (e) => {
       updateWires(lcdScreenEl, draw, arduino as Svg);
     });
