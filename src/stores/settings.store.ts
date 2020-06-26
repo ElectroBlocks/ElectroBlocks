@@ -4,7 +4,7 @@ import is_browser from '../helpers/is_browser';
 const settings =
   is_browser() && localStorage.getItem('settings')
     ? JSON.parse(localStorage.getItem('settings'))
-    : { showSetupBlock: false };
+    : { showArduino: true };
 
 // creates the store
 const settingsStore = writable(settings);
@@ -16,6 +16,14 @@ settingsStore.subscribe((settings) => {
   }
 });
 
+const showArduino = (show: boolean) => {
+  settingsStore.update((settings) => {
+    settings['showArduino'] = show;
+    return settings;
+  });
+};
+
 export default {
   subscribe: settingsStore.subscribe,
+  showArduino,
 };

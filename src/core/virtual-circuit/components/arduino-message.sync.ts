@@ -11,6 +11,10 @@ export const arduinoMessageUpdate: SyncComponent = (state, frame, draw) => {
   const messageState = state as ArduinoReceiveMessageState;
   const arduino = draw.findOne('#arduino_main_svg');
 
+  if (!arduino) {
+    return;
+  }
+
   if (!messageState.hasMessage) {
     arduino.findOne('#MESSAGE').hide();
     findSvgElement('RX_LED', arduino as Svg).fill(LED_COLORS.LED_OFF);

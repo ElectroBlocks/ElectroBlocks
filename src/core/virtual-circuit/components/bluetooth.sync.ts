@@ -72,7 +72,7 @@ export const bluetoothCreate: CreateComponent = (
   const id = componentToSvgId(bluetoothState);
   let bluetoothEl = draw.findOne('#' + id) as Element;
   const arduino = draw.findOne('#arduino_main_svg') as Element;
-  if (bluetoothEl) {
+  if (bluetoothEl && showArduino) {
     positionComponent(
       bluetoothEl,
       arduino,
@@ -80,7 +80,24 @@ export const bluetoothCreate: CreateComponent = (
       bluetoothState.txPin,
       'WIRE_TX'
     );
+    createWires(
+      bluetoothEl,
+      arduino,
+      draw,
+      bluetoothState.rxPin,
+      bluetoothState.txPin,
+      id
+    );
     updateWires(bluetoothEl, draw, arduino as Svg);
+    return;
+  }
+
+  if (bluetoothEl && !showArduino) {
+    draw
+      .find('line')
+      .filter((w) => w.data('component-id') === id)
+      .forEach((w) => w.remove());
+    resetMessage(bluetoothEl);
     return;
   }
 
@@ -91,22 +108,25 @@ export const bluetoothCreate: CreateComponent = (
   bluetoothEl.attr('id', id);
   (bluetoothEl as Svg).viewbox(0, 0, bluetoothEl.width(), bluetoothEl.height());
   (window as any).bluetooth = bluetoothEl;
-  positionComponent(
-    bluetoothEl,
-    arduino,
-    draw,
-    bluetoothState.txPin,
-    'WIRE_TX'
-  );
-  bluetoothEl.findOne('#MESSAGE_LAYER').hide();
-  createWires(
-    bluetoothEl,
-    arduino,
-    draw,
-    bluetoothState.rxPin,
-    bluetoothState.txPin,
-    id
-  );
+
+  if (showArduino) {
+    positionComponent(
+      bluetoothEl,
+      arduino,
+      draw,
+      bluetoothState.txPin,
+      'WIRE_TX'
+    );
+    bluetoothEl.findOne('#MESSAGE_LAYER').hide();
+    createWires(
+      bluetoothEl,
+      arduino,
+      draw,
+      bluetoothState.rxPin,
+      bluetoothState.txPin,
+      id
+    );
+  }
 
   unHighlightAllPins(bluetoothEl as Element);
   bluetoothEl.findOne('#WIRE_RX').addClass('wire-connection');
@@ -261,5 +281,14 @@ const getMessage = (message: string) => {
   return message.length > 38 ? message.slice(0, 35) + '...' : message;
 };
 
-// HIGHLIGHTING WIRES
-// window.bluetooth.findOne('#HELPER_TEXT').findOne('#HELPER_PIN_RX').stroke({width: 0});
+const resetMessage = (bluetoothEl: Element) => {
+  const textBubble = bluetoothEl.findOne('#MESSAGE_LAYER');
+  const textLine1 = bluetoothEl.findOne('#MESSAGE_LINE_1') as Text;
+  const textLine2 = bluetoothEl.findOne('#MESSAGE_LINE_2') as Text;
+  const textLine3 = bluetoothEl.findOne('#MESSAGE_LINE_3') as Text;
+
+  textBubble.hide();
+  textLine1.node.textContent = '';
+  textLine2.node.textContent = '';
+  textLine3.node.textContent = '';
+};

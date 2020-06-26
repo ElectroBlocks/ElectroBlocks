@@ -4,7 +4,7 @@
   import { SVG } from "@svgdotjs/svg.js";
   import frameStore from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
-
+  import settingsStore from "../../../stores/settings.store";
   import { resizeStore } from "../../../stores/resize.store";
   import paint from "../../../core/virtual-circuit/paint.ts";
   import update from "../../../core/virtual-circuit/update.ts";
@@ -50,6 +50,10 @@
     resizeStore.subscribe(() => {
       draw.size(container.clientWidth * 0.95, container.clientHeight * 0.95);
     });
+
+    settingsStore.subscribe(settings => {
+      showArduino = settings["showArduino"];
+    });
   });
 
   $: onShowArduino(showArduino);
@@ -58,6 +62,9 @@
     if (!draw) {
       return;
     }
+
+    settingsStore.showArduino(showArduino === true);
+
     console.log("show arduino called", showArduino);
     const lastFrame = frames ? frames[frames.length - 1] : undefined;
     paint(draw, lastFrame, showArduino);
