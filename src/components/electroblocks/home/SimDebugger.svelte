@@ -3,6 +3,8 @@
   import { rgbToHex } from "../../../core/blockly/helpers/color.helper";
   import _ from "lodash";
   import currentFrameStore from "../../../stores/currentFrame.store";
+  import frameStore from "../../../stores/frame.store";
+
   let variables = [];
   currentFrameStore.subscribe(frame => {
     if (!frame) {
@@ -12,6 +14,14 @@
     variables = _.keys(frame.variables).map(varName => {
       return frame.variables[varName];
     });
+  });
+
+  frameStore.subscribe(frames => {
+    // This means no frames so we should reset variables to none
+    if (frames.length === 0) {
+      variables = [];
+      return;
+    }
   });
 </script>
 
