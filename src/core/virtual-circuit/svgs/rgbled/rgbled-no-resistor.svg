@@ -1,0 +1,13 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="114.55" height="134.24" viewBox="0 0 114.55 134.24">
+  <title>rgbled-no-resistor</title>
+  <line id="RED_PIN" x1="13.41" y1="98.24" x2="13.41" y2="123.24" fill="none" stroke="#ef401d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="GREEN_PIN" x1="71.8" y1="98.24" x2="71.8" y2="123.24" fill="none" stroke="#4dc16e" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="BLUE_PIN" x1="100.4" y1="98.24" x2="100.4" y2="123.24" fill="none" stroke="#4c5dbf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="GND_PIN" x1="41.31" y1="98.24" x2="41.31" y2="133.24" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <rect x="0.5" y="82.36" width="113.55" height="16.82" fill="#fff" stroke="#000" stroke-miterlimit="10"/>
+  <text transform="translate(7.69 96.67)" font-size="16" font-family="Biryani-SemiBold, Biryani" font-weight="600">R</text>
+  <text transform="translate(94.65 96.67)" font-size="16" font-family="Biryani-SemiBold, Biryani" font-weight="600">B</text>
+  <text transform="translate(65.65 96.67)" font-size="16" font-family="Biryani-SemiBold, Biryani" font-weight="600">G</text>
+  <text transform="translate(37.68 96.67)" font-size="16" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+  <path id="COLOR_LED" d="M54.56.5h5.93a45,45,0,0,1,45,45V82.36a0,0,0,0,1,0,0H9.56a0,0,0,0,1,0,0V45.5a45,45,0,0,1,45-45Z" fill="none" stroke="#000" stroke-miterlimit="10"/>
+</svg>
