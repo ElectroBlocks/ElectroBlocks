@@ -8,6 +8,7 @@ import {
 } from './components/arduino-message.sync';
 import { lcdCreate, lcdUpdate } from './components/lcd.sync';
 import { componentToSvgId } from './svg-helpers';
+import { updateRgbLed, createRgbLed } from './components/rgbled.sync';
 
 export interface SyncComponent {
   (state: ArduinoComponentState, ArduinoFrame: ArduinoFrame, draw: Svg): void;
@@ -31,12 +32,14 @@ const listSyncs = [
   arduinoMessageUpdate,
   bluetoothUpdate,
   lcdUpdate,
+  updateRgbLed,
 ];
 const listCreate = [
   servoCreate,
   arduinoMessageCreate,
   bluetoothCreate,
   lcdCreate,
+  createRgbLed,
 ];
 
 const resetComponent = [servoReset];

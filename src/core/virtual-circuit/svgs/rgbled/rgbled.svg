@@ -1,27 +1,13 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="100.44" height="137.53" viewBox="0 0 100.44 137.53">
-  <title>rgbled</title>
-  <g id="RED_PIN">
-    <line x1="14.76" y1="101.5" x2="14.76" y2="126.5" fill="none" stroke="#ef401d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-  </g>
-  <g id="GND_PIN">
-    <line x1="39.08" y1="101.53" x2="38.99" y2="136.53" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-  </g>
-  <g id="GREEN_PIN">
-    <line x1="63.87" y1="101.5" x2="63.87" y2="126.5" fill="none" stroke="#4dc16e" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-  </g>
-  <g id="BLUE_PIN">
-    <line x1="88.51" y1="101.5" x2="88.51" y2="126.5" fill="none" stroke="#4c5dbf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-  </g>
-  <g id="base">
-    <rect x="0.5" y="0.5" width="99.44" height="101.44" fill="#d8d8cb"/>
-    <path d="M108.44,10V110.44H10V10h98.44m1-1H9V111.44H109.44V9Z" transform="translate(-9 -9)"/>
-  </g>
-  <g id="COLOR_LED">
-    <circle cx="50.22" cy="44.86" r="32.98" fill="#2d2de2"/>
-    <path d="M59.22,21.38A32.48,32.48,0,1,1,26.74,53.86,32.52,32.52,0,0,1,59.22,21.38m0-1A33.48,33.48,0,1,0,92.7,53.86,33.48,33.48,0,0,0,59.22,20.38Z" transform="translate(-9 -9)"/>
-  </g>
-  <text transform="translate(7.66 98.49)" font-size="20.11" font-family="Biryani-Regular, Biryani">R</text>
-  <text transform="translate(35.09 100.68)" font-size="20.11" font-family="Biryani-Regular, Biryani">-</text>
-  <text transform="translate(56.11 98.49)" font-size="20.11" font-family="Biryani-Regular, Biryani">G</text>
-  <text transform="translate(81.38 98.49)" font-size="20.11" font-family="Biryani-Regular, Biryani">B</text>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="114.55" height="134.24" viewBox="0 0 114.55 134.24">
+  <title>rgbled-no-resistor</title>
+  <line id="RED_PIN" x1="13.41" y1="98.24" x2="13.41" y2="123.24" fill="none" stroke="#ef401d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="GREEN_PIN" x1="71.8" y1="98.24" x2="71.8" y2="123.24" fill="none" stroke="#4dc16e" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="BLUE_PIN" x1="100.4" y1="98.24" x2="100.4" y2="123.24" fill="none" stroke="#4c5dbf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="GND_PIN" x1="41.31" y1="98.24" x2="41.31" y2="133.24" fill="none" stroke="#1e1e1e" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <rect x="0.5" y="82.36" width="113.55" height="16.82" fill="#fff" stroke="#000" stroke-miterlimit="10"/>
+  <text transform="translate(7.69 96.67)" font-size="16" font-family="Biryani-SemiBold, Biryani" font-weight="600">R</text>
+  <text transform="translate(94.65 96.67)" font-size="16" font-family="Biryani-SemiBold, Biryani" font-weight="600">B</text>
+  <text transform="translate(65.65 96.67)" font-size="16" font-family="Biryani-SemiBold, Biryani" font-weight="600">G</text>
+  <text transform="translate(37.68 96.67)" font-size="16" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+  <path id="COLOR_LED" d="M54.56.5h5.93a45,45,0,0,1,45,45V82.36a0,0,0,0,1,0,0H9.56a0,0,0,0,1,0,0V45.5a45,45,0,0,1,45-45Z" fill="none" stroke="#000" stroke-miterlimit="10"/>
 </svg>

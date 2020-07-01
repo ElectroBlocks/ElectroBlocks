@@ -225,24 +225,24 @@ export const resetBreadBoardWholes = () => {
 };
 
 export enum ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS {
-  PIN_13 = 'pin2C',
-  PIN_12 = 'pin6C',
-  PIN_11 = 'pin9C',
-  PIN_10 = 'pin13C',
-  PIN_9 = 'pin18C',
-  PIN_8 = 'pin22C',
-  PIN_7 = 'pin27C',
-  PIN_6 = 'pin31C',
-  PIN_5 = 'pin37C',
-  PIN_4 = 'pin41C',
-  PIN_3 = 'pin46C',
-  PIN_2 = 'pin51C',
-  PIN_A0 = 'pin54C',
-  PIN_A1 = 'pin58C',
-  PIN_A2 = 'pin4H',
-  PIN_A3 = 'pin8H',
-  PIN_A4 = 'pin12H',
-  PIN_A5 = 'pin16H',
+  PIN_13 = 'pin2E',
+  PIN_12 = 'pin6E',
+  PIN_11 = 'pin9E',
+  PIN_10 = 'pin13E',
+  PIN_9 = 'pin18E',
+  PIN_8 = 'pin22E',
+  PIN_7 = 'pin27E',
+  PIN_6 = 'pin31E',
+  PIN_5 = 'pin37E',
+  PIN_4 = 'pin41E',
+  PIN_3 = 'pin46E',
+  PIN_2 = 'pin51E',
+  PIN_A0 = 'pin54E',
+  PIN_A1 = 'pin58E',
+  PIN_A2 = 'pin4F',
+  PIN_A3 = 'pin8F',
+  PIN_A4 = 'pin12F',
+  PIN_A5 = 'pin16F',
 }
 
 export const pinToBreadboardHole = (pin: ARDUINO_UNO_PINS) => {
@@ -297,5 +297,21 @@ export const findBreadboardHoleXY = (
   return {
     x: hole.cx() + arduino.x(),
     y: hole.cy() + arduino.y(),
+  };
+};
+
+export const findResistorBreadboardHoleXY = (
+  pin: ARDUINO_UNO_PINS,
+  arduino: Element,
+  draw: Svg
+) => {
+  const hole = findSvgElement(
+    pinToBreadboardHole(pin).replace('E', 'D').replace('F', 'G'),
+    draw
+  );
+  (window as any).hole = hole;
+  return {
+    x: hole.cx() + arduino.x(),
+    y: (hole.findOne('circle') as Element).cy() + arduino.y() - 1,
   };
 };

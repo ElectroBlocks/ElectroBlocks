@@ -3,7 +3,10 @@ import {
   ArduinoComponentType,
 } from '../frames/arduino.frame';
 import { Element, Svg, Line } from '@svgdotjs/svg.js';
-import { LCDScreenState } from '../frames/arduino-components.state';
+import {
+  LCDScreenState,
+  LedColorState,
+} from '../frames/arduino-components.state';
 
 export const componentToSvgId = (component: ArduinoComponentState) => {
   if (component.type === ArduinoComponentType.LCD_SCREEN) {
@@ -16,6 +19,13 @@ export const componentToSvgId = (component: ArduinoComponentState) => {
       lcd.rows +
       component.pins.join('-')
     );
+  }
+
+  if (component.type === ArduinoComponentType.LED_COLOR) {
+    const rgbLedState = component as LedColorState;
+    return `${rgbLedState.type}_${
+      rgbLedState.pictureType
+    }_${rgbLedState.pins.join('-')}`;
   }
 
   return component.type + '_' + component.pins.join('-');
