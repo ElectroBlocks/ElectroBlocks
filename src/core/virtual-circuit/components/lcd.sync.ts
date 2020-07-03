@@ -1,8 +1,5 @@
 import { SyncComponent, CreateComponent } from '../svg.component';
-import {
-  ArduinoComponentType,
-  ArduinoComponentState,
-} from '../../frames/arduino.frame';
+import { ArduinoComponentType } from '../../frames/arduino.frame';
 import { LCDScreenState } from '../../frames/arduino-components.state';
 import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg, Text } from '@svgdotjs/svg.js';

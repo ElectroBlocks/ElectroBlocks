@@ -32,6 +32,7 @@ export const createWire = (
   line.data('connection-id', connectionId);
   line.data('component-id', element.id());
   line.data('wire-type', type);
+  line.data('type', 'wire');
   line.data('hole-id', pinToBreadboardHole(pin));
 
   return line;
@@ -105,6 +106,8 @@ const createBottomBreadboardWire = (
   line.data('connection-id', componentBoxId);
   line.data('hole-id', `pin${holeId}${breadBoardLetter}`);
   line.data('wire-type', 'POWER');
+  line.data('type', 'wire');
+
   (window as any).line = line;
   return line;
 };
@@ -113,16 +116,20 @@ export const updateWires = (element: Element, draw: Svg, arduino: Svg) => {
   const wires = (draw.find(
     `[data-component-id=${element.id()}]`
   ) as any[]) as Line[];
-  wires.forEach((w) => {
-    const holeId = w.data('hole-id');
-    const hole = findSvgElement(holeId, arduino);
-    const holeX = hole.cx() + arduino.x();
-    const holeY = hole.cy() + arduino.y();
+  wires
+    .filter((w) => {
+      return w.data('type') == 'wire';
+    })
+    .forEach((w) => {
+      const holeId = w.data('hole-id');
+      const hole = findSvgElement(holeId, arduino);
+      const holeX = hole.cx() + arduino.x();
+      const holeY = hole.cy() + arduino.y();
 
-    const connectionId = w.data('connection-id');
-    const componentPin = findComponentConnection(element, connectionId);
-    w.plot(holeX, holeY, componentPin.x, componentPin.y);
-  });
+      const connectionId = w.data('connection-id');
+      const componentPin = findComponentConnection(element, connectionId);
+      w.plot(holeX, holeY, componentPin.x, componentPin.y);
+    });
 };
 
 let bottomBreadBoardHoles: Array<{
@@ -306,7 +313,7 @@ export const findResistorBreadboardHoleXY = (
   draw: Svg
 ) => {
   const hole = findSvgElement(
-    pinToBreadboardHole(pin).replace('E', 'D').replace('F', 'G'),
+    pinToBreadboardHole(pin).replace('E', 'D').replace('F', 'I'),
     draw
   );
   (window as any).hole = hole;

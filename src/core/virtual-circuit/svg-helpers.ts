@@ -6,6 +6,7 @@ import { Element, Svg, Line } from '@svgdotjs/svg.js';
 import {
   LCDScreenState,
   LedColorState,
+  PinState,
 } from '../frames/arduino-components.state';
 
 export const componentToSvgId = (component: ArduinoComponentState) => {
@@ -26,6 +27,12 @@ export const componentToSvgId = (component: ArduinoComponentState) => {
     return `${rgbLedState.type}_${
       rgbLedState.pictureType
     }_${rgbLedState.pins.join('-')}`;
+  }
+
+  if (component.type === ArduinoComponentType.PIN) {
+    const pinState = component as PinState;
+
+    return `${pinState.type}-${pinState.pinType}-${pinState.pinPicture}-${pinState.pin}`;
   }
 
   return component.type + '_' + component.pins.join('-');

@@ -9,6 +9,7 @@ import {
 import { lcdCreate, lcdUpdate } from './components/lcd.sync';
 import { componentToSvgId } from './svg-helpers';
 import { updateRgbLed, createRgbLed } from './components/rgbled.sync';
+import { ledCreate, updateLed, resetLed } from './components/led.sync';
 
 export interface SyncComponent {
   (state: ArduinoComponentState, ArduinoFrame: ArduinoFrame, draw: Svg): void;
@@ -33,6 +34,7 @@ const listSyncs = [
   bluetoothUpdate,
   lcdUpdate,
   updateRgbLed,
+  updateLed,
 ];
 const listCreate = [
   servoCreate,
@@ -40,9 +42,10 @@ const listCreate = [
   bluetoothCreate,
   lcdCreate,
   createRgbLed,
+  ledCreate,
 ];
 
-const resetComponent = [servoReset];
+const resetComponent = [servoReset, resetLed];
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
   frame.components.forEach((componentState) => {

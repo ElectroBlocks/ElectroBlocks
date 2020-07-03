@@ -22,7 +22,7 @@ const arduino_uno = {
     ['A2', 'A2'],
     ['A3', 'A3'],
     ['A4', 'A4'],
-    ['A5', 'A5']
+    ['A5', 'A5'],
   ],
   pwmPins: [
     ['3', '3'],
@@ -36,7 +36,7 @@ const arduino_uno = {
     ['A2', 'A2'],
     ['A3', 'A3'],
     ['A4', 'A4'],
-    ['A5', 'A5']
+    ['A5', 'A5'],
   ],
   analogPins: [
     ['A0', 'A0'],
@@ -44,11 +44,10 @@ const arduino_uno = {
     ['A2', 'A2'],
     ['A3', 'A3'],
     ['A4', 'A4'],
-    ['A5', 'A5']
+    ['A5', 'A5'],
   ],
   serial_baud_rate: 9600,
 };
-
 
 const selectedBoard = () => {
   return arduino_uno;
@@ -74,8 +73,16 @@ export enum ARDUINO_UNO_PINS {
   PIN_A3 = 'A3',
   PIN_A4 = 'A4',
   PIN_A5 = 'A5',
-  NO_PINS = 'NO_PINS'
+  NO_PINS = 'NO_PINS',
 }
 
+export const ANALOG_PINS = [
+  ARDUINO_UNO_PINS.PIN_A0,
+  ARDUINO_UNO_PINS.PIN_A1,
+  ARDUINO_UNO_PINS.PIN_A2,
+  ARDUINO_UNO_PINS.PIN_A3,
+  ARDUINO_UNO_PINS.PIN_A4,
+  ARDUINO_UNO_PINS.PIN_A5,
+];
 
 export default selectedBoard;
