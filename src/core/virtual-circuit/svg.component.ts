@@ -10,6 +10,11 @@ import { lcdCreate, lcdUpdate } from './components/lcd.sync';
 import { componentToSvgId } from './svg-helpers';
 import { updateRgbLed, createRgbLed } from './components/rgbled.sync';
 import { ledCreate, updateLed, resetLed } from './components/led.sync';
+import {
+  digitalAnanlogWritePinCreate,
+  digitalAnalogWritePinSync,
+  digitalAnalogWritePinReset,
+} from './components/digitalanalogwritepin.sync';
 
 export interface SyncComponent {
   (state: ArduinoComponentState, ArduinoFrame: ArduinoFrame, draw: Svg): void;
@@ -35,6 +40,7 @@ const listSyncs = [
   lcdUpdate,
   updateRgbLed,
   updateLed,
+  digitalAnalogWritePinSync,
 ];
 const listCreate = [
   servoCreate,
@@ -43,9 +49,10 @@ const listCreate = [
   lcdCreate,
   createRgbLed,
   ledCreate,
+  digitalAnanlogWritePinCreate,
 ];
 
-const resetComponent = [servoReset, resetLed];
+const resetComponent = [servoReset, resetLed, digitalAnalogWritePinReset];
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
   frame.components.forEach((componentState) => {

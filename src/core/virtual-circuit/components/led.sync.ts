@@ -12,8 +12,6 @@ import {
 } from '../../frames/arduino-components.state';
 import ledSvgString from '../svgs/led/led.svg';
 import _ from 'lodash';
-import { rgbToHex } from '../../blockly/helpers/color.helper';
-import { randomColor } from '../../frames/transformer/blocktovalue/colors';
 import { componentToSvgId } from '../svg-helpers';
 import resistorSvg from '../svgs/resistors/resistor-small.svg';
 import { ARDUINO_UNO_PINS, ANALOG_PINS } from '../../blockly/selectBoard';
@@ -65,6 +63,7 @@ export const ledCreate: CreateComponent = (state, frame, draw, showArduino) => {
 
   ledEl.addClass('component');
   ledEl.data('component-type', state.type);
+  ledEl.data('picture-type', ledState.pinPicture);
   ledEl.attr('id', id);
   ledEl.data('pin_number', ledState.pin);
   (window as any).ledEl = ledEl;
@@ -133,11 +132,16 @@ export const updateLed: SyncComponent = (state, frame, draw) => {
 };
 
 export const resetLed: ResetComponent = (componentEl: Element) => {
-  componentEl
-    .find(`#radial-gradient-${componentEl.data('pin_number')} stop`)
-    .toArray()
-    .find((stop) => stop.attr('offset') == 1)
-    .attr('stop-color', '#FFF');
+  if (
+    componentEl.data('component-type') === ArduinoComponentType.PIN &&
+    componentEl.data('picture-type') === PinPicture.LED
+  ) {
+    componentEl
+      .find(`#radial-gradient-${componentEl.data('pin_number')} stop`)
+      .toArray()
+      .find((stop) => stop.attr('offset') == 1)
+      .attr('stop-color', '#FFF');
+  }
 };
 
 const createResistor = (

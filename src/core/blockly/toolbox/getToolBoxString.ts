@@ -358,7 +358,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
       <block type="analog_write">
       <value name="WRITE_VALUE">
                   <block type="math_number">
-                      <field name="NUM">50</field>
+                      <field name="NUM">150</field>
                   </block>
               </value>
       </block>

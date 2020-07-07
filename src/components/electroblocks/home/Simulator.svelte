@@ -81,6 +81,9 @@
     top: 0;
     left: 0;
   }
+  .container {
+    background-color: #d9e4ec;
+  }
   #simulator {
     width: calc(100% - 40px);
     height: calc(100% - 40px);
