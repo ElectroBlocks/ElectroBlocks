@@ -369,6 +369,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   if (showToolBoxOption('Led Light Strip', toolboxOptions)) {
     toolbox += `<category name="Led Light Strip" colour="${COLOR_THEME.COMPONENTS}">
       <block type="neo_pixel_setup">
+            <field name="PIN">A0</field>
       </block>
       <block type="neo_pixel_set_color">
         <value name="POSITION">

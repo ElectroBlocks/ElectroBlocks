@@ -28,8 +28,8 @@
     // DON'T DO IT!!!!!
     draw = SVG()
       .addTo(container)
-      .size(container.clientWidth * 0.95, container.clientHeight * 0.95)
-      .viewbox(0, 0, container.clientWidth * 0.95, container.clientWidth * 0.95)
+      .size(container.clientWidth - 10, container.clientHeight - 10)
+      .viewbox(0, 0, container.clientWidth - 10, container.clientWidth - 10)
       .panZoom();
 
     frameStore.subscribe(newFrames => {
@@ -48,7 +48,7 @@
     });
 
     resizeStore.subscribe(() => {
-      draw.size(container.clientWidth * 0.95, container.clientHeight * 0.95);
+      draw.size(container.clientWidth - 10, container.clientHeight - 10);
     });
 
     settingsStore.subscribe(settings => {
@@ -85,7 +85,7 @@
     background-color: #d9e4ec;
   }
   #simulator {
-    width: calc(100% - 40px);
+    width: calc(100% - 10px);
     height: calc(100% - 40px);
   }
 </style>

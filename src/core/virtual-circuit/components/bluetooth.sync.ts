@@ -89,6 +89,9 @@ export const bluetoothCreate: CreateComponent = (
       id
     );
     updateWires(bluetoothEl, draw, arduino as Svg);
+    (bluetoothEl as any).draggable().on('dragmove', (e) => {
+      updateWires(bluetoothEl, draw, arduino as Svg);
+    });
     return;
   }
 
@@ -139,9 +142,10 @@ export const bluetoothCreate: CreateComponent = (
   bluetoothEl.findOne('#HELPER_PIN_RX').addClass('wire-connection');
   bluetoothEl.findOne('#CLOSE').addClass('wire-connection');
   findSvgElement('HELPER_TEXT', bluetoothEl).hide();
-
   (bluetoothEl as any).draggable().on('dragmove', (e) => {
-    updateWires(bluetoothEl, draw, arduino as Svg);
+    if (showArduino) {
+      updateWires(bluetoothEl, draw, arduino as Svg);
+    }
   });
 
   bluetoothEl.findOne('#GND_BOX').on('click', (e) => {
