@@ -1,7 +1,7 @@
 import { Svg } from '@svgdotjs/svg.js';
 import { ArduinoFrame } from '../frames/arduino.frame';
 import { syncComponents } from './svg.component';
-import { findSvgElement, LED_COLORS } from './svg-helpers';
+import { findSvgElement, LED_COLORS, findArduinoEl } from './svg-helpers';
 
 export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   if (!frame) {
@@ -11,7 +11,7 @@ export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   if (frame) {
     syncComponents(frame, draw);
   }
-  const arduino = findSvgElement('arduino_main_svg', draw);
+  const arduino = findArduinoEl(draw);
 
   if (arduino) {
     // BUILT IN LED ID BELOW

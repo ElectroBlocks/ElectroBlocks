@@ -13,8 +13,6 @@
   let container;
   let svgContainer;
   let virtualCircuit;
-  let showDebugger = true;
-  let showArduino = true;
   let frames = [];
   let currentFrame = undefined;
   let draw;
@@ -38,38 +36,19 @@
       const lastFrame = frames ? frames[frames.length - 1] : undefined;
       const firstFrame = frames ? frames[0] : undefined;
       currentFrame = firstFrame;
-      paint(draw, lastFrame, showArduino);
-      update(draw, firstFrame, showArduino);
+      paint(draw, lastFrame);
+      update(draw, firstFrame);
     });
 
     currentFrameStore.subscribe(frame => {
       currentFrame = frame;
-      update(draw, currentFrame, showArduino);
+      update(draw, currentFrame);
     });
 
     resizeStore.subscribe(() => {
       draw.size(container.clientWidth - 10, container.clientHeight - 10);
     });
-
-    settingsStore.subscribe(settings => {
-      showArduino = settings["showArduino"];
-    });
   });
-
-  $: onShowArduino(showArduino);
-
-  function onShowArduino(showArduino) {
-    if (!draw) {
-      return;
-    }
-
-    settingsStore.showArduino(showArduino === true);
-
-    console.log("show arduino called", showArduino);
-    const lastFrame = frames ? frames[frames.length - 1] : undefined;
-    paint(draw, lastFrame, showArduino);
-    update(draw, currentFrame, showArduino);
-  }
 </script>
 
 <style>
@@ -86,15 +65,11 @@
   }
   #simulator {
     width: calc(100% - 10px);
-    height: calc(100% - 40px);
+    height: calc(100% - 10px);
   }
 </style>
 
 <div class="container">
   <div bind:this={container} id="simulator" />
-  <SimDebugger show={showDebugger} />
-  <div id="controls">
-    <ToggleSwitch bind:checked={showArduino} label="Show Arduino" />
-    <ToggleSwitch bind:checked={showDebugger} label="Show Variables" />
-  </div>
+  <SimDebugger />
 </div>

@@ -1,10 +1,10 @@
-import {
-  CreateComponent,
-  SyncComponent,
-  ResetComponent,
-} from '../svg.component';
+import { CreateComponent, SyncComponent } from '../svg.component';
 import { ArduinoComponentType } from '../../frames/arduino.frame';
-import { componentToSvgId } from '../svg-helpers';
+import {
+  componentToSvgId,
+  createComponentEl,
+  findArduinoEl,
+} from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 import { positionComponent } from '../svg-position';
 import {
@@ -22,68 +22,36 @@ import {
 } from '../wire';
 import { rgbToHex } from '../../blockly/helpers/color.helper';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
+import { addDraggableEvent } from '../component-events.helpers';
 
-export const createRgbLed: CreateComponent = (
-  state,
-  frame,
-  draw,
-  showArduino
-) => {
-  if (state.type !== ArduinoComponentType.LED_COLOR) {
-    return;
-  }
-
+export const createRgbLed: CreateComponent = (state, frame, draw) => {
   const ledRgbState = state as LedColorState;
 
   const id = componentToSvgId(ledRgbState);
   let rgbLedEl = draw.findOne('#' + id) as Element;
-  const arduino = draw.findOne('#arduino_main_svg') as Element;
+  const arduino = findArduinoEl(draw);
 
-  if (rgbLedEl && showArduino) {
+  if (rgbLedEl) {
     createWires(rgbLedEl, arduino, draw, ledRgbState, id);
 
     positionComponent(rgbLedEl, arduino, draw, ledRgbState.redPin, 'RED_PIN');
     createResistors(arduino, draw, ledRgbState, id);
-    return;
-  }
-
-  if (rgbLedEl && !showArduino) {
-    draw
-      .find('line')
-      .filter((w) => w.data('component-id') === id)
-      .forEach((w) => w.remove());
     return;
   }
 
   const svgString =
     ledRgbState.pictureType === 'BREADBOARD' ? rgbLedSvg : rgbLedNoResistorSvg;
 
-  rgbLedEl = draw.svg(svgString).last();
-  rgbLedEl.addClass('component');
-  rgbLedEl.data('component-type', state.type);
-
-  rgbLedEl.attr('id', id);
-  (rgbLedEl as Svg).viewbox(0, 0, rgbLedEl.width(), rgbLedEl.height());
+  rgbLedEl = createComponentEl(draw, state, svgString);
   (window as any).rgbLed = rgbLedEl;
 
-  (rgbLedEl as any).draggable().on('dragmove', () => {
-    if (showArduino) {
-      updateWires(rgbLedEl, draw, arduino as Svg);
-    }
-  });
-
-  if (showArduino) {
-    positionComponent(rgbLedEl, arduino, draw, ledRgbState.redPin, 'RED_PIN');
-    createWires(rgbLedEl, arduino, draw, ledRgbState, id);
-    createResistors(arduino, draw, ledRgbState, id);
-  }
+  addDraggableEvent(rgbLedEl, arduino, draw);
+  positionComponent(rgbLedEl, arduino, draw, ledRgbState.redPin, 'RED_PIN');
+  createWires(rgbLedEl, arduino, draw, ledRgbState, id);
+  createResistors(arduino, draw, ledRgbState, id);
 };
 
 export const updateRgbLed: SyncComponent = (state, frame, draw) => {
-  if (state.type !== ArduinoComponentType.LED_COLOR) {
-    return;
-  }
-
   const rgbLedState = state as LedColorState;
 
   const id = componentToSvgId(state);

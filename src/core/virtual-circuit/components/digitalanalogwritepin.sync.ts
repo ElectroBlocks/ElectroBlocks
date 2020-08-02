@@ -9,21 +9,20 @@ import {
   ArduinoComponentState,
 } from '../../frames/arduino.frame';
 import { PinState, PinPicture } from '../../frames/arduino-components.state';
-import { componentToSvgId } from '../svg-helpers';
+import {
+  componentToSvgId,
+  findArduinoEl,
+  createComponentEl,
+} from '../svg-helpers';
 import analogdigitalSvgString from '../svgs/analogdigital/digital_analog_write.svg';
 import { positionComponent } from '../svg-position';
 import { ANALOG_PINS, ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { createGroundWire, createWire, updateWires } from '../wire';
+import { addDraggableEvent } from '../component-events.helpers';
 
 export const digitalAnalogWritePinReset: ResetComponent = (
   componentEl: Element
 ) => {
-  if (
-    componentEl.data('picture-type') !== PinPicture.LED_ANALOG_WRITE &&
-    componentEl.data('picture-type') !== PinPicture.LED_DIGITAL_WRITE
-  ) {
-    return;
-  }
   const pinText = componentEl.findOne('#STATE_TEXT') as Text;
   pinText.node.innerHTML = 'OFF';
   componentEl.findOne('#RAYS').hide();
@@ -33,47 +32,29 @@ export const digitalAnalogWritePinReset: ResetComponent = (
 export const digitalAnanlogWritePinCreate: CreateComponent = (
   state,
   frame,
-  draw,
-  showArduino
+  draw
 ) => {
-  if (!isComponent(state)) {
-    return;
-  }
   const pinState = state as PinState;
   const id = componentToSvgId(pinState);
   let componentEl = draw.findOne('#' + id) as Element;
-  const arduino = draw.findOne('#arduino_main_svg') as Element;
+  const arduino = findArduinoEl(draw);
 
-  if (componentEl && showArduino) {
+  if (componentEl) {
     return;
   }
 
-  if (componentEl && !showArduino) {
-    draw
-      .find('line')
-      .filter((w) => w.data('component-id') === id)
-      .forEach((w) => w.remove());
-    return;
-  }
-  componentEl = draw.svg(analogdigitalSvgString).last();
-  componentEl.addClass('component');
+  componentEl = createComponentEl(draw, state, analogdigitalSvgString);
   componentEl.data('picture-type', pinState.pinPicture);
-  componentEl.attr('id', id);
   componentEl.data('pin_number', pinState.pin);
   (window as any).digitalAnalogWriteEl = componentEl;
 
-  (componentEl as any).draggable().on('dragmove', () => {
-    if (showArduino) {
-      updateWires(componentEl, draw, arduino as Svg);
-    }
-  });
-  if (showArduino) {
-    positionComponent(componentEl, arduino, draw, pinState.pin, 'POWER');
-    if (ANALOG_PINS.includes(pinState.pin)) {
-      componentEl.x(componentEl.x() + 30);
-    }
-    createWires(componentEl, pinState.pin, arduino as Svg, draw, id);
+  addDraggableEvent(componentEl, arduino, draw);
+  positionComponent(componentEl, arduino, draw, pinState.pin, 'POWER');
+  if (ANALOG_PINS.includes(pinState.pin)) {
+    componentEl.x(componentEl.x() + 30);
   }
+  createWires(componentEl, pinState.pin, arduino as Svg, draw, id);
+
   componentEl.findOne('title').node.innerHTML =
     pinState.pinPicture === PinPicture.LED_ANALOG_WRITE
       ? 'PIN DIGITAL WRITE'
@@ -86,10 +67,6 @@ export const digitalAnalogWritePinSync: SyncComponent = (
   frame,
   draw
 ) => {
-  if (!isComponent(state)) {
-    return;
-  }
-
   const pinState = state as PinState;
 
   const id = componentToSvgId(state);
@@ -123,22 +100,6 @@ export const digitalAnalogWritePinSync: SyncComponent = (
   }
 
   pinText.cx(16);
-};
-
-const isComponent = (state: ArduinoComponentState) => {
-  if (state.type !== ArduinoComponentType.PIN) {
-    return false;
-  }
-  const pinState = state as PinState;
-
-  if (
-    pinState.pinPicture !== PinPicture.LED_ANALOG_WRITE &&
-    pinState.pinPicture !== PinPicture.LED_DIGITAL_WRITE
-  ) {
-    return false;
-  }
-
-  return true;
 };
 
 const createWires = (

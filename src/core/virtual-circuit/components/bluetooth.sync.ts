@@ -1,7 +1,13 @@
 import { SyncComponent, CreateComponent } from '../svg.component';
 import { ArduinoComponentType } from '../../frames/arduino.frame';
 import { BluetoothState } from '../../frames/arduino-components.state';
-import { componentToSvgId, findSvgElement } from '../svg-helpers';
+import {
+  componentToSvgId,
+  findSvgElement,
+  findArduinoEl,
+  createComponentEl,
+  addWireConnectionClass,
+} from '../svg-helpers';
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
 import { positionComponent } from '../svg-position';
 import {
@@ -13,12 +19,9 @@ import {
 
 import bluetoothSvg from '../svgs/bluetooth/bluetooth.svg';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
+import { addDraggableEvent } from '../component-events.helpers';
 
 export const bluetoothUpdate: SyncComponent = (state, frame, draw) => {
-  if (state.type !== ArduinoComponentType.BLUE_TOOTH) {
-    return;
-  }
-
   const bluetoothState = state as BluetoothState;
   const id = componentToSvgId(bluetoothState);
   let bluetoothEl = draw.findOne('#' + id) as Element;
@@ -57,22 +60,13 @@ export const bluetoothUpdate: SyncComponent = (state, frame, draw) => {
   textBubble.hide();
 };
 
-export const bluetoothCreate: CreateComponent = (
-  state,
-  frame,
-  draw,
-  showArduino
-) => {
-  if (state.type !== ArduinoComponentType.BLUE_TOOTH) {
-    return;
-  }
-
+export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
   const bluetoothState = state as BluetoothState;
 
   const id = componentToSvgId(bluetoothState);
   let bluetoothEl = draw.findOne('#' + id) as Element;
-  const arduino = draw.findOne('#arduino_main_svg') as Element;
-  if (bluetoothEl && showArduino) {
+  const arduino = findArduinoEl(draw);
+  if (bluetoothEl) {
     positionComponent(
       bluetoothEl,
       arduino,
@@ -95,104 +89,69 @@ export const bluetoothCreate: CreateComponent = (
     return;
   }
 
-  if (bluetoothEl && !showArduino) {
-    draw
-      .find('line')
-      .filter((w) => w.data('component-id') === id)
-      .forEach((w) => w.remove());
-    resetMessage(bluetoothEl);
-    return;
-  }
-
-  bluetoothEl = draw.svg(bluetoothSvg).last();
-  bluetoothEl.addClass('component');
-  bluetoothEl.data('component-type', state.type);
-
-  bluetoothEl.attr('id', id);
-  (bluetoothEl as Svg).viewbox(0, 0, bluetoothEl.width(), bluetoothEl.height());
+  bluetoothEl = createComponentEl(draw, bluetoothState, bluetoothSvg);
   (window as any).bluetooth = bluetoothEl;
 
-  if (showArduino) {
-    positionComponent(
-      bluetoothEl,
-      arduino,
-      draw,
-      bluetoothState.txPin,
-      'WIRE_TX'
-    );
-    bluetoothEl.findOne('#MESSAGE_LAYER').hide();
-    createWires(
-      bluetoothEl,
-      arduino,
-      draw,
-      bluetoothState.rxPin,
-      bluetoothState.txPin,
-      id
-    );
-  }
+  positionComponent(
+    bluetoothEl,
+    arduino,
+    draw,
+    bluetoothState.txPin,
+    'WIRE_TX'
+  );
+  createWires(
+    bluetoothEl,
+    arduino,
+    draw,
+    bluetoothState.rxPin,
+    bluetoothState.txPin,
+    id
+  );
 
-  unHighlightAllPins(bluetoothEl as Element);
-  bluetoothEl.findOne('#WIRE_RX').addClass('wire-connection');
-  bluetoothEl.findOne('#WIRE_TX').addClass('wire-connection');
-  bluetoothEl.findOne('#GND_BOX').addClass('wire-connection');
-  bluetoothEl.findOne('#_5V_BOX').addClass('wire-connection');
-  bluetoothEl.findOne('#HELPER_PIN_VCC').addClass('wire-connection');
-  bluetoothEl.findOne('#HELPER_PIN_GND').addClass('wire-connection');
-  bluetoothEl.findOne('#HELPER_PIN_TX').addClass('wire-connection');
-  bluetoothEl.findOne('#HELPER_PIN_RX').addClass('wire-connection');
-  bluetoothEl.findOne('#CLOSE').addClass('wire-connection');
+  bluetoothEl.findOne('#MESSAGE_LAYER').hide();
   findSvgElement('HELPER_TEXT', bluetoothEl).hide();
-  (bluetoothEl as any).draggable().on('dragmove', (e) => {
-    if (showArduino) {
-      updateWires(bluetoothEl, draw, arduino as Svg);
-    }
-  });
+  unHighlightAllPins(bluetoothEl as Element);
 
-  bluetoothEl.findOne('#GND_BOX').on('click', (e) => {
-    e.stopPropagation();
-    showToolTip(bluetoothEl, 'GND');
-  });
+  addWireConnectionClass(
+    [
+      'WIRE_RX',
+      'WIRE_TX',
+      'GND_BOX',
+      '_5V_BOX',
+      'HELPER_PIN_VCC',
+      'HELPER_PIN_TX',
+      'HELPER_PIN_RX',
+      'CLOSE',
+    ],
+    bluetoothEl
+  );
 
-  bluetoothEl.findOne('#WIRE_RX').on('click', (e) => {
-    e.stopPropagation();
-    showToolTip(bluetoothEl, 'RX');
-  });
-
-  bluetoothEl.findOne('#WIRE_TX').on('click', (e) => {
-    e.stopPropagation();
-    showToolTip(bluetoothEl, 'TX');
-  });
-
-  bluetoothEl.findOne('#_5V_BOX').on('click', (e) => {
-    e.stopPropagation();
-    showToolTip(bluetoothEl, 'VCC');
-  });
-
-  bluetoothEl.findOne('#HELPER_PIN_GND').on('click', (e) => {
-    e.stopPropagation();
-    showToolTip(bluetoothEl, 'GND');
-  });
-
-  bluetoothEl.findOne('#HELPER_PIN_VCC').on('click', (e) => {
-    e.stopPropagation();
-    showToolTip(bluetoothEl, 'VCC');
-  });
-
-  bluetoothEl.findOne('#HELPER_PIN_RX').on('click', (e) => {
-    e.stopPropagation();
-    showToolTip(bluetoothEl, 'RX');
-  });
-
-  bluetoothEl.findOne('#HELPER_PIN_TX').on('click', (e) => {
-    e.stopPropagation();
-    unHighlightAllPins(bluetoothEl);
-    showToolTip(bluetoothEl, 'TX');
-  });
+  addDraggableEvent(bluetoothEl, arduino, draw);
+  registerShowToolTip(bluetoothEl, 'GND_BOX', 'GND');
+  registerShowToolTip(bluetoothEl, 'WIRE_RX', 'RX');
+  registerShowToolTip(bluetoothEl, 'WIRE_TX', 'TX');
+  registerShowToolTip(bluetoothEl, '_5V_BOX', 'VCC');
+  registerShowToolTip(bluetoothEl, 'HELPER_PIN_GND', 'GND');
+  registerShowToolTip(bluetoothEl, 'HELPER_PIN_VCC', 'VCC');
+  registerShowToolTip(bluetoothEl, 'HELPER_PIN_RX', 'RX');
+  registerShowToolTip(bluetoothEl, 'HELPER_PIN_TX', 'TX');
 
   bluetoothEl.findOne('#CLOSE').on('click', (e) => {
     e.stopPropagation();
     findSvgElement('HELPER_TEXT', bluetoothEl).hide();
     unHighlightAllPins(bluetoothEl);
+  });
+};
+
+const registerShowToolTip = (
+  bluetoothEl: Element,
+  id: string,
+  highlightType: string
+) => {
+  bluetoothEl.findOne('#' + id).on('click', (e) => {
+    e.stopPropagation();
+    unHighlightAllPins(bluetoothEl);
+    showToolTip(bluetoothEl, highlightType);
   });
 };
 
@@ -204,27 +163,11 @@ const createWires = (
   txPin: ARDUINO_UNO_PINS,
   componentId: string
 ) => {
-  const rxWire = createWire(
-    bluetoothEl,
-    rxPin,
-    'WIRE_RX',
-    arduino,
-    draw,
-    '#ac4cf5',
-    'rx'
-  );
+  createWire(bluetoothEl, rxPin, 'WIRE_RX', arduino, draw, '#ac4cf5', 'rx');
 
-  const txWire = createWire(
-    bluetoothEl,
-    txPin,
-    'WIRE_TX',
-    arduino,
-    draw,
-    '#0f5873',
-    'rx'
-  );
+  createWire(bluetoothEl, txPin, 'WIRE_TX', arduino, draw, '#0f5873', 'rx');
 
-  const gndWire = createGroundWire(
+  createGroundWire(
     bluetoothEl,
     txPin,
     arduino as Svg,
@@ -234,7 +177,7 @@ const createWires = (
     'right'
   );
 
-  const powerWire = createPowerWire(
+  createPowerWire(
     bluetoothEl,
     txPin,
     arduino as Svg,
