@@ -13,18 +13,13 @@ import {
 import { lcdCreate, lcdUpdate } from './components/lcd.sync';
 import { componentToSvgId } from './svg-helpers';
 import { updateRgbLed, createRgbLed } from './components/rgbled.sync';
-import { ledCreate, updateLed, resetLed } from './components/led.sync';
-import {
-  digitalAnanlogWritePinCreate,
-  digitalAnalogWritePinSync,
-  digitalAnalogWritePinReset,
-} from './components/digitalanalogwritepin.sync';
 import {
   createPinComponent,
   resetPinComponent,
   updatePinComponent,
 } from './components/pin.component';
 import _ from 'lodash';
+import { neoPixelCreate, neoPixelUpdate } from './components/neoPixel.sync';
 
 export interface SyncComponent {
   (state: ArduinoComponentState, ArduinoFrame: ArduinoFrame, draw: Svg): void;
@@ -38,16 +33,6 @@ export interface CreateComponent {
   (state: ArduinoComponentState, frame: ArduinoFrame, draw: Svg): void;
 }
 
-const listSyncs = [
-  servoUpdate,
-  arduinoMessageUpdate,
-  bluetoothUpdate,
-  lcdUpdate,
-  updateRgbLed,
-  updateLed,
-  digitalAnalogWritePinSync,
-];
-
 const syncComponent = {
   [ArduinoComponentType.SERVO]: servoUpdate,
   [ArduinoComponentType.MESSAGE]: arduinoMessageUpdate,
@@ -55,6 +40,7 @@ const syncComponent = {
   [ArduinoComponentType.LCD_SCREEN]: lcdUpdate,
   [ArduinoComponentType.LED_COLOR]: updateRgbLed,
   [ArduinoComponentType.PIN]: updatePinComponent,
+  [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelUpdate,
 };
 
 const createComponent = {
@@ -64,6 +50,7 @@ const createComponent = {
   [ArduinoComponentType.LCD_SCREEN]: lcdCreate,
   [ArduinoComponentType.LED_COLOR]: createRgbLed,
   [ArduinoComponentType.PIN]: createPinComponent,
+  [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,
 };
 
 const resetComponent = {

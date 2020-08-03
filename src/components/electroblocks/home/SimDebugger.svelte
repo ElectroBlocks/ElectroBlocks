@@ -1,5 +1,4 @@
 <script>
-  export let show = false;
   import { rgbToHex } from "../../../core/blockly/helpers/color.helper";
   import _ from "lodash";
   import currentFrameStore from "../../../stores/currentFrame.store";
@@ -67,7 +66,7 @@
   }
 </style>
 
-<div class="debugger" class:open={variables.length > 0 && show} id="debugger">
+<div class="debugger" class:open={variables.length > 0} id="debugger">
   <ul>
     {#each variables as variable}
       {#if ['Number', 'Boolean'].includes(variable.type)}

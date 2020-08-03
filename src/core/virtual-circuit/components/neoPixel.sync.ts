@@ -6,10 +6,12 @@ import {
   findArduinoEl,
 } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
-import rgbLedLightStripSvg from '../svgs/rgbledlightstrip/rgbledlightstrip.svg';
+import neopixelSvgString from '../svgs/neopixel/neopixel.svg';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import _ from 'lodash';
+import { rgbToHex } from '../../blockly/helpers/color.helper';
+import { addDraggableEvent } from '../component-events.helpers';
 
 export const neoPixelCreate: CreateComponent = (state, frame, draw) => {
   const neoPixelState = state as NeoPixelState;
@@ -20,18 +22,35 @@ export const neoPixelCreate: CreateComponent = (state, frame, draw) => {
 
   if (neoPixelEl) {
     showRGBStripLeds(neoPixelEl, neoPixelState);
-    createWires(neoPixelEl, neoPixelState.pins[0], arduino as Svg, draw, id);
     return;
   }
 
-  neoPixelEl = createComponentEl(draw, state, rgbLedLightStripSvg);
+  neoPixelEl = createComponentEl(draw, state, neopixelSvgString);
   (window as any).neoPixelEl = neoPixelEl;
   arduino.y(draw.viewbox().y2 - arduino.height() + 100);
-  createWires(neoPixelEl, ARDUINO_UNO_PINS.PIN_13, arduino as Svg, draw, id);
+  neoPixelEl.y(30);
+  createWires(neoPixelEl, neoPixelState.pins[0], arduino as Svg, draw, id);
   showRGBStripLeds(neoPixelEl, neoPixelState);
+  addDraggableEvent(neoPixelEl, arduino, draw);
 };
 
-export const rgbLedLightStripUpdate: SyncComponent = (state, frame, draw) => {};
+export const neoPixelUpdate: SyncComponent = (state, frame, draw) => {
+  const neoPixelState = state as NeoPixelState;
+  const id = componentToSvgId(neoPixelState);
+  let neoPixelEl = draw.findOne('#' + id) as Element;
+
+  if (!neoPixelEl) {
+    console.error('ERROR NO NEOPIXEL FOUND');
+    return;
+  }
+
+  neoPixelState.neoPixels.forEach((led) => {
+    const ledEl = neoPixelEl.findOne(
+      `#LED-${led.position + 1} circle`
+    ) as Element;
+    ledEl.fill(rgbToHex(led.color));
+  });
+};
 
 const createWires = (
   neoPixelEl: Element,
@@ -54,7 +73,7 @@ const createWires = (
 
   createPowerWire(
     neoPixelEl,
-    pin,
+    ARDUINO_UNO_PINS.PIN_13,
     arduino,
     draw,
     'CONNECT_POWER',
@@ -62,6 +81,7 @@ const createWires = (
     'left'
   );
 };
+
 const showRGBStripLeds = (
   neoPixelEl: Element,
   neoPixelState: NeoPixelState
