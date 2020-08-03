@@ -2,14 +2,11 @@ import { SyncComponent, CreateComponent } from '../svg.component';
 import { ArduinoComponentType } from '../../frames/arduino.frame';
 import { ArduinoReceiveMessageState } from '../../frames/arduino-components.state';
 import { Text, Svg } from '@svgdotjs/svg.js';
-import { findSvgElement, LED_COLORS } from '../svg-helpers';
+import { findSvgElement, LED_COLORS, findArduinoEl } from '../svg-helpers';
 
 export const arduinoMessageUpdate: SyncComponent = (state, frame, draw) => {
-  if (state.type !== ArduinoComponentType.MESSAGE) {
-    return;
-  }
   const messageState = state as ArduinoReceiveMessageState;
-  const arduino = draw.findOne('#arduino_main_svg');
+  const arduino = findArduinoEl(draw);
 
   if (!arduino) {
     return;
@@ -42,16 +39,8 @@ export const arduinoMessageUpdate: SyncComponent = (state, frame, draw) => {
   );
 };
 
-export const arduinoMessageCreate: CreateComponent = (
-  state,
-  frame,
-  draw,
-  showArduino
-) => {
-  if (state.type !== ArduinoComponentType.MESSAGE) {
-    return;
-  }
-  const arduino = draw.findOne('#arduino_main_svg');
+export const arduinoMessageCreate: CreateComponent = (state, frame, draw) => {
+  const arduino = findArduinoEl(draw);
   if (arduino) {
     arduino.findOne('#MESSAGE').show();
   }

@@ -1,7 +1,11 @@
 import { SyncComponent, CreateComponent } from '../svg.component';
 import { ArduinoComponentType } from '../../frames/arduino.frame';
 import { LCDScreenState } from '../../frames/arduino-components.state';
-import { componentToSvgId } from '../svg-helpers';
+import {
+  componentToSvgId,
+  findArduinoEl,
+  createComponentEl,
+} from '../svg-helpers';
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
 import { positionComponent } from '../svg-position';
 import lcd_16_2_svg from '../svgs/lcd/lcd_16_2.svg';
@@ -13,6 +17,7 @@ import {
   createWire,
   updateWires,
 } from '../wire';
+import { addDraggableEvent } from '../component-events.helpers';
 
 /**
  * Timer for blinking
@@ -29,16 +34,13 @@ let blinkPosition = { row: 0, col: 0 };
  */
 let isDarkBlinking = false;
 
-export const lcdCreate: CreateComponent = (state, frame, draw, showArduino) => {
-  if (state.type !== ArduinoComponentType.LCD_SCREEN) {
-    return;
-  }
+export const lcdCreate: CreateComponent = (state, frame, draw) => {
   const lcdState = state as LCDScreenState;
   const id = componentToSvgId(lcdState);
   let lcdScreenEl = draw.findOne('#' + id) as Element;
-  const arduino = draw.findOne('#arduino_main_svg') as Element;
+  const arduino = findArduinoEl(draw);
 
-  if (lcdScreenEl && showArduino) {
+  if (lcdScreenEl) {
     lcdScreenEl.findOne('#WIRES').show();
     (lcdScreenEl as any).draggable().on('dragmove', (e) => {
       updateWires(lcdScreenEl, draw, arduino as Svg);
@@ -58,57 +60,29 @@ export const lcdCreate: CreateComponent = (state, frame, draw, showArduino) => {
 
     return;
   }
+  lcdScreenEl = createComponentEl(draw, lcdState, getSvgString(lcdState));
 
-  if (lcdScreenEl && !showArduino) {
-    lcdScreenEl.findOne('#WIRES').hide();
-    draw
-      .find('line')
-      .filter((w) => w.data('component-id') === id)
-      .forEach((w) => w.remove());
-    centerLetters(lcdScreenEl, lcdState);
-    clearLetters(lcdScreenEl, lcdState);
+  arduino.y(draw.viewbox().y2 - arduino.height() + 70);
 
-    return;
-  }
+  positionComponent(
+    lcdScreenEl,
+    arduino,
+    draw,
+    ARDUINO_UNO_PINS.PIN_12,
+    'SCL_WIRE'
+  );
 
-  lcdScreenEl = draw.svg(getSvgString(lcdState)).last();
-  lcdScreenEl.addClass('component');
-  lcdScreenEl.attr('id', id);
-  lcdScreenEl.data('component-type', state.type);
-  (lcdScreenEl as Svg).viewbox(0, 0, lcdScreenEl.width(), lcdScreenEl.height());
+  lcdScreenEl.y(lcdScreenEl.y() - 30);
 
-  if (showArduino) {
-    arduino.y(draw.viewbox().y2 - arduino.height() + 70);
-
-    positionComponent(
-      lcdScreenEl,
-      arduino,
-      draw,
-      ARDUINO_UNO_PINS.PIN_12,
-      'SCL_WIRE'
-    );
-
-    lcdScreenEl.y(lcdScreenEl.y() - 30);
-
-    (lcdScreenEl as any).draggable().on('dragmove', (e) => {
-      updateWires(lcdScreenEl, draw, arduino as Svg);
-    });
-    createWries(lcdScreenEl, ARDUINO_UNO_PINS.PIN_12, arduino as Svg, draw, id);
-  } else {
-    lcdScreenEl.findOne('#WIRES').hide();
-    lcdScreenEl.y(100);
-  }
-
-  (window as any).lcd = lcdScreenEl;
-
+  addDraggableEvent(lcdScreenEl, arduino, draw);
+  createWries(lcdScreenEl, ARDUINO_UNO_PINS.PIN_12, arduino as Svg, draw, id);
   centerLetters(lcdScreenEl, lcdState);
   clearLetters(lcdScreenEl, lcdState);
+
+  (window as any).lcd = lcdScreenEl;
 };
 
 export const lcdUpdate: SyncComponent = (state, frame, draw) => {
-  if (state.type !== ArduinoComponentType.LCD_SCREEN) {
-    return;
-  }
   const lcdState = state as LCDScreenState;
   const id = componentToSvgId(lcdState);
   let lcdScreenEl = draw.findOne('#' + id) as Element;

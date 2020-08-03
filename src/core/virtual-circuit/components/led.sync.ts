@@ -12,7 +12,11 @@ import {
 } from '../../frames/arduino-components.state';
 import ledSvgString from '../svgs/led/led.svg';
 import _ from 'lodash';
-import { componentToSvgId } from '../svg-helpers';
+import {
+  componentToSvgId,
+  createComponentEl,
+  findArduinoEl,
+} from '../svg-helpers';
 import resistorSvg from '../svgs/resistors/resistor-small.svg';
 import { ARDUINO_UNO_PINS, ANALOG_PINS } from '../../blockly/selectBoard';
 import {
@@ -22,57 +26,33 @@ import {
   createWire,
 } from '../wire';
 import { positionComponent } from '../svg-position';
+import { addDraggableEvent } from '../component-events.helpers';
 
 const colors = ['#39b54a', '#ff2a5f', '#1545ff', '#fff76a', '#ff9f3f'];
 
-export const ledCreate: CreateComponent = (state, frame, draw, showArduino) => {
-  if (state.type !== ArduinoComponentType.PIN) {
-    return;
-  }
+export const ledCreate: CreateComponent = (state, frame, draw) => {
   const ledState = state as PinState;
-
-  if (ledState.pinPicture !== PinPicture.LED) {
-    return;
-  }
 
   const id = componentToSvgId(ledState);
   let ledEl = draw.findOne('#' + id) as Element;
-  const arduino = draw.findOne('#arduino_main_svg') as Element;
+  const arduino = findArduinoEl(draw);
 
-  if (ledEl && showArduino) {
-    return;
-  }
-
-  if (ledEl && !showArduino) {
-    draw
-      .find('line')
-      .filter((w) => w.data('component-id') === id)
-      .forEach((w) => w.remove());
+  if (ledEl) {
     return;
   }
 
   const randomColor = colors[_.random(0, colors.length)];
-  ledEl = draw
-    .svg(
-      ledSvgString.replace(
-        /radial-gradient/g,
-        `radial-gradient-${ledState.pin}`
-      )
-    )
-    .last();
+  ledEl = createComponentEl(
+    draw,
+    state,
+    ledSvgString.replace(/radial-gradient/g, `radial-gradient-${ledState.pin}`)
+  );
 
-  ledEl.addClass('component');
-  ledEl.data('component-type', state.type);
   ledEl.data('picture-type', ledState.pinPicture);
-  ledEl.attr('id', id);
-  ledEl.data('pin_number', ledState.pin);
+  ledEl.data('pin-number', ledState.pin);
   (window as any).ledEl = ledEl;
 
-  (ledEl as any).draggable().on('dragmove', () => {
-    if (showArduino) {
-      updateWires(ledEl, draw, arduino as Svg);
-    }
-  });
+  addDraggableEvent(ledEl, arduino, draw);
 
   ledEl
     .find(`#radial-gradient-${ledState.pin} stop`)
@@ -81,28 +61,18 @@ export const ledCreate: CreateComponent = (state, frame, draw, showArduino) => {
     .attr('stop-color', randomColor);
   ledEl.data('color', randomColor);
 
-  if (showArduino) {
-    createResistor(arduino, draw, ledState.pin, id);
-    positionComponent(ledEl, arduino, draw, ledState.pin, 'POWER');
-    if (ANALOG_PINS.includes(ledState.pin)) {
-      ledEl.x(ledEl.x() + 30);
-    }
-    createWires(ledEl, ledState.pin, arduino as Svg, draw, id);
+  createResistor(arduino, draw, ledState.pin, id);
+  positionComponent(ledEl, arduino, draw, ledState.pin, 'POWER');
+  if (ANALOG_PINS.includes(ledState.pin)) {
+    ledEl.x(ledEl.x() + 30);
   }
+  createWires(ledEl, ledState.pin, arduino as Svg, draw, id);
 
   setPinText(ledState.pin, ledEl);
 };
 
 export const updateLed: SyncComponent = (state, frame, draw) => {
-  if (state.type !== ArduinoComponentType.PIN) {
-    return;
-  }
   const ledState = state as PinState;
-
-  if (ledState.pinPicture !== PinPicture.LED) {
-    return;
-  }
-
   const id = componentToSvgId(ledState);
   let ledEl = draw.findOne('#' + id) as Element;
   if (!ledEl) {
@@ -132,16 +102,11 @@ export const updateLed: SyncComponent = (state, frame, draw) => {
 };
 
 export const resetLed: ResetComponent = (componentEl: Element) => {
-  if (
-    componentEl.data('component-type') === ArduinoComponentType.PIN &&
-    componentEl.data('picture-type') === PinPicture.LED
-  ) {
-    componentEl
-      .find(`#radial-gradient-${componentEl.data('pin_number')} stop`)
-      .toArray()
-      .find((stop) => stop.attr('offset') == 1)
-      .attr('stop-color', '#FFF');
-  }
+  componentEl
+    .find(`#radial-gradient-${componentEl.data('pin-number')} stop`)
+    .toArray()
+    .find((stop) => stop.attr('offset') == 1)
+    .attr('stop-color', '#FFF');
 };
 
 const createResistor = (

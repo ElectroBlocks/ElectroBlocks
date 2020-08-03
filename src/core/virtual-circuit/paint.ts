@@ -4,43 +4,32 @@ import { ArduinoFrame } from '../frames/arduino.frame';
 import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
 import { createComponents } from './svg.component';
 import { resetBreadBoardWholes } from './wire';
-import { componentToSvgId } from './svg-helpers';
+import { componentToSvgId, findArduinoEl } from './svg-helpers';
 
-export default (
-  draw: Svg,
-  frame: ArduinoFrame = undefined,
-  showArduino = true
-) => {
+export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   const arduino = findOrCreateArduino(draw);
 
-  if (showArduino) {
-    resetBreadBoardWholes();
-    hideAllWires(arduino);
-  }
+  resetBreadBoardWholes();
+  hideAllWires(arduino);
 
-  if (!showArduino) {
-    arduino.remove();
-  }
-
-  console.log(frame, 'did state exist');
   if (frame) {
-    createComponents(frame, draw, showArduino);
-  }
-
-  if (showArduino && frame) {
-    const arduino = findOrCreateArduino(draw);
+    createComponents(frame, draw);
     frame.components
       .flatMap((b) => b.pins)
       .forEach((wire) => showWire(arduino, wire));
   }
 
   deleteUnusedComponents(draw, frame);
+
+  return;
 };
 
 const findOrCreateArduino = (draw: Svg) => {
-  let [arduino] = draw.find('#arduino_main_svg');
+  let arduino = findArduinoEl(draw);
 
   if (arduino) {
+    // Have to reset this because it's part of the arduino
+    arduino.findOne('#MESSAGE').hide();
     return arduino;
   }
 
@@ -69,7 +58,7 @@ const showWire = (arduino: Element, wire: string) => {
   arduino.findOne('#PIN_' + wire).show();
 };
 
-const deleteUnusedComponents = (draw: Svg, frame: ArduinoFrame) => {
+const deleteUnusedComponents = (draw: Svg, frame: ArduinoFrame | undefined) => {
   draw.find('.component').forEach((c: Element) => {
     const componentId = c.attr('id');
     // If there are not frames just delete all the components
@@ -78,7 +67,6 @@ const deleteUnusedComponents = (draw: Svg, frame: ArduinoFrame) => {
       draw
         .find(`[data-component-id=${componentId}]`)
         .forEach((c) => c.remove());
-      console.log('removed');
       return;
     }
 

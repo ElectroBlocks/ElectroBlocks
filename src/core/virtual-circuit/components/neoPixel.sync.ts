@@ -1,67 +1,33 @@
 import { CreateComponent, SyncComponent } from '../svg.component';
-import { ArduinoComponentType } from '../../frames/arduino.frame';
 import { NeoPixelState } from '../../frames/arduino-components.state';
-import { componentToSvgId } from '../svg-helpers';
+import {
+  componentToSvgId,
+  createComponentEl,
+  findArduinoEl,
+} from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 import rgbLedLightStripSvg from '../svgs/rgbledlightstrip/rgbledlightstrip.svg';
-import {
-  updateWires,
-  createWire,
-  createPowerWire,
-  createGroundWire,
-} from '../wire';
-import { positionComponent } from '../svg-position';
-import _, { indexOf } from 'lodash';
+import { createWire, createPowerWire, createGroundWire } from '../wire';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
+import _ from 'lodash';
 
-export const neoPixelCreate: CreateComponent = (
-  state,
-  frame,
-  draw,
-  showArduino
-) => {
-  if (state.type !== ArduinoComponentType.NEO_PIXEL_STRIP) {
-    return;
-  }
-
+export const neoPixelCreate: CreateComponent = (state, frame, draw) => {
   const neoPixelState = state as NeoPixelState;
 
   const id = componentToSvgId(neoPixelState);
   let neoPixelEl = draw.findOne('#' + id) as Element;
-  const arduino = draw.findOne('#arduino_main_svg') as Element;
-  if (showArduino && neoPixelEl) {
+  const arduino = findArduinoEl(draw);
+
+  if (neoPixelEl) {
     showRGBStripLeds(neoPixelEl, neoPixelState);
     createWires(neoPixelEl, neoPixelState.pins[0], arduino as Svg, draw, id);
     return;
   }
 
-  if (neoPixelEl && !showArduino) {
-    showRGBStripLeds(neoPixelEl, neoPixelState);
-
-    draw
-      .find('line')
-      .filter((w) => w.data('component-id') === id)
-      .forEach((w) => w.remove());
-    return;
-  }
-
-  neoPixelEl = draw.svg(rgbLedLightStripSvg).last();
-  neoPixelEl.addClass('component');
-  neoPixelEl.attr('id', id);
-  neoPixelEl.data('component-type', state.type);
-  (neoPixelEl as Svg).viewbox(0, 0, neoPixelEl.width(), neoPixelEl.height());
-  (neoPixelEl as any).draggable().on('dragmove', (e) => {
-    if (showArduino) {
-      updateWires(neoPixelEl, draw, arduino as Svg);
-    }
-  });
+  neoPixelEl = createComponentEl(draw, state, rgbLedLightStripSvg);
   (window as any).neoPixelEl = neoPixelEl;
-
-  if (showArduino) {
-    arduino.y(draw.viewbox().y2 - arduino.height() + 100);
-    createWires(neoPixelEl, ARDUINO_UNO_PINS.PIN_13, arduino as Svg, draw, id);
-  }
-
+  arduino.y(draw.viewbox().y2 - arduino.height() + 100);
+  createWires(neoPixelEl, ARDUINO_UNO_PINS.PIN_13, arduino as Svg, draw, id);
   showRGBStripLeds(neoPixelEl, neoPixelState);
 };
 

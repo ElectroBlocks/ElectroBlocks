@@ -65,6 +65,37 @@ export const findSvgElement = (
   return draw.findOne('#' + id) as Svg | Element;
 };
 
+export const deleteWires = (draw: Svg, id: string) => {
+  draw
+    .find('line')
+    .filter((w) => w.data('component-id') === id)
+    .forEach((w) => w.remove());
+};
+
+export const createComponentEl = (
+  draw: Svg,
+  state: ArduinoComponentState,
+  svgText: string
+) => {
+  const componentEl = draw.svg(svgText).last();
+  componentEl.addClass('component');
+  componentEl.attr('id', componentToSvgId(state));
+  componentEl.data('component-type', state.type);
+  (componentEl as Svg).viewbox(0, 0, componentEl.width(), componentEl.height());
+
+  return componentEl;
+};
+
+export const findArduinoEl = (draw: Svg) => {
+  return draw.findOne('#arduino_main_svg') as Element;
+};
+
+export const addWireConnectionClass = (ids: string[], componentEl: Element) => {
+  ids.forEach((id) => {
+    componentEl.findOne('#' + id).addClass('wire-connection');
+  });
+};
+
 export enum LED_COLORS {
   LED_ON = '#ffa922',
   LED_OFF = '#F2F2F2',
