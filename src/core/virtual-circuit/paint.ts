@@ -28,6 +28,8 @@ const findOrCreateArduino = (draw: Svg) => {
   let arduino = findArduinoEl(draw);
 
   if (arduino) {
+    // Have to reset this because it's part of the arduino
+    arduino.findOne('#MESSAGE').hide();
     return arduino;
   }
 
