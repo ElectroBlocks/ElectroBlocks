@@ -29,7 +29,8 @@ export const ultraSonicSensor: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       ultraSonicState,
-      'Setting up ultra sonic sensor.'
+      'Setting up ultra sonic sensor.',
+      previousState
     ),
   ];
 };

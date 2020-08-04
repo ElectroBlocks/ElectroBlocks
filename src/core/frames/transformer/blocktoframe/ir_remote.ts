@@ -32,7 +32,8 @@ export const irRemoteSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       irRemoteState,
-      'Setting up ir remote.'
+      'Setting up ir remote.',
+      previousState
     ),
   ];
 };

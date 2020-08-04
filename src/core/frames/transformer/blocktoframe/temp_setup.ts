@@ -28,7 +28,8 @@ export const tempSetupSensor: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       tempSensorState,
-      'Setting up temperature sensor.'
+      'Setting up temperature sensor.',
+      previousState
     ),
   ];
 };

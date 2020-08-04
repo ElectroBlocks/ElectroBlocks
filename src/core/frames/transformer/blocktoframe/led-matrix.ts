@@ -47,7 +47,8 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       ledMatrixState,
-      'Drawing on LED Matrix.'
+      'Drawing on LED Matrix.',
+      previousState
     ),
   ];
 };
@@ -103,7 +104,8 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       newComponent,
-      `Led Matrix turn (${row},${col}) ${isOn ? 'on' : 'off'}.`
+      `Led Matrix turn (${row},${col}) ${isOn ? 'on' : 'off'}.`,
+      previousState
     ),
   ];
 };

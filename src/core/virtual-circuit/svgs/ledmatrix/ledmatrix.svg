@@ -1,295 +1,295 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="283.17" height="326.12" viewBox="0 0 283.17 326.12">
+<svg xmlns="http://www.w3.org/2000/svg" width="290.71" height="326.65" viewBox="0 0 290.71 326.65">
   <title>ledmatrix</title>
   <g id="Base">
-    <rect x="36.42" y="289.79" width="3.96" height="36.34" rx="1.98" fill="#b3b3b3"/>
-    <rect x="89.59" y="289.79" width="3.96" height="36.34" rx="1.98" fill="#b3b3b3"/>
-    <rect x="146.77" y="289.79" width="3.96" height="36.34" rx="1.98" fill="#b3b3b3"/>
-    <rect x="203.94" y="289.79" width="3.96" height="36.34" rx="1.98" fill="#b3b3b3"/>
-    <rect x="261.11" y="289.79" width="3.96" height="36.34" rx="1.98" fill="#b3b3b3"/>
-    <rect x="14.09" y="263.26" width="269.08" height="30.48" fill="#b59191"/>
-    <text transform="translate(24.78 291.1)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">VCC</text>
-    <text transform="translate(77.56 291.1)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">GND</text>
-    <text transform="translate(199.08 277.1)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">CS</text>
-    <text transform="translate(130.83 277.1)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">DATA</text>
-    <text transform="translate(252.06 277.1)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">CLK</text>
-    <text transform="translate(130.98 291.1)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">Pin 12</text>
-    <text transform="translate(189.68 291.1)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">Pin 10</text>
-    <text transform="translate(246.35 291.1)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">Pin 11</text>
+    <rect id="CLK_PIN" x="45.65" y="294.4" width="3.52" height="32.26" rx="1.59" fill="#b3b3b3"/>
+    <rect id="CS_PIN" x="92.86" y="294.4" width="3.52" height="32.26" rx="1.59" fill="#b3b3b3"/>
+    <rect id="DATA_PIN" x="143.62" y="294.4" width="3.52" height="32.26" rx="1.59" fill="#b3b3b3"/>
+    <rect id="GND_PIN" x="194.38" y="294.4" width="3.52" height="32.26" rx="1.59" fill="#b3b3b3"/>
+    <rect id="VCC_PIN" x="245.13" y="294.4" width="3.52" height="32.26" rx="1.59" fill="#b3b3b3"/>
+    <rect x="19.61" y="263.63" width="271.09" height="34.28" fill="#b59191"/>
+    <text transform="translate(226.54 290.57)" font-size="18" font-family="Biryani-Regular, Biryani">VCC</text>
+    <text transform="translate(176.66 290.57)" font-size="18" font-family="Biryani-Regular, Biryani">GND</text>
+    <text transform="translate(81.98 290.57)" font-size="18" font-family="Biryani-Regular, Biryani">CS</text>
+    <text transform="translate(125.03 290.57)" font-size="18" font-family="Biryani-Regular, Biryani">Data</text>
+    <text transform="translate(29.58 290.57)" font-size="18" font-family="Biryani-Regular, Biryani">CLK</text>
+    <text transform="translate(115.17 311.53)" font-size="18" font-family="Biryani-Regular, Biryani"><tspan xml:space="preserve">  12</tspan></text>
+    <text transform="translate(63.68 311.53)" font-size="18" font-family="Biryani-Regular, Biryani"><tspan xml:space="preserve">  10</tspan></text>
+    <text transform="translate(16.59 311.53)" font-size="18" font-family="Biryani-Regular, Biryani"><tspan xml:space="preserve">  11</tspan></text>
   </g>
   <g id="_8-8" data-name="8-8">
-    <rect x="229.17" y="232.05" width="27.16" height="27.16"/>
-    <circle cx="242.75" cy="245.63" r="9.51" fill="#fff"/>
+    <rect x="232.67" y="235.59" width="27.57" height="27.57"/>
+    <circle cx="246.46" cy="249.38" r="9.65" fill="#fff"/>
   </g>
   <g id="_8-7" data-name="8-7">
-    <rect x="202.02" y="232.05" width="27.16" height="27.16"/>
-    <circle cx="215.6" cy="245.63" r="9.51" fill="#fff"/>
+    <rect x="205.1" y="235.59" width="27.57" height="27.57"/>
+    <circle cx="218.88" cy="249.38" r="9.65" fill="#fff"/>
   </g>
   <g id="_8-6" data-name="8-6">
-    <rect x="174.86" y="232.05" width="27.16" height="27.16"/>
-    <circle cx="188.44" cy="245.63" r="9.51" fill="#fff"/>
+    <rect x="177.53" y="235.59" width="27.57" height="27.57"/>
+    <circle cx="191.31" cy="249.38" r="9.65" fill="#fff"/>
   </g>
   <g id="_8-5" data-name="8-5">
-    <rect x="147.7" y="232.05" width="27.16" height="27.16"/>
-    <circle cx="161.28" cy="245.63" r="9.51" fill="#fff"/>
+    <rect x="149.95" y="235.59" width="27.57" height="27.57"/>
+    <circle cx="163.74" cy="249.38" r="9.65" fill="#fff"/>
   </g>
   <g id="_8-4" data-name="8-4">
-    <rect x="120.55" y="232.05" width="27.16" height="27.16"/>
-    <circle cx="134.13" cy="245.63" r="9.51" fill="#fff"/>
+    <rect x="122.39" y="235.59" width="27.57" height="27.57"/>
+    <circle cx="136.17" cy="249.38" r="9.65" fill="#fff"/>
   </g>
   <g id="_8-3" data-name="8-3">
-    <rect x="93.39" y="232.05" width="27.16" height="27.16"/>
-    <circle cx="106.97" cy="245.63" r="9.51" fill="#fff"/>
+    <rect x="94.81" y="235.59" width="27.57" height="27.57"/>
+    <circle cx="108.6" cy="249.38" r="9.65" fill="#fff"/>
   </g>
   <g id="_8-2" data-name="8-2">
-    <rect x="66.23" y="232.05" width="27.16" height="27.16"/>
-    <circle cx="79.81" cy="245.63" r="9.51" fill="#fff"/>
+    <rect x="67.24" y="235.59" width="27.57" height="27.57"/>
+    <circle cx="81.03" cy="249.38" r="9.65" fill="#fff"/>
   </g>
   <g id="_8-1" data-name="8-1">
-    <rect x="39.07" y="232.05" width="27.16" height="27.16"/>
-    <circle cx="52.65" cy="245.63" r="9.51" fill="#fff"/>
+    <rect x="39.67" y="235.59" width="27.57" height="27.57"/>
+    <circle cx="53.45" cy="249.38" r="9.65" fill="#fff"/>
   </g>
   <g id="_7-8" data-name="7-8">
-    <rect x="229.17" y="204.89" width="27.16" height="27.16"/>
-    <circle cx="242.75" cy="218.47" r="9.51" fill="#fff"/>
+    <rect x="232.67" y="208.02" width="27.57" height="27.57"/>
+    <circle cx="246.46" cy="221.81" r="9.65" fill="#fff"/>
   </g>
   <g id="_7-7" data-name="7-7">
-    <rect x="202.02" y="204.89" width="27.16" height="27.16"/>
-    <circle cx="215.6" cy="218.47" r="9.51" fill="#fff"/>
+    <rect x="205.1" y="208.02" width="27.57" height="27.57"/>
+    <circle cx="218.88" cy="221.81" r="9.65" fill="#fff"/>
   </g>
   <g id="_7-6" data-name="7-6">
-    <rect x="174.86" y="204.89" width="27.16" height="27.16"/>
-    <circle cx="188.44" cy="218.47" r="9.51" fill="#fff"/>
+    <rect x="177.53" y="208.02" width="27.57" height="27.57"/>
+    <circle cx="191.31" cy="221.81" r="9.65" fill="#fff"/>
   </g>
   <g id="_7-5" data-name="7-5">
-    <rect x="147.7" y="204.89" width="27.16" height="27.16"/>
-    <circle cx="161.28" cy="218.47" r="9.51" fill="#fff"/>
+    <rect x="149.95" y="208.02" width="27.57" height="27.57"/>
+    <circle cx="163.74" cy="221.81" r="9.65" fill="#fff"/>
   </g>
   <g id="_7-4" data-name="7-4">
-    <rect x="120.55" y="204.89" width="27.16" height="27.16"/>
-    <circle cx="134.13" cy="218.47" r="9.51" fill="#fff"/>
+    <rect x="122.39" y="208.02" width="27.57" height="27.57"/>
+    <circle cx="136.17" cy="221.81" r="9.65" fill="#fff"/>
   </g>
   <g id="_7-3" data-name="7-3">
-    <rect x="93.39" y="204.89" width="27.16" height="27.16"/>
-    <circle cx="106.97" cy="218.47" r="9.51" fill="#fff"/>
+    <rect x="94.81" y="208.02" width="27.57" height="27.57"/>
+    <circle cx="108.6" cy="221.81" r="9.65" fill="#fff"/>
   </g>
   <g id="_7-2" data-name="7-2">
-    <rect x="66.23" y="204.89" width="27.16" height="27.16"/>
-    <circle cx="79.81" cy="218.47" r="9.51" fill="#fff"/>
+    <rect x="67.24" y="208.02" width="27.57" height="27.57"/>
+    <circle cx="81.03" cy="221.81" r="9.65" fill="#fff"/>
   </g>
   <g id="_7-1" data-name="7-1">
-    <rect x="39.07" y="204.89" width="27.16" height="27.16"/>
-    <circle cx="52.65" cy="218.47" r="9.51" fill="#fff"/>
+    <rect x="39.67" y="208.02" width="27.57" height="27.57"/>
+    <circle cx="53.45" cy="221.81" r="9.65" fill="#fff"/>
   </g>
   <g id="_6-8" data-name="6-8">
-    <rect x="229.17" y="177.74" width="27.16" height="27.16"/>
-    <circle cx="242.75" cy="191.31" r="9.51" fill="#fff"/>
+    <rect x="232.67" y="180.45" width="27.57" height="27.57"/>
+    <circle cx="246.46" cy="194.23" r="9.65" fill="#fff"/>
   </g>
   <g id="_6-7" data-name="6-7">
-    <rect x="202.02" y="177.74" width="27.16" height="27.16"/>
-    <circle cx="215.6" cy="191.31" r="9.51" fill="#fff"/>
+    <rect x="205.1" y="180.45" width="27.57" height="27.57"/>
+    <circle cx="218.88" cy="194.23" r="9.65" fill="#fff"/>
   </g>
   <g id="_6-6" data-name="6-6">
-    <rect x="174.86" y="177.74" width="27.16" height="27.16"/>
-    <circle cx="188.44" cy="191.31" r="9.51" fill="#fff"/>
+    <rect x="177.53" y="180.45" width="27.57" height="27.57"/>
+    <circle cx="191.31" cy="194.23" r="9.65" fill="#fff"/>
   </g>
   <g id="_6-5" data-name="6-5">
-    <rect x="147.7" y="177.74" width="27.16" height="27.16"/>
-    <circle cx="161.28" cy="191.31" r="9.51" fill="#fff"/>
+    <rect x="149.95" y="180.45" width="27.57" height="27.57"/>
+    <circle cx="163.74" cy="194.23" r="9.65" fill="#fff"/>
   </g>
   <g id="_6-4" data-name="6-4">
-    <rect x="120.55" y="177.74" width="27.16" height="27.16"/>
-    <circle cx="134.13" cy="191.31" r="9.51" fill="#fff"/>
+    <rect x="122.39" y="180.45" width="27.57" height="27.57"/>
+    <circle cx="136.17" cy="194.23" r="9.65" fill="#fff"/>
   </g>
   <g id="_6-3" data-name="6-3">
-    <rect x="93.39" y="177.74" width="27.16" height="27.16"/>
-    <circle cx="106.97" cy="191.31" r="9.51" fill="#fff"/>
+    <rect x="94.81" y="180.45" width="27.57" height="27.57"/>
+    <circle cx="108.6" cy="194.23" r="9.65" fill="#fff"/>
   </g>
   <g id="_6-2" data-name="6-2">
-    <rect x="66.23" y="177.74" width="27.16" height="27.16"/>
-    <circle cx="79.81" cy="191.31" r="9.51" fill="#fff"/>
+    <rect x="67.24" y="180.45" width="27.57" height="27.57"/>
+    <circle cx="81.03" cy="194.23" r="9.65" fill="#fff"/>
   </g>
   <g id="_6-1" data-name="6-1">
-    <rect x="39.07" y="177.74" width="27.16" height="27.16"/>
-    <circle cx="52.65" cy="191.31" r="9.51" fill="#fff"/>
+    <rect x="39.67" y="180.45" width="27.57" height="27.57"/>
+    <circle cx="53.45" cy="194.23" r="9.65" fill="#fff"/>
   </g>
   <g id="_5-8" data-name="5-8">
-    <rect x="229.17" y="150.58" width="27.16" height="27.16"/>
-    <circle cx="242.75" cy="164.16" r="9.51" fill="#fff"/>
+    <rect x="232.67" y="152.87" width="27.57" height="27.57"/>
+    <circle cx="246.46" cy="166.66" r="9.65" fill="#fff"/>
   </g>
   <g id="_5-7" data-name="5-7">
-    <rect x="202.02" y="150.58" width="27.16" height="27.16"/>
-    <circle cx="215.6" cy="164.16" r="9.51" fill="#fff"/>
+    <rect x="205.1" y="152.87" width="27.57" height="27.57"/>
+    <circle cx="218.88" cy="166.66" r="9.65" fill="#fff"/>
   </g>
   <g id="_5-6" data-name="5-6">
-    <rect x="174.86" y="150.58" width="27.16" height="27.16"/>
-    <circle cx="188.44" cy="164.16" r="9.51" fill="#fff"/>
+    <rect x="177.53" y="152.87" width="27.57" height="27.57"/>
+    <circle cx="191.31" cy="166.66" r="9.65" fill="#fff"/>
   </g>
   <g id="_5-5" data-name="5-5">
-    <rect x="147.7" y="150.58" width="27.16" height="27.16"/>
-    <circle cx="161.28" cy="164.16" r="9.51" fill="#fff"/>
+    <rect x="149.95" y="152.87" width="27.57" height="27.57"/>
+    <circle cx="163.74" cy="166.66" r="9.65" fill="#fff"/>
   </g>
   <g id="_5-4" data-name="5-4">
-    <rect x="120.55" y="150.58" width="27.16" height="27.16"/>
-    <circle cx="134.13" cy="164.16" r="9.51" fill="#fff"/>
+    <rect x="122.39" y="152.87" width="27.57" height="27.57"/>
+    <circle cx="136.17" cy="166.66" r="9.65" fill="#fff"/>
   </g>
   <g id="_5-3" data-name="5-3">
-    <rect x="93.39" y="150.58" width="27.16" height="27.16"/>
-    <circle cx="106.97" cy="164.16" r="9.51" fill="#fff"/>
+    <rect x="94.81" y="152.87" width="27.57" height="27.57"/>
+    <circle cx="108.6" cy="166.66" r="9.65" fill="#fff"/>
   </g>
   <g id="_5-2" data-name="5-2">
-    <rect x="66.23" y="150.58" width="27.16" height="27.16"/>
-    <circle cx="79.81" cy="164.16" r="9.51" fill="#fff"/>
+    <rect x="67.24" y="152.87" width="27.57" height="27.57"/>
+    <circle cx="81.03" cy="166.66" r="9.65" fill="#fff"/>
   </g>
   <g id="_5-1" data-name="5-1">
-    <rect x="39.07" y="150.58" width="27.16" height="27.16"/>
-    <circle cx="52.65" cy="164.16" r="9.51" fill="#fff"/>
+    <rect x="39.67" y="152.87" width="27.57" height="27.57"/>
+    <circle cx="53.45" cy="166.66" r="9.65" fill="#fff"/>
   </g>
   <g id="_4-8" data-name="4-8">
-    <rect x="229.17" y="123.42" width="27.16" height="27.16"/>
-    <circle cx="242.75" cy="137" r="9.51" fill="#fff"/>
+    <rect x="232.67" y="125.3" width="27.57" height="27.57"/>
+    <circle cx="246.46" cy="139.09" r="9.65" fill="#fff"/>
   </g>
   <g id="_4-7" data-name="4-7">
-    <rect x="202.02" y="123.42" width="27.16" height="27.16"/>
-    <circle cx="215.6" cy="137" r="9.51" fill="#fff"/>
+    <rect x="205.1" y="125.3" width="27.57" height="27.57"/>
+    <circle cx="218.88" cy="139.09" r="9.65" fill="#fff"/>
   </g>
   <g id="_4-6" data-name="4-6">
-    <rect x="174.86" y="123.42" width="27.16" height="27.16"/>
-    <circle cx="188.44" cy="137" r="9.51" fill="#fff"/>
+    <rect x="177.53" y="125.3" width="27.57" height="27.57"/>
+    <circle cx="191.31" cy="139.09" r="9.65" fill="#fff"/>
   </g>
   <g id="_4-5" data-name="4-5">
-    <rect x="147.7" y="123.42" width="27.16" height="27.16"/>
-    <circle cx="161.28" cy="137" r="9.51" fill="#fff"/>
+    <rect x="149.95" y="125.3" width="27.57" height="27.57"/>
+    <circle cx="163.74" cy="139.09" r="9.65" fill="#fff"/>
   </g>
   <g id="_4-4" data-name="4-4">
-    <rect x="120.55" y="123.42" width="27.16" height="27.16"/>
-    <circle cx="134.13" cy="137" r="9.51" fill="#fff"/>
+    <rect x="122.39" y="125.3" width="27.57" height="27.57"/>
+    <circle cx="136.17" cy="139.09" r="9.65" fill="#fff"/>
   </g>
   <g id="_4-3" data-name="4-3">
-    <rect x="93.39" y="123.42" width="27.16" height="27.16"/>
-    <circle cx="106.97" cy="137" r="9.51" fill="#fff"/>
+    <rect x="94.81" y="125.3" width="27.57" height="27.57"/>
+    <circle cx="108.6" cy="139.09" r="9.65" fill="#fff"/>
   </g>
   <g id="_4-2" data-name="4-2">
-    <rect x="66.23" y="123.42" width="27.16" height="27.16"/>
-    <circle cx="79.81" cy="137" r="9.51" fill="#fff"/>
+    <rect x="67.24" y="125.3" width="27.57" height="27.57"/>
+    <circle cx="81.03" cy="139.09" r="9.65" fill="#fff"/>
   </g>
   <g id="_4-1" data-name="4-1">
-    <rect x="39.07" y="123.42" width="27.16" height="27.16"/>
-    <circle cx="52.65" cy="137" r="9.51" fill="#fff"/>
+    <rect x="39.67" y="125.3" width="27.57" height="27.57"/>
+    <circle cx="53.45" cy="139.09" r="9.65" fill="#fff"/>
   </g>
   <g id="_3-8" data-name="3-8">
-    <rect x="229.17" y="96.26" width="27.16" height="27.16"/>
-    <circle cx="242.75" cy="109.84" r="9.51" fill="#fff"/>
+    <rect x="232.67" y="97.73" width="27.57" height="27.57"/>
+    <circle cx="246.46" cy="111.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_3-7" data-name="3-7">
-    <rect x="202.02" y="96.26" width="27.16" height="27.16"/>
-    <circle cx="215.6" cy="109.84" r="9.51" fill="#fff"/>
+    <rect x="205.1" y="97.73" width="27.57" height="27.57"/>
+    <circle cx="218.88" cy="111.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_3-6" data-name="3-6">
-    <rect x="174.86" y="96.26" width="27.16" height="27.16"/>
-    <circle cx="188.44" cy="109.84" r="9.51" fill="#fff"/>
+    <rect x="177.53" y="97.73" width="27.57" height="27.57"/>
+    <circle cx="191.31" cy="111.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_3-5" data-name="3-5">
-    <rect x="147.7" y="96.26" width="27.16" height="27.16"/>
-    <circle cx="161.28" cy="109.84" r="9.51" fill="#fff"/>
+    <rect x="149.95" y="97.73" width="27.57" height="27.57"/>
+    <circle cx="163.74" cy="111.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_3-4" data-name="3-4">
-    <rect x="120.55" y="96.26" width="27.16" height="27.16"/>
-    <circle cx="134.13" cy="109.84" r="9.51" fill="#fff"/>
+    <rect x="122.39" y="97.73" width="27.57" height="27.57"/>
+    <circle cx="136.17" cy="111.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_3-3" data-name="3-3">
-    <rect x="93.39" y="96.26" width="27.16" height="27.16"/>
-    <circle cx="106.97" cy="109.84" r="9.51" fill="#fff"/>
+    <rect x="94.81" y="97.73" width="27.57" height="27.57"/>
+    <circle cx="108.6" cy="111.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_3-2" data-name="3-2">
-    <rect x="66.23" y="96.26" width="27.16" height="27.16"/>
-    <circle cx="79.81" cy="109.84" r="9.51" fill="#fff"/>
+    <rect x="67.24" y="97.73" width="27.57" height="27.57"/>
+    <circle cx="81.03" cy="111.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_3-1" data-name="3-1">
-    <rect x="39.07" y="96.26" width="27.16" height="27.16"/>
-    <circle cx="52.65" cy="109.84" r="9.51" fill="#fff"/>
+    <rect x="39.67" y="97.73" width="27.57" height="27.57"/>
+    <circle cx="53.45" cy="111.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_2-8" data-name="2-8">
-    <rect x="229.17" y="69.12" width="27.16" height="27.16"/>
-    <circle cx="242.75" cy="82.7" r="9.51" fill="#fff"/>
+    <rect x="232.67" y="70.18" width="27.57" height="27.57"/>
+    <circle cx="246.46" cy="83.96" r="9.65" fill="#fff"/>
   </g>
   <g id="_2-7" data-name="2-7">
-    <rect x="202.02" y="69.12" width="27.16" height="27.16"/>
-    <circle cx="215.6" cy="82.7" r="9.51" fill="#fff"/>
+    <rect x="205.1" y="70.18" width="27.57" height="27.57"/>
+    <circle cx="218.88" cy="83.96" r="9.65" fill="#fff"/>
   </g>
   <g id="_2-6" data-name="2-6">
-    <rect x="174.86" y="69.12" width="27.16" height="27.16"/>
-    <circle cx="188.44" cy="82.7" r="9.51" fill="#fff"/>
+    <rect x="177.53" y="70.18" width="27.57" height="27.57"/>
+    <circle cx="191.31" cy="83.96" r="9.65" fill="#fff"/>
   </g>
   <g id="_2-5" data-name="2-5">
-    <rect x="147.7" y="69.12" width="27.16" height="27.16"/>
-    <circle cx="161.28" cy="82.7" r="9.51" fill="#fff"/>
+    <rect x="149.95" y="70.18" width="27.57" height="27.57"/>
+    <circle cx="163.74" cy="83.96" r="9.65" fill="#fff"/>
   </g>
   <g id="_2-4" data-name="2-4">
-    <rect x="120.55" y="69.12" width="27.16" height="27.16"/>
-    <circle cx="134.13" cy="82.7" r="9.51" fill="#fff"/>
+    <rect x="122.39" y="70.18" width="27.57" height="27.57"/>
+    <circle cx="136.17" cy="83.96" r="9.65" fill="#fff"/>
   </g>
   <g id="_2-3" data-name="2-3">
-    <rect x="93.39" y="69.12" width="27.16" height="27.16"/>
-    <circle cx="106.97" cy="82.7" r="9.51" fill="#fff"/>
+    <rect x="94.81" y="70.18" width="27.57" height="27.57"/>
+    <circle cx="108.6" cy="83.96" r="9.65" fill="#fff"/>
   </g>
   <g id="_2-2" data-name="2-2">
-    <rect x="66.23" y="69.12" width="27.16" height="27.16"/>
-    <circle cx="79.81" cy="82.7" r="9.51" fill="#fff"/>
+    <rect x="67.24" y="70.18" width="27.57" height="27.57"/>
+    <circle cx="81.03" cy="83.96" r="9.65" fill="#fff"/>
   </g>
   <g id="_2-1" data-name="2-1">
-    <rect x="39.07" y="69.12" width="27.16" height="27.16"/>
-    <circle cx="52.65" cy="82.7" r="9.51" fill="#fff"/>
+    <rect x="39.67" y="70.18" width="27.57" height="27.57"/>
+    <circle cx="53.45" cy="83.96" r="9.65" fill="#fff"/>
   </g>
   <g id="_1-8" data-name="1-8">
-    <rect x="229.17" y="42.08" width="27.16" height="27.16"/>
-    <circle cx="242.75" cy="55.66" r="9.51" fill="#fff"/>
+    <rect x="232.67" y="42.72" width="27.57" height="27.57"/>
+    <circle cx="246.46" cy="56.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_1-7" data-name="1-7">
-    <rect x="202.02" y="42.08" width="27.16" height="27.16"/>
-    <circle cx="215.6" cy="55.66" r="9.51" fill="#fff"/>
+    <rect x="205.1" y="42.72" width="27.57" height="27.57"/>
+    <circle cx="218.88" cy="56.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_1-6" data-name="1-6">
-    <rect x="174.86" y="42.08" width="27.16" height="27.16"/>
-    <circle cx="188.44" cy="55.66" r="9.51" fill="#fff"/>
+    <rect x="177.53" y="42.72" width="27.57" height="27.57"/>
+    <circle cx="191.31" cy="56.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_1-5" data-name="1-5">
-    <rect x="147.7" y="42.08" width="27.16" height="27.16"/>
-    <circle cx="161.28" cy="55.66" r="9.51" fill="#fff"/>
+    <rect x="149.95" y="42.72" width="27.57" height="27.57"/>
+    <circle cx="163.74" cy="56.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_1-4" data-name="1-4">
-    <rect x="120.55" y="42.08" width="27.16" height="27.16"/>
-    <circle cx="134.13" cy="55.66" r="9.51" fill="#fff"/>
+    <rect x="122.39" y="42.72" width="27.57" height="27.57"/>
+    <circle cx="136.17" cy="56.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_1-3" data-name="1-3">
-    <rect x="93.39" y="42.08" width="27.16" height="27.16"/>
-    <circle cx="106.97" cy="55.66" r="9.51" fill="#fff"/>
+    <rect x="94.81" y="42.72" width="27.57" height="27.57"/>
+    <circle cx="108.6" cy="56.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_1-2" data-name="1-2">
-    <rect x="66.23" y="42.08" width="27.16" height="27.16"/>
-    <circle cx="79.81" cy="55.66" r="9.51" fill="#fff"/>
+    <rect x="67.24" y="42.72" width="27.57" height="27.57"/>
+    <circle cx="81.03" cy="56.51" r="9.65" fill="#fff"/>
   </g>
   <g id="_1-1" data-name="1-1">
-    <rect x="39.07" y="42.08" width="27.16" height="27.16"/>
-    <circle cx="52.65" cy="55.66" r="9.51" fill="#fff"/>
+    <rect x="39.67" y="42.72" width="27.57" height="27.57"/>
+    <circle cx="53.45" cy="56.51" r="9.65" fill="#fff"/>
   </g>
   <g id="NUMBERS">
-    <text transform="translate(26.98 62.1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">1</text>
-    <text transform="translate(47.7 35.97)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">1</text>
-    <text transform="translate(74.86 35.97)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">2</text>
-    <text transform="translate(102.02 35.97)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">3</text>
-    <text transform="translate(129.18 35.97)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">4</text>
-    <text transform="translate(156.65 35.97) scale(0.93 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">5</text>
-    <text transform="translate(183.81 35.97) scale(0.93 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">6</text>
-    <text transform="translate(210.97 35.97) scale(0.93 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
-    <text transform="translate(238.13 35.97) scale(0.93 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">8</text>
-    <text transform="translate(26.98 90.14)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">2</text>
-    <text transform="translate(26.98 117.67)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">3</text>
-    <text transform="translate(26.98 144.82)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">4</text>
-    <text transform="translate(26.98 170.98)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">5</text>
-    <text transform="translate(27.41 198.14) scale(0.93 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">6</text>
-    <text transform="translate(27.41 225.3) scale(0.93 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
-    <text transform="translate(27.41 252.46) scale(0.93 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">8</text>
-    <text transform="translate(100.02 15.82)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">COLUMNS</text>
-    <text transform="translate(15.82 174.97) rotate(-90)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">ROWS</text>
+    <text transform="translate(27.39 63.05)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">1</text>
+    <text transform="translate(48.43 36.52)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">1</text>
+    <text transform="translate(76 36.52)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">2</text>
+    <text transform="translate(103.57 36.52)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">3</text>
+    <text transform="translate(131.15 36.52)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">4</text>
+    <text transform="translate(159.04 36.51) scale(0.93 1)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">5</text>
+    <text transform="translate(186.61 36.51) scale(0.93 1)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">6</text>
+    <text transform="translate(214.19 36.51) scale(0.93 1)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
+    <text transform="translate(241.76 36.51) scale(0.93 1)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">8</text>
+    <text transform="translate(27.39 91.52)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">2</text>
+    <text transform="translate(27.39 119.46)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">3</text>
+    <text transform="translate(27.39 147.03)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">4</text>
+    <text transform="translate(27.39 173.59)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">5</text>
+    <text transform="translate(27.83 201.16) scale(0.93 1)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">6</text>
+    <text transform="translate(27.83 228.73) scale(0.93 1)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
+    <text transform="translate(27.83 256.31) scale(0.93 1)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">8</text>
+    <text transform="translate(101.55 16.06)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">COLUMNS</text>
+    <text transform="translate(16.06 177.64) rotate(-90)" font-size="18.27" font-family="Biryani-SemiBold, Biryani" font-weight="600">ROWS</text>
   </g>
 </svg>

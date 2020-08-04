@@ -28,7 +28,8 @@ export const buttonSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       buttonState,
-      `button ${pin} is being setup.`
+      `button ${pin} is being setup.`,
+      previousState
     ),
   ];
 };

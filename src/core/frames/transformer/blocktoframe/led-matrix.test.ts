@@ -104,6 +104,41 @@ describe('led matrix  factories', () => {
     expect(state2.components.length).toBe(1);
   });
 
+  test("should be able to have 2 types of components and not lose it's states", () => {
+    const ledmatrixdraw1 = workspace.newBlock(
+      'led_matrix_make_draw'
+    ) as BlockSvg;
+
+    const servo6Block1 = createServoBlock(20, ARDUINO_UNO_PINS.PIN_6);
+
+    connectToArduinoBlock(ledmatrixdraw1);
+
+    connectToArduinoBlock(servo6Block1);
+
+    const event: BlockEvent = {
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: Blockly.Events.BLOCK_MOVE,
+      blockId: ledmatrixdraw1.id,
+    };
+
+    const [
+      state1,
+      state2,
+      state3,
+      state4,
+      state5,
+      state6,
+    ] = eventToFrameFactory(event);
+
+    expect(state1.components.length).toBe(1);
+    expect(state2.components.length).toBe(2);
+    expect(state3.components.length).toBe(2);
+    expect(state4.components.length).toBe(2);
+    expect(state5.components.length).toBe(2);
+    expect(state6.components.length).toBe(2);
+  });
+
   test('should be able to keep the state when using single led', () => {
     const ledMatrix1 = createLedMatrixBlock(1, 1, true);
     const ledMatrix2 = createLedMatrixBlock(2, 2, true);
@@ -172,5 +207,20 @@ describe('led matrix  factories', () => {
     ledMatrix.setFieldValue(isOn ? 'ON' : 'OFF', 'STATE');
 
     return ledMatrix as BlockSvg;
+  };
+
+  const createServoBlock = (degree: number, pin: ARDUINO_UNO_PINS) => {
+    const rotateServo = workspace.newBlock('rotate_servo') as BlockSvg;
+    const numberBlock = createValueBlock(
+      workspace,
+      VariableTypes.NUMBER,
+      degree
+    );
+    rotateServo.setFieldValue(pin, 'PIN');
+    rotateServo
+      .getInput('DEGREE')
+      .connection.connect(numberBlock.outputConnection);
+
+    return rotateServo;
   };
 });

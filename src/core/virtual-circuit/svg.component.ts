@@ -20,6 +20,11 @@ import {
 } from './components/pin.component';
 import _ from 'lodash';
 import { neoPixelCreate, neoPixelUpdate } from './components/neoPixel.sync';
+import {
+  ledMatrixCreate,
+  ledMatrixUpdate,
+  ledMatrixReset,
+} from './components/ledmatrix.sync';
 
 export interface SyncComponent {
   (state: ArduinoComponentState, ArduinoFrame: ArduinoFrame, draw: Svg): void;
@@ -41,6 +46,7 @@ const syncComponent = {
   [ArduinoComponentType.LED_COLOR]: updateRgbLed,
   [ArduinoComponentType.PIN]: updatePinComponent,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelUpdate,
+  [ArduinoComponentType.LED_MATRIX]: ledMatrixUpdate,
 };
 
 const createComponent = {
@@ -51,11 +57,13 @@ const createComponent = {
   [ArduinoComponentType.LED_COLOR]: createRgbLed,
   [ArduinoComponentType.PIN]: createPinComponent,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,
+  [ArduinoComponentType.LED_MATRIX]: ledMatrixCreate,
 };
 
 const resetComponent = {
   [ArduinoComponentType.SERVO]: servoReset,
   [ArduinoComponentType.PIN]: resetPinComponent,
+  [ArduinoComponentType.LED_MATRIX]: ledMatrixReset,
 };
 
 export const createComponents = (frame: ArduinoFrame, draw: Svg) => {

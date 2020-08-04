@@ -4,7 +4,6 @@ import {
   ResetComponent,
 } from '../svg.component';
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
-import { ArduinoComponentType } from '../../frames/arduino.frame';
 import {
   PinState,
   PinPicture,
@@ -20,7 +19,6 @@ import {
 import resistorSvg from '../svgs/resistors/resistor-small.svg';
 import { ARDUINO_UNO_PINS, ANALOG_PINS } from '../../blockly/selectBoard';
 import {
-  updateWires,
   findResistorBreadboardHoleXY,
   createGroundWire,
   createWire,
