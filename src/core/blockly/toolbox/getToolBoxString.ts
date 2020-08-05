@@ -407,7 +407,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   <block type="move_motor">
   <value name="SPEED">
                   <block type="math_number">
-                      <field name="NUM">5</field>
+                      <field name="NUM">250</field>
                   </block>
               </value>
               <value name="MOTOR">

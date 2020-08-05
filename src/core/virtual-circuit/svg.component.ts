@@ -25,6 +25,7 @@ import {
   ledMatrixUpdate,
   ledMatrixReset,
 } from './components/ledmatrix.sync';
+import { motorCreate, motorUpdate, motorReset } from './components/motor.sync';
 
 export interface SyncComponent {
   (state: ArduinoComponentState, ArduinoFrame: ArduinoFrame, draw: Svg): void;
@@ -47,6 +48,7 @@ const syncComponent = {
   [ArduinoComponentType.PIN]: updatePinComponent,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelUpdate,
   [ArduinoComponentType.LED_MATRIX]: ledMatrixUpdate,
+  [ArduinoComponentType.MOTOR]: motorUpdate,
 };
 
 const createComponent = {
@@ -58,12 +60,14 @@ const createComponent = {
   [ArduinoComponentType.PIN]: createPinComponent,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,
   [ArduinoComponentType.LED_MATRIX]: ledMatrixCreate,
+  [ArduinoComponentType.MOTOR]: motorCreate,
 };
 
 const resetComponent = {
   [ArduinoComponentType.SERVO]: servoReset,
   [ArduinoComponentType.PIN]: resetPinComponent,
   [ArduinoComponentType.LED_MATRIX]: ledMatrixReset,
+  [ArduinoComponentType.MOTOR]: motorReset,
 };
 
 export const createComponents = (frame: ArduinoFrame, draw: Svg) => {
@@ -89,9 +93,14 @@ export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
   draw
     .find('.component')
     .filter((componentEl) => !componentIds.includes(componentEl.id()))
-    .filter((state) => _.isFunction(resetComponent[state.type]))
-    .map((state) => [state, resetComponent[state.type]])
-    .forEach(([state, func]: [ArduinoComponentState, CreateComponent]) =>
-      func(state, frame, draw)
-    );
+    .filter((componentEl) =>
+      _.isFunction(resetComponent[componentEl.data('component-type')])
+    )
+    .map((componentEl) => [
+      componentEl,
+      resetComponent[componentEl.data('component-type')],
+    ])
+    .forEach(([componentEl, func]: [Element, ResetComponent]) => {
+      func(componentEl);
+    });
 };

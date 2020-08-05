@@ -7,6 +7,7 @@ import {
   LCDScreenState,
   LedColorState,
   PinState,
+  MotorState,
 } from '../frames/arduino-components.state';
 
 export const componentToSvgId = (component: ArduinoComponentState) => {
@@ -33,6 +34,12 @@ export const componentToSvgId = (component: ArduinoComponentState) => {
     const pinState = component as PinState;
 
     return `${pinState.type}-${pinState.pinType}-${pinState.pinPicture}-${pinState.pin}`;
+  }
+
+  if (component.type === ArduinoComponentType.MOTOR) {
+    const motorState = component as MotorState;
+
+    return `${component.type}-${motorState.motorNumber}-`;
   }
 
   return component.type + '_' + component.pins.join('-');

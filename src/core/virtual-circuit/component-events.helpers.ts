@@ -6,7 +6,8 @@ export const addDraggableEvent = (
   arduino: Element,
   draw: Svg
 ) => {
-  (componentEl as any).draggable().on('dragmove', () => {
+  (componentEl as any).draggable().on('dragmove', (e) => {
+    e.stopPropagation();
     updateWires(componentEl, draw, arduino as Svg);
   });
 };
