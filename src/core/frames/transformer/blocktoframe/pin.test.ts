@@ -32,12 +32,12 @@ describe('analog pin state factories', () => {
     analogReadSetup = workspace.newBlock('analog_read_setup') as BlockSvg;
     analogReadSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_A1, 'PIN');
     analogReadSetup.setFieldValue('PHOTO_SENSOR', 'TYPE');
-    analogReadSetup.setFieldValue('30', 'power_level');
+    analogReadSetup.setFieldValue('30', 'state');
 
     digitalReadSetup = workspace.newBlock('digital_read_setup') as BlockSvg;
     digitalReadSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_6, 'PIN');
     digitalReadSetup.setFieldValue('TOUCH_SENSOR', 'TYPE');
-    digitalReadSetup.setFieldValue('1', 'has_power');
+    digitalReadSetup.setFieldValue('1', 'state');
 
     const event: BlockEvent = {
       blocks: getAllBlocks().map(transformBlock),

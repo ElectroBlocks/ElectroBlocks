@@ -110,7 +110,7 @@ const irRemoteState = (block: BlockData, timeline: Timeline): IRRemoteState => {
 
 const digitalReadSetup = (block: BlockData): PinSensor => {
   return {
-    state: findFieldValue(block, 'has_power') === 'TRUE' ? 1 : 0,
+    state: findFieldValue(block, 'state') === 'TRUE' ? 1 : 0,
     loop: +findFieldValue(block, 'LOOP'),
     blockName: block.blockName,
   };
@@ -135,7 +135,7 @@ const pinReadState = (pinType: PIN_TYPE) => {
 
 const analogReadSetup = (block: BlockData): PinSensor => {
   return {
-    state: +findFieldValue(block, 'power_level'),
+    state: +findFieldValue(block, 'state'),
     loop: +findFieldValue(block, 'LOOP'),
     blockName: block.blockName,
   };

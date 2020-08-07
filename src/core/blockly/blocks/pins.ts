@@ -191,7 +191,7 @@ const digitalReadSetupBlock: any = {
       );
     this.appendDummyInput()
       .appendField('Has Power? ')
-      .appendField(new Blockly.FieldCheckbox('TRUE'), 'has_power');
+      .appendField(new Blockly.FieldCheckbox('TRUE'), 'state');
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
@@ -241,10 +241,7 @@ const analogReadSetupBlock: any = {
 
     this.appendDummyInput()
       .appendField('Power Level')
-      .appendField(
-        new Blockly.FieldNumber(10, 0, 1024, 0.000001),
-        'power_level'
-      );
+      .appendField(new Blockly.FieldNumber(10, 0, 1024, 0.000001), 'state');
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');
