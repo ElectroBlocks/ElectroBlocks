@@ -21,8 +21,6 @@ import {
   analogDigitalSensorCreate,
   analogDigitalSensorUpdate,
 } from './analog-sensor.sync';
-import { soilSensorCreate, soilSensorUpdate } from './soil-sensor.sync';
-import { photoSensorCreate, photoSensorUpdate } from './photo-sensor.sync';
 import { touchSensorCreate, touchSensorUpdate } from './touch-sensor.sync';
 
 export const createPinComponent: CreateComponent = (
@@ -60,8 +58,8 @@ const pinFunctionCreate = {
   [PinPicture.LED_ANALOG_WRITE]: digitalAnanlogWritePinCreate,
   [PinPicture.LED_DIGITAL_WRITE]: digitalAnanlogWritePinCreate,
   [PinPicture.LED]: ledCreate,
-  [PinPicture.PHOTO_SENSOR]: photoSensorCreate,
-  [PinPicture.SOIL_SENSOR]: soilSensorCreate,
+  [PinPicture.PHOTO_SENSOR]: analogDigitalSensorCreate,
+  [PinPicture.SOIL_SENSOR]: analogDigitalSensorCreate,
   [PinPicture.SENSOR]: analogDigitalSensorCreate,
   [PinPicture.TOUCH_SENSOR]: touchSensorCreate,
 };
@@ -70,8 +68,8 @@ const pinFunctionUpdate = {
   [PinPicture.LED_ANALOG_WRITE]: digitalAnalogWritePinSync,
   [PinPicture.LED_DIGITAL_WRITE]: digitalAnalogWritePinSync,
   [PinPicture.LED]: updateLed,
-  [PinPicture.PHOTO_SENSOR]: photoSensorUpdate,
-  [PinPicture.SOIL_SENSOR]: soilSensorUpdate,
+  [PinPicture.PHOTO_SENSOR]: analogDigitalSensorUpdate,
+  [PinPicture.SOIL_SENSOR]: analogDigitalSensorUpdate,
   [PinPicture.SENSOR]: analogDigitalSensorUpdate,
   [PinPicture.TOUCH_SENSOR]: touchSensorUpdate,
 };

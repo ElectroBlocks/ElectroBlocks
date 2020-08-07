@@ -53,7 +53,7 @@ export const servoCreate: CreateComponent = (state, frame, draw) => {
   const pin = state.pins[0];
 
   if (servoEl) {
-    positionComponent(servoEl, arduino, draw, pin, 'DATA_BOX');
+    positionComponent(servoEl, arduino, draw, pin, 'PIN_DATA');
     updateWires(servoEl, draw, arduino as Svg);
     setDegrees(servoEl, 0);
     setText(servoEl, 0);
@@ -62,39 +62,10 @@ export const servoCreate: CreateComponent = (state, frame, draw) => {
 
   servoEl = createComponentEl(draw, state, servoSVGText);
 
-  servoEl.findOne('#HELPER_TEXT').hide();
-  servoEl.attr('degrees', 0);
-
   (window as any).servoEl = servoEl;
   setServoPinText(servoEl, state as ServoState);
 
-  unHighlightAllPins(servoEl);
-  addWireConnectionClass(
-    [
-      'GND_BOX',
-      'DATA_BOX',
-      '_5V_BOX',
-      'HELPER_PIN_DATA',
-      'HELPER_PIN_GND',
-      'HELPER_PIN_VCC',
-      'CLOSE',
-    ],
-    servoEl
-  );
-
-  registerShowToolTip(servoEl, 'GND_BOX', 'GND');
-  registerShowToolTip(servoEl, 'DATA_BOX', 'DATA');
-  registerShowToolTip(servoEl, '_5V_BOX', 'POWER');
-  registerShowToolTip(servoEl, 'HELPER_PIN_GND', 'GND');
-  registerShowToolTip(servoEl, 'HELPER_PIN_DATA', 'DATA');
-  registerShowToolTip(servoEl, 'HELPER_PIN_VCC', 'POWER');
-
-  servoEl.findOne('#CLOSE').on('click', () => {
-    unHighlightAllPins(servoEl);
-    servoEl.findOne('#HELPER_TEXT').hide();
-  });
-
-  positionComponent(servoEl, arduino, draw, pin, 'DATA_BOX');
+  positionComponent(servoEl, arduino, draw, pin, 'PIN_DATA');
   createWires(servoEl, pin, arduino as Svg, draw, id);
   addDraggableEvent(servoEl, arduino, draw);
 
@@ -102,30 +73,9 @@ export const servoCreate: CreateComponent = (state, frame, draw) => {
   setText(servoEl, 0);
 };
 
-const showToolTip = (servoEl: Element, wireType: string) => {
-  unHighlightAllPins(servoEl);
-  if (wireType === 'GND') {
-    findSvgElement('HELPER_PIN_GND', servoEl).stroke({ width: 3 });
-    findSvgElement('GND_BOX', servoEl).stroke({ width: 2 });
-  } else if (wireType === 'POWER') {
-    findSvgElement('HELPER_PIN_VCC', servoEl).stroke({ width: 3 });
-    findSvgElement('_5V_BOX', servoEl).stroke({ width: 2 });
-  } else if (wireType === 'DATA') {
-    findSvgElement('HELPER_PIN_DATA', servoEl).stroke({ width: 3 });
-    findSvgElement('DATA_BOX', servoEl).stroke({ width: 2 });
-  }
-
-  servoEl.findOne('#HELPER_TEXT').show();
-};
-
 const setServoPinText = (servoEl: Element, servoState: ServoState) => {
   const servoName = servoEl.findOne('#servo_pin') as Text;
-  servoName.node.style.pointerEvents = 'none'; // diasable pointer event because the number is hiding the wire boxes
-
   servoName.node.textContent = servoState.pins[0].toString();
-  servoName.fill('#fff');
-
-  servoName.cx(20);
 };
 
 const setText = (servoEl: Element, degrees: number) => {
@@ -137,37 +87,13 @@ const setText = (servoEl: Element, degrees: number) => {
   servoEl.findOne('title').node.innerHTML = 'Servo';
 };
 
-const unHighlightAllPins = (helpTextEl: Element) => {
-  findSvgElement('HELPER_PIN_VCC', helpTextEl).stroke({ width: 0 });
-  findSvgElement('HELPER_PIN_GND', helpTextEl).stroke({ width: 0 });
-  findSvgElement('HELPER_PIN_DATA', helpTextEl).stroke({ width: 0 });
-
-  findSvgElement('DATA_BOX', helpTextEl).stroke({ width: 0 });
-  findSvgElement('GND_BOX', helpTextEl).stroke({ width: 0 });
-  findSvgElement('_5V_BOX', helpTextEl).stroke({ width: 0 });
-};
-
 const setDegrees = (servoEl: Element, degrees: number) => {
   // TODO FIX DEGREES
   const servoBoundBox = findSvgElement('CenterOfCicle', servoEl).bbox();
   const movingPart = findSvgElement('moving_part', servoEl);
   const currentDegrees = movingPart.transform().rotate;
   movingPart.rotate(-currentDegrees, servoBoundBox.x, servoBoundBox.y);
-  console.log('called');
-
   movingPart.rotate(-1 * (degrees + 4), servoBoundBox.cx, servoBoundBox.cy);
-  servoEl.attr('degrees', degrees);
-};
-
-const registerShowToolTip = (
-  servoEl: Element,
-  id: string,
-  highlightType: string
-) => {
-  servoEl.findOne('#' + id).on('click', (e) => {
-    e.stopPropagation();
-    showToolTip(servoEl, highlightType);
-  });
 };
 
 const createWires = (
@@ -177,62 +103,42 @@ const createWires = (
   draw: Svg,
   componentId: string
 ) => {
-  const dataWire = createWire(
-    servoEl,
-    pin,
-    'DATA_BOX',
-    arduino,
-    draw,
-    '#FFA502',
-    'data'
-  );
+  createWire(servoEl, pin, 'PIN_DATA', arduino, draw, '#FFA502', 'data');
 
   if ([ARDUINO_UNO_PINS.PIN_13, ARDUINO_UNO_PINS.PIN_A2].includes(pin)) {
     // GND then POWER
-    const gndWire = createGroundWire(
+    createGroundWire(
       servoEl,
       pin,
       arduino,
       draw,
-      'GND_BOX',
+      'PIN_GND',
       componentId,
       'left'
     );
 
-    const powerWire = createPowerWire(
+    createPowerWire(
       servoEl,
       pin,
       arduino,
       draw,
-      '_5V_BOX',
+      'PIN_POWER',
       componentId,
       'left'
     );
-
-    return { dataWire, gndWire, powerWire };
   }
 
   // POWER THEN GND
 
-  const powerWire = createPowerWire(
+  createPowerWire(
     servoEl,
     pin,
     arduino,
     draw,
-    '_5V_BOX',
+    'PIN_POWER',
     componentId,
     'left'
   );
 
-  const gndWire = createGroundWire(
-    servoEl,
-    pin,
-    arduino,
-    draw,
-    'GND_BOX',
-    componentId,
-    'left'
-  );
-
-  return { dataWire, gndWire, powerWire };
+  createGroundWire(servoEl, pin, arduino, draw, 'PIN_GND', componentId, 'left');
 };

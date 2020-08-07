@@ -4,11 +4,17 @@ import {
   findArduinoEl,
   createComponentEl,
 } from '../svg-helpers';
-import { PinState, PIN_TYPE } from '../../frames/arduino-components.state';
+import {
+  PinState,
+  PIN_TYPE,
+  PinPicture,
+} from '../../frames/arduino-components.state';
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
 import { createWire, createGroundWire, createPowerWire } from '../wire';
 import { positionComponent } from '../svg-position';
 import analogSensorSvgString from '../svgs/digital_analog_sensor/digital_analog_sensor.svg';
+import soilSensorSvgString from '../svgs/soilsensor/soilsensor.svg';
+import photoSensorSvgString from '../svgs/photosensor/photosensor.svg';
 
 import { addDraggableEvent } from '../component-events.helpers';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
@@ -30,12 +36,11 @@ export const analogDigitalSensorCreate: CreateComponent = (
   analogSensorEl = createComponentEl(
     draw,
     analogSensorState,
-    analogSensorSvgString
+    svgStringHash[analogSensorState.pinPicture]
   );
   analogSensorEl.findOne(
     '#PIN_TEXT'
   ).node.innerHTML = analogSensorState.pin.toString();
-  (analogSensorEl.findOne('#PIN_TEXT') as Element).cx(6.5);
   addDraggableEvent(analogSensorEl, arduinoEl, draw);
   setSensorText(analogSensorEl, analogSensorState);
   positionComponent(
@@ -43,8 +48,13 @@ export const analogDigitalSensorCreate: CreateComponent = (
     arduinoEl,
     draw,
     analogSensorState.pin,
-    'PIN'
+    'PIN_DATA'
   );
+
+  if (analogSensorState.pinPicture === PinPicture.SENSOR) {
+    (analogSensorEl.findOne('#PIN_TEXT') as Element).cx(18);
+  }
+
   (window as any).analogSensor = analogSensorEl;
 
   if (
@@ -54,7 +64,12 @@ export const analogDigitalSensorCreate: CreateComponent = (
   ) {
     analogSensorEl.x(analogSensorEl.x() - 20);
   }
-  createAnalogWires(analogSensorEl, analogSensorState, draw, id);
+  createWiresFunc[analogSensorState.pinPicture](
+    analogSensorEl,
+    analogSensorState,
+    draw,
+    id
+  );
 };
 
 export const analogDigitalSensorUpdate: SyncComponent = (
@@ -75,10 +90,10 @@ const setSensorText = (componentEl: Element, state: PinState) => {
   } else {
     textEl.node.innerHTML = state.state.toString();
   }
-  textEl.cx(10);
+  textEl.cx(centerReadingText[state.pinPicture]);
 };
 
-const createAnalogWires = (
+const createSensorWires = (
   compoentEl: Element,
   state: PinState,
   draw: Svg,
@@ -88,7 +103,7 @@ const createAnalogWires = (
   createWire(
     compoentEl,
     state.pin,
-    'PIN',
+    'PIN_DATA',
     arduinoEl,
     draw,
     '#228e0c',
@@ -99,7 +114,7 @@ const createAnalogWires = (
     state.pin,
     arduinoEl as Svg,
     draw,
-    'GND',
+    'PIN_GND',
     id,
     'right'
   );
@@ -108,8 +123,100 @@ const createAnalogWires = (
     state.pin,
     arduinoEl as Svg,
     draw,
-    'POWER',
+    'PIN_POWER',
     id,
     'left'
   );
+};
+
+const createSoilSensorWires = (
+  compoentEl: Element,
+  state: PinState,
+  draw: Svg,
+  id: string
+) => {
+  const arduinoEl = findArduinoEl(draw);
+  createWire(
+    compoentEl,
+    state.pin,
+    'PIN_DATA',
+    arduinoEl,
+    draw,
+    '#228e0c',
+    'data-pin'
+  );
+
+  createGroundWire(
+    compoentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    'PIN_GND',
+    id,
+    'right'
+  );
+  createPowerWire(
+    compoentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    'PIN_POWER',
+    id,
+    'right'
+  );
+};
+
+const createPhotoSensorWires = (
+  compoentEl: Element,
+  state: PinState,
+  draw: Svg,
+  id: string
+) => {
+  const arduinoEl = findArduinoEl(draw);
+  createWire(
+    compoentEl,
+    state.pin,
+    'PIN_DATA',
+    arduinoEl,
+    draw,
+    '#228e0c',
+    'data-pin'
+  );
+
+  createGroundWire(
+    compoentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    'PIN_GND',
+    id,
+    'left'
+  );
+  createPowerWire(
+    compoentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    'PIN_POWER',
+    id,
+    'left'
+  );
+};
+
+const createWiresFunc = {
+  [PinPicture.SOIL_SENSOR]: createSoilSensorWires,
+  [PinPicture.SENSOR]: createSensorWires,
+  [PinPicture.PHOTO_SENSOR]: createPhotoSensorWires,
+};
+
+const svgStringHash = {
+  [PinPicture.SOIL_SENSOR]: soilSensorSvgString,
+  [PinPicture.SENSOR]: analogSensorSvgString,
+  [PinPicture.PHOTO_SENSOR]: photoSensorSvgString,
+};
+
+const centerReadingText = {
+  [PinPicture.SOIL_SENSOR]: 10,
+  [PinPicture.SENSOR]: 18,
+  [PinPicture.PHOTO_SENSOR]: 18,
 };

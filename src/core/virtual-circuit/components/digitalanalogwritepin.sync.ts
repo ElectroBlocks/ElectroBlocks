@@ -114,7 +114,7 @@ const createWires = (
     pin,
     arduino,
     draw,
-    'GND',
+    'PIN_GND',
     componentId,
     'right'
   );

@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="89.27" height="107.28" viewBox="0 0 89.27 107.28">
+<svg xmlns="http://www.w3.org/2000/svg" width="76.4" height="107.28" viewBox="0 0 76.4 107.28">
   <title>digital_analog_write</title>
   <g id="WIRES">
     <line id="POWER" x1="34.31" y1="81.89" x2="34.31" y2="106.28" fill="none" stroke="#f73939" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line id="GND" x1="49.43" y1="81.89" x2="49.43" y2="106.28" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_GND" x1="49.43" y1="81.89" x2="49.43" y2="106.28" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
     <text id="STATE_TEXT" transform="translate(26.44 15.55)" font-size="18" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">150</text>
     <text id="PIN_TEXT" transform="translate(21.74 101.08)" font-size="16" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">2</text>
-    <text id="GND_TEXT" transform="translate(52.6 101.08)" font-size="16" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">GND</text>
+    <text id="GND_TEXT" transform="translate(52.6 101.08)" font-size="24" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">-</text>
     <rect y="95.86" width="3.41" height="2.33" fill="none"/>
     <rect x="2.64" y="102.21" width="3.41" height="2.33" fill="none"/>
   </g>

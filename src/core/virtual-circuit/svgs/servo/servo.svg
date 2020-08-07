@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="341.34" height="174.26" viewBox="0 0 341.34 174.26">
+<svg xmlns="http://www.w3.org/2000/svg" width="110.82" height="183.96" viewBox="0 0 110.82 183.96">
   <title>servo</title>
   <g id="Layer_3" data-name="Layer 3">
-    <rect id="DATA_BOX" data-name="DATA BOX" x="74.95" y="145.19" width="6.63" height="20.54" fill="orange" stroke="#000" stroke-miterlimit="10"/>
-    <rect id="_5V_BOX" x="58.38" y="145.19" width="6.63" height="20.54" fill="#ff422a" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
-    <polygon id="GND_BOX" data-name="GND BOX" points="41.82 145.19 41.82 165.73 45.13 165.73 48.44 165.73 48.44 145.19 41.82 145.19" fill="#9e6b18" stroke="#020202" stroke-miterlimit="10" stroke-width="0.25"/>
+    <line id="PIN_GND" x1="44.74" y1="145.72" x2="44.74" y2="178.71" fill="none" stroke="#a06933" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_POWER" x1="61.69" y1="145.72" x2="61.69" y2="178.71" fill="none" stroke="#f73b1c" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_DATA" x1="79.03" y1="145.72" x2="79.03" y2="178.71" fill="none" stroke="#f48f21" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
   </g>
   <g id="base">
     <g>
@@ -12,20 +12,10 @@
     </g>
   </g>
   <g id="Angle_Text" data-name="Angle Text">
-    <text id="servo_pin" transform="translate(41.82 138.36)" font-size="34.62" font-family="Biryani-ExtraLight, Biryani" font-weight="200">12</text>
+    <text id="servo_pin" transform="translate(82.54 170.52)" font-size="21" font-family="Biryani-ExtraBold, Biryani" font-weight="800">A5</text>
     <text id="degrees" transform="translate(30.34 30.43)" font-size="34.62" font-family="Biryani-ExtraLight, Biryani" font-weight="200">180°</text>
-  </g>
-  <g id="HELPER_TEXT">
-    <rect id="SMALL_BOX" x="26.56" y="142.93" width="72.98" height="29.83" fill="none" stroke="#c9bfb5" stroke-miterlimit="10" stroke-width="3"/>
-    <line id="CONNECTION" x1="99.54" y1="155.52" x2="162.17" y2="112.2" fill="none" stroke="#c9bfb5" stroke-miterlimit="10" stroke-width="3"/>
-    <text transform="translate(276.87 96.72)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">Data</text>
-    <text transform="translate(228.12 96.72)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">(+)</text>
-    <text transform="translate(171.12 96.72)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">(-)</text>
-    <text id="CLOSE" transform="translate(330.22 62.48)" font-size="14" fill="#c9bfb5" font-family="Biryani-ExtraBold, Biryani" font-weight="800">X</text>
-    <rect id="LARGE_BOX" x="162.17" y="66.55" width="177.24" height="91.3" fill="none" stroke="#c9bfb5" stroke-miterlimit="10" stroke-width="3"/>
-    <rect id="HELPER_PIN_DATA" x="298.33" y="106.82" width="12.29" height="42.82" fill="orange" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
-    <rect id="HELPER_PIN_VCC" x="237.12" y="105.82" width="12.29" height="42.82" fill="#ff422a" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
-    <polygon id="HELPER_PIN_GND" points="178.97 105.82 178.97 148.63 185.11 148.63 191.26 148.63 191.26 105.82 178.97 105.82" fill="#9e6b18" stroke="#000" stroke-miterlimit="10" stroke-width="0.25"/>
+    <text transform="translate(55.74 147.19)" font-size="21" font-family="Biryani-ExtraBold, Biryani" font-weight="800">+</text>
+    <text transform="translate(40.07 146.19)" font-size="21" font-family="Biryani-ExtraBold, Biryani" font-weight="800">-</text>
   </g>
   <g id="spinning_part" data-name="spinning part">
     <rect id="black_fill" data-name="black fill" x="56.72" y="85.69" width="14.33" height="17.02" stroke="#000" stroke-miterlimit="10"/>
