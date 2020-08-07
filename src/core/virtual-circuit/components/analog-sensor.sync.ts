@@ -109,24 +109,8 @@ const createSensorWires = (
     '#228e0c',
     'data-pin'
   );
-  createGroundWire(
-    compoentEl,
-    state.pin,
-    arduinoEl as Svg,
-    draw,
-    'PIN_GND',
-    id,
-    'right'
-  );
-  createPowerWire(
-    compoentEl,
-    state.pin,
-    arduinoEl as Svg,
-    draw,
-    'PIN_POWER',
-    id,
-    'left'
-  );
+  createGroundWire(compoentEl, state.pin, arduinoEl as Svg, draw, id, 'right');
+  createPowerWire(compoentEl, state.pin, arduinoEl as Svg, draw, id, 'left');
 };
 
 const createSoilSensorWires = (
@@ -146,24 +130,8 @@ const createSoilSensorWires = (
     'data-pin'
   );
 
-  createGroundWire(
-    compoentEl,
-    state.pin,
-    arduinoEl as Svg,
-    draw,
-    'PIN_GND',
-    id,
-    'right'
-  );
-  createPowerWire(
-    compoentEl,
-    state.pin,
-    arduinoEl as Svg,
-    draw,
-    'PIN_POWER',
-    id,
-    'right'
-  );
+  createGroundWire(compoentEl, state.pin, arduinoEl as Svg, draw, id, 'right');
+  createPowerWire(compoentEl, state.pin, arduinoEl as Svg, draw, id, 'right');
 };
 
 const createPhotoSensorWires = (
@@ -183,24 +151,8 @@ const createPhotoSensorWires = (
     'data-pin'
   );
 
-  createGroundWire(
-    compoentEl,
-    state.pin,
-    arduinoEl as Svg,
-    draw,
-    'PIN_GND',
-    id,
-    'left'
-  );
-  createPowerWire(
-    compoentEl,
-    state.pin,
-    arduinoEl as Svg,
-    draw,
-    'PIN_POWER',
-    id,
-    'left'
-  );
+  createGroundWire(compoentEl, state.pin, arduinoEl as Svg, draw, id, 'left');
+  createPowerWire(compoentEl, state.pin, arduinoEl as Svg, draw, id, 'left');
 };
 
 const createWiresFunc = {

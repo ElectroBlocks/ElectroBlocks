@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="623.26" height="299.43" viewBox="0 0 623.26 299.43">
-  <title>rgbledlightstrip</title>
+  <title>neopixel</title>
   <g id="simple_wires">
     <g id="GND">
-      <line id="CONNECT_GND" x1="1" y1="293.41" x2="1" y2="236.41" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line id="PIN_GND" x1="1" y1="293.41" x2="1" y2="236.41" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
       <line x1="0.71" y1="236.41" x2="122.71" y2="236.41" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
     </g>
     <g id="POWER">
       <line x1="54.71" y1="255.41" x2="87.71" y2="255.41" fill="none" stroke="red" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-      <line id="CONNECT_POWER" x1="54.71" y1="255.41" x2="54.71" y2="293.41" fill="none" stroke="red" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line id="PIN_POWER" x1="54.71" y1="255.41" x2="54.71" y2="293.41" fill="none" stroke="red" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
     </g>
     <g id="DATA">
       <line x1="23.28" y1="245.41" x2="103.71" y2="245.41" fill="none" stroke="#006837" stroke-miterlimit="10" stroke-width="2"/>
-      <line id="CONNECT_DATA" x1="22.71" y1="293.41" x2="22.71" y2="245.41" fill="none" stroke="#006837" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line id="PIN_DATA" x1="22.71" y1="293.41" x2="22.71" y2="245.41" fill="none" stroke="#006837" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
     </g>
     <text id="GND_TEXT" transform="translate(5.26 286.66) scale(1.14 1)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
     <text id="DATA_TEXT" transform="translate(27.5 286.66) scale(1.21 1)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">D</text>

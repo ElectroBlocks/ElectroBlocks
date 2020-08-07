@@ -34,7 +34,7 @@ export const createRgbLed: CreateComponent = (state, frame, draw) => {
   if (rgbLedEl) {
     createWires(rgbLedEl, arduino, draw, ledRgbState, id);
 
-    positionComponent(rgbLedEl, arduino, draw, ledRgbState.redPin, 'RED_PIN');
+    positionComponent(rgbLedEl, arduino, draw, ledRgbState.redPin, 'PIN_RED');
     createResistors(arduino, draw, ledRgbState, id);
     return;
   }
@@ -46,7 +46,7 @@ export const createRgbLed: CreateComponent = (state, frame, draw) => {
   (window as any).rgbLed = rgbLedEl;
 
   addDraggableEvent(rgbLedEl, arduino, draw);
-  positionComponent(rgbLedEl, arduino, draw, ledRgbState.redPin, 'RED_PIN');
+  positionComponent(rgbLedEl, arduino, draw, ledRgbState.redPin, 'PIN_RED');
   createWires(rgbLedEl, arduino, draw, ledRgbState, id);
   createResistors(arduino, draw, ledRgbState, id);
 };
@@ -101,7 +101,7 @@ const createWires = (
   createWire(
     rgbLedEl,
     state.bluePin,
-    'BLUE_PIN',
+    'PIN_BLUE',
     arduino,
     draw,
     '#4c5dbf',
@@ -111,7 +111,7 @@ const createWires = (
   createWire(
     rgbLedEl,
     state.redPin,
-    'RED_PIN',
+    'PIN_RED',
     arduino,
     draw,
     '#ef401d',
@@ -121,7 +121,7 @@ const createWires = (
   createWire(
     rgbLedEl,
     state.greenPin,
-    'GREEN_PIN',
+    'PIN_GREEN',
     arduino,
     draw,
     '#4dc16e',
@@ -133,7 +133,6 @@ const createWires = (
     state.redPin,
     arduino as Svg,
     draw,
-    'GND_PIN',
     componentId,
     'right'
   );

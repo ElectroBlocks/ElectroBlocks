@@ -28,7 +28,6 @@ export const neoPixelCreate: CreateComponent = (state, frame, draw) => {
   neoPixelEl = createComponentEl(draw, state, neopixelSvgString);
   (window as any).neoPixelEl = neoPixelEl;
   arduino.y(draw.viewbox().y2 - arduino.height() + 100);
-  neoPixelEl.y(30);
   createWires(neoPixelEl, neoPixelState.pins[0], arduino as Svg, draw, id);
   showRGBStripLeds(neoPixelEl, neoPixelState);
   addDraggableEvent(neoPixelEl, arduino, draw);
@@ -59,14 +58,13 @@ const createWires = (
   draw: Svg,
   componentId: string
 ) => {
-  createWire(neoPixelEl, pin, 'CONNECT_DATA', arduino, draw, '#006837', 'data');
+  createWire(neoPixelEl, pin, 'PIN_DATA', arduino, draw, '#006837', 'data');
 
   createGroundWire(
     neoPixelEl,
     ARDUINO_UNO_PINS.PIN_13,
     arduino,
     draw,
-    'CONNECT_GND',
     componentId,
     'left'
   );
@@ -76,7 +74,6 @@ const createWires = (
     ARDUINO_UNO_PINS.PIN_13,
     arduino,
     draw,
-    'CONNECT_POWER',
     componentId,
     'left'
   );

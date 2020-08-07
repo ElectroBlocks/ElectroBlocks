@@ -41,23 +41,6 @@ export const lcdCreate: CreateComponent = (state, frame, draw) => {
   const arduino = findArduinoEl(draw);
 
   if (lcdScreenEl) {
-    lcdScreenEl.findOne('#WIRES').show();
-    (lcdScreenEl as any).draggable().on('dragmove', (e) => {
-      updateWires(lcdScreenEl, draw, arduino as Svg);
-    });
-    arduino.y(draw.viewbox().y2 - arduino.height() + 70);
-    positionComponent(
-      lcdScreenEl,
-      arduino,
-      draw,
-      ARDUINO_UNO_PINS.PIN_12,
-      'SCL_WIRE'
-    );
-    lcdScreenEl.y(lcdScreenEl.y() - 30);
-
-    createWries(lcdScreenEl, ARDUINO_UNO_PINS.PIN_12, arduino as Svg, draw, id);
-    updateWires(lcdScreenEl, draw, arduino as Svg);
-
     return;
   }
   lcdScreenEl = createComponentEl(draw, lcdState, getSvgString(lcdState));
@@ -69,7 +52,7 @@ export const lcdCreate: CreateComponent = (state, frame, draw) => {
     arduino,
     draw,
     ARDUINO_UNO_PINS.PIN_12,
-    'SCL_WIRE'
+    'PIN_SCL'
   );
 
   lcdScreenEl.y(lcdScreenEl.y() - 30);
@@ -177,14 +160,14 @@ const createWries = (
   draw: Svg,
   componentId: string
 ) => {
-  createGroundWire(lcdEl, pin, arduino, draw, 'GND_BOX', componentId, 'left');
+  createGroundWire(lcdEl, pin, arduino, draw, componentId, 'left');
 
-  createPowerWire(lcdEl, pin, arduino, draw, '_5V_BOX', componentId, 'left');
+  createPowerWire(lcdEl, pin, arduino, draw, componentId, 'left');
 
   createWire(
     lcdEl,
     ARDUINO_UNO_PINS.PIN_A4,
-    'SDA_WIRE',
+    'PIN_SDA',
     arduino,
     draw,
     '#0071bc',
@@ -194,7 +177,7 @@ const createWries = (
   createWire(
     lcdEl,
     ARDUINO_UNO_PINS.PIN_A5,
-    'SCL_WIRE',
+    'PIN_SCL',
     arduino,
     draw,
     '#f15a24',

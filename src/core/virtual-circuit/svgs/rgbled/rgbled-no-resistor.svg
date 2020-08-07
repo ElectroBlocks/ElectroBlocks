@@ -1,15 +1,15 @@
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="100.44" height="137.53" viewBox="0 0 100.44 137.53">
   <title>rgbled</title>
-  <g id="RED_PIN">
+  <g id="PIN_RED">
     <line x1="14.76" y1="101.5" x2="14.76" y2="126.5" fill="none" stroke="#ef401d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
   </g>
-  <g id="GND_PIN">
+  <g id="PIN_GND">
     <line x1="39.08" y1="101.53" x2="38.99" y2="136.53" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
   </g>
-  <g id="GREEN_PIN">
+  <g id="PIN_GREEN">
     <line x1="63.87" y1="101.5" x2="63.87" y2="126.5" fill="none" stroke="#4dc16e" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
   </g>
-  <g id="BLUE_PIN">
+  <g id="PIN_BLUE">
     <line x1="88.51" y1="101.5" x2="88.51" y2="126.5" fill="none" stroke="#4c5dbf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
   </g>
   <g id="base">
@@ -21,7 +21,7 @@
     <path d="M59.22,21.38A32.48,32.48,0,1,1,26.74,53.86,32.52,32.52,0,0,1,59.22,21.38m0-1A33.48,33.48,0,1,0,92.7,53.86,33.48,33.48,0,0,0,59.22,20.38Z" transform="translate(-9 -9)"/>
   </g>
   <text transform="translate(7.66 98.49)" font-size="20.11" font-family="Biryani-Regular, Biryani">R</text>
-  <text transform="translate(35.09 100.68)" font-size="20.11" font-family="Biryani-Regular, Biryani">-</text>
+  <text transform="translate(32.09 100.68)" font-size="30.11" font-family="Biryani-Regular, Biryani">-</text>
   <text transform="translate(56.11 98.49)" font-size="20.11" font-family="Biryani-Regular, Biryani">G</text>
   <text transform="translate(81.38 98.49)" font-size="20.11" font-family="Biryani-Regular, Biryani">B</text>
 </svg>

@@ -43,7 +43,6 @@ export const createGroundWire = (
   pin: ARDUINO_UNO_PINS,
   arduino: Svg,
   draw: Svg,
-  componentBoxId: string,
   componentId: string,
   direction: 'left' | 'right'
 ) => {
@@ -52,7 +51,7 @@ export const createGroundWire = (
     pin,
     arduino,
     draw,
-    componentBoxId,
+    'PIN_GND',
     componentId,
     'GND',
     direction
@@ -64,7 +63,6 @@ export const createPowerWire = (
   pin: ARDUINO_UNO_PINS,
   arduino: Svg,
   draw: Svg,
-  componentBoxId: string,
   componentId: string,
   direction: 'left' | 'right'
 ) => {
@@ -73,7 +71,7 @@ export const createPowerWire = (
     pin,
     arduino,
     draw,
-    componentBoxId,
+    'PIN_POWER',
     componentId,
     'POWER',
     direction

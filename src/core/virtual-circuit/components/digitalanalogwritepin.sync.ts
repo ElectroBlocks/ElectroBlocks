@@ -109,15 +109,7 @@ const createWires = (
   draw: Svg,
   componentId: string
 ) => {
-  createGroundWire(
-    componentEl,
-    pin,
-    arduino,
-    draw,
-    'PIN_GND',
-    componentId,
-    'right'
-  );
+  createGroundWire(componentEl, pin, arduino, draw, componentId, 'right');
   createWire(componentEl, pin, 'POWER', arduino, draw, '#FF0000', 'POWER');
 };
 

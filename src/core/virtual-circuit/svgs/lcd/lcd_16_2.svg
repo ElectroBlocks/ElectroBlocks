@@ -13,10 +13,10 @@
     <text id="GND_TEXT" transform="translate(149.4 53.34)" font-size="16.72" fill="#2d2d2d" font-family="Biryani-SemiBold, Biryani" font-weight="600">GND</text>
     <text id="GND_TEXT-2" data-name="GND_TEXT" transform="translate(149.4 85.39)" font-size="16.72" fill="#2d2d2d" font-family="Biryani-SemiBold, Biryani" font-weight="600">SDA</text>
     <text id="GND_TEXT-3" data-name="GND_TEXT" transform="translate(149.4 117.44)" font-size="16.72" fill="#2d2d2d" font-family="Biryani-SemiBold, Biryani" font-weight="600">SCL</text>
-    <line id="_5V_BOX" x1="1" y1="14.72" x2="1" y2="46.56" stroke-width="2" stroke="#c1272d" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <line id="GND_BOX" x1="37" y1="46.56" x2="37" y2="76.56" stroke-width="2" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
-    <line id="SDA_WIRE" x1="72" y1="79.56" x2="72" y2="110.56" stroke-width="2" stroke="#0071bc" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
-    <line id="SCL_WIRE" x1="108" y1="111.56" x2="108" y2="144.56" stroke-width="2" stroke="#f15a24" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
+    <line id="PIN_POWER" x1="1" y1="14.72" x2="1" y2="46.56" stroke-width="2" stroke="#c1272d" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <line id="PIN_GND" x1="37" y1="46.56" x2="37" y2="76.56" stroke-width="2" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
+    <line id="PIN_SDA" x1="72" y1="79.56" x2="72" y2="110.56" stroke-width="2" stroke="#0071bc" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
+    <line id="PIN_SCL" x1="108" y1="111.56" x2="108" y2="144.56" stroke-width="2" stroke="#f15a24" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
   </g>
   <g id="col-16">
     <g id="space-16-1">

@@ -31,12 +31,14 @@ export const ledMatrixCreate: CreateComponent = (state, frame, draw) => {
 
   ledMatrixEl = createComponentEl(draw, state, ledmatrixSvgString);
   (window as any).ledMatrixEl = ledMatrixEl;
+  arduino.y(draw.viewbox().y2 - arduino.height() + 100);
+
   positionComponent(
     ledMatrixEl,
     arduino,
     draw,
     ARDUINO_UNO_PINS.PIN_10,
-    'DATA_PIN'
+    'PIN_DATA'
   );
   createWires(ledMatrixEl, arduino as Svg, draw, id);
   addDraggableEvent(ledMatrixEl, arduino, draw);
@@ -74,7 +76,6 @@ const createWires = (
     ARDUINO_UNO_PINS.PIN_9,
     arduino,
     draw,
-    'VCC_PIN',
     componentId,
     'left'
   );
@@ -84,7 +85,6 @@ const createWires = (
     ARDUINO_UNO_PINS.PIN_9,
     arduino,
     draw,
-    'GND_PIN',
     componentId,
     'left'
   );
@@ -92,7 +92,7 @@ const createWires = (
   createWire(
     ledMatrixEl,
     ARDUINO_UNO_PINS.PIN_12,
-    'DATA_PIN',
+    'PIN_DATA',
     arduino,
     draw,
     '#027a18',
@@ -101,7 +101,7 @@ const createWires = (
   createWire(
     ledMatrixEl,
     ARDUINO_UNO_PINS.PIN_10,
-    'CS_PIN',
+    'PIN_CS',
     arduino,
     draw,
     '#7b5fc9',
@@ -110,7 +110,7 @@ const createWires = (
   createWire(
     ledMatrixEl,
     ARDUINO_UNO_PINS.PIN_11,
-    'CLK_PIN',
+    'PIN_CLK',
     arduino,
     draw,
     '#2130ff',

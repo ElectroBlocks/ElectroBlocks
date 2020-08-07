@@ -122,7 +122,6 @@ const createWires = (
     txPin,
     arduino as Svg,
     draw,
-    'PIN_GND',
     componentId,
     'right'
   );
@@ -132,7 +131,6 @@ const createWires = (
     txPin,
     arduino as Svg,
     draw,
-    'PIN_POWER',
     componentId,
     'right'
   );

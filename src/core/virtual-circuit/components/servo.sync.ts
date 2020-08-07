@@ -107,38 +107,14 @@ const createWires = (
 
   if ([ARDUINO_UNO_PINS.PIN_13, ARDUINO_UNO_PINS.PIN_A2].includes(pin)) {
     // GND then POWER
-    createGroundWire(
-      servoEl,
-      pin,
-      arduino,
-      draw,
-      'PIN_GND',
-      componentId,
-      'left'
-    );
+    createGroundWire(servoEl, pin, arduino, draw, componentId, 'left');
 
-    createPowerWire(
-      servoEl,
-      pin,
-      arduino,
-      draw,
-      'PIN_POWER',
-      componentId,
-      'left'
-    );
+    createPowerWire(servoEl, pin, arduino, draw, componentId, 'left');
   }
 
   // POWER THEN GND
 
-  createPowerWire(
-    servoEl,
-    pin,
-    arduino,
-    draw,
-    'PIN_POWER',
-    componentId,
-    'left'
-  );
+  createPowerWire(servoEl, pin, arduino, draw, componentId, 'left');
 
-  createGroundWire(servoEl, pin, arduino, draw, 'PIN_GND', componentId, 'left');
+  createGroundWire(servoEl, pin, arduino, draw, componentId, 'left');
 };
