@@ -438,7 +438,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   }
 
   if (showToolBoxOption('Buttons', toolboxOptions)) {
-    toolbox += `<category name="Buttons" colour="${COLOR_THEME.SENSOR}">
+    toolbox += `<category name="Button" colour="${COLOR_THEME.SENSOR}">
       <block type="button_setup"></block>
       <block type="is_button_pressed"></block>
   </category>`;

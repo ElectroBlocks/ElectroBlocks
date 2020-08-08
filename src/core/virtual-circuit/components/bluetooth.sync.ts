@@ -1,9 +1,7 @@
 import { SyncComponent, CreateComponent } from '../svg.component';
-import { ArduinoComponentType } from '../../frames/arduino.frame';
 import { BluetoothState } from '../../frames/arduino-components.state';
 import {
   componentToSvgId,
-  findSvgElement,
   findArduinoEl,
   createComponentEl,
 } from '../svg-helpers';

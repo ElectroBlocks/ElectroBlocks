@@ -22,11 +22,11 @@
     </g>
   </g>
   <g id="wires">
-    <path id="PIN_DATA" d="M13.18,175.57H17a0,0,0,0,1,0,0v26.28a1.91,1.91,0,0,1-1.91,1.91h0a1.91,1.91,0,0,1-1.91-1.91V175.57a0,0,0,0,1,0,0Z" fill="#bdccd4"/>
+    <path id="PIN_DATA" d="M18.18,175.57H22a0,0,0,0,1,0,0v26.28a1.91,1.91,0,0,1-1.91,1.91h0a1.91,1.91,0,0,1-1.91-1.91V175.57A0,0,0,0,1,18.18,175.57Z" fill="#bdccd4"/>
     <path id="PIN_POWER" d="M59.6,175.57h3.82a0,0,0,0,1,0,0v26.28a1.91,1.91,0,0,1-1.91,1.91h0a1.91,1.91,0,0,1-1.91-1.91V175.57A0,0,0,0,1,59.6,175.57Z" fill="#bdccd4"/>
     <path id="PIN_GND" d="M104.46,175.57h3.82a0,0,0,0,1,0,0v26.28a1.91,1.91,0,0,1-1.91,1.91h0a1.91,1.91,0,0,1-1.91-1.91V175.57A0,0,0,0,1,104.46,175.57Z" fill="#bdccd4"/>
-    <text id="PIN_TEXT" transform="translate(4.23 170.91)" font-size="21" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">12</text>
-    <text id="VCC_TEXT" transform="translate(54.9 170.89) rotate(0.24)" font-size="24" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+    <text id="PIN_TEXT" transform="translate(9.23 170.91)" font-size="21" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
+    <text id="VCC_TEXT" transform="translate(54.88 170.85) rotate(0.24)" font-size="24" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
     <text id="GND_TEXT" transform="translate(100.9 170.92)" font-size="24" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
   </g>
   <g id="finger">

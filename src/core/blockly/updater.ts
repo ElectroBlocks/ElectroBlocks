@@ -11,6 +11,8 @@ import {
 } from './actions/actions';
 import { deleteVariable } from './helpers/variable.helper';
 import { getBlockById } from './helpers/block.helper';
+import _ from 'lodash';
+import Blockly from 'blockly';
 
 export interface Updater {
   (action: Action): void;
@@ -33,6 +35,15 @@ const updateSetupSensorBlockFields = (action: UpdateSetupSensorBlockFields) => {
   action.fields
     .filter((field) => block.getField(field.name))
     .forEach((field) => {
+      const blocklyField = block.getField(field.name);
+      if (blocklyField instanceof Blockly.FieldCheckbox) {
+        block.setFieldValue(
+          field.value === 1 || field.value === true ? 'TRUE' : 'FALSE',
+          field.name
+        );
+        return;
+      }
+
       block.setFieldValue(field.value, field.name);
     });
 };

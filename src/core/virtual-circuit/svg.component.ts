@@ -26,6 +26,11 @@ import {
   ledMatrixReset,
 } from './components/ledmatrix.sync';
 import { motorCreate, motorUpdate, motorReset } from './components/motor.sync';
+import {
+  updateButton,
+  createButton,
+  resetButton,
+} from './components/button.sync';
 
 export interface SyncComponent {
   (state: ArduinoComponentState, ArduinoFrame: ArduinoFrame, draw: Svg): void;
@@ -49,6 +54,7 @@ const syncComponent = {
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelUpdate,
   [ArduinoComponentType.LED_MATRIX]: ledMatrixUpdate,
   [ArduinoComponentType.MOTOR]: motorUpdate,
+  [ArduinoComponentType.BUTTON]: updateButton,
 };
 
 const createComponent = {
@@ -61,6 +67,7 @@ const createComponent = {
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,
   [ArduinoComponentType.LED_MATRIX]: ledMatrixCreate,
   [ArduinoComponentType.MOTOR]: motorCreate,
+  [ArduinoComponentType.BUTTON]: createButton,
 };
 
 const resetComponent = {
@@ -68,6 +75,7 @@ const resetComponent = {
   [ArduinoComponentType.PIN]: resetPinComponent,
   [ArduinoComponentType.LED_MATRIX]: ledMatrixReset,
   [ArduinoComponentType.MOTOR]: motorReset,
+  [ArduinoComponentType.BUTTON]: resetButton,
 };
 
 export const createComponents = (frame: ArduinoFrame, draw: Svg) => {

@@ -61,7 +61,7 @@ const pinFunctionCreate = {
   [PinPicture.PHOTO_SENSOR]: analogDigitalSensorCreate,
   [PinPicture.SOIL_SENSOR]: analogDigitalSensorCreate,
   [PinPicture.SENSOR]: analogDigitalSensorCreate,
-  [PinPicture.TOUCH_SENSOR]: touchSensorCreate,
+  [PinPicture.TOUCH_SENSOR]: analogDigitalSensorCreate,
 };
 
 const pinFunctionUpdate = {
@@ -71,7 +71,7 @@ const pinFunctionUpdate = {
   [PinPicture.PHOTO_SENSOR]: analogDigitalSensorUpdate,
   [PinPicture.SOIL_SENSOR]: analogDigitalSensorUpdate,
   [PinPicture.SENSOR]: analogDigitalSensorUpdate,
-  [PinPicture.TOUCH_SENSOR]: touchSensorUpdate,
+  [PinPicture.TOUCH_SENSOR]: analogDigitalSensorUpdate,
 };
 
 const pinFunctionReset = {
