@@ -12,8 +12,9 @@ import {
 import { Element, Svg } from '@svgdotjs/svg.js';
 import { createWire, createGroundWire } from '../wire';
 import { positionComponent } from '../svg-position';
-import buttonSvgString from '../svgs/button/button.svg';
 import { addDraggableEvent } from '../component-events.helpers';
+
+import buttonSvgString from '../svgs/button/button.svg';
 
 export const createButton: CreateComponent = (state, frame, draw) => {
   const buttonState = state as ButtonState;
@@ -25,7 +26,6 @@ export const createButton: CreateComponent = (state, frame, draw) => {
 
   const arduino = findArduinoEl(draw);
   buttonEl = createComponentEl(draw, buttonState, buttonSvgString);
-  console.log(buttonEl);
   (window as any).buttonEl = buttonEl;
   buttonEl.findOne('#PIN_TEXT').node.innerHTML = buttonState.pins[0];
   positionComponent(buttonEl, arduino, draw, buttonState.pins[0], 'PIN_DATA');

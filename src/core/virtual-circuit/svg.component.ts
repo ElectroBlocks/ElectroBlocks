@@ -31,6 +31,7 @@ import {
   createButton,
   resetButton,
 } from './components/button.sync';
+import { createIrRemote, updateIrRemote } from './components/ir_remote.sync';
 
 export interface SyncComponent {
   (state: ArduinoComponentState, ArduinoFrame: ArduinoFrame, draw: Svg): void;
@@ -55,6 +56,7 @@ const syncComponent = {
   [ArduinoComponentType.LED_MATRIX]: ledMatrixUpdate,
   [ArduinoComponentType.MOTOR]: motorUpdate,
   [ArduinoComponentType.BUTTON]: updateButton,
+  [ArduinoComponentType.IR_REMOTE]: updateIrRemote,
 };
 
 const createComponent = {
@@ -68,6 +70,7 @@ const createComponent = {
   [ArduinoComponentType.LED_MATRIX]: ledMatrixCreate,
   [ArduinoComponentType.MOTOR]: motorCreate,
   [ArduinoComponentType.BUTTON]: createButton,
+  [ArduinoComponentType.IR_REMOTE]: createIrRemote,
 };
 
 const resetComponent = {
