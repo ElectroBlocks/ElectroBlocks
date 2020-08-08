@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="296" height="163.85" viewBox="0 0 296 163.85">
+  <title>rfid</title>
+  <g id="RFID_READER" data-name="RFID READER">
+    <g>
+      <rect x="22.5" y="0.5" width="76" height="157" fill="#509364"/>
+      <path d="M100,18V174H25V18h75m1-1H24V175h77V17Z" transform="translate(-2 -17)"/>
+    </g>
+    <g>
+      <circle cx="92.9" cy="151.5" r="3" fill="#dda824"/>
+      <path d="M94.9,166a2.5,2.5,0,1,1-2.5,2.5,2.5,2.5,0,0,1,2.5-2.5m0-1a3.5,3.5,0,1,0,3.5,3.5,3.5,3.5,0,0,0-3.5-3.5Z" transform="translate(-2 -17)"/>
+    </g>
+    <g>
+      <circle cx="92.9" cy="133.5" r="3" fill="#dda824"/>
+      <path d="M94.9,148a2.5,2.5,0,1,1-2.5,2.5,2.5,2.5,0,0,1,2.5-2.5m0-1a3.5,3.5,0,1,0,3.5,3.5,3.5,3.5,0,0,0-3.5-3.5Z" transform="translate(-2 -17)"/>
+    </g>
+    <g>
+      <circle cx="29.5" cy="147.5" r="3" fill="#dda824"/>
+      <path d="M31.5,162a2.5,2.5,0,1,1-2.5,2.5,2.5,2.5,0,0,1,2.5-2.5m0-1a3.5,3.5,0,1,0,3.5,3.5,3.5,3.5,0,0,0-3.5-3.5Z" transform="translate(-2 -17)"/>
+    </g>
+    <g>
+      <circle cx="29.5" cy="123.75" r="3" fill="#dda824"/>
+      <path d="M31.5,138.25a2.5,2.5,0,1,1-2.5,2.5,2.5,2.5,0,0,1,2.5-2.5m0-1a3.5,3.5,0,1,0,3.5,3.5,3.5,3.5,0,0,0-3.5-3.5Z" transform="translate(-2 -17)"/>
+    </g>
+    <g>
+      <circle cx="92.9" cy="115.5" r="3" fill="#dda824"/>
+      <path d="M94.9,130a2.5,2.5,0,1,1-2.5,2.5,2.5,2.5,0,0,1,2.5-2.5m0-1a3.5,3.5,0,1,0,3.5,3.5,3.5,3.5,0,0,0-3.5-3.5Z" transform="translate(-2 -17)"/>
+    </g>
+    <g>
+      <circle cx="29.5" cy="100.5" r="3" fill="#dda824"/>
+      <path d="M31.5,115a2.5,2.5,0,1,1-2.5,2.5,2.5,2.5,0,0,1,2.5-2.5m0-1a3.5,3.5,0,1,0,3.5,3.5,3.5,3.5,0,0,0-3.5-3.5Z" transform="translate(-2 -17)"/>
+    </g>
+    <g>
+      <circle cx="92.9" cy="97.5" r="3" fill="#dda824"/>
+      <path d="M94.9,112a2.5,2.5,0,1,1-2.5,2.5,2.5,2.5,0,0,1,2.5-2.5m0-1a3.5,3.5,0,1,0,3.5,3.5,3.5,3.5,0,0,0-3.5-3.5Z" transform="translate(-2 -17)"/>
+    </g>
+    <g>
+      <circle cx="92.9" cy="79.5" r="3" fill="#dda824"/>
+      <path d="M94.9,94a2.5,2.5,0,1,1-2.5,2.5A2.5,2.5,0,0,1,94.9,94m0-1a3.5,3.5,0,1,0,3.5,3.5A3.5,3.5,0,0,0,94.9,93Z" transform="translate(-2 -17)"/>
+    </g>
+    <g>
+      <circle cx="88.5" cy="21.5" r="3" fill="#dda824"/>
+      <path d="M90.5,36A2.5,2.5,0,1,1,88,38.5,2.5,2.5,0,0,1,90.5,36m0-1A3.5,3.5,0,1,0,94,38.5,3.5,3.5,0,0,0,90.5,35Z" transform="translate(-2 -17)"/>
+    </g>
+    <g>
+      <circle cx="88.5" cy="10.5" r="3" fill="#dda824"/>
+      <path d="M90.5,25A2.5,2.5,0,1,1,88,27.5,2.5,2.5,0,0,1,90.5,25m0-1A3.5,3.5,0,1,0,94,27.5,3.5,3.5,0,0,0,90.5,24Z" transform="translate(-2 -17)"/>
+    </g>
+    <path d="M10.5,154.72" transform="translate(-2 -17)" fill="#dda824" stroke="#dda824" stroke-miterlimit="10"/>
+    <path d="M30.5,154.72" transform="translate(-2 -17)" fill="#dda824" stroke="#dda824" stroke-miterlimit="10"/>
+    <line x1="29" y1="100.5" x2="1" y2="100.5" fill="#dda824" stroke="#dda824" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_GND" x1="1" y1="101" x2="1" y2="109" fill="none" stroke="#dda824" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_TX" x1="117" y1="152" x2="117" y2="160" fill="none" stroke="#dda824" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="30" y1="123.75" x2="10" y2="123.75" fill="#dda824" stroke="#dda824" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="117" y1="151.5" x2="94" y2="151.5" fill="#dda824" stroke="#dda824" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_POWER" x1="10" y1="124" x2="10" y2="132" fill="none" stroke="#dda824" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+  <g id="RFID">
+    <g id="RFID_TAG_2">
+      <ellipse cx="201" cy="137" rx="18.5" ry="19.5" fill="blue"/>
+      <path d="M203,135c9.93,0,18,8.52,18,19s-8.07,19-18,19-18-8.52-18-19,8.07-19,18-19m0-1c-10.49,0-19,8.95-19,20s8.51,20,19,20,19-8.95,19-20-8.51-20-19-20Z" transform="translate(-2 -17)"/>
+    </g>
+    <g id="RFID_TAG_1">
+      <ellipse cx="201.5" cy="147.5" rx="9" ry="5"/>
+      <path d="M203.5,160c4.61,0,8.5,2.06,8.5,4.5s-3.89,4.5-8.5,4.5-8.5-2.06-8.5-4.5,3.89-4.5,8.5-4.5m0-1c-5.25,0-9.5,2.46-9.5,5.5s4.25,5.5,9.5,5.5,9.5-2.46,9.5-5.5-4.25-5.5-9.5-5.5Z" transform="translate(-2 -17)"/>
+    </g>
+    <text id="TAG_TEXT" transform="translate(109.85 64.05)" font-size="18" font-family="Biryani-Regular, Biryani">Tag #: </text>
+    <text id="CARD_NUMBER_TEXT" transform="translate(110.85 99.05)" font-size="18" font-family="Biryani-Regular, Biryani">Card #:</text>
+  </g>
+  <g id="antenna">
+    <path d="M90.5,38.5c11.61-17.84,88.57-8.3,95,20" transform="translate(-2 -17)" fill="none" stroke="#dda824" stroke-miterlimit="10" stroke-width="3"/>
+    <path d="M90.5,27.5c11.61-17.84,105.57,2.7,112,31" transform="translate(-2 -17)" fill="none" stroke="#dda824" stroke-miterlimit="10" stroke-width="3"/>
+    <path d="M259.52,147.5" transform="translate(-2 -17)" fill="none" stroke="#dda824" stroke-miterlimit="10" stroke-width="3"/>
+    <path d="M117,170.69" transform="translate(-2 -17)" fill="none" stroke="#dda824" stroke-miterlimit="10" stroke-width="3"/>
+    <rect x="168.94" y="-1.94" width="66.11" height="189" transform="translate(107.44 277.56) rotate(-90)" fill="none" stroke="#dda824" stroke-miterlimit="10" stroke-width="3"/>
+  </g>
+  <g id="wire_text" data-name="wire text">
+    <text transform="translate(34.12 130.56)" font-size="21" font-family="Biryani-Regular, Biryani">+</text>
+    <text transform="translate(35.12 106.56)" font-size="21" font-family="Biryani-Regular, Biryani">-</text>
+    <text transform="translate(69.12 155.56)" font-size="14" font-family="Biryani-Regular, Biryani">TX</text>
+    <text transform="translate(69.12 136.56)" font-size="14" font-family="Biryani-Regular, Biryani">RX</text>
+  </g>
+</svg>

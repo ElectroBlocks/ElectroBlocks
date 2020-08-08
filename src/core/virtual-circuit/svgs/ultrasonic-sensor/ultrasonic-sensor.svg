@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="177" height="165.45" viewBox="0 0 177 165.45">
+  <title>ultrasonic-sensor</title>
+  <g id="WIRES">
+    <line id="PIN_GND" x1="162.56" y1="147.26" x2="162.56" y2="164.45" stroke-width="2" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <line id="PIN_ECHO" x1="114.93" y1="147.26" x2="114.93" y2="164.45" stroke-width="2" stroke="#919080" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <line id="PIN_POWER" x1="15.07" y1="147.26" x2="15.07" y2="164.45" stroke-width="2" stroke="#e51313" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <line id="PIN_TRIG" x1="58.47" y1="147.26" x2="58.47" y2="164.45" stroke-width="2" stroke="#919080" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <g id="Sensor">
+    <g id="BASE">
+      <rect x="2" y="75.11" width="173" height="70.15" fill="#208fd3"/>
+      <path d="M183,84.67v66.15H14V84.67H183m4-4H10v74.15H187V80.67Z" transform="translate(-10 -7.55)"/>
+    </g>
+    <g id="RIGHT_EYE">
+      <rect x="11.3" y="46.52" width="34.76" height="27.44" fill="#bbc2c4"/>
+      <path d="M54.56,55.57V80H22.8V55.57H54.56m3-3H19.8V83H57.56V52.57Z" transform="translate(-10 -7.55)"/>
+    </g>
+    <g id="LEFT_EYE">
+      <rect x="131.57" y="46.52" width="34.76" height="27.44" fill="#bbc2c4"/>
+      <path d="M174.83,55.57V80H143.07V55.57h31.76m3-3H140.07V83h37.76V52.57Z" transform="translate(-10 -7.55)"/>
+    </g>
+  </g>
+  <g id="DISTANCE">
+    <text id="DISTANCE_TEXT" transform="translate(66.95 18.46) scale(0.81 1)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">1 cm </text>
+    <g id="OBJECT">
+      <rect x="0.5" y="21.34" width="176" height="12.27" fill="#d61632"/>
+      <path d="M186,29.4V40.67H11V29.4H186m1-1H10V41.67H187V28.4Z" transform="translate(-10 -7.55)"/>
+    </g>
+  </g>
+  <g id="WIRE_TEXT">
+    <text id="VCC_TEXT" transform="translate(6.83 143.06) scale(0.81 1)" font-size="36" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+    <text id="TRIG_TEXT" transform="translate(40.65 138.06) scale(0.81 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">TRIG</text>
+    <text id="ECHO_TEXT" transform="translate(93.22 138.06) scale(0.81 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">ECHO</text>
+    <text id="GND_TEXT" transform="translate(155.62 143.06) scale(0.81 1)" font-size="36" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+  </g>
+</svg>
