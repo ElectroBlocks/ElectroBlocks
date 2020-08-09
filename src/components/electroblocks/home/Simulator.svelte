@@ -1,6 +1,5 @@
 <script>
   import SimDebugger from "./SimDebugger.svelte";
-  import ToggleSwitch from "../../UI/ToggleSwitch.svelte";
   import { SVG } from "@svgdotjs/svg.js";
   import frameStore from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
