@@ -91,7 +91,7 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
         event.variables,
         timeLine,
         'loop',
-        getPreviousState(blocks, timeLine, _.cloneDeep(previousFrame))
+        getPreviousState(blocks, timeLine, _.cloneDeep(previousFrame)) // Deep clone to prevent object memory sharing
       ),
     ];
   }, frames);

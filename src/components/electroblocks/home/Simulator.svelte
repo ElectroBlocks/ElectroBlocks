@@ -48,6 +48,14 @@
       draw.size(container.clientWidth - 10, container.clientHeight - 10);
     });
   });
+
+  function zoomIn() {
+    draw.zoom(draw.zoom() + 0.05);
+  }
+
+  function zoomOut() {
+    draw.zoom(draw.zoom() - 0.05);
+  }
 </script>
 
 <style>
@@ -66,9 +74,27 @@
     width: calc(100% - 10px);
     height: calc(100% - 10px);
   }
+  #simulator-controls {
+    text-align: right;
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    user-select: none;
+  }
+  #simulator-controls i {
+    cursor: pointer;
+    margin-left: 20px;
+    user-select: none;
+  }
 </style>
 
 <div class="container">
   <div bind:this={container} id="simulator" />
+  <div id="simulator-controls">
+
+    <i on:click={zoomIn} class="fa fa-search-plus " aria-hidden="true" />
+    <i on:click={zoomOut} class="fa fa-search-minus " aria-hidden="true" />
+
+  </div>
   <SimDebugger />
 </div>
