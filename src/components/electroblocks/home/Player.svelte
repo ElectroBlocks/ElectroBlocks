@@ -267,6 +267,7 @@
     vertical-align: top;
     text-align: left;
     width: 30%;
+    margin-top: 10px;
   }
 
   input:invalid {
