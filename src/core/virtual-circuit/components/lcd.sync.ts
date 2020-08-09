@@ -1,4 +1,8 @@
-import { SyncComponent, CreateComponent } from '../svg.component';
+import {
+  SyncComponent,
+  CreateComponent,
+  ResetComponent,
+} from '../svg.component';
 import { ArduinoComponentType } from '../../frames/arduino.frame';
 import { LCDScreenState } from '../../frames/arduino-components.state';
 import {
@@ -63,6 +67,18 @@ export const lcdCreate: CreateComponent = (state, frame, draw) => {
   clearLetters(lcdScreenEl, lcdState);
 
   (window as any).lcd = lcdScreenEl;
+};
+
+export const lcdReset: ResetComponent = (lcdScreenEl: Element) => {
+  for (let row = 1; row <= 4; row += 1) {
+    for (let col = 1; col <= 20; col += 1) {
+      const letterEl = lcdScreenEl.findOne(`#letter-${col}-${row}`) as Element;
+      if (letterEl) {
+        (letterEl as Text).text('');
+      }
+    }
+  }
+  clearInterval(blinkingTimer);
 };
 
 export const lcdUpdate: SyncComponent = (state, frame, draw) => {

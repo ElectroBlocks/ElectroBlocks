@@ -91,7 +91,7 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
         event.variables,
         timeLine,
         'loop',
-        getPreviousState(blocks, timeLine, previousFrame)
+        getPreviousState(blocks, timeLine, _.cloneDeep(previousFrame))
       ),
     ];
   }, frames);

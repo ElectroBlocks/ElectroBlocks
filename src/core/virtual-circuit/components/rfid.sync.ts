@@ -1,4 +1,8 @@
-import { CreateComponent, SyncComponent } from '../svg.component';
+import {
+  CreateComponent,
+  SyncComponent,
+  ResetComponent,
+} from '../svg.component';
 import { RfidState } from '../../frames/arduino-components.state';
 import {
   componentToSvgId,
@@ -38,6 +42,10 @@ export const updateRfid: SyncComponent = (state, frame, draw) => {
   const id = componentToSvgId(rfidState);
   let rfidEl = draw.findOne('#' + id) as Element;
   updateComponent(rfidEl, rfidState);
+};
+
+export const resetRfid: ResetComponent = (rfidEl: Element) => {
+  rfidEl.findOne('#RFID').hide();
 };
 
 const updateComponent = (rfidEl: Element, state: RfidState) => {

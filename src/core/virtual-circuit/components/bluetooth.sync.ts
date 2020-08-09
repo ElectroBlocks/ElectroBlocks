@@ -1,4 +1,8 @@
-import { SyncComponent, CreateComponent } from '../svg.component';
+import {
+  SyncComponent,
+  CreateComponent,
+  ResetComponent,
+} from '../svg.component';
 import { BluetoothState } from '../../frames/arduino-components.state';
 import {
   componentToSvgId,
@@ -17,6 +21,10 @@ import {
 import bluetoothSvg from '../svgs/bluetooth/bluetooth.svg';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { addDraggableEvent } from '../component-events.helpers';
+
+export const bluetoothReset: ResetComponent = (bluetoothEl: Element) => {
+  bluetoothEl.findOne('#MESSAGE_LAYER').hide();
+};
 
 export const bluetoothUpdate: SyncComponent = (state, frame, draw) => {
   const bluetoothState = state as BluetoothState;

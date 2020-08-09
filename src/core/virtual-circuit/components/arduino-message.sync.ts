@@ -1,5 +1,8 @@
-import { SyncComponent, CreateComponent } from '../svg.component';
-import { ArduinoComponentType } from '../../frames/arduino.frame';
+import {
+  SyncComponent,
+  CreateComponent,
+  ResetComponent,
+} from '../svg.component';
 import { ArduinoReceiveMessageState } from '../../frames/arduino-components.state';
 import { Text, Svg } from '@svgdotjs/svg.js';
 import { findSvgElement, LED_COLORS, findArduinoEl } from '../svg-helpers';
@@ -57,3 +60,5 @@ const getMessage = (sendMessage: string, receiveMessage: string) => {
     ? receiveMessage.slice(0, 31) + '...'
     : receiveMessage;
 };
+
+export const resetArduinoMessage: ResetComponent = (componentEl) => {};

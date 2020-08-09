@@ -1,4 +1,8 @@
-import { CreateComponent, SyncComponent } from '../svg.component';
+import {
+  CreateComponent,
+  SyncComponent,
+  ResetComponent,
+} from '../svg.component';
 import { UltraSonicSensorState } from '../../frames/arduino-components.state';
 import {
   componentToSvgId,
@@ -46,16 +50,22 @@ export const updateUltraSonicSensor: SyncComponent = (state, frame, draw) => {
   syncDistance(ultraSonicEl, ultraSonicState.cm);
 };
 
-const syncDistance = (componentEl: Element, distance: number) => {
+const syncDistance = (ultraSonicEl: Element, distance: number) => {
   const firstDistance = 224;
-  const distanceTextEl = componentEl.findOne('#DISTANCE_TEXT') as Element;
+  const distanceTextEl = ultraSonicEl.findOne('#DISTANCE_TEXT') as Element;
+  distanceTextEl.show();
   const cxTextDistance = distanceTextEl.cx();
-  const distanceEl = componentEl.findOne('#DISTANCE') as Element;
+  const distanceEl = ultraSonicEl.findOne('#DISTANCE') as Element;
   const distanceNumber =
     firstDistance - distance > 100 ? firstDistance - distance : 100;
   distanceEl.y(distanceNumber);
   distanceTextEl.node.innerHTML = `${distance} cm`;
   distanceTextEl.cx(cxTextDistance);
+};
+
+export const resetUltraSonicSensor: ResetComponent = (ultraSonicEl) => {
+  const distanceTextEl = ultraSonicEl.findOne('#DISTANCE_TEXT') as Element;
+  distanceTextEl.hide();
 };
 
 const createWires = (

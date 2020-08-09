@@ -1,4 +1,8 @@
-import { CreateComponent, SyncComponent } from '../svg.component';
+import {
+  CreateComponent,
+  SyncComponent,
+  ResetComponent,
+} from '../svg.component';
 import { NeoPixelState } from '../../frames/arduino-components.state';
 import {
   componentToSvgId,
@@ -22,6 +26,7 @@ export const neoPixelCreate: CreateComponent = (state, frame, draw) => {
 
   if (neoPixelEl) {
     showRGBStripLeds(neoPixelEl, neoPixelState);
+    neoPixelReset(neoPixelEl);
     return;
   }
 
@@ -31,6 +36,15 @@ export const neoPixelCreate: CreateComponent = (state, frame, draw) => {
   createWires(neoPixelEl, neoPixelState.pins[0], arduino as Svg, draw, id);
   showRGBStripLeds(neoPixelEl, neoPixelState);
   addDraggableEvent(neoPixelEl, arduino, draw);
+};
+
+export const neoPixelReset: ResetComponent = (neoPixelEl: Element) => {
+  for (let i = 1; i <= 60; i += 1) {
+    const ledEl = neoPixelEl.findOne(`#LED-${i} circle`) as Element;
+    if (ledEl) {
+      ledEl.fill('#000000');
+    }
+  }
 };
 
 export const neoPixelUpdate: SyncComponent = (state, frame, draw) => {

@@ -1,4 +1,8 @@
-import { CreateComponent, SyncComponent } from '../svg.component';
+import {
+  CreateComponent,
+  SyncComponent,
+  ResetComponent,
+} from '../svg.component';
 import { IRRemoteState } from '../../frames/arduino-components.state';
 import {
   componentToSvgId,
@@ -41,6 +45,11 @@ export const updateIrRemote: SyncComponent = (state, frame, draw) => {
   const id = componentToSvgId(irRemoteState);
   let irRemoteEl = draw.findOne('#' + id) as Element;
   updateCode(irRemoteEl, irRemoteState);
+};
+
+export const resetIrRemote: ResetComponent = (irRemoteEl: Element) => {
+  irRemoteEl.findOne('#remote').hide();
+  irRemoteEl.findOne('#code').hide();
 };
 
 const updateCode = (irRemoteEl: Element, irRemoteState: IRRemoteState) => {

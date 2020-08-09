@@ -14,12 +14,12 @@ import {
   digitalAnalogWritePinSync,
 } from './digitalanalogwritepin.sync';
 import { ledCreate, resetLed, updateLed } from './led.sync';
-import { ArduinoComponentType } from '../../frames/arduino.frame';
 import _ from 'lodash';
 import { Element } from '@svgdotjs/svg.js';
 import {
   analogDigitalSensorCreate,
   analogDigitalSensorUpdate,
+  analogDigitalSensorReset,
 } from './analog-sensor.sync';
 
 export const createPinComponent: CreateComponent = (
@@ -77,4 +77,10 @@ const pinFunctionReset = {
   [PinPicture.LED_ANALOG_WRITE]: digitalAnalogWritePinReset,
   [PinPicture.LED_DIGITAL_WRITE]: digitalAnalogWritePinReset,
   [PinPicture.LED]: resetLed,
+  [PinPicture.PHOTO_SENSOR]: analogDigitalSensorReset,
+  [PinPicture.SOIL_SENSOR]: analogDigitalSensorReset,
+  [PinPicture.SENSOR]: analogDigitalSensorReset,
+  [PinPicture.TOUCH_SENSOR]: analogDigitalSensorReset,
 };
+
+//

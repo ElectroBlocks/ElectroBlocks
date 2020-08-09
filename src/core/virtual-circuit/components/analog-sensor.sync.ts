@@ -1,4 +1,8 @@
-import { SyncComponent, CreateComponent } from '../svg.component';
+import {
+  SyncComponent,
+  CreateComponent,
+  ResetComponent,
+} from '../svg.component';
 import {
   componentToSvgId,
   findArduinoEl,
@@ -41,6 +45,7 @@ export const analogDigitalSensorCreate: CreateComponent = (
     analogSensorState,
     svgStringHash[analogSensorState.pinPicture]
   );
+  analogSensorEl.data('picture-type', analogSensorState.pinPicture);
   analogSensorEl.findOne(
     '#PIN_TEXT'
   ).node.innerHTML = analogSensorState.pin.toString();
@@ -88,9 +93,18 @@ export const analogDigitalSensorUpdate: SyncComponent = (
   setSensorText(analogSensorEl, analogSensorState);
 };
 
+export const analogDigitalSensorReset: ResetComponent = (
+  componentEl: Element
+) => {
+  componentEl.findOne('#READING_VALUE').hide();
+  if (componentEl.findOne('#finger')) {
+    componentEl.findOne('#finger').hide();
+  }
+};
+
 const setSensorText = (componentEl: Element, state: PinState) => {
   const textEl = componentEl.findOne('#READING_VALUE') as Text;
-
+  textEl.show();
   if (
     state.pinType === PIN_TYPE.DIGITAL_INPUT &&
     state.pinPicture === PinPicture.SENSOR

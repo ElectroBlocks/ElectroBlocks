@@ -1,4 +1,8 @@
-import { CreateComponent, SyncComponent } from '../svg.component';
+import {
+  CreateComponent,
+  SyncComponent,
+  ResetComponent,
+} from '../svg.component';
 import { TemperatureState } from '../../frames/arduino-components.state';
 import {
   componentToSvgId,
@@ -11,6 +15,7 @@ import tempSvgString from '../svgs/temp/temp-humidity.svg';
 import { addDraggableEvent } from '../component-events.helpers';
 import { positionComponent } from '../svg-position';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
+import { text } from 'svelte/internal';
 
 export const createTemp: CreateComponent = (state, frame, draw) => {
   const tempState = state as TemperatureState;
@@ -39,8 +44,14 @@ export const updateTemp: SyncComponent = (state, frame, draw) => {
   updateTempText(tempEl, tempState);
 };
 
+export const resetTemp: ResetComponent = (tempEl) => {
+  const textEl = tempEl.findOne('#TEMP_TEXT') as Element;
+  textEl.hide();
+};
+
 const updateTempText = (componentEl: Element, state: TemperatureState) => {
   const textEl = componentEl.findOne('#TEMP_TEXT') as Element;
+  textEl.show();
   const cx = textEl.cx();
   textEl.node.innerHTML = `${state.humidity}% - ${state.temperature}°F`;
   textEl.cx(cx);

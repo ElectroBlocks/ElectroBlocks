@@ -1,4 +1,8 @@
-import { CreateComponent, SyncComponent } from '../svg.component';
+import {
+  CreateComponent,
+  SyncComponent,
+  ResetComponent,
+} from '../svg.component';
 import { ArduinoComponentType } from '../../frames/arduino.frame';
 import {
   componentToSvgId,
@@ -44,7 +48,7 @@ export const createRgbLed: CreateComponent = (state, frame, draw) => {
 
   rgbLedEl = createComponentEl(draw, state, svgString);
   (window as any).rgbLed = rgbLedEl;
-
+  rgbLedEl.data('picture-type', ledRgbState.pictureType);
   addDraggableEvent(rgbLedEl, arduino, draw);
   positionComponent(rgbLedEl, arduino, draw, ledRgbState.redPin, 'PIN_RED');
   createWires(rgbLedEl, arduino, draw, ledRgbState, id);
@@ -60,6 +64,15 @@ export const updateRgbLed: SyncComponent = (state, frame, draw) => {
   if (rgbLedEl) {
     changeColor(rgbToHex(rgbLedState.color), rgbLedEl, rgbLedState);
   }
+};
+
+export const resetRgbLed: ResetComponent = (rgbLedEl) => {
+  if (rgbLedEl.data('picture-type') === 'BUILT_IN') {
+    (rgbLedEl.findOne('#COLOR_LED circle') as Element).fill('#FFF');
+    return;
+  }
+
+  (rgbLedEl.findOne('#COLOR_LED') as Element).fill('#FFF');
 };
 
 const createResistors = (
