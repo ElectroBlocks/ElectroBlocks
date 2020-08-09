@@ -83,7 +83,7 @@
   }
   #simulator-controls i {
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: 10px;
     user-select: none;
   }
 </style>
