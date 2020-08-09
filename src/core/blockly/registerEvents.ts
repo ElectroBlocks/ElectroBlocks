@@ -52,8 +52,8 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     );
     const firstActionPass = [
       ...deleteUnusedVariables(event),
-      ...updateSensorSetupFields(event),
       ...saveSensorSetupBlockData(event),
+      ...updateSensorSetupFields(event),
       ...updateForLoopText(event),
       ...updateLoopNumberInSensorSetupBlock(event),
 

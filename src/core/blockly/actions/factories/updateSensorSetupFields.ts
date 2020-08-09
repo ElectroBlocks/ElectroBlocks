@@ -14,7 +14,7 @@ export const updateSensorSetupFields = (
   }
 
   // Is the event about changing the loop drop down field on the block
-  if (fieldType !== 'field' && fieldName !== 'LOOP') {
+  if (!(fieldType === 'field' && fieldName === 'LOOP')) {
     return [];
   }
 

@@ -1,14 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="150" height="222.37" viewBox="0 0 150 222.37">
   <title>temp-humidity</title>
   <g id="WIRE">
-    <g id="VCC">
-      <line x1="9.69" y1="204.87" x2="9.69" y2="221.2" fill="none" stroke="#a3a29f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <g id="PIN_POWER">
+      <line x1="9.69" y1="204.87" x2="9.69" y2="221.2" fill="none" stroke="#33322f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="9.69" y1="204.87" x2="9.69" y2="221.2" fill="#2d2d2c"/>
     </g>
-    <g id="SIG">
-      <line x1="71.38" y1="205.03" x2="71.38" y2="221.37" fill="none" stroke="#a3a29f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <g id="PIN_DATA">
+      <line x1="71.38" y1="205.03" x2="71.38" y2="221.37" fill="none" stroke="#33322f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="71.38" y1="205.03" x2="71.38" y2="221.37" fill="#2d2d2c"/>
     </g>
-    <g id="GND">
-      <line x1="137.22" y1="205.03" x2="137.22" y2="221.37" fill="none" stroke="#a3a29f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <g id="PIN_GND">
+      <line x1="137.22" y1="205.03" x2="137.22" y2="221.37" fill="none" stroke="#33322f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="137.22" y1="205.03" x2="137.22" y2="221.37" fill="#2d2d2c"/>
     </g>
   </g>
   <g id="BASE">
@@ -137,6 +140,6 @@
     <text id="TEMP_TEXT" transform="translate(14.89 21.1)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">50% - 90°F</text>
     <text transform="translate(3.09 199.46)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
     <text transform="translate(131.77 198.46)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
-    <text transform="translate(58.18 200.28)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
+    <text transform="translate(58.18 200.28)" font-size="24" fill="#2d2d2c" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
   </g>
 </svg>

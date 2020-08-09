@@ -32,6 +32,9 @@ import {
   resetButton,
 } from './components/button.sync';
 import { createIrRemote, updateIrRemote } from './components/ir_remote.sync';
+import { createUltraSonicSensor } from './components/ultrasonic.sync';
+import { updateRfid, createRfid } from './components/rfid.sync';
+import { updateTemp, createTemp } from './components/temp.sync';
 
 export interface SyncComponent {
   (state: ArduinoComponentState, ArduinoFrame: ArduinoFrame, draw: Svg): void;
@@ -57,6 +60,8 @@ const syncComponent = {
   [ArduinoComponentType.MOTOR]: motorUpdate,
   [ArduinoComponentType.BUTTON]: updateButton,
   [ArduinoComponentType.IR_REMOTE]: updateIrRemote,
+  [ArduinoComponentType.RFID]: updateRfid,
+  [ArduinoComponentType.TEMPERATURE_SENSOR]: updateTemp,
 };
 
 const createComponent = {
@@ -71,6 +76,9 @@ const createComponent = {
   [ArduinoComponentType.MOTOR]: motorCreate,
   [ArduinoComponentType.BUTTON]: createButton,
   [ArduinoComponentType.IR_REMOTE]: createIrRemote,
+  [ArduinoComponentType.ULTRASONICE_SENSOR]: createUltraSonicSensor,
+  [ArduinoComponentType.RFID]: createRfid,
+  [ArduinoComponentType.TEMPERATURE_SENSOR]: createTemp,
 };
 
 const resetComponent = {

@@ -21,7 +21,6 @@ import {
   analogDigitalSensorCreate,
   analogDigitalSensorUpdate,
 } from './analog-sensor.sync';
-import { touchSensorCreate, touchSensorUpdate } from './touch-sensor.sync';
 
 export const createPinComponent: CreateComponent = (
   state: PinState,

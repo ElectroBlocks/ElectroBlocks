@@ -74,8 +74,6 @@ const rfidSetupBlock: any = {
       .appendField(new Blockly.FieldImage('./blocks/rfid/rfid.png', 15, 15))
       .appendField('RFID Setup');
     this.appendDummyInput()
-      .appendField('RX Pin#')
-      .appendField(new Blockly.FieldDropdown(selectedBoard().digitalPins), 'RX')
       .appendField('TX Pin#')
       .appendField(
         new Blockly.FieldDropdown(selectedBoard().digitalPins),

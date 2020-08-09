@@ -241,7 +241,7 @@ const analogReadSetupBlock: any = {
 
     this.appendDummyInput()
       .appendField('Power Level')
-      .appendField(new Blockly.FieldNumber(10, 0, 1024, 0.000001), 'state');
+      .appendField(new Blockly.FieldNumber(1, 0, 1024, 0.000001), 'state');
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip('');
     this.setHelpUrl('');

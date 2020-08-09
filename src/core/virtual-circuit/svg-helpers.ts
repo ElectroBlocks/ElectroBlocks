@@ -19,7 +19,7 @@ export const componentToSvgId = (component: ArduinoComponentState) => {
       lcd.columns +
       '_' +
       lcd.rows +
-      component.pins.join('-')
+      component.pins.sort().join('-')
     );
   }
 
@@ -27,7 +27,7 @@ export const componentToSvgId = (component: ArduinoComponentState) => {
     const rgbLedState = component as LedColorState;
     return `${rgbLedState.type}_${
       rgbLedState.pictureType
-    }_${rgbLedState.pins.join('-')}`;
+    }_${rgbLedState.pins.sort().join('-')}`;
   }
 
   if (component.type === ArduinoComponentType.PIN) {
@@ -42,7 +42,7 @@ export const componentToSvgId = (component: ArduinoComponentState) => {
     return `${component.type}-${motorState.motorNumber}-`;
   }
 
-  return component.type + '_' + component.pins.join('-');
+  return component.type + '_' + component.pins.sort().join('-');
 };
 
 export const findComponentConnection = (
