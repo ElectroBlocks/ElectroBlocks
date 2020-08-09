@@ -136,7 +136,7 @@ const setPinText = (pin: ARDUINO_UNO_PINS, ledEl: Element) => {
   const pinText = ledEl.findOne('#PIN_NUMBER') as Text;
   pinText.node.innerHTML = pin;
   if (ANALOG_PINS.includes(pin)) {
-    pinText.x(-10);
+    pinText.x(0);
     return;
   }
 
@@ -147,6 +147,9 @@ const setPinText = (pin: ARDUINO_UNO_PINS, ledEl: Element) => {
       ARDUINO_UNO_PINS.PIN_12,
     ].includes(pin)
   ) {
-    pinText.x(-8);
+    pinText.x(2);
+    return;
   }
+
+  pinText.x(15);
 };

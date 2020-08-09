@@ -2,8 +2,19 @@
   import frameStore from "../../../stores/frame.store";
   import currentStepStore from "../../../stores/currentStep.store";
   import { afterUpdate } from "svelte";
+  import currentFrameStore from "../../../stores/currentFrame.store";
+  import { onDestroy, onMount } from "svelte";
 
   let stepContainer;
+  let frames = [];
+
+  const unsubscribeFrames = frameStore.subscribe(newFrames => {
+    frames = newFrames;
+  });
+
+  onDestroy(() => {
+    unsubscribeFrames();
+  });
 
   afterUpdate(() => {
     const activeStep = stepContainer.querySelector(".active");
@@ -11,6 +22,13 @@
       activeStep.scrollIntoView({ block: "center" });
     }
   });
+
+  function changeFrame(e) {
+    const currentFrameIndex = +e.target.getAttribute("data-step");
+
+    currentFrameStore.set(frames[currentFrameIndex]);
+    currentStepStore.set(currentFrameIndex);
+  }
 </script>
 
 <style>
@@ -51,7 +69,12 @@
 <div bind:this={stepContainer} id="steps">
   <ol>
     {#each $frameStore as frame, i}
-      <li class:active={i === $currentStepStore}>{frame.explanation}</li>
+      <li
+        data-step={i}
+        on:click={changeFrame}
+        class:active={i === $currentStepStore}>
+        {frame.explanation}
+      </li>
     {/each}
   </ol>
 </div>

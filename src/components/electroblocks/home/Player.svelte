@@ -1,16 +1,24 @@
 <script>
+  import { onDestroy } from "svelte";
+
   import frameStore from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
   import currentStepStore from "../../../stores/currentStep.store";
+
   let frames = [];
   let frameNumber = 1;
   let playing = false;
   let speedDivisor = 1;
+
   $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
   $: frameIndex = frameNumber - 1;
 
-  frameStore.subscribe(newFrames => {
+  const unsubscribeStep = currentStepStore.subscribe(currentIndex => {
+    frameNumber = currentIndex;
+  });
+
+  const unsubscribeFrame = frameStore.subscribe(newFrames => {
     playing = false;
     const currentFrame = frames[frameNumber];
     frames = newFrames;
@@ -121,6 +129,11 @@
   function moveWait() {
     return new Promise(resolve => setTimeout(resolve, 800 / speedDivisor));
   }
+
+  onDestroy(() => {
+    unsubscribeFrame();
+    unsubscribeStep();
+  });
 </script>
 
 <style>
