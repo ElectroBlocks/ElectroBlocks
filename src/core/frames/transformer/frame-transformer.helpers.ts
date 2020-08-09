@@ -218,6 +218,8 @@ export const generateInputFrame = (
   inputName: string,
   previousState?: ArduinoFrame
 ): ArduinoFrame[] => {
+  // Fixing memory sharing between objects
+  previousState = previousState ? _.cloneDeep(previousState) : undefined;
   const startingBlock = findInputStatementStartBlock(blocks, block, inputName);
   if (!startingBlock) {
     return [];
