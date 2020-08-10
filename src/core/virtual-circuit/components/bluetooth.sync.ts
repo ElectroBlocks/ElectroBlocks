@@ -1,32 +1,17 @@
-import {
-  SyncComponent,
-  CreateComponent,
-  ResetComponent,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg-sync';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { BluetoothState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
 import { positionComponent } from '../svg-position';
-import {
-  updateWires,
-  createWire,
-  createGroundWire,
-  createPowerWire,
-} from '../wire';
-
-import bluetoothSvg from '../svgs/bluetooth/bluetooth.svg';
-import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
-import { addDraggableEvent } from '../component-events.helpers';
+import { createWire, createGroundWire, createPowerWire } from '../wire';
 
 export const bluetoothReset: ResetComponent = (bluetoothEl: Element) => {
   bluetoothEl.findOne('#MESSAGE_LAYER').hide();
 };
 
-export const bluetoothUpdate: SyncComponent = (state, frame, draw) => {
+export const bluetoothUpdate: SyncComponent = (state, draw, frame) => {
   const bluetoothState = state as BluetoothState;
   const id = componentToSvgId(bluetoothState);
   let bluetoothEl = draw.findOne('#' + id) as Element;
@@ -65,81 +50,30 @@ export const bluetoothUpdate: SyncComponent = (state, frame, draw) => {
   textBubble.hide();
 };
 
-export const bluetoothCreate: CreateComponent = (state, frame, draw) => {
-  const bluetoothState = state as BluetoothState;
-
-  const id = componentToSvgId(bluetoothState);
-  let bluetoothEl = draw.findOne('#' + id) as Element;
-  const arduino = findArduinoEl(draw);
-  if (bluetoothEl) {
-    positionComponent(
-      bluetoothEl,
-      arduino,
-      draw,
-      bluetoothState.txPin,
-      'PIN_TX'
-    );
-    createWires(
-      bluetoothEl,
-      arduino,
-      draw,
-      bluetoothState.rxPin,
-      bluetoothState.txPin,
-      id
-    );
-    updateWires(bluetoothEl, draw, arduino as Svg);
-    (bluetoothEl as any).draggable().on('dragmove', (e) => {
-      updateWires(bluetoothEl, draw, arduino as Svg);
-    });
-    return;
-  }
-
-  bluetoothEl = createComponentEl(draw, bluetoothState, bluetoothSvg);
-  (window as any).bluetooth = bluetoothEl;
-
-  positionComponent(bluetoothEl, arduino, draw, bluetoothState.txPin, 'PIN_TX');
-  createWires(
-    bluetoothEl,
-    arduino,
-    draw,
-    bluetoothState.rxPin,
-    bluetoothState.txPin,
-    id
-  );
-
-  bluetoothEl.findOne('#MESSAGE_LAYER').hide();
-  addDraggableEvent(bluetoothEl, arduino, draw);
+export const bluetoothCreate: CreateComponentHook<BluetoothState> = (
+  state,
+  bluetoothEl,
+  arduinoEl,
+  draw
+) => {
+  positionComponent(bluetoothEl, arduinoEl, draw, state.txPin, 'PIN_TX');
 };
 
-const createWires = (
-  bluetoothEl: Element,
-  arduino: Svg | Element,
-  draw: Svg,
-  rxPin: ARDUINO_UNO_PINS,
-  txPin: ARDUINO_UNO_PINS,
-  componentId: string
+export const createBluetoothWires: CreateWire<BluetoothState> = (
+  state,
+  draw,
+  bluetoothEl,
+  arduinoEl,
+  id
 ) => {
-  createWire(bluetoothEl, rxPin, 'PIN_RX', arduino, draw, '#ac4cf5', 'rx');
+  const { rxPin, txPin } = state;
+  createWire(bluetoothEl, rxPin, 'PIN_RX', arduinoEl, draw, '#ac4cf5', 'rx');
 
-  createWire(bluetoothEl, txPin, 'PIN_TX', arduino, draw, '#0f5873', 'tx');
+  createWire(bluetoothEl, txPin, 'PIN_TX', arduinoEl, draw, '#0f5873', 'tx');
 
-  createGroundWire(
-    bluetoothEl,
-    txPin,
-    arduino as Svg,
-    draw,
-    componentId,
-    'right'
-  );
+  createGroundWire(bluetoothEl, txPin, arduinoEl as Svg, draw, id, 'right');
 
-  createPowerWire(
-    bluetoothEl,
-    txPin,
-    arduino as Svg,
-    draw,
-    componentId,
-    'right'
-  );
+  createPowerWire(bluetoothEl, txPin, arduinoEl as Svg, draw, id, 'right');
 };
 
 const getMessage = (message: string) => {

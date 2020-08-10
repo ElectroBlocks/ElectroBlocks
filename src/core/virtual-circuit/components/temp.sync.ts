@@ -1,42 +1,27 @@
-import {
-  CreateComponent,
-  SyncComponent,
-  ResetComponent,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg-sync';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { TemperatureState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 
-import tempSvgString from '../svgs/temp/temp-humidity.svg';
-import { addDraggableEvent } from '../component-events.helpers';
 import { positionComponent } from '../svg-position';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
-import { text } from 'svelte/internal';
 
-export const createTemp: CreateComponent = (state, frame, draw) => {
-  const tempState = state as TemperatureState;
-
-  const id = componentToSvgId(tempState);
-  let tempEl = draw.findOne('#' + id) as Element;
-  const arduinoEl = findArduinoEl(draw);
-
-  if (tempEl) {
-    return;
-  }
-
-  tempEl = createComponentEl(draw, state, tempSvgString);
-  (window as any).tempEl = tempEl;
-  positionComponent(tempEl, arduinoEl, draw, tempState.pins[0], 'PIN_DATA');
-  addDraggableEvent(tempEl, arduinoEl, draw);
-  createWires(tempEl, tempState, draw, id, arduinoEl);
-  updateTempText(tempEl, tempState);
+export const createTemp: CreateComponentHook<TemperatureState> = (
+  state,
+  tempEl,
+  arduinoEl,
+  draw
+) => {
+  positionComponent(tempEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
+  const pinTextEl = tempEl.findOne('#PIN_TEXT') as Element;
+  const cxPosition = pinTextEl.cx();
+  pinTextEl.node.innerHTML = state.pins[0];
+  pinTextEl.cx(cxPosition);
 };
 
-export const updateTemp: SyncComponent = (state, frame, draw) => {
+export const updateTemp: SyncComponent = (state, draw) => {
   const tempState = state as TemperatureState;
 
   const id = componentToSvgId(tempState);
@@ -57,12 +42,12 @@ const updateTempText = (componentEl: Element, state: TemperatureState) => {
   textEl.cx(cx);
 };
 
-const createWires = (
-  componentEl: Element,
-  state: TemperatureState,
-  draw: Svg,
-  id: string,
-  arduionEl: Element
+export const createWiresTemp: CreateWire<TemperatureState> = (
+  state,
+  draw,
+  componentEl,
+  arduionEl,
+  id
 ) => {
   createWire(
     componentEl,

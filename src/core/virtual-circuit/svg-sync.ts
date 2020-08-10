@@ -1,0 +1,103 @@
+import {
+  ArduinoComponentState,
+  ArduinoFrame,
+  ArduinoComponentType,
+} from '../frames/arduino.frame';
+import { Svg, Element } from '@svgdotjs/svg.js';
+import { servoUpdate, servoReset } from './components/servo.sync';
+import { bluetoothUpdate, bluetoothReset } from './components/bluetooth.sync';
+import {
+  arduinoMessageUpdate,
+  resetArduinoMessage,
+} from './components/arduino-message.sync';
+import { lcdUpdate, lcdReset } from './components/lcd.sync';
+import { componentToSvgId } from './svg-helpers';
+import { updateRgbLed, resetRgbLed } from './components/rgbled.sync';
+import {
+  updatePinComponent,
+  resetPinComponent,
+} from './components/pin.component';
+import _ from 'lodash';
+import { neoPixelUpdate, neoPixelReset } from './components/neoPixel.sync';
+import { ledMatrixUpdate, ledMatrixReset } from './components/ledmatrix.sync';
+import { motorUpdate, motorReset } from './components/motor.sync';
+import { updateButton, resetButton } from './components/button.sync';
+import { updateIrRemote, resetIrRemote } from './components/ir_remote.sync';
+import {
+  updateUltraSonicSensor,
+  resetUltraSonicSensor,
+} from './components/ultrasonic.sync';
+import { updateRfid, resetRfid } from './components/rfid.sync';
+import { updateTemp, resetTemp } from './components/temp.sync';
+
+export interface SyncComponent {
+  (
+    state: ArduinoComponentState,
+    draw: Svg,
+    frame: ArduinoFrame | undefined
+  ): void;
+}
+
+export interface ResetComponent {
+  (componentEl: Element): void;
+}
+
+const resetComponent = {
+  [ArduinoComponentType.BLUE_TOOTH]: bluetoothReset,
+  [ArduinoComponentType.BUTTON]: resetButton,
+  [ArduinoComponentType.IR_REMOTE]: resetIrRemote,
+  [ArduinoComponentType.LCD_SCREEN]: lcdReset,
+  [ArduinoComponentType.LED_COLOR]: resetRgbLed,
+  [ArduinoComponentType.LED_MATRIX]: ledMatrixReset,
+  [ArduinoComponentType.MESSAGE]: resetArduinoMessage,
+  [ArduinoComponentType.MOTOR]: motorReset,
+  [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelReset,
+  [ArduinoComponentType.PIN]: resetPinComponent,
+  [ArduinoComponentType.RFID]: resetRfid,
+  [ArduinoComponentType.SERVO]: servoReset,
+  [ArduinoComponentType.TEMPERATURE_SENSOR]: resetTemp,
+  [ArduinoComponentType.ULTRASONICE_SENSOR]: resetUltraSonicSensor,
+};
+
+const syncComponent = {
+  [ArduinoComponentType.BLUE_TOOTH]: bluetoothUpdate,
+  [ArduinoComponentType.BUTTON]: updateButton,
+  [ArduinoComponentType.IR_REMOTE]: updateIrRemote,
+  [ArduinoComponentType.LCD_SCREEN]: lcdUpdate,
+  [ArduinoComponentType.LED_COLOR]: updateRgbLed,
+  [ArduinoComponentType.LED_MATRIX]: ledMatrixUpdate,
+  [ArduinoComponentType.MOTOR]: motorUpdate,
+  [ArduinoComponentType.MESSAGE]: arduinoMessageUpdate,
+  [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelUpdate,
+  [ArduinoComponentType.PIN]: updatePinComponent,
+  [ArduinoComponentType.RFID]: updateRfid,
+  [ArduinoComponentType.SERVO]: servoUpdate,
+  [ArduinoComponentType.TEMPERATURE_SENSOR]: updateTemp,
+  [ArduinoComponentType.ULTRASONICE_SENSOR]: updateUltraSonicSensor,
+};
+
+export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
+  frame.components
+    .filter((state) => _.isFunction(syncComponent[state.type]))
+    .map((state) => [state, syncComponent[state.type]])
+    .forEach(([state, func]: [ArduinoComponentState, SyncComponent]) => {
+      func(state, draw, frame);
+    });
+
+  // Reset all components elements that don't have state in the frame
+  const componentIds = frame.components.map((c) => componentToSvgId(c));
+
+  draw
+    .find('.component')
+    .filter((componentEl) => !componentIds.includes(componentEl.id()))
+    .filter((componentEl) =>
+      _.isFunction(resetComponent[componentEl.data('component-type')])
+    )
+    .map((componentEl) => [
+      componentEl,
+      resetComponent[componentEl.data('component-type')],
+    ])
+    .forEach(([componentEl, func]: [Element, ResetComponent]) =>
+      func(componentEl)
+    );
+};

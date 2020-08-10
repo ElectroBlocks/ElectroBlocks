@@ -1,42 +1,24 @@
-import {
-  CreateComponent,
-  SyncComponent,
-  ResetComponent,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg-sync';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { RfidState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 
-import rfidSvgString from '../svgs/rfid/rfid.svg';
 import { positionComponent } from '../svg-position';
-import { addDraggableEvent } from '../component-events.helpers';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
 
-export const createRfid: CreateComponent = (state, frame, draw) => {
-  const rfidState = state as RfidState;
-
-  const id = componentToSvgId(rfidState);
-  let rfidEl = draw.findOne('#' + id) as Element;
-  const arduinoEl = findArduinoEl(draw);
-
-  if (rfidEl) {
-    return;
-  }
-
-  rfidEl = createComponentEl(draw, state, rfidSvgString);
-  (window as any).rfidEl = rfidEl;
-  positionComponent(rfidEl, arduinoEl, draw, rfidState.txPin, 'PIN_TX');
+export const createRfid: CreateComponentHook<RfidState> = (
+  state,
+  rfidEl,
+  arduinoEl,
+  draw
+) => {
+  positionComponent(rfidEl, arduinoEl, draw, state.txPin, 'PIN_TX');
   rfidEl.x(rfidEl.x() + 100);
-  addDraggableEvent(rfidEl, arduinoEl, draw);
-  createWires(rfidEl, rfidState, draw, id, arduinoEl);
-  updateComponent(rfidEl, rfidState);
 };
 
-export const updateRfid: SyncComponent = (state, frame, draw) => {
+export const updateRfid: SyncComponent = (state, draw) => {
   const rfidState = state as RfidState;
 
   const id = componentToSvgId(rfidState);
@@ -60,22 +42,22 @@ const updateComponent = (rfidEl: Element, state: RfidState) => {
   rfidEl.findOne('#TAG_TEXT').node.innerHTML = `Tag #: "${state.tag}"`;
 };
 
-const createWires = (
-  rfidEl: Element,
-  state: RfidState,
-  draw: Svg,
-  id: string,
-  arduionEl: Element
+export const createWiresRfid: CreateWire<RfidState> = (
+  state,
+  draw,
+  rfidEl,
+  arduinoEl,
+  id
 ) => {
   createWire(
     rfidEl,
     state.txPin,
     'PIN_TX',
-    arduionEl,
+    arduinoEl,
     draw,
     '#dda824',
     'tx-pin'
   );
-  createPowerWire(rfidEl, state.txPin, arduionEl as Svg, draw, id, 'left');
-  createGroundWire(rfidEl, state.txPin, arduionEl as Svg, draw, id, 'left');
+  createPowerWire(rfidEl, state.txPin, arduinoEl as Svg, draw, id, 'left');
+  createGroundWire(rfidEl, state.txPin, arduinoEl as Svg, draw, id, 'left');
 };

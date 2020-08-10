@@ -1,13 +1,11 @@
-import {
-  SyncComponent,
-  CreateComponent,
-  ResetComponent,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg-sync';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { ArduinoReceiveMessageState } from '../../frames/arduino-components.state';
 import { Text, Svg } from '@svgdotjs/svg.js';
 import { findSvgElement, LED_COLORS, findArduinoEl } from '../svg-helpers';
 
-export const arduinoMessageUpdate: SyncComponent = (state, frame, draw) => {
+export const arduinoMessageUpdate: SyncComponent = (state, draw, frame) => {
   const messageState = state as ArduinoReceiveMessageState;
   const arduino = findArduinoEl(draw);
 
@@ -42,11 +40,13 @@ export const arduinoMessageUpdate: SyncComponent = (state, frame, draw) => {
   );
 };
 
-export const arduinoMessageCreate: CreateComponent = (state, frame, draw) => {
-  const arduino = findArduinoEl(draw);
-  if (arduino) {
-    arduino.findOne('#MESSAGE').show();
-  }
+export const arduinoMessageCreate: CreateComponentHook<ArduinoReceiveMessageState> = (
+  state,
+  frame,
+  arduino,
+  draw
+) => {
+  arduino.findOne('#MESSAGE').hide();
 };
 
 const getMessage = (sendMessage: string, receiveMessage: string) => {

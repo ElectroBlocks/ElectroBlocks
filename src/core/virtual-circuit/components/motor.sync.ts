@@ -1,8 +1,6 @@
-import {
-  CreateComponent,
-  SyncComponent,
-  ResetComponent,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg-sync';
+import { CreateComponentHook } from '../svg-create';
+
 import { Element, Text } from '@svgdotjs/svg.js';
 import {
   MotorState,
@@ -16,32 +14,19 @@ import {
 
 import _ from 'lodash';
 
-import motorSvgString from '../svgs/motor/motor.svg';
-import { addDraggableEvent } from '../component-events.helpers';
-
-export const motorCreate: CreateComponent = (state, frame, draw) => {
-  const motorState = state as MotorState;
-
-  const id = componentToSvgId(motorState);
-  let motorEl = draw.findOne('#' + id) as Element;
-  const arduino = findArduinoEl(draw);
-
-  if (motorEl) {
-    motorReset(motorEl);
-    return;
-  }
-
-  motorEl = createComponentEl(draw, state, motorSvgString);
+export const motorCreate: CreateComponentHook<MotorState> = (
+  state,
+  motorEl,
+  arduinoEl,
+  draw
+) => {
   motorEl.x(0);
   motorEl.y(10);
   (motorEl.findOne('#motor_info') as Text).node.innerHTML =
-    'Motor: ' + motorState.motorNumber;
-
-  (window as any).motorEl = motorEl;
-  addDraggableEvent(motorEl, arduino, draw);
+    'Motor: ' + state.motorNumber;
 };
 
-export const motorUpdate: SyncComponent = (state, frame, draw) => {
+export const motorUpdate: SyncComponent = (state, draw) => {
   const motorState = state as MotorState;
   const id = componentToSvgId(motorState);
   let motorEl = draw.findOne('#' + id) as Element;

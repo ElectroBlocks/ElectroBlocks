@@ -2,9 +2,9 @@ import arduinoSVGText from './svgs/arduino.svg';
 import { Svg, Element } from '@svgdotjs/svg.js';
 import { ArduinoFrame } from '../frames/arduino.frame';
 import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
-import { createComponents } from './svg.component';
 import { resetBreadBoardWholes } from './wire';
 import { componentToSvgId, findArduinoEl } from './svg-helpers';
+import createNewComponent from './svg-create';
 
 export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   const arduino = findOrCreateArduino(draw);
@@ -13,15 +13,13 @@ export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   hideAllWires(arduino);
 
   if (frame) {
-    createComponents(frame, draw);
-    frame.components
-      .flatMap((b) => b.pins)
-      .forEach((wire) => showWire(arduino, wire));
+    frame.components.forEach((state) => {
+      state.pins.forEach((pin) => showWire(arduino, pin));
+      createNewComponent(state, arduino, draw);
+    });
   }
 
   deleteUnusedComponents(draw, frame);
-
-  return;
 };
 
 const findOrCreateArduino = (draw: Svg) => {
