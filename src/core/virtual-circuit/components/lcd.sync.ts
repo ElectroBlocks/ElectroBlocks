@@ -1,4 +1,4 @@
-import { SyncComponent, ResetComponent } from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg-sync';
 import { CreateComponentHook, CreateWire } from '../svg-create';
 
 import { LCDScreenState } from '../../frames/arduino-components.state';

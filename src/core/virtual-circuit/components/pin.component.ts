@@ -1,4 +1,4 @@
-import { ResetComponent, SyncComponent } from '../svg.component';
+import { ResetComponent, SyncComponent } from '../svg-sync';
 import { CreateComponentHook, CreateWire } from '../svg-create';
 
 import { PinPicture, PinState } from '../../frames/arduino-components.state';

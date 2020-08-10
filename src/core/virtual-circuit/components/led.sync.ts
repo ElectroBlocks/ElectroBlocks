@@ -1,4 +1,4 @@
-import { SyncComponent, ResetComponent } from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg-sync';
 import { CreateComponentHook, CreateWire } from '../svg-create';
 
 import { Element, Svg, Text } from '@svgdotjs/svg.js';

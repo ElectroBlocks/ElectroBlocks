@@ -1,6 +1,6 @@
 import { Svg } from '@svgdotjs/svg.js';
 import { ArduinoFrame } from '../frames/arduino.frame';
-import { syncComponents } from './svg.component';
+import { syncComponents } from './svg-sync';
 import { findSvgElement, LED_COLORS, findArduinoEl } from './svg-helpers';
 
 export default (draw: Svg, frame: ArduinoFrame = undefined) => {
