@@ -1,7 +1,8 @@
 import {
   SyncComponent,
-  CreateComponent,
+  CreateComponentHook,
   ResetComponent,
+  CreateWire,
 } from '../svg.component';
 import { ServoState } from '../../frames/arduino-components.state';
 import {
@@ -41,34 +42,15 @@ export const servoUpdate: SyncComponent = (state, frame, draw) => {
   setText(servoEl, servoState.degree);
 };
 
-export const servoCreate: CreateComponent = (state, frame, draw) => {
-  const servoState = state as ServoState;
+export const servoCreate: CreateComponentHook<ServoState> = (
+  state,
+  servoEl,
+  arduinoEl,
+  draw
+) => {
+  positionComponent(servoEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
 
-  const id = componentToSvgId(servoState);
-  let servoEl = draw.find('#' + id).pop();
-
-  const arduino = findArduinoEl(draw);
-  const pin = state.pins[0];
-
-  if (servoEl) {
-    positionComponent(servoEl, arduino, draw, pin, 'PIN_DATA');
-    updateWires(servoEl, draw, arduino as Svg);
-    setDegrees(servoEl, 0);
-    setText(servoEl, 0);
-    return;
-  }
-
-  servoEl = createComponentEl(draw, state, servoSVGText);
-
-  (window as any).servoEl = servoEl;
-  setServoPinText(servoEl, state as ServoState);
-
-  positionComponent(servoEl, arduino, draw, pin, 'PIN_DATA');
-  createWires(servoEl, pin, arduino as Svg, draw, id);
-  addDraggableEvent(servoEl, arduino, draw);
-
-  setDegrees(servoEl, 0);
-  setText(servoEl, 0);
+  setServoPinText(servoEl, state);
 };
 
 const setServoPinText = (servoEl: Element, servoState: ServoState) => {
@@ -94,25 +76,26 @@ const setDegrees = (servoEl: Element, degrees: number) => {
   movingPart.rotate(-1 * (degrees + 4), servoBoundBox.cx, servoBoundBox.cy);
 };
 
-const createWires = (
-  servoEl: Element,
-  pin: ARDUINO_UNO_PINS,
-  arduino: Svg,
-  draw: Svg,
-  componentId: string
+const createWires: CreateWire<ServoState> = (
+  state,
+  draw,
+  servoEl,
+  arduino,
+  id
 ) => {
+  const pin = state.pins[0];
   createWire(servoEl, pin, 'PIN_DATA', arduino, draw, '#FFA502', 'data');
 
   if ([ARDUINO_UNO_PINS.PIN_13, ARDUINO_UNO_PINS.PIN_A2].includes(pin)) {
     // GND then POWER
-    createGroundWire(servoEl, pin, arduino, draw, componentId, 'left');
+    createGroundWire(servoEl, pin, arduino as Svg, draw, id, 'left');
 
-    createPowerWire(servoEl, pin, arduino, draw, componentId, 'left');
+    createPowerWire(servoEl, pin, arduino as Svg, draw, id, 'left');
   }
 
   // POWER THEN GND
 
-  createPowerWire(servoEl, pin, arduino, draw, componentId, 'left');
+  createPowerWire(servoEl, pin, arduino as Svg, draw, id, 'left');
 
-  createGroundWire(servoEl, pin, arduino, draw, componentId, 'left');
+  createGroundWire(servoEl, pin, arduino as Svg, draw, id, 'left');
 };

@@ -94,7 +94,7 @@ export const createComponentEl = (
 };
 
 export const findArduinoEl = (draw: Svg) => {
-  return draw.findOne('#arduino_main_svg') as Element;
+  return draw.findOne('#arduino_main_svg') as Element | Svg;
 };
 
 export const addWireConnectionClass = (ids: string[], componentEl: Element) => {

@@ -1,7 +1,8 @@
 import {
   SyncComponent,
-  CreateComponent,
+  CreateComponentHook,
   ResetComponent,
+  CreateWire,
 } from '../svg.component';
 import { ArduinoComponentType } from '../../frames/arduino.frame';
 import { LCDScreenState } from '../../frames/arduino-components.state';
@@ -38,17 +39,12 @@ let blinkPosition = { row: 0, col: 0 };
  */
 let isDarkBlinking = false;
 
-export const lcdCreate: CreateComponent = (state, frame, draw) => {
-  const lcdState = state as LCDScreenState;
-  const id = componentToSvgId(lcdState);
-  let lcdScreenEl = draw.findOne('#' + id) as Element;
-  const arduino = findArduinoEl(draw);
-
-  if (lcdScreenEl) {
-    return;
-  }
-  lcdScreenEl = createComponentEl(draw, lcdState, getSvgString(lcdState));
-
+export const lcdCreate: CreateComponentHook<LCDScreenState> = (
+  state,
+  lcdScreenEl,
+  arduino,
+  draw
+) => {
   arduino.y(draw.viewbox().y2 - arduino.height() + 70);
 
   positionComponent(
@@ -61,12 +57,7 @@ export const lcdCreate: CreateComponent = (state, frame, draw) => {
 
   lcdScreenEl.y(lcdScreenEl.y() - 30);
 
-  addDraggableEvent(lcdScreenEl, arduino, draw);
-  createWries(lcdScreenEl, ARDUINO_UNO_PINS.PIN_12, arduino as Svg, draw, id);
-  centerLetters(lcdScreenEl, lcdState);
-  clearLetters(lcdScreenEl, lcdState);
-
-  (window as any).lcd = lcdScreenEl;
+  centerLetters(lcdScreenEl, state);
 };
 
 export const lcdReset: ResetComponent = (lcdScreenEl: Element) => {
@@ -169,16 +160,30 @@ const toggleDarkLightScreen = (
   }
 };
 
-const createWries = (
-  lcdEl: Element,
-  pin: ARDUINO_UNO_PINS,
-  arduino: Svg,
-  draw: Svg,
-  componentId: string
+const createWires: CreateWire<LCDScreenState> = (
+  state,
+  draw,
+  lcdEl,
+  arduino,
+  id
 ) => {
-  createGroundWire(lcdEl, pin, arduino, draw, componentId, 'left');
+  createGroundWire(
+    lcdEl,
+    ARDUINO_UNO_PINS.PIN_12,
+    arduino as Svg,
+    draw,
+    id,
+    'left'
+  );
 
-  createPowerWire(lcdEl, pin, arduino, draw, componentId, 'left');
+  createPowerWire(
+    lcdEl,
+    ARDUINO_UNO_PINS.PIN_12,
+    arduino as Svg,
+    draw,
+    id,
+    'left'
+  );
 
   createWire(
     lcdEl,

@@ -1,7 +1,8 @@
 import {
-  CreateComponent,
+  CreateComponentHook,
   SyncComponent,
   ResetComponent,
+  CreateWire,
 } from '../svg.component';
 import { ButtonState } from '../../frames/arduino-components.state';
 import {
@@ -16,22 +17,14 @@ import { addDraggableEvent } from '../component-events.helpers';
 
 import buttonSvgString from '../svgs/button/button.svg';
 
-export const createButton: CreateComponent = (state, frame, draw) => {
-  const buttonState = state as ButtonState;
-  const id = componentToSvgId(buttonState);
-  let buttonEl = draw.findOne('#' + id) as Element;
-  if (buttonEl) {
-    return;
-  }
-
-  const arduino = findArduinoEl(draw);
-  buttonEl = createComponentEl(draw, buttonState, buttonSvgString);
-  (window as any).buttonEl = buttonEl;
-  buttonEl.findOne('#PIN_TEXT').node.innerHTML = buttonState.pins[0];
-  positionComponent(buttonEl, arduino, draw, buttonState.pins[0], 'PIN_DATA');
-  createWires(buttonEl, buttonState, arduino, draw, id);
-  addDraggableEvent(buttonEl, arduino, draw);
-  toggleButton(buttonEl, buttonState.isPressed);
+export const createButton: CreateComponentHook<ButtonState> = (
+  state,
+  buttonEl,
+  arduinoEl,
+  draw
+) => {
+  buttonEl.findOne('#PIN_TEXT').node.innerHTML = state.pins[0];
+  positionComponent(buttonEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
 };
 
 export const updateButton: SyncComponent = (state, frame, draw) => {
@@ -63,28 +56,21 @@ const toggleButton = (componentEl: Element, isOn: boolean) => {
   componentEl.findOne('#BUTTON_NOT_PRESSED').show();
 };
 
-const createWires = (
-  buttonEl: Element,
-  state: ButtonState,
-  arduino: Element,
-  draw: Svg,
-  componentId: string
+const createWires: CreateWire<ButtonState> = (
+  state,
+  draw,
+  buttonEl,
+  arduinoEl,
+  id
 ) => {
   createWire(
     buttonEl,
     state.pins[0],
     'PIN_DATA',
-    arduino,
+    arduinoEl,
     draw,
     '#3d8938',
     'data'
   );
-  createGroundWire(
-    buttonEl,
-    state.pins[0],
-    arduino as Svg,
-    draw,
-    componentId,
-    'left'
-  );
+  createGroundWire(buttonEl, state.pins[0], arduinoEl as Svg, draw, id, 'left');
 };

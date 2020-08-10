@@ -1,7 +1,8 @@
 import {
-  CreateComponent,
+  CreateComponentHook,
   SyncComponent,
   ResetComponent,
+  CreateWire,
 } from '../svg.component';
 import { LedMatrixState } from '../../frames/arduino-components.state';
 import {
@@ -17,31 +18,21 @@ import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { addDraggableEvent } from '../component-events.helpers';
 import { createPowerWire, createGroundWire, createWire } from '../wire';
 
-export const ledMatrixCreate: CreateComponent = (state, frame, draw) => {
-  const ledMatrixState = state as LedMatrixState;
-
-  const id = componentToSvgId(ledMatrixState);
-  let ledMatrixEl = draw.findOne('#' + id) as Element;
-  const arduino = findArduinoEl(draw);
-
-  if (ledMatrixEl) {
-    ledMatrixReset(ledMatrixEl);
-    return;
-  }
-
-  ledMatrixEl = createComponentEl(draw, state, ledmatrixSvgString);
-  (window as any).ledMatrixEl = ledMatrixEl;
-  arduino.y(draw.viewbox().y2 - arduino.height() + 100);
+export const ledMatrixCreate: CreateComponentHook<LedMatrixState> = (
+  state,
+  ledMatrixEl,
+  arduinoEl,
+  draw
+) => {
+  arduinoEl.y(draw.viewbox().y2 - arduinoEl.height() + 100);
 
   positionComponent(
     ledMatrixEl,
-    arduino,
+    arduinoEl,
     draw,
     ARDUINO_UNO_PINS.PIN_10,
     'PIN_DATA'
   );
-  createWires(ledMatrixEl, arduino as Svg, draw, id);
-  addDraggableEvent(ledMatrixEl, arduino, draw);
 };
 
 export const ledMatrixUpdate: SyncComponent = (state, frame, draw) => {
@@ -65,27 +56,28 @@ export const ledMatrixReset: ResetComponent = (componentEl: Element) => {
   }
 };
 
-const createWires = (
-  ledMatrixEl: Element,
-  arduino: Svg,
-  draw: Svg,
-  componentId: string
+const createWires: CreateWire<LedMatrixState> = (
+  state,
+  draw,
+  ledMatrixEl,
+  arduino,
+  id
 ) => {
   createPowerWire(
     ledMatrixEl,
     ARDUINO_UNO_PINS.PIN_9,
-    arduino,
+    arduino as Svg,
     draw,
-    componentId,
+    id,
     'left'
   );
 
   createGroundWire(
     ledMatrixEl,
     ARDUINO_UNO_PINS.PIN_9,
-    arduino,
+    arduino as Svg,
     draw,
-    componentId,
+    id,
     'left'
   );
 

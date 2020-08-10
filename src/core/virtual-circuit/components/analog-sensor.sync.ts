@@ -1,7 +1,8 @@
 import {
   SyncComponent,
-  CreateComponent,
+  CreateComponentHook,
   ResetComponent,
+  CreateWire,
 } from '../svg.component';
 import {
   componentToSvgId,
@@ -26,60 +27,25 @@ import soilSensorSvgString from '../svgs/soilsensor/soilsensor.svg';
 import photoSensorSvgString from '../svgs/photosensor/photosensor.svg';
 import touchSensorSvgString from '../svgs/touch-sensor/touch-sensor.svg';
 
-export const analogDigitalSensorCreate: CreateComponent = (
+export const analogDigitalSensorCreate: CreateComponentHook<PinState> = (
   state,
-  frame,
+  analogSensorEl,
+  arduinoEl,
   draw
 ) => {
-  const analogSensorState = state as PinState;
-  const id = componentToSvgId(analogSensorState);
-  let analogSensorEl = draw.findOne('#' + id) as Element;
-  const arduinoEl = findArduinoEl(draw);
-  if (analogSensorEl) {
-    setSensorText(analogSensorEl, analogSensorState);
-    return;
-  }
+  analogSensorEl.data('picture-type', state.pinPicture);
+  analogSensorEl.findOne('#PIN_TEXT').node.innerHTML = state.pin.toString();
+  positionComponent(analogSensorEl, arduinoEl, draw, state.pin, 'PIN_DATA');
 
-  analogSensorEl = createComponentEl(
-    draw,
-    analogSensorState,
-    svgStringHash[analogSensorState.pinPicture]
-  );
-  analogSensorEl.data('picture-type', analogSensorState.pinPicture);
-  analogSensorEl.findOne(
-    '#PIN_TEXT'
-  ).node.innerHTML = analogSensorState.pin.toString();
-  addDraggableEvent(analogSensorEl, arduinoEl, draw);
-  setSensorText(analogSensorEl, analogSensorState);
-  positionComponent(
-    analogSensorEl,
-    arduinoEl,
-    draw,
-    analogSensorState.pin,
-    'PIN_DATA'
-  );
-
-  if (pinCenterText[analogSensorState.pinPicture]) {
+  if (pinCenterText[state.pinPicture]) {
     (analogSensorEl.findOne('#PIN_TEXT') as Element).cx(
-      pinCenterText[analogSensorState.pinPicture]
+      pinCenterText[state.pinPicture]
     );
   }
 
-  (window as any).analogSensor = analogSensorEl;
-
-  if (
-    ![ARDUINO_UNO_PINS.PIN_A1, ARDUINO_UNO_PINS.PIN_A0].includes(
-      analogSensorState.pin
-    )
-  ) {
+  if (![ARDUINO_UNO_PINS.PIN_A1, ARDUINO_UNO_PINS.PIN_A0].includes(state.pin)) {
     analogSensorEl.x(analogSensorEl.x() - 20);
   }
-  createWiresFunc[analogSensorState.pinPicture](
-    analogSensorEl,
-    analogSensorState,
-    draw,
-    id
-  );
 };
 
 export const analogDigitalSensorUpdate: SyncComponent = (
@@ -150,13 +116,13 @@ const createSensorWires = (
   createPowerWire(componentEl, state.pin, arduinoEl as Svg, draw, id, 'left');
 };
 
-const createSoilSensorWires = (
-  componentEl: Element,
-  state: PinState,
-  draw: Svg,
-  id: string
+const createSoilSensorWires: CreateWire<PinState> = (
+  state,
+  draw,
+  componentEl,
+  arduinoEl,
+  id
 ) => {
-  const arduinoEl = findArduinoEl(draw);
   createWire(
     componentEl,
     state.pin,
@@ -171,13 +137,13 @@ const createSoilSensorWires = (
   createPowerWire(componentEl, state.pin, arduinoEl as Svg, draw, id, 'right');
 };
 
-const createPhotoSensorWires = (
-  componentEl: Element,
-  state: PinState,
-  draw: Svg,
-  id: string
+const createPhotoSensorWires: CreateWire<PinState> = (
+  state,
+  draw,
+  componentEl,
+  arduinoEl,
+  id
 ) => {
-  const arduinoEl = findArduinoEl(draw);
   createWire(
     componentEl,
     state.pin,
@@ -192,13 +158,13 @@ const createPhotoSensorWires = (
   createPowerWire(componentEl, state.pin, arduinoEl as Svg, draw, id, 'left');
 };
 
-const createTouchSensorWires = (
-  componentEl: Element,
-  state: PinState,
-  draw: Svg,
-  id: string
+const createTouchSensorWires: CreateWire<PinState> = (
+  state,
+  draw,
+  componentEl,
+  arduinoEl,
+  id
 ) => {
-  const arduinoEl = findArduinoEl(draw);
   createWire(
     componentEl,
     state.pin,

@@ -1,7 +1,8 @@
 import {
-  CreateComponent,
+  CreateComponentHook,
   SyncComponent,
   ResetComponent,
+  CreateWire,
 } from '../svg.component';
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
 import {
@@ -28,45 +29,37 @@ import { addDraggableEvent } from '../component-events.helpers';
 
 const colors = ['#39b54a', '#ff2a5f', '#1545ff', '#fff76a', '#ff9f3f'];
 
-export const ledCreate: CreateComponent = (state, frame, draw) => {
-  const ledState = state as PinState;
-
-  const id = componentToSvgId(ledState);
-  let ledEl = draw.findOne('#' + id) as Element;
-  const arduino = findArduinoEl(draw);
-
-  if (ledEl) {
-    return;
-  }
+export const ledCreate: CreateComponentHook<PinState> = (
+  state,
+  ledEl,
+  arduinoEl,
+  draw
+) => {
+  // ledEl = createComponentEl(
+  //   draw,
+  //   state,
+  //   ledSvgString.replace(/radial-gradient/g, `radial-gradient-${state.pin}`)
+  // );
 
   const randomColor = colors[_.random(0, colors.length)];
-  ledEl = createComponentEl(
-    draw,
-    state,
-    ledSvgString.replace(/radial-gradient/g, `radial-gradient-${ledState.pin}`)
-  );
 
-  ledEl.data('picture-type', ledState.pinPicture);
-  ledEl.data('pin-number', ledState.pin);
-  (window as any).ledEl = ledEl;
-
-  addDraggableEvent(ledEl, arduino, draw);
+  ledEl.data('picture-type', state.pinPicture);
+  ledEl.data('pin-number', state.pin);
 
   ledEl
-    .find(`#radial-gradient-${ledState.pin} stop`)
+    .find(`#radial-gradient-${state.pin} stop`)
     .toArray()
     .find((stop) => stop.attr('offset') == 1)
     .attr('stop-color', randomColor);
   ledEl.data('color', randomColor);
 
-  createResistor(arduino, draw, ledState.pin, id);
-  positionComponent(ledEl, arduino, draw, ledState.pin, 'POWER');
-  if (ANALOG_PINS.includes(ledState.pin)) {
+  createResistor(arduinoEl, draw, state.pin, componentToSvgId(state));
+  positionComponent(ledEl, arduinoEl, draw, state.pin, 'POWER');
+  if (ANALOG_PINS.includes(state.pin)) {
     ledEl.x(ledEl.x() + 30);
   }
-  createWires(ledEl, ledState.pin, arduino as Svg, draw, id);
 
-  setPinText(ledState.pin, ledEl);
+  setPinText(state.pin, ledEl);
 };
 
 export const updateLed: SyncComponent = (state, frame, draw) => {
@@ -121,15 +114,9 @@ const createResistor = (
   resistorEl.y(y);
 };
 
-const createWires = (
-  ledEl: Element,
-  pin: ARDUINO_UNO_PINS,
-  arduino: Svg,
-  draw: Svg,
-  componentId: string
-) => {
-  createGroundWire(ledEl, pin, arduino, draw, componentId, 'right');
-  createWire(ledEl, pin, 'POWER', arduino, draw, '#FF0000', 'POWER');
+const createWires: CreateWire<PinState> = (state, draw, ledEl, arduino, id) => {
+  createGroundWire(ledEl, state.pin, arduino as Svg, draw, id, 'right');
+  createWire(ledEl, state.pin, 'POWER', arduino, draw, '#FF0000', 'POWER');
 };
 
 const setPinText = (pin: ARDUINO_UNO_PINS, ledEl: Element) => {

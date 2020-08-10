@@ -65,8 +65,18 @@ export interface ResetComponent {
   (componentEl: Element): void;
 }
 
-export interface CreateComponent {
-  (state: ArduinoComponentState, frame: ArduinoFrame, draw: Svg): void;
+export interface CreateComponentHook<T extends ArduinoComponentState> {
+  (state: T, componentEl: Element, arduinoEl: Element, draw: Svg): void;
+}
+
+export interface CreateWire<T extends ArduinoComponentState> {
+  (
+    state: T,
+    draw: Svg,
+    component: Element,
+    arduinoEl: Element,
+    componentId: string
+  ): void;
 }
 
 const syncComponent = {
@@ -86,7 +96,7 @@ const syncComponent = {
   [ArduinoComponentType.ULTRASONICE_SENSOR]: updateUltraSonicSensor,
 };
 
-const createComponent = {
+export const createComponent = {
   [ArduinoComponentType.BLUE_TOOTH]: bluetoothCreate,
   [ArduinoComponentType.BUTTON]: createButton,
   [ArduinoComponentType.IR_REMOTE]: createIrRemote,
@@ -124,7 +134,7 @@ export const createComponents = (frame: ArduinoFrame, draw: Svg) => {
   frame.components
     .filter((state) => _.isFunction(createComponent[state.type]))
     .map((state) => [state, createComponent[state.type]])
-    .forEach(([state, func]: [ArduinoComponentState, CreateComponent]) =>
+    .forEach(([state, func]: [ArduinoComponentState, CreateComponentHook]) =>
       func(state, frame, draw)
     );
 };

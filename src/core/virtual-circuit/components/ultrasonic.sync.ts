@@ -1,7 +1,8 @@
 import {
-  CreateComponent,
+  CreateComponentHook,
   SyncComponent,
   ResetComponent,
+  CreateWire,
 } from '../svg.component';
 import { UltraSonicSensorState } from '../../frames/arduino-components.state';
 import {
@@ -16,30 +17,14 @@ import { addDraggableEvent } from '../component-events.helpers';
 import { positionComponent } from '../svg-position';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
 
-export const createUltraSonicSensor: CreateComponent = (state, frame, draw) => {
-  const ultraSonicState = state as UltraSonicSensorState;
-
-  const id = componentToSvgId(ultraSonicState);
-  let ultraSonicEl = draw.findOne('#' + id) as Element;
-  const arduinoEl = findArduinoEl(draw);
-
-  if (ultraSonicEl) {
-    syncDistance(ultraSonicEl, ultraSonicState.cm);
-    return;
-  }
-
-  ultraSonicEl = createComponentEl(draw, state, ultraSonicSvgString);
-  (window as any).ultraSonicEl = ultraSonicEl;
-  addDraggableEvent(ultraSonicEl, arduinoEl, draw);
-  positionComponent(
-    ultraSonicEl,
-    arduinoEl,
-    draw,
-    ultraSonicState.trigPin,
-    'PIN_TRIG'
-  );
-  createWires(ultraSonicEl, ultraSonicState, draw, id, arduinoEl);
-  syncDistance(ultraSonicEl, ultraSonicState.cm);
+export const createUltraSonicSensor: CreateComponentHook<UltraSonicSensorState> = (
+  state,
+  ultraSonicEl,
+  arduinoEl,
+  draw
+) => {
+  //todo consider labeling pins in picture
+  positionComponent(ultraSonicEl, arduinoEl, draw, state.trigPin, 'PIN_TRIG');
 };
 
 export const updateUltraSonicSensor: SyncComponent = (state, frame, draw) => {
@@ -68,12 +53,12 @@ export const resetUltraSonicSensor: ResetComponent = (ultraSonicEl) => {
   distanceTextEl.hide();
 };
 
-const createWires = (
-  componentEl: Element,
-  state: UltraSonicSensorState,
-  draw: Svg,
-  id: string,
-  arduionEl: Element
+const createWires: CreateWire<UltraSonicSensorState> = (
+  state,
+  draw,
+  componentEl,
+  arduionEl,
+  id
 ) => {
   createPowerWire(
     componentEl,

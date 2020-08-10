@@ -1,7 +1,8 @@
 import {
   SyncComponent,
-  CreateComponent,
+  CreateComponentHook,
   ResetComponent,
+  CreateWire,
 } from '../svg.component';
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
 import {
@@ -29,37 +30,25 @@ export const digitalAnalogWritePinReset: ResetComponent = (
   (componentEl.findOne('#LIGHT_BULB') as Element).opacity(0);
 };
 
-export const digitalAnanlogWritePinCreate: CreateComponent = (
+export const digitalAnanlogWritePinCreate: CreateComponentHook<PinState> = (
   state,
-  frame,
+  componentEl,
+  arduinoEl,
   draw
 ) => {
-  const pinState = state as PinState;
-  const id = componentToSvgId(pinState);
-  let componentEl = draw.findOne('#' + id) as Element;
-  const arduino = findArduinoEl(draw);
+  componentEl.data('picture-type', state.pinPicture);
+  componentEl.data('pin_number', state.pin);
 
-  if (componentEl) {
-    return;
-  }
-
-  componentEl = createComponentEl(draw, state, analogdigitalSvgString);
-  componentEl.data('picture-type', pinState.pinPicture);
-  componentEl.data('pin_number', pinState.pin);
-  (window as any).digitalAnalogWriteEl = componentEl;
-
-  addDraggableEvent(componentEl, arduino, draw);
-  positionComponent(componentEl, arduino, draw, pinState.pin, 'POWER');
-  if (ANALOG_PINS.includes(pinState.pin)) {
+  positionComponent(componentEl, arduinoEl, draw, state.pin, 'POWER');
+  if (ANALOG_PINS.includes(state.pin)) {
     componentEl.x(componentEl.x() + 30);
   }
-  createWires(componentEl, pinState.pin, arduino as Svg, draw, id);
 
   componentEl.findOne('title').node.innerHTML =
-    pinState.pinPicture === PinPicture.LED_ANALOG_WRITE
+    state.pinPicture === PinPicture.LED_ANALOG_WRITE
       ? 'PIN DIGITAL WRITE'
       : 'PIN ANALOG WRITE';
-  setPinText(pinState.pin, componentEl);
+  setPinText(state.pin, componentEl);
 };
 
 export const digitalAnalogWritePinSync: SyncComponent = (
@@ -102,15 +91,23 @@ export const digitalAnalogWritePinSync: SyncComponent = (
   pinText.cx(16);
 };
 
-const createWires = (
-  componentEl: Element,
-  pin: ARDUINO_UNO_PINS,
-  arduino: Svg,
-  draw: Svg,
-  componentId: string
+const createWires: CreateWire<PinState> = (
+  state,
+  draw,
+  componentEl,
+  arduino,
+  id
 ) => {
-  createGroundWire(componentEl, pin, arduino, draw, componentId, 'right');
-  createWire(componentEl, pin, 'POWER', arduino, draw, '#FF0000', 'POWER');
+  createGroundWire(componentEl, state.pin, arduino as Svg, draw, id, 'right');
+  createWire(
+    componentEl,
+    state.pin,
+    'POWER',
+    arduino,
+    draw,
+    '#FF0000',
+    'POWER'
+  );
 };
 
 const setPinText = (pin: ARDUINO_UNO_PINS, componentEl: Element) => {

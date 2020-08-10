@@ -1,6 +1,6 @@
 import {
   SyncComponent,
-  CreateComponent,
+  CreateComponentHook,
   ResetComponent,
 } from '../svg.component';
 import { ArduinoReceiveMessageState } from '../../frames/arduino-components.state';
@@ -42,11 +42,13 @@ export const arduinoMessageUpdate: SyncComponent = (state, frame, draw) => {
   );
 };
 
-export const arduinoMessageCreate: CreateComponent = (state, frame, draw) => {
-  const arduino = findArduinoEl(draw);
-  if (arduino) {
-    arduino.findOne('#MESSAGE').show();
-  }
+export const arduinoMessageCreate: CreateComponentHook<ArduinoReceiveMessageState> = (
+  state,
+  frame,
+  arduino,
+  draw
+) => {
+  arduino.findOne('#MESSAGE').hide();
 };
 
 const getMessage = (sendMessage: string, receiveMessage: string) => {

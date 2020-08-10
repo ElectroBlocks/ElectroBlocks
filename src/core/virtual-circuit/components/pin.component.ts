@@ -1,5 +1,5 @@
 import {
-  CreateComponent,
+  CreateComponentHook,
   ResetComponent,
   SyncComponent,
 } from '../svg.component';
@@ -22,13 +22,19 @@ import {
   analogDigitalSensorReset,
 } from './analog-sensor.sync';
 
-export const createPinComponent: CreateComponent = (
+export const createPinComponent: CreateComponentHook<PinState> = (
   state: PinState,
-  frame,
+  componentEl,
+  arduinoEl,
   draw
 ) => {
   if (_.isFunction(pinFunctionCreate[state.pinPicture])) {
-    return pinFunctionCreate[state.pinPicture](state, frame, draw);
+    return pinFunctionCreate[state.pinPicture](
+      state,
+      componentEl,
+      arduinoEl,
+      draw
+    );
   }
   throw new Error('No Create Function Found for pin type ' + state.pinPicture);
 };

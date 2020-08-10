@@ -1,7 +1,8 @@
 import {
-  CreateComponent,
+  CreateComponentHook,
   SyncComponent,
   ResetComponent,
+  CreateWire,
 } from '../svg.component';
 import { NeoPixelState } from '../../frames/arduino-components.state';
 import {
@@ -15,27 +16,15 @@ import { createWire, createPowerWire, createGroundWire } from '../wire';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import _ from 'lodash';
 import { rgbToHex } from '../../blockly/helpers/color.helper';
-import { addDraggableEvent } from '../component-events.helpers';
 
-export const neoPixelCreate: CreateComponent = (state, frame, draw) => {
-  const neoPixelState = state as NeoPixelState;
-
-  const id = componentToSvgId(neoPixelState);
-  let neoPixelEl = draw.findOne('#' + id) as Element;
-  const arduino = findArduinoEl(draw);
-
-  if (neoPixelEl) {
-    showRGBStripLeds(neoPixelEl, neoPixelState);
-    neoPixelReset(neoPixelEl);
-    return;
-  }
-
-  neoPixelEl = createComponentEl(draw, state, neopixelSvgString);
-  (window as any).neoPixelEl = neoPixelEl;
-  arduino.y(draw.viewbox().y2 - arduino.height() + 100);
-  createWires(neoPixelEl, neoPixelState.pins[0], arduino as Svg, draw, id);
-  showRGBStripLeds(neoPixelEl, neoPixelState);
-  addDraggableEvent(neoPixelEl, arduino, draw);
+export const neoPixelCreate: CreateComponentHook<NeoPixelState> = (
+  state,
+  neoPixelEl,
+  arduinoEl,
+  draw
+) => {
+  arduinoEl.y(draw.viewbox().y2 - arduinoEl.height() + 100);
+  showRGBStripLeds(neoPixelEl, state);
 };
 
 export const neoPixelReset: ResetComponent = (neoPixelEl: Element) => {
@@ -65,30 +54,38 @@ export const neoPixelUpdate: SyncComponent = (state, frame, draw) => {
   });
 };
 
-const createWires = (
-  neoPixelEl: Element,
-  pin: ARDUINO_UNO_PINS,
-  arduino: Svg,
-  draw: Svg,
-  componentId: string
+const createWires: CreateWire<NeoPixelState> = (
+  state,
+  draw,
+  neoPixelEl,
+  arduino,
+  id
 ) => {
-  createWire(neoPixelEl, pin, 'PIN_DATA', arduino, draw, '#006837', 'data');
+  createWire(
+    neoPixelEl,
+    state.pins[0],
+    'PIN_DATA',
+    arduino,
+    draw,
+    '#006837',
+    'data'
+  );
 
   createGroundWire(
     neoPixelEl,
     ARDUINO_UNO_PINS.PIN_13,
-    arduino,
+    arduino as Svg,
     draw,
-    componentId,
+    id,
     'left'
   );
 
   createPowerWire(
     neoPixelEl,
     ARDUINO_UNO_PINS.PIN_13,
-    arduino,
+    arduino as Svg,
     draw,
-    componentId,
+    id,
     'left'
   );
 };
