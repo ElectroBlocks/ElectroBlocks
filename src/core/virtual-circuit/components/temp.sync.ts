@@ -1,22 +1,12 @@
-import {
-  CreateComponentHook,
-  SyncComponent,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { TemperatureState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 
-import tempSvgString from '../svgs/temp/temp-humidity.svg';
-import { addDraggableEvent } from '../component-events.helpers';
 import { positionComponent } from '../svg-position';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
-import { text } from 'svelte/internal';
 
 export const createTemp: CreateComponentHook<TemperatureState> = (
   state,
@@ -24,11 +14,14 @@ export const createTemp: CreateComponentHook<TemperatureState> = (
   arduinoEl,
   draw
 ) => {
-  // todo change to pin text label
   positionComponent(tempEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
+  const pinTextEl = tempEl.findOne('#PIN_TEXT') as Element;
+  const cxPosition = pinTextEl.cx();
+  pinTextEl.node.innerHTML = state.pins[0];
+  pinTextEl.cx(cxPosition);
 };
 
-export const updateTemp: SyncComponent = (state, frame, draw) => {
+export const updateTemp: SyncComponent = (state, draw) => {
   const tempState = state as TemperatureState;
 
   const id = componentToSvgId(tempState);
@@ -49,7 +42,7 @@ const updateTempText = (componentEl: Element, state: TemperatureState) => {
   textEl.cx(cx);
 };
 
-const createWires: CreateWire<TemperatureState> = (
+export const createWiresTemp: CreateWire<TemperatureState> = (
   state,
   draw,
   componentEl,

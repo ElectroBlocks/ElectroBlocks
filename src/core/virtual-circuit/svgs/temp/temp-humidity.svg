@@ -140,6 +140,6 @@
     <text id="TEMP_TEXT" transform="translate(14.89 21.1)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">50% - 90°F</text>
     <text transform="translate(3.09 199.46)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
     <text transform="translate(131.77 198.46)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
-    <text transform="translate(58.18 200.28)" font-size="24" fill="#2d2d2c" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
+    <text id="PIN_TEXT" transform="translate(58.18 200.28)" font-size="24" fill="#2d2d2c" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
   </g>
 </svg>

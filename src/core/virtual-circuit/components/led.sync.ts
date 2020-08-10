@@ -1,22 +1,10 @@
-import {
-  CreateComponentHook,
-  SyncComponent,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
-import {
-  PinState,
-  PinPicture,
-  PIN_TYPE,
-} from '../../frames/arduino-components.state';
-import ledSvgString from '../svgs/led/led.svg';
+import { PinState, PIN_TYPE } from '../../frames/arduino-components.state';
 import _ from 'lodash';
-import {
-  componentToSvgId,
-  createComponentEl,
-  findArduinoEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import resistorSvg from '../svgs/resistors/resistor-small.svg';
 import { ARDUINO_UNO_PINS, ANALOG_PINS } from '../../blockly/selectBoard';
 import {
@@ -25,7 +13,6 @@ import {
   createWire,
 } from '../wire';
 import { positionComponent } from '../svg-position';
-import { addDraggableEvent } from '../component-events.helpers';
 
 const colors = ['#39b54a', '#ff2a5f', '#1545ff', '#fff76a', '#ff9f3f'];
 
@@ -62,7 +49,7 @@ export const ledCreate: CreateComponentHook<PinState> = (
   setPinText(state.pin, ledEl);
 };
 
-export const updateLed: SyncComponent = (state, frame, draw) => {
+export const updateLed: SyncComponent = (state, draw) => {
   const ledState = state as PinState;
   const id = componentToSvgId(ledState);
   let ledEl = draw.findOne('#' + id) as Element;
@@ -114,7 +101,13 @@ const createResistor = (
   resistorEl.y(y);
 };
 
-const createWires: CreateWire<PinState> = (state, draw, ledEl, arduino, id) => {
+export const createWiresLed: CreateWire<PinState> = (
+  state,
+  draw,
+  ledEl,
+  arduino,
+  id
+) => {
   createGroundWire(ledEl, state.pin, arduino as Svg, draw, id, 'right');
   createWire(ledEl, state.pin, 'POWER', arduino, draw, '#FF0000', 'POWER');
 };

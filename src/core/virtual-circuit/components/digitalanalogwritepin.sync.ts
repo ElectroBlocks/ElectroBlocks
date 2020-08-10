@@ -1,25 +1,12 @@
-import {
-  SyncComponent,
-  CreateComponentHook,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
-import {
-  ArduinoComponentType,
-  ArduinoComponentState,
-} from '../../frames/arduino.frame';
 import { PinState, PinPicture } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
-import analogdigitalSvgString from '../svgs/analogdigital/digital_analog_write.svg';
+import { componentToSvgId } from '../svg-helpers';
 import { positionComponent } from '../svg-position';
 import { ANALOG_PINS, ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { createGroundWire, createWire, updateWires } from '../wire';
-import { addDraggableEvent } from '../component-events.helpers';
 
 export const digitalAnalogWritePinReset: ResetComponent = (
   componentEl: Element
@@ -51,11 +38,7 @@ export const digitalAnanlogWritePinCreate: CreateComponentHook<PinState> = (
   setPinText(state.pin, componentEl);
 };
 
-export const digitalAnalogWritePinSync: SyncComponent = (
-  state,
-  frame,
-  draw
-) => {
+export const digitalAnalogWritePinSync: SyncComponent = (state, draw) => {
   const pinState = state as PinState;
 
   const id = componentToSvgId(state);
@@ -91,7 +74,7 @@ export const digitalAnalogWritePinSync: SyncComponent = (
   pinText.cx(16);
 };
 
-const createWires: CreateWire<PinState> = (
+export const createWiresDigitalAnalogWrite: CreateWire<PinState> = (
   state,
   draw,
   componentEl,

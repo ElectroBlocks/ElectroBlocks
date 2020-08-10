@@ -1,33 +1,18 @@
-import {
-  CreateComponentHook,
-  SyncComponent,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
-import { ArduinoComponentType } from '../../frames/arduino.frame';
-import {
-  componentToSvgId,
-  createComponentEl,
-  findArduinoEl,
-} from '../svg-helpers';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 import { positionComponent } from '../svg-position';
-import {
-  LedColorState,
-  PinPicture,
-} from '../../frames/arduino-components.state';
-import rgbLedSvg from '../svgs/rgbled/rgbled.svg';
-import rgbLedNoResistorSvg from '../svgs/rgbled/rgbled-no-resistor.svg';
+import { LedColorState } from '../../frames/arduino-components.state';
 import resistorSmallSvg from '../svgs/resistors/resistor-small.svg';
 import {
   createGroundWire,
   createWire,
-  updateWires,
   findResistorBreadboardHoleXY,
 } from '../wire';
 import { rgbToHex } from '../../blockly/helpers/color.helper';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
-import { addDraggableEvent } from '../component-events.helpers';
 
 export const createRgbLed: CreateComponentHook<LedColorState> = (
   state,
@@ -36,15 +21,13 @@ export const createRgbLed: CreateComponentHook<LedColorState> = (
   draw
 ) => {
   //todo consider labeling pin in picture
-  // const svgString =
-  //   ledRgbState.pictureType === 'BREADBOARD' ? rgbLedSvg : rgbLedNoResistorSvg;
 
   rgbLedEl.data('picture-type', state.pictureType);
   positionComponent(rgbLedEl, arduinoEl, draw, state.redPin, 'PIN_RED');
   createResistors(arduinoEl, draw, state, componentToSvgId(state));
 };
 
-export const updateRgbLed: SyncComponent = (state, frame, draw) => {
+export const updateRgbLed: SyncComponent = (state, draw) => {
   const rgbLedState = state as LedColorState;
 
   const id = componentToSvgId(state);
@@ -93,7 +76,7 @@ const createResistor = (
   resistorEl.y(y);
 };
 
-const createWires: CreateWire<LedColorState> = (
+export const createWiresRgbLed: CreateWire<LedColorState> = (
   state,
   draw,
   rgbLedEl,

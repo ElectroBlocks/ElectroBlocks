@@ -1,19 +1,10 @@
-import {
-  CreateComponentHook,
-  SyncComponent,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { UltraSonicSensorState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 
-import ultraSonicSvgString from '../svgs/ultrasonic-sensor/ultrasonic-sensor.svg';
-import { addDraggableEvent } from '../component-events.helpers';
 import { positionComponent } from '../svg-position';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
 
@@ -27,7 +18,7 @@ export const createUltraSonicSensor: CreateComponentHook<UltraSonicSensorState> 
   positionComponent(ultraSonicEl, arduinoEl, draw, state.trigPin, 'PIN_TRIG');
 };
 
-export const updateUltraSonicSensor: SyncComponent = (state, frame, draw) => {
+export const updateUltraSonicSensor: SyncComponent = (state, draw) => {
   const ultraSonicState = state as UltraSonicSensorState;
 
   const id = componentToSvgId(ultraSonicState);
@@ -53,7 +44,7 @@ export const resetUltraSonicSensor: ResetComponent = (ultraSonicEl) => {
   distanceTextEl.hide();
 };
 
-const createWires: CreateWire<UltraSonicSensorState> = (
+export const createWiresUltraSonicSensor: CreateWire<UltraSonicSensorState> = (
   state,
   draw,
   componentEl,

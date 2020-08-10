@@ -1,17 +1,9 @@
-import {
-  CreateComponentHook,
-  SyncComponent,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { NeoPixelState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  createComponentEl,
-  findArduinoEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
-import neopixelSvgString from '../svgs/neopixel/neopixel.svg';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import _ from 'lodash';
@@ -36,7 +28,7 @@ export const neoPixelReset: ResetComponent = (neoPixelEl: Element) => {
   }
 };
 
-export const neoPixelUpdate: SyncComponent = (state, frame, draw) => {
+export const neoPixelUpdate: SyncComponent = (state, draw) => {
   const neoPixelState = state as NeoPixelState;
   const id = componentToSvgId(neoPixelState);
   let neoPixelEl = draw.findOne('#' + id) as Element;
@@ -54,7 +46,7 @@ export const neoPixelUpdate: SyncComponent = (state, frame, draw) => {
   });
 };
 
-const createWires: CreateWire<NeoPixelState> = (
+export const createWiresNeoPixels: CreateWire<NeoPixelState> = (
   state,
   draw,
   neoPixelEl,

@@ -1,13 +1,11 @@
-import {
-  SyncComponent,
-  CreateComponentHook,
-  ResetComponent,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { ArduinoReceiveMessageState } from '../../frames/arduino-components.state';
 import { Text, Svg } from '@svgdotjs/svg.js';
 import { findSvgElement, LED_COLORS, findArduinoEl } from '../svg-helpers';
 
-export const arduinoMessageUpdate: SyncComponent = (state, frame, draw) => {
+export const arduinoMessageUpdate: SyncComponent = (state, draw, frame) => {
   const messageState = state as ArduinoReceiveMessageState;
   const arduino = findArduinoEl(draw);
 

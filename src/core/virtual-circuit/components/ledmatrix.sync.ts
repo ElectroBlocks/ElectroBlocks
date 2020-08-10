@@ -1,21 +1,12 @@
-import {
-  CreateComponentHook,
-  SyncComponent,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { LedMatrixState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 
-import ledmatrixSvgString from '../svgs/ledmatrix/ledmatrix.svg';
 import { positionComponent } from '../svg-position';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
-import { addDraggableEvent } from '../component-events.helpers';
 import { createPowerWire, createGroundWire, createWire } from '../wire';
 
 export const ledMatrixCreate: CreateComponentHook<LedMatrixState> = (
@@ -35,7 +26,7 @@ export const ledMatrixCreate: CreateComponentHook<LedMatrixState> = (
   );
 };
 
-export const ledMatrixUpdate: SyncComponent = (state, frame, draw) => {
+export const ledMatrixUpdate: SyncComponent = (state, draw) => {
   const ledMatrixState = state as LedMatrixState;
 
   const id = componentToSvgId(ledMatrixState);
@@ -56,7 +47,7 @@ export const ledMatrixReset: ResetComponent = (componentEl: Element) => {
   }
 };
 
-const createWires: CreateWire<LedMatrixState> = (
+export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
   state,
   draw,
   ledMatrixEl,

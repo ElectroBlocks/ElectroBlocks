@@ -1,24 +1,10 @@
-import {
-  SyncComponent,
-  CreateComponentHook,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { ServoState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findSvgElement,
-  createComponentEl,
-  findArduinoEl,
-} from '../svg-helpers';
-import servoSVGText from '../svgs/servo/servo.svg';
+import { componentToSvgId, findSvgElement } from '../svg-helpers';
 import { Svg, Text, Element } from '@svgdotjs/svg.js';
-import {
-  createWire,
-  createGroundWire,
-  createPowerWire,
-  updateWires,
-} from '../wire';
+import { createWire, createGroundWire, createPowerWire } from '../wire';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { positionComponent } from '../svg-position';
 import { addDraggableEvent } from '../component-events.helpers';
@@ -28,7 +14,7 @@ export const servoReset: ResetComponent = (servoEl) => {
   setText(servoEl, 0);
 };
 
-export const servoUpdate: SyncComponent = (state, frame, draw) => {
+export const servoUpdate: SyncComponent = (state, draw) => {
   const servoState = state as ServoState;
   const id = componentToSvgId(servoState);
   let servoEl = draw.find('#' + id).pop();
@@ -76,7 +62,7 @@ const setDegrees = (servoEl: Element, degrees: number) => {
   movingPart.rotate(-1 * (degrees + 4), servoBoundBox.cx, servoBoundBox.cy);
 };
 
-const createWires: CreateWire<ServoState> = (
+export const createWiresServo: CreateWire<ServoState> = (
   state,
   draw,
   servoEl,

@@ -1,21 +1,11 @@
-import {
-  CreateComponentHook,
-  SyncComponent,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { ButtonState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 import { createWire, createGroundWire } from '../wire';
 import { positionComponent } from '../svg-position';
-import { addDraggableEvent } from '../component-events.helpers';
-
-import buttonSvgString from '../svgs/button/button.svg';
 
 export const createButton: CreateComponentHook<ButtonState> = (
   state,
@@ -27,7 +17,7 @@ export const createButton: CreateComponentHook<ButtonState> = (
   positionComponent(buttonEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
 };
 
-export const updateButton: SyncComponent = (state, frame, draw) => {
+export const updateButton: SyncComponent = (state, draw) => {
   const buttonState = state as ButtonState;
   const id = componentToSvgId(buttonState);
   let buttonEl = draw.findOne('#' + id) as Element;
@@ -56,7 +46,7 @@ const toggleButton = (componentEl: Element, isOn: boolean) => {
   componentEl.findOne('#BUTTON_NOT_PRESSED').show();
 };
 
-const createWires: CreateWire<ButtonState> = (
+export const createWiresButton: CreateWire<ButtonState> = (
   state,
   draw,
   buttonEl,

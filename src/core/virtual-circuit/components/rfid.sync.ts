@@ -1,20 +1,11 @@
-import {
-  CreateComponentHook,
-  SyncComponent,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { RfidState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 
-import rfidSvgString from '../svgs/rfid/rfid.svg';
 import { positionComponent } from '../svg-position';
-import { addDraggableEvent } from '../component-events.helpers';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
 
 export const createRfid: CreateComponentHook<RfidState> = (
@@ -27,7 +18,7 @@ export const createRfid: CreateComponentHook<RfidState> = (
   rfidEl.x(rfidEl.x() + 100);
 };
 
-export const updateRfid: SyncComponent = (state, frame, draw) => {
+export const updateRfid: SyncComponent = (state, draw) => {
   const rfidState = state as RfidState;
 
   const id = componentToSvgId(rfidState);
@@ -51,7 +42,7 @@ const updateComponent = (rfidEl: Element, state: RfidState) => {
   rfidEl.findOne('#TAG_TEXT').node.innerHTML = `Tag #: "${state.tag}"`;
 };
 
-const createWires: CreateWire<RfidState> = (
+export const createWiresRfid: CreateWire<RfidState> = (
   state,
   draw,
   rfidEl,

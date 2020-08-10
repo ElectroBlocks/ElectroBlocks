@@ -1,28 +1,12 @@
-import {
-  SyncComponent,
-  CreateComponentHook,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
-import { ArduinoComponentType } from '../../frames/arduino.frame';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { LCDScreenState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
 import { positionComponent } from '../svg-position';
-import lcd_16_2_svg from '../svgs/lcd/lcd_16_2.svg';
-import lcd_20_4_svg from '../svgs/lcd/lcd_20_4.svg';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
-import {
-  createGroundWire,
-  createPowerWire,
-  createWire,
-  updateWires,
-} from '../wire';
-import { addDraggableEvent } from '../component-events.helpers';
+import { createGroundWire, createPowerWire, createWire } from '../wire';
 
 /**
  * Timer for blinking
@@ -72,7 +56,7 @@ export const lcdReset: ResetComponent = (lcdScreenEl: Element) => {
   clearInterval(blinkingTimer);
 };
 
-export const lcdUpdate: SyncComponent = (state, frame, draw) => {
+export const lcdUpdate: SyncComponent = (state, draw) => {
   const lcdState = state as LCDScreenState;
   const id = componentToSvgId(lcdState);
   let lcdScreenEl = draw.findOne('#' + id) as Element;
@@ -131,22 +115,6 @@ const centerLetters = (lcdScreenEl: Element, lcdState: LCDScreenState) => {
   }
 };
 
-const clearLetters = (lcdScreenEl: Element, lcdState: LCDScreenState) => {
-  for (let row = 1; row <= lcdState.rows; row += 1) {
-    for (let col = 1; col <= lcdState.columns; col += 1) {
-      (lcdScreenEl.findOne(`#letter-${col}-${row}`) as Text).text('');
-    }
-  }
-};
-
-const getSvgString = (state: LCDScreenState) => {
-  if (state.rows === 4) {
-    return lcd_20_4_svg;
-  }
-
-  return lcd_16_2_svg;
-};
-
 const toggleDarkLightScreen = (
   lcdScreenEl: Element,
   lcdState: LCDScreenState
@@ -160,7 +128,7 @@ const toggleDarkLightScreen = (
   }
 };
 
-const createWires: CreateWire<LCDScreenState> = (
+export const createWiresLcd: CreateWire<LCDScreenState> = (
   state,
   draw,
   lcdEl,

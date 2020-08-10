@@ -1,20 +1,11 @@
-import {
-  CreateComponentHook,
-  SyncComponent,
-  ResetComponent,
-  CreateWire,
-} from '../svg.component';
+import { SyncComponent, ResetComponent } from '../svg.component';
+import { CreateComponentHook, CreateWire } from '../svg-create';
+
 import { IRRemoteState } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 import { positionComponent } from '../svg-position';
-import { addDraggableEvent } from '../component-events.helpers';
 
-import irRemoteSvgString from '../svgs/ir_remote/ir_remote.svg';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
 
 export const createIrRemote: CreateComponentHook<IRRemoteState> = (
@@ -27,7 +18,7 @@ export const createIrRemote: CreateComponentHook<IRRemoteState> = (
   positionComponent(irRemoteEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
 };
 
-export const updateIrRemote: SyncComponent = (state, frame, draw) => {
+export const updateIrRemote: SyncComponent = (state, draw) => {
   const irRemoteState = state as IRRemoteState;
   const id = componentToSvgId(irRemoteState);
   let irRemoteEl = draw.findOne('#' + id) as Element;
@@ -52,7 +43,7 @@ const updateCode = (irRemoteEl: Element, irRemoteState: IRRemoteState) => {
   (irRemoteEl.findOne('#code') as Element).cx(55);
 };
 
-const createWires: CreateWire<IRRemoteState> = (
+export const createWiresIrRemote: CreateWire<IRRemoteState> = (
   state,
   draw,
   irRemoteEl,
