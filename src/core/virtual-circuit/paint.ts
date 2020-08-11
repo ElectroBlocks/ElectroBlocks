@@ -18,7 +18,7 @@ export default (draw: Svg, frame: ArduinoFrame = undefined) => {
       .filter((c) => c.type !== ArduinoComponentType.MESSAGE)
       .forEach((state) => {
         state.pins.forEach((pin) => showWire(arduino, pin));
-        createNewComponent(state, arduino, draw);
+        createNewComponent(state, draw, arduino);
       });
   }
 

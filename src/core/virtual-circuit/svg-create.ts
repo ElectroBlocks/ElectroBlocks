@@ -61,9 +61,8 @@ import { arduinoComponentStateToId } from '../frames/arduino-component-id';
 
 export default (
   state: ArduinoComponentState,
-  arduinoEl: Element,
   draw: Svg,
-  showArduino = true
+  arduinoEl: Element
 ): void => {
   const id = arduinoComponentStateToId(state);
   let componentEl = draw.findOne('#' + id) as Element;
@@ -75,12 +74,8 @@ export default (
   componentEl = createComponentEl(draw, state, getSvgString(state));
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;
-
-  if (showArduino) {
-    positionComponentHookFunc[state.type](state, componentEl, arduinoEl, draw);
-    createWires[state.type](state, draw, componentEl, arduinoEl, id);
-  }
-
+  positionComponentHookFunc[state.type](state, componentEl, arduinoEl, draw);
+  createWires[state.type](state, draw, componentEl, arduinoEl, id);
   createComponentHookFunc[state.type](state, componentEl, arduinoEl, draw);
 };
 
