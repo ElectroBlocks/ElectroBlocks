@@ -1,8 +1,8 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { CreateComponentHook, CreateWire } from '../svg-create';
+import { PositionComponent, CreateWire } from '../svg-create';
 
 import { ServoState } from '../../frames/arduino-components.state';
-import { componentToSvgId, findSvgElement } from '../svg-helpers';
+import { findSvgElement } from '../svg-helpers';
 import { Svg, Text, Element } from '@svgdotjs/svg.js';
 import { createWire, createGroundWire, createPowerWire } from '../wire';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
@@ -14,29 +14,23 @@ export const servoReset: ResetComponent = (servoEl) => {
   setText(servoEl, 0);
 };
 
-export const servoUpdate: SyncComponent = (state, draw) => {
-  const servoState = state as ServoState;
-  const id = componentToSvgId(servoState);
-  let servoEl = draw.find('#' + id).pop();
+export const servoUpdate: SyncComponent = (state: ServoState, servoEl) => {
+  setDegrees(servoEl, state.degree);
 
-  if (!servoEl) {
-    return;
-  }
-
-  setDegrees(servoEl, servoState.degree);
-
-  setText(servoEl, servoState.degree);
+  setText(servoEl, state.degree);
 };
 
-export const servoCreate: CreateComponentHook<ServoState> = (
+export const servoCreate: PositionComponent<ServoState> = (state, servoEl) => {
+  setServoPinText(servoEl, state);
+};
+
+export const servoPosition: PositionComponent<ServoState> = (
   state,
   servoEl,
   arduinoEl,
   draw
 ) => {
   positionComponent(servoEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
-
-  setServoPinText(servoEl, state);
 };
 
 const setServoPinText = (servoEl: Element, servoState: ServoState) => {

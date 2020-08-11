@@ -1,5 +1,9 @@
 import { ResetComponent, SyncComponent } from '../svg-sync';
-import { CreateComponentHook, CreateWire } from '../svg-create';
+import {
+  PositionComponent,
+  CreateWire,
+  CreateCompenentHook,
+} from '../svg-create';
 
 import { PinPicture, PinState } from '../../frames/arduino-components.state';
 import {
@@ -7,19 +11,27 @@ import {
   digitalAnalogWritePinReset,
   digitalAnalogWritePinSync,
   createWiresDigitalAnalogWrite,
+  digitalAnanlogWritePinPosition,
 } from './digitalanalogwritepin.sync';
-import { ledCreate, resetLed, updateLed, createWiresLed } from './led.sync';
+import {
+  ledCreate,
+  resetLed,
+  updateLed,
+  createWiresLed,
+  ledPosition,
+} from './led.sync';
 import _ from 'lodash';
 import { Element } from '@svgdotjs/svg.js';
 import {
   analogDigitalSensorCreate,
   analogDigitalSensorUpdate,
   analogDigitalSensorReset,
+  analogDigitalSensorPosition,
   createWireSensors,
 } from './analog-sensor.sync';
 
-export const createPinComponent: CreateComponentHook<PinState> = (
-  state: PinState,
+export const createPinComponent: CreateCompenentHook<PinState> = (
+  state,
   componentEl,
   arduinoEl,
   draw
@@ -35,13 +47,31 @@ export const createPinComponent: CreateComponentHook<PinState> = (
   throw new Error('No Create Function Found for pin type ' + state.pinPicture);
 };
 
+export const positionPinComponent: PositionComponent<PinState> = (
+  state,
+  componentEl,
+  arduinoEl,
+  draw
+) => {
+  if (_.isFunction(pinPositionFunc[state.pinPicture])) {
+    return pinPositionFunc[state.pinPicture](
+      state,
+      componentEl,
+      arduinoEl,
+      draw
+    );
+  }
+  throw new Error('No Create Function Found for pin type ' + state.pinPicture);
+};
+
 export const updatePinComponent: SyncComponent = (
   state: PinState,
+  componentEl,
   draw,
   frame
 ) => {
   if (_.isFunction(pinFunctionUpdate[state.pinPicture])) {
-    return pinFunctionUpdate[state.pinPicture](state, draw, frame);
+    return pinFunctionUpdate[state.pinPicture](state, componentEl, draw, frame);
   }
   throw new Error('No Update Function Found for pin type ' + state.pinPicture);
 };
@@ -62,8 +92,8 @@ export const createDigitalAnalogWire: CreateWire<PinState> = (
   arduinoEl,
   id
 ) => {
-  if (_.isFunction(pinFunctionCreateWire[componentEl.data('picture-type')])) {
-    return pinFunctionCreateWire[componentEl.data('picture-type')](
+  if (_.isFunction(pinFunctionCreateWire[state.pinPicture])) {
+    return pinFunctionCreateWire[state.pinPicture](
       state,
       draw,
       componentEl,
@@ -71,9 +101,7 @@ export const createDigitalAnalogWire: CreateWire<PinState> = (
       id
     );
   }
-  throw new Error(
-    'No Reset Function Found for pin type ' + componentEl.data('picture-type')
-  );
+  throw new Error('No Reset Function Found for pin type ' + state.pinPicture);
 };
 
 const pinFunctionCreate = {
@@ -104,6 +132,16 @@ const pinFunctionReset = {
   [PinPicture.SOIL_SENSOR]: analogDigitalSensorReset,
   [PinPicture.SENSOR]: analogDigitalSensorReset,
   [PinPicture.TOUCH_SENSOR]: analogDigitalSensorReset,
+};
+
+const pinPositionFunc = {
+  [PinPicture.LED_ANALOG_WRITE]: digitalAnanlogWritePinPosition,
+  [PinPicture.LED_DIGITAL_WRITE]: digitalAnanlogWritePinPosition,
+  [PinPicture.LED]: ledPosition,
+  [PinPicture.PHOTO_SENSOR]: analogDigitalSensorPosition,
+  [PinPicture.SOIL_SENSOR]: analogDigitalSensorPosition,
+  [PinPicture.SENSOR]: analogDigitalSensorPosition,
+  [PinPicture.TOUCH_SENSOR]: analogDigitalSensorPosition,
 };
 
 const pinFunctionCreateWire = {

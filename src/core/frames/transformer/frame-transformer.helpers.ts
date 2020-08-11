@@ -7,8 +7,10 @@ import {
   ArduinoComponentType,
 } from '../arduino.frame';
 
+import { arduinoComponentStateToId } from '../arduino-component-id';
+
 import _ from 'lodash';
-import { BlockData } from '../../blockly/dto/block.type';
+import { BlockData, PinCategory } from '../../blockly/dto/block.type';
 import {
   findBlockById,
   findInputStatementStartBlock,
@@ -122,18 +124,10 @@ export const arduinoFrameByComponent = (
   const previousComponents = previousFrame ? [...previousFrame.components] : [];
 
   const components = [
-    ...previousComponents.filter((c) => {
-      if (c.type === ArduinoComponentType.MOTOR) {
-        return !(
-          c.type === newComponent.type &&
-          (<MotorState>c).motorNumber === (<MotorState>newComponent).motorNumber
-        );
-      }
-
-      return !(
-        c.type === newComponent.type && _.isEqual(c.pins, newComponent.pins)
-      );
-    }),
+    ...previousComponents.filter(
+      (c) =>
+        arduinoComponentStateToId(c) !== arduinoComponentStateToId(newComponent)
+    ),
     newComponent,
   ];
 
@@ -246,22 +240,9 @@ export const generateInputFrame = (
 export const findComponent = <T extends ArduinoComponentState>(
   state: ArduinoFrame,
   type: ArduinoComponentType,
-  pin: ARDUINO_UNO_PINS = undefined,
-  motorNumber: number = undefined
+  pin: ARDUINO_UNO_PINS = undefined
 ) => {
-  if (type === ArduinoComponentType.MOTOR) {
-    return state.components.find(
-      (c) =>
-        c.type === type &&
-        (<MotorState>c).motorNumber.toString() === motorNumber.toString()
-    ) as T;
-  }
-
-  if (
-    type === ArduinoComponentType.PIN ||
-    type === ArduinoComponentType.SERVO ||
-    type === ArduinoComponentType.BUTTON
-  ) {
+  if (pin !== undefined) {
     return state.components.find(
       (c) => c.type === type && c.pins.includes(pin)
     ) as T;

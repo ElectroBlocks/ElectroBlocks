@@ -1,22 +1,31 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { CreateComponentHook, CreateWire } from '../svg-create';
+import {
+  PositionComponent,
+  CreateWire,
+  CreateCompenentHook,
+} from '../svg-create';
 
 import { NeoPixelState } from '../../frames/arduino-components.state';
-import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import _ from 'lodash';
 import { rgbToHex } from '../../blockly/helpers/color.helper';
 
-export const neoPixelCreate: CreateComponentHook<NeoPixelState> = (
+export const neoPixelCreate: CreateCompenentHook<NeoPixelState> = (
   state,
-  neoPixelEl,
-  arduinoEl,
+  neoPixelEl
+) => {
+  showRGBStripLeds(neoPixelEl, state);
+};
+
+export const neoPixelPosition: PositionComponent<NeoPixelState> = (
+  _,
+  __,
+  arduino,
   draw
 ) => {
-  arduinoEl.y(draw.viewbox().y2 - arduinoEl.height() + 100);
-  showRGBStripLeds(neoPixelEl, state);
+  arduino.y(draw.viewbox().y2 - arduino.height() + 100);
 };
 
 export const neoPixelReset: ResetComponent = (neoPixelEl: Element) => {
@@ -28,17 +37,11 @@ export const neoPixelReset: ResetComponent = (neoPixelEl: Element) => {
   }
 };
 
-export const neoPixelUpdate: SyncComponent = (state, draw) => {
-  const neoPixelState = state as NeoPixelState;
-  const id = componentToSvgId(neoPixelState);
-  let neoPixelEl = draw.findOne('#' + id) as Element;
-
-  if (!neoPixelEl) {
-    console.error('ERROR NO NEOPIXEL FOUND');
-    return;
-  }
-
-  neoPixelState.neoPixels.forEach((led) => {
+export const neoPixelUpdate: SyncComponent = (
+  state: NeoPixelState,
+  neoPixelEl
+) => {
+  state.neoPixels.forEach((led) => {
     const ledEl = neoPixelEl.findOne(
       `#LED-${led.position + 1} circle`
     ) as Element;

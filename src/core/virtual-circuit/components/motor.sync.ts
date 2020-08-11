@@ -1,49 +1,39 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { CreateComponentHook } from '../svg-create';
+import { PositionComponent, CreateCompenentHook } from '../svg-create';
 
 import { Element, Text } from '@svgdotjs/svg.js';
 import {
   MotorState,
   MOTOR_DIRECTION,
 } from '../../frames/arduino-components.state';
-import {
-  componentToSvgId,
-  findArduinoEl,
-  createComponentEl,
-} from '../svg-helpers';
+import { findArduinoEl, createComponentEl } from '../svg-helpers';
 
 import _ from 'lodash';
 
-export const motorCreate: CreateComponentHook<MotorState> = (
+export const motorPosition: PositionComponent<MotorState> = (
   state,
-  motorEl,
-  arduinoEl,
-  draw
+  motorEl
 ) => {
   motorEl.x(0);
   motorEl.y(10);
-  (motorEl.findOne('#motor_info') as Text).node.innerHTML =
-    'Motor: ' + state.motorNumber;
 };
 
-export const motorUpdate: SyncComponent = (state, draw) => {
-  const motorState = state as MotorState;
-  const id = componentToSvgId(motorState);
-  let motorEl = draw.findOne('#' + id) as Element;
+export const motorCreate: CreateCompenentHook<MotorState> = (
+  state,
+  motorEl
+) => {
+  motorEl.findOne('#motor_info').node.innerHTML = 'Motor: ' + state.motorNumber;
+};
 
-  if (!motorEl) {
-    return;
-  }
-
-  const directionText = motorState.direction.toString();
+export const motorUpdate: SyncComponent = (state: MotorState, motorEl) => {
+  const directionText = state.direction.toString();
 
   (motorEl.findOne('#direction') as Text).node.innerHTML =
     'Direction: ' +
     directionText.charAt(0).toUpperCase() +
     directionText.slice(1).toLowerCase();
 
-  (motorEl.findOne('#speed') as Text).node.innerHTML =
-    'Speed: ' + motorState.speed;
+  (motorEl.findOne('#speed') as Text).node.innerHTML = 'Speed: ' + state.speed;
 };
 
 export const motorReset: ResetComponent = (componentEl: Element) => {

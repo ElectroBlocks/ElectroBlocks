@@ -156,12 +156,8 @@ const rfidState = (block: BlockData, timeline): RfidState => {
 
   return {
     type: ArduinoComponentType.RFID,
-    rxPin: findFieldValue(block, 'RX') as ARDUINO_UNO_PINS,
     txPin: findFieldValue(block, 'TX') as ARDUINO_UNO_PINS,
-    pins: [
-      findFieldValue(block, 'TX') as ARDUINO_UNO_PINS,
-      findFieldValue(block, 'RX') as ARDUINO_UNO_PINS,
-    ],
+    pins: [findFieldValue(block, 'TX') as ARDUINO_UNO_PINS],
     scannedCard: rfidSensor.scanned_card,
     cardNumber: rfidSensor.card_number,
     tag: rfidSensor.tag,

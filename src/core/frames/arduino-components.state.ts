@@ -111,7 +111,6 @@ export const pinPictureToWork = (pinPicture: PinPicture) => {
 };
 
 export interface RfidState extends ArduinoComponentState {
-  rxPin: ARDUINO_UNO_PINS;
   txPin: ARDUINO_UNO_PINS;
   scannedCard: boolean;
   cardNumber: string;

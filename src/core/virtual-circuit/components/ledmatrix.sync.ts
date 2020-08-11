@@ -1,16 +1,15 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { CreateComponentHook, CreateWire } from '../svg-create';
+import { PositionComponent, CreateWire } from '../svg-create';
 
 import { LedMatrixState } from '../../frames/arduino-components.state';
-import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 
 import { positionComponent } from '../svg-position';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import { createPowerWire, createGroundWire, createWire } from '../wire';
 
-export const ledMatrixCreate: CreateComponentHook<LedMatrixState> = (
-  state,
+export const ledMatrixPosition: PositionComponent<LedMatrixState> = (
+  _,
   ledMatrixEl,
   arduinoEl,
   draw
@@ -26,13 +25,11 @@ export const ledMatrixCreate: CreateComponentHook<LedMatrixState> = (
   );
 };
 
-export const ledMatrixUpdate: SyncComponent = (state, draw) => {
-  const ledMatrixState = state as LedMatrixState;
-
-  const id = componentToSvgId(ledMatrixState);
-  let ledMatrixEl = draw.findOne('#' + id) as Element;
-
-  ledMatrixState.leds.forEach((led) => {
+export const ledMatrixUpdate: SyncComponent = (
+  state: LedMatrixState,
+  ledMatrixEl
+) => {
+  state.leds.forEach((led) => {
     (ledMatrixEl.findOne(`#_${led.col}-${led.row} circle`) as Element).fill(
       led.isOn ? '#FF0000' : '#FFF'
     );

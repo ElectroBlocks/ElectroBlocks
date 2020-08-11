@@ -1,6 +1,9 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { CreateComponentHook, CreateWire } from '../svg-create';
-import { componentToSvgId, findArduinoEl } from '../svg-helpers';
+import {
+  PositionComponent,
+  CreateWire,
+  CreateCompenentHook,
+} from '../svg-create';
 import {
   PinState,
   PIN_TYPE,
@@ -13,45 +16,37 @@ import _ from 'lodash';
 
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 
-export const analogDigitalSensorCreate: CreateComponentHook<PinState> = (
+export const analogDigitalSensorCreate: CreateCompenentHook<PinState> = (
   state,
-  analogSensorEl,
-  arduinoEl,
-  draw
+  analogSensorEl
 ) => {
-  analogSensorEl.data('picture-type', state.pinPicture);
   analogSensorEl.findOne('#PIN_TEXT').node.innerHTML = state.pin.toString();
-  positionComponent(analogSensorEl, arduinoEl, draw, state.pin, 'PIN_DATA');
-
+  analogSensorEl.data('picture-type', state.pinPicture);
   if (pinCenterText[state.pinPicture]) {
     (analogSensorEl.findOne('#PIN_TEXT') as Element).cx(
       pinCenterText[state.pinPicture]
     );
   }
+};
 
+export const analogDigitalSensorPosition: PositionComponent<PinState> = (
+  state,
+  analogSensorEl,
+  arduinoEl,
+  draw
+) => {
+  positionComponent(analogSensorEl, arduinoEl, draw, state.pin, 'PIN_DATA');
   if (![ARDUINO_UNO_PINS.PIN_A1, ARDUINO_UNO_PINS.PIN_A0].includes(state.pin)) {
     analogSensorEl.x(analogSensorEl.x() - 20);
   }
 };
 
-export const analogDigitalSensorUpdate: SyncComponent = (state, draw) => {
-  const analogSensorState = state as PinState;
-  const id = componentToSvgId(analogSensorState);
-  let analogSensorEl = draw.findOne('#' + id) as Element;
-  setSensorText(analogSensorEl, analogSensorState);
-};
-
-export const analogDigitalSensorReset: ResetComponent = (
-  componentEl: Element
+export const analogDigitalSensorUpdate: SyncComponent = (
+  state: PinState,
+  analogSensorEl,
+  draw
 ) => {
-  componentEl.findOne('#READING_VALUE').hide();
-  if (componentEl.findOne('#finger')) {
-    componentEl.findOne('#finger').hide();
-  }
-};
-
-const setSensorText = (componentEl: Element, state: PinState) => {
-  const textEl = componentEl.findOne('#READING_VALUE') as Text;
+  const textEl = analogSensorEl.findOne('#READING_VALUE') as Text;
   textEl.show();
   if (
     state.pinType === PIN_TYPE.DIGITAL_INPUT &&
@@ -65,10 +60,10 @@ const setSensorText = (componentEl: Element, state: PinState) => {
   if (state.pinPicture === PinPicture.TOUCH_SENSOR) {
     if (state.state === 1) {
       textEl.show();
-      componentEl.findOne('#finger').show();
+      analogSensorEl.findOne('#finger').show();
     } else {
       textEl.hide();
-      componentEl.findOne('#finger').hide();
+      analogSensorEl.findOne('#finger').hide();
     }
 
     return;
@@ -76,6 +71,15 @@ const setSensorText = (componentEl: Element, state: PinState) => {
 
   textEl.node.innerHTML = state.state.toString();
   textEl.cx(centerReadingText[state.pinPicture]);
+};
+
+export const analogDigitalSensorReset: ResetComponent = (
+  componentEl: Element
+) => {
+  componentEl.findOne('#READING_VALUE').hide();
+  if (componentEl.findOne('#finger')) {
+    componentEl.findOne('#finger').hide();
+  }
 };
 
 const createSensorWires: CreateWire<PinState> = (

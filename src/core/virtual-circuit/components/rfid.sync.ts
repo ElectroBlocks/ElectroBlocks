@@ -1,14 +1,13 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { CreateComponentHook, CreateWire } from '../svg-create';
+import { PositionComponent, CreateWire } from '../svg-create';
 
 import { RfidState } from '../../frames/arduino-components.state';
-import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 
 import { positionComponent } from '../svg-position';
 import { createWire, createPowerWire, createGroundWire } from '../wire';
 
-export const createRfid: CreateComponentHook<RfidState> = (
+export const positionRfid: PositionComponent<RfidState> = (
   state,
   rfidEl,
   arduinoEl,
@@ -18,19 +17,7 @@ export const createRfid: CreateComponentHook<RfidState> = (
   rfidEl.x(rfidEl.x() + 100);
 };
 
-export const updateRfid: SyncComponent = (state, draw) => {
-  const rfidState = state as RfidState;
-
-  const id = componentToSvgId(rfidState);
-  let rfidEl = draw.findOne('#' + id) as Element;
-  updateComponent(rfidEl, rfidState);
-};
-
-export const resetRfid: ResetComponent = (rfidEl: Element) => {
-  rfidEl.findOne('#RFID').hide();
-};
-
-const updateComponent = (rfidEl: Element, state: RfidState) => {
+export const updateRfid: SyncComponent = (state: RfidState, rfidEl) => {
   if (!state.scannedCard) {
     rfidEl.findOne('#RFID').hide();
     return;
@@ -40,6 +27,10 @@ const updateComponent = (rfidEl: Element, state: RfidState) => {
     '#CARD_NUMBER_TEXT'
   ).node.innerHTML = `Card #: "${state.cardNumber}"`;
   rfidEl.findOne('#TAG_TEXT').node.innerHTML = `Tag #: "${state.tag}"`;
+};
+
+export const resetRfid: ResetComponent = (rfidEl: Element) => {
+  rfidEl.findOne('#RFID').hide();
 };
 
 export const createWiresRfid: CreateWire<RfidState> = (

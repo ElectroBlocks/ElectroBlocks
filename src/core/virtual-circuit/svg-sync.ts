@@ -3,6 +3,7 @@ import {
   ArduinoFrame,
   ArduinoComponentType,
 } from '../frames/arduino.frame';
+import { arduinoComponentStateToId } from '../frames/arduino-component-id';
 import { Svg, Element } from '@svgdotjs/svg.js';
 import { servoUpdate, servoReset } from './components/servo.sync';
 import { bluetoothUpdate, bluetoothReset } from './components/bluetooth.sync';
@@ -11,7 +12,6 @@ import {
   resetArduinoMessage,
 } from './components/arduino-message.sync';
 import { lcdUpdate, lcdReset } from './components/lcd.sync';
-import { componentToSvgId } from './svg-helpers';
 import { updateRgbLed, resetRgbLed } from './components/rgbled.sync';
 import {
   updatePinComponent,
@@ -33,6 +33,7 @@ import { updateTemp, resetTemp } from './components/temp.sync';
 export interface SyncComponent {
   (
     state: ArduinoComponentState,
+    componentEl: Element,
     draw: Svg,
     frame: ArduinoFrame | undefined
   ): void;
@@ -79,13 +80,30 @@ const syncComponent = {
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
   frame.components
     .filter((state) => _.isFunction(syncComponent[state.type]))
-    .map((state) => [state, syncComponent[state.type]])
-    .forEach(([state, func]: [ArduinoComponentState, SyncComponent]) => {
-      func(state, draw, frame);
-    });
+    .filter(
+      (state) =>
+        state.type === ArduinoComponentType.MESSAGE ||
+        draw.findOne('#' + arduinoComponentStateToId(state))
+    )
+    .map((state) => [
+      state,
+      syncComponent[state.type],
+      draw.findOne('#' + arduinoComponentStateToId(state)),
+    ])
+    .forEach(
+      ([state, func, compoenntEl]: [
+        ArduinoComponentState,
+        SyncComponent,
+        Element
+      ]) => {
+        func(state, compoenntEl, draw, frame);
+      }
+    );
 
   // Reset all components elements that don't have state in the frame
-  const componentIds = frame.components.map((c) => componentToSvgId(c));
+  const componentIds = frame.components.map((c) =>
+    arduinoComponentStateToId(c)
+  );
 
   draw
     .find('.component')

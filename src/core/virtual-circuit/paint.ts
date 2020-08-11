@@ -1,10 +1,11 @@
 import arduinoSVGText from './svgs/arduino.svg';
 import { Svg, Element } from '@svgdotjs/svg.js';
-import { ArduinoFrame } from '../frames/arduino.frame';
+import { ArduinoFrame, ArduinoComponentType } from '../frames/arduino.frame';
 import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
 import { resetBreadBoardWholes } from './wire';
-import { componentToSvgId, findArduinoEl } from './svg-helpers';
+import { findArduinoEl } from './svg-helpers';
 import createNewComponent from './svg-create';
+import { arduinoComponentStateToId } from '../frames/arduino-component-id';
 
 export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   const arduino = findOrCreateArduino(draw);
@@ -13,10 +14,12 @@ export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   hideAllWires(arduino);
 
   if (frame) {
-    frame.components.forEach((state) => {
-      state.pins.forEach((pin) => showWire(arduino, pin));
-      createNewComponent(state, arduino, draw);
-    });
+    frame.components
+      .filter((c) => c.type !== ArduinoComponentType.MESSAGE)
+      .forEach((state) => {
+        state.pins.forEach((pin) => showWire(arduino, pin));
+        createNewComponent(state, arduino, draw);
+      });
   }
 
   deleteUnusedComponents(draw, frame);
@@ -70,8 +73,9 @@ const deleteUnusedComponents = (draw: Svg, frame: ArduinoFrame | undefined) => {
 
     // If the component does not exist delete it
     if (
-      frame.components.filter((c) => componentId === componentToSvgId(c))
-        .length === 0
+      frame.components.filter(
+        (c) => componentId === arduinoComponentStateToId(c)
+      ).length === 0
     ) {
       c.remove();
       draw

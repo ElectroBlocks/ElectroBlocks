@@ -2,7 +2,6 @@ import { BlockToFrameTransformer } from '../block-to-frame.transformer';
 import { getInputValue } from '../block-to-value.factories';
 import {
   getDefaultIndexValue,
-  findComponent,
   arduinoFrameByComponent,
 } from '../frame-transformer.helpers';
 import { MotorState, MOTOR_DIRECTION } from '../../arduino-components.state';
@@ -52,12 +51,12 @@ export const moveMotor: BlockToFrameTransformer = (
 };
 
 const getMotorState = (
-  state: ArduinoFrame,
+  frame: ArduinoFrame,
   motorNumber: number,
   speed: number,
   direction: MOTOR_DIRECTION
 ): MotorState => {
-  if (!state) {
+  if (!frame) {
     return {
       pins: [],
       type: ArduinoComponentType.MOTOR,
@@ -67,12 +66,7 @@ const getMotorState = (
     };
   }
 
-  const motorState = findComponent<MotorState>(
-    state,
-    ArduinoComponentType.MOTOR,
-    undefined,
-    motorNumber
-  );
+  const motorState = findComponent(frame, motorNumber);
 
   if (!motorState) {
     return {
@@ -85,4 +79,12 @@ const getMotorState = (
   }
 
   return { ...motorState, direction, speed, motorNumber };
+};
+
+const findComponent = (frame: ArduinoFrame, motorNumber: number) => {
+  return frame.components.find(
+    (c) =>
+      c.type === ArduinoComponentType.MOTOR &&
+      (<MotorState>c).motorNumber === motorNumber
+  ) as MotorState;
 };

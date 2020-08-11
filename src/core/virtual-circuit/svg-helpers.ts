@@ -9,55 +9,13 @@ import {
   PinState,
   MotorState,
 } from '../frames/arduino-components.state';
-
-export const componentToSvgId = (component: ArduinoComponentState) => {
-  if (component.type === ArduinoComponentType.LCD_SCREEN) {
-    const lcd = component as LCDScreenState;
-    return (
-      component.type +
-      '_' +
-      lcd.columns +
-      '_' +
-      lcd.rows +
-      component.pins.sort().join('-')
-    );
-  }
-
-  if (component.type === ArduinoComponentType.LED_COLOR) {
-    const rgbLedState = component as LedColorState;
-    return `${rgbLedState.type}_${
-      rgbLedState.pictureType
-    }_${rgbLedState.pins.sort().join('-')}`;
-  }
-
-  if (component.type === ArduinoComponentType.PIN) {
-    const pinState = component as PinState;
-
-    return `${pinState.type}-${pinState.pinType}-${pinState.pinPicture}-${pinState.pin}`;
-  }
-
-  if (component.type === ArduinoComponentType.MOTOR) {
-    const motorState = component as MotorState;
-
-    return `${component.type}-${motorState.motorNumber}-`;
-  }
-
-  return component.type + '_' + component.pins.sort().join('-');
-};
+import { arduinoComponentStateToId } from '../frames/arduino-component-id';
 
 export const findComponentConnection = (
   element: Element,
   connectionId: string
 ) => {
   const connection = findSvgElement(connectionId, element);
-
-  // if (connection instanceof Line) {
-  //   const [point1, point2] = connection.plot();
-  //   return {
-  //     x: point1[0] + point2[0] ,
-  //     y: point1[1] + point2[1]  ,
-  //   };
-  // }
 
   return {
     x: connection.cx() + element.x(),
@@ -86,7 +44,7 @@ export const createComponentEl = (
 ) => {
   const componentEl = draw.svg(svgText).last();
   componentEl.addClass('component');
-  componentEl.attr('id', componentToSvgId(state));
+  componentEl.attr('id', arduinoComponentStateToId(state));
   componentEl.data('component-type', state.type);
   (componentEl as Svg).viewbox(0, 0, componentEl.width(), componentEl.height());
 

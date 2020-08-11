@@ -29,11 +29,9 @@ describe('disableDuplicatePinBlocks', () => {
 
   test('should disable 2 setup blocks that are taking up the same pins', () => {
     const setupBlock = workspace.newBlock('rfid_setup');
-    setupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
-    setupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');
+    setupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_10, 'TX');
 
     const setupBlock2 = workspace.newBlock('bluetooth_setup');
-    setupBlock2.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
     setupBlock2.setFieldValue(ARDUINO_UNO_PINS.PIN_10, 'TX');
 
     const event: BlockEvent = {
@@ -51,10 +49,10 @@ describe('disableDuplicatePinBlocks', () => {
       setupBlock2.id,
     ]);
     expect(actions[0].warningText).toBe(
-      'This blocks has these duplicate pins: ' + ARDUINO_UNO_PINS.PIN_5
+      'This blocks has these duplicate pins: ' + ARDUINO_UNO_PINS.PIN_10
     );
     expect(actions[1].warningText).toBe(
-      'This blocks has these duplicate pins: ' + ARDUINO_UNO_PINS.PIN_5
+      'This blocks has these duplicate pins: ' + ARDUINO_UNO_PINS.PIN_10
     );
     expect(actions[0].type).toBe(ActionType.DISABLE_BLOCK);
   });
@@ -90,9 +88,9 @@ describe('disableDuplicatePinBlocks', () => {
     const servoBlock3 = workspace.newBlock('rotate_servo') as BlockSvg;
     servoBlock3.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'PIN');
 
-    const sensorBlock = workspace.newBlock('rfid_setup');
-    sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
+    const sensorBlock = workspace.newBlock('bluetooth_setup');
     sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');
+    sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
     connectToArduinoBlock(servoBlock);
     connectToArduinoBlock(servoBlock1);
     connectToArduinoBlock(servoBlock2);
@@ -139,7 +137,6 @@ describe('disableDuplicatePinBlocks', () => {
     servoBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'PIN');
 
     const sensorBlock = workspace.newBlock('rfid_setup');
-    sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
     sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');
 
     const event: BlockEvent = {
@@ -156,7 +153,6 @@ describe('disableDuplicatePinBlocks', () => {
 
   test('sensor read block pins do not count against pin count', () => {
     const rfidBlockSetup = workspace.newBlock('rfid_setup');
-    rfidBlockSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
     rfidBlockSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');
 
     const buttonSetupBlock = workspace.newBlock('button_setup');
@@ -180,9 +176,9 @@ describe('disableDuplicatePinBlocks', () => {
   });
 
   test('if 3 block intersect it should block all three of them', () => {
-    const sensorBlock = workspace.newBlock('rfid_setup');
-    sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
+    const sensorBlock = workspace.newBlock('bluetooth_setup');
     sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_9, 'TX');
+    sensorBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'RX');
 
     const ledBlock = workspace.newBlock('led') as BlockSvg;
     ledBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_5, 'PIN');

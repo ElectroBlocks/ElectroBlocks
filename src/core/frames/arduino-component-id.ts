@@ -1,0 +1,60 @@
+import { ArduinoComponentState, ArduinoComponentType } from './arduino.frame';
+import {
+  MotorState,
+  LedColorState,
+  PinState,
+  LCDScreenState,
+} from './arduino-components.state';
+
+import _ from 'lodash';
+
+export interface ComponentStateToId {
+  (state: ArduinoComponentState): string;
+}
+
+const genericSingleComponentId = (state: ArduinoComponentState) => {
+  return state.type + '_' + state.pins.sort().join('-');
+};
+
+const getMotorStateId = (motorState: MotorState) => {
+  return `${motorState.type}-${motorState.motorNumber}`;
+};
+
+const getLedColorId = (state: LedColorState) => {
+  return `${state.type}_${state.pictureType}_${state.pins.sort().join('-')}`;
+};
+
+const getPinStateId = (state: PinState) => {
+  return `${state.type}-${state.pinType}-${state.pinPicture}-${state.pin}`;
+};
+
+const lcdStateId = (state: LCDScreenState) => {
+  return `${state.type}-${state.rows}-${state.columns}`;
+};
+
+const componentStateFuncs: { [key: string]: ComponentStateToId } = {
+  [ArduinoComponentType.BLUE_TOOTH]: genericSingleComponentId,
+  [ArduinoComponentType.BUTTON]: genericSingleComponentId,
+  [ArduinoComponentType.IR_REMOTE]: genericSingleComponentId,
+  [ArduinoComponentType.LED_MATRIX]: genericSingleComponentId,
+  [ArduinoComponentType.MOTOR]: getMotorStateId,
+  [ArduinoComponentType.MESSAGE]: () => ArduinoComponentType.MESSAGE.toString(),
+  [ArduinoComponentType.NEO_PIXEL_STRIP]: genericSingleComponentId,
+  [ArduinoComponentType.RFID]: genericSingleComponentId,
+  [ArduinoComponentType.SERVO]: genericSingleComponentId,
+  [ArduinoComponentType.TEMPERATURE_SENSOR]: genericSingleComponentId,
+  [ArduinoComponentType.ULTRASONICE_SENSOR]: genericSingleComponentId,
+  [ArduinoComponentType.LCD_SCREEN]: lcdStateId,
+  [ArduinoComponentType.LED_COLOR]: getLedColorId,
+  [ArduinoComponentType.PIN]: getPinStateId,
+};
+
+export const arduinoComponentStateToId = (
+  state: ArduinoComponentState
+): string => {
+  if (_.isFunction(componentStateFuncs[state.type])) {
+    return componentStateFuncs[state.type](state);
+  }
+
+  throw new Error('No Id generator found for state type ' + state.type);
+};

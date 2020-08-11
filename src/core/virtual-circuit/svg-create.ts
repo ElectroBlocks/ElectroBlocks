@@ -1,4 +1,4 @@
-import { componentToSvgId, createComponentEl } from './svg-helpers';
+import { createComponentEl } from './svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 import {
   ArduinoComponentState,
@@ -6,77 +6,68 @@ import {
 } from '../frames/arduino.frame';
 import { addDraggableEvent } from './component-events.helpers';
 import {
-  bluetoothCreate,
+  bluetoothPosition,
   createBluetoothWires,
 } from './components/bluetooth.sync';
-import { createButton, createWiresButton } from './components/button.sync';
+import {
+  createButton,
+  createWiresButton,
+  positionButton,
+} from './components/button.sync';
 import {
   createIrRemote,
   createWiresIrRemote,
+  positionIrRemote,
 } from './components/ir_remote.sync';
-import { createWiresLcd, lcdCreate } from './components/lcd.sync';
-import { createWiresRgbLed, createRgbLed } from './components/rgbled.sync';
+import { createWiresLcd, lcdCreate, lcdPosition } from './components/lcd.sync';
 import {
-  ledMatrixCreate,
+  createWiresRgbLed,
+  createRgbLed,
+  positionRgbLed,
+} from './components/rgbled.sync';
+import {
   createWiresLedMatrix,
+  ledMatrixPosition,
 } from './components/ledmatrix.sync';
 import { arduinoMessageCreate } from './components/arduino-message.sync';
-import { motorCreate } from './components/motor.sync';
+import { motorCreate, motorPosition } from './components/motor.sync';
 import {
   neoPixelCreate,
   createWiresNeoPixels,
+  neoPixelPosition,
 } from './components/neoPixel.sync';
 import {
-  createPinComponent,
   createDigitalAnalogWire,
+  createPinComponent,
+  positionPinComponent,
 } from './components/pin.component';
-import { createRfid, createWiresRfid } from './components/rfid.sync';
-import { servoCreate, createWiresServo } from './components/servo.sync';
-import { createTemp, createWiresTemp } from './components/temp.sync';
+import { createWiresRfid, positionRfid } from './components/rfid.sync';
 import {
-  createUltraSonicSensor,
+  servoCreate,
+  createWiresServo,
+  servoPosition,
+} from './components/servo.sync';
+import {
+  createTemp,
+  createWiresTemp,
+  positionTemp,
+} from './components/temp.sync';
+import {
   createWiresUltraSonicSensor,
+  positionUltraSonicSensor,
 } from './components/ultrasonic.sync';
-import {
-  PinPicture,
-  LCDScreenState,
-  LedColorState,
-  PinState,
-} from '../frames/arduino-components.state';
-
-import analogSensorSvgString from './svgs/digital_analog_sensor/digital_analog_sensor.svg';
-import soilSensorSvgString from './svgs/soilsensor/soilsensor.svg';
-import photoSensorSvgString from './svgs/photosensor/photosensor.svg';
-import touchSensorSvgString from './svgs/touch-sensor/touch-sensor.svg';
-import bluetoothSvg from './svgs/bluetooth/bluetooth.svg';
-import buttonSvgString from './svgs/button/button.svg';
-import analogdigitalWriteSvgString from './svgs/analogdigital/digital_analog_write.svg';
-import irRemoteSvgString from './svgs/ir_remote/ir_remote.svg';
-import lcd_16_2_svg from './svgs/lcd/lcd_16_2.svg';
-import lcd_20_4_svg from './svgs/lcd/lcd_20_4.svg';
-import ledSvgString from './svgs/led/led.svg';
-import ledmatrixSvgString from './svgs/ledmatrix/ledmatrix.svg';
-import motorSvgString from './svgs/motor/motor.svg';
-import neopixelSvgString from './svgs/neopixel/neopixel.svg';
-import rfidSvgString from './svgs/rfid/rfid.svg';
-import rgbLedBreadboard from './svgs/rgbled/rgbled.svg';
-import rgbLedNoResistorSvg from './svgs/rgbled/rgbled-no-resistor.svg';
-import servoSVGText from './svgs/servo/servo.svg';
-import tempSvgString from './svgs/temp/temp-humidity.svg';
-import ultraSonicSvgString from './svgs/ultrasonic-sensor/ultrasonic-sensor.svg';
+import { getSvgString } from './svg-string';
+import { arduinoComponentStateToId } from '../frames/arduino-component-id';
 
 export default (
   state: ArduinoComponentState,
   arduinoEl: Element,
-  draw: Svg
+  draw: Svg,
+  showArduino = true
 ): void => {
-  // Because this connectted to the Arduino
-  if (state.type === ArduinoComponentType.MESSAGE) {
-    return;
-  }
-
-  const id = componentToSvgId(state);
+  const id = arduinoComponentStateToId(state);
   let componentEl = draw.findOne('#' + id) as Element;
+
   if (componentEl) {
     return;
   }
@@ -84,40 +75,20 @@ export default (
   componentEl = createComponentEl(draw, state, getSvgString(state));
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;
-  createComponentHooks[state.type](state, componentEl, arduinoEl, draw);
-  createWires[state.type](state, draw, componentEl, arduinoEl, id);
+
+  if (showArduino) {
+    positionComponentHookFunc[state.type](state, componentEl, arduinoEl, draw);
+    createWires[state.type](state, draw, componentEl, arduinoEl, id);
+  }
+
+  createComponentHookFunc[state.type](state, componentEl, arduinoEl, draw);
 };
 
-const getSvgString = (state: ArduinoComponentState) => {
-  if (state.type === ArduinoComponentType.LCD_SCREEN) {
-    return (state as LCDScreenState).rows === 4 ? lcd_20_4_svg : lcd_16_2_svg;
-  }
+export interface PositionComponent<T extends ArduinoComponentState> {
+  (state: T, componentEl: Element, arduinoEl: Element, draw: Svg): void;
+}
 
-  if (state.type === ArduinoComponentType.LED_COLOR) {
-    return (state as LedColorState).pictureType === 'BREADBOARD'
-      ? rgbLedBreadboard
-      : rgbLedNoResistorSvg;
-  }
-
-  if (state.type === ArduinoComponentType.PIN) {
-    if ((state as PinState).pinPicture === PinPicture.LED) {
-      return ledSvgString.replace(
-        /radial-gradient/g,
-        `radial-gradient-${(state as PinState).pin}`
-      );
-    }
-
-    return pinPictureSvgString[(state as PinState).pinPicture];
-  }
-
-  if (createSvgString[state.type]) {
-    return createSvgString[state.type];
-  }
-
-  throw new Error('No Svg String found ' + state.type);
-};
-
-export interface CreateComponentHook<T extends ArduinoComponentState> {
+export interface CreateCompenentHook<T extends ArduinoComponentState> {
   (state: T, componentEl: Element, arduinoEl: Element, draw: Svg): void;
 }
 
@@ -139,29 +110,21 @@ const createNoWires: CreateWire<ArduinoComponentState> = (
   id
 ) => {};
 
-const createSvgString = {
-  [ArduinoComponentType.BLUE_TOOTH]: bluetoothSvg,
-  [ArduinoComponentType.BUTTON]: buttonSvgString,
-  [ArduinoComponentType.IR_REMOTE]: irRemoteSvgString,
-  [ArduinoComponentType.LED_MATRIX]: ledmatrixSvgString,
-  [ArduinoComponentType.MOTOR]: motorSvgString,
-  [ArduinoComponentType.NEO_PIXEL_STRIP]: neopixelSvgString,
-  [ArduinoComponentType.RFID]: rfidSvgString,
-  [ArduinoComponentType.SERVO]: servoSVGText,
-  [ArduinoComponentType.TEMPERATURE_SENSOR]: tempSvgString,
-  [ArduinoComponentType.ULTRASONICE_SENSOR]: ultraSonicSvgString,
-};
+const emptyPositionComponent: PositionComponent<ArduinoComponentState> = (
+  state,
+  componentEl,
+  arduinoEl,
+  draw
+) => {};
 
-const pinPictureSvgString = {
-  [PinPicture.SOIL_SENSOR]: soilSensorSvgString,
-  [PinPicture.SENSOR]: analogSensorSvgString,
-  [PinPicture.PHOTO_SENSOR]: photoSensorSvgString,
-  [PinPicture.TOUCH_SENSOR]: touchSensorSvgString,
-  [PinPicture.LED_ANALOG_WRITE]: analogdigitalWriteSvgString,
-  [PinPicture.LED_DIGITAL_WRITE]: analogdigitalWriteSvgString,
-};
+const emptyCreateHookComponent: CreateCompenentHook<ArduinoComponentState> = (
+  state,
+  componentEl,
+  arduinoEl,
+  draw
+) => {};
 
-const createWires = {
+const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.BLUE_TOOTH]: createBluetoothWires,
   [ArduinoComponentType.BUTTON]: createWiresButton,
   [ArduinoComponentType.IR_REMOTE]: createWiresIrRemote,
@@ -178,19 +141,40 @@ const createWires = {
   [ArduinoComponentType.ULTRASONICE_SENSOR]: createWiresUltraSonicSensor,
 };
 
-const createComponentHooks = {
-  [ArduinoComponentType.BLUE_TOOTH]: bluetoothCreate,
+const positionComponentHookFunc: {
+  [key: string]: PositionComponent<ArduinoComponentState>;
+} = {
+  [ArduinoComponentType.BLUE_TOOTH]: bluetoothPosition,
+  [ArduinoComponentType.BUTTON]: positionButton,
+  [ArduinoComponentType.IR_REMOTE]: positionIrRemote,
+  [ArduinoComponentType.LCD_SCREEN]: lcdPosition,
+  [ArduinoComponentType.LED_COLOR]: positionRgbLed,
+  [ArduinoComponentType.LED_MATRIX]: ledMatrixPosition,
+  [ArduinoComponentType.MESSAGE]: emptyPositionComponent,
+  [ArduinoComponentType.MOTOR]: motorPosition,
+  [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelPosition,
+  [ArduinoComponentType.PIN]: positionPinComponent,
+  [ArduinoComponentType.RFID]: positionRfid,
+  [ArduinoComponentType.SERVO]: servoPosition,
+  [ArduinoComponentType.TEMPERATURE_SENSOR]: positionTemp,
+  [ArduinoComponentType.ULTRASONICE_SENSOR]: positionUltraSonicSensor,
+};
+
+const createComponentHookFunc: {
+  [key: string]: CreateCompenentHook<ArduinoComponentState>;
+} = {
+  [ArduinoComponentType.BLUE_TOOTH]: emptyCreateHookComponent,
   [ArduinoComponentType.BUTTON]: createButton,
   [ArduinoComponentType.IR_REMOTE]: createIrRemote,
   [ArduinoComponentType.LCD_SCREEN]: lcdCreate,
   [ArduinoComponentType.LED_COLOR]: createRgbLed,
-  [ArduinoComponentType.LED_MATRIX]: ledMatrixCreate,
+  [ArduinoComponentType.LED_MATRIX]: emptyCreateHookComponent,
   [ArduinoComponentType.MESSAGE]: arduinoMessageCreate,
   [ArduinoComponentType.MOTOR]: motorCreate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,
   [ArduinoComponentType.PIN]: createPinComponent,
-  [ArduinoComponentType.RFID]: createRfid,
+  [ArduinoComponentType.RFID]: emptyCreateHookComponent,
   [ArduinoComponentType.SERVO]: servoCreate,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: createTemp,
-  [ArduinoComponentType.ULTRASONICE_SENSOR]: createUltraSonicSensor,
+  [ArduinoComponentType.ULTRASONICE_SENSOR]: emptyCreateHookComponent,
 };

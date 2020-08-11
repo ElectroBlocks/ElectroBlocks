@@ -1,7 +1,10 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { CreateComponentHook, CreateWire } from '../svg-create';
+import {
+  PositionComponent,
+  CreateWire,
+  CreateCompenentHook,
+} from '../svg-create';
 
-import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 import { positionComponent } from '../svg-position';
 import { LedColorState } from '../../frames/arduino-components.state';
@@ -13,8 +16,9 @@ import {
 } from '../wire';
 import { rgbToHex } from '../../blockly/helpers/color.helper';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
+import { arduinoComponentStateToId } from '../../frames/arduino-component-id';
 
-export const createRgbLed: CreateComponentHook<LedColorState> = (
+export const createRgbLed: CreateCompenentHook<LedColorState> = (
   state,
   rgbLedEl,
   arduinoEl,
@@ -23,19 +27,29 @@ export const createRgbLed: CreateComponentHook<LedColorState> = (
   //todo consider labeling pin in picture
 
   rgbLedEl.data('picture-type', state.pictureType);
-  positionComponent(rgbLedEl, arduinoEl, draw, state.redPin, 'PIN_RED');
-  createResistors(arduinoEl, draw, state, componentToSvgId(state));
+  createResistors(arduinoEl, draw, state, arduinoComponentStateToId(state));
 };
 
-export const updateRgbLed: SyncComponent = (state, draw) => {
-  const rgbLedState = state as LedColorState;
+export const positionRgbLed: PositionComponent<LedColorState> = (
+  state,
+  rgbLedEl,
+  arduinoEl,
+  draw
+) => {
+  positionComponent(rgbLedEl, arduinoEl, draw, state.redPin, 'PIN_RED');
+};
 
-  const id = componentToSvgId(state);
-  let rgbLedEl = draw.findOne('#' + id) as Element;
-
-  if (rgbLedEl) {
-    changeColor(rgbToHex(rgbLedState.color), rgbLedEl, rgbLedState);
+export const updateRgbLed: SyncComponent = (state: LedColorState, rgbLedEl) => {
+  let color = rgbToHex(state.color);
+  if (color.toUpperCase() === '#000000') {
+    color = '#FFFFFF';
   }
+
+  if (state.pictureType === 'BUILT_IN') {
+    (rgbLedEl.findOne('#COLOR_LED circle') as Element).fill(color);
+    return;
+  }
+  (rgbLedEl.findOne('#COLOR_LED') as Element).fill(color);
 };
 
 export const resetRgbLed: ResetComponent = (rgbLedEl) => {
@@ -114,20 +128,4 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
   );
 
   createGroundWire(rgbLedEl, state.redPin, arduino as Svg, draw, id, 'right');
-};
-
-const changeColor = (
-  color: string,
-  rgbLedEl: Element,
-  state: LedColorState
-) => {
-  if (color.toUpperCase() === '#000000') {
-    color = '#FFFFFF';
-  }
-
-  if (state.pictureType === 'BUILT_IN') {
-    (rgbLedEl.findOne('#COLOR_LED circle') as Element).fill(color);
-    return;
-  }
-  (rgbLedEl.findOne('#COLOR_LED') as Element).fill(color);
 };

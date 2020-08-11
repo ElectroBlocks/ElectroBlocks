@@ -1,37 +1,38 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { CreateComponentHook, CreateWire } from '../svg-create';
+import {
+  PositionComponent,
+  CreateWire,
+  CreateCompenentHook,
+} from '../svg-create';
 
 import { IRRemoteState } from '../../frames/arduino-components.state';
-import { componentToSvgId } from '../svg-helpers';
 import { Element, Svg } from '@svgdotjs/svg.js';
 import { positionComponent } from '../svg-position';
 
 import { createWire, createPowerWire, createGroundWire } from '../wire';
 
-export const createIrRemote: CreateComponentHook<IRRemoteState> = (
+export const createIrRemote: CreateCompenentHook<IRRemoteState> = (
+  state,
+  irRemoteEl
+) => {
+  irRemoteEl.findOne('#PIN_TEXT').node.innerHTML = state.pins[0];
+};
+
+export const positionIrRemote: PositionComponent<IRRemoteState> = (
   state,
   irRemoteEl,
   arduinoEl,
   draw
 ) => {
-  irRemoteEl.findOne('#PIN_TEXT').node.innerHTML = state.pins[0];
   positionComponent(irRemoteEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
 };
 
-export const updateIrRemote: SyncComponent = (state, draw) => {
-  const irRemoteState = state as IRRemoteState;
-  const id = componentToSvgId(irRemoteState);
-  let irRemoteEl = draw.findOne('#' + id) as Element;
-  updateCode(irRemoteEl, irRemoteState);
-};
-
-export const resetIrRemote: ResetComponent = (irRemoteEl: Element) => {
-  irRemoteEl.findOne('#remote').hide();
-  irRemoteEl.findOne('#code').hide();
-};
-
-const updateCode = (irRemoteEl: Element, irRemoteState: IRRemoteState) => {
-  if (!irRemoteState.hasCode) {
+export const updateIrRemote: SyncComponent = (
+  state: IRRemoteState,
+  irRemoteEl,
+  draw
+) => {
+  if (!state.hasCode) {
     irRemoteEl.findOne('#remote').hide();
     irRemoteEl.findOne('#code').hide();
     return;
@@ -39,8 +40,13 @@ const updateCode = (irRemoteEl: Element, irRemoteState: IRRemoteState) => {
 
   irRemoteEl.findOne('#remote').show();
   irRemoteEl.findOne('#code').show();
-  irRemoteEl.findOne('#code').node.innerHTML = irRemoteState.code;
+  irRemoteEl.findOne('#code').node.innerHTML = state.code;
   (irRemoteEl.findOne('#code') as Element).cx(55);
+};
+
+export const resetIrRemote: ResetComponent = (irRemoteEl: Element) => {
+  irRemoteEl.findOne('#remote').hide();
+  irRemoteEl.findOne('#code').hide();
 };
 
 export const createWiresIrRemote: CreateWire<IRRemoteState> = (
