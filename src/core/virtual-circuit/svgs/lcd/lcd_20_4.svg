@@ -6,6 +6,8 @@
     <line id="SDA_WIRE_2" x1="150.21" y1="83.58" x2="72" y2="83.58" stroke-width="2" stroke="#0071bc" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
     <line id="SCL_WIRE_1" x1="150.21" y1="115.63" x2="108" y2="115.72" stroke-width="2" stroke="#f15a24" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
     <rect x="183.03" y="121.44" width="129.32" height="51.31" transform="translate(318.79 -178.87) rotate(90)" fill="#e5d6d6"/>
+    <text transform="translate(71.72 81.05) rotate(0.72)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">A4</text>
+    <text transform="translate(107.72 112.05) rotate(0.72)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
     <text id="VCC_TEXT" transform="translate(149.4 24.06)" font-size="16.72" fill="#2d2d2d" font-family="Biryani-SemiBold, Biryani" font-weight="600">VCC</text>
     <text id="GND_TEXT" transform="translate(149.4 57.5)" font-size="16.72" fill="#2d2d2d" font-family="Biryani-SemiBold, Biryani" font-weight="600">GND</text>
     <text id="GND_TEXT-2" data-name="GND_TEXT" transform="translate(149.4 89.55)" font-size="16.72" fill="#2d2d2d" font-family="Biryani-SemiBold, Biryani" font-weight="600">SDA</text>

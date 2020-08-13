@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="136.68" height="166.09" viewBox="0 0 136.68 166.09">
+  <title>rgbled-resistorbuiltin</title>
+  <g id="WIRES">
+    <line id="PIN_RED" x1="13.33" y1="120.16" x2="13.33" y2="147.1" fill="none" stroke="#f41c1c" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_GND" x1="45.42" y1="121.76" x2="45.42" y2="165.09" fill="none" stroke="#b3b3b3" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_GREEN" x1="79.47" y1="111.64" x2="79.47" y2="149.39" fill="none" stroke="#31bc3f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_BLUE" x1="110.58" y1="121.76" x2="110.58" y2="150.07" fill="none" stroke="#152e9b" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+  <g id="LED">
+    <rect x="0.5" y="0.5" width="121.26" height="121.26" fill="#343435" stroke="#000" stroke-miterlimit="10"/>
+    <circle id="COLOR_LED" cx="61.13" cy="45.49" r="36.6" fill="#fff" stroke="#000" stroke-miterlimit="10"/>
+    <rect x="0.5" y="97" width="121.26" height="24.76" fill="#c9c5d6" stroke="#000" stroke-miterlimit="10"/>
+    <text transform="translate(5.79 118.89)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">R</text>
+    <text transform="translate(103.36 118.89)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">B</text>
+    <text transform="translate(70.3 118.89)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">G</text>
+    <text transform="translate(34.93 124.89)" font-size="48" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+    <text id="PIN_GREEN_TEXT" transform="translate(82.36 144.42)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">12</text>
+    <text id="PIN_BLUE_TEXT" transform="translate(113.58 144.42)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">12</text>
+    <text id="PIN_RED_TEXT" transform="translate(16.5 144.42)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">12</text>
+  </g>
+</svg>

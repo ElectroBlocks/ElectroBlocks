@@ -8,6 +8,7 @@ import { addDraggableEvent } from './component-events.helpers';
 import {
   bluetoothPosition,
   createBluetoothWires,
+  bluetoothCreate,
 } from './components/bluetooth.sync';
 import {
   createButton,
@@ -41,7 +42,11 @@ import {
   createPinComponent,
   positionPinComponent,
 } from './components/pin.component';
-import { createWiresRfid, positionRfid } from './components/rfid.sync';
+import {
+  createWiresRfid,
+  positionRfid,
+  createRfid,
+} from './components/rfid.sync';
 import {
   servoCreate,
   createWiresServo,
@@ -55,6 +60,7 @@ import {
 import {
   createWiresUltraSonicSensor,
   positionUltraSonicSensor,
+  createUltraSonicSensor,
 } from './components/ultrasonic.sync';
 import { getSvgString } from './svg-string';
 import { arduinoComponentStateToId } from '../frames/arduino-component-id';
@@ -158,7 +164,7 @@ const positionComponentHookFunc: {
 const createComponentHookFunc: {
   [key: string]: CreateCompenentHook<ArduinoComponentState>;
 } = {
-  [ArduinoComponentType.BLUE_TOOTH]: emptyCreateHookComponent,
+  [ArduinoComponentType.BLUE_TOOTH]: bluetoothCreate,
   [ArduinoComponentType.BUTTON]: createButton,
   [ArduinoComponentType.IR_REMOTE]: createIrRemote,
   [ArduinoComponentType.LCD_SCREEN]: lcdCreate,
@@ -168,8 +174,8 @@ const createComponentHookFunc: {
   [ArduinoComponentType.MOTOR]: motorCreate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,
   [ArduinoComponentType.PIN]: createPinComponent,
-  [ArduinoComponentType.RFID]: emptyCreateHookComponent,
+  [ArduinoComponentType.RFID]: createRfid,
   [ArduinoComponentType.SERVO]: servoCreate,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: createTemp,
-  [ArduinoComponentType.ULTRASONICE_SENSOR]: emptyCreateHookComponent,
+  [ArduinoComponentType.ULTRASONICE_SENSOR]: createUltraSonicSensor,
 };

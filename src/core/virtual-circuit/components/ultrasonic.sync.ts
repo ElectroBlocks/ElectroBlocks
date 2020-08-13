@@ -1,5 +1,9 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { PositionComponent, CreateWire } from '../svg-create';
+import {
+  PositionComponent,
+  CreateWire,
+  CreateCompenentHook,
+} from '../svg-create';
 
 import { UltraSonicSensorState } from '../../frames/arduino-components.state';
 import { Element, Svg } from '@svgdotjs/svg.js';
@@ -15,6 +19,14 @@ export const positionUltraSonicSensor: PositionComponent<UltraSonicSensorState> 
 ) => {
   //todo consider labeling pins in picture
   positionComponent(ultraSonicEl, arduinoEl, draw, state.trigPin, 'PIN_TRIG');
+};
+
+export const createUltraSonicSensor: CreateCompenentHook<UltraSonicSensorState> = (
+  state,
+  ultraSonicEl
+) => {
+  ultraSonicEl.findOne('#ECHO_PIN_TEXT').node.innerHTML = state.echoPin;
+  ultraSonicEl.findOne('#TRIG_PIN_TEXT').node.innerHTML = state.trigPin;
 };
 
 export const updateUltraSonicSensor: SyncComponent = (

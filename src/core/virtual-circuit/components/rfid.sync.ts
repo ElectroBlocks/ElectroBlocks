@@ -1,5 +1,9 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { PositionComponent, CreateWire } from '../svg-create';
+import {
+  PositionComponent,
+  CreateWire,
+  CreateCompenentHook,
+} from '../svg-create';
 
 import { RfidState } from '../../frames/arduino-components.state';
 import { Element, Svg } from '@svgdotjs/svg.js';
@@ -15,6 +19,10 @@ export const positionRfid: PositionComponent<RfidState> = (
 ) => {
   positionComponent(rfidEl, arduinoEl, draw, state.txPin, 'PIN_TX');
   rfidEl.x(rfidEl.x() + 100);
+};
+
+export const createRfid: CreateCompenentHook<RfidState> = (state, rfidEl) => {
+  rfidEl.findOne('#PIN_TEXT_RX').node.innerHTML = state.txPin;
 };
 
 export const updateRfid: SyncComponent = (state: RfidState, rfidEl) => {

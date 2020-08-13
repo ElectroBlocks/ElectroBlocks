@@ -1,5 +1,9 @@
 import { SyncComponent, ResetComponent } from '../svg-sync';
-import { PositionComponent, CreateWire } from '../svg-create';
+import {
+  PositionComponent,
+  CreateWire,
+  CreateCompenentHook,
+} from '../svg-create';
 
 import { BluetoothState } from '../../frames/arduino-components.state';
 import { Element, Svg, Text } from '@svgdotjs/svg.js';
@@ -53,6 +57,14 @@ export const bluetoothPosition: PositionComponent<BluetoothState> = (
   draw
 ) => {
   positionComponent(bluetoothEl, arduinoEl, draw, state.txPin, 'PIN_TX');
+};
+
+export const bluetoothCreate: CreateCompenentHook<BluetoothState> = (
+  state,
+  bluetoothEl
+) => {
+  bluetoothEl.findOne('#RX_PIN_TEXT').node.innerHTML = state.rxPin;
+  bluetoothEl.findOne('#TX_PIN_TEXT').node.innerHTML = state.txPin;
 };
 
 export const createBluetoothWires: CreateWire<BluetoothState> = (

@@ -18,8 +18,8 @@ import ledmatrixSvgString from './svgs/ledmatrix/ledmatrix.svg';
 import motorSvgString from './svgs/motor/motor.svg';
 import neopixelSvgString from './svgs/neopixel/neopixel.svg';
 import rfidSvgString from './svgs/rfid/rfid.svg';
-import rgbLedBreadboard from './svgs/rgbled/rgbled.svg';
-import rgbLedNoResistorSvg from './svgs/rgbled/rgbled-no-resistor.svg';
+import rgbLedBreadboard from './svgs/rgbled/rgbled-breadboard.svg';
+import rgbLedResistorBuiltIn from './svgs/rgbled/rgbled-resistorbuiltin.svg';
 import servoSVGText from './svgs/servo/servo.svg';
 import tempSvgString from './svgs/temp/temp-humidity.svg';
 import ultraSonicSvgString from './svgs/ultrasonic-sensor/ultrasonic-sensor.svg';
@@ -37,7 +37,7 @@ export interface GetSvgString {
 const getLedColorSvgString = (state: LedColorState) => {
   return state.pictureType === 'BREADBOARD'
     ? rgbLedBreadboard
-    : rgbLedNoResistorSvg;
+    : rgbLedResistorBuiltIn;
 };
 
 const getPinSvgString = (state: PinState) => {

@@ -17,6 +17,7 @@ export const neoPixelCreate: CreateCompenentHook<NeoPixelState> = (
   neoPixelEl
 ) => {
   showRGBStripLeds(neoPixelEl, state);
+  neoPixelEl.findOne('#DATA_TEXT').node.innerHTML = state.pins[0];
 };
 
 export const neoPixelPosition: PositionComponent<NeoPixelState> = (

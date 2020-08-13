@@ -17,6 +17,8 @@
     <line id="PIN_GND" x1="37" y1="46.56" x2="37" y2="76.56" stroke-width="2" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
     <line id="PIN_SDA" x1="72" y1="79.56" x2="72" y2="110.56" stroke-width="2" stroke="#0071bc" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
     <line id="PIN_SCL" x1="108" y1="111.56" x2="108" y2="144.56" stroke-width="2" stroke="#f15a24" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
+    <text transform="translate(72.15 77.03)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">A4</text>
+    <text transform="translate(108.15 108.03)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
   </g>
   <g id="col-16">
     <g id="space-16-1">

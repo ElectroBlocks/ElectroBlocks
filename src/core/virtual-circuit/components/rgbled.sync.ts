@@ -28,6 +28,9 @@ export const createRgbLed: CreateCompenentHook<LedColorState> = (
 
   rgbLedEl.data('picture-type', state.pictureType);
   createResistors(arduinoEl, draw, state, arduinoComponentStateToId(state));
+  rgbLedEl.findOne('#PIN_RED_TEXT').node.innerHTML = state.redPin;
+  rgbLedEl.findOne('#PIN_BLUE_TEXT').node.innerHTML = state.bluePin;
+  rgbLedEl.findOne('#PIN_GREEN_TEXT').node.innerHTML = state.greenPin;
 };
 
 export const positionRgbLed: PositionComponent<LedColorState> = (
@@ -43,11 +46,6 @@ export const updateRgbLed: SyncComponent = (state: LedColorState, rgbLedEl) => {
   let color = rgbToHex(state.color);
   if (color.toUpperCase() === '#000000') {
     color = '#FFFFFF';
-  }
-
-  if (state.pictureType === 'BUILT_IN') {
-    (rgbLedEl.findOne('#COLOR_LED circle') as Element).fill(color);
-    return;
   }
   (rgbLedEl.findOne('#COLOR_LED') as Element).fill(color);
 };
