@@ -4,6 +4,7 @@ import {
   LedColorState,
   PinState,
   LCDScreenState,
+  NeoPixelState,
 } from './arduino-components.state';
 
 import _ from 'lodash';
@@ -32,6 +33,10 @@ const lcdStateId = (state: LCDScreenState) => {
   return `${state.type}-${state.rows}-${state.columns}`;
 };
 
+const neoPixelId = (state: NeoPixelState) => {
+  return `${state.type}-${state.pins.sort().join('-')}-${state.numberOfLeds}`;
+};
+
 const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.BLUE_TOOTH]: genericSingleComponentId,
   [ArduinoComponentType.BUTTON]: genericSingleComponentId,
@@ -39,7 +44,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.LED_MATRIX]: genericSingleComponentId,
   [ArduinoComponentType.MOTOR]: getMotorStateId,
   [ArduinoComponentType.MESSAGE]: () => ArduinoComponentType.MESSAGE.toString(),
-  [ArduinoComponentType.NEO_PIXEL_STRIP]: genericSingleComponentId,
+  [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelId,
   [ArduinoComponentType.RFID]: genericSingleComponentId,
   [ArduinoComponentType.SERVO]: genericSingleComponentId,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: genericSingleComponentId,

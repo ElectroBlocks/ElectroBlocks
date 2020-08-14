@@ -11,6 +11,7 @@ import { createWire, createPowerWire, createGroundWire } from '../wire';
 import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
 import _ from 'lodash';
 import { rgbToHex } from '../../blockly/helpers/color.helper';
+import { positionComponent } from '../svg-position';
 
 export const neoPixelCreate: CreateCompenentHook<NeoPixelState> = (
   state,
@@ -21,12 +22,19 @@ export const neoPixelCreate: CreateCompenentHook<NeoPixelState> = (
 };
 
 export const neoPixelPosition: PositionComponent<NeoPixelState> = (
-  _,
-  __,
+  state,
+  neoPixelEl,
   arduino,
   draw
 ) => {
-  arduino.y(draw.viewbox().y2 - arduino.height() + 100);
+  positionComponent(
+    neoPixelEl,
+    arduino,
+    draw,
+    ARDUINO_UNO_PINS.PIN_A2,
+    'PIN_DATA'
+  );
+  neoPixelEl.x(neoPixelEl.x() - 100);
 };
 
 export const neoPixelReset: ResetComponent = (neoPixelEl: Element) => {
@@ -46,7 +54,9 @@ export const neoPixelUpdate: SyncComponent = (
     const ledEl = neoPixelEl.findOne(
       `#LED-${led.position + 1} circle`
     ) as Element;
-    ledEl.fill(rgbToHex(led.color));
+    if (ledEl) {
+      ledEl.fill(rgbToHex(led.color));
+    }
   });
 };
 
