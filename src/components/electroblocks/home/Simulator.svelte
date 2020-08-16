@@ -8,13 +8,14 @@
   import paint from "../../../core/virtual-circuit/paint.ts";
   import update from "../../../core/virtual-circuit/update.ts";
   // What if we made everything a series of components.
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   let container;
   let svgContainer;
   let virtualCircuit;
   let frames = [];
   let currentFrame = undefined;
   let draw;
+  let unsubscribes = [];
   onMount(async () => {
     await import("@svgdotjs/svg.draggable.js");
 
@@ -29,24 +30,30 @@
       .viewbox(0, 0, container.clientWidth - 10, container.clientWidth - 10)
       .panZoom();
 
-    frameStore.subscribe(newFrames => {
-      frames = newFrames;
-      console.log(frames, "new frames");
-      const lastFrame = frames ? frames[frames.length - 1] : undefined;
-      const firstFrame = frames ? frames[0] : undefined;
-      currentFrame = firstFrame;
-      paint(draw, lastFrame);
-      update(draw, firstFrame);
-    });
+    unsubscribes.push(
+      frameStore.subscribe(newFrames => {
+        frames = newFrames;
+        console.log(frames, "new frames");
+        const lastFrame = frames ? frames[frames.length - 1] : undefined;
+        const firstFrame = frames ? frames[0] : undefined;
+        currentFrame = firstFrame;
+        paint(draw, lastFrame);
+        update(draw, firstFrame);
+      })
+    );
 
-    currentFrameStore.subscribe(frame => {
-      currentFrame = frame;
-      update(draw, currentFrame);
-    });
+    unsubscribes.push(
+      currentFrameStore.subscribe(frame => {
+        currentFrame = frame;
+        update(draw, currentFrame);
+      })
+    );
 
-    resizeStore.subscribe(() => {
-      draw.size(container.clientWidth - 10, container.clientHeight - 10);
-    });
+    unsubscribes.push(
+      resizeStore.subscribe(() => {
+        draw.size(container.clientWidth - 10, container.clientHeight - 10);
+      })
+    );
   });
 
   function zoomIn() {
@@ -56,6 +63,9 @@
   function zoomOut() {
     draw.zoom(draw.zoom() - 0.05);
   }
+  onDestroy(() => {
+    unsubscribes.forEach(unSubFunc => unSubFunc());
+  });
 </script>
 
 <style>

@@ -88,7 +88,7 @@ export const setNeoPixelColor: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       newComponent,
-      `Setting LED ${position} on light strip to color [red=${color.red},green=${color.green},blue=${color.blue}]`,
+      `Setting LED ${position} on light strip to color (red=${color.red},green=${color.green},blue=${color.blue})`,
       previousState
     ),
   ];

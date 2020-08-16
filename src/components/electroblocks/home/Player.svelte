@@ -9,32 +9,37 @@
   let frameNumber = 1;
   let playing = false;
   let speedDivisor = 1;
+  const unsubscribes = [];
 
   $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
   $: frameIndex = frameNumber - 1;
 
-  const unsubscribeStep = currentStepStore.subscribe(currentIndex => {
-    frameNumber = currentIndex;
-  });
+  unsubscribes.push(
+    currentStepStore.subscribe(currentIndex => {
+      frameNumber = currentIndex;
+    })
+  );
 
-  const unsubscribeFrame = frameStore.subscribe(newFrames => {
-    playing = false;
-    const currentFrame = frames[frameNumber];
-    frames = newFrames;
+  unsubscribes.push(
+    frameStore.subscribe(newFrames => {
+      playing = false;
+      const currentFrame = frames[frameNumber];
+      frames = newFrames;
 
-    // If we are starting out with set to first frame.
-    if (frames.length === 0 || !currentFrame) {
-      frameNumber = 0;
-      if (frames.length > 0) {
-        currentFrameStore.set(frames[frameNumber]);
+      // If we are starting out with set to first frame.
+      if (frames.length === 0 || !currentFrame) {
+        frameNumber = 0;
+        if (frames.length > 0) {
+          currentFrameStore.set(frames[frameNumber]);
+        }
+        return;
       }
-      return;
-    }
 
-    frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
-    currentFrameStore.set(frames[frameNumber]);
-  });
+      frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
+      currentFrameStore.set(frames[frameNumber]);
+    })
+  );
 
   function navigateToClosestTimeline(timeLine) {
     console.log(timeLine, "timeline used for find closest frame");
@@ -131,8 +136,7 @@
   }
 
   onDestroy(() => {
-    unsubscribeFrame();
-    unsubscribeStep();
+    unsubscribes.forEach(unSubFunc => unSubFunc());
   });
 </script>
 

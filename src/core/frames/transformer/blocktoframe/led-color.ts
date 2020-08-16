@@ -68,7 +68,7 @@ export const setLedColor: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       newComponent,
-      `Setting led color to [red=${color.red},green=${color.green},blue=${color.blue}].`,
+      `Setting led color to (red=${color.red},green=${color.green},blue=${color.blue}).`,
       previousState
     ),
   ];

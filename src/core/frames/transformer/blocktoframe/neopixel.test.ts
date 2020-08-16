@@ -123,7 +123,7 @@ describe('neo pixle state factories', () => {
     const [state1, state2, state3] = eventToFrameFactory(event);
 
     expect(state2.explanation).toBe(
-      'Setting LED 1 on light strip to color [red=0,green=0,blue=100]'
+      'Setting LED 1 on light strip to color (red=0,green=0,blue=100)'
     );
     expect(state2.components.length).toBe(1);
     const [component1] = state2.components as NeoPixelState[];
@@ -144,7 +144,7 @@ describe('neo pixle state factories', () => {
     });
     expect(state3.blockId).toBe(setNeoPixel2Block.id);
     // expect(state3.explanation).toBe(
-    //   'Setting LED 31 on light strip to color [red=0,green=0,blue=100]'
+    //   'Setting LED 31 on light strip to color (red=0,green=0,blue=100)'
     // );
     expect(state3.components.length).toBe(1);
     const [componentv2] = state3.components as NeoPixelState[];

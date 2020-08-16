@@ -7,13 +7,16 @@
 
   let stepContainer;
   let frames = [];
+  let unsubscribes = [];
 
-  const unsubscribeFrames = frameStore.subscribe(newFrames => {
-    frames = newFrames;
-  });
+  unsubscribes.push(
+    frameStore.subscribe(newFrames => {
+      frames = newFrames;
+    })
+  );
 
   onDestroy(() => {
-    unsubscribeFrames();
+    unsubscribes.forEach(unSubFunc => unSubFunc());
   });
 
   afterUpdate(() => {

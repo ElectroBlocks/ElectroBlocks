@@ -1,6 +1,6 @@
 <script lang="typescript">
   import Blockly from "blockly";
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
 
   import { WindowType, resizeStore } from "../../stores/resize.store";
   import startBlocly from "../../core/blockly/startBlockly";
@@ -21,6 +21,8 @@
   let blocklyElement: HTMLElement;
 
   let workspaceInitialize = false;
+
+  const unsubscribes = [];
 
   // This is ran whenever the showLoopExecutionTimesArduinoStartBlock changeq
   // and blocklyWorkspace is initialized
@@ -43,27 +45,35 @@
       resizeBlockly();
     }, 200);
 
-    currentFrameStore.subscribe(frame => {
-      if (!frame) {
-        return;
-      }
-      (window as any).selectedBlock = getBlockById(frame.blockId);
-      getBlockById(frame.blockId).select();
-    });
+    unsubscribes.push(
+      currentFrameStore.subscribe(frame => {
+        if (!frame) {
+          return;
+        }
+        (window as any).selectedBlock = getBlockById(frame.blockId);
+        getBlockById(frame.blockId).select();
+      })
+    );
   });
 
   // List for resize main window event and resize blockly
-  resizeStore.subscribe(event => {
-    if (event.type == WindowType.MAIN) {
-      resizeBlockly();
-      return;
-    }
-  });
+  unsubscribes.push(
+    resizeStore.subscribe(event => {
+      if (event.type == WindowType.MAIN) {
+        resizeBlockly();
+        return;
+      }
+    })
+  );
 
   // The function to resize blockly main window
   function resizeBlockly() {
     Blockly.svgResize(Blockly.getMainWorkspace() as Blockly.WorkspaceSvg);
   }
+
+  onDestroy(() => {
+    unsubscribes.forEach(unSubFunc => unSubFunc());
+  });
 </script>
 
 <style>

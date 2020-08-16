@@ -110,7 +110,7 @@ describe('lcd  factories', () => {
     const [state1, state2, state3] = eventToFrameFactory(event);
 
     expect(state2.explanation).toBe(
-      'Setting led color to [red=200,green=200,blue=0].'
+      'Setting led color to (red=200,green=200,blue=0).'
     );
 
     expect(state2.components.length).toBe(1);
@@ -119,7 +119,7 @@ describe('lcd  factories', () => {
     expect(component2.color).toEqual({ red: 200, green: 200, blue: 0 });
 
     expect(state3.explanation).toBe(
-      'Setting led color to [red=200,green=0,blue=100].'
+      'Setting led color to (red=200,green=0,blue=100).'
     );
 
     expect(state3.components.length).toBe(1);

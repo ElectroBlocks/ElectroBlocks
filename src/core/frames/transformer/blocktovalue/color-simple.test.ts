@@ -50,7 +50,7 @@ describe('simple color state factories', () => {
     const [state1event1] = eventToFrameFactory(event);
 
     expect(state1event1.explanation).toBe(
-      'Variable "color_test" stores [red=92,green=230,blue=147].'
+      'Variable "color_test" stores (red=92,green=230,blue=147).'
     );
     verifyVariable(
       'color_test',
@@ -77,7 +77,7 @@ describe('simple color state factories', () => {
     const [state1event2] = eventToFrameFactory(event2);
 
     expect(state1event1.explanation).toContain(
-      'Variable "color_test" stores [red='
+      'Variable "color_test" stores (red='
     );
     const color = state1event2.variables['color_test'].value as Color;
     expect(color).toBeDefined();

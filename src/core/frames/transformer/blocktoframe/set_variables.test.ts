@@ -111,7 +111,7 @@ describe('test variables factories', () => {
       'Variable "num_var" stores 30.',
       'Variable "string_var" stores "test".',
       'Variable "bool_var" stores true.',
-      'Variable "color_var" stores [red=170,green=0,blue=170].',
+      'Variable "color_var" stores (red=170,green=0,blue=170).',
     ].sort();
     expect(actualExplanation).toEqual(expectedExplanations);
     expect(_.keys(state1.variables).length).toBe(1);

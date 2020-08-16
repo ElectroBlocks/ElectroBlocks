@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script>
   import { onMount } from "svelte";
   import _ from "lodash";
 
@@ -9,12 +9,14 @@
   // @ts-ignore
   import Player from "../../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../../stores/resize.store";
+  import { stores } from "@sapper/app";
+  const { page } = stores();
 
-  export let segment: string = "";
+  export let segment = "";
 
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
-  let showLoopExecutionTimesArduinoStartBlock: boolean;
+  let showLoopExecutionTimesArduinoStartBlock;
   $: showLoopExecutionTimesArduinoStartBlock = _.isEmpty(segment);
 
   let height = "500px";
@@ -68,11 +70,19 @@
   }, 2);
 
   onMount(() => {
-    // Calculates the height of the window
-    // We know that if it's  the home page that we want less height
-    // for the main window because we want to display the player component
-    const subtractSpace = segment ? 100 : 200;
-    height = window.innerHeight - subtractSpace + "px";
+    // Wrapped in an onMount because we don't want it executed by the server
+    page.subscribe(({ path, params, query }) => {
+      const isOnHomePage = path === "/electroblocks";
+      // Calculates the height of the window
+      // We know that if it's  the home page that we want less height
+      // for the main window because we want to display the player component
+      const subtractSpace = isOnHomePage ? 150 : 50;
+      height = window.innerHeight - subtractSpace + "px";
+      // Hack to make sure everything update
+      setTimeout(() => {
+        resizeStore.mainWindow();
+      }, 5);
+    });
   });
 </script>
 

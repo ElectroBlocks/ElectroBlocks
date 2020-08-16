@@ -3,24 +3,36 @@
   import _ from "lodash";
   import currentFrameStore from "../../../stores/currentFrame.store";
   import frameStore from "../../../stores/frame.store";
+  import { onDestroy } from "svelte";
 
   let variables = [];
-  currentFrameStore.subscribe(frame => {
-    if (!frame) {
-      variables = [];
-      return;
-    }
-    variables = _.keys(frame.variables).map(varName => {
-      return frame.variables[varName];
-    });
-  });
 
-  frameStore.subscribe(frames => {
-    // This means no frames so we should reset variables to none
-    if (frames.length === 0) {
-      variables = [];
-      return;
-    }
+  const unsubscribes = [];
+
+  unsubscribes.push(
+    currentFrameStore.subscribe(frame => {
+      if (!frame) {
+        variables = [];
+        return;
+      }
+      variables = _.keys(frame.variables).map(varName => {
+        return frame.variables[varName];
+      });
+    })
+  );
+
+  unsubscribes.push(
+    frameStore.subscribe(frames => {
+      // This means no frames so we should reset variables to none
+      if (frames.length === 0) {
+        variables = [];
+        return;
+      }
+    })
+  );
+
+  onDestroy(() => {
+    unsubscribes.forEach(unSubFunc => unSubFunc());
   });
 </script>
 

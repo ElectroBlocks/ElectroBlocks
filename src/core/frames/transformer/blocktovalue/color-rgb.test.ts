@@ -119,7 +119,7 @@ describe('color rgb state factories', () => {
 
       const [state1, state2] = eventToFrameFactory(event);
       expect(state2.explanation).toBe(
-        `Variable "color_test" stores [red=${expectedValue.red},green=${expectedValue.green},blue=${expectedValue.blue}].`
+        `Variable "color_test" stores (red=${expectedValue.red},green=${expectedValue.green},blue=${expectedValue.blue}).`
       );
       expect(state2.variables['color_test'].value).toEqual(expectedValue);
     });
