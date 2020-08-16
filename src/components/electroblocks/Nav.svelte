@@ -55,7 +55,7 @@
     <i class="fa fa-book" />
   </a>
   <a href="/electroblocks">
-    <i class="fa fa-floppy-o" />
+    <i class="fa fa-file" />
   </a>
 
   <a href="/electroblocks">
