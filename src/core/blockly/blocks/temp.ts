@@ -55,7 +55,7 @@ const tempSetupBlock: any = {
         new Blockly.FieldDropdown(selectedBoard().digitalPins),
         'PIN'
       );
-    this.appendDummyInput().appendField(
+    this.appendDummyInput('SHOW_CODE_VIEW').appendField(
       '------------------------------------------'
     );
     this.appendDummyInput()

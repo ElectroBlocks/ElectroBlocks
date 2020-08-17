@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script>
   import Blockly from "blockly";
   import { onMount, onDestroy } from "svelte";
 
@@ -10,6 +10,10 @@
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop
   } from "../../core/blockly/helpers/arduino_loop_block.helper";
+  import {
+    showSetupBlockDebugView,
+    getWorkspace
+  } from "../../core/blockly/helpers/workspace.helper";
 
   import { getBlockById } from "../../core/blockly/helpers/block.helper";
 
@@ -18,7 +22,7 @@
   export let showLoopExecutionTimesArduinoStartBlock = true;
 
   // The elment that contains blockly
-  let blocklyElement: HTMLElement;
+  let blocklyElement;
 
   let workspaceInitialize = false;
 
@@ -28,17 +32,31 @@
   // and blocklyWorkspace is initialized
   $: if (showLoopExecutionTimesArduinoStartBlock && workspaceInitialize) {
     arduinoLoopBlockShowNumberOfTimesThroughLoop();
+    showSetupBlockDebugView(true);
   } else if (workspaceInitialize) {
     arduinoLoopBlockShowLoopForeverText();
+    showSetupBlockDebugView(false);
   }
 
   onMount(() => {
     // Hack for debugging blockly
-    (window as any).Blockly = Blockly;
+    window.Blockly = Blockly;
 
     startBlocly(blocklyElement);
 
     workspaceInitialize = true;
+
+    getWorkspace().addChangeListener(event => {
+      if (event.type === Blockly.Events.BLOCK_CREATE) {
+        if (showLoopExecutionTimesArduinoStartBlock && workspaceInitialize) {
+          arduinoLoopBlockShowNumberOfTimesThroughLoop();
+          showSetupBlockDebugView(true);
+        } else if (workspaceInitialize) {
+          arduinoLoopBlockShowLoopForeverText();
+          showSetupBlockDebugView(false);
+        }
+      }
+    });
 
     // Hack to make sure that once blockly loads it gets resized
     setTimeout(() => {
@@ -50,7 +68,7 @@
         if (!frame) {
           return;
         }
-        (window as any).selectedBlock = getBlockById(frame.blockId);
+        window.selectedBlock = getBlockById(frame.blockId);
         getBlockById(frame.blockId).select();
       })
     );
@@ -68,7 +86,7 @@
 
   // The function to resize blockly main window
   function resizeBlockly() {
-    Blockly.svgResize(Blockly.getMainWorkspace() as Blockly.WorkspaceSvg);
+    Blockly.svgResize(Blockly.getMainWorkspace());
   }
 
   onDestroy(() => {

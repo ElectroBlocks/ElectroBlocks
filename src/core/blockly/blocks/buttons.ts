@@ -23,8 +23,9 @@ const buttonSetupBlock: any = {
         }),
         'PIN'
       );
-    this.appendDummyInput().appendField(
-      '-------------------------------------'
+    this.appendDummyInput(      'SHOW_CODE_VIEW'
+    ).appendField(
+      '-------------------------------------',
     );
     this.appendDummyInput()
       .appendField('Loop ')

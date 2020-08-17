@@ -101,8 +101,8 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       currentFrames = newFrames;
       console.log(arduinoStateEvent, 'arduinoStateEvent');
       stateStore.set(currentFrames);
-      codeStore.set(getArduinoCode());
     }
+    codeStore.set(getArduinoCode());
   });
 };
 
