@@ -127,6 +127,7 @@ const setPinText = (pin: ARDUINO_UNO_PINS, ledEl: Element) => {
       ARDUINO_UNO_PINS.PIN_10,
       ARDUINO_UNO_PINS.PIN_11,
       ARDUINO_UNO_PINS.PIN_12,
+      ARDUINO_UNO_PINS.PIN_13,
     ].includes(pin)
   ) {
     pinText.x(2);

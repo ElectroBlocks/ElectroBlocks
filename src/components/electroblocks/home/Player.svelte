@@ -4,9 +4,6 @@
   import frameStore from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
   import currentStepStore from "../../../stores/currentStep.store";
-  import codeStore from "../../../stores/code.store";
-  import { upload } from "../../../core/arduino/upload";
-  import selectedBoard from "../../../core/blockly/selectBoard";
 
   let frames = [];
   let frameNumber = 1;
@@ -19,10 +16,6 @@
   $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
   $: frameIndex = frameNumber - 1;
-
-  codeStore.subscribe(newCode => {
-    code = newCode;
-  });
 
   unsubscribes.push(
     currentStepStore.subscribe(currentIndex => {
@@ -142,20 +135,6 @@
 
   function moveWait() {
     return new Promise(resolve => setTimeout(resolve, 800 / speedDivisor));
-  }
-
-  async function uploadCode() {
-    try {
-      const avrgirl = new AvrgirlArduino({
-        board: selectedBoard().type,
-        debug: true
-      });
-
-      console.log(await upload(code, avrgirl));
-    } catch (e) {
-      console.log(e);
-      alert("error check console");
-    }
   }
 
   onDestroy(() => {
@@ -343,9 +322,6 @@
 
   <span class:disable={disablePlayer}>
     <i on:click={resetPlayer} class="fa fa-repeat" />
-  </span>
-  <span>
-    <i on:click={uploadCode} class="fa fa-cloud" />
   </span>
   <div id="speed-control" class="menu-section">
     <label for="speed">Speed:</label>
