@@ -47,6 +47,7 @@ const arduino_uno = {
     ['A5', 'A5'],
   ],
   serial_baud_rate: 9600,
+  type: 'uno',
 };
 
 const selectedBoard = () => {

@@ -177,14 +177,20 @@ Blockly['Arduino'].finish = function (code) {
     getBlockByType('arduino_setup') === undefined &&
     !_.isEmpty(Blockly['Arduino'].setupCode_)
   ) {
-    let preSetupCode = '';
+    let setupCodeFunctionText = '';
 
     for (const key in Blockly['Arduino'].setupCode_) {
-      preSetupCode += Blockly['Arduino'].setupCode_[key] || '';
+      setupCodeFunctionText += Blockly['Arduino'].setupCode_[key] || '';
     }
-    setupCode = '\nvoid setup() { \n' + preSetupCode + '\n}\n';
+    setupCode = '\nvoid setup() { \n' + setupCodeFunctionText + '\n}\n';
   }
-
+  // If setup block does not exist an empty setup function is required for things to compile
+  else if (
+    getBlockByType('arduino_setup') === undefined &&
+    _.isEmpty(Blockly['Arduino'].setupCode_)
+  ) {
+    setupCode = '\nvoid setup() { \n\n}\n';
+  }
   // Convert the definitions dictionary into a list.
   code =
     devVariables +

@@ -1,5 +1,5 @@
-declare var process: { browser: boolean };
+import _ from 'lodash';
 
 export default () => {
-  return process.browser;
-}
+  return typeof window !== 'undefined';
+};

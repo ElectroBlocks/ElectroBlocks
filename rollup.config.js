@@ -8,6 +8,7 @@ import typescript from '@wessberg/rollup-plugin-ts';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
 import svg from 'rollup-plugin-svg-import';
+import copy from 'rollup-plugin-copy';
 
 const svelteOptions = require('./svelte.config');
 
@@ -28,8 +29,16 @@ export default {
     output: config.client.output(),
     plugins: [
       replace({
-        'process.browser': true,
         'process.env.NODE_ENV': JSON.stringify(mode),
+      }),
+      copy({
+        targets: [
+          {
+            src: 'node_modules/avrgirl-arduino/dist/avrgirl-arduino.global.js',
+            dest: 'static/',
+            rename: 'avrgirl-arduino.js',
+          },
+        ],
       }),
       svg({
         // process SVG to DOM Node or String. Default: false
@@ -85,7 +94,6 @@ export default {
     output: config.server.output(),
     plugins: [
       replace({
-        'process.browser': false,
         'process.env.NODE_ENV': JSON.stringify(mode),
       }),
       svg({
@@ -115,7 +123,6 @@ export default {
     plugins: [
       resolve(),
       replace({
-        'process.browser': true,
         'process.env.NODE_ENV': JSON.stringify(mode),
       }),
       commonjs(),
