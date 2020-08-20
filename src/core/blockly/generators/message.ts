@@ -3,7 +3,10 @@ import selectedBoard from '../selectBoard';
 
 export function stepSerialBegin() {
   Blockly['Arduino'].setupCode_['serial_begin'] =
-    '\tSerial.begin(' + selectedBoard().serial_baud_rate + '); \n';
+    '\tSerial.begin(' +
+    selectedBoard().serial_baud_rate +
+    '); \n' +
+    '\tSerial.setTimeout(10);';
 }
 
 Blockly['Arduino']['message_setup'] = function () {
@@ -38,5 +41,10 @@ Blockly['Arduino']['arduino_send_message'] = function (block) {
     Blockly['Arduino'].ORDER_ATOMIC
   );
 
-  return '\tSerial.println(' + message + ');\n';
+  return (
+    '\tSerial.println(' +
+    message +
+    ');\n' +
+    '\tdelay(200); // must have some delay always \n'
+  );
 };

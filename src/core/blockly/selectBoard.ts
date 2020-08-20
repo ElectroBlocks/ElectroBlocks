@@ -46,7 +46,7 @@ const arduino_uno = {
     ['A4', 'A4'],
     ['A5', 'A5'],
   ],
-  serial_baud_rate: 9600,
+  serial_baud_rate: 115200,
   type: 'uno',
 };
 
