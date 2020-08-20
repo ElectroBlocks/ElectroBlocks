@@ -9,7 +9,7 @@ declare class AvrgirlArduino {
 export const upload = async (code: string, avrgirl: AvrgirlArduino) => {
   const hexCode = await compileCode(code);
 
-  var enc = new TextEncoder();
+  const enc = new TextEncoder();
   return new Promise((res, rej) => {
     avrgirl.flash(enc.encode(hexCode) as any, (error) => {
       if (error) {
@@ -38,5 +38,3 @@ const compileCode = async (code: string): Promise<string> => {
 
   return await response.text();
 };
-
-const uploadCodeToArduino = async (hexCode: string) => {};

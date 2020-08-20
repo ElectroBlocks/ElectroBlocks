@@ -4,7 +4,7 @@ import { createDoubleToStringCFunc } from './debug';
 
 Blockly['Arduino']['text'] = function(block: Block) {
   // Text value.
-  const code = Blockly['Arduino'].quote_(block.getFieldValue('TEXT'));
+  const code = 'String(' + Blockly['Arduino'].quote_(block.getFieldValue('TEXT')) + ')';
   return [code, Blockly['Arduino'].ORDER_ATOMIC];
 };
 

@@ -3,7 +3,7 @@
   import { upload } from "../../core/arduino/upload";
   import codeStore from "../../stores/code.store";
   import selectedBoard from "../../core/blockly/selectBoard";
-
+  import arduionMessageStore from '../../stores/arduino-message.store';
   let isUploading = false;
   let code;
 
@@ -23,7 +23,7 @@
     try {
       const avrgirl = new AvrgirlArduino({
         board: selectedBoard().type,
-        debug: true
+        debug: true,
       });
 
       console.log(await upload(code, avrgirl));

@@ -29,7 +29,8 @@ export const ifElse: BlockToFrameTransformer = (
       block.id,
       block.blockName,
       timeline,
-      explanation
+      explanation,
+      previousState
     );
     return [
       ifFrame,
@@ -51,7 +52,8 @@ export const ifElse: BlockToFrameTransformer = (
       block.id,
       block.blockName,
       timeline,
-      explanation
+      explanation,
+      previousState
     );
     return [
       ifFrame,
@@ -68,6 +70,6 @@ export const ifElse: BlockToFrameTransformer = (
   const explanation =
     'Not executing blocks inside "DO" because waht is connected is false.';
   return [
-    arduinoFrameByExplanation(block.id, block.blockName, timeline, explanation),
+    arduinoFrameByExplanation(block.id, block.blockName, timeline, explanation, previousState),
   ];
 };
