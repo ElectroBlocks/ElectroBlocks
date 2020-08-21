@@ -6,7 +6,7 @@
   import { LineBreakTransformer } from '../../core/arduino/linebreak.transformer';
   import arduionMessageStore from '../../stores/arduino-message.store';
 
-  let isConnected = false;
+  let isConnected = true;
   let writer;
   let reader;
   const textDecoder = new TextDecoder("UTF-8");

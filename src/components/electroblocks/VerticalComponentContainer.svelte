@@ -41,7 +41,7 @@
     }
 
     // subtract 100 because of the height of the menu
-    const clientRelativeToWindow = e.clientY - 100;
+    const clientRelativeToWindow = e.clientY - 50;
 
     // Height of the main area where we are dividing
     const mainHeight = mainSection.clientHeight;

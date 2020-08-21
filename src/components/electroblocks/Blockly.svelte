@@ -31,9 +31,9 @@
   // and blocklyWorkspace is initialized
   $: if (showLoopExecutionTimesArduinoStartBlock && workspaceInitialize) {
     arduinoLoopBlockShowNumberOfTimesThroughLoop();
-  } else if (workspaceInitialize) {
+  } else if (workspaceInitialize) { 
     arduinoLoopBlockShowLoopForeverText();
-  }
+  } 
 
   onMount(() => {
     // Hack for debugging blockly

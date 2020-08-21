@@ -3,14 +3,14 @@
   import { upload } from "../../core/arduino/upload";
   import codeStore from "../../stores/code.store";
   import selectedBoard from "../../core/blockly/selectBoard";
-  import arduionMessageStore from '../../stores/arduino-message.store';
+  import arduionMessageStore from "../../stores/arduino-message.store";
   let isUploading = false;
   let code;
 
   $: uploadingClass = isUploading
     ? "fa-spinner fa-spin fa-6x fa-fw"
     : "fa-upload";
-  codeStore.subscribe(newCode => {
+  codeStore.subscribe((newCode) => {
     code = newCode;
   });
 
@@ -91,19 +91,21 @@
   <a href="/electroblocks/arduino" class:active={segment === 'arduino'}>
     <i class="fa fa-microchip" />
   </a>
-  <span class:disabled={isUploading}>
+  <!-- <span class:disabled={isUploading}>
     <i
       on:click={uploadCode}
       class="fa {uploadingClass}"
       title="Upload code to arduino" />
-  </span>
+  </span> -->
   <a href="/electroblocks/lessons" class:active={segment === 'lessons'}>
     <i class="fa fa-book" />
   </a>
   <a href="/electroblocks/file" class:active={segment === 'file'}>
-    <i class="fa fa-file" />
+    <i class="fa fa-folder-open" />
   </a>
-
+  <span>
+    <i class="fa fa-download" />
+  </span>
   <a href="/electroblocks/settings" class:active={segment === 'settings'}>
     <i class="fa fa-gears" />
   </a>
