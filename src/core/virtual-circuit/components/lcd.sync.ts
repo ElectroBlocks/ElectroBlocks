@@ -1,15 +1,15 @@
-import { SyncComponent, ResetComponent } from '../svg-sync';
+import { SyncComponent, ResetComponent } from "../svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from '../svg-create';
+} from "../svg-create";
 
-import { LCDScreenState } from '../../frames/arduino-components.state';
-import { Element, Svg, Text } from '@svgdotjs/svg.js';
-import { positionComponent } from '../svg-position';
-import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
-import { createGroundWire, createPowerWire, createWire } from '../wire';
+import { LCDScreenState } from "../../frames/arduino-components.state";
+import { Element, Svg, Text } from "@svgdotjs/svg.js";
+import { positionComponent } from "../svg-position";
+import { ARDUINO_UNO_PINS } from "../../blockly/selectBoard";
+import { createGroundWire, createPowerWire, createWire } from "../wire";
 
 /**
  * Timer for blinking
@@ -44,7 +44,7 @@ export const lcdPosition: PositionComponent<LCDScreenState> = (
     arduino,
     draw,
     ARDUINO_UNO_PINS.PIN_12,
-    'PIN_SCL'
+    "PIN_SCL"
   );
 
   lcdScreenEl.y(lcdScreenEl.y() - 30);
@@ -55,7 +55,7 @@ export const lcdReset: ResetComponent = (lcdScreenEl: Element) => {
     for (let col = 1; col <= 20; col += 1) {
       const letterEl = lcdScreenEl.findOne(`#letter-${col}-${row}`) as Element;
       if (letterEl) {
-        (letterEl as Text).text('');
+        (letterEl as Text).text("");
       }
     }
   }
@@ -71,7 +71,7 @@ export const lcdUpdate: SyncComponent = (
     for (let col = 1; col <= state.columns; col += 1) {
       const letterEl = lcdScreenEl.findOne(`#letter-${col}-${row}`) as Element;
       (letterEl as Text).node.innerHTML = state.rowsOfText[row - 1][col - 1];
-      letterEl.cx(state.rows === 4 ? 10 : 14); // 4 by 20 the squares are smaller
+      letterEl.cx(state.rows === 4 ? 12 : 22); // 4 by 20 the squares are smaller
     }
   }
   if (!state.blink.blinking) {
@@ -80,7 +80,7 @@ export const lcdUpdate: SyncComponent = (
     ) as Element;
 
     if (space) {
-      space.fill('#fff');
+      space.fill("#fff");
     }
     blinkPosition.row = 0;
     blinkPosition.col = 0;
@@ -99,7 +99,7 @@ export const lcdUpdate: SyncComponent = (
       ) as Element;
       if (space) {
         blinkingTimer = setInterval(() => {
-          space.fill(isDarkBlinking ? '#292827' : '#fff');
+          space.fill(isDarkBlinking ? "#292827" : "#fff");
           isDarkBlinking = !isDarkBlinking;
         }, 500);
       }
@@ -113,7 +113,7 @@ const centerLetters = (lcdScreenEl: Element, lcdState: LCDScreenState) => {
   for (let row = 1; row <= lcdState.rows; row += 1) {
     for (let col = 1; col <= lcdState.columns; col += 1) {
       const letterEl = lcdScreenEl.findOne(`#letter-${col}-${row}`) as Element;
-      letterEl.cx(lcdState.rows === 4 ? 10 : 14); // 4 by 20 the squares are smaller
+      letterEl.cx(lcdState.rows === 4 ? 12 : 22); // 4 by 20 the squares are smaller
     }
   }
 };
@@ -125,7 +125,7 @@ const toggleDarkLightScreen = (
   for (let row = 1; row <= lcdState.rows; row += 1) {
     for (let col = 1; col <= lcdState.columns; col += 1) {
       (lcdScreenEl.findOne(`#space-${col}-${row} rect`) as Element).fill(
-        lcdState.backLightOn ? '#fff' : '#292827'
+        lcdState.backLightOn ? "#fff" : "#292827"
       );
     }
   }
@@ -144,7 +144,7 @@ export const createWiresLcd: CreateWire<LCDScreenState> = (
     arduino as Svg,
     draw,
     id,
-    'left'
+    "left"
   );
 
   createPowerWire(
@@ -153,26 +153,26 @@ export const createWiresLcd: CreateWire<LCDScreenState> = (
     arduino as Svg,
     draw,
     id,
-    'left'
+    "left"
   );
 
   createWire(
     lcdEl,
     ARDUINO_UNO_PINS.PIN_A4,
-    'PIN_SDA',
+    "PIN_SDA",
     arduino,
     draw,
-    '#0071bc',
-    'sda'
+    "#0071bc",
+    "sda"
   );
 
   createWire(
     lcdEl,
     ARDUINO_UNO_PINS.PIN_A5,
-    'PIN_SCL',
+    "PIN_SCL",
     arduino,
     draw,
-    '#f15a24',
-    'scl'
+    "#f15a24",
+    "scl"
   );
 };

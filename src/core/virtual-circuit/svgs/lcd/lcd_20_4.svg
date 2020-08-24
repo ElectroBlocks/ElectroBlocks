@@ -1,491 +1,519 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="703.17" height="149.72" viewBox="0 0 703.17 149.72">
-  <title>lcd_20_4</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="803" height="147.2" viewBox="0 0 803 147.2">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill: #f7e8e8;
+      }
+
+      .cls-1, .cls-8 {
+        stroke: #c1272d;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-8 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        stroke: #000;
+      }
+
+      .cls-3 {
+        stroke: #0071bc;
+      }
+
+      .cls-4 {
+        stroke: #f15a24;
+      }
+
+      .cls-5 {
+        fill: #e5d6d6;
+      }
+
+      .cls-6 {
+        font-size: 21px;
+      }
+
+      .cls-6, .cls-7 {
+        font-family: Biryani-SemiBold, Biryani;
+        font-weight: 600;
+      }
+
+      .cls-7 {
+        font-size: 16.72px;
+        fill: #2d2d2d;
+      }
+
+      .cls-8 {
+        fill: none;
+      }
+
+      .cls-9 {
+        fill: #fff;
+      }
+
+      .cls-10 {
+        font-size: 36px;
+        font-family: PTMono-Regular, PT Mono;
+      }
+    </style>
+  </defs>
   <g id="WIRES">
-    <line id="_5V_BOX_1" x1="150.22" y1="18.63" x2="1" y2="18.63" stroke-width="2" stroke="#c1272d" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
-    <line id="GND_BOX_1" x1="151.21" y1="51.53" x2="37" y2="50.72" stroke-width="2" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
-    <line id="SDA_WIRE_2" x1="150.21" y1="83.58" x2="72" y2="83.58" stroke-width="2" stroke="#0071bc" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
-    <line id="SCL_WIRE_1" x1="150.21" y1="115.63" x2="108" y2="115.72" stroke-width="2" stroke="#f15a24" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
-    <rect x="183.03" y="121.44" width="129.32" height="51.31" transform="translate(318.79 -178.87) rotate(90)" fill="#e5d6d6"/>
-    <text transform="translate(71.72 81.05) rotate(0.72)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">A4</text>
-    <text transform="translate(107.72 112.05) rotate(0.72)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
-    <text id="VCC_TEXT" transform="translate(149.4 24.06)" font-size="16.72" fill="#2d2d2d" font-family="Biryani-SemiBold, Biryani" font-weight="600">VCC</text>
-    <text id="GND_TEXT" transform="translate(149.4 57.5)" font-size="16.72" fill="#2d2d2d" font-family="Biryani-SemiBold, Biryani" font-weight="600">GND</text>
-    <text id="GND_TEXT-2" data-name="GND_TEXT" transform="translate(149.4 89.55)" font-size="16.72" fill="#2d2d2d" font-family="Biryani-SemiBold, Biryani" font-weight="600">SDA</text>
-    <text id="GND_TEXT-3" data-name="GND_TEXT" transform="translate(149.4 121.59)" font-size="16.72" fill="#2d2d2d" font-family="Biryani-SemiBold, Biryani" font-weight="600">SCL</text>
-    <line id="PIN_POWER" x1="1" y1="18.88" x2="1" y2="50.72" stroke-width="2" stroke="#c1272d" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <line id="PIN_GND" x1="37" y1="50.72" x2="37" y2="80.72" stroke-width="2" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
-    <line id="PIN_SDA" x1="72" y1="83.72" x2="72" y2="114.72" stroke-width="2" stroke="#0071bc" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
-    <line id="PIN_SCL" x1="108" y1="115.72" x2="108" y2="148.72" stroke-width="2" stroke="#f15a24" stroke-linecap="round" stroke-linejoin="round" fill="#f7e8e8"/>
-  </g>
-  <g id="background">
-    <rect id="base" x="205.74" width="497.43" height="139.47" fill="#39b54a"/>
+    <line id="_5V_BOX_1" class="cls-1" x1="150.22" y1="16.11" x2="1" y2="16.11"/>
+    <line id="GND_BOX_1" class="cls-2" x1="151.21" y1="49.01" x2="37" y2="48.2"/>
+    <line id="SDA_WIRE_2" class="cls-3" x1="150.21" y1="81.06" x2="72" y2="81.06"/>
+    <line id="SCL_WIRE_1" class="cls-4" x1="150.21" y1="113.11" x2="108" y2="113.2"/>
+    <rect class="cls-5" x="183.03" y="121.44" width="129.32" height="51.31" transform="translate(318.79 -181.4) rotate(90)"/>
+    <text class="cls-6" transform="translate(71.72 78.52) rotate(0.72)">A4</text>
+    <text class="cls-6" transform="translate(107.72 109.52) rotate(0.72)">A5</text>
+    <text id="VCC_TEXT" class="cls-7" transform="translate(149.4 21.53)">VCC</text>
+    <text id="GND_TEXT" class="cls-7" transform="translate(149.4 54.97)">GND</text>
+    <text id="GND_TEXT-2" data-name="GND_TEXT" class="cls-7" transform="translate(149.4 87.02)">SDA</text>
+    <text id="GND_TEXT-3" data-name="GND_TEXT" class="cls-7" transform="translate(149.4 119.07)">SCL</text>
+    <line id="PIN_POWER" class="cls-8" x1="1" y1="16.35" x2="1" y2="48.2"/>
+    <line id="PIN_GND" class="cls-2" x1="37" y1="48.2" x2="37" y2="78.2"/>
+    <line id="PIN_SDA" class="cls-3" x1="72" y1="81.2" x2="72" y2="112.2"/>
+    <line id="PIN_SCL" class="cls-4" x1="108" y1="113.2" x2="108" y2="146.2"/>
   </g>
   <g id="col-20">
     <g id="space-20-1">
-      <rect x="672.21" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M771.1,104.64V127H748.71V104.64H771.1m1-1H747.71V128H772.1V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="773.11" y="1.7" width="29.39" height="32"/>
+      <path d="M878,83v31H849.61V83H878m1-1H848.61v33H879V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-20-1" transform="translate(674.11 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-20-1" class="cls-10" transform="translate(776.6 30.69) scale(0.92 1)">W</text>
     <g id="space-20-2">
-      <rect x="672.21" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M771.1,128.53v22.39H748.71V128.53H771.1m1-1H747.71v24.39H772.1V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="773.11" y="34.03" width="29.39" height="32"/>
+      <path d="M878,115.34v31H849.61v-31H878m1-1H848.61v33H879v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-20-2" transform="translate(674.11 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-20-2" class="cls-10" transform="translate(776.6 63.03) scale(0.92 1)">W</text>
     <g id="space-20-3">
-      <rect x="672.21" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M771.1,152.43v22.38H748.71V152.43H771.1m1-1H747.71v24.38H772.1V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="773.11" y="66.37" width="29.39" height="32"/>
+      <path d="M878,147.67v31H849.61v-31H878m1-1H848.61v33H879v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-20-3" transform="translate(674.11 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-20-3" class="cls-10" transform="translate(776.6 95.36) scale(0.92 1)">W</text>
     <g id="space-20-4">
-      <rect x="672.21" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M771.1,176.33v22.38H748.71V176.33H771.1m1-1H747.71v24.38H772.1V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="773.11" y="98.7" width="29.39" height="32"/>
+      <path d="M878,180v31H849.61V180H878m1-1H848.61v33H879V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-20-4" transform="translate(674.11 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-20-4" class="cls-10" transform="translate(776.6 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-19">
     <g id="space-19-1">
-      <rect x="648.32" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M747.2,104.64V127H724.82V104.64H747.2m1-1H723.82V128H748.2V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="743.33" y="1.7" width="29.39" height="32"/>
+      <path d="M848.22,83v31H819.83V83h28.39m1-1H818.83v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-19-1" transform="translate(650.22 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-19-1" class="cls-10" transform="translate(746.82 30.69) scale(0.92 1)">W</text>
     <g id="space-19-2">
-      <rect x="648.32" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M747.2,128.53v22.39H724.82V128.53H747.2m1-1H723.82v24.39H748.2V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="743.33" y="34.03" width="29.39" height="32"/>
+      <path d="M848.22,115.34v31H819.83v-31h28.39m1-1H818.83v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-19-2" transform="translate(650.22 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-19-2" class="cls-10" transform="translate(746.82 63.03) scale(0.92 1)">W</text>
     <g id="space-19-3">
-      <rect x="648.32" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M747.2,152.43v22.38H724.82V152.43H747.2m1-1H723.82v24.38H748.2V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="743.33" y="66.37" width="29.39" height="32"/>
+      <path d="M848.22,147.67v31H819.83v-31h28.39m1-1H818.83v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-19-3" transform="translate(650.22 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-19-3" class="cls-10" transform="translate(746.82 95.36) scale(0.92 1)">W</text>
     <g id="space-19-4">
-      <rect x="648.32" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M747.2,176.33v22.38H724.82V176.33H747.2m1-1H723.82v24.38H748.2V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="743.33" y="98.7" width="29.39" height="32"/>
+      <path d="M848.22,180v31H819.83V180h28.39m1-1H818.83v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-19-4" transform="translate(650.22 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-19-4" class="cls-10" transform="translate(746.82 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-18">
     <g id="space-18-1">
-      <rect x="624.42" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M723.31,104.64V127H700.92V104.64h22.39m1-1H699.92V128h24.39V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="713.55" y="1.7" width="29.39" height="32"/>
+      <path d="M818.44,83v31H790.05V83h28.39m1-1H789.05v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-18-1" transform="translate(626.32 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-18-1" class="cls-10" transform="translate(717.04 30.69) scale(0.92 1)">W</text>
     <g id="space-18-2">
-      <rect x="624.42" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M723.31,128.53v22.39H700.92V128.53h22.39m1-1H699.92v24.39h24.39V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="713.55" y="34.03" width="29.39" height="32"/>
+      <path d="M818.44,115.34v31H790.05v-31h28.39m1-1H789.05v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-18-2" transform="translate(626.32 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-18-2" class="cls-10" transform="translate(717.04 63.03) scale(0.92 1)">W</text>
     <g id="space-18-3">
-      <rect x="624.42" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M723.31,152.43v22.38H700.92V152.43h22.39m1-1H699.92v24.38h24.39V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="713.55" y="66.37" width="29.39" height="32"/>
+      <path d="M818.44,147.67v31H790.05v-31h28.39m1-1H789.05v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-18-3" transform="translate(626.32 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-18-3" class="cls-10" transform="translate(717.04 95.36) scale(0.92 1)">W</text>
     <g id="space-18-4">
-      <rect x="624.42" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M723.31,176.33v22.38H700.92V176.33h22.39m1-1H699.92v24.38h24.39V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="713.55" y="98.7" width="29.39" height="32"/>
+      <path d="M818.44,180v31H790.05V180h28.39m1-1H789.05v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-18-4" transform="translate(626.32 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-18-4" class="cls-10" transform="translate(717.04 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-17">
     <g id="space-17-1">
-      <rect x="600.53" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M699.41,104.64V127H677V104.64h22.38m1-1H676V128h24.38V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="683.77" y="1.7" width="29.39" height="32"/>
+      <path d="M788.66,83v31H760.27V83h28.39m1-1H759.27v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-17-1" transform="translate(602.42 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-17-1" class="cls-10" transform="translate(687.26 30.69) scale(0.92 1)">W</text>
     <g id="space-17-2">
-      <rect x="600.53" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M699.41,128.53v22.39H677V128.53h22.38m1-1H676v24.39h24.38V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="683.77" y="34.03" width="29.39" height="32"/>
+      <path d="M788.66,115.34v31H760.27v-31h28.39m1-1H759.27v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-17-2" transform="translate(602.42 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-17-2" class="cls-10" transform="translate(687.26 63.03) scale(0.92 1)">W</text>
     <g id="space-17-3">
-      <rect x="600.53" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M699.41,152.43v22.38H677V152.43h22.38m1-1H676v24.38h24.38V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="683.77" y="66.37" width="29.39" height="32"/>
+      <path d="M788.66,147.67v31H760.27v-31h28.39m1-1H759.27v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-17-3" transform="translate(602.42 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-17-3" class="cls-10" transform="translate(687.26 95.36) scale(0.92 1)">W</text>
     <g id="space-17-4">
-      <rect x="600.53" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M699.41,176.33v22.38H677V176.33h22.38m1-1H676v24.38h24.38V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="683.77" y="98.7" width="29.39" height="32"/>
+      <path d="M788.66,180v31H760.27V180h28.39m1-1H759.27v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-17-4" transform="translate(602.42 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-17-4" class="cls-10" transform="translate(687.26 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-16">
     <g id="space-16-1">
-      <rect x="576.63" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M675.51,104.64V127H653.13V104.64h22.38m1-1H652.13V128h24.38V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="653.99" y="1.7" width="29.39" height="32"/>
+      <path d="M758.88,83v31H730.49V83h28.39m1-1H729.49v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-16-1" transform="translate(578.53 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-16-1" class="cls-10" transform="translate(657.48 30.69) scale(0.92 1)">W</text>
     <g id="space-16-2">
-      <rect x="576.63" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M675.51,128.53v22.39H653.13V128.53h22.38m1-1H652.13v24.39h24.38V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="653.99" y="34.03" width="29.39" height="32"/>
+      <path d="M758.88,115.34v31H730.49v-31h28.39m1-1H729.49v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-16-2" transform="translate(578.53 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-16-2" class="cls-10" transform="translate(657.48 63.03) scale(0.92 1)">W</text>
     <g id="space-16-3">
-      <rect x="576.63" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M675.51,152.43v22.38H653.13V152.43h22.38m1-1H652.13v24.38h24.38V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="653.99" y="66.37" width="29.39" height="32"/>
+      <path d="M758.88,147.67v31H730.49v-31h28.39m1-1H729.49v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-16-3" transform="translate(578.53 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-16-3" class="cls-10" transform="translate(657.48 95.36) scale(0.92 1)">W</text>
     <g id="space-16-4">
-      <rect x="576.63" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M675.51,176.33v22.38H653.13V176.33h22.38m1-1H652.13v24.38h24.38V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="653.99" y="98.7" width="29.39" height="32"/>
+      <path d="M758.88,180v31H730.49V180h28.39m1-1H729.49v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-16-4" transform="translate(578.53 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-16-4" class="cls-10" transform="translate(657.48 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-15">
     <g id="space-15-1">
-      <rect x="552.73" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M651.62,104.64V127H629.23V104.64h22.39m1-1H628.23V128h24.39V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="624.21" y="1.7" width="29.39" height="32"/>
+      <path d="M729.1,83v31H700.71V83H729.1m1-1H699.71v33H730.1V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-15-1" transform="translate(554.63 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-15-1" class="cls-10" transform="translate(627.7 30.69) scale(0.92 1)">W</text>
     <g id="space-15-2">
-      <rect x="552.73" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M651.62,128.53v22.39H629.23V128.53h22.39m1-1H628.23v24.39h24.39V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="624.21" y="34.03" width="29.39" height="32"/>
+      <path d="M729.1,115.34v31H700.71v-31H729.1m1-1H699.71v33H730.1v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-15-2" transform="translate(554.63 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-15-2" class="cls-10" transform="translate(627.7 63.03) scale(0.92 1)">W</text>
     <g id="space-15-3">
-      <rect x="552.73" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M651.62,152.43v22.38H629.23V152.43h22.39m1-1H628.23v24.38h24.39V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="624.21" y="66.37" width="29.39" height="32"/>
+      <path d="M729.1,147.67v31H700.71v-31H729.1m1-1H699.71v33H730.1v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-15-3" transform="translate(554.63 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-15-3" class="cls-10" transform="translate(627.7 95.36) scale(0.92 1)">W</text>
     <g id="space-15-4">
-      <rect x="552.73" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M651.62,176.33v22.38H629.23V176.33h22.39m1-1H628.23v24.38h24.39V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="624.21" y="98.7" width="29.39" height="32"/>
+      <path d="M729.1,180v31H700.71V180H729.1m1-1H699.71v33H730.1V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-15-4" transform="translate(554.63 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-15-4" class="cls-10" transform="translate(627.7 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-14">
     <g id="space-14-1">
-      <rect x="528.83" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M627.72,104.64V127H605.33V104.64h22.39m1-1H604.33V128h24.39V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="594.42" y="1.7" width="29.39" height="32"/>
+      <path d="M699.31,83v31H670.92V83h28.39m1-1H669.92v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-14-1" transform="translate(530.73 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-14-1" class="cls-10" transform="translate(597.91 30.69) scale(0.92 1)">W</text>
     <g id="space-14-2">
-      <rect x="528.83" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M627.72,128.53v22.39H605.33V128.53h22.39m1-1H604.33v24.39h24.39V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="594.42" y="34.03" width="29.39" height="32"/>
+      <path d="M699.31,115.34v31H670.92v-31h28.39m1-1H669.92v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-14-2" transform="translate(530.73 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-14-2" class="cls-10" transform="translate(597.91 63.03) scale(0.92 1)">W</text>
     <g id="space-14-3">
-      <rect x="528.83" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M627.72,152.43v22.38H605.33V152.43h22.39m1-1H604.33v24.38h24.39V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="594.42" y="66.37" width="29.39" height="32"/>
+      <path d="M699.31,147.67v31H670.92v-31h28.39m1-1H669.92v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-14-3" transform="translate(530.73 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-14-3" class="cls-10" transform="translate(597.91 95.36) scale(0.92 1)">W</text>
     <g id="space-14-4">
-      <rect x="528.83" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M627.72,176.33v22.38H605.33V176.33h22.39m1-1H604.33v24.38h24.39V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="594.42" y="98.7" width="29.39" height="32"/>
+      <path d="M699.31,180v31H670.92V180h28.39m1-1H669.92v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-14-4" transform="translate(530.73 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-14-4" class="cls-10" transform="translate(597.91 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-13">
     <g id="space-13-1">
-      <rect x="504.92" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M603.81,104.64V127H581.42V104.64h22.39m1-1H580.42V128h24.39V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="564.62" y="1.7" width="29.39" height="32"/>
+      <path d="M669.51,83v31H641.12V83h28.39m1-1H640.12v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-13-1" transform="translate(506.82 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-13-1" class="cls-10" transform="translate(568.11 30.69) scale(0.92 1)">W</text>
     <g id="space-13-2">
-      <rect x="504.92" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M603.81,128.53v22.39H581.42V128.53h22.39m1-1H580.42v24.39h24.39V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="564.62" y="34.03" width="29.39" height="32"/>
+      <path d="M669.51,115.34v31H641.12v-31h28.39m1-1H640.12v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-13-2" transform="translate(506.82 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-13-2" class="cls-10" transform="translate(568.11 63.03) scale(0.92 1)">W</text>
     <g id="space-13-3">
-      <rect x="504.92" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M603.81,152.43v22.38H581.42V152.43h22.39m1-1H580.42v24.38h24.39V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="564.62" y="66.37" width="29.39" height="32"/>
+      <path d="M669.51,147.67v31H641.12v-31h28.39m1-1H640.12v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-13-3" transform="translate(506.82 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-13-3" class="cls-10" transform="translate(568.11 95.36) scale(0.92 1)">W</text>
     <g id="space-13-4">
-      <rect x="504.92" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M603.81,176.33v22.38H581.42V176.33h22.39m1-1H580.42v24.38h24.39V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="564.62" y="98.7" width="29.39" height="32"/>
+      <path d="M669.51,180v31H641.12V180h28.39m1-1H640.12v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-13-4" transform="translate(506.82 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-13-4" class="cls-10" transform="translate(568.11 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-12">
     <g id="space-12-1">
-      <rect x="480.99" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M579.87,104.64V127H557.48V104.64h22.39m1-1H556.48V128h24.39V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="534.79" y="1.7" width="29.39" height="32"/>
+      <path d="M639.68,83v31H611.29V83h28.39m1-1H610.29v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-12-1" transform="translate(482.88 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-12-1" class="cls-10" transform="translate(538.28 30.69) scale(0.92 1)">W</text>
     <g id="space-12-2">
-      <rect x="480.99" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M579.87,128.53v22.39H557.48V128.53h22.39m1-1H556.48v24.39h24.39V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="534.79" y="34.03" width="29.39" height="32"/>
+      <path d="M639.68,115.34v31H611.29v-31h28.39m1-1H610.29v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-12-2" transform="translate(482.88 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-12-2" class="cls-10" transform="translate(538.28 63.03) scale(0.92 1)">W</text>
     <g id="space-12-3">
-      <rect x="480.99" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M579.87,152.43v22.38H557.48V152.43h22.39m1-1H556.48v24.38h24.39V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="534.79" y="66.37" width="29.39" height="32"/>
+      <path d="M639.68,147.67v31H611.29v-31h28.39m1-1H610.29v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-12-3" transform="translate(482.88 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-12-3" class="cls-10" transform="translate(538.28 95.36) scale(0.92 1)">W</text>
     <g id="space-12-4">
-      <rect x="480.99" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M579.87,176.33v22.38H557.48V176.33h22.39m1-1H556.48v24.38h24.39V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="534.79" y="98.7" width="29.39" height="32"/>
+      <path d="M639.68,180v31H611.29V180h28.39m1-1H610.29v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-12-4" transform="translate(482.88 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-12-4" class="cls-10" transform="translate(538.28 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-11">
     <g id="space-11-1">
-      <rect x="456.97" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M555.85,104.64V127H533.47V104.64h22.38m1-1H532.47V128h24.38V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="504.86" y="1.7" width="29.39" height="32"/>
+      <path d="M609.75,83v31H581.36V83h28.39m1-1H580.36v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-11-1" transform="translate(458.86 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-11-1" class="cls-10" transform="translate(508.35 30.69) scale(0.92 1)">W</text>
     <g id="space-11-2">
-      <rect x="456.97" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M555.85,128.53v22.39H533.47V128.53h22.38m1-1H532.47v24.39h24.38V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="504.86" y="34.03" width="29.39" height="32"/>
+      <path d="M609.75,115.34v31H581.36v-31h28.39m1-1H580.36v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-11-2" transform="translate(458.86 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-11-2" class="cls-10" transform="translate(508.35 63.03) scale(0.92 1)">W</text>
     <g id="space-11-3">
-      <rect x="456.97" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M555.85,152.43v22.38H533.47V152.43h22.38m1-1H532.47v24.38h24.38V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="504.86" y="66.37" width="29.39" height="32"/>
+      <path d="M609.75,147.67v31H581.36v-31h28.39m1-1H580.36v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-11-3" transform="translate(458.86 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-11-3" class="cls-10" transform="translate(508.35 95.36) scale(0.92 1)">W</text>
     <g id="space-11-4">
-      <rect x="456.97" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M555.85,176.33v22.38H533.47V176.33h22.38m1-1H532.47v24.38h24.38V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="504.86" y="98.7" width="29.39" height="32"/>
+      <path d="M609.75,180v31H581.36V180h28.39m1-1H580.36v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-11-4" transform="translate(458.86 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-11-4" class="cls-10" transform="translate(508.35 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-10">
     <g id="space-10-1">
-      <rect x="433.07" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M532,104.64V127H509.57V104.64H532m1-1H508.57V128H533V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="475.08" y="1.7" width="29.39" height="32"/>
+      <path d="M580,83v31H551.58V83H580m1-1H550.58v33H581V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-10-1" transform="translate(434.97 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-10-1" class="cls-10" transform="translate(478.57 30.69) scale(0.92 1)">W</text>
     <g id="space-10-2">
-      <rect x="433.07" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M532,128.53v22.39H509.57V128.53H532m1-1H508.57v24.39H533V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="475.08" y="34.03" width="29.39" height="32"/>
+      <path d="M580,115.34v31H551.58v-31H580m1-1H550.58v33H581v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-10-2" transform="translate(434.97 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-10-2" class="cls-10" transform="translate(478.57 63.03) scale(0.92 1)">W</text>
     <g id="space-10-3">
-      <rect x="433.07" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M532,152.43v22.38H509.57V152.43H532m1-1H508.57v24.38H533V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="475.08" y="66.37" width="29.39" height="32"/>
+      <path d="M580,147.67v31H551.58v-31H580m1-1H550.58v33H581v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-10-3" transform="translate(434.97 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-10-3" class="cls-10" transform="translate(478.57 95.36) scale(0.92 1)">W</text>
     <g id="space-10-4">
-      <rect x="433.07" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M532,176.33v22.38H509.57V176.33H532m1-1H508.57v24.38H533V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="475.08" y="98.7" width="29.39" height="32"/>
+      <path d="M580,180v31H551.58V180H580m1-1H550.58v33H581V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-10-4" transform="translate(434.97 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-10-4" class="cls-10" transform="translate(478.57 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-9">
     <g id="space-9-1">
-      <rect x="409.75" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M508.64,104.64V127H486.25V104.64h22.39m1-1H485.25V128h24.39V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="446.02" y="1.7" width="29.39" height="32"/>
+      <path d="M550.91,83v31H522.52V83h28.39m1-1H521.52v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-9-1" transform="translate(411.65 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-9-1" class="cls-10" transform="translate(449.51 30.69) scale(0.92 1)">W</text>
     <g id="space-9-2">
-      <rect x="409.75" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M508.64,128.53v22.39H486.25V128.53h22.39m1-1H485.25v24.39h24.39V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="446.02" y="34.03" width="29.39" height="32"/>
+      <path d="M550.91,115.34v31H522.52v-31h28.39m1-1H521.52v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-9-2" transform="translate(411.65 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-9-2" class="cls-10" transform="translate(449.51 63.03) scale(0.92 1)">W</text>
     <g id="space-9-3">
-      <rect x="409.75" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M508.64,152.43v22.38H486.25V152.43h22.39m1-1H485.25v24.38h24.39V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="446.02" y="66.37" width="29.39" height="32"/>
+      <path d="M550.91,147.67v31H522.52v-31h28.39m1-1H521.52v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-9-3" transform="translate(411.65 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-9-3" class="cls-10" transform="translate(449.51 95.36) scale(0.92 1)">W</text>
     <g id="space-9-4">
-      <rect x="409.75" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M508.64,176.33v22.38H486.25V176.33h22.39m1-1H485.25v24.38h24.39V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="446.02" y="98.7" width="29.39" height="32"/>
+      <path d="M550.91,180v31H522.52V180h28.39m1-1H521.52v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-9-4" transform="translate(411.65 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-9-4" class="cls-10" transform="translate(449.51 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-8">
     <g id="space-8-1">
-      <rect x="385.86" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M484.74,104.64V127H462.36V104.64h22.38m1-1H461.36V128h24.38V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="416.24" y="1.7" width="29.39" height="32"/>
+      <path d="M521.13,83v31H492.74V83h28.39m1-1H491.74v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-8-1" transform="translate(387.76 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-8-1" class="cls-10" transform="translate(419.73 30.69) scale(0.92 1)">W</text>
     <g id="space-8-2">
-      <rect x="385.86" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M484.74,128.53v22.39H462.36V128.53h22.38m1-1H461.36v24.39h24.38V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="416.24" y="34.03" width="29.39" height="32"/>
+      <path d="M521.13,115.34v31H492.74v-31h28.39m1-1H491.74v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-8-2" transform="translate(387.76 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-8-2" class="cls-10" transform="translate(419.73 63.03) scale(0.92 1)">W</text>
     <g id="space-8-3">
-      <rect x="385.86" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M484.74,152.43v22.38H462.36V152.43h22.38m1-1H461.36v24.38h24.38V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="416.24" y="66.37" width="29.39" height="32"/>
+      <path d="M521.13,147.67v31H492.74v-31h28.39m1-1H491.74v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-8-3" transform="translate(387.76 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-8-3" class="cls-10" transform="translate(419.73 95.36) scale(0.92 1)">W</text>
     <g id="space-8-4">
-      <rect x="385.86" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M484.74,176.33v22.38H462.36V176.33h22.38m1-1H461.36v24.38h24.38V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="416.24" y="98.7" width="29.39" height="32"/>
+      <path d="M521.13,180v31H492.74V180h28.39m1-1H491.74v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-8-4" transform="translate(387.76 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-8-4" class="cls-10" transform="translate(419.73 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-7">
     <g id="space-7-1">
-      <rect x="361.96" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M460.85,104.64V127H438.46V104.64h22.39m1-1H437.46V128h24.39V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="386.46" y="1.7" width="29.39" height="32"/>
+      <path d="M491.35,83v31H463V83h28.39m1-1H462v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-7-1" transform="translate(363.86 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-7-1" class="cls-10" transform="translate(389.95 30.69) scale(0.92 1)">W</text>
     <g id="space-7-2">
-      <rect x="361.96" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M460.85,128.53v22.39H438.46V128.53h22.39m1-1H437.46v24.39h24.39V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="386.46" y="34.03" width="29.39" height="32"/>
+      <path d="M491.35,115.34v31H463v-31h28.39m1-1H462v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-7-2" transform="translate(363.86 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-7-2" class="cls-10" transform="translate(389.95 63.03) scale(0.92 1)">W</text>
     <g id="space-7-3">
-      <rect x="361.96" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M460.85,152.43v22.38H438.46V152.43h22.39m1-1H437.46v24.38h24.39V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="386.46" y="66.37" width="29.39" height="32"/>
+      <path d="M491.35,147.67v31H463v-31h28.39m1-1H462v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-7-3" transform="translate(363.86 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-7-3" class="cls-10" transform="translate(389.95 95.36) scale(0.92 1)">W</text>
     <g id="space-7-4">
-      <rect x="361.96" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M460.85,176.33v22.38H438.46V176.33h22.39m1-1H437.46v24.38h24.39V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="386.46" y="98.7" width="29.39" height="32"/>
+      <path d="M491.35,180v31H463V180h28.39m1-1H462v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-7-4" transform="translate(363.86 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-7-4" class="cls-10" transform="translate(389.95 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-6">
     <g id="space-6-1">
-      <rect x="338.07" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M437,104.64V127H414.57V104.64H437m1-1H413.57V128H438V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="356.68" y="1.7" width="29.39" height="32"/>
+      <path d="M461.57,83v31H433.18V83h28.39m1-1H432.18v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-6-1" transform="translate(339.96 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-6-1" class="cls-10" transform="translate(360.17 30.69) scale(0.92 1)">W</text>
     <g id="space-6-2">
-      <rect x="338.07" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M437,128.53v22.39H414.57V128.53H437m1-1H413.57v24.39H438V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="356.68" y="34.03" width="29.39" height="32"/>
+      <path d="M461.57,115.34v31H433.18v-31h28.39m1-1H432.18v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-6-2" transform="translate(339.96 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-6-2" class="cls-10" transform="translate(360.17 63.03) scale(0.92 1)">W</text>
     <g id="space-6-3">
-      <rect x="338.07" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M437,152.43v22.38H414.57V152.43H437m1-1H413.57v24.38H438V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="356.68" y="66.37" width="29.39" height="32"/>
+      <path d="M461.57,147.67v31H433.18v-31h28.39m1-1H432.18v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-6-3" transform="translate(339.96 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-6-3" class="cls-10" transform="translate(360.17 95.36) scale(0.92 1)">W</text>
     <g id="space-6-4">
-      <rect x="338.07" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M437,176.33v22.38H414.57V176.33H437m1-1H413.57v24.38H438V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="356.68" y="98.7" width="29.39" height="32"/>
+      <path d="M461.57,180v31H433.18V180h28.39m1-1H432.18v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-6-4" transform="translate(339.96 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-6-4" class="cls-10" transform="translate(360.17 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-5">
     <g id="space-5-1">
-      <rect x="314.17" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M413.05,104.64V127H390.67V104.64h22.38m1-1H389.67V128h24.38V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="326.9" y="1.7" width="29.39" height="32"/>
+      <path d="M431.79,83v31H403.4V83h28.39m1-1H402.4v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-5-1" transform="translate(316.07 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-5-1" class="cls-10" transform="translate(330.39 30.69) scale(0.92 1)">W</text>
     <g id="space-5-2">
-      <rect x="314.17" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M413.05,128.53v22.39H390.67V128.53h22.38m1-1H389.67v24.39h24.38V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="326.9" y="34.03" width="29.39" height="32"/>
+      <path d="M431.79,115.34v31H403.4v-31h28.39m1-1H402.4v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-5-2" transform="translate(316.07 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-5-2" class="cls-10" transform="translate(330.39 63.03) scale(0.92 1)">W</text>
     <g id="space-5-3">
-      <rect x="314.17" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M413.05,152.43v22.38H390.67V152.43h22.38m1-1H389.67v24.38h24.38V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="326.9" y="66.37" width="29.39" height="32"/>
+      <path d="M431.79,147.67v31H403.4v-31h28.39m1-1H402.4v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-5-3" transform="translate(316.07 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-5-3" class="cls-10" transform="translate(330.39 95.36) scale(0.92 1)">W</text>
     <g id="space-5-4">
-      <rect x="314.17" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M413.05,176.33v22.38H390.67V176.33h22.38m1-1H389.67v24.38h24.38V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="326.9" y="98.7" width="29.39" height="32"/>
+      <path d="M431.79,180v31H403.4V180h28.39m1-1H402.4v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-5-4" transform="translate(316.07 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-5-4" class="cls-10" transform="translate(330.39 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-4">
     <g id="space-4-1">
-      <rect x="290.47" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M389.36,104.64V127H367V104.64h22.39m1-1H366V128h24.39V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="297.37" y="1.7" width="29.39" height="32"/>
+      <path d="M402.25,83v31H373.87V83h28.38m1-1H372.87v33h30.38V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-4-1" transform="translate(292.75 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-4-1" class="cls-10" transform="translate(301.33 30.69) scale(0.92 1)">W</text>
     <g id="space-4-2">
-      <rect x="290.47" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M389.36,128.53v22.39H367V128.53h22.39m1-1H366v24.39h24.39V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="297.37" y="34.03" width="29.39" height="32"/>
+      <path d="M402.25,115.34v31H373.87v-31h28.38m1-1H372.87v33h30.38v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-4-2" transform="translate(292.75 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-4-2" class="cls-10" transform="translate(301.33 63.03) scale(0.92 1)">W</text>
     <g id="space-4-3">
-      <rect x="290.47" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M389.36,152.43v22.38H367V152.43h22.39m1-1H366v24.38h24.39V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="297.37" y="66.37" width="29.39" height="32"/>
+      <path d="M402.25,147.67v31H373.87v-31h28.38m1-1H372.87v33h30.38v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-4-3" transform="translate(292.75 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-4-3" class="cls-10" transform="translate(301.33 95.36) scale(0.92 1)">W</text>
     <g id="space-4-4">
-      <rect x="290.47" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M389.36,176.33v22.38H367V176.33h22.39m1-1H366v24.38h24.39V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="297.37" y="98.7" width="29.39" height="32"/>
+      <path d="M402.25,180v31H373.87V180h28.38m1-1H372.87v33h30.38V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-4-4" transform="translate(292.75 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-4-4" class="cls-10" transform="translate(301.33 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-3">
     <g id="space-3-1">
-      <rect x="266.58" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M365.46,104.64V127H343.08V104.64h22.38m1-1H342.08V128h24.38V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="267.58" y="1.7" width="29.39" height="32"/>
+      <path d="M372.47,83v31H344.09V83h28.38m1-1H343.09v33h30.38V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-3-1" transform="translate(268.86 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-3-1" class="cls-10" transform="translate(271.55 30.69) scale(0.92 1)">W</text>
     <g id="space-3-2">
-      <rect x="266.58" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M365.46,128.53v22.39H343.08V128.53h22.38m1-1H342.08v24.39h24.38V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="267.58" y="34.03" width="29.39" height="32"/>
+      <path d="M372.47,115.34v31H344.09v-31h28.38m1-1H343.09v33h30.38v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-3-2" transform="translate(268.86 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-3-2" class="cls-10" transform="translate(271.55 63.03) scale(0.92 1)">W</text>
     <g id="space-3-3">
-      <rect x="266.58" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M365.46,152.43v22.38H343.08V152.43h22.38m1-1H342.08v24.38h24.38V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="267.58" y="66.37" width="29.39" height="32"/>
+      <path d="M372.47,147.67v31H344.09v-31h28.38m1-1H343.09v33h30.38v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-3-3" transform="translate(268.86 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-3-3" class="cls-10" transform="translate(271.55 95.36) scale(0.92 1)">W</text>
     <g id="space-3-4">
-      <rect x="266.58" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M365.46,176.33v22.38H343.08V176.33h22.38m1-1H342.08v24.38h24.38V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="267.58" y="98.7" width="29.39" height="32"/>
+      <path d="M372.47,180v31H344.09V180h28.38m1-1H343.09v33h30.38V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-3-4" transform="translate(268.86 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-3-4" class="cls-10" transform="translate(271.55 127.69) scale(0.92 1)">W</text>
   </g>
   <g id="col-2">
     <g id="space-2-1">
-      <rect x="243.06" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M342,104.64V127H319.56V104.64H342m1-1H318.56V128H343V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="238.28" y="1.7" width="29.39" height="32"/>
+      <path d="M343.17,83v31H314.78V83h28.39m1-1H313.78v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-2-1" transform="translate(243.68 44.87) rotate(1.04)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-2-1" class="cls-10" transform="matrix(0.92, 0.02, -0.02, 1, 240.18, 30.6)">W</text>
     <g id="space-2-2">
-      <rect x="243.06" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M342,128.53v22.39H319.56V128.53H342m1-1H318.56v24.39H343V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="238.28" y="34.03" width="29.39" height="32"/>
+      <path d="M343.17,115.34v31H314.78v-31h28.39m1-1H313.78v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-2-2" transform="translate(244.97 68.77) rotate(1.04)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-2-2" class="cls-10" transform="matrix(0.92, 0.02, -0.02, 1, 241.78, 62.93)">W</text>
     <g id="space-2-3">
-      <rect x="243.06" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M342,152.43v22.38H319.56V152.43H342m1-1H318.56v24.38H343V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="238.28" y="66.37" width="29.39" height="32"/>
+      <path d="M343.17,147.67v31H314.78v-31h28.39m1-1H313.78v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-2-3" transform="translate(244.97 92.66) rotate(1.04)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-2-3" class="cls-10" transform="matrix(0.92, 0.02, -0.02, 1, 241.78, 95.27)">W</text>
     <g id="space-2-4">
-      <rect x="243.06" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M342,176.33v22.38H319.56V176.33H342m1-1H318.56v24.38H343V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="238.28" y="98.7" width="29.39" height="32"/>
+      <path d="M343.17,180v31H314.78V180h28.39m1-1H313.78v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-2-4" transform="translate(244.97 116.56) rotate(1.04)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-2-4" class="cls-10" transform="matrix(0.92, 0.02, -0.02, 1, 241.78, 127.6)">W</text>
   </g>
   <g id="col-1">
     <g id="space-1-1">
-      <rect x="219.17" y="25.86" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M318.05,104.64V127H295.67V104.64h22.38m1-1H294.67V128h24.38V103.64Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="208.5" y="1.7" width="29.39" height="32"/>
+      <path d="M313.39,83v31H285V83h28.39m1-1H284v33h30.39V82Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-1-1" transform="translate(220.84 44.94)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-1-1" class="cls-10" transform="translate(211.72 30.69) scale(0.92 1)">W</text>
     <g id="space-1-2">
-      <rect x="219.17" y="49.76" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M318.05,128.53v22.39H295.67V128.53h22.38m1-1H294.67v24.39h24.38V127.53Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="208.5" y="34.03" width="29.39" height="32"/>
+      <path d="M313.39,115.34v31H285v-31h28.39m1-1H284v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-1-2" transform="translate(220.84 68.84)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-1-2" class="cls-10" transform="translate(211.72 63.03) scale(0.92 1)">W</text>
     <g id="space-1-3">
-      <rect x="219.17" y="73.65" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M318.05,152.43v22.38H295.67V152.43h22.38m1-1H294.67v24.38h24.38V151.43Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="208.5" y="66.37" width="29.39" height="32"/>
+      <path d="M313.39,147.67v31H285v-31h28.39m1-1H284v33h30.39v-33Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-1-3" transform="translate(220.84 92.73)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
+    <text id="letter-1-3" class="cls-10" transform="translate(211.72 95.36) scale(0.92 1)">W</text>
     <g id="space-1-4">
-      <rect x="219.17" y="97.55" width="23.38" height="23.38" fill="#fff"/>
-      <path d="M318.05,176.33v22.38H295.67V176.33h22.38m1-1H294.67v24.38h24.38V175.33Z" transform="translate(-76 -78.28)"/>
+      <rect class="cls-9" x="208.5" y="98.7" width="29.39" height="32"/>
+      <path d="M313.39,180v31H285V180h28.39m1-1H284v33h30.39V179Z" transform="translate(-76 -80.8)"/>
     </g>
-    <text id="letter-1-4" transform="translate(220.93 116.63)" font-size="18.15" font-family="PTMono-Bold, PT Mono" font-weight="700">W</text>
-  </g>
-  <g id="row">
-    <text id="num-row-2" transform="translate(209.86 41.37)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">1</text>
-    <text id="num-row-2-2" data-name="num-row-2" transform="translate(209.86 66.73)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">2</text>
-    <text id="num-row-3" transform="translate(209.86 90.63)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">3</text>
-    <text id="num-row-4" transform="translate(209.86 114.52)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">4</text>
-  </g>
-  <g id="coloumns">
-    <text id="num-col-1" transform="translate(227.81 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">1</text>
-    <text id="num-col-2" transform="translate(251.28 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">2</text>
-    <text id="num-col-3" transform="translate(274.79 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">3</text>
-    <text id="num-col-4" transform="translate(298.69 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">4</text>
-    <text id="num-col-5" transform="translate(322.38 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">5</text>
-    <text id="num-col-6" transform="translate(346.28 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">6</text>
-    <text id="num-col-7" transform="translate(370.18 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
-    <text id="num-col-8" transform="translate(394.07 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">8</text>
-    <text id="num-col-9" transform="translate(417.97 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">9</text>
-    <text id="num-col-10" transform="translate(437.81 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">10</text>
-    <text id="num-col-11" transform="translate(461.7 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">11</text>
-    <text id="num-col-12" transform="translate(485.72 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">12</text>
-    <text id="num-col-13" transform="translate(509.66 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">13</text>
-    <text id="num-col-14" transform="translate(533.57 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">14</text>
-    <text id="num-col-15" transform="translate(557.47 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">15</text>
-    <text id="num-col-16" transform="translate(581.37 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">16</text>
-    <text id="num-col-17" transform="translate(605.26 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">17</text>
-    <text id="num-col-18" transform="translate(629.16 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">18</text>
-    <text id="num-col-19" transform="translate(653.06 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">19</text>
-    <text id="num-col-20" transform="translate(676.95 21.27)" font-size="11.7" font-family="Biryani-SemiBold, Biryani" font-weight="600">20</text>
+    <text id="letter-1-4" class="cls-10" transform="translate(211.83 127.69) scale(0.92 1)">W</text>
   </g>
 </svg>

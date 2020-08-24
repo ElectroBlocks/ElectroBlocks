@@ -10,13 +10,13 @@
   let unsubscribes = [];
 
   unsubscribes.push(
-    frameStore.subscribe(newFrames => {
+    frameStore.subscribe((newFrames) => {
       frames = newFrames;
     })
   );
 
   onDestroy(() => {
-    unsubscribes.forEach(unSubFunc => unSubFunc());
+    unsubscribes.forEach((unSubFunc) => unSubFunc());
   });
 
   afterUpdate(() => {
@@ -49,7 +49,7 @@
     counter-reset: my-awesome-counter;
   }
   li {
-    padding: 3px;
+    padding: 6px;
     counter-increment: my-awesome-counter;
     font-size: 1em;
     cursor: pointer;
@@ -64,8 +64,8 @@
   li.active,
   li.active::before {
     background: steelblue;
-    border-radius: 2px;
-    padding: 3px;
+    border-radius: 4px;
+    padding-right: 6px;
   }
 </style>
 

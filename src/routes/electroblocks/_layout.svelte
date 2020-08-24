@@ -43,7 +43,7 @@
    * It will resize the 2 windows,
    * Slight Trottling with debounce
    */
-  const resize = _.debounce(e => {
+  const resize = _.debounce((e) => {
     if (!isResizing) {
       return;
     }
@@ -76,7 +76,7 @@
       // Calculates the height of the window
       // We know that if it's  the home page that we want less height
       // for the main window because we want to display the player component
-      const subtractSpace = isOnHomePage ? 150 : 50;
+      const subtractSpace = isOnHomePage ? 140 : 50;
       height = window.innerHeight - subtractSpace + "px";
       // Hack to make sure everything update
       setTimeout(() => {
@@ -92,7 +92,6 @@
     width: 100%;
     display: flex;
     box-sizing: border-box; /** */
-    overflow: hidden;
   }
 
   /** div used to resize both items */

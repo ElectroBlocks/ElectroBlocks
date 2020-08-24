@@ -1,13 +1,14 @@
 <script>
+  import { onMount } from "svelte";
   import Nav from "../../components/electroblocks/Nav.svelte";
   import Blockly from "../../components/electroblocks/Blockly.svelte";
   import Player from "../../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../../stores/resize.store";
 
   // flex size of top window
-  let topFlex = 69;
+  let top = 0;
   // flex size of bottom window
-  let bottomFlex = 29;
+  let bottom = 200;
   // true if resizing windows
   let isResizing = false;
   // container element
@@ -29,49 +30,53 @@
     isResizing = false;
   }
 
+  const onResize = (e) => {
+    resize(e.clientY);
+  };
+
   /**
    * This is a mouse move event on the main section of the html
    * It will resize the 2 windows,
    * Slight Trottling with debounce
    */
-
-  const resize = e => {
+  const resize = (clientY) => {
     if (!isResizing) {
       return;
     }
 
-    // subtract 100 because of the height of the menu
-    const clientRelativeToWindow = e.clientY - 50;
+    // subtract 50 because of the height of the menu
+    const clientRelativeToWindow = clientY - 50;
 
     // Height of the main area where we are dividing
     const mainHeight = mainSection.clientHeight;
 
     // If the either window size is less than 200 px don't resize window
     if (
-      clientRelativeToWindow < 20 ||
-      mainHeight - clientRelativeToWindow < 20
+      clientRelativeToWindow < 100 ||
+      mainHeight - clientRelativeToWindow < 100
     ) {
       return;
     }
 
-    // Goal is to get the percentage
-    // and minus 1/2 percent from that to account for the grabber
-    bottomFlex =
-      ((mainHeight - clientRelativeToWindow) / mainHeight) * 100 - 0.5;
-
     // Derive the from bottom flex calculation
     // Reason we are not doing reactive variable is because we want to make it obvious
-    topFlex = 100 - bottomFlex - 0.5;
+    top = clientRelativeToWindow - 10;
+    bottom = mainHeight - top - 17;
 
     // Trigger an side windows that need to be resized
     resizeStore.sideWindow();
   };
+
+  onMount(() => {
+    setTimeout(() => {
+      top = mainSection.clientHeight - 220;
+      bottom = 200;
+    }, 1);
+  });
 </script>
 
 <style>
   main {
-    display: flex;
-    flex-direction: column;
     height: 100%;
   }
 
@@ -81,7 +86,7 @@
 
   /** the div used to resize the windows */
   #grabber {
-    flex: 2;
+    height: 20px;
     width: 100%;
     cursor: row-resize;
     background-color: #eff0f1;
@@ -95,15 +100,15 @@
 
 <main
   on:mouseleave={stopResize}
-  on:mousemove={resize}
+  on:mousemove={onResize}
   bind:this={mainSection}
   id="split-container">
 
-  <section style="flex: {topFlex}" id="top">
+  <section style="height: {top}px" id="top">
     <slot class="sections" name="top" />
   </section>
   <div on:mousedown={startResize} id="grabber" />
-  <section style="flex: {bottomFlex}" id="bottom">
+  <section style="height: {bottom}px" id="bottom">
     <slot name="bottom" />
   </section>
 </main>
