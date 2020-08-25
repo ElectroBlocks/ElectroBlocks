@@ -2,11 +2,8 @@
   import { onMount } from "svelte";
   import _ from "lodash";
 
-  // @ts-ignore
   import Nav from "../../components/electroblocks/Nav.svelte";
-  // @ts-ignore
   import Blockly from "../../components/electroblocks/Blockly.svelte";
-  // @ts-ignore
   import Player from "../../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../../stores/resize.store";
   import { stores } from "@sapper/app";

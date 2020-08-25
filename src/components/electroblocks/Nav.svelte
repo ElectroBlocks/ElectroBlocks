@@ -7,6 +7,7 @@
     height: 50px;
     width: 100%;
     overflow: auto;
+    border-bottom: 1px solid gray;
   }
 
   nav .fa {

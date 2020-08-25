@@ -1,20 +1,20 @@
-import Blockly, { WorkspaceSvg, BlocklyOptions } from 'blockly';
+import Blockly, { WorkspaceSvg, BlocklyOptions } from "blockly";
 
-import './menu/index';
-import './blocks/index';
-import './overrides/index';
-import './generators/index';
+import "./menu/index";
+import "./blocks/index";
+import "./overrides/index";
+import "./generators/index";
 
-import { theme } from './theme';
+import { theme } from "./theme";
 
-import registerListeners from './registerEvents';
-import registerListMenu from './menu/list.menu';
-import registerCodeMenu from './menu/code.menu';
+import registerListeners from "./registerEvents";
+import registerListMenu from "./menu/list.menu";
+import registerCodeMenu from "./menu/code.menu";
 
-import getToolBoxString from './toolbox/getToolBoxString';
-import { fetchToolBox } from './toolbox/toolbox';
+import getToolBoxString from "./toolbox/getToolBoxString";
+import { fetchToolBox } from "./toolbox/toolbox";
 
-import { createBlock } from './helpers/block.helper';
+import { createBlock } from "./helpers/block.helper";
 
 /**
  * This will start up blockly and will add all the event listeners and styles
@@ -24,7 +24,7 @@ const startBlockly = (blocklyElement: HTMLElement) => {
   const workspace = createWorkspace(blocklyElement);
 
   // creates the arduino loop block
-  createBlock('arduino_loop', 50, 100, false);
+  createBlock("arduino_loop", 50, 100, false);
 
   // Register custom list menu event for the toolbox
   registerListMenu(workspace);
@@ -58,9 +58,9 @@ const createBlockConfig = (): BlocklyOptions => {
     disable: false,
     trashcan: true,
     horizontalLayout: false,
-    toolboxPosition: 'start',
+    toolboxPosition: "start",
     css: true,
-    media: 'https://blockly-demo.appspot.com/static/media/',
+    media: "https://blockly-demo.appspot.com/static/media/",
     rtl: false,
     sounds: true,
     theme,
@@ -68,7 +68,7 @@ const createBlockConfig = (): BlocklyOptions => {
     grid: {
       spacing: 20,
       length: 1,
-      colour: '#888',
+      colour: "#888",
       snap: false,
     },
     zoom: {

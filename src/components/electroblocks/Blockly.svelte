@@ -51,15 +51,7 @@
       resizeBlockly();
     }, 200);
 
-    unsubscribes.push(
-      currentFrameStore.subscribe((frame) => {
-        if (!frame) {
-          return;
-        }
-        window.selectedBlock = getBlockById(frame.blockId);
-        getBlockById(frame.blockId).select();
-      })
-    );
+    unsubscribes.push(currentFrameStore.subscribe((frame) => {}));
   });
 
   // List for resize main window event and resize blockly

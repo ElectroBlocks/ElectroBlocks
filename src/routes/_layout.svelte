@@ -15,7 +15,7 @@
   }
 </style>
 
-{#if !segment || !segment.includes('electroblocks')}
+{#if !segment.includes('electroblocks') && !segment.includes('lessons')}
   <Nav {segment} />
   <main>
     <slot />
