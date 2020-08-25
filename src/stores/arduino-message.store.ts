@@ -6,6 +6,7 @@ export interface ArduinoMessage {
   type: "Arduino" | "Computer";
   message: string;
   id: string;
+  time: string;
 }
 
 let port;
@@ -42,6 +43,7 @@ const connect = async (newPort: any) => {
       message: value,
       type: "Arduino",
       id: new Date().getTime() + "_" + Math.random().toString(),
+      time: new Date().toLocaleTimeString(),
     });
   }
 };
@@ -53,6 +55,7 @@ const sendMessage = (message: string) => {
       message: message,
       type: "Computer",
       id: new Date().getTime() + "_" + Math.random().toString(),
+      time: new Date().toLocaleTimeString(),
     });
   }
 };

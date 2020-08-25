@@ -5,16 +5,19 @@
   import { WindowType, resizeStore } from "../../stores/resize.store";
   import startBlocly from "../../core/blockly/startBlockly";
   import currentFrameStore from "../../stores/currentFrame.store";
+  import arduinoStore from "../../stores/arduino.store";
+  import arduinoMessageStore from "../../stores/arduino-message.store";
 
   import {
     arduinoLoopBlockShowLoopForeverText,
-    arduinoLoopBlockShowNumberOfTimesThroughLoop
+    arduinoLoopBlockShowNumberOfTimesThroughLoop,
   } from "../../core/blockly/helpers/arduino_loop_block.helper";
-  import {
-    getWorkspace
-  } from "../../core/blockly/helpers/workspace.helper";
+  import { getWorkspace } from "../../core/blockly/helpers/workspace.helper";
 
-  import { getBlockById } from "../../core/blockly/helpers/block.helper";
+  import {
+    getAllBlocks,
+    getBlockById,
+  } from "../../core/blockly/helpers/block.helper";
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text
@@ -31,9 +34,9 @@
   // and blocklyWorkspace is initialized
   $: if (showLoopExecutionTimesArduinoStartBlock && workspaceInitialize) {
     arduinoLoopBlockShowNumberOfTimesThroughLoop();
-  } else if (workspaceInitialize) { 
+  } else if (workspaceInitialize) {
     arduinoLoopBlockShowLoopForeverText();
-  } 
+  }
 
   onMount(() => {
     // Hack for debugging blockly
@@ -49,7 +52,7 @@
     }, 200);
 
     unsubscribes.push(
-      currentFrameStore.subscribe(frame => {
+      currentFrameStore.subscribe((frame) => {
         if (!frame) {
           return;
         }
@@ -61,10 +64,45 @@
 
   // List for resize main window event and resize blockly
   unsubscribes.push(
-    resizeStore.subscribe(event => {
+    resizeStore.subscribe((event) => {
       if (event.type == WindowType.MAIN) {
         resizeBlockly();
         return;
+      }
+    })
+  );
+
+  // Tells us the state of the port we always want to subscribe to this
+  // while blockly is running. Even though the message component is the only one that should
+  // set this
+  unsubscribes.push(
+    arduinoStore.subscribe((m) =>
+      console.log(m, "arduino store blockly component")
+    )
+  );
+
+  unsubscribes.push(
+    arduinoMessageStore.subscribe((m) => {
+      if (!m) {
+        return;
+      }
+
+      if (m.type === "Computer") {
+        return;
+      }
+
+      if (m.message.indexOf("DEBUG_BLOCK_") === -1) {
+        return;
+      }
+
+      const blockId = m.message.replace("DEBUG_BLOCK_", "").trim();
+
+      getAllBlocks().forEach((b) => b.unselect());
+      const selectedBlock = getBlockById(blockId);
+      if (selectedBlock) {
+        selectedBlock.select();
+      } else {
+        console.log(blockId, "blockId");
       }
     })
   );
@@ -75,7 +113,7 @@
   }
 
   onDestroy(() => {
-    unsubscribes.forEach(unSubFunc => unSubFunc());
+    unsubscribes.forEach((unSubFunc) => unSubFunc());
   });
 </script>
 

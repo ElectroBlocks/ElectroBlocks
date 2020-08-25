@@ -1,53 +1,49 @@
-import Blockly from 'blockly';
-import { Block } from 'blockly';
-import _ from 'lodash';
+import Blockly from "blockly";
+import { Block } from "blockly";
+import _ from "lodash";
 
-Blockly['Arduino']['arduino_setup'] = function(block: Block) {
-  const statementsSetup = Blockly['Arduino'].statementToCode(block, 'setup');
-  let preSetupCode = '';
+Blockly["Arduino"]["arduino_setup"] = function (block: Block) {
+  const statementsSetup = Blockly["Arduino"].statementToCode(block, "setup");
 
-  for (const key in Blockly['Arduino'].setupCode_) {
-    preSetupCode += Blockly['Arduino'].setupCode_[key] || '';
-  }
   return (
-    '\nvoid setup() { \n' +
-    preSetupCode +
+    "\nvoid setup() { \n" +
+    "__REPLACE_WITH_SETUP_CODE" +
     statementsSetup +
-    '}\n'
+    "}\n"
   );
 };
 
-Blockly['Arduino']['arduino_loop'] = function(block: Block) {
-  const statementsLoop = Blockly['Arduino'].statementToCode(block, 'loop');
+Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
+  const statementsLoop = Blockly["Arduino"].statementToCode(block, "loop");
 
-  let resetBluetoothVariable = '';
-  let resetMessageVariable = '';
-  let resetIrRemoteCode = '';
-  let getNewTempReading = '';
+  let resetBluetoothVariable = "";
+  let resetMessageVariable = "";
+  let resetIrRemoteCode = "";
+  let getNewTempReading = "";
 
-  if (!_.isEmpty(Blockly['Arduino'].setupCode_['bluetooth_setup'])) {
+  if (!_.isEmpty(Blockly["Arduino"].setupCode_["bluetooth_setup"])) {
     resetBluetoothVariable = '\tbluetoothMessageDEV = ""; \n';
   }
 
-  if (!_.isEmpty(Blockly['Arduino'].setupCode_['serial_begin'])) {
+  if (!_.isEmpty(Blockly["Arduino"].setupCode_["serial_begin"])) {
     resetMessageVariable = '\tserialMessageDEV= ""; \n';
   }
 
-  if (!_.isEmpty(Blockly['Arduino'].setupCode_['setup_ir_remote'])) {
-    resetIrRemoteCode = '\tirReceiver.resume(); \n';
+  if (!_.isEmpty(Blockly["Arduino"].setupCode_["setup_ir_remote"])) {
+    resetIrRemoteCode = "\tirReceiver.resume(); \n";
   }
 
-  if (!_.isEmpty(Blockly['Arduino'].functionNames_['takeTempReading'])) {
-    getNewTempReading = '\ttakeTempReading(); \n';
+  if (!_.isEmpty(Blockly["Arduino"].functionNames_["takeTempReading"])) {
+    getNewTempReading = "\ttakeTempReading(); \n";
   }
   return (
-    '\nvoid loop() { \n' +
+    "\nvoid loop() { \n" +
     statementsLoop +
-    '\n' +
+    "\n" +
     resetBluetoothVariable +
     resetMessageVariable +
     resetIrRemoteCode +
     getNewTempReading +
-    '}'
+    "}"
   );
 };

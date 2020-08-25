@@ -2,10 +2,15 @@
   import arduionMessageStore from "../../../stores/arduino-message.store";
   import codeStore from "../../../stores/code.store";
   import arduinoStore, { PortState } from "../../../stores/arduino.store";
+  import { WindowType, resizeStore } from "../../../stores/resize.store";
+
   import { upload } from "../../../core/arduino/upload";
   import selectedBoard from "../../../core/blockly/selectBoard";
-  import { WindowType, resizeStore } from "../../../stores/resize.store";
-  import Arduino from "../../../routes/electroblocks/arduino.svelte";
+
+  import { afterUpdate } from "svelte";
+
+  // controls whether the messages should autoscroll
+  let autoScroll = false;
 
   // List of messages
   let messages = [];
@@ -19,6 +24,12 @@
   // This is the variable storing the arduino code
   let code;
 
+  // Message Element for displaying the message
+  let messagesEl;
+
+  // means that we already have seen the message
+  let alreadyShownDebugMessage = false;
+
   $: uploadingClass =
     arduinoStatus === PortState.UPLOADING
       ? "fa-spinner fa-spin fa-6x fa-fw"
@@ -29,18 +40,51 @@
   });
 
   arduinoStore.subscribe((status) => {
+    console.log(status, "arduino status");
     arduinoStatus = status;
   });
 
   arduionMessageStore.subscribe((newMessage) => {
-    if (newMessage) {
-      messages = [...messages, newMessage];
+    console.log(newMessage, "newMessage");
+
+    if (!newMessage) {
+      return;
     }
+
+    if (
+      newMessage.message.includes("**(|)") ||
+      newMessage.message.includes("DEBUG_BLOCK_") ||
+      newMessage.message.includes("stop_debug") ||
+      newMessage.message.includes("continue_debug") ||
+      newMessage.message.includes("START_DEBUG")
+    ) {
+      return;
+    }
+    if (newMessage.type === "Arduino" && newMessage.message.includes("C_D_B")) {
+      // We only want to send the intro start debugging message once
+      if (alreadyShownDebugMessage) {
+        return;
+      }
+      alreadyShownDebugMessage = true;
+      messages = [
+        ...messages,
+        {
+          message: "Click the bug to start debugging.",
+          type: "Arduino",
+          id: new Date().getTime() + "_" + Math.random().toString(),
+          time: new Date().toLocaleTimeString(),
+        },
+      ];
+      return;
+    }
+
+    messages = [...messages, newMessage];
+    return;
   });
 
   async function connectOrDisconnectArduino() {
     if (arduinoStatus == PortState.OPEN) {
-      arduinoStatus = PortState.CLOSING;
+      arduinoStore.set(PortState.CLOSING);
       try {
         await arduionMessageStore.closePort();
       } catch (e) {
@@ -50,27 +94,27 @@
         );
       }
 
-      arduinoStatus = PortState.CLOSE;
+      arduinoStore.set(PortState.CLOSE);
       return;
     }
     try {
-      arduinoStatus = PortState.OPENNING;
+      arduinoStore.set(PortState.OPENNING);
       const requestOptions = {
         // Filter on devices with the Arduino USB vendor ID.
         filters: [{ usbVendorId: 0x2341, usbProductId: 0x0043 }],
       };
       const port = await navigator.serial.requestPort(requestOptions);
       arduionMessageStore.connect(port).then();
-      arduinoStatus = PortState.OPEN;
+      arduinoStore.set(PortState.OPEN);
     } catch (error) {
       console.error(error, "error");
       console.log("connectArduino error");
-      arduinoStatus = PortState.CLOSE;
+      arduinoStore.set(PortState.CLOSE);
     }
   }
 
   async function closePort() {
-    arduinoStatus = PortState.CLOSING;
+    arduinoStore.set(PortState.CLOSING);
     try {
       await arduionMessageStore.closePort();
     } catch (e) {
@@ -78,7 +122,7 @@
       console.log("closePort error");
     }
 
-    arduinoStatus = PortState.CLOSE;
+    arduinoStore.set(PortState.CLOSE);
   }
 
   function sendMessage() {
@@ -97,7 +141,7 @@
     if (arduinoStatus !== PortState.CLOSE) {
       return;
     }
-    arduinoStatus = PortState.UPLOADING;
+    arduinoStore.set(PortState.UPLOADING);
     try {
       const avrgirl = new AvrgirlArduino({
         board: selectedBoard().type,
@@ -110,10 +154,20 @@
         "There was an error uploading your code.  Please check console for error messages."
       );
     }
-    arduinoStatus = PortState.CLOSE;
+    arduinoStore.set(PortState.CLOSE);
   }
   function clearMessages() {
     messages = [];
+  }
+
+  afterUpdate(() => {
+    if (autoScroll) {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+  });
+
+  function toggleAutoScroll() {
+    autoScroll = !autoScroll;
   }
 </script>
 
@@ -196,16 +250,20 @@
   .fa-trash {
     color: #16bb3a;
   }
+  .scroll-active {
+    font-size: 18px;
+    color: #16bb3a;
+  }
 </style>
 
-<section id="messages">
+<section bind:this={messagesEl} id="messages">
   {#each messages as mes (mes.id)}
     <article class="message-computer">
       <p>
         <img
           src={mes.type === 'Computer' ? './laptop.png' : './cpu.png'}
           alt={mes.type === 'Computer' ? 'computer' : 'arduino'} />
-        {mes.message}
+        {mes.message} ({mes.time})
       </p>
     </article>
   {/each}
@@ -216,12 +274,14 @@
       readonly={!(arduinoStatus === PortState.OPEN)}
       type="text"
       bind:value={messageToSend}
-      placeholder="Send a message to Arduino" />
+      placeholder="send message" />
   </form>
   <button disabled={!(arduinoStatus === PortState.OPEN)} on:click={sendMessage}>
     <i class="fa fa-paper-plane" />
   </button>
-  <button on:click={connectOrDisconnectArduino}>
+  <button
+    disabled={arduinoStatus !== PortState.OPEN && arduinoStatus !== PortState.CLOSE}
+    on:click={connectOrDisconnectArduino}>
     <i
       class="fa"
       class:fa-eject={arduinoStatus === PortState.OPEN}
@@ -232,6 +292,9 @@
     <i class="fa {uploadingClass}" />
   </button>
   <button on:click={clearMessages}>
-    <i class="fa fa fa-trash" />
+    <i class="fa fa-trash" />
+  </button>
+  <button class:scroll-active={autoScroll} on:click={toggleAutoScroll}>
+    <i class="fa fa-arrow-down" />
   </button>
 </section>

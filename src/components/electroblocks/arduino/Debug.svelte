@@ -1,3 +1,124 @@
+<script>
+  import arduinoStore, { PortState } from "../../../stores/arduino.store";
+  import arduionMessageStore from "../../../stores/arduino-message.store";
+  import { rgbToHex } from "../../../core/blockly/helpers/color.helper";
+
+  // This is the variable list used to print all the variables
+  let variables = [];
+
+  // we temporarily store variables here until all our complete
+  let tempVariables = [];
+
+  // state of the arduino
+  let portStatus = PortState.CLOSE;
+
+  // This is means that the arduino is in the debug mode and can recieve a continue or stop message
+  let inDebugStatement = false;
+
+  // If true it means that debugging can start
+  let debugStart = false;
+
+  arduinoStore.subscribe((newPortStatus) => {
+    portStatus = newPortStatus;
+  });
+
+  arduionMessageStore.subscribe((message) => {
+    if (!message) {
+      return;
+    }
+
+    if (message.type === "Computer") {
+      return;
+    }
+
+    if (message.message.includes("DEBUG_BLOCK_")) {
+      variables = [...tempVariables];
+      tempVariables = [];
+      inDebugStatement = true;
+      return;
+    }
+
+    if (!message.message.includes("**(|)")) {
+      return;
+    }
+
+    const [name, type, value] = message.message
+      .replace("**(|)", "")
+      .split("_|_");
+
+    const varIndex = tempVariables.findIndex((v) => v.name === name);
+    if (varIndex > -1) {
+      tempVariables[varIndex] = { name, type, value };
+      return;
+    }
+    tempVariables.push({ name, type, value });
+  });
+
+  function colorValueString(colorString) {
+    const [red, green, blue] = colorString
+      .replace("{", "")
+      .replace("}", "")
+      .split("-")
+      .map((colorNum) => parseInt(colorNum, 0));
+    console.log(red, green, blue, "test color");
+    return `(red=${red},green=${green},blue=${blue})`;
+  }
+
+  function colorValueHex(colorString) {
+    const [red, green, blue] = colorString
+      .replace("{", "")
+      .replace("}", "")
+      .split("-")
+      .map((colorNum) => parseInt(colorNum, 0));
+
+    return rgbToHex({ red, green, blue });
+  }
+
+  function parseColorList(colorListString) {
+    return colorListString
+      .replace("[", "")
+      .replace("]", "")
+      .split(",")
+      .map((colorString) => {
+        console.log(colorString, "colorString");
+        const [red, green, blue] = colorString
+          .replace("{", "")
+          .replace("}", "")
+          .split("-")
+          .map((colorNum) => parseInt(colorNum, 0));
+
+        return {
+          red,
+          green,
+          blue,
+        };
+      });
+  }
+
+  $: disableDebugBtn = portStatus !== PortState.OPEN || !inDebugStatement;
+
+  function continueDebug() {
+    if (inDebugStatement) {
+      arduionMessageStore.sendMessage("continue_debug");
+      inDebugStatement = false;
+    }
+  }
+
+  function stopDebug() {
+    if (inDebugStatement) {
+      arduionMessageStore.sendMessage("stop_debug");
+      inDebugStatement = false;
+    }
+  }
+
+  function startDebug() {
+    if (!debugStart && portStatus === PortState.OPEN) {
+      arduionMessageStore.sendMessage("START_DEBUG");
+      debugStart = true;
+    }
+  }
+</script>
+
 <style>
   #debug {
     width: 100%;
@@ -70,10 +191,14 @@
 
   .coloredElement {
     margin-left: 10px;
-    padding: 5px 10px;
+    padding: 0 7px;
   }
-  .colorValue:first-of-type .coloredElement {
+  .colorValue .coloredElement:first-of-type {
     margin-left: 0;
+  }
+  .debug-start {
+    font-size: 18px;
+    color: #23922b;
   }
 </style>
 
@@ -81,8 +206,20 @@
   <h3>
     Debug
     <span>
-      <i class="fa fa-play not-active" />
-      <i class="fa fa-stop not-active" />
+
+      <i
+        class="fa fa-play"
+        on:click={continueDebug}
+        class:not-active={disableDebugBtn} />
+      <i
+        class="fa fa-stop"
+        on:click={stopDebug}
+        class:not-active={disableDebugBtn} />
+      <i
+        class:debug-start={debugStart}
+        on:click={startDebug}
+        class="fa fa-bug" />
+
     </span>
   </h3>
   <div id="variable-table-container">
@@ -95,28 +232,35 @@
         </tr>
       </thead>
       <tbody id="variable-tbody">
-        <tr>
-          <td>isHot</td>
-          <td>String</td>
-          <td>true</td>
-        </tr>
-        <tr>
-          <td>Color list</td>
-          <td>Color List</td>
-          <td>
-            <span class="colorValue">
-              <span style="background-color: red" class="coloredElement">
-                1
-              </span>
-              <span style="background-color: green" class="coloredElement">
-                2
-              </span>
-              <span style="background-color: blue" class="coloredElement">
-                3
-              </span>
-            </span>
-          </td>
-        </tr>
+        {#each variables as variable}
+          <tr class:coloredElement={variable.type === 'Colour'}>
+            <td>{variable.name}</td>
+            <td>{variable.type}</td>
+            <td>
+              {#if variable.type !== 'Colour' && variable.type !== 'List Colour'}
+                {variable.value}
+              {/if}
+              {#if variable.type === 'Colour'}
+                <span
+                  style="color: {colorValueHex(variable.value)}"
+                  class="coloredElement">
+                  {colorValueString(variable.value)}
+                </span>
+              {/if}
+              {#if variable.type === 'List Colour'}
+                <span class="colorValue">
+                  {#each parseColorList(variable.value) as colorValue, index}
+                    <span
+                      style="background-color: {rgbToHex(colorValue)}"
+                      class="coloredElement">
+                      {index + 1}
+                    </span>
+                  {/each}
+                </span>
+              {/if}
+            </td>
+          </tr>
+        {/each}
       </tbody>
     </table>
   </div>
