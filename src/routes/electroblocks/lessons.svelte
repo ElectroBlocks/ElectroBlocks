@@ -1,5 +1,8 @@
 <script>
-  import Lesson from "../../components/electroblocks/lessons/lesson-preview.svelte";
+  import Lesson from "../../components/electroblocks/lessons/LessonPreview.svelte";
+  import { getLessons } from "../../lessons/lesson.list";
+  import _ from "lodash";
+  const lessons = _.chunk(getLessons(), 3);
 </script>
 
 <style>
@@ -22,65 +25,11 @@
 
 <main>
   <h1>Lessons</h1>
-  <section>
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-
-  </section>
-  <section>
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-
-  </section>
-  <section>
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-
-  </section>
-
-  <section>
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-    <Lesson
-      title="Servos"
-      lessonName="servos"
-      imgSrc="https://via.placeholder.com/450x300" />
-
-  </section>
+  {#each lessons as lessonRow}
+    <section>
+      {#each lessonRow as lesson}
+        <Lesson {lesson} />
+      {/each}
+    </section>
+  {/each}
 </main>

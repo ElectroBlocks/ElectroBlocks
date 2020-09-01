@@ -1,0 +1,30 @@
+{
+  "title": "Servo Lesson For Realz",
+  "id": "c532f3f0-045c-4cbf-b1a4-2a369c238f5f",
+  "version": 1,
+  "contentType": "jpg",
+  "folderName": "servo",
+  "authorFolderName": "electroblocks",
+  "author": "Noah Glaser",
+  "email": "glaserpower@gmail.com",
+  "steps": [
+    {
+      "title": "Step 1",
+      "contentType": "png",
+      "id": "f2bcbcc6-a06a-4912-a521-89d65473fbcd",
+      "youtubeId": ""
+    },
+    {
+      "title": "Step 2",
+      "contentType": "png",
+      "id": "914a22a3-518e-40d4-a2be-1e369d0c1f52",
+      "youtubeId": ""
+    },
+    {
+      "title": "",
+      "contentType": "youtube",
+      "id": "ffe1b697-c0b2-442b-9b0b-33de5573b488",
+      "youtubeId": "XMsp0TBTgxQ"
+    }
+  ]
+}
