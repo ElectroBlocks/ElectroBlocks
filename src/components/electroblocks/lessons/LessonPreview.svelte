@@ -1,7 +1,11 @@
-<script lang="ts">
-  import type { Lesson } from "../../../lessons/lesson.model";
-  export let lesson: Lesson;
+<script>
+  import { goto } from "@sapper/app";
+  export let lesson;
   let lessonMainImage = `/lessons/${lesson.authorFolderName}/${lesson.folderName}/main.${lesson.contentType}`;
+
+  async function pickLesson(id) {
+    await goto(`/electroblocks?lessonId=${id}`);
+  }
 </script>
 
 <style>
@@ -30,7 +34,7 @@
   }
 </style>
 
-<article data-lesson={lesson.id}>
+<article on:click={() => pickLesson(lesson.id)} data-id={lesson.id}>
   <img src={lessonMainImage} alt={lesson.title} />
   <h2>{lesson.title}</h2>
 </article>

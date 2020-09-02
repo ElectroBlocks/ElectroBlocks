@@ -1,28 +1,23 @@
-<script lang="ts">
-  import type { Lesson } from "../../../lessons/lesson.model";
+<script>
   import { createEventDispatcher } from "svelte";
   export let top = 300;
   export let left = 300;
-  export let lesson: Lesson;
+  export let lesson;
+  let min = false;
 
   const dispatcher = createEventDispatcher();
   let stepIndex = 0;
-  let closeP;
 
   $: stepIndex =
     lesson && lesson.steps.length <= stepIndex && stepIndex > 0
       ? lesson.steps.length - 1
       : stepIndex;
   $: currentStep = lesson && lesson.steps[stepIndex];
-  $: isYoutube = currentStep && ["youtube"].includes(currentStep.contentType);
-  $: isImage =
-    currentStep && ["png", "gif", "jpg"].includes(currentStep.contentType);
-  $: url =
-    currentStep && lesson
-      ? `http://localhost:3000/lessons/${lesson.authorFolderName}/${
-          lesson.folderName
-        }/step-${stepIndex + 1}.${currentStep.contentType}`
-      : "";
+  $: url = lesson
+    ? `http://localhost:3000/lessons/${lesson.authorFolderName}/${
+        lesson.folderName
+      }/step-${stepIndex + 1}.${currentStep.contentType}`
+    : "";
 
   function moveBack() {
     if (stepIndex > 0) {
@@ -36,24 +31,33 @@
     }
   }
 
-  function close() {
+  function onClose() {
     dispatcher("close");
+  }
+
+  function onMin() {
+    min = !min;
+  }
+
+  function onLessons() {
+    dispatcher("lessons");
   }
 
   let moving = false;
   let offsetX = 0;
   let offsetY = 0;
-  let layerY;
   function startMove(e) {
+    if (e.target.tagName === "BUTTON" || e.target.tagName === "I") {
+      return;
+    }
     moving = true;
-    ({ offsetY, offsetX, layerY } = e);
+    offsetY = e.offsetY + e.target.offsetTop;
+    offsetX = e.offsetX + e.target.offsetLeft;
   }
 
   function move(e) {
     if (moving) {
-      console.log(closeP.clientHeight);
-      debugger;
-      top = e.pageY - closeP.clientHeight - offsetY;
+      top = e.pageY - offsetY;
       left = e.pageX - offsetX;
     }
   }
@@ -67,46 +71,89 @@
 <style>
   section#lesson {
     width: 560px;
-    height: 500px;
     margin: 0;
     border-radius: 4px;
     position: absolute;
     right: -30px;
+    z-index: 200;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    cursor: move;
   }
+
   section#header {
-    display: flex;
     justify-content: space-around;
     height: 40px;
     background-color: #505bda;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    cursor: move;
     margin: 0;
+    position: relative;
   }
-  section#header span {
-    border-radius: 7.5px;
-    width: 15px;
-    height: 15px;
+  section#header #right-btn-container {
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    font-size: 16px;
+  }
+
+  section#header #left-btn-container {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    font-size: 16px;
+  }
+
+  section#header #circles {
+    display: flex;
+    width: 200px;
+    height: 10px;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 14px;
+    left: 180px;
+  }
+  section#header #circles span {
+    border-radius: 5px;
+    width: 10px;
+    height: 10px;
     background-color: #fff;
-    margin-top: 12.5px;
   }
-  section#header span.active {
+  section#header #circles span.active {
     background-color: #ffaac3;
+  }
+  .fa-times {
+    color: #ff4a62;
+  }
+  .fa-window-minimize {
+    color: dimgrey;
+  }
+  .fa-book {
+    color: #b063c5;
+  }
+  iframe {
+    background-color: #fff;
   }
   img {
     width: 560px;
-    height: 315px;
   }
   h3#text {
     text-align: center;
     background-color: #fff;
     padding: 6px;
     margin: 0;
+    font-size: 1.5em;
+    background-color: #fff;
   }
 
   section#controls {
     display: flex;
     justify-content: space-evenly;
+    background-color: #fff;
+    margin-top: -8px;
   }
   section#controls button {
     flex: 1;
@@ -117,11 +164,11 @@
     border: none;
     border-radius: 2px;
     font-size: 20px;
-    padding: 0 10px;
-    width: 50px;
-    height: 40px;
-    margin-top: 10px;
+    padding: 5px 10px;
     cursor: pointer;
+  }
+  button.sm {
+    padding: 0 10px;
   }
   button i {
     transition: ease-in-out 0.4s font-size;
@@ -140,53 +187,75 @@
   button:disabled i {
     font-size: 20px;
   }
-  p#close {
-    text-align: right;
-    font-size: 20px;
-    margin-right: 5px;
-    cursor: pointer;
-    margin: 5px;
-    height: 28px;
-  }
 </style>
 
-<section style="left: {left}px; top: {top}px;" id="lesson">
-  <p on:click={close} bind:this={closeP} id="close">close</p>
-  <section on:mousedown={startMove} id="header">
-    {#if lesson.steps.length > 1}
-      {#each lesson.steps as step, index}
-        <span class:active={stepIndex == index} data-step={index} />
-      {/each}
-    {/if}
-  </section>
-  {#if currentStep.title !== ''}
-    <h3 id="text">{currentStep.title}</h3>
-  {/if}
-  {#if isYoutube}
-    <iframe
-      title={currentStep.title}
-      width="560"
-      height="315"
-      src="https://www.youtube.com/embed/{currentStep.youtubeId}"
-      frameborder="0"
-      allow="accelerometer; autoplay; encrypted-media; gyroscope;
-      picture-in-picture"
-      allowfullscreen />
-  {/if}
+<section
+  on:mousedown={startMove}
+  style="left: {left}px; top: {top}px;"
+  id="lesson">
+  <section id="header">
+    <div id="right-btn-container">
+      <button class="sm" on:click|stopPropagation|preventDefault={onClose}>
+        <i class="fa fa-times" aria-hidden="true" />
+      </button>
+      <button class="sm" on:click|stopPropagation|preventDefault={onMin}>
+        <i class="fa fa-window-minimize" aria-hidden="true" />
+      </button>
+    </div>
 
-  {#if isImage}<img src={url} alt="step {stepIndex + 1}" id="main-image" />{/if}
-  {#if lesson.steps.length > 1}
-    <section id="controls">
-      <button on:click={moveBack} disabled={stepIndex === 0} id="back">
-        <i class="fa fa-arrow-left" aria-hidden="true" />
+    <div id="circles">
+      {#if lesson.steps.length > 1}
+        {#each lesson.steps as step, index}
+          <span class:active={stepIndex == index} data-step={index} />
+        {/each}
+      {/if}
+    </div>
+    <div id="left-btn-container">
+      <button class="sm" on:click|stopPropagation|preventDefault={onLessons}>
+        <i class="fa fa-book" aria-hidden="true" />
       </button>
-      <button
-        on:click={moveForward}
-        disabled={stepIndex === lesson.steps.length - 1}
-        id="forward">
-        <i class="fa fa-arrow-right" aria-hidden="true" />
-      </button>
-    </section>
+    </div>
+  </section>
+  {#if !min}
+    {#if currentStep.title !== '' && currentStep.contentType !== 'youtube'}
+      <h3 id="text">{currentStep.title}</h3>
+    {/if}
+    {#if currentStep.contentType === 'youtube'}
+      <iframe
+        title={currentStep.title}
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/{currentStep.youtubeId}"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope;
+      picture-in-picture"
+        allowfullscreen />
+    {/if}
+
+    {#if currentStep.contentType !== 'youtube'}
+      <!-- This was done to prevent dragging the image -->
+      <img
+        on:dragstart|preventDefault={(e) => console.log('prevented')}
+        src={url}
+        alt="step {stepIndex + 1}"
+        id="main-image" />
+    {/if}
+    {#if lesson.steps.length > 1}
+      <section id="controls">
+        <button
+          on:click|stopPropagation|preventDefault={moveBack}
+          disabled={stepIndex === 0}
+          id="back">
+          <i class="fa fa-arrow-left" aria-hidden="true" />
+        </button>
+        <button
+          on:click|stopPropagation|preventDefault={moveForward}
+          disabled={stepIndex === lesson.steps.length - 1}
+          id="forward">
+          <i class="fa fa-arrow-right" aria-hidden="true" />
+        </button>
+      </section>
+    {/if}
   {/if}
 </section>
 <svelte:body on:mousemove={move} on:mouseup={stopMove} />
