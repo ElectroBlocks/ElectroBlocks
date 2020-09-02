@@ -39,10 +39,6 @@
     min = !min;
   }
 
-  function onLessons() {
-    dispatcher("lessons");
-  }
-
   let moving = false;
   let offsetX = 0;
   let offsetY = 0;
@@ -100,13 +96,6 @@
     font-size: 16px;
   }
 
-  section#header #left-btn-container {
-    position: absolute;
-    top: 4px;
-    right: 8px;
-    font-size: 16px;
-  }
-
   section#header #circles {
     display: flex;
     width: 200px;
@@ -125,15 +114,7 @@
   section#header #circles span.active {
     background-color: #ffaac3;
   }
-  .fa-times {
-    color: #ff4a62;
-  }
-  .fa-window-minimize {
-    color: dimgrey;
-  }
-  .fa-book {
-    color: #b063c5;
-  }
+
   iframe {
     background-color: #fff;
   }
@@ -209,11 +190,6 @@
           <span class:active={stepIndex == index} data-step={index} />
         {/each}
       {/if}
-    </div>
-    <div id="left-btn-container">
-      <button class="sm" on:click|stopPropagation|preventDefault={onLessons}>
-        <i class="fa fa-book" aria-hidden="true" />
-      </button>
     </div>
   </section>
   {#if !min}
