@@ -1,8 +1,8 @@
-import { ValueGenerator, blockToValue, getInputValue } from '../block-to-value.factories';
+import { ValueGenerator, getInputValue } from "../block-to-value.factories";
 import {
   findFieldValue,
   findBlockById,
-} from '../../../blockly/helpers/block-data.helper';
+} from "../../../blockly/helpers/block-data.helper";
 
 export const mathNumber: ValueGenerator = (
   blocks,
@@ -11,7 +11,7 @@ export const mathNumber: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  return +findFieldValue(block, 'NUM');
+  return +findFieldValue(block, "NUM");
 };
 
 export const mathArithmetic: ValueGenerator = (
@@ -26,7 +26,7 @@ export const mathArithmetic: ValueGenerator = (
     block,
     variables,
     timeline,
-    'A',
+    "A",
     1,
     previousState
   );
@@ -35,23 +35,23 @@ export const mathArithmetic: ValueGenerator = (
     block,
     variables,
     timeline,
-    'B',
+    "B",
     1,
     previousState
   );
 
-  const operator = findFieldValue(block, 'OP');
+  const operator = findFieldValue(block, "OP");
 
   switch (operator) {
-    case 'ADD':
+    case "ADD":
       return aValue + bValue;
-    case 'MINUS':
+    case "MINUS":
       return aValue - bValue;
-    case 'MULTIPLY':
+    case "MULTIPLY":
       return aValue * bValue;
-    case 'DIVIDE':
+    case "DIVIDE":
       return aValue / bValue;
-    case 'POWER':
+    case "POWER":
       return Math.pow(aValue, bValue);
     default:
       return 1;
@@ -70,18 +70,18 @@ export const mathRound: ValueGenerator = (
     block,
     variables,
     timeline,
-    'NUM',
+    "NUM",
     1,
     previousState
   );
-  const operator = findFieldValue(block, 'OP');
+  const operator = findFieldValue(block, "OP");
 
   switch (operator) {
-    case 'ROUND':
+    case "ROUND":
       return Math.round(roundNumber);
-    case 'ROUNDUP':
+    case "ROUNDUP":
       return Math.ceil(roundNumber);
-    case 'ROUNDDOWN':
+    case "ROUNDDOWN":
       return Math.floor(roundNumber);
     default:
       return 1;
@@ -100,7 +100,7 @@ export const mathModulus: ValueGenerator = (
     block,
     variables,
     timeline,
-    'DIVIDEND',
+    "DIVIDEND",
     1,
     previousState
   );
@@ -109,7 +109,7 @@ export const mathModulus: ValueGenerator = (
     block,
     variables,
     timeline,
-    'DIVISOR',
+    "DIVISOR",
     1,
     previousState
   );
@@ -129,7 +129,7 @@ export const mathRandom: ValueGenerator = (
     block,
     variables,
     timeline,
-    'FROM',
+    "FROM",
     1,
     previousState
   );
@@ -138,7 +138,7 @@ export const mathRandom: ValueGenerator = (
     block,
     variables,
     timeline,
-    'TO',
+    "TO",
     1,
     previousState
   );
@@ -158,7 +158,7 @@ export const numberToString: ValueGenerator = (
     block,
     variables,
     timeline,
-    'VALUE',
+    "VALUE",
     1,
     previousState
   );

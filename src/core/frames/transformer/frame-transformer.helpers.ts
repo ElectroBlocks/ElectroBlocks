@@ -5,21 +5,21 @@ import {
   Variable,
   Color,
   ArduinoComponentType,
-} from '../arduino.frame';
+} from "../arduino.frame";
 
-import { arduinoComponentStateToId } from '../arduino-component-id';
+import { arduinoComponentStateToId } from "../arduino-component-id";
 
-import _ from 'lodash';
-import { BlockData, PinCategory } from '../../blockly/dto/block.type';
+import _ from "lodash";
+import { BlockData, PinCategory } from "../../blockly/dto/block.type";
 import {
   findBlockById,
   findInputStatementStartBlock,
-} from '../../blockly/helpers/block-data.helper';
-import { VariableTypes, VariableData } from '../../blockly/dto/variable.type';
-import { generateFrame } from './block-to-frame.transformer';
-import { Sensor } from '../../blockly/dto/sensors.type';
-import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
-import { MotorState } from '../arduino-components.state';
+} from "../../blockly/helpers/block-data.helper";
+import { VariableTypes, VariableData } from "../../blockly/dto/variable.type";
+import { generateFrame } from "./block-to-frame.transformer";
+import { Sensor } from "../../blockly/dto/sensors.type";
+import { ARDUINO_UNO_PINS } from "../../blockly/selectBoard";
+import { MotorState } from "../arduino-components.state";
 
 export const arduinoFrameByVariable = (
   blockId: string,
@@ -39,7 +39,7 @@ export const arduinoFrameByVariable = (
   return {
     blockId,
     blockName,
-    sendMessage: '',
+    sendMessage: "",
     timeLine: { ...timeline },
     variables,
     txLedOn,
@@ -81,7 +81,7 @@ export const arduinoFrameByExplanation = (
   return {
     blockId,
     blockName,
-    sendMessage: '',
+    sendMessage: "",
     timeLine: { ...timeline },
     variables,
     txLedOn,
@@ -134,7 +134,7 @@ export const arduinoFrameByComponent = (
   return {
     blockId,
     blockName,
-    sendMessage: '',
+    sendMessage: "",
     timeLine: { ...timeline },
     variables,
     txLedOn,
@@ -161,7 +161,7 @@ export const getDefaultValue = (type: VariableTypes) => {
     case VariableTypes.COLOUR:
       return { red: 0, green: 0, blue: 0 };
     case VariableTypes.STRING:
-      return '';
+      return "";
     case VariableTypes.BOOLEAN:
       return true;
     case VariableTypes.NUMBER:
@@ -176,7 +176,7 @@ export const getDefaultValueList = (type: VariableTypes) => {
     case VariableTypes.COLOUR:
       return { red: 0, green: 0, blue: 0 };
     case VariableTypes.STRING:
-      return '';
+      return "";
     case VariableTypes.BOOLEAN:
       return false;
     case VariableTypes.NUMBER:
@@ -194,7 +194,7 @@ export const valueToString = (
     const color = value as Color;
     return value
       ? `(red=${color.red},green=${color.green},blue=${color.blue})`
-      : '(red=0,green=0,blue=0)';
+      : "(red=0,green=0,blue=0)";
   }
 
   if (type === VariableTypes.STRING) {
@@ -202,39 +202,6 @@ export const valueToString = (
   }
 
   return value;
-};
-
-export const generateInputFrame = (
-  block: BlockData,
-  blocks: BlockData[],
-  variables: VariableData[],
-  timeline: Timeline,
-  inputName: string,
-  previousState?: ArduinoFrame
-): ArduinoFrame[] => {
-  // Fixing memory sharing between objects
-  previousState = previousState ? _.cloneDeep(previousState) : undefined;
-  const startingBlock = findInputStatementStartBlock(blocks, block, inputName);
-  if (!startingBlock) {
-    return [];
-  }
-  const arduinoStates = [];
-  let nextBlock = startingBlock;
-  do {
-    const states = generateFrame(
-      blocks,
-      nextBlock,
-      variables,
-      timeline,
-      previousState
-    );
-    arduinoStates.push(...states);
-    const newPreviousState = states[states.length - 1];
-    previousState = _.cloneDeep(newPreviousState);
-    nextBlock = findBlockById(blocks, nextBlock.nextBlockId);
-  } while (nextBlock !== undefined);
-
-  return arduinoStates;
 };
 
 export const findComponent = <T extends ArduinoComponentState>(

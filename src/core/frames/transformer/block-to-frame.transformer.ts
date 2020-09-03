@@ -1,9 +1,10 @@
-import { BlockData } from '../../blockly/dto/block.type';
-import { Timeline, ArduinoFrame } from '../arduino.frame';
-import { rfidSetup } from './blocktoframe/rfid';
-import { bluetoothSetup, bluetoothMessage } from './blocktoframe/bluetooth';
-import { messageSetup, arduinoSendMessage } from './blocktoframe/message';
-import { timeSetup } from './blocktoframe/time';
+import { BlockData } from "../../blockly/dto/block.type";
+import { Timeline, ArduinoFrame } from "../arduino.frame";
+import { rfidSetup } from "./blocktoframe/rfid";
+import { bluetoothSetup, bluetoothMessage } from "./blocktoframe/bluetooth";
+import _ from "lodash";
+import { messageSetup, arduinoSendMessage } from "./blocktoframe/message";
+import { timeSetup } from "./blocktoframe/time";
 import {
   lcdScreenSetup,
   lcdSimplePrint,
@@ -12,17 +13,17 @@ import {
   lcdBlink,
   lcdClear,
   lcdBacklight,
-} from './blocktoframe/lcd';
-import { neoPixelSetup, setNeoPixelColor } from './blocktoframe/neopixel';
-import { ledColorSetup, setLedColor } from './blocktoframe/led-color';
-import { setupReadPin } from './blocktoframe/pin';
-import { buttonSetup } from './blocktoframe/button';
-import { irRemoteSetup } from './blocktoframe/ir_remote';
-import { debugBlock } from './blocktoframe/debug';
-import { ultraSonicSensor } from './blocktoframe/ultra_sonic_sensor';
-import { servoRotate } from './blocktoframe/servo';
-import { tempSetupSensor } from './blocktoframe/temp_setup';
-import { VariableData } from '../../blockly/dto/variable.type';
+} from "./blocktoframe/lcd";
+import { neoPixelSetup, setNeoPixelColor } from "./blocktoframe/neopixel";
+import { ledColorSetup, setLedColor } from "./blocktoframe/led-color";
+import { setupReadPin } from "./blocktoframe/pin";
+import { buttonSetup } from "./blocktoframe/button";
+import { irRemoteSetup } from "./blocktoframe/ir_remote";
+import { debugBlock } from "./blocktoframe/debug";
+import { ultraSonicSensor } from "./blocktoframe/ultra_sonic_sensor";
+import { servoRotate } from "./blocktoframe/servo";
+import { tempSetupSensor } from "./blocktoframe/temp_setup";
+import { VariableData } from "../../blockly/dto/variable.type";
 import {
   createListNumberState,
   createListStringState,
@@ -32,17 +33,21 @@ import {
   setNumberInList,
   setColorInList,
   setBooleanInList,
-} from './blocktoframe/list';
-import { setVariable } from './blocktoframe/set_variables';
-import { ifElse } from './blocktoframe/logic';
-import { simpleLoop, forLoop } from './blocktoframe/loop';
-import { customBlock } from './blocktoframe/function';
-import { delayBlock } from './blocktoframe/delay';
-import { digitalWrite, analogWrite } from './blocktoframe/led';
-import { PinPicture } from '../arduino-components.state';
-import { ledMatrixDraw, ledMatrixOnLed } from './blocktoframe/led-matrix';
-import { moveMotor } from './blocktoframe/motor';
-import { rfidScannedCard } from './blocktovalue/rfid';
+} from "./blocktoframe/list";
+import { setVariable } from "./blocktoframe/set_variables";
+import { ifElse } from "./blocktoframe/logic";
+import { simpleLoop, forLoop } from "./blocktoframe/loop";
+import { customBlock } from "./blocktoframe/function";
+import { delayBlock } from "./blocktoframe/delay";
+import { digitalWrite, analogWrite } from "./blocktoframe/led";
+import { PinPicture } from "../arduino-components.state";
+import { ledMatrixDraw, ledMatrixOnLed } from "./blocktoframe/led-matrix";
+import { moveMotor } from "./blocktoframe/motor";
+import { rfidScannedCard } from "./blocktovalue/rfid";
+import {
+  findBlockById,
+  findInputStatementStartBlock,
+} from "../../blockly/helpers/block-data.helper";
 
 export interface BlockToFrameTransformer {
   (
@@ -105,8 +110,8 @@ const blockToFrameTransformerList: {
 
   led: digitalWrite(PinPicture.LED),
   digital_write: digitalWrite(PinPicture.LED_DIGITAL_WRITE),
-  analog_write: analogWrite(PinPicture.LED_ANALOG_WRITE, 'WRITE_VALUE'),
-  led_fade: analogWrite(PinPicture.LED, 'FADE'),
+  analog_write: analogWrite(PinPicture.LED_ANALOG_WRITE, "WRITE_VALUE"),
+  led_fade: analogWrite(PinPicture.LED, "FADE"),
   set_color_led: setLedColor,
   neo_pixel_set_color: setNeoPixelColor,
 
@@ -133,7 +138,40 @@ export const generateFrame: BlockToFrameTransformer = (
       previousState
     );
   } catch (e) {
-    console.log(block.blockName, 'block name');
+    console.log(block.blockName, "block name");
     throw e;
   }
+};
+
+export const generateInputFrame = (
+  block: BlockData,
+  blocks: BlockData[],
+  variables: VariableData[],
+  timeline: Timeline,
+  inputName: string,
+  previousState?: ArduinoFrame
+): ArduinoFrame[] => {
+  // Fixing memory sharing between objects
+  previousState = previousState ? _.cloneDeep(previousState) : undefined;
+  const startingBlock = findInputStatementStartBlock(blocks, block, inputName);
+  if (!startingBlock) {
+    return [];
+  }
+  const arduinoStates = [];
+  let nextBlock = startingBlock;
+  do {
+    const states = generateFrame(
+      blocks,
+      nextBlock,
+      variables,
+      timeline,
+      previousState
+    );
+    arduinoStates.push(...states);
+    const newPreviousState = states[states.length - 1];
+    previousState = _.cloneDeep(newPreviousState);
+    nextBlock = findBlockById(blocks, nextBlock.nextBlockId);
+  } while (nextBlock !== undefined);
+
+  return arduinoStates;
 };

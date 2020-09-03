@@ -1,25 +1,25 @@
-import { BlockEvent } from '../blockly/dto/event.type';
+import { BlockEvent } from "../blockly/dto/event.type";
 import {
   ArduinoFrame,
   Timeline,
   ArduinoComponentType,
   ArduinoComponentState,
   SENSOR_COMPONENTS,
-} from './arduino.frame';
-import { BlockType, BlockData } from '../blockly/dto/block.type';
-import { generateFrame } from './transformer/block-to-frame.transformer';
-import _ from 'lodash';
+} from "./arduino.frame";
+import { BlockType, BlockData } from "../blockly/dto/block.type";
+import { generateFrame } from "./transformer/block-to-frame.transformer";
+import _ from "lodash";
 import {
   getLoopTimeFromBlockData,
   findArduinoLoopBlock,
   findArduinoSetupBlock,
-} from '../blockly/helpers/block-data.helper';
-import { generateInputFrame } from './transformer/frame-transformer.helpers';
-import { PinState, PIN_TYPE } from './arduino-components.state';
+} from "../blockly/helpers/block-data.helper";
+import { PinState, PIN_TYPE } from "./arduino-components.state";
 import {
   sensorSetupBlockName,
   convertToState,
-} from '../blockly/transformers/sensor-data.transformer';
+} from "../blockly/transformers/sensor-data.transformer";
+import { generateInputFrame } from "./transformer/block-to-frame.transformer";
 
 export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
   const { blocks } = event;
@@ -46,7 +46,7 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
         blocks,
         block,
         event.variables,
-        { iteration: 0, function: 'pre-setup' },
+        { iteration: 0, function: "pre-setup" },
         previousState
       ),
     ];
@@ -63,11 +63,11 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
         arduinoSetupBlock,
         blocks,
         event.variables,
-        { iteration: 0, function: 'setup' },
-        'setup',
+        { iteration: 0, function: "setup" },
+        "setup",
         getPreviousState(
           blocks,
-          { iteration: 0, function: 'pre-setup' },
+          { iteration: 0, function: "pre-setup" },
           previousFrame
         )
       )
@@ -78,7 +78,7 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
   const arduinoLoopBlock = findArduinoLoopBlock(blocks);
   const loopTimes = getLoopTimeFromBlockData(blocks);
   return _.range(1, loopTimes + 1).reduce((prevFrames, loopTime) => {
-    const timeLine: Timeline = { iteration: loopTime, function: 'loop' };
+    const timeLine: Timeline = { iteration: loopTime, function: "loop" };
     const previousFrame = _.isEmpty(prevFrames)
       ? undefined
       : prevFrames[prevFrames.length - 1];
@@ -90,7 +90,7 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
         blocks,
         event.variables,
         timeLine,
-        'loop',
+        "loop",
         getPreviousState(blocks, timeLine, _.cloneDeep(previousFrame)) // Deep clone to prevent object memory sharing
       ),
     ];
