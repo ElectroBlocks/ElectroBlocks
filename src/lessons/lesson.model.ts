@@ -5,7 +5,10 @@ export interface Lesson {
   contentType: "jpg" | "gif" | "png";
   folderName: string;
   authorFolderName: string;
+  level: "Beginner" | "Intermediate" | "Expert" | "All Levels";
   author: string;
+  company: string;
+  category: string; // This will be used later on
   email: string;
   version: number;
 }

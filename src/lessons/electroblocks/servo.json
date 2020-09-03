@@ -1,65 +1,38 @@
 {
-  "title": "Servo Lesson For Realz",
-  "id": "c532f3f0-045c-4cbf-b1a4-2a369c238f5f",
+  "title": "servo",
+  "id": "72bebf90-82c6-46c8-a557-330bc0034c3b",
   "version": 1,
-  "contentType": "jpg",
+  "contentType": "png",
   "folderName": "servo",
   "authorFolderName": "electroblocks",
   "author": "Noah Glaser",
+  "level": "Beginner",
+  "category": "",
+  "company": "ElectroBlocks",
   "email": "glaserpower@gmail.com",
   "steps": [
     {
-      "title": "Step 1",
+      "title": "",
       "contentType": "png",
-      "id": "f2bcbcc6-a06a-4912-a521-89d65473fbcd",
+      "id": "696183a7-af7f-41de-9527-19753200d342",
       "youtubeId": ""
     },
     {
-      "title": "Step 2",
+      "title": "",
       "contentType": "png",
-      "id": "914a22a3-518e-40d4-a2be-1e369d0c1f52",
+      "id": "e4928e49-0070-492b-894c-4e7690fc9251",
       "youtubeId": ""
     },
     {
       "title": "",
       "contentType": "youtube",
-      "id": "ffe1b697-c0b2-442b-9b0b-33de5573b488",
+      "id": "ac576976-e01e-49f9-9931-e7fe58260a5f",
       "youtubeId": "XMsp0TBTgxQ"
     },
     {
-      "title": "Step 1",
+      "title": "",
       "contentType": "png",
-      "id": "f2bcbcc6-a06a-4912-a521-89d65473fbcd",
-      "youtubeId": ""
-    },
-    {
-      "title": "Step 2",
-      "contentType": "png",
-      "id": "914a22a3-518e-40d4-a2be-1e369d0c1f52",
-      "youtubeId": ""
-    },
-    {
-      "title": "Step 1",
-      "contentType": "png",
-      "id": "f2bcbcc6-a06a-4912-a521-89d65473fbcd",
-      "youtubeId": ""
-    },
-    {
-      "title": "Step 2",
-      "contentType": "png",
-      "id": "914a22a3-518e-40d4-a2be-1e369d0c1f52",
-      "youtubeId": ""
-    },
-    {
-      "title": "Step 1",
-      "contentType": "png",
-      "id": "f2bcbcc6-a06a-4912-a521-89d65473fbcd",
-      "youtubeId": ""
-    },
-    {
-      "title": "Step 2",
-      "contentType": "png",
-      "id": "914a22a3-518e-40d4-a2be-1e369d0c1f52",
+      "id": "e591a772-70e4-4d8e-a1b8-a5a92abcc4bd",
       "youtubeId": ""
     }
   ]
