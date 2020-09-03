@@ -35,13 +35,6 @@
     font-size: 30px;
     cursor: pointer;
   }
-  .fa-spinner {
-    color: rgb(157, 153, 158) !important;
-    pointer-events: none;
-  }
-  .disabled {
-    cursor: not-allowed !important;
-  }
 </style>
 
 <nav>
@@ -63,11 +56,8 @@
   <a href="/electroblocks/file" class:active={segment === 'file'}>
     <i class="fa fa-folder-open" />
   </a>
-  <span>
-    <i class="fa fa-download" />
-  </span>
+  <span> <i class="fa fa-download" /> </span>
   <a href="/electroblocks/settings" class:active={segment === 'settings'}>
     <i class="fa fa-gears" />
   </a>
-
 </nav>

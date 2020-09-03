@@ -14,9 +14,9 @@
       : stepIndex;
   $: currentStep = lesson && lesson.steps[stepIndex];
   $: url = lesson
-    ? `http://localhost:3000/lessons/${lesson.authorFolderName}/${
-        lesson.folderName
-      }/step-${stepIndex + 1}.${currentStep.contentType}`
+    ? `/lessons/${lesson.authorFolderName}/${lesson.folderName}/step-${
+        stepIndex + 1
+      }.${currentStep.contentType}`
     : "";
 
   function moveBack() {
