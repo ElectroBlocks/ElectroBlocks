@@ -1,4 +1,4 @@
-import arduinoSVGText from "./svgs/arduino.svg";
+import arduinoSVGText from "./svgs/board/arduino.svg";
 import { Svg, Element } from "@svgdotjs/svg.js";
 import { ArduinoFrame, ArduinoComponentType } from "../frames/arduino.frame";
 import { ARDUINO_UNO_PINS } from "../blockly/selectBoard";
