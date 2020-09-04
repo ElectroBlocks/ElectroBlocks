@@ -18,16 +18,16 @@
   $: frameIndex = frameNumber - 1;
 
   unsubscribes.push(
-    currentStepStore.subscribe(currentIndex => {
+    currentStepStore.subscribe((currentIndex) => {
       frameNumber = currentIndex;
     })
   );
 
   unsubscribes.push(
-    frameStore.subscribe(newFrames => {
+    frameStore.subscribe((frameContainer) => {
       playing = false;
       const currentFrame = frames[frameNumber];
-      frames = newFrames;
+      frames = frameContainer.frames;
 
       // If we are starting out with set to first frame.
       if (frames.length === 0 || !currentFrame) {
@@ -54,12 +54,12 @@
 
     if (timeLine.iteration > lastFrameTimeLine.iteration) {
       const loopNumber = lastFrameTimeLine.iteration;
-      return frames.findIndex(f => f.timeLine.iteration === loopNumber);
+      return frames.findIndex((f) => f.timeLine.iteration === loopNumber);
     }
 
     const loopNumber = timeLine.iteration;
 
-    return frames.findIndex(f => f.timeLine.iteration === loopNumber);
+    return frames.findIndex((f) => f.timeLine.iteration === loopNumber);
   }
 
   function setCurrentFrame(frameNumber) {
@@ -134,11 +134,11 @@
   }
 
   function moveWait() {
-    return new Promise(resolve => setTimeout(resolve, 800 / speedDivisor));
+    return new Promise((resolve) => setTimeout(resolve, 800 / speedDivisor));
   }
 
   onDestroy(() => {
-    unsubscribes.forEach(unSubFunc => unSubFunc());
+    unsubscribes.forEach((unSubFunc) => unSubFunc());
   });
 </script>
 

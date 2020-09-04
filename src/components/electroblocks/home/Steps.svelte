@@ -10,8 +10,8 @@
   let unsubscribes = [];
 
   unsubscribes.push(
-    frameStore.subscribe((newFrames) => {
-      frames = newFrames;
+    frameStore.subscribe((frameContainer) => {
+      frames = frameContainer.frames;
     })
   );
 
@@ -71,7 +71,7 @@
 
 <div bind:this={stepContainer} id="steps">
   <ol>
-    {#each $frameStore as frame, i}
+    {#each frames as frame, i}
       <li
         data-step={i}
         on:click={changeFrame}

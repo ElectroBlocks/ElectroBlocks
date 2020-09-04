@@ -1,15 +1,20 @@
-import arduinoSVGText from './svgs/arduino.svg';
-import { Svg, Element } from '@svgdotjs/svg.js';
-import { ArduinoFrame, ArduinoComponentType } from '../frames/arduino.frame';
-import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
-import { resetBreadBoardWholes } from './wire';
-import { findArduinoEl } from './svg-helpers';
-import createNewComponent from './svg-create';
-import { arduinoComponentStateToId } from '../frames/arduino-component-id';
+import arduinoSVGText from "./svgs/arduino.svg";
+import { Svg, Element } from "@svgdotjs/svg.js";
+import { ArduinoFrame, ArduinoComponentType } from "../frames/arduino.frame";
+import { ARDUINO_UNO_PINS } from "../blockly/selectBoard";
+import { resetBreadBoardWholes } from "./wire";
+import { findArduinoEl } from "./svg-helpers";
+import createNewComponent from "./svg-create";
+import { arduinoComponentStateToId } from "../frames/arduino-component-id";
+import { MicroControllerType } from "../microcontroller/microcontroller";
 
-export default (draw: Svg, frame: ArduinoFrame = undefined) => {
+export default (
+  draw: Svg,
+  boardType: MicroControllerType,
+  frame: ArduinoFrame = undefined
+) => {
   const arduino = findOrCreateArduino(draw);
-
+  console.log(boardType, boardType, "IT WORKED BOARDTYPE");
   resetBreadBoardWholes();
   hideAllWires(arduino);
 
@@ -30,14 +35,14 @@ const findOrCreateArduino = (draw: Svg) => {
 
   if (arduino) {
     // Have to reset this because it's part of the arduino
-    arduino.findOne('#MESSAGE').hide();
+    arduino.findOne("#MESSAGE").hide();
     return arduino;
   }
 
   draw.svg(arduinoSVGText);
-  arduino = draw.findOne('#Layer_1') as Element;
-  arduino.node.id = 'arduino_main_svg';
-  arduino.findOne('#MESSAGE').hide();
+  arduino = draw.findOne("#Layer_1") as Element;
+  arduino.node.id = "arduino_main_svg";
+  arduino.findOne("#MESSAGE").hide();
   (window as any).arduino = arduino;
   (window as any).draw = draw;
   (window as any).arduinoText = arduinoSVGText;
@@ -50,18 +55,18 @@ const findOrCreateArduino = (draw: Svg) => {
 
 const hideAllWires = (arduino: Element) => {
   Object.keys(ARDUINO_UNO_PINS)
-    .map((key) => arduino.find('#' + key)[0])
+    .map((key) => arduino.find("#" + key)[0])
     .filter((wire) => wire !== undefined)
     .forEach((wire) => wire.hide());
 };
 
 const showWire = (arduino: Element, wire: string) => {
-  arduino.findOne('#PIN_' + wire).show();
+  arduino.findOne("#PIN_" + wire).show();
 };
 
 const deleteUnusedComponents = (draw: Svg, frame: ArduinoFrame | undefined) => {
-  draw.find('.component').forEach((c: Element) => {
-    const componentId = c.attr('id');
+  draw.find(".component").forEach((c: Element) => {
+    const componentId = c.attr("id");
     // If there are not frames just delete all the components
     if (!frame) {
       c.remove();

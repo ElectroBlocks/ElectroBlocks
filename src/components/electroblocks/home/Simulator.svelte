@@ -31,19 +31,19 @@
       .panZoom();
 
     unsubscribes.push(
-      frameStore.subscribe(newFrames => {
-        frames = newFrames;
+      frameStore.subscribe((frameContainer) => {
+        frames = frameContainer.frames;
         console.log(frames, "new frames");
         const lastFrame = frames ? frames[frames.length - 1] : undefined;
         const firstFrame = frames ? frames[0] : undefined;
         currentFrame = firstFrame;
-        paint(draw, lastFrame);
+        paint(draw, frameContainer.board, lastFrame);
         update(draw, firstFrame);
       })
     );
 
     unsubscribes.push(
-      currentFrameStore.subscribe(frame => {
+      currentFrameStore.subscribe((frame) => {
         currentFrame = frame;
         update(draw, currentFrame);
       })
@@ -64,7 +64,7 @@
     draw.zoom(draw.zoom() - 0.05);
   }
   onDestroy(() => {
-    unsubscribes.forEach(unSubFunc => unSubFunc());
+    unsubscribes.forEach((unSubFunc) => unSubFunc());
   });
 </script>
 
@@ -101,10 +101,8 @@
 <div class="container">
   <div bind:this={container} id="simulator" />
   <div id="simulator-controls">
-
-    <i on:click={zoomIn} class="fa fa-search-plus " aria-hidden="true" />
-    <i on:click={zoomOut} class="fa fa-search-minus " aria-hidden="true" />
-
+    <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
+    <i on:click={zoomOut} class="fa fa-search-minus" aria-hidden="true" />
   </div>
   <SimDebugger />
 </div>

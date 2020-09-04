@@ -1,5 +1,11 @@
-import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
-import { VariableTypes } from '../blockly/dto/variable.type';
+import { ARDUINO_UNO_PINS } from "../blockly/selectBoard";
+import { VariableTypes } from "../blockly/dto/variable.type";
+import { MicroControllerType } from "../microcontroller/microcontroller";
+
+export interface ArduinoFrameContainer {
+  board: MicroControllerType;
+  frames: ArduinoFrame[];
+}
 
 export interface ArduinoFrame {
   blockId: string;
@@ -39,7 +45,7 @@ export interface Color {
 export interface Timeline {
   iteration: number;
 
-  function: 'setup' | 'loop' | 'pre-setup';
+  function: "setup" | "loop" | "pre-setup";
 }
 
 export interface ArduinoComponentState {
@@ -48,21 +54,21 @@ export interface ArduinoComponentState {
 }
 
 export enum ArduinoComponentType {
-  SERVO = 'SERVO',
-  LCD_SCREEN = 'LCD_SCREEN',
-  LED_MATRIX = 'LED_MATRIX',
-  NEO_PIXEL_STRIP = 'NEO_PIXEL_STRIP',
-  MOTOR = 'MOTOR',
-  PIN = 'PIN',
-  BLUE_TOOTH = 'BLUE_TOOTH',
-  LED_COLOR = 'LED_COLOR',
-  RFID = 'RFID',
-  BUTTON = 'BUTTON',
-  MESSAGE = 'MESSAGE',
-  TIME = 'TIME',
-  IR_REMOTE = 'IR_REMOTE',
-  ULTRASONICE_SENSOR = 'ULTRASONICE_SENSOR',
-  TEMPERATURE_SENSOR = 'TEMPERATURE_SENSOR',
+  SERVO = "SERVO",
+  LCD_SCREEN = "LCD_SCREEN",
+  LED_MATRIX = "LED_MATRIX",
+  NEO_PIXEL_STRIP = "NEO_PIXEL_STRIP",
+  MOTOR = "MOTOR",
+  PIN = "PIN",
+  BLUE_TOOTH = "BLUE_TOOTH",
+  LED_COLOR = "LED_COLOR",
+  RFID = "RFID",
+  BUTTON = "BUTTON",
+  MESSAGE = "MESSAGE",
+  TIME = "TIME",
+  IR_REMOTE = "IR_REMOTE",
+  ULTRASONICE_SENSOR = "ULTRASONICE_SENSOR",
+  TEMPERATURE_SENSOR = "TEMPERATURE_SENSOR",
 }
 
 export const SENSOR_COMPONENTS = [

@@ -5,6 +5,7 @@ import {
   ArduinoComponentType,
   ArduinoComponentState,
   SENSOR_COMPONENTS,
+  ArduinoFrameContainer,
 } from "./arduino.frame";
 import { BlockType, BlockData } from "../blockly/dto/block.type";
 import { generateFrame } from "./transformer/block-to-frame.transformer";
@@ -21,7 +22,9 @@ import {
 } from "../blockly/transformers/sensor-data.transformer";
 import { generateInputFrame } from "./transformer/block-to-frame.transformer";
 
-export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
+export const eventToFrameFactory = (
+  event: BlockEvent
+): ArduinoFrameContainer => {
   const { blocks } = event;
 
   const preSetupBlockType = [
@@ -77,24 +80,32 @@ export const eventToFrameFactory = (event: BlockEvent): ArduinoFrame[] => {
 
   const arduinoLoopBlock = findArduinoLoopBlock(blocks);
   const loopTimes = getLoopTimeFromBlockData(blocks);
-  return _.range(1, loopTimes + 1).reduce((prevFrames, loopTime) => {
-    const timeLine: Timeline = { iteration: loopTime, function: "loop" };
-    const previousFrame = _.isEmpty(prevFrames)
-      ? undefined
-      : prevFrames[prevFrames.length - 1];
+  const framesWithLoop = _.range(1, loopTimes + 1).reduce(
+    (prevFrames, loopTime) => {
+      const timeLine: Timeline = { iteration: loopTime, function: "loop" };
+      const previousFrame = _.isEmpty(prevFrames)
+        ? undefined
+        : prevFrames[prevFrames.length - 1];
 
-    return [
-      ...prevFrames,
-      ...generateInputFrame(
-        arduinoLoopBlock,
-        blocks,
-        event.variables,
-        timeLine,
-        "loop",
-        getPreviousState(blocks, timeLine, _.cloneDeep(previousFrame)) // Deep clone to prevent object memory sharing
-      ),
-    ];
-  }, frames);
+      return [
+        ...prevFrames,
+        ...generateInputFrame(
+          arduinoLoopBlock,
+          blocks,
+          event.variables,
+          timeLine,
+          "loop",
+          getPreviousState(blocks, timeLine, _.cloneDeep(previousFrame)) // Deep clone to prevent object memory sharing
+        ),
+      ];
+    },
+    frames
+  );
+
+  return {
+    board: event.microController,
+    frames: framesWithLoop,
+  };
 };
 
 const getPreviousState = (

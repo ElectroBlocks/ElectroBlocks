@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 import selectedBoard from "../core/blockly/selectBoard";
-import { LineBreakTransformer } from "../core/arduino/linebreak.transformer";
+import { LineBreakTransformer } from "../core/serial/linebreak.transformer";
 
 export interface ArduinoMessage {
   type: "Arduino" | "Computer";

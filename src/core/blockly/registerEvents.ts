@@ -3,7 +3,7 @@ import { WorkspaceSvg } from "blockly";
 import _ from "lodash";
 
 import codeStore from "../../stores/code.store";
-import stateStore from "../../stores/frame.store";
+import frameStore from "../../stores/frame.store";
 import { getArduinoCode } from "./helpers/workspace.helper";
 
 import { getAllBlocks } from "./helpers/block.helper";
@@ -24,11 +24,12 @@ import { disableSensorReadBlocksWithWrongPins } from "./actions/factories/disabl
 import { disableBlocksThatNeedASetupBlock } from "./actions/factories/disable/disableBlocksThatNeedASetupBlock";
 import { ActionType, DisableBlock, EnableBlock } from "./actions/actions";
 import { eventToFrameFactory } from "../frames/event-to-frame.factory";
-import { ArduinoFrame } from "../frames/arduino.frame";
+import { ArduinoFrame, ArduinoFrameContainer } from "../frames/arduino.frame";
+import { MicroControllerType } from "../microcontroller/microcontroller";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
-let currentFrames: ArduinoFrame[] = [];
+let currentFrameContainter: ArduinoFrameContainer;
 
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (blocklyEvent) => {
@@ -45,10 +46,14 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       return;
     }
 
+    // Hard coding for now
+    let microcontrollerType = MicroControllerType.ARDUINO_UNO;
+
     const event = transformEvent(
       getAllBlocks(),
       getAllVariables(),
-      blocklyEvent
+      blocklyEvent,
+      microcontrollerType
     );
     const firstActionPass = [
       ...deleteUnusedVariables(event),
@@ -74,7 +79,8 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     const refreshEvent = transformEvent(
       getAllBlocks(),
       getAllVariables(),
-      blocklyEvent
+      blocklyEvent,
+      microcontrollerType
     );
 
     const secondActionPass = [
@@ -92,15 +98,16 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     const arduinoStateEvent = transformEvent(
       getAllBlocks(),
       getAllVariables(),
-      blocklyEvent
+      blocklyEvent,
+      microcontrollerType
     );
 
-    const newFrames = eventToFrameFactory(arduinoStateEvent);
+    const newFrameContainer = eventToFrameFactory(arduinoStateEvent);
 
-    if (!_.isEqual(newFrames, currentFrames)) {
-      currentFrames = newFrames;
+    if (!_.isEqual(newFrameContainer, currentFrameContainter)) {
+      currentFrameContainter = newFrameContainer;
       console.log(arduinoStateEvent, "arduinoStateEvent");
-      stateStore.set(currentFrames);
+      frameStore.set(currentFrameContainter);
     }
     codeStore.set(getArduinoCode());
   });

@@ -4,7 +4,7 @@
   import arduinoStore, { PortState } from "../../../stores/arduino.store";
   import { WindowType, resizeStore } from "../../../stores/resize.store";
 
-  import { upload } from "../../../core/arduino/upload";
+  import { upload } from "../../../core/serial/upload";
   import selectedBoard from "../../../core/blockly/selectBoard";
 
   import { afterUpdate } from "svelte";
@@ -15,7 +15,7 @@
   // List of messages
   let messages = [];
 
-  // This is the arduion status where it's open close etc
+  // This is the arduino status where it's open close etc
   let arduinoStatus = PortState.CLOSE;
 
   // This is the value in the input text used to send messages to the Arduino
@@ -291,9 +291,7 @@
   <button disabled={!(arduinoStatus === PortState.CLOSE)} on:click={uploadCode}>
     <i class="fa {uploadingClass}" />
   </button>
-  <button on:click={clearMessages}>
-    <i class="fa fa-trash" />
-  </button>
+  <button on:click={clearMessages}> <i class="fa fa-trash" /> </button>
   <button class:scroll-active={autoScroll} on:click={toggleAutoScroll}>
     <i class="fa fa-arrow-down" />
   </button>
