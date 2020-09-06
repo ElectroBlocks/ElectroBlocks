@@ -13,10 +13,10 @@ export default (
   boardType: MicroControllerType,
   frame: ArduinoFrame = undefined
 ) => {
-  const arduino = findOrCreateMicroController(draw);
+  const arduino = findOrCreateMicroController(draw, boardType);
   console.log(boardType, boardType, "IT WORKED BOARDTYPE");
   resetBreadBoardWholes();
-  hideAllWires(arduino);
+  hideAllWires(arduino, boardType);
 
   if (frame) {
     frame.components
@@ -30,10 +30,13 @@ export default (
   deleteUnusedComponents(draw, frame);
 };
 
-const findOrCreateMicroController = (draw: Svg) => {
+const findOrCreateMicroController = (
+  draw: Svg,
+  boardType: MicroControllerType
+) => {
   let arduino = findMicronControllerEl(draw);
 
-  if (arduino) {
+  if (arduino && arduino.data("type") === boardType) {
     // Have to reset this because it's part of the arduino
     arduino.findOne("#MESSAGE").hide();
     return arduino;
@@ -41,6 +44,7 @@ const findOrCreateMicroController = (draw: Svg) => {
 
   draw.svg(arduinoSVGText);
   arduino = draw.findOne("#MicroController") as Element;
+  arduino.data("type", boardType);
   arduino.node.id = "microcontroller_main_svg";
   arduino.findOne("#MESSAGE").hide();
   (window as any).arduino = arduino;
@@ -53,7 +57,7 @@ const findOrCreateMicroController = (draw: Svg) => {
   return arduino;
 };
 
-const hideAllWires = (arduino: Element) => {
+const hideAllWires = (arduino: Element, boardType: MicroControllerType) => {
   Object.keys(ARDUINO_UNO_PINS)
     .map((key) => arduino.find("#" + key)[0])
     .filter((wire) => wire !== undefined)

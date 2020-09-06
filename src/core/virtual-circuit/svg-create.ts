@@ -78,7 +78,6 @@ export default (
   }
 
   componentEl = createComponentEl(draw, state, getSvgString(state));
-  debugger;
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;
   positionComponentHookFunc[state.type](state, componentEl, arduinoEl, draw);

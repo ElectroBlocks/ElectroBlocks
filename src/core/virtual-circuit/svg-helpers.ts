@@ -43,7 +43,6 @@ export const createComponentEl = (
   svgText: string
 ) => {
   const componentEl = draw.svg(svgText).last();
-  debugger;
   componentEl.addClass("component");
   componentEl.attr("id", arduinoComponentStateToId(state));
   componentEl.data("component-type", state.type);
