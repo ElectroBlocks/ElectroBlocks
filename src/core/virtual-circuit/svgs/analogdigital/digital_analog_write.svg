@@ -1,27 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="76.4" height="107.28" viewBox="0 0 76.4 107.28">
-  <title>digital_analog_write</title>
   <g id="WIRES">
-    <line id="POWER" x1="34.31" y1="81.89" x2="34.31" y2="106.28" fill="none" stroke="#f73939" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line id="PIN_GND" x1="49.43" y1="81.89" x2="49.43" y2="106.28" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-    <text id="STATE_TEXT" transform="translate(26.44 15.55)" font-size="18" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">150</text>
-    <text id="PIN_TEXT" transform="translate(21.74 101.08)" font-size="16" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">2</text>
-    <text id="GND_TEXT" transform="translate(52.6 101.08)" font-size="24" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">-</text>
-    <rect y="95.86" width="3.41" height="2.33" fill="none"/>
-    <rect x="2.64" y="102.21" width="3.41" height="2.33" fill="none"/>
+    <line id="POWER" x1="34.31" y1="81.89" x2="34.31" y2="106.28" style="fill: none;stroke: #f73939;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    <line id="PIN_GND" x1="49.43" y1="81.89" x2="49.43" y2="106.28" style="fill: none;stroke: #000;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    <text id="STATE_TEXT" transform="translate(26.44 15.55)" style="font-size: 18px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">150</text>
+    <text id="PIN_TEXT" transform="translate(21.74 101.08)" style="font-size: 16px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">2</text>
+    <text id="GND_TEXT" transform="translate(52.6 101.08)" style="font-size: 24px;font-family: ArialRoundedMTBold, Arial Rounded MT Bold">-</text>
+    <rect y="95.86" width="3.41" height="2.33" style="fill: none"/>
+    <rect x="2.64" y="102.21" width="3.41" height="2.33" style="fill: none"/>
   </g>
   <g id="LIGHT">
-    <path id="LIGHT_BULB" d="M48.14,40.73A17.41,17.41,0,0,0,30.73,58.14c0,7.53,4.79,14,13.66,16.37v5.38h7.5V74.51c8.86-2.42,13.66-8.84,13.66-16.37A17.42,17.42,0,0,0,48.14,40.73Z" transform="translate(-6.22 -3.53)" fill="#fff2a0"/>
-    <path id="LIGHT_BULB_OUTLINE" d="M48.14,40.73A17.41,17.41,0,0,0,30.73,58.14c0,7.53,4.79,14,13.66,16.37v5.38h7.5V74.51c8.86-2.42,13.66-8.84,13.66-16.37A17.42,17.42,0,0,0,48.14,40.73Z" transform="translate(-6.22 -3.53)" fill="none" stroke="#0c0c0c" stroke-miterlimit="10"/>
-    <path id="BASE" d="M36.78,78.6H59.5v6.82H36.78Z" transform="translate(-6.22 -3.53)" fill="#73ddd3"/>
+    <path id="LIGHT_BULB" d="M48.14,40.73A17.41,17.41,0,0,0,30.73,58.14c0,7.53,4.79,14,13.66,16.37v5.38h7.5V74.51c8.86-2.42,13.66-8.84,13.66-16.37A17.42,17.42,0,0,0,48.14,40.73Z" transform="translate(-6.22 -3.53)" style="fill: #fff2a0"/>
+    <path id="LIGHT_BULB_OUTLINE" d="M48.14,40.73A17.41,17.41,0,0,0,30.73,58.14c0,7.53,4.79,14,13.66,16.37v5.38h7.5V74.51c8.86-2.42,13.66-8.84,13.66-16.37A17.42,17.42,0,0,0,48.14,40.73Z" transform="translate(-6.22 -3.53)" style="fill: none;stroke: #0c0c0c;stroke-miterlimit: 10"/>
+    <path id="BASE" d="M36.78,78.6H59.5v6.82H36.78Z" transform="translate(-6.22 -3.53)" style="fill: #73ddd3"/>
   </g>
   <g id="RAYS">
-    <path id="RAY_7" d="M48.52,36.62a1.14,1.14,0,0,1-1.14-1.14v-2.3a1.14,1.14,0,1,1,2.28,0v2.3A1.14,1.14,0,0,1,48.52,36.62Z" transform="translate(-6.22 -3.53)" fill="#fff2a0"/>
-    <path id="RAY_7-2" data-name="RAY_7" d="M48.52,35.85a2.74,2.74,0,0,1-2.74-2.73V27.61a2.74,2.74,0,1,1,5.47,0v5.51A2.73,2.73,0,0,1,48.52,35.85Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_6" d="M79.64,61.45H74.13a2.74,2.74,0,1,1,0-5.47h5.51a2.74,2.74,0,0,1,0,5.47Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_5" d="M22.91,61.45H17.4a2.74,2.74,0,1,1,0-5.47h5.51a2.74,2.74,0,0,1,0,5.47Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_4" d="M66.62,43.35a2.74,2.74,0,0,1-1.93-4.67l3.9-3.89a2.73,2.73,0,1,1,3.87,3.86l-3.9,3.9a2.77,2.77,0,0,1-1.94.8Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#000" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_3" d="M26.51,83.45a2.74,2.74,0,0,1-1.93-4.67l3.9-3.9a2.73,2.73,0,0,1,3.86,3.87l-3.9,3.9A2.73,2.73,0,0,1,26.51,83.45Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_2" d="M70.52,83.45a2.73,2.73,0,0,1-1.93-.8l-3.9-3.9a2.74,2.74,0,0,1,3.87-3.87l3.9,3.9a2.74,2.74,0,0,1-1.94,4.67Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_1" d="M30.41,43.35a2.73,2.73,0,0,1-1.93-.8l-3.9-3.9a2.73,2.73,0,1,1,3.86-3.86l3.9,3.89a2.74,2.74,0,0,1-1.93,4.67Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
+    <path id="RAY_7" d="M48.52,36.62a1.14,1.14,0,0,1-1.14-1.14v-2.3a1.14,1.14,0,1,1,2.28,0v2.3A1.14,1.14,0,0,1,48.52,36.62Z" transform="translate(-6.22 -3.53)" style="fill: #fff2a0"/>
+    <path id="RAY_7-2" data-name="RAY_7" d="M48.52,35.85a2.74,2.74,0,0,1-2.74-2.73V27.61a2.74,2.74,0,1,1,5.47,0v5.51A2.73,2.73,0,0,1,48.52,35.85Z" transform="translate(-6.22 -3.53)" style="fill: #fff2a0;stroke: #020202;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+    <path id="RAY_6" d="M79.64,61.45H74.13a2.74,2.74,0,1,1,0-5.47h5.51a2.74,2.74,0,0,1,0,5.47Z" transform="translate(-6.22 -3.53)" style="fill: #fff2a0;stroke: #050505;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+    <path id="RAY_5" d="M22.91,61.45H17.4a2.74,2.74,0,1,1,0-5.47h5.51a2.74,2.74,0,0,1,0,5.47Z" transform="translate(-6.22 -3.53)" style="fill: #fff2a0;stroke: #020202;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+    <path id="RAY_4" d="M66.62,43.35a2.74,2.74,0,0,1-1.93-4.67l3.9-3.89a2.73,2.73,0,1,1,3.87,3.86l-3.9,3.9a2.77,2.77,0,0,1-1.94.8Z" transform="translate(-6.22 -3.53)" style="fill: #fff2a0;stroke: #000;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+    <path id="RAY_3" d="M26.51,83.45a2.74,2.74,0,0,1-1.93-4.67l3.9-3.9a2.73,2.73,0,0,1,3.86,3.87l-3.9,3.9A2.73,2.73,0,0,1,26.51,83.45Z" transform="translate(-6.22 -3.53)" style="fill: #fff2a0;stroke: #020202;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+    <path id="RAY_2" d="M70.52,83.45a2.73,2.73,0,0,1-1.93-.8l-3.9-3.9a2.74,2.74,0,0,1,3.87-3.87l3.9,3.9a2.74,2.74,0,0,1-1.94,4.67Z" transform="translate(-6.22 -3.53)" style="fill: #fff2a0;stroke: #020202;stroke-miterlimit: 10;stroke-width: 0.5px"/>
+    <path id="RAY_1" d="M30.41,43.35a2.73,2.73,0,0,1-1.93-.8l-3.9-3.9a2.73,2.73,0,1,1,3.86-3.86l3.9,3.89a2.74,2.74,0,0,1-1.93,4.67Z" transform="translate(-6.22 -3.53)" style="fill: #fff2a0;stroke: #020202;stroke-miterlimit: 10;stroke-width: 0.5px"/>
   </g>
 </svg>

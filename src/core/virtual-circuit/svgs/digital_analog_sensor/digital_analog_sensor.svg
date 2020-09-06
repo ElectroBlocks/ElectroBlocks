@@ -1,16 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="92.52" height="120.15" viewBox="0 0 92.52 120.15">
-  <title>digital_analog_sensor</title>
   <g id="WIRES">
-    <line id="PIN_POWER" x1="8.37" y1="88.09" x2="8.37" y2="116.87" fill="none" stroke="#f73939" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line id="PIN_GND" x1="85.37" y1="90.38" x2="85.37" y2="119.15" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line id="PIN_DATA" x1="46.33" y1="91.07" x2="46.33" y2="116.87" fill="none" stroke="#228e0c" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_POWER" x1="8.37" y1="88.09" x2="8.37" y2="116.87" style="fill: none;stroke: #f73939;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    <line id="PIN_GND" x1="85.37" y1="90.38" x2="85.37" y2="119.15" style="fill: none;stroke: #000;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    <line id="PIN_DATA" x1="46.33" y1="91.07" x2="46.33" y2="116.87" style="fill: none;stroke: #228e0c;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
   </g>
   <g id="LIGHT">
-    <path id="BASE" d="M3.63,50H96.16v50H3.63Z" transform="translate(-3.63 -7.6)" fill="#73ddd3"/>
+    <path id="BASE" d="M3.63,50H96.16v50H3.63Z" transform="translate(-3.63 -7.6)" style="fill: #73ddd3"/>
     <circle cx="46.37" cy="42.4" r="17.5"/>
-    <text id="PIN_TEXT" transform="matrix(1, 0, 0, 1, 29.08, 86.63)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
-    <text id="VCC_TEXT" transform="translate(1.9 86.69)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
-    <text id="GND_TEXT" transform="translate(79.49 87.69)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
-    <text id="READING_VALUE" transform="translate(26.75 21.1)" font-size="24" font-family="Biryani-ExtraBold, Biryani" font-weight="800">120</text>
+    <text id="PIN_TEXT" transform="matrix(1, 0, 0, 1, 29.11, 86.58)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">A5</text>
+    <text id="VCC_TEXT" transform="translate(1.9 86.69)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">+</text>
+    <text id="GND_TEXT" transform="translate(79.49 87.69)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">-</text>
+    <text id="READING_VALUE" transform="translate(26.75 21.1)" style="font-size: 24px;font-family: Biryani-ExtraBold, Biryani;font-weight: 800">120</text>
   </g>
 </svg>

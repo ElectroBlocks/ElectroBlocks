@@ -1,9 +1,9 @@
-import arduinoSVGText from "./svgs/board/arduino.svg";
+import arduinoSVGText from "./svgs/boards/arduino_uno.svg";
 import { Svg, Element } from "@svgdotjs/svg.js";
 import { ArduinoFrame, ArduinoComponentType } from "../frames/arduino.frame";
 import { ARDUINO_UNO_PINS } from "../blockly/selectBoard";
 import { resetBreadBoardWholes } from "./wire";
-import { findArduinoEl } from "./svg-helpers";
+import { findMicronControllerEl } from "./svg-helpers";
 import createNewComponent from "./svg-create";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 import { MicroControllerType } from "../microcontroller/microcontroller";
@@ -13,7 +13,7 @@ export default (
   boardType: MicroControllerType,
   frame: ArduinoFrame = undefined
 ) => {
-  const arduino = findOrCreateArduino(draw);
+  const arduino = findOrCreateMicroController(draw);
   console.log(boardType, boardType, "IT WORKED BOARDTYPE");
   resetBreadBoardWholes();
   hideAllWires(arduino);
@@ -30,8 +30,8 @@ export default (
   deleteUnusedComponents(draw, frame);
 };
 
-const findOrCreateArduino = (draw: Svg) => {
-  let arduino = findArduinoEl(draw);
+const findOrCreateMicroController = (draw: Svg) => {
+  let arduino = findMicronControllerEl(draw);
 
   if (arduino) {
     // Have to reset this because it's part of the arduino
@@ -40,8 +40,8 @@ const findOrCreateArduino = (draw: Svg) => {
   }
 
   draw.svg(arduinoSVGText);
-  arduino = draw.findOne("#Layer_1") as Element;
-  arduino.node.id = "arduino_main_svg";
+  arduino = draw.findOne("#MicroController") as Element;
+  arduino.node.id = "microcontroller_main_svg";
   arduino.findOne("#MESSAGE").hide();
   (window as any).arduino = arduino;
   (window as any).draw = draw;

@@ -1,7 +1,11 @@
-import { Svg } from '@svgdotjs/svg.js';
-import { ArduinoFrame } from '../frames/arduino.frame';
-import { syncComponents } from './svg-sync';
-import { findSvgElement, LED_COLORS, findArduinoEl } from './svg-helpers';
+import { Svg } from "@svgdotjs/svg.js";
+import { ArduinoFrame } from "../frames/arduino.frame";
+import { syncComponents } from "./svg-sync";
+import {
+  findSvgElement,
+  LED_COLORS,
+  findMicronControllerEl,
+} from "./svg-helpers";
 
 export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   if (!frame) {
@@ -11,16 +15,16 @@ export default (draw: Svg, frame: ArduinoFrame = undefined) => {
   if (frame) {
     syncComponents(frame, draw);
   }
-  const arduino = findArduinoEl(draw);
+  const arduino = findMicronControllerEl(draw);
 
   if (arduino) {
     // BUILT IN LED ID BELOW
     // TODO BUILT IN LED
-    findSvgElement('TX_LED', arduino as Svg).fill(
+    findSvgElement("TX_LED", arduino as Svg).fill(
       frame.sendMessage.length > 0 ? LED_COLORS.LED_ON : LED_COLORS.LED_OFF
     );
 
-    findSvgElement('BUILT_IN_LED', arduino as Svg).fill(
+    findSvgElement("BUILT_IN_LED", arduino as Svg).fill(
       frame.builtInLedOn ? LED_COLORS.LED_ON : LED_COLORS.LED_OFF
     );
   }

@@ -5,18 +5,17 @@
       <stop offset="1" stop-color="#39b54a"/>
     </radialGradient>
   </defs>
-  <title>led</title>
-  <rect y="60.83" width="5" height="7" fill="none"/>
+  <rect y="60.83" width="5" height="7" style="fill: none"/>
   <g id="POWER">
-    <line x1="34" y1="44.83" x2="34" y2="93.83" fill="none" stroke="#999" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="34" y1="44.83" x2="34" y2="93.83" style="fill: none;stroke: #999;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
   </g>
   <g id="PIN_GND">
-    <line x1="48" y1="44.83" x2="48" y2="65.83" fill="none" stroke="#999" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line x1="48" y1="44.83" x2="48" y2="65.83" style="fill: none;stroke: #999;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
   </g>
-  <path id="COVER" d="M57,55v2a1,1,0,0,1-1,1H28a1,1,0,0,1-1-1V55a4,4,0,0,1,4-4,0,0,0,0,0,0,0c0-.48,0-1,0-1.48C31,38.32,35.8,29.23,41.77,29h.46C48.2,29.23,53,38.32,53,49.5c0,.5,0,1,0,1.48a0,0,0,0,0,0,0A4,4,0,0,1,57,55Z" transform="translate(-1 -13.17)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
-  <path id="LED_LIGHT" d="M57,55v2a1,1,0,0,1-1,1H28a1,1,0,0,1-1-1V55a4,4,0,0,1,4-4,0,0,0,0,0,0,0c0-.48,0-1,0-1.48C31,38.32,35.8,29.23,41.77,29h.46C48.2,29.23,53,38.32,53,49.5c0,.5,0,1,0,1.48a0,0,0,0,0,0,0A4,4,0,0,1,57,55Z" transform="translate(-1 -13.17)" stroke="#000" stroke-miterlimit="10" stroke-width="2" fill="url(#radial-gradient)"/>
-  <text transform="translate(19.46 68.72)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
-  <text id="PIN_NUMBER" transform="translate(1.46 93.72)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
-  <text transform="translate(51.46 67.72)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
-  <text id="LED_TEXT" transform="translate(30 10.55)" font-size="12" font-family="Biryani-SemiBold, Biryani" font-weight="600">ON</text>
+  <path id="COVER" d="M57,55v2a1,1,0,0,1-1,1H28a1,1,0,0,1-1-1V55a4,4,0,0,1,4-4,0,0,0,0,0,0,0c0-.48,0-1,0-1.48C31,38.32,35.8,29.23,41.77,29h.46C48.2,29.23,53,38.32,53,49.5c0,.5,0,1,0,1.48a0,0,0,0,0,0,0A4,4,0,0,1,57,55Z" transform="translate(-1 -13.17)" style="fill: none;stroke: #000;stroke-miterlimit: 10;stroke-width: 2px"/>
+  <path id="LED_LIGHT" d="M57,55v2a1,1,0,0,1-1,1H28a1,1,0,0,1-1-1V55a4,4,0,0,1,4-4,0,0,0,0,0,0,0c0-.48,0-1,0-1.48C31,38.32,35.8,29.23,41.77,29h.46C48.2,29.23,53,38.32,53,49.5c0,.5,0,1,0,1.48a0,0,0,0,0,0,0A4,4,0,0,1,57,55Z" transform="translate(-1 -13.17)" style="stroke: #000;stroke-miterlimit: 10;stroke-width: 2px;fill: url(#radial-gradient)"/>
+  <text transform="translate(19.46 68.72)" style="font-size: 21px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">+</text>
+  <text id="PIN_NUMBER" transform="translate(1.46 93.72)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">A5</text>
+  <text transform="translate(51.46 67.72)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">-</text>
+  <text id="LED_TEXT" transform="translate(30 10.55)" style="font-size: 12px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">ON</text>
 </svg>
