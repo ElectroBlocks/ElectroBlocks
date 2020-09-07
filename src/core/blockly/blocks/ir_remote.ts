@@ -1,4 +1,4 @@
-import selectedBoard from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 import loopTimes from "./helpers/looptimes";
 import Blockly from "blockly";
 import { COLOR_THEME } from "../constants/colors";
@@ -52,7 +52,7 @@ const irSetupBlock: any = {
     this.appendDummyInput()
       .appendField("Analog Pin# ")
       .appendField(
-        new Blockly.FieldDropdown(selectedBoard().analogPins),
+        new Blockly.FieldDropdown(selectBoardBlockly().analogPins),
         "PIN"
       );
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(

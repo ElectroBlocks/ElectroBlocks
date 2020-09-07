@@ -1,4 +1,4 @@
-import selectedBoard from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 import Blockly from "blockly";
 
 import { COLOR_THEME } from "../constants/colors";
@@ -32,7 +32,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "field_dropdown",
         name: "PIN",
-        options: selectedBoard().digitalPins,
+        options: selectBoardBlockly().digitalPins,
       },
     ],
     previousStatement: null,
@@ -56,7 +56,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "field_dropdown",
         name: "PIN",
-        options: selectedBoard().analogPins,
+        options: selectBoardBlockly().analogPins,
       },
     ],
     output: "Number",
@@ -79,7 +79,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "field_dropdown",
         name: "PIN",
-        options: selectedBoard().pwmPins,
+        options: selectBoardBlockly().pwmPins,
       },
       {
         type: "input_dummy",
@@ -110,7 +110,7 @@ const analogReadBlock: any = {
         new Blockly.FieldDropdown(() => {
           return configuredPins(
             "digital_read_setup",
-            selectedBoard().analogPins
+            selectBoardBlockly().analogPins
           );
         }),
         "PIN"
@@ -136,7 +136,7 @@ const digitalReadBlock: any = {
         new Blockly.FieldDropdown(() => {
           return configuredPins(
             "digital_read_setup",
-            selectedBoard().digitalPins
+            selectBoardBlockly().digitalPins
           );
         }),
         "PIN"
@@ -165,7 +165,7 @@ const digitalReadSetupBlock: any = {
           return getAvailablePins(
             "digital_read_setup",
             this.getFieldValue("PIN"),
-            selectedBoard().digitalPins
+            selectBoardBlockly().digitalPins
           );
         }),
         "PIN"
@@ -216,7 +216,7 @@ const analogReadSetupBlock: any = {
           return getAvailablePins(
             "analog_read_setup",
             this.getFieldValue("PIN"),
-            selectedBoard().analogPins
+            selectBoardBlockly().analogPins
           );
         }),
         "PIN"

@@ -1,5 +1,5 @@
 import Blockly from "blockly";
-import selectedBoard from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 
 Blockly["Arduino"]["bluetooth_setup"] = function (block) {
   const rxPin = block.getFieldValue("RX");
@@ -24,7 +24,7 @@ Blockly["Arduino"]["bluetooth_setup"] = function (block) {
 
   Blockly["Arduino"].setupCode_["bluetooth_setup"] =
     "\tblueToothSerial.begin(" +
-    selectedBoard().serial_baud_rate +
+    selectBoardBlockly().serial_baud_rate +
     "); \n" +
     "\tdelay(1000); \n";
 

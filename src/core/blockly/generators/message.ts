@@ -1,10 +1,10 @@
 import Blockly from "blockly";
-import selectedBoard from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 
 export function stepSerialBegin() {
   Blockly["Arduino"].setupCode_["serial_begin"] =
     "\tSerial.begin(" +
-    selectedBoard().serial_baud_rate +
+    selectBoardBlockly().serial_baud_rate +
     "); \n" +
     "\tSerial.setTimeout(10);\n";
 

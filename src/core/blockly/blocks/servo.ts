@@ -1,4 +1,4 @@
-import selectedBoard from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 import Blockly from "blockly";
 import { COLOR_THEME } from "../constants/colors";
 
@@ -21,7 +21,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "field_dropdown",
         name: "PIN",
-        options: selectedBoard().digitalPins,
+        options: selectBoardBlockly().digitalPins,
       },
       {
         type: "input_dummy",

@@ -16,3 +16,17 @@ export interface MicroController {
   ssPins: string[];
   type: MicroControllerType;
 }
+
+export interface MicroControllerBlocks {
+  digitalPins: string[][];
+  analogPins: string[][];
+  serial_baud_rate: number;
+  pwmPins: string[][];
+  sdaPins: string[][];
+  sclPins: string[][];
+  mosiPins: string[][];
+  misoPins: string[][];
+  sckPins: string[][];
+  ssPins: string[][];
+  type: MicroControllerType;
+}

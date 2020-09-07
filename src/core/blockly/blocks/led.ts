@@ -1,6 +1,6 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../constants/colors";
-import selectedBoard from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -26,7 +26,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "field_dropdown",
         name: "PIN",
-        options: selectedBoard().digitalPins,
+        options: selectBoardBlockly().digitalPins,
       },
     ],
     previousStatement: null,
@@ -50,7 +50,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "field_dropdown",
         name: "PIN",
-        options: selectedBoard().pwmPins,
+        options: selectBoardBlockly().pwmPins,
       },
       {
         type: "input_value",

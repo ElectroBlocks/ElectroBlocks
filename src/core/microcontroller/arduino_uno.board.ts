@@ -1,6 +1,6 @@
 import { MicroController, MicroControllerType } from "./microcontroller";
 
-const uno: MicroController = {
+const unoArduino: MicroController = {
   analonPins: ["A5", "A4", "A3", "A2", "A1", "A0"],
   digitalPins: [
     "2",
@@ -32,3 +32,5 @@ const uno: MicroController = {
   serial_baud_rate: 115200,
   type: MicroControllerType.ARDUINO_UNO,
 };
+
+export default unoArduino;

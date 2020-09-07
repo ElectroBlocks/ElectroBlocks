@@ -1,7 +1,7 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../constants/colors";
 
-import selectedBoard from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 import loopTimes from "./helpers/looptimes";
 
 Blockly.defineBlocksWithJsonArray([
@@ -76,7 +76,7 @@ const rfidSetupBlock: any = {
     this.appendDummyInput()
       .appendField("TX Pin#")
       .appendField(
-        new Blockly.FieldDropdown(selectedBoard().digitalPins),
+        new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
         "TX"
       );
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(

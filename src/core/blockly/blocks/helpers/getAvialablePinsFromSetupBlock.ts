@@ -1,6 +1,3 @@
-import selectedBoard, {
-  ARDUINO_UNO_PINS,
-} from "../../../microcontroller/selectBoard";
 import { getBlocksByName } from "../../helpers/block.helper";
 import _ from "lodash";
 

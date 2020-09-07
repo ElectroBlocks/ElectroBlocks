@@ -5,7 +5,7 @@ import {
 } from "./helpers/getAvialablePinsFromSetupBlock";
 import { COLOR_THEME } from "../constants/colors";
 import loopTimes from "./helpers/looptimes";
-import selectedBoard from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 const buttonSetupBlock: any = {
   init: function () {
     this.appendDummyInput()
@@ -18,7 +18,7 @@ const buttonSetupBlock: any = {
           return getAvailablePins(
             "button_setup",
             this.getFieldValue("PIN"),
-            selectedBoard().digitalPins
+            selectBoardBlockly().digitalPins
           );
         }),
         "PIN"
@@ -54,7 +54,10 @@ const isBtnPressedBlock: any = {
       .appendField("Is button")
       .appendField(
         new Blockly.FieldDropdown(() => {
-          return configuredPins("button_setup", selectedBoard().digitalPins);
+          return configuredPins(
+            "button_setup",
+            selectBoardBlockly().digitalPins
+          );
         }),
         "PIN"
       )

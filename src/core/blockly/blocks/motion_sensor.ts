@@ -1,7 +1,7 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../constants/colors";
 
-import selectedBoard from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 import loopTimes from "./helpers/looptimes";
 
 Blockly.defineBlocksWithJsonArray([
@@ -39,12 +39,12 @@ const ultraSonicSensorBlock: any = {
     this.appendDummyInput()
       .appendField("Trig Pin# ")
       .appendField(
-        new Blockly.FieldDropdown(selectedBoard().digitalPins),
+        new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
         "TRIG"
       )
       .appendField("Echo Pin# ")
       .appendField(
-        new Blockly.FieldDropdown(selectedBoard().digitalPins),
+        new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
         "ECHO"
       );
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(
