@@ -1,27 +1,29 @@
-import 'jest';
-import '../../../blockly/blocks';
+import "jest";
+import "../../../blockly/blocks";
 
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
-} from '../../../../tests/tests.helper';
-import Blockly, { Workspace, BlockSvg } from 'blockly';
-import { VariableTypes } from '../../../blockly/dto/variable.type';
-import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
+  createTestEvent,
+} from "../../../../tests/tests.helper";
+import Blockly, { Workspace, BlockSvg } from "blockly";
+import { VariableTypes } from "../../../blockly/dto/variable.type";
+import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
 import {
   connectToArduinoBlock,
   getAllBlocks,
-} from '../../../blockly/helpers/block.helper';
-import { getAllVariables } from '../../../blockly/helpers/variable.helper';
-import { transformBlock } from '../../../blockly/transformers/block.transformer';
-import { transformVariable } from '../../../blockly/transformers/variables.transformer';
-import { BlockEvent } from '../../../blockly/dto/event.type';
-import { eventToFrameFactory } from '../../event-to-frame.factory';
-import { findComponent } from '../frame-transformer.helpers';
-import { ServoState } from '../../arduino-components.state';
-import { ArduinoComponentType, ArduinoFrame } from '../../arduino.frame';
+} from "../../../blockly/helpers/block.helper";
+import { getAllVariables } from "../../../blockly/helpers/variable.helper";
+import { transformBlock } from "../../../blockly/transformers/block.transformer";
+import { transformVariable } from "../../../blockly/transformers/variables.transformer";
+import { BlockEvent } from "../../../blockly/dto/event.type";
+import { eventToFrameFactory } from "../../event-to-frame.factory";
+import { findComponent } from "../frame-transformer.helpers";
+import { ServoState } from "../../arduino-components.state";
+import { ArduinoComponentType, ArduinoFrame } from "../../arduino.frame";
+import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
-describe('test servos factories', () => {
+describe("test servos factories", () => {
   let workspace: Workspace;
   let arduinoBlock: BlockSvg;
 
@@ -33,7 +35,7 @@ describe('test servos factories', () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test('should be able to create different arduino', () => {
+  test("should be able to create different arduino", () => {
     const servo6Block1 = createServoBlock(20, ARDUINO_UNO_PINS.PIN_6);
     const servo6Block2 = createServoBlock(120, ARDUINO_UNO_PINS.PIN_6);
     const servo9Block1 = createServoBlock(29, ARDUINO_UNO_PINS.PIN_9);
@@ -44,19 +46,14 @@ describe('test servos factories', () => {
     servo9Block1.nextConnection.connect(servo6Block2.previousConnection);
     servo6Block2.nextConnection.connect(servo9Block2.previousConnection);
 
-    const event: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: servo6Block2.id,
-    };
+    const event = createTestEvent(servo6Block1.id);
 
-    const [state1, state2, state3, state4] = eventToFrameFactory(event);
+    const [state1, state2, state3, state4] = eventToFrameFactory(event).frames;
 
-    expect(state1.explanation).toBe('Servo 6 is rotating to 20 degrees.');
-    expect(state2.explanation).toBe('Servo 9 is rotating to 29 degrees.');
-    expect(state3.explanation).toBe('Servo 6 is rotating to 120 degrees.');
-    expect(state4.explanation).toBe('Servo 9 is rotating to 140 degrees.');
+    expect(state1.explanation).toBe("Servo 6 is rotating to 20 degrees.");
+    expect(state2.explanation).toBe("Servo 9 is rotating to 29 degrees.");
+    expect(state3.explanation).toBe("Servo 6 is rotating to 120 degrees.");
+    expect(state4.explanation).toBe("Servo 9 is rotating to 140 degrees.");
 
     const servo6State1 = findComponent<ServoState>(
       state1,
@@ -72,15 +69,15 @@ describe('test servos factories', () => {
   });
 
   const createServoBlock = (degree: number, pin: ARDUINO_UNO_PINS) => {
-    const rotateServo = workspace.newBlock('rotate_servo') as BlockSvg;
+    const rotateServo = workspace.newBlock("rotate_servo") as BlockSvg;
     const numberBlock = createValueBlock(
       workspace,
       VariableTypes.NUMBER,
       degree
     );
-    rotateServo.setFieldValue(pin, 'PIN');
+    rotateServo.setFieldValue(pin, "PIN");
     rotateServo
-      .getInput('DEGREE')
+      .getInput("DEGREE")
       .connection.connect(numberBlock.outputConnection);
 
     return rotateServo;

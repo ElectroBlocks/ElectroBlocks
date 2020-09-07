@@ -1,4 +1,4 @@
-import selectedBoard from '../blockly/selectBoard';
+import selectedBoard from "../microcontroller/selectBoard";
 
 declare class AvrgirlArduino {
   constructor(config: any);
@@ -15,7 +15,7 @@ export const upload = async (code: string, avrgirl: AvrgirlArduino) => {
       if (error) {
         rej(error);
       } else {
-        res('flash successful');
+        res("flash successful");
       }
     });
   });
@@ -23,14 +23,14 @@ export const upload = async (code: string, avrgirl: AvrgirlArduino) => {
 
 const compileCode = async (code: string): Promise<string> => {
   const headers = new Headers();
-  headers.append('Content-Type', 'text/plain');
+  headers.append("Content-Type", "text/plain");
 
   const response = await fetch(
     `https://arduino-compile.noahglaser.net/upload-code/${
       selectedBoard().type
     }`,
     {
-      method: 'POST',
+      method: "POST",
       body: code,
       headers,
     }

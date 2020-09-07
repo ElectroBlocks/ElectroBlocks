@@ -1,7 +1,7 @@
-import { findSvgElement } from './svg-helpers';
-import { Element, Svg } from '@svgdotjs/svg.js';
-import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
-import { pinToBreadboardHole } from './wire';
+import { findSvgElement } from "./svg-helpers";
+import { Element, Svg } from "@svgdotjs/svg.js";
+import { ARDUINO_UNO_PINS } from "../microcontroller/selectBoard";
+import { pinToBreadboardHole } from "./wire";
 
 export const positionComponent = (
   element: Element,
@@ -21,7 +21,7 @@ export const positionComponent = (
 
   element.y(
     arduino.y() +
-      findSvgElement('breadboard', arduino).y() -
+      findSvgElement("breadboard", arduino).y() -
       5 -
       element.height()
   );

@@ -1,7 +1,7 @@
 import arduinoSVGText from "./svgs/boards/arduino_uno.svg";
 import { Svg, Element } from "@svgdotjs/svg.js";
 import { ArduinoFrame, ArduinoComponentType } from "../frames/arduino.frame";
-import { ARDUINO_UNO_PINS } from "../blockly/selectBoard";
+import { ARDUINO_UNO_PINS } from "../microcontroller/selectBoard";
 import { resetBreadBoardWholes } from "./wire";
 import { findMicronControllerEl } from "./svg-helpers";
 import createNewComponent from "./svg-create";

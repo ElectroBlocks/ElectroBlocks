@@ -1,27 +1,29 @@
-import '../../../blockly/blocks';
-import Blockly, { Workspace, BlockSvg } from 'blockly';
+import "../../../blockly/blocks";
+import Blockly, { Workspace, BlockSvg } from "blockly";
 import {
   getAllBlocks,
   connectToArduinoBlock,
-} from '../../../blockly/helpers/block.helper';
-import _ from 'lodash';
-import { BlockEvent } from '../../../blockly/dto/event.type';
-import { transformBlock } from '../../../blockly/transformers/block.transformer';
-import { getAllVariables } from '../../../blockly/helpers/variable.helper';
-import { transformVariable } from '../../../blockly/transformers/variables.transformer';
-import { eventToFrameFactory } from '../../event-to-frame.factory';
-import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { LedMatrixState } from '../../arduino-components.state';
+} from "../../../blockly/helpers/block.helper";
+import _ from "lodash";
+import { BlockEvent } from "../../../blockly/dto/event.type";
+import { transformBlock } from "../../../blockly/transformers/block.transformer";
+import { getAllVariables } from "../../../blockly/helpers/variable.helper";
+import { transformVariable } from "../../../blockly/transformers/variables.transformer";
+import { eventToFrameFactory } from "../../event-to-frame.factory";
+import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { LedMatrixState } from "../../arduino-components.state";
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
-} from '../../../../tests/tests.helper';
-import '../../../../tests/fake-block';
-import { findComponent } from '../frame-transformer.helpers';
-import { VariableTypes } from '../../../blockly/dto/variable.type';
+  createTestEvent,
+} from "../../../../tests/tests.helper";
+import "../../../../tests/fake-block";
+import { findComponent } from "../frame-transformer.helpers";
+import { VariableTypes } from "../../../blockly/dto/variable.type";
+import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
-describe('led matrix  factories', () => {
+describe("led matrix  factories", () => {
   let workspace: Workspace;
 
   afterEach(() => {
@@ -32,36 +34,31 @@ describe('led matrix  factories', () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test('should be able to draw with the led and should be limited', () => {
+  test("should be able to draw with the led and should be limited", () => {
     const ledmatrixdraw1 = workspace.newBlock(
-      'led_matrix_make_draw'
+      "led_matrix_make_draw"
     ) as BlockSvg;
-    ledmatrixdraw1.setFieldValue('TRUE', '1,1');
-    ledmatrixdraw1.setFieldValue('TRUE', '2,2');
-    ledmatrixdraw1.setFieldValue('TRUE', '3,3');
+    ledmatrixdraw1.setFieldValue("TRUE", "1,1");
+    ledmatrixdraw1.setFieldValue("TRUE", "2,2");
+    ledmatrixdraw1.setFieldValue("TRUE", "3,3");
 
     const ledmatrixdraw2 = workspace.newBlock(
-      'led_matrix_make_draw'
+      "led_matrix_make_draw"
     ) as BlockSvg;
 
-    ledmatrixdraw2.setFieldValue('TRUE', '8,8');
-    ledmatrixdraw2.setFieldValue('TRUE', '7,7');
-    ledmatrixdraw2.setFieldValue('TRUE', '6,6');
+    ledmatrixdraw2.setFieldValue("TRUE", "8,8");
+    ledmatrixdraw2.setFieldValue("TRUE", "7,7");
+    ledmatrixdraw2.setFieldValue("TRUE", "6,6");
 
     connectToArduinoBlock(ledmatrixdraw1);
     ledmatrixdraw1.nextConnection.connect(ledmatrixdraw2.previousConnection);
 
-    const event: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: ledmatrixdraw1.id,
-    };
+    const event = createTestEvent(ledmatrixdraw1.id);
 
-    const [state1, state2] = eventToFrameFactory(event);
+    const [state1, state2] = eventToFrameFactory(event).frames;
 
-    expect(state1.explanation).toBe('Drawing on LED Matrix.');
-    expect(state2.explanation).toBe('Drawing on LED Matrix.');
+    expect(state1.explanation).toBe("Drawing on LED Matrix.");
+    expect(state2.explanation).toBe("Drawing on LED Matrix.");
 
     const component1 = findComponent<LedMatrixState>(
       state1,
@@ -106,7 +103,7 @@ describe('led matrix  factories', () => {
 
   test("should be able to have 2 types of components and not lose it's states", () => {
     const ledmatrixdraw1 = workspace.newBlock(
-      'led_matrix_make_draw'
+      "led_matrix_make_draw"
     ) as BlockSvg;
 
     const servo6Block1 = createServoBlock(20, ARDUINO_UNO_PINS.PIN_6);
@@ -115,12 +112,7 @@ describe('led matrix  factories', () => {
 
     connectToArduinoBlock(servo6Block1);
 
-    const event: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: ledmatrixdraw1.id,
-    };
+    const event = createTestEvent(ledmatrixdraw1.id);
 
     const [
       state1,
@@ -129,7 +121,7 @@ describe('led matrix  factories', () => {
       state4,
       state5,
       state6,
-    ] = eventToFrameFactory(event);
+    ] = eventToFrameFactory(event).frames;
 
     expect(state1.components.length).toBe(1);
     expect(state2.components.length).toBe(2);
@@ -139,7 +131,7 @@ describe('led matrix  factories', () => {
     expect(state6.components.length).toBe(2);
   });
 
-  test('should be able to keep the state when using single led', () => {
+  test("should be able to keep the state when using single led", () => {
     const ledMatrix1 = createLedMatrixBlock(1, 1, true);
     const ledMatrix2 = createLedMatrixBlock(2, 2, true);
     const ledMatrix3 = createLedMatrixBlock(1, 1, false);
@@ -148,18 +140,13 @@ describe('led matrix  factories', () => {
     ledMatrix1.nextConnection.connect(ledMatrix2.previousConnection);
     ledMatrix2.nextConnection.connect(ledMatrix3.previousConnection);
 
-    const event: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: ledMatrix2.id,
-    };
+    const event = createTestEvent(ledMatrix1.id);
 
-    const [state1, state2, state3] = eventToFrameFactory(event);
+    const [state1, state2, state3] = eventToFrameFactory(event).frames;
 
-    expect(state1.explanation).toBe('Led Matrix turn (1,1) on.');
-    expect(state2.explanation).toBe('Led Matrix turn (2,2) on.');
-    expect(state3.explanation).toBe('Led Matrix turn (1,1) off.');
+    expect(state1.explanation).toBe("Led Matrix turn (1,1) on.");
+    expect(state2.explanation).toBe("Led Matrix turn (2,2) on.");
+    expect(state3.explanation).toBe("Led Matrix turn (1,1) off.");
 
     expect(state1.components.length).toBe(1);
     expect(state2.components.length).toBe(1);
@@ -195,30 +182,30 @@ describe('led matrix  factories', () => {
 
   const createLedMatrixBlock = (row: number, col: number, isOn) => {
     const ledMatrix = workspace.newBlock(
-      'led_matrix_turn_one_on_off'
+      "led_matrix_turn_one_on_off"
     ) as BlockSvg;
 
     const rowBlock = createValueBlock(workspace, VariableTypes.NUMBER, row);
     const colBlock = createValueBlock(workspace, VariableTypes.NUMBER, col);
 
-    ledMatrix.getInput('ROW').connection.connect(rowBlock.outputConnection);
-    ledMatrix.getInput('COLUMN').connection.connect(colBlock.outputConnection);
+    ledMatrix.getInput("ROW").connection.connect(rowBlock.outputConnection);
+    ledMatrix.getInput("COLUMN").connection.connect(colBlock.outputConnection);
 
-    ledMatrix.setFieldValue(isOn ? 'ON' : 'OFF', 'STATE');
+    ledMatrix.setFieldValue(isOn ? "ON" : "OFF", "STATE");
 
     return ledMatrix as BlockSvg;
   };
 
   const createServoBlock = (degree: number, pin: ARDUINO_UNO_PINS) => {
-    const rotateServo = workspace.newBlock('rotate_servo') as BlockSvg;
+    const rotateServo = workspace.newBlock("rotate_servo") as BlockSvg;
     const numberBlock = createValueBlock(
       workspace,
       VariableTypes.NUMBER,
       degree
     );
-    rotateServo.setFieldValue(pin, 'PIN');
+    rotateServo.setFieldValue(pin, "PIN");
     rotateServo
-      .getInput('DEGREE')
+      .getInput("DEGREE")
       .connection.connect(numberBlock.outputConnection);
 
     return rotateServo;

@@ -1,12 +1,12 @@
-import { SyncComponent, ResetComponent } from '../svg-sync';
-import { PositionComponent, CreateWire } from '../svg-create';
+import { SyncComponent, ResetComponent } from "../svg-sync";
+import { PositionComponent, CreateWire } from "../svg-create";
 
-import { LedMatrixState } from '../../frames/arduino-components.state';
-import { Element, Svg } from '@svgdotjs/svg.js';
+import { LedMatrixState } from "../../frames/arduino-components.state";
+import { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from '../svg-position';
-import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
-import { createPowerWire, createGroundWire, createWire } from '../wire';
+import { positionComponent } from "../svg-position";
+import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
+import { createPowerWire, createGroundWire, createWire } from "../wire";
 
 export const ledMatrixPosition: PositionComponent<LedMatrixState> = (
   _,
@@ -21,7 +21,7 @@ export const ledMatrixPosition: PositionComponent<LedMatrixState> = (
     arduinoEl,
     draw,
     ARDUINO_UNO_PINS.PIN_10,
-    'PIN_DATA'
+    "PIN_DATA"
   );
 };
 
@@ -31,7 +31,7 @@ export const ledMatrixUpdate: SyncComponent = (
 ) => {
   state.leds.forEach((led) => {
     (ledMatrixEl.findOne(`#_${led.col}-${led.row} circle`) as Element).fill(
-      led.isOn ? '#FF0000' : '#FFF'
+      led.isOn ? "#FF0000" : "#FFF"
     );
   });
 };
@@ -39,7 +39,7 @@ export const ledMatrixUpdate: SyncComponent = (
 export const ledMatrixReset: ResetComponent = (componentEl: Element) => {
   for (let row = 1; row <= 8; row += 1) {
     for (let col = 1; col <= 8; col += 1) {
-      (componentEl.findOne(`#_${col}-${row} circle`) as Element).fill('#FFF');
+      (componentEl.findOne(`#_${col}-${row} circle`) as Element).fill("#FFF");
     }
   }
 };
@@ -57,7 +57,7 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
     arduino as Svg,
     draw,
     id,
-    'left'
+    "left"
   );
 
   createGroundWire(
@@ -66,34 +66,34 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
     arduino as Svg,
     draw,
     id,
-    'left'
+    "left"
   );
 
   createWire(
     ledMatrixEl,
     ARDUINO_UNO_PINS.PIN_12,
-    'PIN_DATA',
+    "PIN_DATA",
     arduino,
     draw,
-    '#027a18',
-    'data-pin'
+    "#027a18",
+    "data-pin"
   );
   createWire(
     ledMatrixEl,
     ARDUINO_UNO_PINS.PIN_10,
-    'PIN_CS',
+    "PIN_CS",
     arduino,
     draw,
-    '#7b5fc9',
-    'cs-pin'
+    "#7b5fc9",
+    "cs-pin"
   );
   createWire(
     ledMatrixEl,
     ARDUINO_UNO_PINS.PIN_11,
-    'PIN_CLK',
+    "PIN_CLK",
     arduino,
     draw,
-    '#2130ff',
-    'clk-pin'
+    "#2130ff",
+    "clk-pin"
   );
 };

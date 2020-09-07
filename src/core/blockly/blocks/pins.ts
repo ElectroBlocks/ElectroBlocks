@@ -1,101 +1,101 @@
-import selectedBoard from '../selectBoard';
-import Blockly from 'blockly';
+import selectedBoard from "../../microcontroller/selectBoard";
+import Blockly from "blockly";
 
-import { COLOR_THEME } from '../constants/colors';
-import loopTimes from './helpers/looptimes';
+import { COLOR_THEME } from "../constants/colors";
+import loopTimes from "./helpers/looptimes";
 import {
   configuredPins,
   getAvailablePins,
-} from './helpers/getAvialablePinsFromSetupBlock';
+} from "./helpers/getAvialablePinsFromSetupBlock";
 
 Blockly.defineBlocksWithJsonArray([
   {
-    type: 'digital_write',
-    message0: '%1 Turn  %2 pin# %3',
+    type: "digital_write",
+    message0: "%1 Turn  %2 pin# %3",
     args0: [
       {
-        type: 'field_image',
-        src: './blocks/arduino/digital_write.png',
+        type: "field_image",
+        src: "./blocks/arduino/digital_write.png",
         width: 15,
         height: 15,
-        alt: '*',
+        alt: "*",
         flipRtl: false,
       },
       {
-        type: 'field_dropdown',
-        name: 'STATE',
+        type: "field_dropdown",
+        name: "STATE",
         options: [
-          ['on', 'ON'],
-          ['off', 'OFF'],
+          ["on", "ON"],
+          ["off", "OFF"],
         ],
       },
       {
-        type: 'field_dropdown',
-        name: 'PIN',
+        type: "field_dropdown",
+        name: "PIN",
         options: selectedBoard().digitalPins,
       },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
-    tooltip: '',
-    helpUrl: '',
+    tooltip: "",
+    helpUrl: "",
   },
   {
-    type: 'analog_read',
-    message0: '%1 Read number from analog pin# %2',
+    type: "analog_read",
+    message0: "%1 Read number from analog pin# %2",
     args0: [
       {
-        type: 'field_image',
-        src: './blocks/arduino/analog_read.png',
+        type: "field_image",
+        src: "./blocks/arduino/analog_read.png",
         width: 15,
         height: 15,
-        alt: '*',
+        alt: "*",
         flipRtl: false,
       },
       {
-        type: 'field_dropdown',
-        name: 'PIN',
+        type: "field_dropdown",
+        name: "PIN",
         options: selectedBoard().analogPins,
       },
     ],
-    output: 'Number',
+    output: "Number",
     colour: COLOR_THEME.SENSOR,
-    tooltip: '',
-    helpUrl: '',
+    tooltip: "",
+    helpUrl: "",
   },
   {
-    type: 'analog_write',
-    message0: '%1 Send analog wave to pin %2 %3 Wave Intensity %4',
+    type: "analog_write",
+    message0: "%1 Send analog wave to pin %2 %3 Wave Intensity %4",
     args0: [
       {
-        type: 'field_image',
-        src: './blocks/arduino/analog_write.png',
+        type: "field_image",
+        src: "./blocks/arduino/analog_write.png",
         width: 15,
         height: 20,
-        alt: '*',
+        alt: "*",
         flipRtl: false,
       },
       {
-        type: 'field_dropdown',
-        name: 'PIN',
+        type: "field_dropdown",
+        name: "PIN",
         options: selectedBoard().pwmPins,
       },
       {
-        type: 'input_dummy',
+        type: "input_dummy",
       },
       {
-        type: 'input_value',
-        name: 'WRITE_VALUE',
-        check: 'Number',
-        align: 'RIGHT',
+        type: "input_value",
+        name: "WRITE_VALUE",
+        check: "Number",
+        align: "RIGHT",
       },
     ],
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.COMPONENTS,
-    tooltip: '',
-    helpUrl: '',
+    tooltip: "",
+    helpUrl: "",
   },
 ]);
 
@@ -103,149 +103,153 @@ const analogReadBlock: any = {
   init: function () {
     this.appendDummyInput()
       .appendField(
-        new Blockly.FieldImage('./blocks/arduino/analog_read.png', 15, 15)
+        new Blockly.FieldImage("./blocks/arduino/analog_read.png", 15, 15)
       )
-      .appendField('Read number from analog pin#')
+      .appendField("Read number from analog pin#")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return configuredPins(
-            'digital_read_setup',
+            "digital_read_setup",
             selectedBoard().analogPins
           );
         }),
-        'PIN'
+        "PIN"
       );
 
-    this.setOutput(true, 'Number');
+    this.setOutput(true, "Number");
     this.setColour(COLOR_THEME.SENSOR);
-    this.setTooltip('');
-    this.setHelpUrl('');
+    this.setTooltip("");
+    this.setHelpUrl("");
   },
 };
 
-Blockly.Blocks['analog_read'] = analogReadBlock;
+Blockly.Blocks["analog_read"] = analogReadBlock;
 
 const digitalReadBlock: any = {
   init: function () {
     this.appendDummyInput()
       .appendField(
-        new Blockly.FieldImage('./blocks/arduino/digital_read.png', 15, 15)
+        new Blockly.FieldImage("./blocks/arduino/digital_read.png", 15, 15)
       )
-      .appendField('Is electricity running through pin#')
+      .appendField("Is electricity running through pin#")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return configuredPins(
-            'digital_read_setup',
+            "digital_read_setup",
             selectedBoard().digitalPins
           );
         }),
-        'PIN'
+        "PIN"
       );
 
-    this.setOutput(true, 'Boolean');
+    this.setOutput(true, "Boolean");
     this.setColour(COLOR_THEME.SENSOR);
-    this.setTooltip('');
-    this.setHelpUrl('');
+    this.setTooltip("");
+    this.setHelpUrl("");
   },
 };
 
-Blockly.Blocks['digital_read'] = digitalReadBlock;
+Blockly.Blocks["digital_read"] = digitalReadBlock;
 
 const digitalReadSetupBlock: any = {
   init: function () {
     this.appendDummyInput()
       .appendField(
-        new Blockly.FieldImage('./blocks/arduino/digital_read.png', 15, 15)
+        new Blockly.FieldImage("./blocks/arduino/digital_read.png", 15, 15)
       )
-      .appendField('Setup Digital Read Pin');
+      .appendField("Setup Digital Read Pin");
     this.appendDummyInput()
-      .appendField('PIN #')
+      .appendField("PIN #")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return getAvailablePins(
-            'digital_read_setup',
-            this.getFieldValue('PIN'),
+            "digital_read_setup",
+            this.getFieldValue("PIN"),
             selectedBoard().digitalPins
           );
         }),
-        'PIN'
+        "PIN"
       );
 
-    this.appendDummyInput('SHOW_CODE_VIEW')
-      .appendField('Type')
+    this.appendDummyInput("SHOW_CODE_VIEW")
+      .appendField("Type")
       .appendField(
         new Blockly.FieldDropdown([
-          ['Touch Sensor', 'TOUCH_SENSOR'],
-          ['Sensor', 'SENSOR'],
+          ["Touch Sensor", "TOUCH_SENSOR"],
+          ["Sensor", "SENSOR"],
         ]),
-        'TYPE'
+        "TYPE"
       );
-    this.appendDummyInput('SHOW_CODE_VIEW').appendField('------------------------------------');
-    this.appendDummyInput('LOOP_TIMES')
-      .appendField('Loop')
+    this.appendDummyInput("SHOW_CODE_VIEW").appendField(
+      "------------------------------------"
+    );
+    this.appendDummyInput("LOOP_TIMES")
+      .appendField("Loop")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return loopTimes();
         }),
-        'LOOP'
+        "LOOP"
       );
     this.appendDummyInput()
-      .appendField('Has Power? ')
-      .appendField(new Blockly.FieldCheckbox('TRUE'), 'state');
+      .appendField("Has Power? ")
+      .appendField(new Blockly.FieldCheckbox("TRUE"), "state");
     this.setColour(COLOR_THEME.SENSOR);
-    this.setTooltip('');
-    this.setHelpUrl('');
+    this.setTooltip("");
+    this.setHelpUrl("");
   },
 };
 
-Blockly.Blocks['digital_read_setup'] = digitalReadSetupBlock;
+Blockly.Blocks["digital_read_setup"] = digitalReadSetupBlock;
 
 const analogReadSetupBlock: any = {
   init: function () {
     this.appendDummyInput()
       .appendField(
-        new Blockly.FieldImage('./blocks/arduino/analog_read.png', 15, 15)
+        new Blockly.FieldImage("./blocks/arduino/analog_read.png", 15, 15)
       )
-      .appendField('Analog Read Setup');
+      .appendField("Analog Read Setup");
     this.appendDummyInput()
-      .appendField('PIN #')
+      .appendField("PIN #")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return getAvailablePins(
-            'analog_read_setup',
-            this.getFieldValue('PIN'),
+            "analog_read_setup",
+            this.getFieldValue("PIN"),
             selectedBoard().analogPins
           );
         }),
-        'PIN'
+        "PIN"
       );
-    this.appendDummyInput('SHOW_CODE_VIEW')
-      .appendField('Type')
+    this.appendDummyInput("SHOW_CODE_VIEW")
+      .appendField("Type")
       .appendField(
         new Blockly.FieldDropdown([
-          ['Photo Sensor', 'PHOTO_SENSOR'],
-          ['Soil Sensor', 'SOIL_SENSOR'],
-          ['Sensor', 'SENSOR'],
+          ["Photo Sensor", "PHOTO_SENSOR"],
+          ["Soil Sensor", "SOIL_SENSOR"],
+          ["Sensor", "SENSOR"],
         ]),
-        'TYPE'
+        "TYPE"
       );
-    this.appendDummyInput('SHOW_CODE_VIEW').appendField('------------------------------------');
-    this.appendDummyInput('LOOP_TIMES')
-      .appendField('Loop')
+    this.appendDummyInput("SHOW_CODE_VIEW").appendField(
+      "------------------------------------"
+    );
+    this.appendDummyInput("LOOP_TIMES")
+      .appendField("Loop")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return loopTimes();
         }),
-        'LOOP'
+        "LOOP"
       );
 
     this.appendDummyInput()
-      .appendField('Power Level')
-      .appendField(new Blockly.FieldNumber(1, 0, 1024, 0.000001), 'state');
+      .appendField("Power Level")
+      .appendField(new Blockly.FieldNumber(1, 0, 1024, 0.000001), "state");
     this.setColour(COLOR_THEME.SENSOR);
-    this.setTooltip('');
-    this.setHelpUrl('');
+    this.setTooltip("");
+    this.setHelpUrl("");
   },
 };
 
-Blockly.Blocks['analog_read_setup'] = analogReadSetupBlock;
+Blockly.Blocks["analog_read_setup"] = analogReadSetupBlock;

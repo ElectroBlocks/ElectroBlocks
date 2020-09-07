@@ -1,5 +1,5 @@
-import { ArduinoComponentState, Color, ArduinoFrame } from './arduino.frame';
-import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
+import { ArduinoComponentState, Color, ArduinoFrame } from "./arduino.frame";
+import { ARDUINO_UNO_PINS } from "../microcontroller/selectBoard";
 
 export interface ArduinoReceiveMessageState extends ArduinoComponentState {
   hasMessage: boolean;
@@ -34,15 +34,15 @@ export interface LCDScreenState extends ArduinoComponentState {
 }
 
 export enum LCD_SCREEN_MEMORY_TYPE {
-  'OX3F' = '0x3F',
-  '0X27' = '0x27',
+  "OX3F" = "0x3F",
+  "0X27" = "0x27",
 }
 
 export interface LedColorState extends ArduinoComponentState {
   redPin: ARDUINO_UNO_PINS;
   greenPin: ARDUINO_UNO_PINS;
   bluePin: ARDUINO_UNO_PINS;
-  pictureType: 'BUILT_IN' | 'BREADBOARD';
+  pictureType: "BUILT_IN" | "BREADBOARD";
   color: Color;
 }
 
@@ -57,8 +57,8 @@ export interface MotorState extends ArduinoComponentState {
 }
 
 export enum MOTOR_DIRECTION {
-  FORWARD = 'FORWARD',
-  BACKWARD = 'BACKWARD',
+  FORWARD = "FORWARD",
+  BACKWARD = "BACKWARD",
 }
 
 export interface NeoPixelState extends ArduinoComponentState {
@@ -75,38 +75,38 @@ export interface PinState extends ArduinoComponentState {
 }
 
 export enum PIN_TYPE {
-  DIGITAL_OUTPUT = 'DIGITAL_OUTPUT',
-  ANALOG_OUTPUT = 'ANALOG_OUTPUT',
-  ANALOG_INPUT = 'ANALOG_INPUT',
-  DIGITAL_INPUT = 'DIGITAL_INPUT',
+  DIGITAL_OUTPUT = "DIGITAL_OUTPUT",
+  ANALOG_OUTPUT = "ANALOG_OUTPUT",
+  ANALOG_INPUT = "ANALOG_INPUT",
+  DIGITAL_INPUT = "DIGITAL_INPUT",
 }
 
 export enum PinPicture {
-  LED = 'LED',
-  LED_DIGITAL_WRITE = 'LED_DIGITAL_WRITE',
-  LED_ANALOG_WRITE = 'LED_ANALOG_WRITE',
-  SENSOR = 'SENSOR',
-  PHOTO_SENSOR = 'PHOTO_SENSOR',
-  TOUCH_SENSOR = 'TOUCH_SENSOR',
-  SOIL_SENSOR = 'SOIL_SENSOR',
+  LED = "LED",
+  LED_DIGITAL_WRITE = "LED_DIGITAL_WRITE",
+  LED_ANALOG_WRITE = "LED_ANALOG_WRITE",
+  SENSOR = "SENSOR",
+  PHOTO_SENSOR = "PHOTO_SENSOR",
+  TOUCH_SENSOR = "TOUCH_SENSOR",
+  SOIL_SENSOR = "SOIL_SENSOR",
 }
 
 export const pinPictureToWork = (pinPicture: PinPicture) => {
   switch (pinPicture) {
     case PinPicture.LED:
-      return 'led';
+      return "led";
     case PinPicture.LED_DIGITAL_WRITE:
-      return 'digital pin';
+      return "digital pin";
     case PinPicture.LED_ANALOG_WRITE:
-      return 'analog pin';
+      return "analog pin";
     case PinPicture.PHOTO_SENSOR:
-      return 'photo sensor';
+      return "photo sensor";
     case PinPicture.TOUCH_SENSOR:
-      return 'touch sensor';
+      return "touch sensor";
     case PinPicture.SOIL_SENSOR:
-      return 'soil sensor';
+      return "soil sensor";
     default:
-      return 'sensor';
+      return "sensor";
   }
 };
 

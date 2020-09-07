@@ -1,40 +1,41 @@
-import 'jest';
-import '../../../blockly/blocks';
+import "jest";
+import "../../../blockly/blocks";
 import Blockly, {
   Workspace,
   BlockSvg,
   WorkspaceSvg,
   Blocks,
   Block,
-} from 'blockly';
+} from "blockly";
 import {
   getAllBlocks,
   getBlockById,
   connectToArduinoBlock,
-} from '../../../blockly/helpers/block.helper';
-import _ from 'lodash';
-import { BlockEvent } from '../../../blockly/dto/event.type';
-import { transformBlock } from '../../../blockly/transformers/block.transformer';
-import { getAllVariables } from '../../../blockly/helpers/variable.helper';
-import { transformVariable } from '../../../blockly/transformers/variables.transformer';
-import { saveSensorSetupBlockData } from '../../../blockly/actions/factories/saveSensorSetupBlockData';
-import { updater } from '../../../blockly/updater';
+} from "../../../blockly/helpers/block.helper";
+import _ from "lodash";
+import { BlockEvent } from "../../../blockly/dto/event.type";
+import { transformBlock } from "../../../blockly/transformers/block.transformer";
+import { getAllVariables } from "../../../blockly/helpers/variable.helper";
+import { transformVariable } from "../../../blockly/transformers/variables.transformer";
+import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
+import { updater } from "../../../blockly/updater";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
-} from '../../../../tests/tests.helper';
+  createTestEvent,
+} from "../../../../tests/tests.helper";
 import {
   UltraSonicSensorState,
   TemperatureState,
-} from '../../arduino-components.state';
-import { eventToFrameFactory } from '../../event-to-frame.factory';
-import { ArduinoFrame, ArduinoComponentType } from '../../arduino.frame';
-import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
-import { TempSensor } from '../../../blockly/dto/sensors.type';
-import { VariableTypes } from '../../../blockly/dto/variable.type';
-import { getDefaultValue, findComponent } from '../frame-transformer.helpers';
+} from "../../arduino-components.state";
+import { eventToFrameFactory } from "../../event-to-frame.factory";
+import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
+import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { TempSensor } from "../../../blockly/dto/sensors.type";
+import { VariableTypes } from "../../../blockly/dto/variable.type";
+import { getDefaultValue, findComponent } from "../frame-transformer.helpers";
 
-describe('rfid value factories', () => {
+describe("rfid value factories", () => {
   let workspace: Workspace;
 
   afterEach(() => {
@@ -45,21 +46,21 @@ describe('rfid value factories', () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test('should be able generate state for temp sesnor setup block', () => {
-    const tempSetupBlock = workspace.newBlock('temp_setup') as BlockSvg;
-    const tempReadBlock = workspace.newBlock('temp_get_temp');
-    const tempHumidityBlock = workspace.newBlock('temp_get_humidity');
-    tempSetupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_8, 'PIN');
+  test("should be able generate state for temp sesnor setup block", () => {
+    const tempSetupBlock = workspace.newBlock("temp_setup") as BlockSvg;
+    const tempReadBlock = workspace.newBlock("temp_get_temp");
+    const tempHumidityBlock = workspace.newBlock("temp_get_humidity");
+    tempSetupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_8, "PIN");
 
     const tempVarBlock = createVariableBlock(
-      'temp',
+      "temp",
       VariableTypes.NUMBER,
       tempReadBlock,
       workspace
     );
 
     const humidityVarBlock = createVariableBlock(
-      'humidity',
+      "humidity",
       VariableTypes.NUMBER,
       tempHumidityBlock,
       workspace
@@ -71,12 +72,9 @@ describe('rfid value factories', () => {
     connectToArduinoBlock(tempVarBlock);
     tempVarBlock.nextConnection.connect(humidityVarBlock.previousConnection);
 
-    const [setup, state1, state2, state3, state4] = eventToFrameFactory({
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: humidityVarBlock.id,
-    });
+    const [setup, state1, state2, state3, state4] = eventToFrameFactory(
+      createTestEvent(humidityVarBlock.id)
+    ).frames;
 
     expect(_.keys(state1.variables).length).toBe(1);
     verifyVariables(state1, 30, undefined);
@@ -105,9 +103,9 @@ const createVariableBlock = (
     type,
     getDefaultValue(type)
   );
-  varBlock.getInput('VALUE').connection.targetBlock().dispose(true);
+  varBlock.getInput("VALUE").connection.targetBlock().dispose(true);
 
-  varBlock.getInput('VALUE').connection.connect(sensorBlock.outputConnection);
+  varBlock.getInput("VALUE").connection.connect(sensorBlock.outputConnection);
 
   return varBlock;
 };
@@ -118,16 +116,11 @@ const setSetupBlock = (
   humidity: number,
   setupBlock: BlockSvg
 ) => {
-  setupBlock.setFieldValue(humidity.toString(), 'humidity');
-  setupBlock.setFieldValue(temp.toString(), 'temp');
-  setupBlock.setFieldValue(loopNumber.toString(), 'LOOP');
+  setupBlock.setFieldValue(humidity.toString(), "humidity");
+  setupBlock.setFieldValue(temp.toString(), "temp");
+  setupBlock.setFieldValue(loopNumber.toString(), "LOOP");
 
-  saveSensorSetupBlockData({
-    blocks: getAllBlocks().map(transformBlock),
-    variables: getAllVariables().map(transformVariable),
-    type: Blockly.Events.BLOCK_MOVE,
-    blockId: setupBlock.id,
-  }).forEach(updater);
+  saveSensorSetupBlockData(createTestEvent(setupBlock.id)).forEach(updater);
 };
 
 const verifyComponent = (
@@ -150,10 +143,10 @@ const verifyVariables = (
   humidity: number | undefined
 ) => {
   if (temp !== undefined) {
-    expect(state.variables['temp'].value).toBe(temp);
+    expect(state.variables["temp"].value).toBe(temp);
   }
 
   if (humidity !== undefined) {
-    expect(state.variables['humidity'].value).toBe(humidity);
+    expect(state.variables["humidity"].value).toBe(humidity);
   }
 };

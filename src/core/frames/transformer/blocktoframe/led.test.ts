@@ -1,30 +1,32 @@
-import '../../../blockly/blocks';
-import Blockly, { Workspace, BlockSvg } from 'blockly';
+import "../../../blockly/blocks";
+import Blockly, { Workspace, BlockSvg } from "blockly";
 import {
   getAllBlocks,
   connectToArduinoBlock,
-} from '../../../blockly/helpers/block.helper';
-import _ from 'lodash';
-import { BlockEvent } from '../../../blockly/dto/event.type';
-import { transformBlock } from '../../../blockly/transformers/block.transformer';
-import { getAllVariables } from '../../../blockly/helpers/variable.helper';
-import { transformVariable } from '../../../blockly/transformers/variables.transformer';
-import { eventToFrameFactory } from '../../event-to-frame.factory';
-import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
-import { ArduinoFrame, ArduinoComponentType } from '../../arduino.frame';
+} from "../../../blockly/helpers/block.helper";
+import _ from "lodash";
+import { BlockEvent } from "../../../blockly/dto/event.type";
+import { transformBlock } from "../../../blockly/transformers/block.transformer";
+import { getAllVariables } from "../../../blockly/helpers/variable.helper";
+import { transformVariable } from "../../../blockly/transformers/variables.transformer";
+import { eventToFrameFactory } from "../../event-to-frame.factory";
+import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
 import {
   LedColorState,
   PinState,
   PinPicture,
-} from '../../arduino-components.state';
+} from "../../arduino-components.state";
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
-} from '../../../../tests/tests.helper';
-import { findComponent } from '../frame-transformer.helpers';
-import { VariableTypes } from '../../../blockly/dto/variable.type';
+  createTestEvent,
+} from "../../../../tests/tests.helper";
+import { findComponent } from "../frame-transformer.helpers";
+import { VariableTypes } from "../../../blockly/dto/variable.type";
+import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
-describe('lcd  factories', () => {
+describe("lcd  factories", () => {
   let workspace: Workspace;
   let arduinoBlock: BlockSvg;
 
@@ -36,47 +38,42 @@ describe('lcd  factories', () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test('should be able to turn on and off and leds', () => {
-    testDigitalWriteBlocks('led', PinPicture.LED);
+  test("should be able to turn on and off and leds", () => {
+    testDigitalWriteBlocks("led", PinPicture.LED);
   });
 
-  test('should be able to turn on and off and pins', () => {
-    testDigitalWriteBlocks('digital_write', PinPicture.LED_DIGITAL_WRITE);
+  test("should be able to turn on and off and pins", () => {
+    testDigitalWriteBlocks("digital_write", PinPicture.LED_DIGITAL_WRITE);
   });
 
-  test('should be able to analog write to a pin', () => {
-    testAnalogWriteBlocks('led_fade', 'FADE', PinPicture.LED);
+  test("should be able to analog write to a pin", () => {
+    testAnalogWriteBlocks("led_fade", "FADE", PinPicture.LED);
   });
 
-  test('should be able to fade an led', () => {
+  test("should be able to fade an led", () => {
     testAnalogWriteBlocks(
-      'analog_write',
-      'WRITE_VALUE',
+      "analog_write",
+      "WRITE_VALUE",
       PinPicture.LED_ANALOG_WRITE
     );
   });
 
-  test('turning on pin 13 should turn on the built in led', () => {
-    arduinoBlock.setFieldValue('1', 'LOOP_TIMES');
-    const ledPin13On = workspace.newBlock('digital_write') as BlockSvg;
-    ledPin13On.setFieldValue('13', 'PIN');
-    ledPin13On.setFieldValue('ON', 'STATE');
+  test("turning on pin 13 should turn on the built in led", () => {
+    arduinoBlock.setFieldValue("1", "LOOP_TIMES");
+    const ledPin13On = workspace.newBlock("digital_write") as BlockSvg;
+    ledPin13On.setFieldValue("13", "PIN");
+    ledPin13On.setFieldValue("ON", "STATE");
 
-    const ledPin13Off = workspace.newBlock('digital_write') as BlockSvg;
-    ledPin13Off.setFieldValue('13', 'PIN');
-    ledPin13Off.setFieldValue('OFF', 'STATE');
+    const ledPin13Off = workspace.newBlock("digital_write") as BlockSvg;
+    ledPin13Off.setFieldValue("13", "PIN");
+    ledPin13Off.setFieldValue("OFF", "STATE");
 
     connectToArduinoBlock(ledPin13On);
     ledPin13On.nextConnection.connect(ledPin13Off.previousConnection);
 
-    const event: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: ledPin13On.id,
-    };
+    const event = createTestEvent(ledPin13Off.id);
 
-    const [state1, state2] = eventToFrameFactory(event);
+    const [state1, state2] = eventToFrameFactory(event).frames;
 
     expect(state1.builtInLedOn).toBeTruthy();
     expect(state2.builtInLedOn).toBeFalsy();
@@ -87,8 +84,8 @@ describe('lcd  factories', () => {
     numberBlockConnection: string,
     pinPicture: PinPicture
   ) => {
-    arduinoBlock.setFieldValue('1', 'LOOP_TIMES');
-    const pinWord = pinPicture == PinPicture.LED ? 'led' : 'pin';
+    arduinoBlock.setFieldValue("1", "LOOP_TIMES");
+    const pinWord = pinPicture == PinPicture.LED ? "led" : "pin";
 
     const led5Block1 = createAnalogBlock(
       20,
@@ -123,18 +120,13 @@ describe('lcd  factories', () => {
     led10Block1.nextConnection.connect(led5Block2.previousConnection);
     led5Block2.nextConnection.connect(led10Block2.previousConnection);
 
-    const event: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: led10Block2.id,
-    };
+    const event = createTestEvent(led5Block1.id);
 
-    const [state1, state2, state3, state4] = eventToFrameFactory(event);
+    const [state1, state2, state3, state4] = eventToFrameFactory(event).frames;
     const pin4State1 = state1.components[0] as PinState;
 
     expect(state1.explanation).toBe(
-      `Setting ${pinWord} 5${pinWord == 'led' ? ' to fade' : ''} to 20.`
+      `Setting ${pinWord} 5${pinWord == "led" ? " to fade" : ""} to 20.`
     );
     expect(pin4State1.pinPicture).toBe(pinPicture);
     expect(pin4State1.state).toBe(20);
@@ -144,21 +136,21 @@ describe('lcd  factories', () => {
       20,
       39,
       state2,
-      `Setting ${pinWord} 10${pinWord == 'led' ? ' to fade' : ''} to 39.`,
+      `Setting ${pinWord} 10${pinWord == "led" ? " to fade" : ""} to 39.`,
       pinPicture
     );
     verifyState(
       140,
       39,
       state3,
-      `Setting ${pinWord} 5${pinWord == 'led' ? ' to fade' : ''} to 140.`,
+      `Setting ${pinWord} 5${pinWord == "led" ? " to fade" : ""} to 140.`,
       pinPicture
     );
     verifyState(
       140,
       123,
       state4,
-      `Setting ${pinWord} 10${pinWord == 'led' ? ' to fade' : ''} to 123.`,
+      `Setting ${pinWord} 10${pinWord == "led" ? " to fade" : ""} to 123.`,
       pinPicture
     );
   };
@@ -167,37 +159,32 @@ describe('lcd  factories', () => {
     blockType: string,
     pinPicture: PinPicture
   ) => {
-    const pinWord = pinPicture == PinPicture.LED ? 'led' : 'pin';
-    arduinoBlock.setFieldValue('1', 'LOOP_TIMES');
+    const pinWord = pinPicture == PinPicture.LED ? "led" : "pin";
+    arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const ledPin5On = workspace.newBlock(blockType) as BlockSvg;
-    ledPin5On.setFieldValue('5', 'PIN');
-    ledPin5On.setFieldValue('ON', 'STATE');
+    ledPin5On.setFieldValue("5", "PIN");
+    ledPin5On.setFieldValue("ON", "STATE");
 
     const ledPin5Off = workspace.newBlock(blockType) as BlockSvg;
-    ledPin5Off.setFieldValue('5', 'PIN');
-    ledPin5Off.setFieldValue('OFF', 'STATE');
+    ledPin5Off.setFieldValue("5", "PIN");
+    ledPin5Off.setFieldValue("OFF", "STATE");
 
     const ledPin10On = workspace.newBlock(blockType) as BlockSvg;
-    ledPin10On.setFieldValue('10', 'PIN');
-    ledPin10On.setFieldValue('ON', 'STATE');
+    ledPin10On.setFieldValue("10", "PIN");
+    ledPin10On.setFieldValue("ON", "STATE");
 
     const ledPin10Off = workspace.newBlock(blockType) as BlockSvg;
-    ledPin10Off.setFieldValue('10', 'PIN');
-    ledPin10Off.setFieldValue('OFF', 'STATE');
+    ledPin10Off.setFieldValue("10", "PIN");
+    ledPin10Off.setFieldValue("OFF", "STATE");
 
     connectToArduinoBlock(ledPin5On);
     ledPin5On.nextConnection.connect(ledPin10On.previousConnection);
     ledPin10On.nextConnection.connect(ledPin10Off.previousConnection);
     ledPin10Off.nextConnection.connect(ledPin5Off.previousConnection);
 
-    const event: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: ledPin10Off.id,
-    };
+    const event = createTestEvent(ledPin10Off.id);
 
-    const [state1, state2, state3, state4] = eventToFrameFactory(event);
+    const [state1, state2, state3, state4] = eventToFrameFactory(event).frames;
 
     const pin5State1 = state1.components[0] as PinState;
 
@@ -254,7 +241,7 @@ describe('lcd  factories', () => {
     );
 
     const analogBlock = workspace.newBlock(blockType) as BlockSvg;
-    analogBlock.setFieldValue(pin.toString(), 'PIN');
+    analogBlock.setFieldValue(pin.toString(), "PIN");
     analogBlock
       .getInput(connectionName)
       .connection.connect(valueBlock.outputConnection);

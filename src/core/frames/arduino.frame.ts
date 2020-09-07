@@ -1,4 +1,4 @@
-import { ARDUINO_UNO_PINS } from "../blockly/selectBoard";
+import { ARDUINO_UNO_PINS } from "../microcontroller/selectBoard";
 import { VariableTypes } from "../blockly/dto/variable.type";
 import { MicroControllerType } from "../microcontroller/microcontroller";
 

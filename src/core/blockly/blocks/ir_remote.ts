@@ -1,44 +1,44 @@
-import selectedBoard from '../selectBoard';
-import loopTimes from './helpers/looptimes';
-import Blockly from 'blockly';
-import { COLOR_THEME } from '../constants/colors';
+import selectedBoard from "../../microcontroller/selectBoard";
+import loopTimes from "./helpers/looptimes";
+import Blockly from "blockly";
+import { COLOR_THEME } from "../constants/colors";
 
 Blockly.defineBlocksWithJsonArray([
   {
-    type: 'ir_remote_has_code_receive',
-    message0: '%1 is receiving a code? ',
+    type: "ir_remote_has_code_receive",
+    message0: "%1 is receiving a code? ",
     args0: [
       {
-        type: 'field_image',
-        src: './blocks/ir_remote/ir_remote.png',
+        type: "field_image",
+        src: "./blocks/ir_remote/ir_remote.png",
         width: 15,
         height: 15,
-        alt: '*',
+        alt: "*",
         flipRtl: false,
       },
     ],
-    output: 'Boolean',
+    output: "Boolean",
     colour: COLOR_THEME.SENSOR,
-    tooltip: '',
-    helpUrl: '',
+    tooltip: "",
+    helpUrl: "",
   },
   {
-    type: 'ir_remote_get_code',
-    message0: '%1 get ir remote code.',
+    type: "ir_remote_get_code",
+    message0: "%1 get ir remote code.",
     args0: [
       {
-        type: 'field_image',
-        src: './blocks/ir_remote/ir_remote.png',
+        type: "field_image",
+        src: "./blocks/ir_remote/ir_remote.png",
         width: 15,
         height: 15,
-        alt: '*',
+        alt: "*",
         flipRtl: false,
       },
     ],
-    output: 'String',
+    output: "String",
     colour: COLOR_THEME.SENSOR,
-    tooltip: '',
-    helpUrl: '',
+    tooltip: "",
+    helpUrl: "",
   },
 ]);
 
@@ -46,52 +46,52 @@ const irSetupBlock: any = {
   init: function () {
     this.appendDummyInput()
       .appendField(
-        new Blockly.FieldImage('./blocks/ir_remote/ir_remote.png', 15, 15)
+        new Blockly.FieldImage("./blocks/ir_remote/ir_remote.png", 15, 15)
       )
-      .appendField('Setup IR Remote');
+      .appendField("Setup IR Remote");
     this.appendDummyInput()
-      .appendField('Analog Pin# ')
+      .appendField("Analog Pin# ")
       .appendField(
         new Blockly.FieldDropdown(selectedBoard().analogPins),
-        'PIN'
+        "PIN"
       );
-    this.appendDummyInput('SHOW_CODE_VIEW').appendField(
-      '-----------------------------'
+    this.appendDummyInput("SHOW_CODE_VIEW").appendField(
+      "-----------------------------"
     );
     this.appendDummyInput()
-      .appendField('Loop')
+      .appendField("Loop")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return loopTimes();
         }),
-        'LOOP'
+        "LOOP"
       );
     this.appendDummyInput()
-      .appendField('Scan New Code? ')
+      .appendField("Scan New Code? ")
       .appendField(
-        new Blockly.FieldCheckbox('TRUE', (value) => {
-          if ('FALSE' === value) {
-            this.getField('code').setValue('');
+        new Blockly.FieldCheckbox("TRUE", (value) => {
+          if ("FALSE" === value) {
+            this.getField("code").setValue("");
           }
           return value;
         }),
-        'scanned_new_code'
+        "scanned_new_code"
       );
     this.appendDummyInput()
-      .appendField('Code')
+      .appendField("Code")
       .appendField(
-        new Blockly.FieldTextInput('E932B', (value) => {
-          if (this.getFieldValue('scanned_new_code') === 'FALSE') {
+        new Blockly.FieldTextInput("E932B", (value) => {
+          if (this.getFieldValue("scanned_new_code") === "FALSE") {
             return null;
           }
           return value;
         }),
-        'code'
+        "code"
       );
     this.setColour(COLOR_THEME.SENSOR);
-    this.setTooltip('');
-    this.setHelpUrl('');
+    this.setTooltip("");
+    this.setHelpUrl("");
   },
 };
 
-Blockly.Blocks['ir_remote_setup'] = irSetupBlock;
+Blockly.Blocks["ir_remote_setup"] = irSetupBlock;

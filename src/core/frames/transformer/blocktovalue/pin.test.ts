@@ -1,30 +1,31 @@
-import 'jest';
-import '../../../blockly/blocks';
-import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
+import "jest";
+import "../../../blockly/blocks";
+import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
 import {
   getAllBlocks,
   getBlockById,
   connectToArduinoBlock,
-} from '../../../blockly/helpers/block.helper';
-import _ from 'lodash';
-import { BlockEvent } from '../../../blockly/dto/event.type';
-import { transformBlock } from '../../../blockly/transformers/block.transformer';
-import { getAllVariables } from '../../../blockly/helpers/variable.helper';
-import { transformVariable } from '../../../blockly/transformers/variables.transformer';
-import { eventToFrameFactory } from '../../event-to-frame.factory';
-import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
-import { saveSensorSetupBlockData } from '../../../blockly/actions/factories/saveSensorSetupBlockData';
-import { updater } from '../../../blockly/updater';
-import { ArduinoFrame, ArduinoComponentType } from '../../arduino.frame';
+} from "../../../blockly/helpers/block.helper";
+import _ from "lodash";
+import { BlockEvent } from "../../../blockly/dto/event.type";
+import { transformBlock } from "../../../blockly/transformers/block.transformer";
+import { getAllVariables } from "../../../blockly/helpers/variable.helper";
+import { transformVariable } from "../../../blockly/transformers/variables.transformer";
+import { eventToFrameFactory } from "../../event-to-frame.factory";
+import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
+import { updater } from "../../../blockly/updater";
+import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
-} from '../../../../tests/tests.helper';
-import { PinState, PIN_TYPE, PinPicture } from '../../arduino-components.state';
-import { VariableTypes } from '../../../blockly/dto/variable.type';
-import { getDefaultValue } from '../frame-transformer.helpers';
+  createTestEvent,
+} from "../../../../tests/tests.helper";
+import { PinState, PIN_TYPE, PinPicture } from "../../arduino-components.state";
+import { VariableTypes } from "../../../blockly/dto/variable.type";
+import { getDefaultValue } from "../frame-transformer.helpers";
 
-describe('analog pin state factories', () => {
+describe("analog pin state factories", () => {
   let workspace: Workspace;
   let analogReadSetup;
   let digitalReadSetup1;
@@ -37,12 +38,12 @@ describe('analog pin state factories', () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test('should be able digital pins', () => {
+  test("should be able digital pins", () => {
     runTest(
       workspace,
-      'digital_read_setup',
-      'digital_read',
-      'state',
+      "digital_read_setup",
+      "digital_read",
+      "state",
       VariableTypes.BOOLEAN,
       ARDUINO_UNO_PINS.PIN_6,
       PinPicture.SENSOR,
@@ -53,12 +54,12 @@ describe('analog pin state factories', () => {
     );
   });
 
-  test('should be able to get analog read', () => {
+  test("should be able to get analog read", () => {
     runTest(
       workspace,
-      'analog_read_setup',
-      'analog_read',
-      'state',
+      "analog_read_setup",
+      "analog_read",
+      "state",
       VariableTypes.NUMBER,
       ARDUINO_UNO_PINS.PIN_A0,
       PinPicture.PHOTO_SENSOR,
@@ -84,84 +85,59 @@ const runTest = (
   block2State: [number, number]
 ) => {
   const setupBlock1 = workspace.newBlock(setupBlockType) as BlockSvg;
-  setupBlock1.setFieldValue(block1Pin, 'PIN');
-  setupBlock1.setFieldValue(block1PictureType, 'TYPE');
+  setupBlock1.setFieldValue(block1Pin, "PIN");
+  setupBlock1.setFieldValue(block1PictureType, "TYPE");
   setupBlock1.setFieldValue(block1State[0].toString(), sensorStateField);
 
   const setupBlock2 = workspace.newBlock(setupBlockType) as BlockSvg;
-  setupBlock2.setFieldValue(block2Pin, 'PIN');
-  setupBlock2.setFieldValue(block2PictureType, 'TYPE');
+  setupBlock2.setFieldValue(block2Pin, "PIN");
+  setupBlock2.setFieldValue(block2PictureType, "TYPE");
   setupBlock2.setFieldValue(block2State[0].toString(), sensorStateField);
 
-  saveSensorSetupBlockData({
-    blocks: getAllBlocks().map(transformBlock),
-    variables: getAllVariables().map(transformVariable),
-    type: Blockly.Events.BLOCK_MOVE,
-    blockId: setupBlock1.id,
-  }).forEach(updater);
-  saveSensorSetupBlockData({
-    blocks: getAllBlocks().map(transformBlock),
-    variables: getAllVariables().map(transformVariable),
-    type: Blockly.Events.BLOCK_MOVE,
-    blockId: setupBlock2.id,
-  }).forEach(updater);
+  saveSensorSetupBlockData(createTestEvent(setupBlock1.id)).forEach(updater);
+  saveSensorSetupBlockData(createTestEvent(setupBlock2.id)).forEach(updater);
 
   setupBlock1.setFieldValue(block1State[1].toString(), sensorStateField);
   setupBlock2.setFieldValue(block2State[1].toString(), sensorStateField);
 
-  saveSensorSetupBlockData({
-    blocks: getAllBlocks().map(transformBlock),
-    variables: getAllVariables().map(transformVariable),
-    type: Blockly.Events.BLOCK_MOVE,
-    blockId: setupBlock1.id,
-  }).forEach(updater);
-  saveSensorSetupBlockData({
-    blocks: getAllBlocks().map(transformBlock),
-    variables: getAllVariables().map(transformVariable),
-    type: Blockly.Events.BLOCK_MOVE,
-    blockId: setupBlock2.id,
-  }).forEach(updater);
+  saveSensorSetupBlockData(createTestEvent(setupBlock1.id)).forEach(updater);
+  saveSensorSetupBlockData(createTestEvent(setupBlock2.id)).forEach(updater);
 
   const variable1Block = createSetVariableBlockWithValue(
     workspace,
-    'block1',
+    "block1",
     variableType,
     getDefaultValue(variableType)
   );
 
   const sensorBlock1 = workspace.newBlock(sensorReadBlockType) as BlockSvg;
-  sensorBlock1.setFieldValue(block1Pin, 'PIN');
+  sensorBlock1.setFieldValue(block1Pin, "PIN");
 
   const sensorBlock2 = workspace.newBlock(sensorReadBlockType) as BlockSvg;
-  sensorBlock1.setFieldValue(block2Pin, 'PIN');
+  sensorBlock1.setFieldValue(block2Pin, "PIN");
 
-  variable1Block.getInput('VALUE').connection.targetBlock().dispose(true);
+  variable1Block.getInput("VALUE").connection.targetBlock().dispose(true);
   variable1Block
-    .getInput('VALUE')
+    .getInput("VALUE")
     .connection.connect(sensorBlock1.outputConnection);
 
   const variable2Block = createSetVariableBlockWithValue(
     workspace,
-    'block2',
+    "block2",
     variableType,
     getDefaultValue(variableType)
   );
-  variable2Block.getInput('VALUE').connection.targetBlock().dispose(true);
+  variable2Block.getInput("VALUE").connection.targetBlock().dispose(true);
   variable1Block
-    .getInput('VALUE')
+    .getInput("VALUE")
     .connection.connect(sensorBlock2.outputConnection);
 
   connectToArduinoBlock(variable1Block);
   variable1Block.nextConnection.connect(variable2Block.previousConnection);
 
-  const mainEvent = {
-    blocks: getAllBlocks().map(transformBlock),
-    variables: getAllVariables().map(transformVariable),
-    type: Blockly.Events.BLOCK_MOVE,
-    blockId: variable2Block.id,
-  };
+  const mainEvent = createTestEvent(variable1Block.id);
 
   const [setup1, setup2, state1, state2, state3, state4] = eventToFrameFactory(
     mainEvent
-  );
+  ).frames;
 };

@@ -8,7 +8,7 @@ import {
 import { LCDScreenState } from "../../frames/arduino-components.state";
 import { Element, Svg, Text } from "@svgdotjs/svg.js";
 import { positionComponent } from "../svg-position";
-import { ARDUINO_UNO_PINS } from "../../blockly/selectBoard";
+import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
 import { createGroundWire, createPowerWire, createWire } from "../wire";
 
 /**

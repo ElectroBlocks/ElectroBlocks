@@ -1,14 +1,14 @@
-import { BlockEvent } from '../../../dto/event.type';
-import { DisableBlock, ActionType } from '../../actions';
-import _ from 'lodash';
+import { BlockEvent } from "../../../dto/event.type";
+import { DisableBlock, ActionType } from "../../actions";
+import _ from "lodash";
 import {
   PinCategory,
   BlockData,
   BlockTypeRequireRootBlock,
   BlockType,
-} from '../../../dto/block.type';
-import { ARDUINO_UNO_PINS } from '../../../selectBoard';
-import { findRootBlock } from '../../../helpers/block-data.helper';
+} from "../../../dto/block.type";
+import { ARDUINO_UNO_PINS } from "../../../../microcontroller/selectBoard";
+import { findRootBlock } from "../../../helpers/block-data.helper";
 
 /**
  * Disables blocks where multiple pins are being taken up by the same component.
@@ -56,7 +56,7 @@ export const disableDuplicatePinBlocks = (
           warningText: `This blocks has these duplicate pins: ${_.intersection(
             block.pins,
             duplicatePins
-          ).join(', ')}`,
+          ).join(", ")}`,
           type: ActionType.DISABLE_BLOCK,
         };
       })
