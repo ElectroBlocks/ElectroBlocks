@@ -77,7 +77,13 @@ const bluetoothSetupBlock: any = {
     this.appendDummyInput()
       .appendField("RX Pin# ")
       .appendField(
-        new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
+        new Blockly.FieldDropdown(() => {
+          console.log(
+            Blockly.mainWorkspace.getAllBlocks(true),
+            "READ THIS IT WORKED"
+          );
+          return selectBoardBlockly().digitalPins;
+        }),
         "RX"
       )
       .appendField("TX Pin#")

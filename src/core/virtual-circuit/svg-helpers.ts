@@ -51,7 +51,7 @@ export const createComponentEl = (
   return componentEl;
 };
 
-export const findMicronControllerEl = (draw: Svg) => {
+export const findMicronControllerEl = (draw: Svg): Element => {
   return draw.findOne("#microcontroller_main_svg") as Element | Svg;
 };
 

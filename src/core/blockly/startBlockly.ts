@@ -23,8 +23,11 @@ const startBlockly = (blocklyElement: HTMLElement) => {
   // creates the blockly workspace and toolbox
   const workspace = createWorkspace(blocklyElement);
 
+  // Create the blocks for selecting the board
+  createBlock("board_selector", 50, 50, false);
+
   // creates the arduino loop block
-  createBlock("arduino_loop", 50, 100, false);
+  createBlock("arduino_loop", 50, 150, false);
 
   // Register custom list menu event for the toolbox
   registerListMenu(workspace);

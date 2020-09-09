@@ -26,6 +26,7 @@ import { ActionType, DisableBlock, EnableBlock } from "./actions/actions";
 import { eventToFrameFactory } from "../frames/event-to-frame.factory";
 import { ArduinoFrame, ArduinoFrameContainer } from "../frames/arduino.frame";
 import { MicroControllerType } from "../microcontroller/microcontroller";
+import { getBoardType } from "./helpers/get-board.helper";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
@@ -45,15 +46,12 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     ) {
       return;
     }
-
-    // Hard coding for now
-    let microcontrollerType = MicroControllerType.ARDUINO_UNO;
-
+    const microControllerType = getBoardType() as MicroControllerType;
     const event = transformEvent(
       getAllBlocks(),
       getAllVariables(),
       blocklyEvent,
-      microcontrollerType
+      microControllerType
     );
     const firstActionPass = [
       ...deleteUnusedVariables(event),
@@ -80,7 +78,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       getAllBlocks(),
       getAllVariables(),
       blocklyEvent,
-      microcontrollerType
+      microControllerType
     );
 
     const secondActionPass = [
@@ -99,10 +97,11 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       getAllBlocks(),
       getAllVariables(),
       blocklyEvent,
-      microcontrollerType
+      microControllerType
     );
 
     const newFrameContainer = eventToFrameFactory(arduinoStateEvent);
+    console.log("new frames", newFrameContainer);
 
     if (!_.isEqual(newFrameContainer, currentFrameContainter)) {
       currentFrameContainter = newFrameContainer;

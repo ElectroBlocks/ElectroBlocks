@@ -5,7 +5,7 @@
   import { WindowType, resizeStore } from "../../../stores/resize.store";
 
   import { upload } from "../../../core/serial/upload";
-  import selectedBoard from "../../../core/microcontroller/selectBoard";
+  import { selectedBoard } from "../../../core/microcontroller/selectBoard";
 
   import { afterUpdate } from "svelte";
 

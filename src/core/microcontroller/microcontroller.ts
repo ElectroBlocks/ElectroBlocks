@@ -1,6 +1,6 @@
 export enum MicroControllerType {
-  ARDUINO_UNO = "ARDUINO_UNO",
-  ARDUINO_MEGA = "ARDUINO_MEGA",
+  ARDUINO_UNO = "uno",
+  ARDUINO_MEGA = "mega",
 }
 
 export interface MicroController {

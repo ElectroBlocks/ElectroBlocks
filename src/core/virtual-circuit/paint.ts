@@ -1,12 +1,15 @@
-import arduinoSVGText from "./svgs/boards/arduino_uno.svg";
 import { Svg, Element } from "@svgdotjs/svg.js";
 import { ArduinoFrame, ArduinoComponentType } from "../frames/arduino.frame";
-import { ARDUINO_UNO_PINS } from "../microcontroller/selectBoard";
+import {
+  ARDUINO_UNO_PINS,
+  selectedBoard,
+} from "../microcontroller/selectBoard";
 import { resetBreadBoardWholes } from "./wire";
 import { findMicronControllerEl } from "./svg-helpers";
 import createNewComponent from "./svg-create";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 import { MicroControllerType } from "../microcontroller/microcontroller";
+import { getBoardSvg } from "./get-board-svg";
 
 export default (
   draw: Svg,
@@ -42,14 +45,17 @@ const findOrCreateMicroController = (
     return arduino;
   }
 
-  draw.svg(arduinoSVGText);
+  if (arduino) {
+    draw.children().forEach((c) => c.remove());
+  }
+
+  draw.svg(getBoardSvg(boardType));
   arduino = draw.findOne("#MicroController") as Element;
   arduino.data("type", boardType);
   arduino.node.id = "microcontroller_main_svg";
   arduino.findOne("#MESSAGE").hide();
   (window as any).arduino = arduino;
   (window as any).draw = draw;
-  (window as any).arduinoText = arduinoSVGText;
   (draw as any).zoom((0.5 / 650) * draw.width()); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
   arduino.y(draw.viewbox().y2 - arduino.height() + 80);
   arduino.x(0);
@@ -58,8 +64,8 @@ const findOrCreateMicroController = (
 };
 
 const hideAllWires = (arduino: Element, boardType: MicroControllerType) => {
-  Object.keys(ARDUINO_UNO_PINS)
-    .map((key) => arduino.find("#" + key)[0])
+  [...selectedBoard().digitalPins, ...selectedBoard().analonPins]
+    .map((key) => arduino.findOne("#PIN_" + key))
     .filter((wire) => wire !== undefined)
     .forEach((wire) => wire.hide());
 };

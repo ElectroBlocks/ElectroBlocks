@@ -151,7 +151,7 @@ export const blocksToBlockTypes: {
 } = {
   arduino_loop: { type: BlockType.ARDUINO, pinCategory: PinCategory.NONE },
   arduino_setup: { type: BlockType.ARDUINO, pinCategory: PinCategory.NONE },
-
+  board_selector: { type: BlockType.ARDUINO, pinCategory: PinCategory.NONE },
   create_list_number_block: {
     type: BlockType.LIST_CREATE,
     pinCategory: PinCategory.NONE,

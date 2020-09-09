@@ -1,4 +1,4 @@
-import selectedBoard from "../microcontroller/selectBoard";
+import { selectedBoard } from "../microcontroller/selectBoard";
 
 declare class AvrgirlArduino {
   constructor(config: any);
