@@ -11,7 +11,7 @@ import { transformBlock } from "../../../blockly/transformers/block.transformer"
 import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
 import { updater } from "../../../blockly/updater";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
@@ -36,8 +36,8 @@ describe("bluetooth state factories", () => {
   beforeEach(() => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
     bluethoothsetupblock = workspace.newBlock("bluetooth_setup");
-    bluethoothsetupblock.setFieldValue(ARDUINO_UNO_PINS.PIN_7, "RX");
-    bluethoothsetupblock.setFieldValue(ARDUINO_UNO_PINS.PIN_6, "TX");
+    bluethoothsetupblock.setFieldValue(ARDUINO_PINS.PIN_7, "RX");
+    bluethoothsetupblock.setFieldValue(ARDUINO_PINS.PIN_6, "TX");
 
     bluethoothsetupblock.setFieldValue("TRUE", "receiving_message");
     bluethoothsetupblock.setFieldValue("hello world", "message");
@@ -50,9 +50,9 @@ describe("bluetooth state factories", () => {
     const event = createTestEvent(bluethoothsetupblock.id);
 
     const btComponent: BluetoothState = {
-      pins: [ARDUINO_UNO_PINS.PIN_7, ARDUINO_UNO_PINS.PIN_6],
-      rxPin: ARDUINO_UNO_PINS.PIN_7,
-      txPin: ARDUINO_UNO_PINS.PIN_6,
+      pins: [ARDUINO_PINS.PIN_7, ARDUINO_PINS.PIN_6],
+      rxPin: ARDUINO_PINS.PIN_7,
+      txPin: ARDUINO_PINS.PIN_6,
       hasMessage: true,
       message: "hello world",
       sendMessage: "",

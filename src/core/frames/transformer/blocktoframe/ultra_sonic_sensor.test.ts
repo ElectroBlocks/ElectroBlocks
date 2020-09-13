@@ -19,7 +19,7 @@ import {
 import { UltraSonicSensorState } from "../../arduino-components.state";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 
 describe("ultra sonic sensor state factories", () => {
   let workspace: Workspace;
@@ -46,9 +46,9 @@ describe("ultra sonic sensor state factories", () => {
     const event = createTestEvent(ultraSonicSensor.id);
 
     const ultraSonicSensorState: UltraSonicSensorState = {
-      pins: [ARDUINO_UNO_PINS.PIN_11, ARDUINO_UNO_PINS.PIN_12],
-      echoPin: ARDUINO_UNO_PINS.PIN_12,
-      trigPin: ARDUINO_UNO_PINS.PIN_11,
+      pins: [ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_12],
+      echoPin: ARDUINO_PINS.PIN_12,
+      trigPin: ARDUINO_PINS.PIN_11,
       cm: 10,
       type: ArduinoComponentType.ULTRASONICE_SENSOR,
     };

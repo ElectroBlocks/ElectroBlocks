@@ -30,7 +30,7 @@ import {
 } from "../../arduino-components.state";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { TempSensor } from "../../../blockly/dto/sensors.type";
 import { VariableTypes } from "../../../blockly/dto/variable.type";
 import { getDefaultValue, findComponent } from "../frame-transformer.helpers";
@@ -50,7 +50,7 @@ describe("rfid value factories", () => {
     const tempSetupBlock = workspace.newBlock("temp_setup") as BlockSvg;
     const tempReadBlock = workspace.newBlock("temp_get_temp");
     const tempHumidityBlock = workspace.newBlock("temp_get_humidity");
-    tempSetupBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_8, "PIN");
+    tempSetupBlock.setFieldValue(ARDUINO_PINS.PIN_8, "PIN");
 
     const tempVarBlock = createVariableBlock(
       "temp",

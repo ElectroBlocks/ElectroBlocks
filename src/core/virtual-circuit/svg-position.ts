@@ -1,13 +1,13 @@
 import { findSvgElement } from "./svg-helpers";
 import { Element, Svg } from "@svgdotjs/svg.js";
-import { ARDUINO_UNO_PINS } from "../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../microcontroller/selectBoard";
 import { pinToBreadboardHole } from "./wire";
 
 export const positionComponent = (
   element: Element,
   arduino: Element,
   draw: Svg,
-  wire: ARDUINO_UNO_PINS,
+  wire: ARDUINO_PINS,
   connectionId: string
 ) => {
   // 1 Take the Arduino X position

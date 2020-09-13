@@ -8,7 +8,7 @@ import { transformBlock } from "../../../transformers/block.transformer";
 import { getAllVariables } from "../../../helpers/variable.helper";
 import { transformVariable } from "../../../transformers/variables.transformer";
 import { ActionType } from "../../actions";
-import { ARDUINO_UNO_PINS } from "../../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../../microcontroller/selectBoard";
 import { disableSetupBlockWithMultiplePinOutsSamePins } from "./disableSetupBlockWithMultiplePinOutsSamePins";
 import {
   createArduinoAndWorkSpace,
@@ -30,11 +30,11 @@ describe("disableSensorReadBlocksWithWrongPins", () => {
 
   test("should disable blocks that use same pin twice", () => {
     const rfidBlockSetup = workspace.newBlock("rfid_setup");
-    rfidBlockSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_5, "TX");
+    rfidBlockSetup.setFieldValue(ARDUINO_PINS.PIN_5, "TX");
 
     const setupBlock2 = workspace.newBlock("bluetooth_setup");
-    setupBlock2.setFieldValue(ARDUINO_UNO_PINS.PIN_10, "TX");
-    setupBlock2.setFieldValue(ARDUINO_UNO_PINS.PIN_10, "RX");
+    setupBlock2.setFieldValue(ARDUINO_PINS.PIN_10, "TX");
+    setupBlock2.setFieldValue(ARDUINO_PINS.PIN_10, "RX");
     const event = createTestEvent(arduinoBlock.id);
 
     const actions = disableSetupBlockWithMultiplePinOutsSamePins(event);

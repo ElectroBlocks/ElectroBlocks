@@ -11,7 +11,7 @@ import { transformBlock } from "../../../blockly/transformers/block.transformer"
 import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { ArduinoFrame, ArduinoComponentType, Color } from "../../arduino.frame";
 import { NeoPixelState } from "../../arduino-components.state";
 import {
@@ -35,14 +35,14 @@ describe("neo pixle state factories", () => {
     [workspace] = createArduinoAndWorkSpace();
     neoPixelSetup = workspace.newBlock("neo_pixel_setup") as BlockSvg;
     neoPixelSetup.setFieldValue("60", "NUMBER_LEDS");
-    neoPixelSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_6, "PIN");
+    neoPixelSetup.setFieldValue(ARDUINO_PINS.PIN_6, "PIN");
   });
 
   test("should be able generate state for neo pixel setup block", () => {
     const event = createTestEvent(neoPixelSetup.id);
 
     const ledLightStrip: NeoPixelState = {
-      pins: [ARDUINO_UNO_PINS.PIN_6],
+      pins: [ARDUINO_PINS.PIN_6],
       numberOfLeds: 60,
       type: ArduinoComponentType.NEO_PIXEL_STRIP,
       neoPixels: _.range(0, 60).map((i) => {

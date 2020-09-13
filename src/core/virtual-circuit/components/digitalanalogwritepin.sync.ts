@@ -8,10 +8,7 @@ import {
 import { Element, Svg, Text } from "@svgdotjs/svg.js";
 import { PinState, PinPicture } from "../../frames/arduino-components.state";
 import { positionComponent } from "../svg-position";
-import {
-  ANALOG_PINS,
-  ARDUINO_UNO_PINS,
-} from "../../microcontroller/selectBoard";
+import { ANALOG_PINS, ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { createGroundWire, createWire, updateWires } from "../wire";
 
 export const digitalAnalogWritePinReset: ResetComponent = (
@@ -30,9 +27,7 @@ export const digitalAnanlogWritePinPosition: CreateCompenentHook<PinState> = (
   draw
 ) => {
   positionComponent(componentEl, arduinoEl, draw, state.pin, "POWER");
-  if (ANALOG_PINS.includes(state.pin)) {
-    componentEl.x(componentEl.x() + 30);
-  }
+  componentEl.x(componentEl.x() + 30);
 };
 
 export const digitalAnanlogWritePinCreate: PositionComponent<PinState> = (
@@ -43,10 +38,7 @@ export const digitalAnanlogWritePinCreate: PositionComponent<PinState> = (
 ) => {
   componentEl.data("picture-type", state.pinPicture);
   componentEl.data("pin_number", state.pin);
-  componentEl.findOne("title").node.innerHTML =
-    state.pinPicture === PinPicture.LED_ANALOG_WRITE
-      ? "PIN DIGITAL WRITE"
-      : "PIN ANALOG WRITE";
+
   setPinText(state.pin, componentEl);
 };
 
@@ -102,7 +94,7 @@ export const createWiresDigitalAnalogWrite: CreateWire<PinState> = (
   );
 };
 
-const setPinText = (pin: ARDUINO_UNO_PINS, componentEl: Element) => {
+const setPinText = (pin: ARDUINO_PINS, componentEl: Element) => {
   const pinText = componentEl.findOne("#PIN_TEXT") as Text;
   pinText.node.innerHTML = pin;
   if (ANALOG_PINS.includes(pin)) {
@@ -111,11 +103,9 @@ const setPinText = (pin: ARDUINO_UNO_PINS, componentEl: Element) => {
   }
 
   if (
-    [
-      ARDUINO_UNO_PINS.PIN_10,
-      ARDUINO_UNO_PINS.PIN_11,
-      ARDUINO_UNO_PINS.PIN_12,
-    ].includes(pin)
+    [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_12].includes(
+      pin
+    )
   ) {
     pinText.x(-8);
   }

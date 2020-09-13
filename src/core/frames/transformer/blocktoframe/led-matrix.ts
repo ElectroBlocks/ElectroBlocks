@@ -2,7 +2,7 @@ import { BlockToFrameTransformer } from "../block-to-frame.transformer";
 import _ from "lodash";
 import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
 import { ArduinoComponentType, ArduinoFrame } from "../../arduino.frame";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { LedMatrixState } from "../../arduino-components.state";
 import {
   arduinoFrameByComponent,
@@ -33,11 +33,7 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
 
   const ledMatrixState: LedMatrixState = {
     type: ArduinoComponentType.LED_MATRIX,
-    pins: [
-      ARDUINO_UNO_PINS.PIN_10,
-      ARDUINO_UNO_PINS.PIN_11,
-      ARDUINO_UNO_PINS.PIN_12,
-    ],
+    pins: [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_12],
     leds,
   };
 
@@ -139,11 +135,7 @@ const createBlankLedMatrix = () => {
 
   return {
     type: ArduinoComponentType.LED_MATRIX,
-    pins: [
-      ARDUINO_UNO_PINS.PIN_10,
-      ARDUINO_UNO_PINS.PIN_11,
-      ARDUINO_UNO_PINS.PIN_12,
-    ],
+    pins: [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_12],
     leds,
   };
 };

@@ -11,7 +11,7 @@ import { transformBlock } from "../../../blockly/transformers/block.transformer"
 import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
 import { updater } from "../../../blockly/updater";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
@@ -34,7 +34,7 @@ describe("rfid state factories", () => {
     [workspace] = createArduinoAndWorkSpace();
 
     rfidBlock = workspace.newBlock("rfid_setup");
-    rfidBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_6, "TX");
+    rfidBlock.setFieldValue(ARDUINO_PINS.PIN_6, "TX");
 
     rfidBlock.setFieldValue("TRUE", "scanned_card");
     rfidBlock.setFieldValue("card_num", "card_number");
@@ -48,8 +48,8 @@ describe("rfid state factories", () => {
     const event = createTestEvent(rfidBlock.id);
 
     const rfidComponent: RfidState = {
-      pins: [ARDUINO_UNO_PINS.PIN_6],
-      txPin: ARDUINO_UNO_PINS.PIN_6,
+      pins: [ARDUINO_PINS.PIN_6],
+      txPin: ARDUINO_PINS.PIN_6,
       scannedCard: true,
       cardNumber: "card_num",
       tag: "tag",

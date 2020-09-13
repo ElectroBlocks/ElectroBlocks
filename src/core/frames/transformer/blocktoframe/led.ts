@@ -1,6 +1,6 @@
 import { BlockToFrameTransformer } from "../block-to-frame.transformer";
 import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { PinState, PinPicture, PIN_TYPE } from "../../arduino-components.state";
 
 import _ from "lodash";
@@ -13,7 +13,7 @@ export const analogWrite = (
   connectionValueName: string
 ) => {
   return (blocks, block, variables, timeline, previousState) => {
-    const pin = findFieldValue(block, "PIN") as ARDUINO_UNO_PINS;
+    const pin = findFieldValue(block, "PIN") as ARDUINO_PINS;
     const pinWord = pinPicture == PinPicture.LED ? "led" : "pin";
     const state = getInputValue(
       blocks,
@@ -53,7 +53,7 @@ export const analogWrite = (
 
 export const digitalWrite = (pinPicture: PinPicture) => {
   return (blocks, block, variables, timeline, previousState) => {
-    const pin = findFieldValue(block, "PIN") as ARDUINO_UNO_PINS;
+    const pin = findFieldValue(block, "PIN") as ARDUINO_PINS;
     const pinWord = pinPicture == PinPicture.LED ? "led" : "pin";
     const state = findFieldValue(block, "STATE") === "ON" ? 1 : 0;
     const ledState: PinState = {
@@ -76,7 +76,7 @@ export const digitalWrite = (pinPicture: PinPicture) => {
         explanation,
         previousState,
         previousState ? (previousState as ArduinoFrame).txLedOn : false,
-        pin === ARDUINO_UNO_PINS.PIN_13 && state === 1
+        pin === ARDUINO_PINS.PIN_13 && state === 1
       ),
     ];
   };

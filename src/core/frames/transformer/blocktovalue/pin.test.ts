@@ -12,7 +12,7 @@ import { transformBlock } from "../../../blockly/transformers/block.transformer"
 import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
 import { updater } from "../../../blockly/updater";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
@@ -45,10 +45,10 @@ describe("analog pin state factories", () => {
       "digital_read",
       "state",
       VariableTypes.BOOLEAN,
-      ARDUINO_UNO_PINS.PIN_6,
+      ARDUINO_PINS.PIN_6,
       PinPicture.SENSOR,
       [1, 0],
-      ARDUINO_UNO_PINS.PIN_9,
+      ARDUINO_PINS.PIN_9,
       PinPicture.TOUCH_SENSOR,
       [0, 1]
     );
@@ -61,10 +61,10 @@ describe("analog pin state factories", () => {
       "analog_read",
       "state",
       VariableTypes.NUMBER,
-      ARDUINO_UNO_PINS.PIN_A0,
+      ARDUINO_PINS.PIN_A0,
       PinPicture.PHOTO_SENSOR,
       [30, 53],
-      ARDUINO_UNO_PINS.PIN_A1,
+      ARDUINO_PINS.PIN_A1,
       PinPicture.SOIL_SENSOR,
       [43, 212]
     );
@@ -77,10 +77,10 @@ const runTest = (
   sensorReadBlockType: string,
   sensorStateField: string,
   variableType: VariableTypes,
-  block1Pin: ARDUINO_UNO_PINS,
+  block1Pin: ARDUINO_PINS,
   block1PictureType: PinPicture,
   block1State: [number, number],
-  block2Pin: ARDUINO_UNO_PINS,
+  block2Pin: ARDUINO_PINS,
   block2PictureType: PinPicture,
   block2State: [number, number]
 ) => {
@@ -112,9 +112,8 @@ const runTest = (
 
   const sensorBlock1 = workspace.newBlock(sensorReadBlockType) as BlockSvg;
   sensorBlock1.setFieldValue(block1Pin, "PIN");
-
   const sensorBlock2 = workspace.newBlock(sensorReadBlockType) as BlockSvg;
-  sensorBlock1.setFieldValue(block2Pin, "PIN");
+  sensorBlock2.setFieldValue(block2Pin, "PIN");
 
   variable1Block.getInput("VALUE").connection.targetBlock().dispose(true);
   variable1Block

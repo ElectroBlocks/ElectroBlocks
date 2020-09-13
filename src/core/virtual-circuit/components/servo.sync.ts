@@ -5,7 +5,7 @@ import { ServoState } from "../../frames/arduino-components.state";
 import { findSvgElement } from "../svg-helpers";
 import { Svg, Text, Element } from "@svgdotjs/svg.js";
 import { createWire, createGroundWire, createPowerWire } from "../wire";
-import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { positionComponent } from "../svg-position";
 import { addDraggableEvent } from "../component-events.helpers";
 
@@ -66,7 +66,7 @@ export const createWiresServo: CreateWire<ServoState> = (
   const pin = state.pins[0];
   createWire(servoEl, pin, "PIN_DATA", arduino, draw, "#FFA502", "data");
 
-  if ([ARDUINO_UNO_PINS.PIN_13, ARDUINO_UNO_PINS.PIN_A2].includes(pin)) {
+  if ([ARDUINO_PINS.PIN_13, ARDUINO_PINS.PIN_A2].includes(pin)) {
     // GND then POWER
     createGroundWire(servoEl, pin, arduino as Svg, draw, id, "left");
 

@@ -21,7 +21,7 @@ const boardProfiles = {
   mega: arduinoMega,
 };
 
-export enum ARDUINO_UNO_PINS {
+export enum ARDUINO_PINS {
   PIN_1 = "1",
   PIN_2 = "2",
   PIN_3 = "3",
@@ -45,10 +45,10 @@ export enum ARDUINO_UNO_PINS {
 }
 
 export const ANALOG_PINS = [
-  ARDUINO_UNO_PINS.PIN_A0,
-  ARDUINO_UNO_PINS.PIN_A1,
-  ARDUINO_UNO_PINS.PIN_A2,
-  ARDUINO_UNO_PINS.PIN_A3,
-  ARDUINO_UNO_PINS.PIN_A4,
-  ARDUINO_UNO_PINS.PIN_A5,
+  ARDUINO_PINS.PIN_A0,
+  ARDUINO_PINS.PIN_A1,
+  ARDUINO_PINS.PIN_A2,
+  ARDUINO_PINS.PIN_A3,
+  ARDUINO_PINS.PIN_A4,
+  ARDUINO_PINS.PIN_A5,
 ];

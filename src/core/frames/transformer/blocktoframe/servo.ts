@@ -5,7 +5,7 @@ import {
   arduinoFrameByComponent,
 } from "../frame-transformer.helpers";
 import { getInputValue } from "../block-to-value.factories";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
 import { ServoState } from "../../arduino-components.state";
 import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
@@ -51,7 +51,7 @@ export const servoRotate: BlockToFrameTransformer = (
 
 const getServo = (
   degree: number,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   previousState: ArduinoFrame
 ): ServoState => {
   if (!previousState) {

@@ -1,4 +1,4 @@
-import { ARDUINO_UNO_PINS } from "../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../microcontroller/selectBoard";
 import { VariableTypes } from "../blockly/dto/variable.type";
 import { MicroControllerType } from "../microcontroller/microcontroller";
 
@@ -49,7 +49,7 @@ export interface Timeline {
 }
 
 export interface ArduinoComponentState {
-  pins: ARDUINO_UNO_PINS[];
+  pins: ARDUINO_PINS[];
   type: ArduinoComponentType;
 }
 

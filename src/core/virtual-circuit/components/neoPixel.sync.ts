@@ -8,7 +8,7 @@ import {
 import { NeoPixelState } from "../../frames/arduino-components.state";
 import { Element, Svg } from "@svgdotjs/svg.js";
 import { createWire, createPowerWire, createGroundWire } from "../wire";
-import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import _ from "lodash";
 import { rgbToHex } from "../../blockly/helpers/color.helper";
 import { positionComponent } from "../svg-position";
@@ -27,13 +27,7 @@ export const neoPixelPosition: PositionComponent<NeoPixelState> = (
   arduino,
   draw
 ) => {
-  positionComponent(
-    neoPixelEl,
-    arduino,
-    draw,
-    ARDUINO_UNO_PINS.PIN_A2,
-    "PIN_DATA"
-  );
+  positionComponent(neoPixelEl, arduino, draw, ARDUINO_PINS.PIN_A2, "PIN_DATA");
   neoPixelEl.x(neoPixelEl.x() - 100);
 };
 
@@ -79,7 +73,7 @@ export const createWiresNeoPixels: CreateWire<NeoPixelState> = (
 
   createGroundWire(
     neoPixelEl,
-    ARDUINO_UNO_PINS.PIN_13,
+    ARDUINO_PINS.PIN_13,
     arduino as Svg,
     draw,
     id,
@@ -88,7 +82,7 @@ export const createWiresNeoPixels: CreateWire<NeoPixelState> = (
 
   createPowerWire(
     neoPixelEl,
-    ARDUINO_UNO_PINS.PIN_13,
+    ARDUINO_PINS.PIN_13,
     arduino as Svg,
     draw,
     id,

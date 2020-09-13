@@ -20,7 +20,7 @@ import {
 import { ButtonState } from "../../arduino-components.state";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { VARIABLE_TYPES } from "../../../blockly/constants/variables";
 import { VariableTypes } from "../../../blockly/dto/variable.type";
 import { findComponent } from "../frame-transformer.helpers";
@@ -57,13 +57,13 @@ describe("button state factories", () => {
     const setVariablePin3 = createSetVariableBlock(
       workspace,
       "block1",
-      ARDUINO_UNO_PINS.PIN_3
+      ARDUINO_PINS.PIN_3
     );
 
     const setVariablePin5 = createSetVariableBlock(
       workspace,
       "block2",
-      ARDUINO_UNO_PINS.PIN_5
+      ARDUINO_PINS.PIN_5
     );
     connectToArduinoBlock(setVariablePin3);
     setVariablePin3.nextConnection.connect(setVariablePin5.previousConnection);
@@ -106,13 +106,13 @@ const verifyState = (
   const buttonPin3 = findComponent<ButtonState>(
     state,
     ArduinoComponentType.BUTTON,
-    ARDUINO_UNO_PINS.PIN_3
+    ARDUINO_PINS.PIN_3
   );
 
   const buttonPin5 = findComponent<ButtonState>(
     state,
     ArduinoComponentType.BUTTON,
-    ARDUINO_UNO_PINS.PIN_5
+    ARDUINO_PINS.PIN_5
   );
 
   expect(buttonPin3.isPressed).toBe(pin3Pressed);
@@ -122,7 +122,7 @@ const verifyState = (
 const createSetVariableBlock = (
   workspace: Workspace,
   variableName: string,
-  pin: ARDUINO_UNO_PINS
+  pin: ARDUINO_PINS
 ) => {
   const setBoolVariableBlock = createSetVariableBlockWithValue(
     workspace,

@@ -18,7 +18,7 @@ import {
 import { VariableTypes, VariableData } from "../../blockly/dto/variable.type";
 import { generateFrame } from "./block-to-frame.transformer";
 import { Sensor } from "../../blockly/dto/sensors.type";
-import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { MotorState } from "../arduino-components.state";
 
 export const arduinoFrameByVariable = (
@@ -207,7 +207,7 @@ export const valueToString = (
 export const findComponent = <T extends ArduinoComponentState>(
   state: ArduinoFrame,
   type: ArduinoComponentType,
-  pin: ARDUINO_UNO_PINS = undefined
+  pin: ARDUINO_PINS = undefined
 ) => {
   if (pin !== undefined) {
     return state.components.find(

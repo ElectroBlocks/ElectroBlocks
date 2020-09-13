@@ -8,7 +8,7 @@ import { transformBlock } from "../../../transformers/block.transformer";
 import { getAllVariables } from "../../../helpers/variable.helper";
 import { transformVariable } from "../../../transformers/variables.transformer";
 import { ActionType } from "../../actions";
-import { ARDUINO_UNO_PINS } from "../../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../../microcontroller/selectBoard";
 import { disableSensorReadBlocksWithWrongPins } from "./disableSensorReadBlocksWithWrongPins";
 import {
   createArduinoAndWorkSpace,
@@ -30,23 +30,23 @@ describe("disableSensorReadBlocksWithWrongPins", () => {
 
   test("sensor read blocks that have pins select that are not selected by the setup block are disabled", () => {
     const btnSetup1 = workspace.newBlock("button_setup");
-    btnSetup1.setFieldValue(ARDUINO_UNO_PINS.PIN_10, "PIN");
+    btnSetup1.setFieldValue(ARDUINO_PINS.PIN_10, "PIN");
     const btnSetup2 = workspace.newBlock("button_setup");
-    btnSetup2.setFieldValue(ARDUINO_UNO_PINS.PIN_4, "PIN");
+    btnSetup2.setFieldValue(ARDUINO_PINS.PIN_4, "PIN");
     const btnSetup3 = workspace.newBlock("button_setup");
-    btnSetup3.setFieldValue(ARDUINO_UNO_PINS.PIN_5, "PIN");
+    btnSetup3.setFieldValue(ARDUINO_PINS.PIN_5, "PIN");
 
     const btnPressed1 = workspace.newBlock("is_button_pressed");
-    btnPressed1.setFieldValue(ARDUINO_UNO_PINS.PIN_10, "PIN");
+    btnPressed1.setFieldValue(ARDUINO_PINS.PIN_10, "PIN");
     const btnPressed2 = workspace.newBlock("is_button_pressed");
-    btnPressed2.setFieldValue(ARDUINO_UNO_PINS.PIN_5, "PIN");
+    btnPressed2.setFieldValue(ARDUINO_PINS.PIN_5, "PIN");
 
     const btnPressed4 = workspace.newBlock("is_button_pressed");
-    btnPressed4.setFieldValue(ARDUINO_UNO_PINS.PIN_4, "PIN");
+    btnPressed4.setFieldValue(ARDUINO_PINS.PIN_4, "PIN");
 
     // Done so that we can set the field value to 10 on one of the blocks.
     // Then change the setup block to make sure it disables the sensor read block
-    btnSetup1.setFieldValue(ARDUINO_UNO_PINS.PIN_3, "PIN");
+    btnSetup1.setFieldValue(ARDUINO_PINS.PIN_3, "PIN");
 
     // These blocks should not be affected because they don't have a setup block
     // Another function will disable theses blocks.

@@ -2,68 +2,54 @@ import Blockly from "blockly";
 import { COLOR_THEME } from "../constants/colors";
 import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 
-Blockly.defineBlocksWithJsonArray([
-  {
-    type: "led",
-    message0: "%1 Turn  %2 led  %3",
-    args0: [
-      {
-        type: "field_image",
-        src: "./blocks/led/led.png",
-        width: 15,
-        height: 15,
-        alt: "*",
-        flipRtl: false,
-      },
-      {
-        type: "field_dropdown",
-        name: "STATE",
-        options: [
+Blockly.Blocks["led"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(new Blockly.FieldImage("./blocks/led/led.png", 15, 15))
+      .appendField("Turn led#")
+      .appendField(
+        new Blockly.FieldDropdown(() => {
+          return selectBoardBlockly().digitalPins;
+        }),
+        "PIN"
+      )
+      .appendField(
+        new Blockly.FieldDropdown([
           ["on", "ON"],
           ["off", "OFF"],
-        ],
-      },
-      {
-        type: "field_dropdown",
-        name: "PIN",
-        options: selectBoardBlockly().digitalPins,
-      },
-    ],
-    previousStatement: null,
-    nextStatement: null,
-    colour: COLOR_THEME.COMPONENTS,
-    tooltip: "",
-    helpUrl: "",
+        ]),
+        "STATE"
+      );
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setTooltip("");
+    this.setHelpUrl("");
   },
-  {
-    type: "led_fade",
-    message0: "%1 Fade Led# %2 to  %3",
-    args0: [
-      {
-        type: "field_image",
-        src: "./blocks/led/led.png",
-        width: 15,
-        height: 15,
-        alt: "*",
-        flipRtl: false,
-      },
-      {
-        type: "field_dropdown",
-        name: "PIN",
-        options: selectBoardBlockly().pwmPins,
-      },
-      {
-        type: "input_value",
-        name: "FADE",
-        check: "Number",
-      },
-    ],
-    previousStatement: null,
-    nextStatement: null,
-    colour: COLOR_THEME.COMPONENTS,
-    tooltip: "",
-    helpUrl: "",
+};
+
+Blockly.Blocks["led_fade"] = {
+  init: function () {
+    this.appendValueInput("FADE")
+      .setCheck("Number")
+      .appendField(new Blockly.FieldImage("./blocks/led/led.png", 15, 15))
+      .appendField("Fade led#")
+      .appendField(
+        new Blockly.FieldDropdown(() => {
+          return selectBoardBlockly().pwmPins;
+        }),
+        "PIN"
+      )
+      .appendField("to ");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setTooltip("");
+    this.setHelpUrl("");
   },
+};
+
+Blockly.defineBlocksWithJsonArray([
   {
     type: "led_color_setup",
     lastDummyAlign0: "RIGHT",

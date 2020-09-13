@@ -10,7 +10,7 @@ import { transformBlock } from "../../../blockly/transformers/block.transformer"
 import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
 import {
   LedColorState,
@@ -90,28 +90,28 @@ describe("lcd  factories", () => {
     const led5Block1 = createAnalogBlock(
       20,
       blockType,
-      ARDUINO_UNO_PINS.PIN_5,
+      ARDUINO_PINS.PIN_5,
       numberBlockConnection
     );
 
     const led10Block1 = createAnalogBlock(
       39,
       blockType,
-      ARDUINO_UNO_PINS.PIN_10,
+      ARDUINO_PINS.PIN_10,
       numberBlockConnection
     );
 
     const led5Block2 = createAnalogBlock(
       140,
       blockType,
-      ARDUINO_UNO_PINS.PIN_5,
+      ARDUINO_PINS.PIN_5,
       numberBlockConnection
     );
 
     const led10Block2 = createAnalogBlock(
       123,
       blockType,
-      ARDUINO_UNO_PINS.PIN_10,
+      ARDUINO_PINS.PIN_10,
       numberBlockConnection
     );
 
@@ -130,7 +130,7 @@ describe("lcd  factories", () => {
     );
     expect(pin4State1.pinPicture).toBe(pinPicture);
     expect(pin4State1.state).toBe(20);
-    expect(pin4State1.pin).toBe(ARDUINO_UNO_PINS.PIN_5);
+    expect(pin4State1.pin).toBe(ARDUINO_PINS.PIN_5);
 
     verifyState(
       20,
@@ -191,7 +191,7 @@ describe("lcd  factories", () => {
     expect(state1.explanation).toBe(`Turn ${pinWord} 5 on.`);
     expect(pin5State1.pinPicture).toBe(pinPicture);
     expect(pin5State1.state).toBe(1);
-    expect(pin5State1.pin).toBe(ARDUINO_UNO_PINS.PIN_5);
+    expect(pin5State1.pin).toBe(ARDUINO_PINS.PIN_5);
 
     verifyState(1, 1, state2, `Turn ${pinWord} 10 on.`, pinPicture);
     verifyState(1, 0, state3, `Turn ${pinWord} 10 off.`, pinPicture);
@@ -208,30 +208,30 @@ describe("lcd  factories", () => {
     const led4State = findComponent<PinState>(
       state,
       ArduinoComponentType.PIN,
-      ARDUINO_UNO_PINS.PIN_5
+      ARDUINO_PINS.PIN_5
     );
 
     const led10State = findComponent<PinState>(
       state,
       ArduinoComponentType.PIN,
-      ARDUINO_UNO_PINS.PIN_10
+      ARDUINO_PINS.PIN_10
     );
 
     expect(state.explanation).toBe(explanation);
 
     expect(led4State.pinPicture).toBe(pictureType);
     expect(led4State.state).toBe(pin5On);
-    expect(led4State.pin).toBe(ARDUINO_UNO_PINS.PIN_5);
+    expect(led4State.pin).toBe(ARDUINO_PINS.PIN_5);
 
     expect(led10State.pinPicture).toBe(pictureType);
     expect(led10State.state).toBe(pin10On);
-    expect(led10State.pin).toBe(ARDUINO_UNO_PINS.PIN_10);
+    expect(led10State.pin).toBe(ARDUINO_PINS.PIN_10);
   };
 
   const createAnalogBlock = (
     writeValue: number,
     blockType: string,
-    pin: ARDUINO_UNO_PINS,
+    pin: ARDUINO_PINS,
     connectionName: string
   ) => {
     const valueBlock = createValueBlock(

@@ -1,6 +1,6 @@
 import { findComponentConnection, findSvgElement } from "./svg-helpers";
 import { Svg, Element, Line } from "@svgdotjs/svg.js";
-import { ARDUINO_UNO_PINS } from "../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../microcontroller/selectBoard";
 import _ from "lodash";
 
 export interface Wire {
@@ -16,7 +16,7 @@ export enum WIRE_COLOR {
 
 export const createWire = (
   element: Element,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   connectionId: string,
   arduino: Element,
   draw: Svg,
@@ -40,7 +40,7 @@ export const createWire = (
 
 export const createGroundWire = (
   element: Element,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   arduino: Svg,
   draw: Svg,
   componentId: string,
@@ -60,7 +60,7 @@ export const createGroundWire = (
 
 export const createPowerWire = (
   element: Element,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   arduino: Svg,
   draw: Svg,
   componentId: string,
@@ -80,7 +80,7 @@ export const createPowerWire = (
 
 const createBottomBreadboardWire = (
   element: Element,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   arduino: Svg,
   draw: Svg,
   componentBoxId: string,
@@ -172,7 +172,7 @@ export const takeNextBottomBreadboardHole = () => {
 };
 
 export const takeClosestBottomBreadboardHole = (
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   direction: "right" | "left"
 ) => {
   const pinNumber = parseInt(
@@ -250,43 +250,43 @@ export enum ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS {
   PIN_A5 = "pin16F",
 }
 
-export const pinToBreadboardHole = (pin: ARDUINO_UNO_PINS) => {
+export const pinToBreadboardHole = (pin: ARDUINO_PINS) => {
   switch (pin) {
-    case ARDUINO_UNO_PINS.PIN_2:
+    case ARDUINO_PINS.PIN_2:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_2;
-    case ARDUINO_UNO_PINS.PIN_3:
+    case ARDUINO_PINS.PIN_3:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_3;
-    case ARDUINO_UNO_PINS.PIN_4:
+    case ARDUINO_PINS.PIN_4:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_4;
-    case ARDUINO_UNO_PINS.PIN_5:
+    case ARDUINO_PINS.PIN_5:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_5;
-    case ARDUINO_UNO_PINS.PIN_6:
+    case ARDUINO_PINS.PIN_6:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_6;
-    case ARDUINO_UNO_PINS.PIN_7:
+    case ARDUINO_PINS.PIN_7:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_7;
-    case ARDUINO_UNO_PINS.PIN_8:
+    case ARDUINO_PINS.PIN_8:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_8;
-    case ARDUINO_UNO_PINS.PIN_9:
+    case ARDUINO_PINS.PIN_9:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_9;
-    case ARDUINO_UNO_PINS.PIN_10:
+    case ARDUINO_PINS.PIN_10:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_10;
-    case ARDUINO_UNO_PINS.PIN_11:
+    case ARDUINO_PINS.PIN_11:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_11;
-    case ARDUINO_UNO_PINS.PIN_12:
+    case ARDUINO_PINS.PIN_12:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_12;
-    case ARDUINO_UNO_PINS.PIN_13:
+    case ARDUINO_PINS.PIN_13:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_13;
-    case ARDUINO_UNO_PINS.PIN_A0:
+    case ARDUINO_PINS.PIN_A0:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A0;
-    case ARDUINO_UNO_PINS.PIN_A1:
+    case ARDUINO_PINS.PIN_A1:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A1;
-    case ARDUINO_UNO_PINS.PIN_A2:
+    case ARDUINO_PINS.PIN_A2:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A2;
-    case ARDUINO_UNO_PINS.PIN_A3:
+    case ARDUINO_PINS.PIN_A3:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A3;
-    case ARDUINO_UNO_PINS.PIN_A4:
+    case ARDUINO_PINS.PIN_A4:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A4;
-    case ARDUINO_UNO_PINS.PIN_A5:
+    case ARDUINO_PINS.PIN_A5:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A5;
     default:
       return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_2;
@@ -294,7 +294,7 @@ export const pinToBreadboardHole = (pin: ARDUINO_UNO_PINS) => {
 };
 
 export const findBreadboardHoleXY = (
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   arduino: Element,
   draw: Svg
 ) => {
@@ -306,7 +306,7 @@ export const findBreadboardHoleXY = (
 };
 
 export const findResistorBreadboardHoleXY = (
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   arduino: Element,
   draw: Svg
 ) => {

@@ -10,7 +10,7 @@ import { transformBlock } from "../../../blockly/transformers/block.transformer"
 import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { ArduinoComponentType } from "../../arduino.frame";
 import { LedMatrixState } from "../../arduino-components.state";
 import {
@@ -90,11 +90,7 @@ describe("led matrix  factories", () => {
 
     expect(component1.type).toBe(ArduinoComponentType.LED_MATRIX);
     expect(component1.pins.sort()).toEqual(
-      [
-        ARDUINO_UNO_PINS.PIN_10,
-        ARDUINO_UNO_PINS.PIN_11,
-        ARDUINO_UNO_PINS.PIN_12,
-      ].sort()
+      [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_12].sort()
     );
 
     expect(state1.components.length).toBe(1);
@@ -106,7 +102,7 @@ describe("led matrix  factories", () => {
       "led_matrix_make_draw"
     ) as BlockSvg;
 
-    const servo6Block1 = createServoBlock(20, ARDUINO_UNO_PINS.PIN_6);
+    const servo6Block1 = createServoBlock(20, ARDUINO_PINS.PIN_6);
 
     connectToArduinoBlock(ledmatrixdraw1);
 
@@ -196,7 +192,7 @@ describe("led matrix  factories", () => {
     return ledMatrix as BlockSvg;
   };
 
-  const createServoBlock = (degree: number, pin: ARDUINO_UNO_PINS) => {
+  const createServoBlock = (degree: number, pin: ARDUINO_PINS) => {
     const rotateServo = workspace.newBlock("rotate_servo") as BlockSvg;
     const numberBlock = createValueBlock(
       workspace,

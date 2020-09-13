@@ -15,7 +15,7 @@ import {
   findResistorBreadboardHoleXY,
 } from "../wire";
 import { rgbToHex } from "../../blockly/helpers/color.helper";
-import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { arduinoComponentStateToId } from "../../frames/arduino-component-id";
 
 export const createRgbLed: CreateCompenentHook<LedColorState> = (
@@ -77,7 +77,7 @@ const createResistors = (
 const createResistor = (
   arduino: Svg | Element,
   draw: Svg,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   componentId: string
 ) => {
   const resistorEl = draw.svg(resistorSmallSvg).last();

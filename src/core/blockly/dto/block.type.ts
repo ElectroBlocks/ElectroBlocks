@@ -1,4 +1,4 @@
-import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 
 export enum BlockType {
   SETUP = "SETUP",
@@ -438,7 +438,7 @@ export interface BlockData {
   nextBlockId: string | undefined; // the block below
   type: BlockType | undefined;
   rootBlockId: string | undefined;
-  pins: ARDUINO_UNO_PINS[];
+  pins: ARDUINO_PINS[];
   pinCategory: PinCategory;
   metaData: string;
   disabled: boolean;

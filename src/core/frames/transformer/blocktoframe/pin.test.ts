@@ -11,7 +11,7 @@ import { transformBlock } from "../../../blockly/transformers/block.transformer"
 import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
 import { updater } from "../../../blockly/updater";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
@@ -34,12 +34,12 @@ describe("analog pin state factories", () => {
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
     analogReadSetup = workspace.newBlock("analog_read_setup") as BlockSvg;
-    analogReadSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_A1, "PIN");
+    analogReadSetup.setFieldValue(ARDUINO_PINS.PIN_A1, "PIN");
     analogReadSetup.setFieldValue("PHOTO_SENSOR", "TYPE");
     analogReadSetup.setFieldValue("30", "state");
 
     digitalReadSetup = workspace.newBlock("digital_read_setup") as BlockSvg;
-    digitalReadSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_6, "PIN");
+    digitalReadSetup.setFieldValue(ARDUINO_PINS.PIN_6, "PIN");
     digitalReadSetup.setFieldValue("TOUCH_SENSOR", "TYPE");
     digitalReadSetup.setFieldValue("1", "state");
 
@@ -61,7 +61,7 @@ describe("analog pin state factories", () => {
         analogReadSetup.id,
         analogReadSetup.type,
         PinPicture.PHOTO_SENSOR,
-        ARDUINO_UNO_PINS.PIN_A1,
+        ARDUINO_PINS.PIN_A1,
         PIN_TYPE.ANALOG_INPUT,
         "Setting up photo sensor.",
         30
@@ -72,7 +72,7 @@ describe("analog pin state factories", () => {
         digitalReadSetup.id,
         digitalReadSetup.type,
         PinPicture.TOUCH_SENSOR,
-        ARDUINO_UNO_PINS.PIN_6,
+        ARDUINO_PINS.PIN_6,
         PIN_TYPE.DIGITAL_INPUT,
         "Setting up touch sensor.",
         1,
@@ -85,7 +85,7 @@ describe("analog pin state factories", () => {
     blockId: string,
     blockName: string,
     pinPicture: PinPicture,
-    pin: ARDUINO_UNO_PINS,
+    pin: ARDUINO_PINS,
     pinType: PIN_TYPE,
     explanation: string,
     state: number,

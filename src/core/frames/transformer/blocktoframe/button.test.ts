@@ -16,7 +16,7 @@ import {
 import { ButtonState } from "../../arduino-components.state";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
 describe("button state factories", () => {
@@ -42,7 +42,7 @@ describe("button state factories", () => {
 
     const buttonState: ButtonState = {
       isPressed: true,
-      pins: [ARDUINO_UNO_PINS.PIN_3],
+      pins: [ARDUINO_PINS.PIN_3],
       type: ArduinoComponentType.BUTTON,
     };
 

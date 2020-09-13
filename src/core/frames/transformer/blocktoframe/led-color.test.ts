@@ -10,7 +10,7 @@ import { transformBlock } from "../../../blockly/transformers/block.transformer"
 import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
 import { LedColorState } from "../../arduino-components.state";
 import {
@@ -41,14 +41,10 @@ describe("lcd  factories", () => {
     const event = createTestEvent(ledColorSetup.id);
 
     const ledColorState: LedColorState = {
-      pins: [
-        ARDUINO_UNO_PINS.PIN_11,
-        ARDUINO_UNO_PINS.PIN_10,
-        ARDUINO_UNO_PINS.PIN_9,
-      ],
-      redPin: ARDUINO_UNO_PINS.PIN_11,
-      greenPin: ARDUINO_UNO_PINS.PIN_10,
-      bluePin: ARDUINO_UNO_PINS.PIN_9,
+      pins: [ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_9],
+      redPin: ARDUINO_PINS.PIN_11,
+      greenPin: ARDUINO_PINS.PIN_10,
+      bluePin: ARDUINO_PINS.PIN_9,
       pictureType: "BUILT_IN",
       color: { green: 0, red: 0, blue: 0 },
       type: ArduinoComponentType.LED_COLOR,

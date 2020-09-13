@@ -21,7 +21,7 @@ import {
 import { UltraSonicSensorState } from "../../arduino-components.state";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { VariableTypes } from "../../../blockly/dto/variable.type";
 import { MicroControllerType } from "../../../microcontroller/microcontroller";
 

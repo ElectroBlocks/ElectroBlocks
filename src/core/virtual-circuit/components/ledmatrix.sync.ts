@@ -5,7 +5,7 @@ import { LedMatrixState } from "../../frames/arduino-components.state";
 import { Element, Svg } from "@svgdotjs/svg.js";
 
 import { positionComponent } from "../svg-position";
-import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { createPowerWire, createGroundWire, createWire } from "../wire";
 
 export const ledMatrixPosition: PositionComponent<LedMatrixState> = (
@@ -20,7 +20,7 @@ export const ledMatrixPosition: PositionComponent<LedMatrixState> = (
     ledMatrixEl,
     arduinoEl,
     draw,
-    ARDUINO_UNO_PINS.PIN_10,
+    ARDUINO_PINS.PIN_10,
     "PIN_DATA"
   );
 };
@@ -53,7 +53,7 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
 ) => {
   createPowerWire(
     ledMatrixEl,
-    ARDUINO_UNO_PINS.PIN_9,
+    ARDUINO_PINS.PIN_9,
     arduino as Svg,
     draw,
     id,
@@ -62,7 +62,7 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
 
   createGroundWire(
     ledMatrixEl,
-    ARDUINO_UNO_PINS.PIN_9,
+    ARDUINO_PINS.PIN_9,
     arduino as Svg,
     draw,
     id,
@@ -71,7 +71,7 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
 
   createWire(
     ledMatrixEl,
-    ARDUINO_UNO_PINS.PIN_12,
+    ARDUINO_PINS.PIN_12,
     "PIN_DATA",
     arduino,
     draw,
@@ -80,7 +80,7 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
   );
   createWire(
     ledMatrixEl,
-    ARDUINO_UNO_PINS.PIN_10,
+    ARDUINO_PINS.PIN_10,
     "PIN_CS",
     arduino,
     draw,
@@ -89,7 +89,7 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
   );
   createWire(
     ledMatrixEl,
-    ARDUINO_UNO_PINS.PIN_11,
+    ARDUINO_PINS.PIN_11,
     "PIN_CLK",
     arduino,
     draw,

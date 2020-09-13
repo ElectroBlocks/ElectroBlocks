@@ -22,7 +22,7 @@ import {
 } from "../../arduino-components.state";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { TempSensor } from "../../../blockly/dto/sensors.type";
 import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
@@ -39,7 +39,7 @@ describe("rfid state factories", () => {
     tempBlock = workspace.newBlock("temp_setup") as BlockSvg;
     tempBlock.setFieldValue("70", "humidity");
     tempBlock.setFieldValue("50", "temp");
-    tempBlock.setFieldValue(ARDUINO_UNO_PINS.PIN_8, "PIN");
+    tempBlock.setFieldValue(ARDUINO_PINS.PIN_8, "PIN");
 
     const event = createTestEvent(tempBlock.id);
     saveSensorSetupBlockData(event).forEach(updater);
@@ -49,7 +49,7 @@ describe("rfid state factories", () => {
     const event = createTestEvent(tempBlock.id);
 
     const tempSensorState: TemperatureState = {
-      pins: [ARDUINO_UNO_PINS.PIN_8],
+      pins: [ARDUINO_PINS.PIN_8],
       temperature: 50,
       humidity: 70,
       type: ArduinoComponentType.TEMPERATURE_SENSOR,

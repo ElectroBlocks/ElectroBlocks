@@ -1,7 +1,7 @@
 import { BlockEvent } from "../../../dto/event.type";
 import { DisableBlock, ActionType } from "../../actions";
 import { multipleTopBlocks } from "../../../dto/block.type";
-import { ARDUINO_UNO_PINS } from "../../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../../microcontroller/selectBoard";
 
 // This happens when the arduino runs out of a certain type of pin
 // The drop down box will populate with NO_PINS in it
@@ -13,7 +13,7 @@ export const disableSetupBlocksUsingSamePinNumbers = (
   return blocks
     .filter((block) => multipleTopBlocks.includes(block.blockName))
     .filter((block) => block.blockName !== "procedures_defnoreturn")
-    .filter((block) => block.pins.includes(ARDUINO_UNO_PINS.NO_PINS))
+    .filter((block) => block.pins.includes(ARDUINO_PINS.NO_PINS))
     .map((block) => {
       return {
         blockId: block.id,

@@ -1,5 +1,5 @@
 import { ArduinoComponentState, Color, ArduinoFrame } from "./arduino.frame";
-import { ARDUINO_UNO_PINS } from "../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../microcontroller/selectBoard";
 
 export interface ArduinoReceiveMessageState extends ArduinoComponentState {
   hasMessage: boolean;
@@ -7,8 +7,8 @@ export interface ArduinoReceiveMessageState extends ArduinoComponentState {
 }
 
 export interface BluetoothState extends ArduinoComponentState {
-  rxPin: ARDUINO_UNO_PINS;
-  txPin: ARDUINO_UNO_PINS;
+  rxPin: ARDUINO_PINS;
+  txPin: ARDUINO_PINS;
   hasMessage: boolean;
   message: string;
   sendMessage: string;
@@ -21,7 +21,7 @@ export interface ButtonState extends ArduinoComponentState {
 export interface IRRemoteState extends ArduinoComponentState {
   hasCode: boolean;
   code: string;
-  analogPin: ARDUINO_UNO_PINS;
+  analogPin: ARDUINO_PINS;
 }
 
 export interface LCDScreenState extends ArduinoComponentState {
@@ -39,9 +39,9 @@ export enum LCD_SCREEN_MEMORY_TYPE {
 }
 
 export interface LedColorState extends ArduinoComponentState {
-  redPin: ARDUINO_UNO_PINS;
-  greenPin: ARDUINO_UNO_PINS;
-  bluePin: ARDUINO_UNO_PINS;
+  redPin: ARDUINO_PINS;
+  greenPin: ARDUINO_PINS;
+  bluePin: ARDUINO_PINS;
   pictureType: "BUILT_IN" | "BREADBOARD";
   color: Color;
 }
@@ -67,7 +67,7 @@ export interface NeoPixelState extends ArduinoComponentState {
 }
 
 export interface PinState extends ArduinoComponentState {
-  pin: ARDUINO_UNO_PINS;
+  pin: ARDUINO_PINS;
   pinType: PIN_TYPE;
   state: number;
   pinPicture: PinPicture;
@@ -111,7 +111,7 @@ export const pinPictureToWork = (pinPicture: PinPicture) => {
 };
 
 export interface RfidState extends ArduinoComponentState {
-  txPin: ARDUINO_UNO_PINS;
+  txPin: ARDUINO_PINS;
   scannedCard: boolean;
   cardNumber: string;
   tag: string;
@@ -132,6 +132,6 @@ export interface TimeState extends ArduinoComponentState {
 
 export interface UltraSonicSensorState extends ArduinoComponentState {
   cm: number;
-  trigPin: ARDUINO_UNO_PINS;
-  echoPin: ARDUINO_UNO_PINS;
+  trigPin: ARDUINO_PINS;
+  echoPin: ARDUINO_PINS;
 }

@@ -7,7 +7,7 @@ import {
   BlockTypeRequireRootBlock,
   BlockType,
 } from "../../../dto/block.type";
-import { ARDUINO_UNO_PINS } from "../../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../../microcontroller/selectBoard";
 import { findRootBlock } from "../../../helpers/block-data.helper";
 
 /**
@@ -100,9 +100,9 @@ const getPinCategories = (blocks: BlockData[]) => {
 };
 
 const getDuplicatePinsForCategory = (
-  pinCategories: { [cat: string]: ARDUINO_UNO_PINS[] },
+  pinCategories: { [cat: string]: ARDUINO_PINS[] },
   category: PinCategory
-): ARDUINO_UNO_PINS[] => {
+): ARDUINO_PINS[] => {
   return _.keys(pinCategories)
     .filter((cat) => category !== cat)
     .reduce((prev, next) => {

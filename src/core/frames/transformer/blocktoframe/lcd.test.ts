@@ -10,7 +10,7 @@ import { transformBlock } from "../../../blockly/transformers/block.transformer"
 import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
 import {
   LCDScreenState,
@@ -46,7 +46,7 @@ describe("lcd  factories", () => {
     const event = createTestEvent(lcdsetup.id);
 
     const lcdState: LCDScreenState = {
-      pins: [ARDUINO_UNO_PINS.PIN_A4, ARDUINO_UNO_PINS.PIN_A5],
+      pins: [ARDUINO_PINS.PIN_A4, ARDUINO_PINS.PIN_A5],
       backLightOn: true,
       blink: { row: 0, column: 0, blinking: false },
       memoryType: LCD_SCREEN_MEMORY_TYPE["0X27"],

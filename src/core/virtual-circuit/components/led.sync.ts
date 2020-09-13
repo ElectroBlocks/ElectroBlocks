@@ -13,10 +13,7 @@ import {
 } from "../../frames/arduino-components.state";
 import _ from "lodash";
 import resistorSvg from "../svgs/resistors/resistor-small.svg";
-import {
-  ARDUINO_UNO_PINS,
-  ANALOG_PINS,
-} from "../../microcontroller/selectBoard";
+import { ARDUINO_PINS, ANALOG_PINS } from "../../microcontroller/selectBoard";
 import {
   findResistorBreadboardHoleXY,
   createGroundWire,
@@ -56,9 +53,7 @@ export const ledPosition: PositionComponent<PinState> = (
   draw
 ) => {
   positionComponent(ledEl, arduinoEl, draw, state.pin, "POWER");
-  if (ANALOG_PINS.includes(state.pin)) {
-    ledEl.x(ledEl.x() + 30);
-  }
+  ledEl.x(ledEl.x() + 30);
 };
 
 export const updateLed: SyncComponent = (state: PinState, ledEl, draw) => {
@@ -95,7 +90,7 @@ export const resetLed: ResetComponent = (componentEl: Element) => {
 const createResistor = (
   arduino: Svg | Element,
   draw: Svg,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   componentId: string
 ) => {
   const resistorEl = draw.svg(resistorSvg).last();
@@ -117,22 +112,15 @@ export const createWiresLed: CreateWire<PinState> = (
   createWire(ledEl, state.pin, "POWER", arduino, draw, "#FF0000", "POWER");
 };
 
-const setPinText = (pin: ARDUINO_UNO_PINS, ledEl: Element) => {
+const setPinText = (pin: ARDUINO_PINS, ledEl: Element) => {
   const pinText = ledEl.findOne("#PIN_NUMBER") as Text;
   pinText.node.innerHTML = pin;
-  if (ANALOG_PINS.includes(pin)) {
-    pinText.x(0);
+  if (pin.toString().includes("A")) {
+    pinText.x(-2);
     return;
   }
 
-  if (
-    [
-      ARDUINO_UNO_PINS.PIN_10,
-      ARDUINO_UNO_PINS.PIN_11,
-      ARDUINO_UNO_PINS.PIN_12,
-      ARDUINO_UNO_PINS.PIN_13,
-    ].includes(pin)
-  ) {
+  if (pin.toString().length >= 2) {
     pinText.x(2);
     return;
   }

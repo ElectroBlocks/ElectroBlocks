@@ -14,7 +14,7 @@ import { createWire, createGroundWire, createPowerWire } from "../wire";
 import { positionComponent } from "../svg-position";
 import _ from "lodash";
 
-import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 
 export const analogDigitalSensorCreate: CreateCompenentHook<PinState> = (
   state,
@@ -36,7 +36,7 @@ export const analogDigitalSensorPosition: PositionComponent<PinState> = (
   draw
 ) => {
   positionComponent(analogSensorEl, arduinoEl, draw, state.pin, "PIN_DATA");
-  if (![ARDUINO_UNO_PINS.PIN_A1, ARDUINO_UNO_PINS.PIN_A0].includes(state.pin)) {
+  if (![ARDUINO_PINS.PIN_A1, ARDUINO_PINS.PIN_A0].includes(state.pin)) {
     analogSensorEl.x(analogSensorEl.x() - 20);
   }
 };

@@ -8,7 +8,7 @@ import {
 import { LCDScreenState } from "../../frames/arduino-components.state";
 import { Element, Svg, Text } from "@svgdotjs/svg.js";
 import { positionComponent } from "../svg-position";
-import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { createGroundWire, createPowerWire, createWire } from "../wire";
 
 /**
@@ -39,13 +39,7 @@ export const lcdPosition: PositionComponent<LCDScreenState> = (
   arduino,
   draw
 ) => {
-  positionComponent(
-    lcdScreenEl,
-    arduino,
-    draw,
-    ARDUINO_UNO_PINS.PIN_12,
-    "PIN_SCL"
-  );
+  positionComponent(lcdScreenEl, arduino, draw, ARDUINO_PINS.PIN_12, "PIN_SCL");
 
   lcdScreenEl.y(lcdScreenEl.y() - 30);
 };
@@ -140,25 +134,18 @@ export const createWiresLcd: CreateWire<LCDScreenState> = (
 ) => {
   createGroundWire(
     lcdEl,
-    ARDUINO_UNO_PINS.PIN_12,
+    ARDUINO_PINS.PIN_12,
     arduino as Svg,
     draw,
     id,
     "left"
   );
 
-  createPowerWire(
-    lcdEl,
-    ARDUINO_UNO_PINS.PIN_12,
-    arduino as Svg,
-    draw,
-    id,
-    "left"
-  );
+  createPowerWire(lcdEl, ARDUINO_PINS.PIN_12, arduino as Svg, draw, id, "left");
 
   createWire(
     lcdEl,
-    ARDUINO_UNO_PINS.PIN_A4,
+    ARDUINO_PINS.PIN_A4,
     "PIN_SDA",
     arduino,
     draw,
@@ -168,7 +155,7 @@ export const createWiresLcd: CreateWire<LCDScreenState> = (
 
   createWire(
     lcdEl,
-    ARDUINO_UNO_PINS.PIN_A5,
+    ARDUINO_PINS.PIN_A5,
     "PIN_SCL",
     arduino,
     draw,

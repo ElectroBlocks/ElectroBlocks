@@ -30,7 +30,7 @@ import {
   UltraSonicSensorState,
   ArduinoReceiveMessageState,
 } from "../../frames/arduino-components.state";
-import { ARDUINO_UNO_PINS } from "../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -57,11 +57,11 @@ const bluetoothState = (
 
   return {
     type: ArduinoComponentType.BLUE_TOOTH,
-    rxPin: findFieldValue(block, "RX") as ARDUINO_UNO_PINS,
-    txPin: findFieldValue(block, "TX") as ARDUINO_UNO_PINS,
+    rxPin: findFieldValue(block, "RX") as ARDUINO_PINS,
+    txPin: findFieldValue(block, "TX") as ARDUINO_PINS,
     pins: [
-      findFieldValue(block, "TX") as ARDUINO_UNO_PINS,
-      findFieldValue(block, "RX") as ARDUINO_UNO_PINS,
+      findFieldValue(block, "TX") as ARDUINO_PINS,
+      findFieldValue(block, "RX") as ARDUINO_PINS,
     ],
     hasMessage: btState.receiving_message,
     message: btState.message,
@@ -82,7 +82,7 @@ const buttonState = (block: BlockData, timeline: Timeline): ButtonState => {
 
   return {
     type: ArduinoComponentType.BUTTON,
-    pins: [findFieldValue(block, "PIN") as ARDUINO_UNO_PINS],
+    pins: [findFieldValue(block, "PIN") as ARDUINO_PINS],
     isPressed: btState.is_pressed,
   };
 };
@@ -101,8 +101,8 @@ const irRemoteState = (block: BlockData, timeline: Timeline): IRRemoteState => {
 
   return {
     type: ArduinoComponentType.IR_REMOTE,
-    analogPin: findFieldValue(block, "PIN") as ARDUINO_UNO_PINS,
-    pins: [findFieldValue(block, "PIN") as ARDUINO_UNO_PINS],
+    analogPin: findFieldValue(block, "PIN") as ARDUINO_PINS,
+    pins: [findFieldValue(block, "PIN") as ARDUINO_PINS],
     code: irRemoteData.code,
     hasCode: irRemoteData.scanned_new_code,
   };
@@ -124,8 +124,8 @@ const pinReadState = (pinType: PIN_TYPE) => {
 
     return {
       type: ArduinoComponentType.PIN,
-      pin: findFieldValue(block, "PIN") as ARDUINO_UNO_PINS,
-      pins: [findFieldValue(block, "PIN") as ARDUINO_UNO_PINS],
+      pin: findFieldValue(block, "PIN") as ARDUINO_PINS,
+      pins: [findFieldValue(block, "PIN") as ARDUINO_PINS],
       state: pinSensor.state,
       pinType: pinType,
       pinPicture: pictureType,
@@ -156,8 +156,8 @@ const rfidState = (block: BlockData, timeline): RfidState => {
 
   return {
     type: ArduinoComponentType.RFID,
-    txPin: findFieldValue(block, "TX") as ARDUINO_UNO_PINS,
-    pins: [findFieldValue(block, "TX") as ARDUINO_UNO_PINS],
+    txPin: findFieldValue(block, "TX") as ARDUINO_PINS,
+    pins: [findFieldValue(block, "TX") as ARDUINO_PINS],
     scannedCard: rfidSensor.scanned_card,
     cardNumber: rfidSensor.card_number,
     tag: rfidSensor.tag,
@@ -178,7 +178,7 @@ const tempState = (block: BlockData, timeline: Timeline): TemperatureState => {
 
   return {
     type: ArduinoComponentType.TEMPERATURE_SENSOR,
-    pins: [findFieldValue(block, "PIN") as ARDUINO_UNO_PINS],
+    pins: [findFieldValue(block, "PIN") as ARDUINO_PINS],
     temperature: tempSensor.temp,
     humidity: tempSensor.humidity,
   };
@@ -217,11 +217,11 @@ const ultraSonicState = (
 
   return {
     type: ArduinoComponentType.ULTRASONICE_SENSOR,
-    trigPin: findFieldValue(block, "TRIG") as ARDUINO_UNO_PINS,
-    echoPin: findFieldValue(block, "ECHO") as ARDUINO_UNO_PINS,
+    trigPin: findFieldValue(block, "TRIG") as ARDUINO_PINS,
+    echoPin: findFieldValue(block, "ECHO") as ARDUINO_PINS,
     pins: [
-      findFieldValue(block, "TRIG") as ARDUINO_UNO_PINS,
-      findFieldValue(block, "ECHO") as ARDUINO_UNO_PINS,
+      findFieldValue(block, "TRIG") as ARDUINO_PINS,
+      findFieldValue(block, "ECHO") as ARDUINO_PINS,
     ],
     cm: ultraSensor.cm,
   };

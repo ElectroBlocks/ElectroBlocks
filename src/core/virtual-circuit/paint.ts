@@ -1,9 +1,6 @@
 import { Svg, Element } from "@svgdotjs/svg.js";
 import { ArduinoFrame, ArduinoComponentType } from "../frames/arduino.frame";
-import {
-  ARDUINO_UNO_PINS,
-  selectedBoard,
-} from "../microcontroller/selectBoard";
+import { ARDUINO_PINS, selectedBoard } from "../microcontroller/selectBoard";
 import { resetBreadBoardWholes } from "./wire";
 import { findMicronControllerEl } from "./svg-helpers";
 import createNewComponent from "./svg-create";

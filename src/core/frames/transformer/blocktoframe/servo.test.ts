@@ -8,7 +8,7 @@ import {
 } from "../../../../tests/tests.helper";
 import Blockly, { Workspace, BlockSvg } from "blockly";
 import { VariableTypes } from "../../../blockly/dto/variable.type";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import {
   connectToArduinoBlock,
   getAllBlocks,
@@ -36,10 +36,10 @@ describe("test servos factories", () => {
   });
 
   test("should be able to create different arduino", () => {
-    const servo6Block1 = createServoBlock(20, ARDUINO_UNO_PINS.PIN_6);
-    const servo6Block2 = createServoBlock(120, ARDUINO_UNO_PINS.PIN_6);
-    const servo9Block1 = createServoBlock(29, ARDUINO_UNO_PINS.PIN_9);
-    const servo9Block2 = createServoBlock(140, ARDUINO_UNO_PINS.PIN_9);
+    const servo6Block1 = createServoBlock(20, ARDUINO_PINS.PIN_6);
+    const servo6Block2 = createServoBlock(120, ARDUINO_PINS.PIN_6);
+    const servo9Block1 = createServoBlock(29, ARDUINO_PINS.PIN_9);
+    const servo9Block2 = createServoBlock(140, ARDUINO_PINS.PIN_9);
 
     connectToArduinoBlock(servo6Block1);
     servo6Block1.nextConnection.connect(servo9Block1.previousConnection);
@@ -58,7 +58,7 @@ describe("test servos factories", () => {
     const servo6State1 = findComponent<ServoState>(
       state1,
       ArduinoComponentType.SERVO,
-      ARDUINO_UNO_PINS.PIN_6
+      ARDUINO_PINS.PIN_6
     );
     expect(state1.components.length).toBe(1);
     expect(servo6State1.degree).toBe(20);
@@ -68,7 +68,7 @@ describe("test servos factories", () => {
     verifyServos(state4, 120, 140);
   });
 
-  const createServoBlock = (degree: number, pin: ARDUINO_UNO_PINS) => {
+  const createServoBlock = (degree: number, pin: ARDUINO_PINS) => {
     const rotateServo = workspace.newBlock("rotate_servo") as BlockSvg;
     const numberBlock = createValueBlock(
       workspace,
@@ -91,13 +91,13 @@ describe("test servos factories", () => {
     const servoState6 = findComponent<ServoState>(
       state,
       ArduinoComponentType.SERVO,
-      ARDUINO_UNO_PINS.PIN_6
+      ARDUINO_PINS.PIN_6
     );
 
     const servoState9 = findComponent<ServoState>(
       state,
       ArduinoComponentType.SERVO,
-      ARDUINO_UNO_PINS.PIN_9
+      ARDUINO_PINS.PIN_9
     );
 
     expect(servoState6.degree).toBe(servo6Degree);

@@ -16,7 +16,7 @@ import {
 import { IRRemoteState } from "../../arduino-components.state";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ARDUINO_UNO_PINS } from "../../../microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
 describe("button state factories", () => {
@@ -30,7 +30,7 @@ describe("button state factories", () => {
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
     irRemoteSetup = workspace.newBlock("ir_remote_setup") as BlockSvg;
-    irRemoteSetup.setFieldValue(ARDUINO_UNO_PINS.PIN_A4, "PIN");
+    irRemoteSetup.setFieldValue(ARDUINO_PINS.PIN_A4, "PIN");
     irRemoteSetup.setFieldValue("TRUE", "scanned_new_code");
     irRemoteSetup.setFieldValue("32343", "code");
 
@@ -43,9 +43,9 @@ describe("button state factories", () => {
 
     const irRemote: IRRemoteState = {
       code: "32343",
-      pins: [ARDUINO_UNO_PINS.PIN_A4],
+      pins: [ARDUINO_PINS.PIN_A4],
       hasCode: true,
-      analogPin: ARDUINO_UNO_PINS.PIN_A4,
+      analogPin: ARDUINO_PINS.PIN_A4,
       type: ArduinoComponentType.IR_REMOTE,
     };
 
