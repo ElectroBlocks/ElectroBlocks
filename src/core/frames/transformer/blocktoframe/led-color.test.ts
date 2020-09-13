@@ -33,7 +33,9 @@ describe("lcd  factories", () => {
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
     ledColorSetup = workspace.newBlock("led_color_setup") as BlockSvg;
-    ledColorSetup.setFieldValue("11-10-9", "WIRE");
+    ledColorSetup.setFieldValue("11", "PIN_RED");
+    ledColorSetup.setFieldValue("10", "PIN_GREEN");
+    ledColorSetup.setFieldValue("9", "PIN_BLUE");
     ledColorSetup.setFieldValue("BUILT_IN", "PICTURE_TYPE");
   });
 

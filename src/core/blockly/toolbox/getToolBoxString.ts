@@ -1,5 +1,5 @@
-import { COLOR_THEME } from '../constants/colors';
-import { ToolBoxEntries } from './toolbox';
+import { COLOR_THEME } from "../constants/colors";
+import { ToolBoxEntries } from "./toolbox";
 
 /**
  * Turns the toolbox entries into a string
@@ -11,7 +11,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   style="display: none"
 >`;
 
-  if (showToolBoxOption('Logic', toolboxOptions)) {
+  if (showToolBoxOption("Logic", toolboxOptions)) {
     toolbox += `<category name="Logic" colour="${COLOR_THEME.CONTROL}">
     <block type="control_if"></block>
     <block type="controls_ifelse"></block>
@@ -22,7 +22,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   </category>`;
   }
 
-  if (showToolBoxOption('Loops', toolboxOptions)) {
+  if (showToolBoxOption("Loops", toolboxOptions)) {
     toolbox += `<category name="Loops" colour="${COLOR_THEME.CONTROL}">
     <block type="controls_repeat_ext">
       <value name="TIMES">
@@ -50,7 +50,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
     </block>
   </category>`;
   }
-  if (showToolBoxOption('Functions', toolboxOptions)) {
+  if (showToolBoxOption("Functions", toolboxOptions)) {
     toolbox += `<category
     name="My Blocks"
     colour="${COLOR_THEME.CONTROL}"
@@ -58,24 +58,24 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   ></category><sep></sep>`;
   }
 
-  if (showToolBoxOption('List', toolboxOptions)) {
+  if (showToolBoxOption("List", toolboxOptions)) {
     toolbox += `<category name="List" colour="${COLOR_THEME.DATA}" custom="LIST"> </category>`;
   }
 
-  if (showToolBoxOption('Variables', toolboxOptions)) {
+  if (showToolBoxOption("Variables", toolboxOptions)) {
     toolbox += `<category name="Variables" colour="${COLOR_THEME.DATA}" custom="VARIABLE"></category>`;
   }
 
   if (
-    showToolBoxOption('List', toolboxOptions) ||
-    showToolBoxOption('Variables', toolboxOptions)
+    showToolBoxOption("List", toolboxOptions) ||
+    showToolBoxOption("Variables", toolboxOptions)
   ) {
-    toolbox += '<sep></sep>';
+    toolbox += "<sep></sep>";
   }
 
   toolbox += `<category name="Data" colour="${COLOR_THEME.VALUES}">`;
 
-  if (showToolBoxOption('Color', toolboxOptions)) {
+  if (showToolBoxOption("Color", toolboxOptions)) {
     toolbox += `<category name="Color" colour="${COLOR_THEME.VALUES}">
       <block type="colour_picker"></block>
       <block type="colour_random"></block>
@@ -99,7 +99,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
     </category>`;
   }
 
-  if (showToolBoxOption('Math', toolboxOptions)) {
+  if (showToolBoxOption("Math", toolboxOptions)) {
     toolbox += `<category name="Math" colour="${COLOR_THEME.VALUES}">
     <block type="math_number">
       <field name="NUM">123</field>
@@ -158,7 +158,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   </category>`;
   }
 
-  if (showToolBoxOption('Text', toolboxOptions)) {
+  if (showToolBoxOption("Text", toolboxOptions)) {
     toolbox += `
       <category name="Text" colour="${COLOR_THEME.VALUES}">
   <block type="text"></block>
@@ -207,16 +207,16 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   </category>`;
   }
 
-  toolbox += '</category><sep></sep>';
+  toolbox += "</category><sep></sep>";
 
   toolbox += `
   <category name="Arduino" colour="${COLOR_THEME.ARDUINO}">`;
 
-  if (showToolBoxOption('Code', toolboxOptions)) {
+  if (showToolBoxOption("Code", toolboxOptions)) {
     toolbox += `<category name="Code" colour="${COLOR_THEME.ARDUINO}" custom="CODE"></category>`;
   }
 
-  if (showToolBoxOption('Message', toolboxOptions)) {
+  if (showToolBoxOption("Message", toolboxOptions)) {
     toolbox += `<category name="Message" colour="${COLOR_THEME.ARDUINO}">
   <block type="message_setup"></block>
   <block type="arduino_send_message">
@@ -231,7 +231,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   </category>`;
   }
 
-  if (showToolBoxOption('Time', toolboxOptions)) {
+  if (showToolBoxOption("Time", toolboxOptions)) {
     toolbox += `<category colour="${COLOR_THEME.ARDUINO}" name="Time">
   <block type="time_setup"></block>
   <block type="delay_block">
@@ -246,14 +246,14 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   </category>`;
   }
 
-  toolbox += '</category><sep></sep>';
+  toolbox += "</category><sep></sep>";
   toolbox += `<category colour="${COLOR_THEME.COMPONENTS}" name="Components" >`;
 
-  if (showToolBoxOption('Bluetooth', toolboxOptions)) {
+  if (showToolBoxOption("Bluetooth", toolboxOptions)) {
     toolbox += `<category name="Bluetooth" colour="${COLOR_THEME.COMPONENTS}">
   <block type="bluetooth_setup">
-    <field name="RX">11</field>
-    <field name="TX">10</field>
+    <field name="PIN_RX">11</field>
+    <field name="PIN_TX">10</field>
   </block>
   <block type="bluetooth_send_message">
     <value name="MESSAGE">
@@ -268,7 +268,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   </category>`;
   }
 
-  if (showToolBoxOption('LCD Screen', toolboxOptions)) {
+  if (showToolBoxOption("LCD Screen", toolboxOptions)) {
     toolbox += `<category colour="${COLOR_THEME.COMPONENTS}" name="LCD Screen">
   <block type="lcd_setup"></block>
   <block type="lcd_screen_simple_print">
@@ -334,7 +334,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   `;
   }
 
-  if (showToolBoxOption('Led', toolboxOptions)) {
+  if (showToolBoxOption("Led", toolboxOptions)) {
     toolbox += `<category name="Led" colour="${COLOR_THEME.COMPONENTS}">
   <block type="led"></block>
 
@@ -345,13 +345,17 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
                   </block>
               </value>
   </block>
-  <block type="led_color_setup"></block>
+  <block type="led_color_setup">
+                          <field name="PIN_RED">6</field>
+                        <field name="PIN_GREEN">5</field>
+                        <field name="PIN_BLUE">3</field>
+</block>
 
   <block type="set_color_led">
   <value name="COLOUR">
                   <block type="colour_picker">
                   </block>
-              </value>
+  </value>
   </block>
   <block type="digital_write"></block>
 
@@ -366,7 +370,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   `;
   }
 
-  if (showToolBoxOption('Led Light Strip', toolboxOptions)) {
+  if (showToolBoxOption("Led Light Strip", toolboxOptions)) {
     toolbox += `<category name="Led Light Strip" colour="${COLOR_THEME.COMPONENTS}">
       <block type="neo_pixel_setup">
             <field name="PIN">A0</field>
@@ -384,7 +388,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   </category>`;
   }
 
-  if (showToolBoxOption('Led Matrix', toolboxOptions)) {
+  if (showToolBoxOption("Led Matrix", toolboxOptions)) {
     toolbox += `<category colour="${COLOR_THEME.COMPONENTS}" name="Led Matrix">
   <block type="led_matrix_make_draw"></block>
   <block type="led_matrix_turn_one_on_off">
@@ -402,7 +406,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   </category>`;
   }
 
-  if (showToolBoxOption('Motor / Servo', toolboxOptions)) {
+  if (showToolBoxOption("Motor / Servo", toolboxOptions)) {
     toolbox += `<category name="Motor / Servo" colour="${COLOR_THEME.COMPONENTS}">
   <block type="move_motor">
   <value name="SPEED">
@@ -427,31 +431,31 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   `;
   }
 
-  toolbox += '</category><sep></sep>';
+  toolbox += "</category><sep></sep>";
   toolbox += `<category name="Sensors" colour="${COLOR_THEME.SENSOR}">`;
 
-  if (showToolBoxOption('Analog', toolboxOptions)) {
+  if (showToolBoxOption("Analog", toolboxOptions)) {
     toolbox += `<category name="Analog" colour="${COLOR_THEME.SENSOR}" >
       <block type="analog_read_setup"></block>
       <block type="analog_read"></block>
   </category>`;
   }
 
-  if (showToolBoxOption('Buttons', toolboxOptions)) {
+  if (showToolBoxOption("Buttons", toolboxOptions)) {
     toolbox += `<category name="Button" colour="${COLOR_THEME.SENSOR}">
       <block type="button_setup"></block>
       <block type="is_button_pressed"></block>
   </category>`;
   }
 
-  if (showToolBoxOption('Digital', toolboxOptions)) {
+  if (showToolBoxOption("Digital", toolboxOptions)) {
     toolbox += `<category name="Digital" colour="${COLOR_THEME.SENSOR}">
       <block type="digital_read_setup"></block>
       <block type="digital_read"></block>
   </category>`;
   }
 
-  if (showToolBoxOption('IR Remote', toolboxOptions)) {
+  if (showToolBoxOption("IR Remote", toolboxOptions)) {
     toolbox += `<category name="IR Remote" colour="${COLOR_THEME.SENSOR}" >
       <block type="ir_remote_setup"></block>
       <block type="ir_remote_has_code_receive"></block>
@@ -459,22 +463,22 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
       </category>`;
   }
 
-  if (showToolBoxOption('Motion', toolboxOptions)) {
+  if (showToolBoxOption("Motion", toolboxOptions)) {
     toolbox += `    <category name="Motion" colour="${COLOR_THEME.SENSOR}" >
       <block type="ultra_sonic_sensor_setup">
-        <field name="TRIG">11</field>
-        <field name="ECHO">10</field>
+        <field name="PIN_TRIG">11</field>
+        <field name="PIN_ECHO">10</field>
       </block>
       <block type="ultra_sonic_sensor_motion"></block>
       </category>
   `;
   }
 
-  if (showToolBoxOption('RFID', toolboxOptions)) {
+  if (showToolBoxOption("RFID", toolboxOptions)) {
     toolbox += `    <category name="RFID" colour="${COLOR_THEME.SENSOR}" >
           <block type="rfid_setup">
-              <field name="RX">7</field>
-              <field name="TX">6</field>
+              <field name="PIN_RX">7</field>
+              <field name="PIN_TX">6</field>
           </block>
           <block type="rfid_card"></block>
           <block type="rfid_tag"></block>
@@ -483,7 +487,7 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   `;
   }
 
-  if (showToolBoxOption('Temp', toolboxOptions)) {
+  if (showToolBoxOption("Temp", toolboxOptions)) {
     toolbox += `<category name="Temp" colour="${COLOR_THEME.SENSOR}"  >
         <block type="temp_setup"></block>
         <block type="temp_get_temp"></block>

@@ -10,38 +10,6 @@ import {
 
 Blockly.defineBlocksWithJsonArray([
   {
-    type: "digital_write",
-    message0: "%1 Turn  %2 pin# %3",
-    args0: [
-      {
-        type: "field_image",
-        src: "./blocks/arduino/digital_write.png",
-        width: 15,
-        height: 15,
-        alt: "*",
-        flipRtl: false,
-      },
-      {
-        type: "field_dropdown",
-        name: "STATE",
-        options: [
-          ["on", "ON"],
-          ["off", "OFF"],
-        ],
-      },
-      {
-        type: "field_dropdown",
-        name: "PIN",
-        options: selectBoardBlockly().digitalPins,
-      },
-    ],
-    previousStatement: null,
-    nextStatement: null,
-    colour: COLOR_THEME.COMPONENTS,
-    tooltip: "",
-    helpUrl: "",
-  },
-  {
     type: "analog_read",
     message0: "%1 Read number from analog pin# %2",
     args0: [
@@ -64,40 +32,61 @@ Blockly.defineBlocksWithJsonArray([
     tooltip: "",
     helpUrl: "",
   },
-  {
-    type: "analog_write",
-    message0: "%1 Send analog wave to pin %2 %3 Wave Intensity %4",
-    args0: [
-      {
-        type: "field_image",
-        src: "./blocks/arduino/analog_write.png",
-        width: 15,
-        height: 20,
-        alt: "*",
-        flipRtl: false,
-      },
-      {
-        type: "field_dropdown",
-        name: "PIN",
-        options: selectBoardBlockly().pwmPins,
-      },
-      {
-        type: "input_dummy",
-      },
-      {
-        type: "input_value",
-        name: "WRITE_VALUE",
-        check: "Number",
-        align: "RIGHT",
-      },
-    ],
-    previousStatement: null,
-    nextStatement: null,
-    colour: COLOR_THEME.COMPONENTS,
-    tooltip: "",
-    helpUrl: "",
-  },
 ]);
+
+Blockly.Blocks["analog_write"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage(
+          "https://www.gstatic.com/codesite/ph/images/star_on.gif",
+          15,
+          15
+        )
+      )
+      .appendField("Send analog wave to pin ")
+      .appendField(
+        new Blockly.FieldDropdown(() => selectBoardBlockly().pwmPins),
+        "PIN"
+      );
+    this.appendValueInput("WRITE_VALUE")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Wave Intensity");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+};
+
+Blockly.Blocks["digital_write"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage("./blocks/arduino/digital_write.png", 15, 15)
+      )
+      .appendField("Turn ")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["on", "ON"],
+          ["off", "OFF"],
+        ]),
+        "STATE"
+      )
+      .appendField("pin# ")
+      .appendField(
+        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
+        "PIN"
+      );
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+};
 
 const analogReadBlock: any = {
   init: function () {

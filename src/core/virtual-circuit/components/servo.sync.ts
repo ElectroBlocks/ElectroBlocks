@@ -43,8 +43,6 @@ const setText = (servoEl: Element, degrees: number) => {
 
   degreeText.node.textContent = `${degrees}˚`;
   degreeText.cx(40);
-
-  servoEl.findOne("title").node.innerHTML = "Servo";
 };
 
 const setDegrees = (servoEl: Element, degrees: number) => {
@@ -66,12 +64,12 @@ export const createWiresServo: CreateWire<ServoState> = (
   const pin = state.pins[0];
   createWire(servoEl, pin, "PIN_DATA", arduino, draw, "#FFA502", "data");
 
-  if ([ARDUINO_PINS.PIN_13, ARDUINO_PINS.PIN_A2].includes(pin)) {
-    // GND then POWER
-    createGroundWire(servoEl, pin, arduino as Svg, draw, id, "left");
+  // if ([ARDUINO_PINS.PIN_13, ARDUINO_PINS.PIN_A2].includes(pin)) {
+  //   // GND then POWER
+  //   createGroundWire(servoEl, pin, arduino as Svg, draw, id, "left");
 
-    createPowerWire(servoEl, pin, arduino as Svg, draw, id, "left");
-  }
+  //   createPowerWire(servoEl, pin, arduino as Svg, draw, id, "left");
+  // }
 
   // POWER THEN GND
 

@@ -80,12 +80,12 @@ const bluetoothSetupBlock: any = {
         new Blockly.FieldDropdown(() => {
           return selectBoardBlockly().digitalPins;
         }),
-        "RX"
+        "PIN_RX"
       )
       .appendField("TX Pin#")
       .appendField(
         new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
-        "TX"
+        "PIN_TX"
       );
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(
       "-----------------------------------------"

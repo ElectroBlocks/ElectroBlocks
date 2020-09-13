@@ -36,8 +36,8 @@ describe("bluetooth state factories", () => {
   beforeEach(() => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
     bluethoothsetupblock = workspace.newBlock("bluetooth_setup");
-    bluethoothsetupblock.setFieldValue(ARDUINO_PINS.PIN_7, "RX");
-    bluethoothsetupblock.setFieldValue(ARDUINO_PINS.PIN_6, "TX");
+    bluethoothsetupblock.setFieldValue(ARDUINO_PINS.PIN_7, "PIN_RX");
+    bluethoothsetupblock.setFieldValue(ARDUINO_PINS.PIN_6, "PIN_TX");
 
     bluethoothsetupblock.setFieldValue("TRUE", "receiving_message");
     bluethoothsetupblock.setFieldValue("hello world", "message");

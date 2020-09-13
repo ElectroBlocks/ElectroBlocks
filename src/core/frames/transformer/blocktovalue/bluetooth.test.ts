@@ -40,8 +40,8 @@ describe("bluetooth state factories", () => {
   beforeEach(() => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
     btSetupBlock = workspace.newBlock("bluetooth_setup") as BlockSvg;
-    btSetupBlock.setFieldValue(ARDUINO_PINS.PIN_7, "RX");
-    btSetupBlock.setFieldValue(ARDUINO_PINS.PIN_6, "TX");
+    btSetupBlock.setFieldValue(ARDUINO_PINS.PIN_7, "PIN_RX");
+    btSetupBlock.setFieldValue(ARDUINO_PINS.PIN_6, "PIN_TX");
   });
 
   test("should be able generate state for bluetooth setup block", () => {

@@ -34,7 +34,7 @@ describe("rfid state factories", () => {
     [workspace] = createArduinoAndWorkSpace();
 
     rfidBlock = workspace.newBlock("rfid_setup");
-    rfidBlock.setFieldValue(ARDUINO_PINS.PIN_6, "TX");
+    rfidBlock.setFieldValue(ARDUINO_PINS.PIN_6, "PIN_TX");
 
     rfidBlock.setFieldValue("TRUE", "scanned_card");
     rfidBlock.setFieldValue("card_num", "card_number");

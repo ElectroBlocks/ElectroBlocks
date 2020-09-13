@@ -38,8 +38,8 @@ describe("ultra sonic sensor state factories", () => {
     ultraSonicSensor = workspace.newBlock(
       "ultra_sonic_sensor_setup"
     ) as BlockSvg;
-    ultraSonicSensor.setFieldValue("11", "TRIG");
-    ultraSonicSensor.setFieldValue("12", "ECHO");
+    ultraSonicSensor.setFieldValue("11", "PIN_TRIG");
+    ultraSonicSensor.setFieldValue("12", "PIN_ECHO");
   });
 
   test("should be able generate state for ultra sonic sensor setup block", () => {
