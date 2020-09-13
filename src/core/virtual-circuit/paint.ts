@@ -43,6 +43,9 @@ const findOrCreateMicroController = (
   }
 
   if (arduino) {
+    // This means that the board has changed
+    // Because the breadboard layouts are different reset
+    resetBreadBoardWholes();
     draw.children().forEach((c) => c.remove());
   }
 
