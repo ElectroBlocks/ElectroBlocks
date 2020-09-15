@@ -41,7 +41,11 @@ import { customBlock } from "./blocktoframe/function";
 import { delayBlock } from "./blocktoframe/delay";
 import { digitalWrite, analogWrite } from "./blocktoframe/led";
 import { PinPicture } from "../arduino-components.state";
-import { ledMatrixDraw, ledMatrixOnLed } from "./blocktoframe/led-matrix";
+import {
+  ledMatrixDraw,
+  ledMatrixOnLed,
+  ledMatrixSetup,
+} from "./blocktoframe/led-matrix";
 import { moveMotor } from "./blocktoframe/motor";
 import { rfidScannedCard } from "./blocktovalue/rfid";
 import {
@@ -117,6 +121,7 @@ const blockToFrameTransformerList: {
 
   led_matrix_make_draw: ledMatrixDraw,
   led_matrix_turn_one_on_off: ledMatrixOnLed,
+  led_matrix_setup: ledMatrixSetup,
 
   rotate_servo: servoRotate,
   move_motor: moveMotor,

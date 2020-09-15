@@ -54,17 +54,6 @@ const getFieldValues = (block: BlockSvg): FieldValue[] => {
 };
 
 const getPins = (block: BlockSvg): ARDUINO_PINS[] => {
-  if (block.type === "lcd_setup") {
-    return [ARDUINO_PINS.PIN_A4, ARDUINO_PINS.PIN_A5];
-  }
-
-  if (
-    block.type === "led_matrix_make_draw" ||
-    block.type === "led_matrix_turn_one_on_off"
-  ) {
-    return [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_12];
-  }
-
   return getFieldValues(block)
     .filter((field) => field["name"].includes("PIN"))
     .map((field) => field.value as ARDUINO_PINS);

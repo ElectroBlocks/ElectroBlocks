@@ -1,20 +1,20 @@
-import { ArduinoComponentState, ArduinoComponentType } from './arduino.frame';
+import { ArduinoComponentState, ArduinoComponentType } from "./arduino.frame";
 import {
   MotorState,
   LedColorState,
   PinState,
   LCDScreenState,
   NeoPixelState,
-} from './arduino-components.state';
+} from "./arduino-components.state";
 
-import _ from 'lodash';
+import _ from "lodash";
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;
 }
 
 const genericSingleComponentId = (state: ArduinoComponentState) => {
-  return state.type + '_' + state.pins.sort().join('-');
+  return state.type + "_" + state.pins.sort().join("-");
 };
 
 const getMotorStateId = (motorState: MotorState) => {
@@ -22,7 +22,7 @@ const getMotorStateId = (motorState: MotorState) => {
 };
 
 const getLedColorId = (state: LedColorState) => {
-  return `${state.type}_${state.pictureType}_${state.pins.sort().join('-')}`;
+  return `${state.type}_${state.pictureType}_${state.pins.sort().join("-")}`;
 };
 
 const getPinStateId = (state: PinState) => {
@@ -30,11 +30,11 @@ const getPinStateId = (state: PinState) => {
 };
 
 const lcdStateId = (state: LCDScreenState) => {
-  return `${state.type}-${state.rows}-${state.columns}`;
+  return `${state.type}-${state.rows}-${state.columns}-${state.sdaPin}-${state.sclPin}`;
 };
 
 const neoPixelId = (state: NeoPixelState) => {
-  return `${state.type}-${state.pins.sort().join('-')}-${state.numberOfLeds}`;
+  return `${state.type}-${state.pins.sort().join("-")}-${state.numberOfLeds}`;
 };
 
 const componentStateFuncs: { [key: string]: ComponentStateToId } = {
@@ -61,5 +61,5 @@ export const arduinoComponentStateToId = (
     return componentStateFuncs[state.type](state);
   }
 
-  throw new Error('No Id generator found for state type ' + state.type);
+  throw new Error("No Id generator found for state type " + state.type);
 };

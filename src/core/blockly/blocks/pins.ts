@@ -8,32 +8,6 @@ import {
   getAvailablePins,
 } from "./helpers/getAvialablePinsFromSetupBlock";
 
-Blockly.defineBlocksWithJsonArray([
-  {
-    type: "analog_read",
-    message0: "%1 Read number from analog pin# %2",
-    args0: [
-      {
-        type: "field_image",
-        src: "./blocks/arduino/analog_read.png",
-        width: 15,
-        height: 15,
-        alt: "*",
-        flipRtl: false,
-      },
-      {
-        type: "field_dropdown",
-        name: "PIN",
-        options: selectBoardBlockly().analogPins,
-      },
-    ],
-    output: "Number",
-    colour: COLOR_THEME.SENSOR,
-    tooltip: "",
-    helpUrl: "",
-  },
-]);
-
 Blockly.Blocks["analog_write"] = {
   init: function () {
     this.appendDummyInput()

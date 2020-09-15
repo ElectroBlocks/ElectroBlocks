@@ -59,6 +59,8 @@ describe("lcd  factories", () => {
       rows: 4,
       columns: 20,
       type: ArduinoComponentType.LCD_SCREEN,
+      sdaPin: ARDUINO_PINS.PIN_A4,
+      sclPin: ARDUINO_PINS.PIN_A5,
     };
 
     const state: ArduinoFrame = {

@@ -71,6 +71,7 @@ export const standAloneBlocks = [
   "message_setup",
   "time_setup",
   "analog_read_setup",
+  "led_matrix_setup",
   "digital_read_setup",
   "ultra_sonic_sensor_setup",
 ];
@@ -103,6 +104,8 @@ export const blocksThatRequireSetup = {
   bluetooth_has_message: "bluetooth_setup",
   bluetooth_get_message: "bluetooth_setup",
   lcd_screen_simple_print: "lcd_setup",
+  led_matrix_make_draw: "led_matrix_setup",
+  led_matrix_turn_one_on_off: "led_matrix_setup",
   lcd_screen_clear: "lcd_setup",
   lcd_screen_print: "lcd_setup",
   lcd_screen_blink: "lcd_setup",
@@ -144,6 +147,7 @@ export const setupBlockTypeToHumanName = {
   digital_read_setup: "digital read setup block",
   analog_read_setup: "analog read setup block",
   ultra_sonic_sensor_setup: "ultra sonic sensor setup block",
+  led_matrix_setup: "led matrix setup",
 };
 
 export const blocksToBlockTypes: {
@@ -168,7 +172,18 @@ export const blocksToBlockTypes: {
     type: BlockType.LIST_CREATE,
     pinCategory: PinCategory.NONE,
   },
-
+  led_matrix_setup: {
+    type: BlockType.SETUP,
+    pinCategory: PinCategory.LED_MATRIX,
+  },
+  led_matrix_make_draw: {
+    type: BlockType.STATE,
+    pinCategory: PinCategory.NONE,
+  },
+  led_matrix_turn_one_on_off: {
+    type: BlockType.STATE,
+    pinCategory: PinCategory.NONE,
+  },
   get_number_from_list: {
     type: BlockType.VALUE,
     pinCategory: PinCategory.NONE,
@@ -343,15 +358,6 @@ export const blocksToBlockTypes: {
   neo_pixel_set_color: {
     type: BlockType.STATE,
     pinCategory: PinCategory.NONE,
-  },
-
-  led_matrix_make_draw: {
-    type: BlockType.STATE,
-    pinCategory: PinCategory.LED_MATRIX,
-  },
-  led_matrix_turn_one_on_off: {
-    type: BlockType.STATE,
-    pinCategory: PinCategory.LED_MATRIX,
   },
 
   rotate_servo: { type: BlockType.STATE, pinCategory: PinCategory.SERVO },

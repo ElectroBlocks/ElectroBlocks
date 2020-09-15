@@ -52,7 +52,7 @@ const irSetupBlock: any = {
     this.appendDummyInput()
       .appendField("Analog Pin# ")
       .appendField(
-        new Blockly.FieldDropdown(selectBoardBlockly().analogPins),
+        new Blockly.FieldDropdown(() => selectBoardBlockly().analogPins),
         "PIN"
       );
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(

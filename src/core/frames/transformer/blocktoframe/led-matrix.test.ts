@@ -25,13 +25,14 @@ import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
 describe("led matrix  factories", () => {
   let workspace: Workspace;
-
+  let ledmatrixsetup: BlockSvg;
   afterEach(() => {
     workspace.dispose();
   });
 
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
+    ledmatrixsetup = workspace.newBlock("led_matrix_setup") as BlockSvg;
   });
 
   test("should be able to draw with the led and should be limited", () => {
@@ -55,8 +56,9 @@ describe("led matrix  factories", () => {
 
     const event = createTestEvent(ledmatrixdraw1.id);
 
-    const [state1, state2] = eventToFrameFactory(event).frames;
+    const [state0, state1, state2] = eventToFrameFactory(event).frames;
 
+    expect(state0.explanation).toBe("Setting up led matrix.");
     expect(state1.explanation).toBe("Drawing on LED Matrix.");
     expect(state2.explanation).toBe("Drawing on LED Matrix.");
 
@@ -111,6 +113,7 @@ describe("led matrix  factories", () => {
     const event = createTestEvent(ledmatrixdraw1.id);
 
     const [
+      state0,
       state1,
       state2,
       state3,
@@ -118,8 +121,8 @@ describe("led matrix  factories", () => {
       state5,
       state6,
     ] = eventToFrameFactory(event).frames;
-
-    expect(state1.components.length).toBe(1);
+    expect(state0.components.length).toBe(1);
+    expect(state1.components.length).toBe(2);
     expect(state2.components.length).toBe(2);
     expect(state3.components.length).toBe(2);
     expect(state4.components.length).toBe(2);
@@ -138,7 +141,7 @@ describe("led matrix  factories", () => {
 
     const event = createTestEvent(ledMatrix1.id);
 
-    const [state1, state2, state3] = eventToFrameFactory(event).frames;
+    const [state0, state1, state2, state3] = eventToFrameFactory(event).frames;
 
     expect(state1.explanation).toBe("Led Matrix turn (1,1) on.");
     expect(state2.explanation).toBe("Led Matrix turn (2,2) on.");

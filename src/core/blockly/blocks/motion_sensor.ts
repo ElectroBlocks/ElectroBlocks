@@ -39,12 +39,12 @@ const ultraSonicSensorBlock: any = {
     this.appendDummyInput()
       .appendField("Trig Pin# ")
       .appendField(
-        new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
+        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN_TRIG"
       )
       .appendField("Echo Pin# ")
       .appendField(
-        new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
+        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN_ECHO"
       );
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(

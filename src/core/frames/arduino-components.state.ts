@@ -31,6 +31,8 @@ export interface LCDScreenState extends ArduinoComponentState {
   rowsOfText: string[];
   blink: { row: number; column: number; blinking: boolean };
   backLightOn: boolean;
+  sdaPin: ARDUINO_PINS;
+  sclPin: ARDUINO_PINS;
 }
 
 export enum LCD_SCREEN_MEMORY_TYPE {
@@ -48,6 +50,9 @@ export interface LedColorState extends ArduinoComponentState {
 
 export interface LedMatrixState extends ArduinoComponentState {
   leds: Array<{ col: number; row: number; isOn: boolean }>;
+  dataPin: ARDUINO_PINS;
+  csPin: ARDUINO_PINS;
+  clkPin: ARDUINO_PINS;
 }
 
 export interface MotorState extends ArduinoComponentState {

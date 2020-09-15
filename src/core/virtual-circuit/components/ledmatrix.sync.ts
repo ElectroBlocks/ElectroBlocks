@@ -51,27 +51,26 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
   arduino,
   id
 ) => {
-  createPowerWire(
-    ledMatrixEl,
-    ARDUINO_PINS.PIN_9,
-    arduino as Svg,
-    draw,
-    id,
-    "left"
-  );
-
   createGroundWire(
     ledMatrixEl,
-    ARDUINO_PINS.PIN_9,
+    state.dataPin,
     arduino as Svg,
     draw,
     id,
-    "left"
+    "right"
+  );
+  createPowerWire(
+    ledMatrixEl,
+    state.dataPin,
+    arduino as Svg,
+    draw,
+    id,
+    "right"
   );
 
   createWire(
     ledMatrixEl,
-    ARDUINO_PINS.PIN_12,
+    state.dataPin,
     "PIN_DATA",
     arduino,
     draw,
@@ -80,7 +79,7 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
   );
   createWire(
     ledMatrixEl,
-    ARDUINO_PINS.PIN_10,
+    state.csPin,
     "PIN_CS",
     arduino,
     draw,
@@ -89,7 +88,7 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
   );
   createWire(
     ledMatrixEl,
-    ARDUINO_PINS.PIN_11,
+    state.clkPin,
     "PIN_CLK",
     arduino,
     draw,

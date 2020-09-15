@@ -30,11 +30,11 @@ describe("disableSensorReadBlocksWithWrongPins", () => {
 
   test("should disable blocks that use same pin twice", () => {
     const rfidBlockSetup = workspace.newBlock("rfid_setup");
-    rfidBlockSetup.setFieldValue(ARDUINO_PINS.PIN_5, "TX");
+    rfidBlockSetup.setFieldValue(ARDUINO_PINS.PIN_5, "PIN_TX");
 
     const setupBlock2 = workspace.newBlock("bluetooth_setup");
-    setupBlock2.setFieldValue(ARDUINO_PINS.PIN_10, "TX");
-    setupBlock2.setFieldValue(ARDUINO_PINS.PIN_10, "RX");
+    setupBlock2.setFieldValue(ARDUINO_PINS.PIN_10, "PIN_TX");
+    setupBlock2.setFieldValue(ARDUINO_PINS.PIN_10, "PIN_RX");
     const event = createTestEvent(arduinoBlock.id);
 
     const actions = disableSetupBlockWithMultiplePinOutsSamePins(event);

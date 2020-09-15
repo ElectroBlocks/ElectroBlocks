@@ -31,6 +31,8 @@ export const lcdCreate: CreateCompenentHook<LCDScreenState> = (
   lcdScreenEl
 ) => {
   centerLetters(lcdScreenEl, state);
+  lcdScreenEl.findOne("#PIN_SCL_TEXT").node.innerHTML = state.sclPin;
+  lcdScreenEl.findOne("#PIN_SDA_TEXT").node.innerHTML = state.sdaPin;
 };
 
 export const lcdPosition: PositionComponent<LCDScreenState> = (
@@ -132,34 +134,11 @@ export const createWiresLcd: CreateWire<LCDScreenState> = (
   arduino,
   id
 ) => {
-  createGroundWire(
-    lcdEl,
-    ARDUINO_PINS.PIN_12,
-    arduino as Svg,
-    draw,
-    id,
-    "left"
-  );
+  createGroundWire(lcdEl, state.sdaPin, arduino as Svg, draw, id, "left");
 
-  createPowerWire(lcdEl, ARDUINO_PINS.PIN_12, arduino as Svg, draw, id, "left");
+  createPowerWire(lcdEl, state.sdaPin, arduino as Svg, draw, id, "left");
 
-  createWire(
-    lcdEl,
-    ARDUINO_PINS.PIN_A4,
-    "PIN_SDA",
-    arduino,
-    draw,
-    "#0071bc",
-    "sda"
-  );
+  createWire(lcdEl, state.sdaPin, "PIN_SDA", arduino, draw, "#0071bc", "sda");
 
-  createWire(
-    lcdEl,
-    ARDUINO_PINS.PIN_A5,
-    "PIN_SCL",
-    arduino,
-    draw,
-    "#f15a24",
-    "scl"
-  );
+  createWire(lcdEl, state.sclPin, "PIN_SCL", arduino, draw, "#f15a24", "scl");
 };
