@@ -28,6 +28,7 @@ import {
 } from "./components/rgbled.sync";
 import {
   createWiresLedMatrix,
+  ledMatrixCreate,
   ledMatrixPosition,
 } from "./components/ledmatrix.sync";
 import { arduinoMessageCreate } from "./components/arduino-message.sync";
@@ -169,7 +170,7 @@ const createComponentHookFunc: {
   [ArduinoComponentType.IR_REMOTE]: createIrRemote,
   [ArduinoComponentType.LCD_SCREEN]: lcdCreate,
   [ArduinoComponentType.LED_COLOR]: createRgbLed,
-  [ArduinoComponentType.LED_MATRIX]: emptyCreateHookComponent,
+  [ArduinoComponentType.LED_MATRIX]: ledMatrixCreate,
   [ArduinoComponentType.MESSAGE]: arduinoMessageCreate,
   [ArduinoComponentType.MOTOR]: motorCreate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,

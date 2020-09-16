@@ -32,7 +32,11 @@ export const ledMatrixSetup: BlockToFrameTransformer = (
   }, []);
   const ledMatrixState: LedMatrixState = {
     type: ArduinoComponentType.LED_MATRIX,
-    pins: [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_12],
+    pins: [
+      findFieldValue(block, "PIN_CLK"),
+      findFieldValue(block, "PIN_CS"),
+      findFieldValue(block, "PIN_DATA"),
+    ],
     leds,
     clkPin: findFieldValue(block, "PIN_CLK"),
     csPin: findFieldValue(block, "PIN_CS"),
@@ -73,7 +77,11 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
 
   const ledMatrixState: LedMatrixState = {
     type: ArduinoComponentType.LED_MATRIX,
-    pins: [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_12],
+    pins: [
+      findFieldValue(block, "PIN_CLK"),
+      findFieldValue(block, "PIN_CS"),
+      findFieldValue(block, "PIN_DATA"),
+    ],
     leds,
     clkPin: findFieldValue(block, "PIN_CLK"),
     csPin: findFieldValue(block, "PIN_CS"),

@@ -12,11 +12,7 @@ Blockly.Blocks["analog_write"] = {
   init: function () {
     this.appendDummyInput()
       .appendField(
-        new Blockly.FieldImage(
-          "https://www.gstatic.com/codesite/ph/images/star_on.gif",
-          15,
-          15
-        )
+        new Blockly.FieldImage("./blocks/arduino/analog_write.png", 15, 15)
       )
       .appendField("Send analog wave to pin ")
       .appendField(

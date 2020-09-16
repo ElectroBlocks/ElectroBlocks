@@ -1,5 +1,9 @@
 import { SyncComponent, ResetComponent } from "../svg-sync";
-import { PositionComponent, CreateWire } from "../svg-create";
+import {
+  PositionComponent,
+  CreateWire,
+  CreateCompenentHook,
+} from "../svg-create";
 
 import { LedMatrixState } from "../../frames/arduino-components.state";
 import { Element, Svg } from "@svgdotjs/svg.js";
@@ -34,6 +38,15 @@ export const ledMatrixUpdate: SyncComponent = (
       led.isOn ? "#FF0000" : "#FFF"
     );
   });
+};
+
+export const ledMatrixCreate: CreateCompenentHook<LedMatrixState> = (
+  state,
+  ledMatrixEl
+) => {
+  ledMatrixEl.findOne("#PIN_CLK_TEXT").node.innerHTML = state.clkPin;
+  ledMatrixEl.findOne("#PIN_CS_TEXT").node.innerHTML = state.csPin;
+  ledMatrixEl.findOne("#PIN_DATA_TEXT").node.innerHTML = state.dataPin;
 };
 
 export const ledMatrixReset: ResetComponent = (componentEl: Element) => {

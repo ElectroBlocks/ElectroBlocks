@@ -41,9 +41,10 @@ export const ledCreate: CreateCompenentHook<PinState> = (
     .find((stop) => stop.attr("offset") == 1)
     .attr("stop-color", randomColor);
   ledEl.data("color", randomColor);
+  const pinText = ledEl.findOne("#PIN_NUMBER") as Text;
+  pinText.node.innerHTML = state.pin;
 
   createResistor(arduinoEl, draw, state.pin, arduinoComponentStateToId(state));
-  setPinText(state.pin, ledEl);
 };
 
 export const ledPosition: PositionComponent<PinState> = (
@@ -53,7 +54,6 @@ export const ledPosition: PositionComponent<PinState> = (
   draw
 ) => {
   positionComponent(ledEl, arduinoEl, draw, state.pin, "POWER");
-  ledEl.x(ledEl.x() + 30);
 };
 
 export const updateLed: SyncComponent = (state: PinState, ledEl, draw) => {
@@ -108,22 +108,7 @@ export const createWiresLed: CreateWire<PinState> = (
   arduino,
   id
 ) => {
-  createGroundWire(ledEl, state.pin, arduino as Svg, draw, id, "right");
+  createGroundWire(ledEl, state.pin, arduino as Svg, draw, id, "left");
+
   createWire(ledEl, state.pin, "POWER", arduino, draw, "#FF0000", "POWER");
-};
-
-const setPinText = (pin: ARDUINO_PINS, ledEl: Element) => {
-  const pinText = ledEl.findOne("#PIN_NUMBER") as Text;
-  pinText.node.innerHTML = pin;
-  if (pin.toString().includes("A")) {
-    pinText.x(-2);
-    return;
-  }
-
-  if (pin.toString().length >= 2) {
-    pinText.x(2);
-    return;
-  }
-
-  pinText.x(15);
 };
