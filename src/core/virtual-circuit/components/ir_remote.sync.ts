@@ -1,30 +1,38 @@
-import { SyncComponent, ResetComponent } from '../svg-sync';
+import { SyncComponent, ResetComponent } from "../svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from '../svg-create';
+} from "../svg-create";
 
-import { IRRemoteState } from '../../frames/arduino-components.state';
-import { Element, Svg } from '@svgdotjs/svg.js';
-import { positionComponent } from '../svg-position';
+import { IRRemoteState } from "../../frames/arduino-components.state";
+import { Element, Svg } from "@svgdotjs/svg.js";
+import { positionComponent } from "../svg-position";
 
-import { createWire, createPowerWire, createGroundWire } from '../wire';
+import { createWire, createPowerWire, createGroundWire } from "../wire";
 
 export const createIrRemote: CreateCompenentHook<IRRemoteState> = (
   state,
   irRemoteEl
 ) => {
-  irRemoteEl.findOne('#PIN_TEXT').node.innerHTML = state.pins[0];
+  irRemoteEl.findOne("#PIN_TEXT").node.innerHTML = state.pins[0];
 };
 
 export const positionIrRemote: PositionComponent<IRRemoteState> = (
   state,
   irRemoteEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(irRemoteEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
+  positionComponent(
+    irRemoteEl,
+    arduinoEl,
+    draw,
+    state.pins[0],
+    "PIN_DATA",
+    board
+  );
 };
 
 export const updateIrRemote: SyncComponent = (
@@ -33,20 +41,20 @@ export const updateIrRemote: SyncComponent = (
   draw
 ) => {
   if (!state.hasCode) {
-    irRemoteEl.findOne('#remote').hide();
-    irRemoteEl.findOne('#code').hide();
+    irRemoteEl.findOne("#remote").hide();
+    irRemoteEl.findOne("#code").hide();
     return;
   }
 
-  irRemoteEl.findOne('#remote').show();
-  irRemoteEl.findOne('#code').show();
-  irRemoteEl.findOne('#code').node.innerHTML = state.code;
-  (irRemoteEl.findOne('#code') as Element).cx(55);
+  irRemoteEl.findOne("#remote").show();
+  irRemoteEl.findOne("#code").show();
+  irRemoteEl.findOne("#code").node.innerHTML = state.code;
+  (irRemoteEl.findOne("#code") as Element).cx(55);
 };
 
 export const resetIrRemote: ResetComponent = (irRemoteEl: Element) => {
-  irRemoteEl.findOne('#remote').hide();
-  irRemoteEl.findOne('#code').hide();
+  irRemoteEl.findOne("#remote").hide();
+  irRemoteEl.findOne("#code").hide();
 };
 
 export const createWiresIrRemote: CreateWire<IRRemoteState> = (
@@ -54,19 +62,37 @@ export const createWiresIrRemote: CreateWire<IRRemoteState> = (
   draw,
   irRemoteEl,
   arduino,
-  id
+  id,
+  board
 ) => {
   createWire(
     irRemoteEl,
     state.pins[0],
-    'PIN_DATA',
+    "PIN_DATA",
     arduino,
     draw,
-    '#3d8938',
-    'data'
+    "#3d8938",
+    "data",
+    board
   );
 
-  createPowerWire(irRemoteEl, state.pins[0], arduino as Svg, draw, id, 'left');
+  createPowerWire(
+    irRemoteEl,
+    state.pins[0],
+    arduino as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
 
-  createGroundWire(irRemoteEl, state.pins[0], arduino as Svg, draw, id, 'left');
+  createGroundWire(
+    irRemoteEl,
+    state.pins[0],
+    arduino as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
 };

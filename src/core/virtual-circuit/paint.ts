@@ -1,11 +1,18 @@
 import { Svg, Element } from "@svgdotjs/svg.js";
 import { ArduinoFrame, ArduinoComponentType } from "../frames/arduino.frame";
-import { ARDUINO_PINS, selectedBoard } from "../microcontroller/selectBoard";
+import {
+  ARDUINO_PINS,
+  getBoard,
+  selectedBoard,
+} from "../microcontroller/selectBoard";
 import { resetBreadBoardWholes } from "./wire";
 import { findMicronControllerEl } from "./svg-helpers";
 import createNewComponent from "./svg-create";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
-import { MicroControllerType } from "../microcontroller/microcontroller";
+import {
+  MicroController,
+  MicroControllerType,
+} from "../microcontroller/microcontroller";
 import { getBoardSvg } from "./get-board-svg";
 
 export default (
@@ -13,30 +20,28 @@ export default (
   boardType: MicroControllerType,
   frame: ArduinoFrame = undefined
 ) => {
-  const arduino = findOrCreateMicroController(draw, boardType);
-  console.log(boardType, boardType, "IT WORKED BOARDTYPE");
-  resetBreadBoardWholes();
-  hideAllWires(arduino, boardType);
+  const board = getBoard(boardType);
+
+  const arduino = findOrCreateMicroController(draw, board);
+  resetBreadBoardWholes(board);
+  hideAllWires(arduino, board);
 
   if (frame) {
     frame.components
       .filter((c) => c.type !== ArduinoComponentType.MESSAGE)
       .forEach((state) => {
         state.pins.forEach((pin) => showWire(arduino, pin));
-        createNewComponent(state, draw, arduino);
+        createNewComponent(state, draw, arduino, board);
       });
   }
 
   deleteUnusedComponents(draw, frame);
 };
 
-const findOrCreateMicroController = (
-  draw: Svg,
-  boardType: MicroControllerType
-) => {
+const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   let arduino = findMicronControllerEl(draw);
 
-  if (arduino && arduino.data("type") === boardType) {
+  if (arduino && arduino.data("type") === board.type) {
     // Have to reset this because it's part of the arduino
     arduino.findOne("#MESSAGE").hide();
     return arduino;
@@ -44,14 +49,12 @@ const findOrCreateMicroController = (
 
   if (arduino) {
     // This means that the board has changed
-    // Because the breadboard layouts are different reset
-    resetBreadBoardWholes();
     draw.children().forEach((c) => c.remove());
   }
 
-  draw.svg(getBoardSvg(boardType));
+  draw.svg(getBoardSvg(board.type));
   arduino = draw.findOne("#MicroController") as Element;
-  arduino.data("type", boardType);
+  arduino.data("type", board.type);
   arduino.node.id = "microcontroller_main_svg";
   arduino.findOne("#MESSAGE").hide();
   (window as any).arduino = arduino;
@@ -63,8 +66,8 @@ const findOrCreateMicroController = (
   return arduino;
 };
 
-const hideAllWires = (arduino: Element, boardType: MicroControllerType) => {
-  [...selectedBoard().digitalPins, ...selectedBoard().analonPins]
+const hideAllWires = (arduino: Element, board: MicroController) => {
+  [...board.digitalPins, ...board.analonPins]
     .map((key) => arduino.findOne("#PIN_" + key))
     .filter((wire) => wire !== undefined)
     .forEach((wire) => wire.hide());

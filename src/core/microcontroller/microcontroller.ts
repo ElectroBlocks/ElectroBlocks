@@ -1,3 +1,5 @@
+import { ARDUINO_PINS } from "./selectBoard";
+
 export enum MicroControllerType {
   ARDUINO_UNO = "uno",
   ARDUINO_MEGA = "mega",
@@ -15,6 +17,8 @@ export interface MicroController {
   sckPins: string[];
   ssPins: string[];
   type: MicroControllerType;
+  pinToBreadboardHole: (pin: ARDUINO_PINS) => string;
+  skipHoles: number[];
 }
 
 export interface MicroControllerBlocks {

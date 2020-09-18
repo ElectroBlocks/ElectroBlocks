@@ -24,9 +24,10 @@ export const digitalAnanlogWritePinPosition: CreateCompenentHook<PinState> = (
   state,
   componentEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(componentEl, arduinoEl, draw, state.pin, "POWER");
+  positionComponent(componentEl, arduinoEl, draw, state.pin, "POWER", board);
 };
 
 export const digitalAnanlogWritePinCreate: PositionComponent<PinState> = (
@@ -79,9 +80,18 @@ export const createWiresDigitalAnalogWrite: CreateWire<PinState> = (
   draw,
   componentEl,
   arduino,
-  id
+  id,
+  board
 ) => {
-  createGroundWire(componentEl, state.pin, arduino as Svg, draw, id, "left");
+  createGroundWire(
+    componentEl,
+    state.pin,
+    arduino as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
   createWire(
     componentEl,
     state.pin,
@@ -89,7 +99,8 @@ export const createWiresDigitalAnalogWrite: CreateWire<PinState> = (
     arduino,
     draw,
     "#FF0000",
-    "POWER"
+    "POWER",
+    board
   );
 };
 

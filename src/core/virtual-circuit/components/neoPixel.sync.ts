@@ -25,9 +25,17 @@ export const neoPixelPosition: PositionComponent<NeoPixelState> = (
   state,
   neoPixelEl,
   arduino,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(neoPixelEl, arduino, draw, ARDUINO_PINS.PIN_A2, "PIN_DATA");
+  positionComponent(
+    neoPixelEl,
+    arduino,
+    draw,
+    ARDUINO_PINS.PIN_A2,
+    "PIN_DATA",
+    board
+  );
   neoPixelEl.x(neoPixelEl.x() - 100);
 };
 
@@ -59,7 +67,8 @@ export const createWiresNeoPixels: CreateWire<NeoPixelState> = (
   draw,
   neoPixelEl,
   arduino,
-  id
+  id,
+  board
 ) => {
   createWire(
     neoPixelEl,
@@ -68,7 +77,8 @@ export const createWiresNeoPixels: CreateWire<NeoPixelState> = (
     arduino,
     draw,
     "#006837",
-    "data"
+    "data",
+    board
   );
 
   createGroundWire(
@@ -77,7 +87,8 @@ export const createWiresNeoPixels: CreateWire<NeoPixelState> = (
     arduino as Svg,
     draw,
     id,
-    "left"
+    "left",
+    board
   );
 
   createPowerWire(
@@ -86,7 +97,8 @@ export const createWiresNeoPixels: CreateWire<NeoPixelState> = (
     arduino as Svg,
     draw,
     id,
-    "left"
+    "left",
+    board
   );
 };
 

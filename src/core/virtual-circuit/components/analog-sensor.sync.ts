@@ -33,9 +33,17 @@ export const analogDigitalSensorPosition: PositionComponent<PinState> = (
   state,
   analogSensorEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(analogSensorEl, arduinoEl, draw, state.pin, "PIN_DATA");
+  positionComponent(
+    analogSensorEl,
+    arduinoEl,
+    draw,
+    state.pin,
+    "PIN_DATA",
+    board
+  );
   if (![ARDUINO_PINS.PIN_A1, ARDUINO_PINS.PIN_A0].includes(state.pin)) {
     analogSensorEl.x(analogSensorEl.x() - 20);
   }
@@ -87,7 +95,8 @@ const createSensorWires: CreateWire<PinState> = (
   draw,
   componentEl,
   arduinoEl,
-  id
+  id,
+  board
 ) => {
   createWire(
     componentEl,
@@ -96,10 +105,27 @@ const createSensorWires: CreateWire<PinState> = (
     arduinoEl,
     draw,
     "#228e0c",
-    "data-pin"
+    "data-pin",
+    board
   );
-  createGroundWire(componentEl, state.pin, arduinoEl as Svg, draw, id, "right");
-  createPowerWire(componentEl, state.pin, arduinoEl as Svg, draw, id, "left");
+  createGroundWire(
+    componentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "right",
+    board
+  );
+  createPowerWire(
+    componentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
 };
 
 const createSoilSensorWires: CreateWire<PinState> = (
@@ -107,7 +133,8 @@ const createSoilSensorWires: CreateWire<PinState> = (
   draw,
   componentEl,
   arduinoEl,
-  id
+  id,
+  board
 ) => {
   createWire(
     componentEl,
@@ -116,11 +143,28 @@ const createSoilSensorWires: CreateWire<PinState> = (
     arduinoEl,
     draw,
     "#228e0c",
-    "data-pin"
+    "data-pin",
+    board
   );
 
-  createGroundWire(componentEl, state.pin, arduinoEl as Svg, draw, id, "right");
-  createPowerWire(componentEl, state.pin, arduinoEl as Svg, draw, id, "right");
+  createGroundWire(
+    componentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "right",
+    board
+  );
+  createPowerWire(
+    componentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "right",
+    board
+  );
 };
 
 const createPhotoSensorWires: CreateWire<PinState> = (
@@ -128,7 +172,8 @@ const createPhotoSensorWires: CreateWire<PinState> = (
   draw,
   componentEl,
   arduinoEl,
-  id
+  id,
+  board
 ) => {
   createWire(
     componentEl,
@@ -137,11 +182,28 @@ const createPhotoSensorWires: CreateWire<PinState> = (
     arduinoEl,
     draw,
     "#228e0c",
-    "data-pin"
+    "data-pin",
+    board
   );
 
-  createGroundWire(componentEl, state.pin, arduinoEl as Svg, draw, id, "left");
-  createPowerWire(componentEl, state.pin, arduinoEl as Svg, draw, id, "left");
+  createGroundWire(
+    componentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
+  createPowerWire(
+    componentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
 };
 
 const createTouchSensorWires: CreateWire<PinState> = (
@@ -149,7 +211,8 @@ const createTouchSensorWires: CreateWire<PinState> = (
   draw,
   componentEl,
   arduinoEl,
-  id
+  id,
+  board
 ) => {
   createWire(
     componentEl,
@@ -158,11 +221,28 @@ const createTouchSensorWires: CreateWire<PinState> = (
     arduinoEl,
     draw,
     "#228e0c",
-    "data-pin"
+    "data-pin",
+    board
   );
 
-  createPowerWire(componentEl, state.pin, arduinoEl as Svg, draw, id, "right");
-  createGroundWire(componentEl, state.pin, arduinoEl as Svg, draw, id, "right");
+  createPowerWire(
+    componentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "right",
+    board
+  );
+  createGroundWire(
+    componentEl,
+    state.pin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "right",
+    board
+  );
 };
 
 export const createWireSensors: CreateWire<PinState> = (

@@ -21,6 +21,7 @@ import {
 } from "../wire";
 import { positionComponent } from "../svg-position";
 import { arduinoComponentStateToId } from "../../frames/arduino-component-id";
+import { MicroController } from "../../microcontroller/microcontroller";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
 
@@ -28,7 +29,8 @@ export const ledCreate: CreateCompenentHook<PinState> = (
   state,
   ledEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
   const randomColor = colors[_.random(0, colors.length)];
 
@@ -44,16 +46,23 @@ export const ledCreate: CreateCompenentHook<PinState> = (
   const pinText = ledEl.findOne("#PIN_NUMBER") as Text;
   pinText.node.innerHTML = state.pin;
 
-  createResistor(arduinoEl, draw, state.pin, arduinoComponentStateToId(state));
+  createResistor(
+    arduinoEl,
+    draw,
+    state.pin,
+    arduinoComponentStateToId(state),
+    board
+  );
 };
 
 export const ledPosition: PositionComponent<PinState> = (
   state,
   ledEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(ledEl, arduinoEl, draw, state.pin, "POWER");
+  positionComponent(ledEl, arduinoEl, draw, state.pin, "POWER", board);
 };
 
 export const updateLed: SyncComponent = (state: PinState, ledEl, draw) => {
@@ -91,12 +100,13 @@ const createResistor = (
   arduino: Svg | Element,
   draw: Svg,
   pin: ARDUINO_PINS,
-  componentId: string
+  componentId: string,
+  board: MicroController
 ) => {
   const resistorEl = draw.svg(resistorSvg).last();
   resistorEl.data("component-id", componentId);
 
-  const { x, y } = findResistorBreadboardHoleXY(pin, arduino, draw);
+  const { x, y } = findResistorBreadboardHoleXY(pin, arduino, draw, board);
   resistorEl.cx(x);
   resistorEl.y(y);
 };
@@ -106,9 +116,19 @@ export const createWiresLed: CreateWire<PinState> = (
   draw,
   ledEl,
   arduino,
-  id
+  id,
+  board
 ) => {
-  createGroundWire(ledEl, state.pin, arduino as Svg, draw, id, "left");
+  createGroundWire(ledEl, state.pin, arduino as Svg, draw, id, "left", board);
 
-  createWire(ledEl, state.pin, "POWER", arduino, draw, "#FF0000", "POWER");
+  createWire(
+    ledEl,
+    state.pin,
+    "POWER",
+    arduino,
+    draw,
+    "#FF0000",
+    "POWER",
+    board
+  );
 };

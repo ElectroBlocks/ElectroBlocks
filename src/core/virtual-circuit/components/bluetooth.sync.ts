@@ -54,9 +54,10 @@ export const bluetoothPosition: PositionComponent<BluetoothState> = (
   state,
   bluetoothEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(bluetoothEl, arduinoEl, draw, state.txPin, "PIN_TX");
+  positionComponent(bluetoothEl, arduinoEl, draw, state.txPin, "PIN_TX", board);
 };
 
 export const bluetoothCreate: CreateCompenentHook<BluetoothState> = (
@@ -72,16 +73,52 @@ export const createBluetoothWires: CreateWire<BluetoothState> = (
   draw,
   bluetoothEl,
   arduinoEl,
-  id
+  id,
+  board
 ) => {
   const { rxPin, txPin } = state;
-  createWire(bluetoothEl, rxPin, "PIN_RX", arduinoEl, draw, "#ac4cf5", "rx");
+  console.log(board, "board");
+  createWire(
+    bluetoothEl,
+    rxPin,
+    "PIN_RX",
+    arduinoEl,
+    draw,
+    "#ac4cf5",
+    "rx",
+    board
+  );
 
-  createWire(bluetoothEl, txPin, "PIN_TX", arduinoEl, draw, "#0f5873", "tx");
+  createWire(
+    bluetoothEl,
+    txPin,
+    "PIN_TX",
+    arduinoEl,
+    draw,
+    "#0f5873",
+    "tx",
+    board
+  );
 
-  createGroundWire(bluetoothEl, txPin, arduinoEl as Svg, draw, id, "right");
+  createGroundWire(
+    bluetoothEl,
+    txPin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "right",
+    board
+  );
 
-  createPowerWire(bluetoothEl, txPin, arduinoEl as Svg, draw, id, "right");
+  createPowerWire(
+    bluetoothEl,
+    txPin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "right",
+    board
+  );
 };
 
 const getMessage = (message: string) => {

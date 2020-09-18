@@ -1,29 +1,37 @@
-import { SyncComponent, ResetComponent } from '../svg-sync';
+import { SyncComponent, ResetComponent } from "../svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from '../svg-create';
+} from "../svg-create";
 
-import { ButtonState } from '../../frames/arduino-components.state';
-import { Element, Svg } from '@svgdotjs/svg.js';
-import { createWire, createGroundWire } from '../wire';
-import { positionComponent } from '../svg-position';
+import { ButtonState } from "../../frames/arduino-components.state";
+import { Element, Svg } from "@svgdotjs/svg.js";
+import { createWire, createGroundWire } from "../wire";
+import { positionComponent } from "../svg-position";
 
 export const positionButton: PositionComponent<ButtonState> = (
   state,
   buttonEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(buttonEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
+  positionComponent(
+    buttonEl,
+    arduinoEl,
+    draw,
+    state.pins[0],
+    "PIN_DATA",
+    board
+  );
 };
 
 export const createButton: CreateCompenentHook<ButtonState> = (
   state,
   buttonEl
 ) => {
-  buttonEl.findOne('#PIN_TEXT').node.innerHTML = state.pins[0];
+  buttonEl.findOne("#PIN_TEXT").node.innerHTML = state.pins[0];
 };
 
 export const updateButton: SyncComponent = (
@@ -39,17 +47,17 @@ export const resetButton: ResetComponent = (componentEl: Element) => {
 };
 
 const toggleButton = (componentEl: Element, isOn: boolean) => {
-  console.log('buttonEl update', isOn, componentEl);
+  console.log("buttonEl update", isOn, componentEl);
   if (isOn) {
-    componentEl.findOne('#PRESSED_STATE').show();
-    componentEl.findOne('#BUTTON_PRESSED').show();
-    componentEl.findOne('#BUTTON_NOT_PRESSED').hide();
+    componentEl.findOne("#PRESSED_STATE").show();
+    componentEl.findOne("#BUTTON_PRESSED").show();
+    componentEl.findOne("#BUTTON_NOT_PRESSED").hide();
     return;
   }
 
-  componentEl.findOne('#PRESSED_STATE').hide();
-  componentEl.findOne('#BUTTON_PRESSED').hide();
-  componentEl.findOne('#BUTTON_NOT_PRESSED').show();
+  componentEl.findOne("#PRESSED_STATE").hide();
+  componentEl.findOne("#BUTTON_PRESSED").hide();
+  componentEl.findOne("#BUTTON_NOT_PRESSED").show();
 };
 
 export const createWiresButton: CreateWire<ButtonState> = (
@@ -57,16 +65,26 @@ export const createWiresButton: CreateWire<ButtonState> = (
   draw,
   buttonEl,
   arduinoEl,
-  id
+  id,
+  board
 ) => {
   createWire(
     buttonEl,
     state.pins[0],
-    'PIN_DATA',
+    "PIN_DATA",
     arduinoEl,
     draw,
-    '#3d8938',
-    'data'
+    "#3d8938",
+    "data",
+    board
   );
-  createGroundWire(buttonEl, state.pins[0], arduinoEl as Svg, draw, id, 'left');
+  createGroundWire(
+    buttonEl,
+    state.pins[0],
+    arduinoEl as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
 };

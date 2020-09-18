@@ -28,9 +28,10 @@ export const servoPosition: PositionComponent<ServoState> = (
   state,
   servoEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(servoEl, arduinoEl, draw, state.pins[0], "PIN_DATA");
+  positionComponent(servoEl, arduinoEl, draw, state.pins[0], "PIN_DATA", board);
 };
 
 const setServoPinText = (servoEl: Element, servoState: ServoState) => {
@@ -59,10 +60,11 @@ export const createWiresServo: CreateWire<ServoState> = (
   draw,
   servoEl,
   arduino,
-  id
+  id,
+  board
 ) => {
   const pin = state.pins[0];
-  createWire(servoEl, pin, "PIN_DATA", arduino, draw, "#FFA502", "data");
+  createWire(servoEl, pin, "PIN_DATA", arduino, draw, "#FFA502", "data", board);
 
   // if ([ARDUINO_PINS.PIN_13, ARDUINO_PINS.PIN_A2].includes(pin)) {
   //   // GND then POWER
@@ -73,7 +75,7 @@ export const createWiresServo: CreateWire<ServoState> = (
 
   // POWER THEN GND
 
-  createPowerWire(servoEl, pin, arduino as Svg, draw, id, "left");
+  createPowerWire(servoEl, pin, arduino as Svg, draw, id, "left", board);
 
-  createGroundWire(servoEl, pin, arduino as Svg, draw, id, "left");
+  createGroundWire(servoEl, pin, arduino as Svg, draw, id, "left", board);
 };

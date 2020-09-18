@@ -16,7 +16,8 @@ export const ledMatrixPosition: PositionComponent<LedMatrixState> = (
   _,
   ledMatrixEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
   arduinoEl.y(draw.viewbox().y2 - arduinoEl.height() + 100);
 
@@ -25,7 +26,8 @@ export const ledMatrixPosition: PositionComponent<LedMatrixState> = (
     arduinoEl,
     draw,
     ARDUINO_PINS.PIN_10,
-    "PIN_DATA"
+    "PIN_DATA",
+    board
   );
 };
 
@@ -62,7 +64,8 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
   draw,
   ledMatrixEl,
   arduino,
-  id
+  id,
+  board
 ) => {
   createGroundWire(
     ledMatrixEl,
@@ -70,7 +73,8 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
     arduino as Svg,
     draw,
     id,
-    "right"
+    "right",
+    board
   );
   createPowerWire(
     ledMatrixEl,
@@ -78,7 +82,8 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
     arduino as Svg,
     draw,
     id,
-    "right"
+    "right",
+    board
   );
 
   createWire(
@@ -88,7 +93,8 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
     arduino,
     draw,
     "#027a18",
-    "data-pin"
+    "data-pin",
+    board
   );
   createWire(
     ledMatrixEl,
@@ -97,7 +103,8 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
     arduino,
     draw,
     "#7b5fc9",
-    "cs-pin"
+    "cs-pin",
+    board
   );
   createWire(
     ledMatrixEl,
@@ -106,6 +113,7 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
     arduino,
     draw,
     "#2130ff",
-    "clk-pin"
+    "clk-pin",
+    board
   );
 };

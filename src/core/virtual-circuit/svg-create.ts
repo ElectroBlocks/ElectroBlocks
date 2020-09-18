@@ -3,6 +3,7 @@ import { Element, Svg } from "@svgdotjs/svg.js";
 import {
   ArduinoComponentState,
   ArduinoComponentType,
+  ArduinoFrameContainer,
 } from "../frames/arduino.frame";
 import { addDraggableEvent } from "./component-events.helpers";
 import {
@@ -65,11 +66,17 @@ import {
 } from "./components/ultrasonic.sync";
 import { getSvgString } from "./svg-string";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
+import {
+  MicroController,
+  MicroControllerType,
+} from "../microcontroller/microcontroller";
+import { selectedBoard } from "../microcontroller/selectBoard";
 
 export default (
   state: ArduinoComponentState,
   draw: Svg,
-  arduinoEl: Element
+  arduinoEl: Element,
+  board: MicroController
 ): void => {
   const id = arduinoComponentStateToId(state);
   let componentEl = draw.findOne("#" + id) as Element;
@@ -77,21 +84,45 @@ export default (
   if (componentEl) {
     return;
   }
-
+  selectedBoard();
   componentEl = createComponentEl(draw, state, getSvgString(state));
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;
-  positionComponentHookFunc[state.type](state, componentEl, arduinoEl, draw);
-  createWires[state.type](state, draw, componentEl, arduinoEl, id);
-  createComponentHookFunc[state.type](state, componentEl, arduinoEl, draw);
+  positionComponentHookFunc[state.type](
+    state,
+    componentEl,
+    arduinoEl,
+    draw,
+    board
+  );
+  createWires[state.type](state, draw, componentEl, arduinoEl, id, board);
+  createComponentHookFunc[state.type](
+    state,
+    componentEl,
+    arduinoEl,
+    draw,
+    board
+  );
 };
 
 export interface PositionComponent<T extends ArduinoComponentState> {
-  (state: T, componentEl: Element, arduinoEl: Element, draw: Svg): void;
+  (
+    state: T,
+    componentEl: Element,
+    arduinoEl: Element,
+    draw: Svg,
+    board: MicroController
+  ): void;
 }
 
 export interface CreateCompenentHook<T extends ArduinoComponentState> {
-  (state: T, componentEl: Element, arduinoEl: Element, draw: Svg): void;
+  (
+    state: T,
+    componentEl: Element,
+    arduinoEl: Element,
+    draw: Svg,
+    board: MicroController
+  ): void;
 }
 
 export interface CreateWire<T extends ArduinoComponentState> {
@@ -100,7 +131,8 @@ export interface CreateWire<T extends ArduinoComponentState> {
     draw: Svg,
     component: Element,
     arduinoEl: Element,
-    componentId: string
+    componentId: string,
+    board: MicroController
   ): void;
 }
 

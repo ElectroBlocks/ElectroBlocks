@@ -39,9 +39,17 @@ export const lcdPosition: PositionComponent<LCDScreenState> = (
   _,
   lcdScreenEl,
   arduino,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(lcdScreenEl, arduino, draw, ARDUINO_PINS.PIN_12, "PIN_SCL");
+  positionComponent(
+    lcdScreenEl,
+    arduino,
+    draw,
+    ARDUINO_PINS.PIN_12,
+    "PIN_SCL",
+    board
+  );
 
   lcdScreenEl.y(lcdScreenEl.y() - 30);
 };
@@ -132,13 +140,40 @@ export const createWiresLcd: CreateWire<LCDScreenState> = (
   draw,
   lcdEl,
   arduino,
-  id
+  id,
+  board
 ) => {
-  createGroundWire(lcdEl, state.sdaPin, arduino as Svg, draw, id, "left");
+  createGroundWire(
+    lcdEl,
+    state.sdaPin,
+    arduino as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
 
-  createPowerWire(lcdEl, state.sdaPin, arduino as Svg, draw, id, "left");
+  createPowerWire(lcdEl, state.sdaPin, arduino as Svg, draw, id, "left", board);
 
-  createWire(lcdEl, state.sdaPin, "PIN_SDA", arduino, draw, "#0071bc", "sda");
+  createWire(
+    lcdEl,
+    state.sdaPin,
+    "PIN_SDA",
+    arduino,
+    draw,
+    "#0071bc",
+    "sda",
+    board
+  );
 
-  createWire(lcdEl, state.sclPin, "PIN_SCL", arduino, draw, "#f15a24", "scl");
+  createWire(
+    lcdEl,
+    state.sclPin,
+    "PIN_SCL",
+    arduino,
+    draw,
+    "#f15a24",
+    "scl",
+    board
+  );
 };
