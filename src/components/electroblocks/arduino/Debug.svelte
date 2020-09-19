@@ -20,11 +20,18 @@
 
   arduinoStore.subscribe((newPortStatus) => {
     portStatus = newPortStatus;
+    if (portStatus === PortState.CLOSE) {
+      debugStart = false;
+    }
   });
 
   arduionMessageStore.subscribe((message) => {
     if (!message) {
       return;
+    }
+
+    if (message.message.includes("START_DEBUG")) {
+      debugStart = true;
     }
 
     if (message.type === "Computer") {
@@ -110,13 +117,6 @@
       inDebugStatement = false;
     }
   }
-
-  function startDebug() {
-    if (!debugStart && portStatus === PortState.OPEN) {
-      arduionMessageStore.sendMessage("START_DEBUG");
-      debugStart = true;
-    }
-  }
 </script>
 
 <style>
@@ -143,6 +143,9 @@
   }
   .fa-stop {
     color: #aa0000;
+  }
+  .fa.fa-bug {
+    cursor: inherit;
   }
   .not-active {
     color: gray !important;
@@ -204,23 +207,15 @@
 
 <div id="debug">
   <h3>
-    Debug
-    <span>
-
-      <i
+    Debug <span> <i
         class="fa fa-play"
         on:click={continueDebug}
-        class:not-active={disableDebugBtn} />
-      <i
+        class:not-active={disableDebugBtn} /> <i
         class="fa fa-stop"
         on:click={stopDebug}
-        class:not-active={disableDebugBtn} />
-      <i
+        class:not-active={disableDebugBtn} /> <i
         class:debug-start={debugStart}
-        on:click={startDebug}
-        class="fa fa-bug" />
-
-    </span>
+        class="fa fa-bug" /> </span>
   </h3>
   <div id="variable-table-container">
     <table id="variable-table">
@@ -264,5 +259,4 @@
       </tbody>
     </table>
   </div>
-
 </div>

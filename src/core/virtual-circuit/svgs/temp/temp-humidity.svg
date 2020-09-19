@@ -1,26 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="150" height="222.37" viewBox="0 0 150 222.37">
-  <title>temp-humidity</title>
   <g id="WIRE">
     <g id="PIN_POWER">
-      <line x1="9.69" y1="204.87" x2="9.69" y2="221.2" fill="none" stroke="#33322f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-      <line x1="9.69" y1="204.87" x2="9.69" y2="221.2" fill="#2d2d2c"/>
+      <line x1="9.69" y1="204.87" x2="9.69" y2="221.2" style="fill: none;stroke: #33322f;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="9.69" y1="204.87" x2="9.69" y2="221.2" style="fill: #2d2d2c"/>
     </g>
     <g id="PIN_DATA">
-      <line x1="71.38" y1="205.03" x2="71.38" y2="221.37" fill="none" stroke="#33322f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-      <line x1="71.38" y1="205.03" x2="71.38" y2="221.37" fill="#2d2d2c"/>
+      <line x1="71.38" y1="205.03" x2="71.38" y2="221.37" style="fill: none;stroke: #33322f;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="71.38" y1="205.03" x2="71.38" y2="221.37" style="fill: #2d2d2c"/>
     </g>
     <g id="PIN_GND">
-      <line x1="137.22" y1="205.03" x2="137.22" y2="221.37" fill="none" stroke="#33322f" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-      <line x1="137.22" y1="205.03" x2="137.22" y2="221.37" fill="#2d2d2c"/>
+      <line x1="137.22" y1="205.03" x2="137.22" y2="221.37" style="fill: none;stroke: #33322f;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="137.22" y1="205.03" x2="137.22" y2="221.37" style="fill: #2d2d2c"/>
     </g>
   </g>
   <g id="BASE">
     <g>
-      <rect x="0.5" y="27.87" width="149" height="177" fill="#81a4c1"/>
+      <rect x="0.5" y="27.87" width="149" height="177" style="fill: #81a4c1"/>
       <path d="M173.88,40V216h-148V40h148m1-1h-150V217h150V39Z" transform="translate(-24.88 -11.63)"/>
     </g>
     <g>
-      <rect x="15.38" y="37.87" width="119" height="113" fill="#5da8f4"/>
+      <rect x="15.38" y="37.87" width="119" height="113" style="fill: #5da8f4"/>
       <path d="M158.75,50V162h-118V50h118m1-1h-120V163h120V49Z" transform="translate(-24.88 -11.63)"/>
     </g>
     <g>
@@ -137,9 +136,9 @@
     </g>
   </g>
   <g id="TEXT">
-    <text id="TEMP_TEXT" transform="translate(14.89 21.1)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">50% - 90°F</text>
-    <text transform="translate(3.09 199.46)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
-    <text transform="translate(131.77 198.46)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
-    <text id="PIN_TEXT" transform="translate(58.18 200.28)" font-size="24" fill="#2d2d2c" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
+    <text id="TEMP_TEXT" transform="translate(14.89 21.1)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">50% - 90°F</text>
+    <text transform="translate(3.09 199.46)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">+</text>
+    <text transform="translate(131.77 198.46)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">-</text>
+    <text id="PIN_TEXT" transform="translate(58.18 200.28)" style="font-size: 24px;fill: #2d2d2c;font-family: Biryani-SemiBold, Biryani;font-weight: 600">A5</text>
   </g>
 </svg>

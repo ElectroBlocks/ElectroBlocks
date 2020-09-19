@@ -1,15 +1,59 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import _ from 'lodash';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { ArduinoComponentType, ArduinoFrame } from '../../arduino.frame';
-import { ARDUINO_UNO_PINS } from '../../../blockly/selectBoard';
-import { LedMatrixState } from '../../arduino-components.state';
+import { BlockToFrameTransformer } from "../block-to-frame.transformer";
+import _ from "lodash";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { ArduinoComponentType, ArduinoFrame } from "../../arduino.frame";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
+import { LedMatrixState } from "../../arduino-components.state";
 import {
   arduinoFrameByComponent,
   findComponent,
   getDefaultIndexValue,
-} from '../frame-transformer.helpers';
-import { getInputValue } from '../block-to-value.factories';
+} from "../frame-transformer.helpers";
+import { getInputValue } from "../block-to-value.factories";
+
+export const ledMatrixSetup: BlockToFrameTransformer = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const leds = _.range(1, 9).reduce((prev, row) => {
+    return [
+      ...prev,
+      ..._.range(1, 9).map((col) => {
+        return {
+          row,
+          col,
+          isOn: false,
+        };
+      }),
+    ];
+  }, []);
+  const ledMatrixState: LedMatrixState = {
+    type: ArduinoComponentType.LED_MATRIX,
+    pins: [
+      findFieldValue(block, "PIN_CLK"),
+      findFieldValue(block, "PIN_CS"),
+      findFieldValue(block, "PIN_DATA"),
+    ],
+    leds,
+    clkPin: findFieldValue(block, "PIN_CLK"),
+    csPin: findFieldValue(block, "PIN_CS"),
+    dataPin: findFieldValue(block, "PIN_DATA"),
+  };
+
+  return [
+    arduinoFrameByComponent(
+      block.id,
+      block.blockName,
+      timeline,
+      ledMatrixState,
+      "Setting up led matrix.",
+      previousState
+    ),
+  ];
+};
 
 export const ledMatrixDraw: BlockToFrameTransformer = (
   blocks,
@@ -25,20 +69,19 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
         return {
           row,
           col,
-          isOn: findFieldValue(block, `${col},${row}`) === 'TRUE',
+          isOn: findFieldValue(block, `${col},${row}`) === "TRUE",
         };
       }),
     ];
   }, []);
-
+  const { pins, type, dataPin, csPin, clkPin } = getLedMatrix(previousState);
   const ledMatrixState: LedMatrixState = {
-    type: ArduinoComponentType.LED_MATRIX,
-    pins: [
-      ARDUINO_UNO_PINS.PIN_10,
-      ARDUINO_UNO_PINS.PIN_11,
-      ARDUINO_UNO_PINS.PIN_12,
-    ],
+    type,
+    pins,
     leds,
+    clkPin,
+    csPin,
+    dataPin,
   };
 
   return [
@@ -47,7 +90,7 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       ledMatrixState,
-      'Drawing on LED Matrix.',
+      "Drawing on LED Matrix.",
       previousState
     ),
   ];
@@ -60,12 +103,14 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  const { pins, type, leds } = getLedMatrix(previousState);
+  const { pins, type, leds, dataPin, csPin, clkPin } = getLedMatrix(
+    previousState
+  );
 
   const row = getDefaultIndexValue(
     1,
     8,
-    getInputValue(blocks, block, variables, timeline, 'ROW', 1, previousState)
+    getInputValue(blocks, block, variables, timeline, "ROW", 1, previousState)
   );
 
   const col = getDefaultIndexValue(
@@ -76,13 +121,13 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
       block,
       variables,
       timeline,
-      'COLUMN',
+      "COLUMN",
       1,
       previousState
     )
   );
 
-  const isOn = findFieldValue(block, 'STATE') === 'ON';
+  const isOn = findFieldValue(block, "STATE") === "ON";
 
   const newLeds = leds.map((led) => {
     if (led.col === col && led.row === row) {
@@ -96,6 +141,9 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
     pins,
     type,
     leds: newLeds,
+    dataPin,
+    csPin,
+    clkPin,
   };
 
   return [
@@ -104,46 +152,15 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       newComponent,
-      `Led Matrix turn (${row},${col}) ${isOn ? 'on' : 'off'}.`,
+      `Led Matrix turn (${row},${col}) ${isOn ? "on" : "off"}.`,
       previousState
     ),
   ];
 };
 
 const getLedMatrix = (previousState?: ArduinoFrame): LedMatrixState => {
-  if (_.isEmpty(previousState)) {
-    return createBlankLedMatrix();
-  }
-
-  const ledMatrix = findComponent<LedMatrixState>(
+  return findComponent<LedMatrixState>(
     previousState,
     ArduinoComponentType.LED_MATRIX
   );
-
-  return ledMatrix || createBlankLedMatrix();
-};
-
-const createBlankLedMatrix = () => {
-  const leds = _.range(1, 9).reduce((prev, row) => {
-    return [
-      ...prev,
-      ..._.range(1, 9).map((col) => {
-        return {
-          row,
-          col,
-          isOn: false,
-        };
-      }),
-    ];
-  }, []);
-
-  return {
-    type: ArduinoComponentType.LED_MATRIX,
-    pins: [
-      ARDUINO_UNO_PINS.PIN_10,
-      ARDUINO_UNO_PINS.PIN_11,
-      ARDUINO_UNO_PINS.PIN_12,
-    ],
-    leds,
-  };
 };

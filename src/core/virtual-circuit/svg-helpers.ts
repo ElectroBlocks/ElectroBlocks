@@ -1,15 +1,6 @@
-import {
-  ArduinoComponentState,
-  ArduinoComponentType,
-} from '../frames/arduino.frame';
-import { Element, Svg, Line } from '@svgdotjs/svg.js';
-import {
-  LCDScreenState,
-  LedColorState,
-  PinState,
-  MotorState,
-} from '../frames/arduino-components.state';
-import { arduinoComponentStateToId } from '../frames/arduino-component-id';
+import { ArduinoComponentState } from "../frames/arduino.frame";
+import { Element, Svg, Line } from "@svgdotjs/svg.js";
+import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 
 export const findComponentConnection = (
   element: Element,
@@ -27,13 +18,13 @@ export const findSvgElement = (
   id: string,
   draw: Svg | Element
 ): Svg | Element => {
-  return draw.findOne('#' + id) as Svg | Element;
+  return draw.findOne("#" + id) as Svg | Element;
 };
 
 export const deleteWires = (draw: Svg, id: string) => {
   draw
-    .find('line')
-    .filter((w) => w.data('component-id') === id)
+    .find("line")
+    .filter((w) => w.data("component-id") === id)
     .forEach((w) => w.remove());
 };
 
@@ -43,26 +34,26 @@ export const createComponentEl = (
   svgText: string
 ) => {
   const componentEl = draw.svg(svgText).last();
-  componentEl.addClass('component');
-  componentEl.attr('id', arduinoComponentStateToId(state));
-  componentEl.data('component-type', state.type);
+  componentEl.addClass("component");
+  componentEl.attr("id", arduinoComponentStateToId(state));
+  componentEl.data("component-type", state.type);
   (componentEl as Svg).viewbox(0, 0, componentEl.width(), componentEl.height());
 
   return componentEl;
 };
 
-export const findArduinoEl = (draw: Svg) => {
-  return draw.findOne('#arduino_main_svg') as Element | Svg;
+export const findMicronControllerEl = (draw: Svg): Element => {
+  return draw.findOne("#microcontroller_main_svg") as Element | Svg;
 };
 
 export const addWireConnectionClass = (ids: string[], componentEl: Element) => {
   ids.forEach((id) => {
-    componentEl.findOne('#' + id).addClass('wire-connection');
+    componentEl.findOne("#" + id).addClass("wire-connection");
   });
 };
 
 export enum LED_COLORS {
-  LED_ON = '#ffa922',
-  LED_OFF = '#F2F2F2',
-  POWER_ON = '#49ff7e',
+  LED_ON = "#ffa922",
+  LED_OFF = "#F2F2F2",
+  POWER_ON = "#49ff7e",
 }

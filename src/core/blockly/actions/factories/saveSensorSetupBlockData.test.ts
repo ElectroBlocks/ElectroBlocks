@@ -1,18 +1,22 @@
-import 'jest';
-import '../../blocks';
-import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from 'blockly';
-import { getAllBlocks } from '../../helpers/block.helper';
-import _ from 'lodash';
-import { BlockEvent } from '../../dto/event.type';
-import { transformBlock } from '../../transformers/block.transformer';
-import { getAllVariables } from '../../helpers/variable.helper';
-import { transformVariable } from '../../transformers/variables.transformer';
-import { saveSensorSetupBlockData } from './saveSensorSetupBlockData';
-import { MotionSensor } from '../../dto/sensors.type';
-import { ActionType } from '../actions';
-import { createArduinoAndWorkSpace } from '../../../../tests/tests.helper';
+import "jest";
+import "../../blocks";
+import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
+import { getAllBlocks } from "../../helpers/block.helper";
+import _ from "lodash";
+import { BlockEvent } from "../../dto/event.type";
+import { transformBlock } from "../../transformers/block.transformer";
+import { getAllVariables } from "../../helpers/variable.helper";
+import { transformVariable } from "../../transformers/variables.transformer";
+import { saveSensorSetupBlockData } from "./saveSensorSetupBlockData";
+import { MotionSensor } from "../../dto/sensors.type";
+import { ActionType } from "../actions";
+import {
+  createArduinoAndWorkSpace,
+  createTestEvent,
+} from "../../../../tests/tests.helper";
+import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
-describe('saveSensorSetupBlockData', () => {
+describe("saveSensorSetupBlockData", () => {
   let workspace: Workspace;
   let arduinoBlock;
 
@@ -24,44 +28,41 @@ describe('saveSensorSetupBlockData', () => {
     workspace.dispose();
   });
 
-  test('no action if block is not a sensor setup block', () => {
-    const event: BlockEvent = {
-      blockId: arduinoBlock.id,
-      variables: getAllVariables().map(transformVariable),
-      blocks: getAllBlocks().map(transformBlock),
-      type: Blockly.Events.BLOCK_MOVE,
-    };
+  test("no action if block is not a sensor setup block", () => {
+    const event = createTestEvent(arduinoBlock.id);
     const actions = saveSensorSetupBlockData(event);
     expect(actions).toEqual([]);
   });
 
-  test('no action if the block loop field is being changed', () => {
-    const sensorBlock = workspace.newBlock('rfid_setup');
+  test("no action if the block loop field is being changed", () => {
+    const sensorBlock = workspace.newBlock("rfid_setup");
     const event: BlockEvent = {
       blockId: sensorBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
       type: Blockly.Events.BLOCK_CHANGE,
-      newValue: '2',
-      oldValue: '1',
-      fieldName: 'LOOP',
-      fieldType: 'field',
+      newValue: "2",
+      oldValue: "1",
+      fieldName: "LOOP",
+      fieldType: "field",
+      microController: MicroControllerType.ARDUINO_UNO,
     };
     const actions = saveSensorSetupBlockData(event);
     expect(actions).toEqual([]);
   });
 
-  test('create an action for a block with no metadata', () => {
-    const sensorBlock = workspace.newBlock('ultra_sonic_sensor_setup');
+  test("create an action for a block with no metadata", () => {
+    const sensorBlock = workspace.newBlock("ultra_sonic_sensor_setup");
     const event: BlockEvent = {
       blockId: sensorBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
       type: Blockly.Events.BLOCK_CHANGE,
-      newValue: '2',
-      oldValue: '1',
-      fieldName: 'cm',
-      fieldType: 'field',
+      newValue: "2",
+      oldValue: "1",
+      fieldName: "cm",
+      fieldType: "field",
+      microController: MicroControllerType.ARDUINO_UNO,
     };
 
     const expectedData = [
@@ -91,8 +92,8 @@ describe('saveSensorSetupBlockData', () => {
     expect(actions[0].blockId).toEqual(sensorBlock.id);
   });
 
-  test('create an action for a block already has metadata.  Should replace what is ther for the loop selected', () => {
-    const sensorBlock = workspace.newBlock('ultra_sonic_sensor_setup');
+  test("create an action for a block already has metadata.  Should replace what is ther for the loop selected", () => {
+    const sensorBlock = workspace.newBlock("ultra_sonic_sensor_setup");
     const currentMetadata = [
       {
         loop: 1,
@@ -111,18 +112,19 @@ describe('saveSensorSetupBlockData', () => {
       },
     ];
 
-    sensorBlock.setFieldValue('2', 'LOOP');
+    sensorBlock.setFieldValue("2", "LOOP");
     sensorBlock.data = JSON.stringify(currentMetadata);
-    sensorBlock.setFieldValue('10', 'cm');
+    sensorBlock.setFieldValue("10", "cm");
     const event: BlockEvent = {
       blockId: sensorBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
       type: Blockly.Events.BLOCK_CHANGE,
-      newValue: '10',
-      oldValue: '1',
-      fieldName: 'cm',
-      fieldType: 'field',
+      newValue: "10",
+      oldValue: "1",
+      fieldName: "cm",
+      fieldType: "field",
+      microController: MicroControllerType.ARDUINO_UNO,
     };
 
     const actions = saveSensorSetupBlockData(event);
@@ -139,17 +141,18 @@ describe('saveSensorSetupBlockData', () => {
     expect(actions[0].blockId).toEqual(sensorBlock.id);
   });
 
-  test('should exclude the time block because there is no loop drop down for it.  Time is consider constant through the loop', () => {
-    const sensorBlock = workspace.newBlock('time_setup');
+  test("should exclude the time block because there is no loop drop down for it.  Time is consider constant through the loop", () => {
+    const sensorBlock = workspace.newBlock("time_setup");
     const event: BlockEvent = {
       blockId: sensorBlock.id,
       variables: getAllVariables().map(transformVariable),
       blocks: getAllBlocks().map(transformBlock),
       type: Blockly.Events.BLOCK_CHANGE,
-      newValue: '2',
-      oldValue: '1',
-      fieldName: 'time_in_seconds',
-      fieldType: 'field',
+      newValue: "2",
+      oldValue: "1",
+      fieldName: "time_in_seconds",
+      fieldType: "field",
+      microController: MicroControllerType.ARDUINO_UNO,
     };
     const actions = saveSensorSetupBlockData(event);
     expect(actions).toEqual([]);

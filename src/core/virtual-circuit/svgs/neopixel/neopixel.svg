@@ -1,21 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="633.55" height="301.43" viewBox="0 0 633.55 301.43">
-  <title>neopixel</title>
   <g id="simple_wires">
     <g id="GND">
       <line id="PIN_GND" x1="1" y1="293.41" x2="1" y2="236.41" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
       <line x1="1" y1="236.41" x2="126" y2="236.41" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
     </g>
     <g id="POWER">
-      <line x1="65" y1="255.41" x2="98" y2="255.41" fill="none" stroke="red" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-      <line id="PIN_POWER" x1="65" y1="255.41" x2="65" y2="293.41" fill="none" stroke="red" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="77" y1="255.41" x2="98" y2="255.41" fill="none" stroke="red" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line id="PIN_POWER" x1="77" y1="255.41" x2="77" y2="293.41" fill="none" stroke="red" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
     </g>
     <g id="DATA">
       <line x1="20" y1="245.41" x2="114" y2="245.41" fill="none" stroke="#006837" stroke-miterlimit="10" stroke-width="2"/>
       <line id="PIN_DATA" x1="20" y1="293.41" x2="20" y2="245.41" fill="none" stroke="#006837" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
     </g>
     <text id="GND_TEXT" transform="translate(3.56 286.66) scale(1.14 1)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
-    <text id="DATA_TEXT" transform="translate(21.8 288.66) scale(1.21 1)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
-    <text id="POWER_TEXT" transform="translate(69.61 286.66)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+    <text id="DATA_TEXT" transform="translate(21.8 288.66) scale(1.21 1)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">A15</text>
+    <text id="POWER_TEXT" transform="translate(79.61 286.66)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
   </g>
   <g id="LED_1">
     <g id="BASE">

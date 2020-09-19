@@ -1,23 +1,24 @@
-import 'jest';
-import '../../../blockly/blocks';
+import "jest";
+import "../../../blockly/blocks";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
-} from '../../../../tests/tests.helper';
-import Blockly, { Workspace, BlockSvg } from 'blockly';
-import { VariableTypes } from '../../../blockly/dto/variable.type';
-import { BlockEvent } from '../../../blockly/dto/event.type';
+  createTestEvent,
+} from "../../../../tests/tests.helper";
+import Blockly, { Workspace, BlockSvg } from "blockly";
+import { VariableTypes } from "../../../blockly/dto/variable.type";
+import { BlockEvent } from "../../../blockly/dto/event.type";
 import {
   getAllBlocks,
   connectToArduinoBlock,
-} from '../../../blockly/helpers/block.helper';
-import { transformBlock } from '../../../blockly/transformers/block.transformer';
-import { getAllVariables } from '../../../blockly/helpers/variable.helper';
-import { transformVariable } from '../../../blockly/transformers/variables.transformer';
-import { eventToFrameFactory } from '../../event-to-frame.factory';
-import _ from 'lodash';
+} from "../../../blockly/helpers/block.helper";
+import { transformBlock } from "../../../blockly/transformers/block.transformer";
+import { getAllVariables } from "../../../blockly/helpers/variable.helper";
+import { transformVariable } from "../../../blockly/transformers/variables.transformer";
+import { eventToFrameFactory } from "../../event-to-frame.factory";
+import _ from "lodash";
 
-describe('number_to_string state factories', () => {
+describe("number_to_string state factories", () => {
   let workspace: Workspace;
   let arduinoBlock: BlockSvg;
 
@@ -29,98 +30,83 @@ describe('number_to_string state factories', () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test('should be able be able change a number variable/text block/empty to a text', () => {
-    const numberToTextBlock = workspace.newBlock('number_to_string');
-    numberToTextBlock.setFieldValue('3', 'PRECISION');
+  test("should be able be able change a number variable/text block/empty to a text", () => {
+    const numberToTextBlock = workspace.newBlock("number_to_string");
+    numberToTextBlock.setFieldValue("3", "PRECISION");
 
-    const numberBlock = workspace.newBlock('math_number');
-    numberBlock.setFieldValue('93.999323', 'NUM');
+    const numberBlock = workspace.newBlock("math_number");
+    numberBlock.setFieldValue("93.999323", "NUM");
 
     numberToTextBlock
-      .getInput('NUMBER')
+      .getInput("NUMBER")
       .connection.connect(numberBlock.outputConnection);
 
     const setTextBlock = createSetVariableBlockWithValue(
       workspace,
-      'text_test',
+      "text_test",
       VariableTypes.STRING,
-      ''
+      ""
     );
     const textBlockToRemove = setTextBlock
-      .getInput('VALUE')
+      .getInput("VALUE")
       .connection.targetBlock();
     textBlockToRemove.dispose(true);
 
     setTextBlock
-      .getInput('VALUE')
+      .getInput("VALUE")
       .connection.connect(numberToTextBlock.outputConnection);
 
     connectToArduinoBlock(setTextBlock);
 
-    const event1: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: numberToTextBlock.id,
-    };
+    const event1 = createTestEvent(setTextBlock.id);
 
-    const [state1Event1] = eventToFrameFactory(event1);
+    const [state1Event1] = eventToFrameFactory(event1).frames;
 
     expect(state1Event1.explanation).toBe(
       'Variable "text_test" stores "93.999".'
     );
-    expect(state1Event1.variables['text_test'].value).toBe('93.999');
+    expect(state1Event1.variables["text_test"].value).toBe("93.999");
 
     numberBlock.dispose(true);
 
     const setNumberVariable = createSetVariableBlockWithValue(
       workspace,
-      'num',
+      "num",
       VariableTypes.NUMBER,
-      '333.33399'
+      "333.33399"
     );
 
     connectToArduinoBlock(setNumberVariable);
 
-    const getNumberVariable = workspace.newBlock('variables_get_number');
+    const getNumberVariable = workspace.newBlock("variables_get_number");
     getNumberVariable.setFieldValue(
-      setNumberVariable.getFieldValue('VAR'),
-      'VAR'
+      setNumberVariable.getFieldValue("VAR"),
+      "VAR"
     );
 
     numberToTextBlock
-      .getInput('NUMBER')
+      .getInput("NUMBER")
       .connection.connect(getNumberVariable.outputConnection);
 
-    const event2: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: numberToTextBlock.id,
-    };
+    const event2 = createTestEvent(numberBlock.id);
 
-    const [state1Event2, state2Event2] = eventToFrameFactory(event2);
+    const [state1Event2, state2Event2] = eventToFrameFactory(event2).frames;
 
     expect(state2Event2.explanation).toBe(
       'Variable "text_test" stores "333.334".'
     );
-    expect(state2Event2.variables['text_test'].value).toBe('333.334');
+    expect(state2Event2.variables["text_test"].value).toBe("333.334");
 
     getNumberVariable.dispose(true);
     setNumberVariable.dispose(true);
 
-    const event3: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: numberToTextBlock.id,
-    };
+    const event3 = createTestEvent(setNumberVariable.id);
 
-    const [state1Event3] = eventToFrameFactory(event3);
+    const [state1Event3] = eventToFrameFactory(event3).frames;
 
     expect(state1Event3.explanation).toBe(
       'Variable "text_test" stores "0.000".'
     );
-    expect(state1Event3.variables['text_test'].value).toBe('0.000');
+    expect(state1Event3.variables["text_test"].value).toBe("0.000");
   });
 });

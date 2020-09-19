@@ -1,21 +1,21 @@
-import { SyncComponent, ResetComponent } from '../svg-sync';
+import { SyncComponent, ResetComponent } from "../svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from '../svg-create';
+} from "../svg-create";
 
-import { TemperatureState } from '../../frames/arduino-components.state';
-import { Element, Svg } from '@svgdotjs/svg.js';
+import { TemperatureState } from "../../frames/arduino-components.state";
+import { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from '../svg-position';
-import { createWire, createPowerWire, createGroundWire } from '../wire';
+import { positionComponent } from "../svg-position";
+import { createWire, createPowerWire, createGroundWire } from "../wire";
 
 export const createTemp: CreateCompenentHook<TemperatureState> = (
   state,
   tempEl
 ) => {
-  const pinTextEl = tempEl.findOne('#PIN_TEXT') as Element;
+  const pinTextEl = tempEl.findOne("#PIN_TEXT") as Element;
   const cxPosition = pinTextEl.cx();
   pinTextEl.node.innerHTML = state.pins[0];
   pinTextEl.cx(cxPosition);
@@ -25,13 +25,14 @@ export const positionTemp: PositionComponent<TemperatureState> = (
   state,
   tempEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(tempEl, arduinoEl, draw, state.pins[0], 'PIN_DATA');
+  positionComponent(tempEl, arduinoEl, draw, state.pins[0], "PIN_DATA", board);
 };
 
 export const updateTemp: SyncComponent = (state: TemperatureState, tempEl) => {
-  const textEl = tempEl.findOne('#TEMP_TEXT') as Element;
+  const textEl = tempEl.findOne("#TEMP_TEXT") as Element;
   textEl.show();
   const cx = textEl.cx();
   textEl.node.innerHTML = `${state.humidity}% - ${state.temperature}°F`;
@@ -39,7 +40,7 @@ export const updateTemp: SyncComponent = (state: TemperatureState, tempEl) => {
 };
 
 export const resetTemp: ResetComponent = (tempEl) => {
-  const textEl = tempEl.findOne('#TEMP_TEXT') as Element;
+  const textEl = tempEl.findOne("#TEMP_TEXT") as Element;
   textEl.hide();
 };
 
@@ -48,16 +49,18 @@ export const createWiresTemp: CreateWire<TemperatureState> = (
   draw,
   componentEl,
   arduionEl,
-  id
+  id,
+  board
 ) => {
   createWire(
     componentEl,
     state.pins[0],
-    'PIN_DATA',
+    "PIN_DATA",
     arduionEl,
     draw,
-    '#2f5ddd',
-    'data'
+    "#2f5ddd",
+    "data",
+    board
   );
   createPowerWire(
     componentEl,
@@ -65,7 +68,8 @@ export const createWiresTemp: CreateWire<TemperatureState> = (
     arduionEl as Svg,
     draw,
     id,
-    'left'
+    "left",
+    board
   );
   createGroundWire(
     componentEl,
@@ -73,6 +77,7 @@ export const createWiresTemp: CreateWire<TemperatureState> = (
     arduionEl as Svg,
     draw,
     id,
-    'right'
+    "right",
+    board
   );
 };

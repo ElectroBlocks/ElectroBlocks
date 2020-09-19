@@ -10,21 +10,21 @@
   const unsubscribes = [];
 
   unsubscribes.push(
-    currentFrameStore.subscribe(frame => {
+    currentFrameStore.subscribe((frame) => {
       if (!frame) {
         variables = [];
         return;
       }
-      variables = _.keys(frame.variables).map(varName => {
+      variables = _.keys(frame.variables).map((varName) => {
         return frame.variables[varName];
       });
     })
   );
 
   unsubscribes.push(
-    frameStore.subscribe(frames => {
+    frameStore.subscribe((frameContainer) => {
       // This means no frames so we should reset variables to none
-      if (frames.length === 0) {
+      if (frameContainer.frames.length === 0) {
         variables = [];
         return;
       }
@@ -32,7 +32,7 @@
   );
 
   onDestroy(() => {
-    unsubscribes.forEach(unSubFunc => unSubFunc());
+    unsubscribes.forEach((unSubFunc) => unSubFunc());
   });
 </script>
 
@@ -119,5 +119,4 @@
       {/if}
     {/each}
   </ul>
-
 </div>

@@ -1,4 +1,4 @@
-import { BlockSvg } from 'blockly';
+import { BlockSvg } from "blockly";
 import {
   BlockData,
   Input,
@@ -7,9 +7,9 @@ import {
   FieldValue,
   PinFieldNames,
   BlocklyInputTypes,
-} from '../dto/block.type';
-import _ from 'lodash';
-import { ARDUINO_UNO_PINS } from '../selectBoard';
+} from "../dto/block.type";
+import _ from "lodash";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 
 export interface BlockTransformer {
   (block: BlockSvg): BlockData;
@@ -39,7 +39,7 @@ const getFieldValues = (block: BlockSvg): FieldValue[] => {
         .filter(
           (field) =>
             field.EDITABLE ||
-            (block.type === 'procedures_callnoreturn' && field.name === 'NAME')
+            (block.type === "procedures_callnoreturn" && field.name === "NAME")
         )
         .map((field) => {
           return {
@@ -53,29 +53,10 @@ const getFieldValues = (block: BlockSvg): FieldValue[] => {
     }, []);
 };
 
-const getPins = (block: BlockSvg): ARDUINO_UNO_PINS[] => {
-  if (block.type === 'lcd_setup') {
-    return [ARDUINO_UNO_PINS.PIN_A4, ARDUINO_UNO_PINS.PIN_A5];
-  }
-
-  if (block.type === 'led_color_setup') {
-    return block.getFieldValue('WIRE').split('-');
-  }
-
-  if (
-    block.type === 'led_matrix_make_draw' ||
-    block.type === 'led_matrix_turn_one_on_off'
-  ) {
-    return [
-      ARDUINO_UNO_PINS.PIN_10,
-      ARDUINO_UNO_PINS.PIN_11,
-      ARDUINO_UNO_PINS.PIN_12,
-    ];
-  }
-
+const getPins = (block: BlockSvg): ARDUINO_PINS[] => {
   return getFieldValues(block)
-    .filter((field) => field['name'] in PinFieldNames)
-    .map((field) => field.value as ARDUINO_UNO_PINS);
+    .filter((field) => field["name"].includes("PIN"))
+    .map((field) => field.value as ARDUINO_PINS);
 };
 
 const getInputs = (block: BlockSvg): Input[] => {

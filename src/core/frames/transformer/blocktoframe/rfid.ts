@@ -1,9 +1,9 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { RfidState } from '../../arduino-components.state';
-import { RFIDSensor } from '../../../blockly/dto/sensors.type';
-import { arduinoFrameByComponent } from '../frame-transformer.helpers';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
+import { BlockToFrameTransformer } from "../block-to-frame.transformer";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { RfidState } from "../../arduino-components.state";
+import { RFIDSensor } from "../../../blockly/dto/sensors.type";
+import { arduinoFrameByComponent } from "../frame-transformer.helpers";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
 
 export const rfidSetup: BlockToFrameTransformer = (
   blocks,
@@ -19,7 +19,7 @@ export const rfidSetup: BlockToFrameTransformer = (
   const rfidComponent: RfidState = {
     pins: block.pins,
     type: ArduinoComponentType.RFID,
-    txPin: findFieldValue(block, 'TX'),
+    txPin: findFieldValue(block, "PIN_TX"),
     scannedCard: rfidSensorLoop1.scanned_card,
     tag: rfidSensorLoop1.tag,
     cardNumber: rfidSensorLoop1.card_number,
@@ -31,7 +31,7 @@ export const rfidSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       rfidComponent,
-      'Setting up RFID.',
+      "Setting up RFID.",
       previousState
     ),
   ];

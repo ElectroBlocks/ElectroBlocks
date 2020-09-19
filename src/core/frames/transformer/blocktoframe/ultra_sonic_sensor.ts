@@ -1,9 +1,9 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { MotionSensor } from '../../../blockly/dto/sensors.type';
-import { UltraSonicSensorState } from '../../arduino-components.state';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { arduinoFrameByComponent } from '../frame-transformer.helpers';
+import { BlockToFrameTransformer } from "../block-to-frame.transformer";
+import { MotionSensor } from "../../../blockly/dto/sensors.type";
+import { UltraSonicSensorState } from "../../arduino-components.state";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { arduinoFrameByComponent } from "../frame-transformer.helpers";
 
 export const ultraSonicSensor: BlockToFrameTransformer = (
   blocks,
@@ -18,8 +18,8 @@ export const ultraSonicSensor: BlockToFrameTransformer = (
   const ultraSonicState: UltraSonicSensorState = {
     cm: sensorData.cm,
     pins: block.pins,
-    trigPin: findFieldValue(block, 'TRIG'),
-    echoPin: findFieldValue(block, 'ECHO'),
+    trigPin: findFieldValue(block, "PIN_TRIG"),
+    echoPin: findFieldValue(block, "PIN_ECHO"),
     type: ArduinoComponentType.ULTRASONICE_SENSOR,
   };
 
@@ -29,7 +29,7 @@ export const ultraSonicSensor: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       ultraSonicState,
-      'Setting up ultra sonic sensor.',
+      "Setting up ultra sonic sensor.",
       previousState
     ),
   ];

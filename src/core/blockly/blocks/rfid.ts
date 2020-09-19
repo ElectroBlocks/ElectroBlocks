@@ -1,133 +1,133 @@
-import Blockly from 'blockly';
-import { COLOR_THEME } from '../constants/colors';
+import Blockly from "blockly";
+import { COLOR_THEME } from "../constants/colors";
 
-import selectedBoard from '../selectBoard';
-import loopTimes from './helpers/looptimes';
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
+import loopTimes from "./helpers/looptimes";
 
 Blockly.defineBlocksWithJsonArray([
   {
-    type: 'rfid_scan',
-    message0: '%1 Did RFID read scan a new card?',
+    type: "rfid_scan",
+    message0: "%1 Did RFID read scan a new card?",
     args0: [
       {
-        type: 'field_image',
-        src: './blocks/rfid/rfid.png',
+        type: "field_image",
+        src: "./blocks/rfid/rfid.png",
         width: 15,
         height: 15,
-        alt: '*',
+        alt: "*",
         flipRtl: false,
       },
     ],
     inputsInline: false,
-    output: 'Boolean',
+    output: "Boolean",
     colour: COLOR_THEME.SENSOR,
-    tooltip: '',
-    helpUrl: '',
+    tooltip: "",
+    helpUrl: "",
   },
   {
-    type: 'rfid_card',
-    lastDummyAlign0: 'RIGHT',
-    metadata: 'blue',
-    message0: '%1 Get RFID Card Number.',
+    type: "rfid_card",
+    lastDummyAlign0: "RIGHT",
+    metadata: "blue",
+    message0: "%1 Get RFID Card Number.",
     args0: [
       {
-        type: 'field_image',
-        src: './blocks/rfid/rfid.png',
+        type: "field_image",
+        src: "./blocks/rfid/rfid.png",
         width: 15,
         height: 15,
-        alt: '*',
+        alt: "*",
         flipRtl: false,
       },
     ],
     inputsInline: false,
-    output: 'String',
+    output: "String",
     colour: COLOR_THEME.SENSOR,
-    tooltip: '',
-    helpUrl: '',
+    tooltip: "",
+    helpUrl: "",
   },
   {
-    type: 'rfid_tag',
-    lastDummyAlign0: 'RIGHT',
-    metadata: 'blue',
-    message0: '%1 Get RFID Tag',
+    type: "rfid_tag",
+    lastDummyAlign0: "RIGHT",
+    metadata: "blue",
+    message0: "%1 Get RFID Tag",
     args0: [
       {
-        type: 'field_image',
-        src: './blocks/rfid/rfid.png',
+        type: "field_image",
+        src: "./blocks/rfid/rfid.png",
         width: 15,
         height: 15,
-        alt: '*',
+        alt: "*",
         flipRtl: false,
       },
     ],
     inputsInline: false,
-    output: 'String',
+    output: "String",
     colour: COLOR_THEME.SENSOR,
-    tooltip: '',
-    helpUrl: '',
+    tooltip: "",
+    helpUrl: "",
   },
 ]);
 
 const rfidSetupBlock: any = {
   init: function () {
     this.appendDummyInput()
-      .appendField(new Blockly.FieldImage('./blocks/rfid/rfid.png', 15, 15))
-      .appendField('RFID Setup');
+      .appendField(new Blockly.FieldImage("./blocks/rfid/rfid.png", 15, 15))
+      .appendField("RFID Setup");
     this.appendDummyInput()
-      .appendField('TX Pin#')
+      .appendField("TX Pin#")
       .appendField(
-        new Blockly.FieldDropdown(selectedBoard().digitalPins),
-        'TX'
+        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
+        "PIN_TX"
       );
-    this.appendDummyInput('SHOW_CODE_VIEW').appendField(
-      '-----------------------------------------'
+    this.appendDummyInput("SHOW_CODE_VIEW").appendField(
+      "-----------------------------------------"
     );
     this.appendDummyInput()
-      .appendField('LOOP')
+      .appendField("LOOP")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return loopTimes();
         }),
-        'LOOP'
+        "LOOP"
       );
     this.appendDummyInput()
-      .appendField('Scanned Card?')
+      .appendField("Scanned Card?")
       .appendField(
-        new Blockly.FieldCheckbox('TRUE', (value) => {
-          if ('FALSE' === value) {
-            this.getField('card_number').setValue('');
-            this.getField('tag').setValue('');
+        new Blockly.FieldCheckbox("TRUE", (value) => {
+          if ("FALSE" === value) {
+            this.getField("card_number").setValue("");
+            this.getField("tag").setValue("");
           }
           return value;
         }),
-        'scanned_card'
+        "scanned_card"
       );
     this.appendDummyInput()
-      .appendField('Card #:')
+      .appendField("Card #:")
       .appendField(
-        new Blockly.FieldTextInput('card_number', (value) => {
-          if (this.getFieldValue('scanned_card') === 'FALSE') {
+        new Blockly.FieldTextInput("card_number", (value) => {
+          if (this.getFieldValue("scanned_card") === "FALSE") {
             return null;
           }
           return value;
         }),
-        'card_number'
+        "card_number"
       );
     this.appendDummyInput()
-      .appendField('Tag#:')
+      .appendField("Tag#:")
       .appendField(
-        new Blockly.FieldTextInput('tag', (value) => {
-          if (this.getFieldValue('scanned_card') === 'FALSE') {
+        new Blockly.FieldTextInput("tag", (value) => {
+          if (this.getFieldValue("scanned_card") === "FALSE") {
             return null;
           }
           return value;
         }),
-        'tag'
+        "tag"
       );
     this.setColour(COLOR_THEME.SENSOR);
-    this.setTooltip('');
-    this.setHelpUrl('');
+    this.setTooltip("");
+    this.setHelpUrl("");
   },
 };
 
-Blockly.Blocks['rfid_setup'] = rfidSetupBlock;
+Blockly.Blocks["rfid_setup"] = rfidSetupBlock;

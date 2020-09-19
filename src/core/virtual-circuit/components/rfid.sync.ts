@@ -1,44 +1,45 @@
-import { SyncComponent, ResetComponent } from '../svg-sync';
+import { SyncComponent, ResetComponent } from "../svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from '../svg-create';
+} from "../svg-create";
 
-import { RfidState } from '../../frames/arduino-components.state';
-import { Element, Svg } from '@svgdotjs/svg.js';
+import { RfidState } from "../../frames/arduino-components.state";
+import { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from '../svg-position';
-import { createWire, createPowerWire, createGroundWire } from '../wire';
+import { positionComponent } from "../svg-position";
+import { createWire, createPowerWire, createGroundWire } from "../wire";
 
 export const positionRfid: PositionComponent<RfidState> = (
   state,
   rfidEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
-  positionComponent(rfidEl, arduinoEl, draw, state.txPin, 'PIN_TX');
+  positionComponent(rfidEl, arduinoEl, draw, state.txPin, "PIN_TX", board);
   rfidEl.x(rfidEl.x() + 100);
 };
 
 export const createRfid: CreateCompenentHook<RfidState> = (state, rfidEl) => {
-  rfidEl.findOne('#PIN_TEXT_RX').node.innerHTML = state.txPin;
+  rfidEl.findOne("#PIN_TEXT_RX").node.innerHTML = state.txPin;
 };
 
 export const updateRfid: SyncComponent = (state: RfidState, rfidEl) => {
   if (!state.scannedCard) {
-    rfidEl.findOne('#RFID').hide();
+    rfidEl.findOne("#RFID").hide();
     return;
   }
-  rfidEl.findOne('#RFID').show();
+  rfidEl.findOne("#RFID").show();
   rfidEl.findOne(
-    '#CARD_NUMBER_TEXT'
+    "#CARD_NUMBER_TEXT"
   ).node.innerHTML = `Card #: "${state.cardNumber}"`;
-  rfidEl.findOne('#TAG_TEXT').node.innerHTML = `Tag #: "${state.tag}"`;
+  rfidEl.findOne("#TAG_TEXT").node.innerHTML = `Tag #: "${state.tag}"`;
 };
 
 export const resetRfid: ResetComponent = (rfidEl: Element) => {
-  rfidEl.findOne('#RFID').hide();
+  rfidEl.findOne("#RFID").hide();
 };
 
 export const createWiresRfid: CreateWire<RfidState> = (
@@ -46,17 +47,35 @@ export const createWiresRfid: CreateWire<RfidState> = (
   draw,
   rfidEl,
   arduinoEl,
-  id
+  id,
+  board
 ) => {
   createWire(
     rfidEl,
     state.txPin,
-    'PIN_TX',
+    "PIN_TX",
     arduinoEl,
     draw,
-    '#dda824',
-    'tx-pin'
+    "#dda824",
+    "tx-pin",
+    board
   );
-  createPowerWire(rfidEl, state.txPin, arduinoEl as Svg, draw, id, 'left');
-  createGroundWire(rfidEl, state.txPin, arduinoEl as Svg, draw, id, 'left');
+  createPowerWire(
+    rfidEl,
+    state.txPin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
+  createGroundWire(
+    rfidEl,
+    state.txPin,
+    arduinoEl as Svg,
+    draw,
+    id,
+    "left",
+    board
+  );
 };

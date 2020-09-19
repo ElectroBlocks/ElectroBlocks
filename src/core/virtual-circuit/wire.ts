@@ -1,7 +1,8 @@
-import { findComponentConnection, findSvgElement } from './svg-helpers';
-import { Svg, Element, Line } from '@svgdotjs/svg.js';
-import { ARDUINO_UNO_PINS } from '../blockly/selectBoard';
-import _ from 'lodash';
+import { findComponentConnection, findSvgElement } from "./svg-helpers";
+import { Svg, Element, Line } from "@svgdotjs/svg.js";
+import { ARDUINO_PINS } from "../microcontroller/selectBoard";
+import _ from "lodash";
+import { MicroController } from "../microcontroller/microcontroller";
 
 export interface Wire {
   id: string;
@@ -10,87 +11,93 @@ export interface Wire {
 }
 
 export enum WIRE_COLOR {
-  GND = '#000000',
-  POWER = '#FF422A',
+  GND = "#000000",
+  POWER = "#FF422A",
 }
 
 export const createWire = (
   element: Element,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   connectionId: string,
   arduino: Element,
   draw: Svg,
   color: string,
-  type: string
+  type: string,
+  board: MicroController
 ) => {
-  const hole = findBreadboardHoleXY(pin, arduino, draw);
+  const hole = findBreadboardHoleXY(pin, arduino, draw, board);
   const componentPin = findComponentConnection(element, connectionId);
   const line = draw
     .line()
     .plot(hole.x, hole.y, componentPin.x, componentPin.y)
-    .stroke({ width: 2, color: color, linecap: 'round' });
-  line.data('connection-id', connectionId);
-  line.data('component-id', element.id());
-  line.data('wire-type', type);
-  line.data('type', 'wire');
-  line.data('hole-id', pinToBreadboardHole(pin));
+    .stroke({ width: 2, color: color, linecap: "round" });
+  line.data("connection-id", connectionId);
+  line.data("component-id", element.id());
+  line.data("wire-type", type);
+  line.data("type", "wire");
+  line.data("hole-id", board.pinToBreadboardHole(pin));
 
   return line;
 };
 
 export const createGroundWire = (
   element: Element,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   arduino: Svg,
   draw: Svg,
   componentId: string,
-  direction: 'left' | 'right'
+  direction: "left" | "right",
+  board: MicroController
 ) => {
   return createBottomBreadboardWire(
     element,
     pin,
     arduino,
     draw,
-    'PIN_GND',
+    "PIN_GND",
     componentId,
-    'GND',
-    direction
+    "GND",
+    direction,
+    board
   );
 };
 
 export const createPowerWire = (
   element: Element,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   arduino: Svg,
   draw: Svg,
   componentId: string,
-  direction: 'left' | 'right'
+  direction: "left" | "right",
+  board: MicroController
 ) => {
   return createBottomBreadboardWire(
     element,
     pin,
     arduino,
     draw,
-    'PIN_POWER',
+    "PIN_POWER",
     componentId,
-    'POWER',
-    direction
+    "POWER",
+    direction,
+    board
   );
 };
 
 const createBottomBreadboardWire = (
   element: Element,
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   arduino: Svg,
   draw: Svg,
   componentBoxId: string,
   componentId: string,
-  wireType: 'POWER' | 'GND',
-  direction: 'left' | 'right'
+  wireType: "POWER" | "GND",
+  direction: "left" | "right",
+  board: MicroController
 ) => {
-  const breadBoardLetter = wireType === 'POWER' ? 'W' : 'X';
-  const wireColor = wireType === 'POWER' ? WIRE_COLOR.POWER : WIRE_COLOR.GND;
-  const holeId = takeClosestBottomBreadboardHole(pin, direction);
+  const breadBoardLetter = wireType === "POWER" ? "W" : "X";
+  const wireColor = wireType === "POWER" ? WIRE_COLOR.POWER : WIRE_COLOR.GND;
+  const holeId = takeClosestBottomBreadboardHole(pin, direction, board);
   const hole = findSvgElement(`pin${holeId}${breadBoardLetter}`, arduino);
   const holeX = hole.cx() + arduino.x();
   const holeY = hole.cy() + arduino.y();
@@ -99,12 +106,12 @@ const createBottomBreadboardWire = (
   const line = draw
     .line()
     .plot(holeX, holeY, componentPin.x, componentPin.y)
-    .stroke({ width: 2, color: wireColor, linecap: 'round' });
-  line.data('component-id', componentId);
-  line.data('connection-id', componentBoxId);
-  line.data('hole-id', `pin${holeId}${breadBoardLetter}`);
-  line.data('wire-type', 'POWER');
-  line.data('type', 'wire');
+    .stroke({ width: 2, color: wireColor, linecap: "round" });
+  line.data("component-id", componentId);
+  line.data("connection-id", componentBoxId);
+  line.data("hole-id", `pin${holeId}${breadBoardLetter}`);
+  line.data("wire-type", "POWER");
+  line.data("type", "wire");
 
   (window as any).line = line;
   return line;
@@ -116,67 +123,42 @@ export const updateWires = (element: Element, draw: Svg, arduino: Svg) => {
   ) as any[]) as Line[];
   wires
     .filter((w) => {
-      return w.data('type') == 'wire';
+      return w.data("type") == "wire";
     })
     .forEach((w) => {
-      const holeId = w.data('hole-id');
+      const holeId = w.data("hole-id");
       const hole = findSvgElement(holeId, arduino);
       const holeX = hole.cx() + arduino.x();
       const holeY = hole.cy() + arduino.y();
 
-      const connectionId = w.data('connection-id');
+      const connectionId = w.data("connection-id");
       const componentPin = findComponentConnection(element, connectionId);
       w.plot(holeX, holeY, componentPin.x, componentPin.y);
     });
 };
 
 let bottomBreadBoardHoles: Array<{
-  status: 'available' | 'taken';
+  status: "available" | "taken";
   position: number;
 }> = [];
-
-const skipHolesList = [
-  6,
-  9,
-  13,
-  18,
-  22,
-  27,
-  31,
-  37,
-  41,
-  46,
-  51,
-  54,
-  58,
-  61,
-  56,
-  50,
-  44,
-  38,
-  32,
-  26,
-  20,
-  14,
-  8,
-];
 
 export const takeNextBottomBreadboardHole = () => {
   const hole = bottomBreadBoardHoles
     .sort((holeA, holeB) => (holeA.position > holeB.position ? 1 : -1))
-    .find(({ status }) => status === 'available');
+    .find(({ status }) => status === "available");
 
-  hole.status = 'taken';
+  hole.status = "taken";
 
   return hole.position;
 };
 
 export const takeClosestBottomBreadboardHole = (
-  pin: ARDUINO_UNO_PINS,
-  direction: 'right' | 'left'
+  pin: ARDUINO_PINS,
+  direction: "right" | "left",
+  board: MicroController
 ) => {
   const pinNumber = parseInt(
-    pinToBreadboardHole(pin).replace('pin', '').replace('C', ''),
+    board.pinToBreadboardHole(pin).replace("pin", "").replace("C", ""),
     0
   );
 
@@ -187,7 +169,7 @@ export const takeClosestBottomBreadboardHole = (
       );
     })
     .filter((hole) =>
-      direction === 'right'
+      direction === "right"
         ? hole.position > pinNumber
         : hole.position < pinNumber
     );
@@ -200,16 +182,16 @@ export const takeClosestBottomBreadboardHole = (
     });
 
     const selectedBreadBoardHole = sortedHoles.find(
-      (hole) => hole.status === 'available'
+      (hole) => hole.status === "available"
     );
 
-    selectedBreadBoardHole.status = 'taken';
+    selectedBreadBoardHole.status = "taken";
     return selectedBreadBoardHole.position;
   }
 
-  const selectedHole = sortedHoles.find((hole) => hole.status === 'available');
+  const selectedHole = sortedHoles.find((hole) => hole.status === "available");
 
-  selectedHole.status = 'taken';
+  selectedHole.status = "taken";
   return selectedHole.position;
 };
 
@@ -218,87 +200,24 @@ export const returnBottomHole = (position: number) => {
     (hole) => hole.position === position
   );
 
-  bottomBreadBoardHoles[index].status = 'available';
+  bottomBreadBoardHoles[index].status = "available";
 };
 
-export const resetBreadBoardWholes = () => {
+export const resetBreadBoardWholes = (board: MicroController) => {
   bottomBreadBoardHoles = _.range(4, 62)
-    .filter((i) => !skipHolesList.includes(i))
+    .filter((i) => !board.skipHoles.includes(i))
     .map((i) => {
-      return { status: 'available', position: i };
+      return { status: "available", position: i };
     });
 };
 
-export enum ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS {
-  PIN_13 = 'pin2E',
-  PIN_12 = 'pin6E',
-  PIN_11 = 'pin9E',
-  PIN_10 = 'pin13E',
-  PIN_9 = 'pin18E',
-  PIN_8 = 'pin22E',
-  PIN_7 = 'pin27E',
-  PIN_6 = 'pin31E',
-  PIN_5 = 'pin37E',
-  PIN_4 = 'pin41E',
-  PIN_3 = 'pin46E',
-  PIN_2 = 'pin51E',
-  PIN_A0 = 'pin54E',
-  PIN_A1 = 'pin58E',
-  PIN_A2 = 'pin4F',
-  PIN_A3 = 'pin8F',
-  PIN_A4 = 'pin12F',
-  PIN_A5 = 'pin16F',
-}
-
-export const pinToBreadboardHole = (pin: ARDUINO_UNO_PINS) => {
-  switch (pin) {
-    case ARDUINO_UNO_PINS.PIN_2:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_2;
-    case ARDUINO_UNO_PINS.PIN_3:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_3;
-    case ARDUINO_UNO_PINS.PIN_4:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_4;
-    case ARDUINO_UNO_PINS.PIN_5:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_5;
-    case ARDUINO_UNO_PINS.PIN_6:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_6;
-    case ARDUINO_UNO_PINS.PIN_7:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_7;
-    case ARDUINO_UNO_PINS.PIN_8:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_8;
-    case ARDUINO_UNO_PINS.PIN_9:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_9;
-    case ARDUINO_UNO_PINS.PIN_10:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_10;
-    case ARDUINO_UNO_PINS.PIN_11:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_11;
-    case ARDUINO_UNO_PINS.PIN_12:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_12;
-    case ARDUINO_UNO_PINS.PIN_13:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_13;
-    case ARDUINO_UNO_PINS.PIN_A0:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A0;
-    case ARDUINO_UNO_PINS.PIN_A1:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A1;
-    case ARDUINO_UNO_PINS.PIN_A2:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A2;
-    case ARDUINO_UNO_PINS.PIN_A3:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A3;
-    case ARDUINO_UNO_PINS.PIN_A4:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A4;
-    case ARDUINO_UNO_PINS.PIN_A5:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_A5;
-    default:
-      return ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_2;
-  }
-};
-
 export const findBreadboardHoleXY = (
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   arduino: Element,
-  draw: Svg
+  draw: Svg,
+  board: MicroController
 ) => {
-  const hole = findSvgElement(pinToBreadboardHole(pin), draw);
+  const hole = findSvgElement(board.pinToBreadboardHole(pin), draw);
   return {
     x: hole.cx() + arduino.x(),
     y: hole.cy() + arduino.y(),
@@ -306,17 +225,18 @@ export const findBreadboardHoleXY = (
 };
 
 export const findResistorBreadboardHoleXY = (
-  pin: ARDUINO_UNO_PINS,
+  pin: ARDUINO_PINS,
   arduino: Element,
-  draw: Svg
+  draw: Svg,
+  board: MicroController
 ) => {
   const hole = findSvgElement(
-    pinToBreadboardHole(pin).replace('E', 'D').replace('F', 'I'),
+    board.pinToBreadboardHole(pin).replace("E", "D").replace("F", "I"),
     draw
   );
   (window as any).hole = hole;
   return {
     x: hole.cx() + arduino.x(),
-    y: (hole.findOne('circle') as Element).cy() + arduino.y() - 1,
+    y: (hole.findOne("circle") as Element).cy() + arduino.y() - 1,
   };
 };

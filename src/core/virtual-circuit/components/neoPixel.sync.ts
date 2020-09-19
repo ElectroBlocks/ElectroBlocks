@@ -1,38 +1,40 @@
-import { SyncComponent, ResetComponent } from '../svg-sync';
+import { SyncComponent, ResetComponent } from "../svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from '../svg-create';
+} from "../svg-create";
 
-import { NeoPixelState } from '../../frames/arduino-components.state';
-import { Element, Svg } from '@svgdotjs/svg.js';
-import { createWire, createPowerWire, createGroundWire } from '../wire';
-import { ARDUINO_UNO_PINS } from '../../blockly/selectBoard';
-import _ from 'lodash';
-import { rgbToHex } from '../../blockly/helpers/color.helper';
-import { positionComponent } from '../svg-position';
+import { NeoPixelState } from "../../frames/arduino-components.state";
+import { Element, Svg } from "@svgdotjs/svg.js";
+import { createWire, createPowerWire, createGroundWire } from "../wire";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
+import _ from "lodash";
+import { rgbToHex } from "../../blockly/helpers/color.helper";
+import { positionComponent } from "../svg-position";
 
 export const neoPixelCreate: CreateCompenentHook<NeoPixelState> = (
   state,
   neoPixelEl
 ) => {
   showRGBStripLeds(neoPixelEl, state);
-  neoPixelEl.findOne('#DATA_TEXT').node.innerHTML = state.pins[0];
+  neoPixelEl.findOne("#DATA_TEXT").node.innerHTML = state.pins[0];
 };
 
 export const neoPixelPosition: PositionComponent<NeoPixelState> = (
   state,
   neoPixelEl,
   arduino,
-  draw
+  draw,
+  board
 ) => {
   positionComponent(
     neoPixelEl,
     arduino,
     draw,
-    ARDUINO_UNO_PINS.PIN_A2,
-    'PIN_DATA'
+    ARDUINO_PINS.PIN_A2,
+    "PIN_DATA",
+    board
   );
   neoPixelEl.x(neoPixelEl.x() - 100);
 };
@@ -41,7 +43,7 @@ export const neoPixelReset: ResetComponent = (neoPixelEl: Element) => {
   for (let i = 1; i <= 60; i += 1) {
     const ledEl = neoPixelEl.findOne(`#LED-${i} circle`) as Element;
     if (ledEl) {
-      ledEl.fill('#000000');
+      ledEl.fill("#000000");
     }
   }
 };
@@ -65,34 +67,38 @@ export const createWiresNeoPixels: CreateWire<NeoPixelState> = (
   draw,
   neoPixelEl,
   arduino,
-  id
+  id,
+  board
 ) => {
   createWire(
     neoPixelEl,
     state.pins[0],
-    'PIN_DATA',
+    "PIN_DATA",
     arduino,
     draw,
-    '#006837',
-    'data'
+    "#006837",
+    "data",
+    board
   );
 
   createGroundWire(
     neoPixelEl,
-    ARDUINO_UNO_PINS.PIN_13,
+    ARDUINO_PINS.PIN_13,
     arduino as Svg,
     draw,
     id,
-    'left'
+    "left",
+    board
   );
 
   createPowerWire(
     neoPixelEl,
-    ARDUINO_UNO_PINS.PIN_13,
+    ARDUINO_PINS.PIN_13,
     arduino as Svg,
     draw,
     id,
-    'left'
+    "left",
+    board
   );
 };
 
@@ -108,38 +114,38 @@ const showRGBStripLeds = (
     }
   });
   if (neoPixelState.numberOfLeds > 48) {
-    neoPixelEl.findOne('#LEVEL1').show();
-    neoPixelEl.findOne('#LEVEL2').show();
-    neoPixelEl.findOne('#LEVEL3').show();
-    neoPixelEl.findOne('#LEVEL4').show();
+    neoPixelEl.findOne("#LEVEL1").show();
+    neoPixelEl.findOne("#LEVEL2").show();
+    neoPixelEl.findOne("#LEVEL3").show();
+    neoPixelEl.findOne("#LEVEL4").show();
   } else if (
     neoPixelState.numberOfLeds >= 37 &&
     neoPixelState.numberOfLeds <= 48
   ) {
-    neoPixelEl.findOne('#LEVEL1').show();
-    neoPixelEl.findOne('#LEVEL2').show();
-    neoPixelEl.findOne('#LEVEL3').show();
-    neoPixelEl.findOne('#LEVEL4').hide();
+    neoPixelEl.findOne("#LEVEL1").show();
+    neoPixelEl.findOne("#LEVEL2").show();
+    neoPixelEl.findOne("#LEVEL3").show();
+    neoPixelEl.findOne("#LEVEL4").hide();
   } else if (
     neoPixelState.numberOfLeds >= 25 &&
     neoPixelState.numberOfLeds < 37
   ) {
-    neoPixelEl.findOne('#LEVEL1').show();
-    neoPixelEl.findOne('#LEVEL2').show();
-    neoPixelEl.findOne('#LEVEL3').hide();
-    neoPixelEl.findOne('#LEVEL4').hide();
+    neoPixelEl.findOne("#LEVEL1").show();
+    neoPixelEl.findOne("#LEVEL2").show();
+    neoPixelEl.findOne("#LEVEL3").hide();
+    neoPixelEl.findOne("#LEVEL4").hide();
   } else if (
     neoPixelState.numberOfLeds >= 13 &&
     neoPixelState.numberOfLeds <= 24
   ) {
-    neoPixelEl.findOne('#LEVEL1').show();
-    neoPixelEl.findOne('#LEVEL2').hide();
-    neoPixelEl.findOne('#LEVEL3').hide();
-    neoPixelEl.findOne('#LEVEL4').hide();
+    neoPixelEl.findOne("#LEVEL1").show();
+    neoPixelEl.findOne("#LEVEL2").hide();
+    neoPixelEl.findOne("#LEVEL3").hide();
+    neoPixelEl.findOne("#LEVEL4").hide();
   } else if (neoPixelState.numberOfLeds < 12) {
-    neoPixelEl.findOne('#LEVEL1').hide();
-    neoPixelEl.findOne('#LEVEL2').hide();
-    neoPixelEl.findOne('#LEVEL3').hide();
-    neoPixelEl.findOne('#LEVEL4').hide();
+    neoPixelEl.findOne("#LEVEL1").hide();
+    neoPixelEl.findOne("#LEVEL2").hide();
+    neoPixelEl.findOne("#LEVEL3").hide();
+    neoPixelEl.findOne("#LEVEL4").hide();
   }
 };

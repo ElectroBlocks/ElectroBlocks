@@ -1,21 +1,21 @@
 import Blockly from "blockly";
-import selectedBoard from "../selectBoard";
+import { selectBoardBlockly } from "../../microcontroller/selectBoard";
 
 export function stepSerialBegin() {
   Blockly["Arduino"].setupCode_["serial_begin"] =
     "\tSerial.begin(" +
-    selectedBoard().serial_baud_rate +
+    selectBoardBlockly().serial_baud_rate +
     "); \n" +
     "\tSerial.setTimeout(10);\n";
 
   Blockly["Arduino"].setupCode_["debug_clean_pipes"] =
-    "\tdelay(2000); // to prevent noise after uploading code \n";
+    "\tdelay(200); // to prevent noise after uploading code \n";
 
   Blockly["Arduino"].setupCode_[
     "debug_wait_til_ok"
   ] = `while(Serial.readStringUntil('|').indexOf("START_DEBUG") == -1) {
       Serial.println("C_D_B_C_D_B_C_D_B_C_D_B_C_D_B_");
-      delay(500);
+      delay(100);
   }\n\n`;
 }
 

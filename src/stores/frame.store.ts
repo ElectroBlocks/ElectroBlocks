@@ -1,7 +1,12 @@
-import { writable } from 'svelte/store';
-import { ArduinoFrame } from '../core/frames/arduino.frame';
+import { writable } from "svelte/store";
+import { ArduinoFrameContainer } from "../core/frames/arduino.frame";
+import { MicroControllerType } from "../core/microcontroller/microcontroller";
 
-const stateStore = writable<ArduinoFrame[]>([]);
+const stateStore = writable<ArduinoFrameContainer>({
+  frames: [],
+  board: MicroControllerType.ARDUINO_UNO,
+  error: false,
+});
 
 export default {
   subscribe: stateStore.subscribe,

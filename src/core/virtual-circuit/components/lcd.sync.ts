@@ -8,7 +8,7 @@ import {
 import { LCDScreenState } from "../../frames/arduino-components.state";
 import { Element, Svg, Text } from "@svgdotjs/svg.js";
 import { positionComponent } from "../svg-position";
-import { ARDUINO_UNO_PINS } from "../../blockly/selectBoard";
+import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { createGroundWire, createPowerWire, createWire } from "../wire";
 
 /**
@@ -31,20 +31,24 @@ export const lcdCreate: CreateCompenentHook<LCDScreenState> = (
   lcdScreenEl
 ) => {
   centerLetters(lcdScreenEl, state);
+  lcdScreenEl.findOne("#PIN_SCL_TEXT").node.innerHTML = state.sclPin;
+  lcdScreenEl.findOne("#PIN_SDA_TEXT").node.innerHTML = state.sdaPin;
 };
 
 export const lcdPosition: PositionComponent<LCDScreenState> = (
   _,
   lcdScreenEl,
   arduino,
-  draw
+  draw,
+  board
 ) => {
   positionComponent(
     lcdScreenEl,
     arduino,
     draw,
-    ARDUINO_UNO_PINS.PIN_12,
-    "PIN_SCL"
+    ARDUINO_PINS.PIN_12,
+    "PIN_SCL",
+    board
   );
 
   lcdScreenEl.y(lcdScreenEl.y() - 30);
@@ -136,43 +140,40 @@ export const createWiresLcd: CreateWire<LCDScreenState> = (
   draw,
   lcdEl,
   arduino,
-  id
+  id,
+  board
 ) => {
   createGroundWire(
     lcdEl,
-    ARDUINO_UNO_PINS.PIN_12,
+    state.sdaPin,
     arduino as Svg,
     draw,
     id,
-    "left"
+    "left",
+    board
   );
 
-  createPowerWire(
-    lcdEl,
-    ARDUINO_UNO_PINS.PIN_12,
-    arduino as Svg,
-    draw,
-    id,
-    "left"
-  );
+  createPowerWire(lcdEl, state.sdaPin, arduino as Svg, draw, id, "left", board);
 
   createWire(
     lcdEl,
-    ARDUINO_UNO_PINS.PIN_A4,
+    state.sdaPin,
     "PIN_SDA",
     arduino,
     draw,
     "#0071bc",
-    "sda"
+    "sda",
+    board
   );
 
   createWire(
     lcdEl,
-    ARDUINO_UNO_PINS.PIN_A5,
+    state.sclPin,
     "PIN_SCL",
     arduino,
     draw,
     "#f15a24",
-    "scl"
+    "scl",
+    board
   );
 };

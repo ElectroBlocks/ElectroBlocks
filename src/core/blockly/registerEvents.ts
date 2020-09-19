@@ -3,7 +3,7 @@ import { WorkspaceSvg } from "blockly";
 import _ from "lodash";
 
 import codeStore from "../../stores/code.store";
-import stateStore from "../../stores/frame.store";
+import frameStore from "../../stores/frame.store";
 import { getArduinoCode } from "./helpers/workspace.helper";
 
 import { getAllBlocks } from "./helpers/block.helper";
@@ -24,11 +24,14 @@ import { disableSensorReadBlocksWithWrongPins } from "./actions/factories/disabl
 import { disableBlocksThatNeedASetupBlock } from "./actions/factories/disable/disableBlocksThatNeedASetupBlock";
 import { ActionType, DisableBlock, EnableBlock } from "./actions/actions";
 import { eventToFrameFactory } from "../frames/event-to-frame.factory";
-import { ArduinoFrame } from "../frames/arduino.frame";
+import { ArduinoFrame, ArduinoFrameContainer } from "../frames/arduino.frame";
+import { MicroControllerType } from "../microcontroller/microcontroller";
+import { getBoardType } from "./helpers/get-board.helper";
+import { disableBlocksWithInvalidPinNumbers } from "./actions/factories/disable/disableBlocksWithInvalidPinNumbers";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
-let currentFrames: ArduinoFrame[] = [];
+let currentFrameContainter: ArduinoFrameContainer;
 
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (blocklyEvent) => {
@@ -44,24 +47,23 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     ) {
       return;
     }
-
+    const microControllerType = getBoardType() as MicroControllerType;
     const event = transformEvent(
       getAllBlocks(),
       getAllVariables(),
-      blocklyEvent
+      blocklyEvent,
+      microControllerType
     );
     const firstActionPass = [
-      ...deleteUnusedVariables(event),
-      ...saveSensorSetupBlockData(event),
-      ...updateSensorSetupFields(event),
-      ...updateForLoopText(event),
-      ...updateLoopNumberInSensorSetupBlock(event),
-
+      ...disableBlocksWithInvalidPinNumbers(event),
       ...disableSetupBlocksUsingSamePinNumbers(event),
       ...disableSetupBlockWithMultiplePinOutsSamePins(event),
       ...disableDuplicateSetupBlocks(event),
       ...disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(event),
       ...disableDuplicatePinBlocks(event),
+
+      ...disableSensorReadBlocksWithWrongPins(event),
+      ...disableBlocksThatNeedASetupBlock(event),
     ];
 
     firstActionPass.forEach((a) => updater(a));
@@ -71,38 +73,36 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       ) as DisableBlock[]
     );
 
-    const refreshEvent = transformEvent(
-      getAllBlocks(),
-      getAllVariables(),
-      blocklyEvent
-    );
+    if (firstActionPass.length >= 1) {
+      currentFrameContainter = {
+        error: true,
+        frames: [],
+        board: event.microController,
+      };
+      frameStore.set(currentFrameContainter);
+      codeStore.resetCode(microControllerType);
+      return;
+    }
 
     const secondActionPass = [
-      ...disableSensorReadBlocksWithWrongPins(refreshEvent),
-      ...disableBlocksThatNeedASetupBlock(refreshEvent),
+      ...deleteUnusedVariables(event),
+      ...saveSensorSetupBlockData(event),
+      ...updateSensorSetupFields(event),
+      ...updateForLoopText(event),
+      ...updateLoopNumberInSensorSetupBlock(event),
     ];
 
     secondActionPass.forEach((a) => updater(a));
 
-    enableBlocks(
-      [...secondActionPass, ...firstActionPass].filter(
-        (a) => a.type === ActionType.DISABLE_BLOCK
-      ) as DisableBlock[]
-    );
-    const arduinoStateEvent = transformEvent(
-      getAllBlocks(),
-      getAllVariables(),
-      blocklyEvent
-    );
+    const newFrameContainer = eventToFrameFactory(event);
+    console.log("new frames", newFrameContainer);
 
-    const newFrames = eventToFrameFactory(arduinoStateEvent);
-
-    if (!_.isEqual(newFrames, currentFrames)) {
-      currentFrames = newFrames;
-      console.log(arduinoStateEvent, "arduinoStateEvent");
-      stateStore.set(currentFrames);
+    if (!_.isEqual(newFrameContainer, currentFrameContainter)) {
+      currentFrameContainter = newFrameContainer;
+      console.log(event, "arduinoStateEvent");
+      frameStore.set(currentFrameContainter);
     }
-    codeStore.set(getArduinoCode());
+    codeStore.set({ code: getArduinoCode(), boardType: microControllerType });
   });
 };
 

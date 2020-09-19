@@ -1,21 +1,20 @@
-import selectedBoard, { ARDUINO_UNO_PINS } from '../../selectBoard';
-import { getBlocksByName } from '../../helpers/block.helper';
-import _ from 'lodash';
+import { getBlocksByName } from "../../helpers/block.helper";
+import _ from "lodash";
 
 export const configuredPins = (
   setupBlockType: string,
   potentialListOfPins: string[][]
 ) => {
   const pins = getBlocksByName(setupBlockType).map((block) => [
-    block.getFieldValue('PIN'),
-    block.getFieldValue('PIN'),
+    block.getFieldValue("PIN"),
+    block.getFieldValue("PIN"),
   ]);
 
   if (pins.length === 0) {
     return potentialListOfPins;
   }
 
-  return pins || [['NO_PINS', 'NO_PINS']];
+  return pins || [["NO_PINS", "NO_PINS"]];
 };
 
 export const getAvailablePins = (
@@ -35,7 +34,7 @@ export const getAvailablePins = (
   );
 
   if (_.isEmpty(pinList)) {
-    return [['NO_PINS', 'NO_PINS']];
+    return [["NO_PINS", "NO_PINS"]];
   }
 
   return pinList;

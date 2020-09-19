@@ -18,8 +18,8 @@
     await import(
       "prismjs/plugins/highlight-keywords/prism-highlight-keywords.js"
     );
-    codeStore.subscribe(async newCode => {
-      code = Prism.highlight(newCode, Prism.languages.c, "c");
+    codeStore.subscribe(async (codeInfo) => {
+      code = Prism.highlight(codeInfo.code, Prism.languages.c, "c");
     });
 
     loaded = true;
@@ -50,7 +50,8 @@
 </style>
 
 <pre class="line-numbers language-c ">
-  <code class="language-c">
+  <code
+    class="language-c">
     {@html code}
   </code>
 </pre>

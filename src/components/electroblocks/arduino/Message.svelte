@@ -2,12 +2,11 @@
   import arduionMessageStore from "../../../stores/arduino-message.store";
   import codeStore from "../../../stores/code.store";
   import arduinoStore, { PortState } from "../../../stores/arduino.store";
-  import { WindowType, resizeStore } from "../../../stores/resize.store";
 
-  import { upload } from "../../../core/arduino/upload";
-  import selectedBoard from "../../../core/blockly/selectBoard";
+  import { upload } from "../../../core/serial/upload";
 
   import { afterUpdate } from "svelte";
+  import { getBoard } from "../../../core/microcontroller/selectBoard";
 
   // controls whether the messages should autoscroll
   let autoScroll = false;
@@ -15,7 +14,7 @@
   // List of messages
   let messages = [];
 
-  // This is the arduion status where it's open close etc
+  // This is the arduino status where it's open close etc
   let arduinoStatus = PortState.CLOSE;
 
   // This is the value in the input text used to send messages to the Arduino
@@ -23,6 +22,9 @@
 
   // This is the variable storing the arduino code
   let code;
+
+  // The type of board we are using
+  let boardType;
 
   // Message Element for displaying the message
   let messagesEl;
@@ -35,8 +37,9 @@
       ? "fa-spinner fa-spin fa-6x fa-fw"
       : "fa-upload";
 
-  codeStore.subscribe((newCode) => {
-    code = newCode;
+  codeStore.subscribe((codeInfo) => {
+    code = codeInfo.code;
+    boardType = codeInfo.boardType;
   });
 
   arduinoStore.subscribe((status) => {
@@ -51,30 +54,18 @@
       return;
     }
 
+    if (newMessage.message.includes("C_D_B_C_D")) {
+      arduionMessageStore.sendMessage("START_DEBUG");
+    }
+
     if (
       newMessage.message.includes("**(|)") ||
       newMessage.message.includes("DEBUG_BLOCK_") ||
       newMessage.message.includes("stop_debug") ||
       newMessage.message.includes("continue_debug") ||
-      newMessage.message.includes("START_DEBUG")
+      newMessage.message.includes("START_DEBUG") ||
+      newMessage.message.includes("C_D_B_C_D")
     ) {
-      return;
-    }
-    if (newMessage.type === "Arduino" && newMessage.message.includes("C_D_B")) {
-      // We only want to send the intro start debugging message once
-      if (alreadyShownDebugMessage) {
-        return;
-      }
-      alreadyShownDebugMessage = true;
-      messages = [
-        ...messages,
-        {
-          message: "Click the bug to start debugging.",
-          type: "Arduino",
-          id: new Date().getTime() + "_" + Math.random().toString(),
-          time: new Date().toLocaleTimeString(),
-        },
-      ];
       return;
     }
 
@@ -104,25 +95,14 @@
         filters: [{ usbVendorId: 0x2341, usbProductId: 0x0043 }],
       };
       const port = await navigator.serial.requestPort(requestOptions);
-      arduionMessageStore.connect(port).then();
+      const board = getBoard(boardType);
+      arduionMessageStore.connect(port, board.serial_baud_rate).then();
       arduinoStore.set(PortState.OPEN);
     } catch (error) {
       console.error(error, "error");
       console.log("connectArduino error");
       arduinoStore.set(PortState.CLOSE);
     }
-  }
-
-  async function closePort() {
-    arduinoStore.set(PortState.CLOSING);
-    try {
-      await arduionMessageStore.closePort();
-    } catch (e) {
-      console.error(e);
-      console.log("closePort error");
-    }
-
-    arduinoStore.set(PortState.CLOSE);
   }
 
   function sendMessage() {
@@ -144,10 +124,10 @@
     arduinoStore.set(PortState.UPLOADING);
     try {
       const avrgirl = new AvrgirlArduino({
-        board: selectedBoard().type,
+        board: boardType,
         debug: true,
       });
-      await upload(code, avrgirl);
+      await upload(code, avrgirl, boardType);
     } catch (e) {
       console.error(e, "error message");
       alert(
@@ -291,9 +271,7 @@
   <button disabled={!(arduinoStatus === PortState.CLOSE)} on:click={uploadCode}>
     <i class="fa {uploadingClass}" />
   </button>
-  <button on:click={clearMessages}>
-    <i class="fa fa-trash" />
-  </button>
+  <button on:click={clearMessages}> <i class="fa fa-trash" /> </button>
   <button class:scroll-active={autoScroll} on:click={toggleAutoScroll}>
     <i class="fa fa-arrow-down" />
   </button>

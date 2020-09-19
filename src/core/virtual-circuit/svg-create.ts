@@ -1,96 +1,122 @@
-import { createComponentEl } from './svg-helpers';
-import { Element, Svg } from '@svgdotjs/svg.js';
+import { createComponentEl } from "./svg-helpers";
+import { Element, Svg } from "@svgdotjs/svg.js";
 import {
   ArduinoComponentState,
   ArduinoComponentType,
-} from '../frames/arduino.frame';
-import { addDraggableEvent } from './component-events.helpers';
+} from "../frames/arduino.frame";
+import { addDraggableEvent } from "./component-events.helpers";
 import {
   bluetoothPosition,
   createBluetoothWires,
   bluetoothCreate,
-} from './components/bluetooth.sync';
+} from "./components/bluetooth.sync";
 import {
   createButton,
   createWiresButton,
   positionButton,
-} from './components/button.sync';
+} from "./components/button.sync";
 import {
   createIrRemote,
   createWiresIrRemote,
   positionIrRemote,
-} from './components/ir_remote.sync';
-import { createWiresLcd, lcdCreate, lcdPosition } from './components/lcd.sync';
+} from "./components/ir_remote.sync";
+import { createWiresLcd, lcdCreate, lcdPosition } from "./components/lcd.sync";
 import {
   createWiresRgbLed,
   createRgbLed,
   positionRgbLed,
-} from './components/rgbled.sync';
+} from "./components/rgbled.sync";
 import {
   createWiresLedMatrix,
+  ledMatrixCreate,
   ledMatrixPosition,
-} from './components/ledmatrix.sync';
-import { arduinoMessageCreate } from './components/arduino-message.sync';
-import { motorCreate, motorPosition } from './components/motor.sync';
+} from "./components/ledmatrix.sync";
+import { arduinoMessageCreate } from "./components/arduino-message.sync";
+import { motorCreate, motorPosition } from "./components/motor.sync";
 import {
   neoPixelCreate,
   createWiresNeoPixels,
   neoPixelPosition,
-} from './components/neoPixel.sync';
+} from "./components/neoPixel.sync";
 import {
   createDigitalAnalogWire,
   createPinComponent,
   positionPinComponent,
-} from './components/pin.component';
+} from "./components/pin.component";
 import {
   createWiresRfid,
   positionRfid,
   createRfid,
-} from './components/rfid.sync';
+} from "./components/rfid.sync";
 import {
   servoCreate,
   createWiresServo,
   servoPosition,
-} from './components/servo.sync';
+} from "./components/servo.sync";
 import {
   createTemp,
   createWiresTemp,
   positionTemp,
-} from './components/temp.sync';
+} from "./components/temp.sync";
 import {
   createWiresUltraSonicSensor,
   positionUltraSonicSensor,
   createUltraSonicSensor,
-} from './components/ultrasonic.sync';
-import { getSvgString } from './svg-string';
-import { arduinoComponentStateToId } from '../frames/arduino-component-id';
+} from "./components/ultrasonic.sync";
+import { getSvgString } from "./svg-string";
+import { arduinoComponentStateToId } from "../frames/arduino-component-id";
+import { MicroController } from "../microcontroller/microcontroller";
 
 export default (
   state: ArduinoComponentState,
   draw: Svg,
-  arduinoEl: Element
+  arduinoEl: Element,
+  board: MicroController
 ): void => {
   const id = arduinoComponentStateToId(state);
-  let componentEl = draw.findOne('#' + id) as Element;
+  let componentEl = draw.findOne("#" + id) as Element;
 
   if (componentEl) {
     return;
   }
-
   componentEl = createComponentEl(draw, state, getSvgString(state));
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;
-  positionComponentHookFunc[state.type](state, componentEl, arduinoEl, draw);
-  createWires[state.type](state, draw, componentEl, arduinoEl, id);
-  createComponentHookFunc[state.type](state, componentEl, arduinoEl, draw);
+  positionComponentHookFunc[state.type](
+    state,
+    componentEl,
+    arduinoEl,
+    draw,
+    board
+  );
+  createWires[state.type](state, draw, componentEl, arduinoEl, id, board);
+  createComponentHookFunc[state.type](
+    state,
+    componentEl,
+    arduinoEl,
+    draw,
+    board
+  );
 };
 
 export interface PositionComponent<T extends ArduinoComponentState> {
-  (state: T, componentEl: Element, arduinoEl: Element, draw: Svg): void;
+  (
+    state: T,
+    componentEl: Element,
+    arduinoEl: Element,
+    draw: Svg,
+    board: MicroController
+  ): void;
 }
 
 export interface CreateCompenentHook<T extends ArduinoComponentState> {
-  (state: T, componentEl: Element, arduinoEl: Element, draw: Svg): void;
+  (
+    state: T,
+    componentEl: Element,
+    arduinoEl: Element,
+    draw: Svg,
+    board: MicroController
+  ): void;
 }
 
 export interface CreateWire<T extends ArduinoComponentState> {
@@ -99,7 +125,8 @@ export interface CreateWire<T extends ArduinoComponentState> {
     draw: Svg,
     component: Element,
     arduinoEl: Element,
-    componentId: string
+    componentId: string,
+    board: MicroController
   ): void;
 }
 
@@ -169,7 +196,7 @@ const createComponentHookFunc: {
   [ArduinoComponentType.IR_REMOTE]: createIrRemote,
   [ArduinoComponentType.LCD_SCREEN]: lcdCreate,
   [ArduinoComponentType.LED_COLOR]: createRgbLed,
-  [ArduinoComponentType.LED_MATRIX]: emptyCreateHookComponent,
+  [ArduinoComponentType.LED_MATRIX]: ledMatrixCreate,
   [ArduinoComponentType.MESSAGE]: arduinoMessageCreate,
   [ArduinoComponentType.MOTOR]: motorCreate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,

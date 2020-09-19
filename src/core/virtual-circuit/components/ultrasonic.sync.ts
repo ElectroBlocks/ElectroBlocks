@@ -1,32 +1,40 @@
-import { SyncComponent, ResetComponent } from '../svg-sync';
+import { SyncComponent, ResetComponent } from "../svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from '../svg-create';
+} from "../svg-create";
 
-import { UltraSonicSensorState } from '../../frames/arduino-components.state';
-import { Element, Svg } from '@svgdotjs/svg.js';
+import { UltraSonicSensorState } from "../../frames/arduino-components.state";
+import { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from '../svg-position';
-import { createWire, createPowerWire, createGroundWire } from '../wire';
+import { positionComponent } from "../svg-position";
+import { createWire, createPowerWire, createGroundWire } from "../wire";
 
 export const positionUltraSonicSensor: PositionComponent<UltraSonicSensorState> = (
   state,
   ultraSonicEl,
   arduinoEl,
-  draw
+  draw,
+  board
 ) => {
   //todo consider labeling pins in picture
-  positionComponent(ultraSonicEl, arduinoEl, draw, state.trigPin, 'PIN_TRIG');
+  positionComponent(
+    ultraSonicEl,
+    arduinoEl,
+    draw,
+    state.trigPin,
+    "PIN_TRIG",
+    board
+  );
 };
 
 export const createUltraSonicSensor: CreateCompenentHook<UltraSonicSensorState> = (
   state,
   ultraSonicEl
 ) => {
-  ultraSonicEl.findOne('#ECHO_PIN_TEXT').node.innerHTML = state.echoPin;
-  ultraSonicEl.findOne('#TRIG_PIN_TEXT').node.innerHTML = state.trigPin;
+  ultraSonicEl.findOne("#ECHO_PIN_TEXT").node.innerHTML = state.echoPin;
+  ultraSonicEl.findOne("#TRIG_PIN_TEXT").node.innerHTML = state.trigPin;
 };
 
 export const updateUltraSonicSensor: SyncComponent = (
@@ -34,10 +42,10 @@ export const updateUltraSonicSensor: SyncComponent = (
   ultraSonicEl
 ) => {
   const firstDistance = 224;
-  const distanceTextEl = ultraSonicEl.findOne('#DISTANCE_TEXT') as Element;
+  const distanceTextEl = ultraSonicEl.findOne("#DISTANCE_TEXT") as Element;
   distanceTextEl.show();
   const cxTextDistance = distanceTextEl.cx();
-  const distanceEl = ultraSonicEl.findOne('#DISTANCE') as Element;
+  const distanceEl = ultraSonicEl.findOne("#DISTANCE") as Element;
   const distanceNumber =
     firstDistance - state.cm > 100 ? firstDistance - state.cm : 100;
   distanceEl.y(distanceNumber);
@@ -46,7 +54,7 @@ export const updateUltraSonicSensor: SyncComponent = (
 };
 
 export const resetUltraSonicSensor: ResetComponent = (ultraSonicEl) => {
-  const distanceTextEl = ultraSonicEl.findOne('#DISTANCE_TEXT') as Element;
+  const distanceTextEl = ultraSonicEl.findOne("#DISTANCE_TEXT") as Element;
   distanceTextEl.hide();
 };
 
@@ -55,7 +63,8 @@ export const createWiresUltraSonicSensor: CreateWire<UltraSonicSensorState> = (
   draw,
   componentEl,
   arduionEl,
-  id
+  id,
+  board
 ) => {
   createPowerWire(
     componentEl,
@@ -63,25 +72,28 @@ export const createWiresUltraSonicSensor: CreateWire<UltraSonicSensorState> = (
     arduionEl as Svg,
     draw,
     id,
-    'left'
+    "left",
+    board
   );
   createWire(
     componentEl,
     state.trigPin,
-    'PIN_TRIG',
+    "PIN_TRIG",
     arduionEl,
     draw,
-    '#177a6c',
-    'trig-pin'
+    "#177a6c",
+    "trig-pin",
+    board
   );
   createWire(
     componentEl,
     state.echoPin,
-    'PIN_ECHO',
+    "PIN_ECHO",
     arduionEl,
     draw,
-    '#a03368',
-    'echo-pin'
+    "#a03368",
+    "echo-pin",
+    board
   );
   createGroundWire(
     componentEl,
@@ -89,6 +101,7 @@ export const createWiresUltraSonicSensor: CreateWire<UltraSonicSensorState> = (
     arduionEl as Svg,
     draw,
     id,
-    'right'
+    "right",
+    board
   );
 };

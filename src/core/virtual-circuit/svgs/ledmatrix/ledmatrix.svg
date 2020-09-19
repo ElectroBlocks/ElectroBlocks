@@ -1,5 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="250.18" height="281.12" viewBox="0 0 250.18 281.12">
-  <title>ledmatrix</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="250.18" height="281.27" viewBox="0 0 250.18 281.27">
   <g id="Base">
     <rect id="PIN_CLK" x="39.29" y="253.36" width="3.03" height="27.76" rx="1.51" fill="#b3b3b3"/>
     <rect id="PIN_CS" x="79.92" y="253.36" width="3.03" height="27.76" rx="1.51" fill="#b3b3b3"/>
@@ -12,9 +11,9 @@
     <text transform="translate(70.55 250.06)" font-size="15.49" font-family="Biryani-Regular, Biryani">CS</text>
     <text transform="translate(107.6 250.06)" font-size="15.49" font-family="Biryani-Regular, Biryani">Data</text>
     <text transform="translate(25.46 250.06)" font-size="15.49" font-family="Biryani-Regular, Biryani">CLK</text>
-    <text transform="translate(99.12 268.1)" font-size="15.49" font-family="Biryani-Regular, Biryani"><tspan xml:space="preserve">  12</tspan></text>
-    <text transform="translate(54.8 268.1)" font-size="15.49" font-family="Biryani-Regular, Biryani"><tspan xml:space="preserve">  10</tspan></text>
-    <text transform="translate(14.28 268.1)" font-size="15.49" font-family="Biryani-Regular, Biryani"><tspan xml:space="preserve">  11</tspan></text>
+    <text id="PIN_DATA_TEXT" transform="translate(128.61 272.1)" font-size="15.49" font-family="Biryani-Regular, Biryani">12</text>
+    <text id="PIN_CS_TEXT" transform="translate(85.29 272.1)" font-size="15.49" font-family="Biryani-Regular, Biryani">10</text>
+    <text id="PIN_CLK_TEXT" transform="translate(45.18 272.1)" font-size="15.49" font-family="Biryani-Regular, Biryani">11</text>
   </g>
   <g id="_8-8" data-name="8-8">
     <rect x="200.24" y="202.75" width="23.73" height="23.73"/>

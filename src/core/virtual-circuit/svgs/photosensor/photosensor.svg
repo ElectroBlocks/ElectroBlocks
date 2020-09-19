@@ -1,9 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="92.36" height="198.57" viewBox="0 0 92.36 198.57">
-  <title>photosensor</title>
   <g id="wire">
     <path id="PIN_POWER" d="M12.17,174.68h1.25a.37.37,0,0,1,.37.37v22.52a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V175.06A.37.37,0,0,1,12.17,174.68Z" fill="#898883"/>
     <path id="PIN_GND" d="M37.82,174.68h1.25a.37.37,0,0,1,.37.37v22.52a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V175.06A.37.37,0,0,1,37.82,174.68Z" fill="#898883"/>
-    <path id="PIN_DATA" d="M71.66,174.68h1.25a.37.37,0,0,1,.37.37v22.52a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V175.06A.37.37,0,0,1,71.66,174.68Z" fill="#898883"/>
+    <path id="PIN_DATA" d="M70.71,174.68H72a.37.37,0,0,1,.37.37v22.52a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V175.06A.37.37,0,0,1,70.71,174.68Z" fill="#898883"/>
     <text id="READING_VALUE" transform="translate(25.26 18.46)" font-size="21" font-family="Biryani-Bold, Biryani" font-weight="700">332</text>
   </g>
   <g id="sensor">
@@ -20,6 +19,6 @@
     <line x1="35.65" y1="55.51" x2="55.04" y2="55.51" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>
     <text id="PIN_VCC" transform="translate(21.1 173.78) rotate(-90)" font-size="24" font-family="Biryani-Regular, Biryani">+</text>
     <text id="PIN_GND-2" data-name="PIN_GND" transform="translate(33.33 174.49)" font-size="24" font-family="Biryani-Regular, Biryani">-</text>
-    <text id="PIN_TEXT" transform="translate(56.11 176.07) rotate(0.98)" font-size="21" font-family="Biryani-Regular, Biryani">DO</text>
+    <text id="PIN_TEXT" transform="translate(57.1 176.4)" font-size="18" font-family="Biryani-Regular, Biryani">A15</text>
   </g>
 </svg>

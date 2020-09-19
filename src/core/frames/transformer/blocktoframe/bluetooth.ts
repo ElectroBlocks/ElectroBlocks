@@ -1,11 +1,11 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { BluetoothSensor } from '../../../blockly/dto/sensors.type';
-import { BluetoothState } from '../../arduino-components.state';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { arduinoFrameByComponent } from '../frame-transformer.helpers';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { getInputValue } from '../block-to-value.factories';
-import _ from 'lodash';
+import { BlockToFrameTransformer } from "../block-to-frame.transformer";
+import { BluetoothSensor } from "../../../blockly/dto/sensors.type";
+import { BluetoothState } from "../../arduino-components.state";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { arduinoFrameByComponent } from "../frame-transformer.helpers";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { getInputValue } from "../block-to-value.factories";
+import _ from "lodash";
 
 export const bluetoothSetup: BlockToFrameTransformer = (
   blocks,
@@ -20,11 +20,11 @@ export const bluetoothSetup: BlockToFrameTransformer = (
   const bluetoothComponent: BluetoothState = {
     pins: block.pins,
     type: ArduinoComponentType.BLUE_TOOTH,
-    rxPin: findFieldValue(block, 'RX'),
-    txPin: findFieldValue(block, 'TX'),
+    rxPin: findFieldValue(block, "PIN_RX"),
+    txPin: findFieldValue(block, "PIN_TX"),
     hasMessage: btSensor.receiving_message,
     message: btSensor.message,
-    sendMessage: '',
+    sendMessage: "",
   };
 
   return [
@@ -33,7 +33,7 @@ export const bluetoothSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       bluetoothComponent,
-      'Setting up Bluetooth.',
+      "Setting up Bluetooth.",
       previousState
     ),
   ];
@@ -51,8 +51,8 @@ export const bluetoothMessage: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    'MESSAGE',
-    '',
+    "MESSAGE",
+    "",
     previousState
   );
   const btComponent = previousState.components.find(
