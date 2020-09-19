@@ -74,7 +74,10 @@ const hideAllWires = (arduino: Element, board: MicroController) => {
 };
 
 const showWire = (arduino: Element, wire: string) => {
-  arduino.findOne("#PIN_" + wire).show();
+  const wireSvg = arduino.findOne("#PIN_" + wire);
+  if (wireSvg) {
+    wireSvg.show();
+  }
 };
 
 const deleteUnusedComponents = (draw: Svg, frame: ArduinoFrame | undefined) => {

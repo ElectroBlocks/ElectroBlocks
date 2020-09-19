@@ -1,12 +1,12 @@
-import { BlockEvent } from '../../../dto/event.type';
-import { DisableBlock, ActionType } from '../../actions';
+import { BlockEvent } from "../../../dto/event.type";
+import { DisableBlock, ActionType } from "../../actions";
 import {
   BlockType,
   blocksThatRequireSetup,
   multipleTopBlocks,
-} from '../../../dto/block.type';
+} from "../../../dto/block.type";
 
-import _ from 'lodash';
+import _ from "lodash";
 
 /**
  * Disable Sensor Read blocks that do not have the right pin selected.
@@ -39,11 +39,7 @@ export const disableSensorReadBlocksWithWrongPins = (
   return sensorReadBlocks
     .filter((block) => {
       const availablePins = setupBlocks
-        .filter(
-          (b) =>
-            blocksThatRequireSetup[block.blockName] === b.blockName &&
-            !b.disabled
-        )
+        .filter((b) => blocksThatRequireSetup[block.blockName] === b.blockName)
         .reduce((prev, next) => _.union(prev, next.pins), []);
       return _.intersection(block.pins, availablePins).length === 0;
     })
@@ -51,7 +47,7 @@ export const disableSensorReadBlocksWithWrongPins = (
       return {
         blockId: block.id,
         type: ActionType.DISABLE_BLOCK,
-        warningText: 'Please change the pin number to match the setup block',
+        warningText: "Please change the pin number to match the setup block",
       };
     });
 };

@@ -13,14 +13,19 @@ import { getAllVariables } from "../core/blockly/helpers/variable.helper";
 import { transformVariable } from "../core/blockly/transformers/variables.transformer";
 import Blockly from "blockly";
 
-export const createArduinoAndWorkSpace = (): [WorkspaceSvg, BlockSvg] => {
+export const createArduinoAndWorkSpace = (): [
+  WorkspaceSvg,
+  BlockSvg,
+  BlockSvg
+] => {
   const workspace = new Workspace() as WorkspaceSvg;
   jest
     .spyOn(helpers, "getWorkspace")
     .mockReturnValue(workspace as WorkspaceSvg);
   const arduinoBlock = workspace.newBlock("arduino_loop") as BlockSvg;
+  const boardSelector = workspace.newBlock("board_selector") as BlockSvg;
 
-  return [workspace, arduinoBlock];
+  return [workspace, arduinoBlock, boardSelector];
 };
 
 export const verifyVariable = (

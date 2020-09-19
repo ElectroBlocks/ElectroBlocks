@@ -1,19 +1,13 @@
 import Blockly from "blockly";
-import is_browser from "../../../helpers/is_browser";
-import { debug } from "console";
+import { MicroControllerType } from "../../microcontroller/microcontroller";
+import { getBlockByType } from "./block.helper";
 
-export const getBoardType = (): string => {
+export const getBoardType = (): MicroControllerType => {
   // This is done for server side rendering and when blockly may
   // not be itiliazed
-  if (Blockly.getMainWorkspace()) {
-    const block = Blockly.getMainWorkspace()
-      .getAllBlocks(true)
-      .find((b) => b.type === "board_selector");
-
-    return block.getFieldValue("boardtype");
-  }
+  const block = getBlockByType("board_selector");
 
   // Sometimes that block won't be there
   // because of server side rendering
-  return "uno";
+  return block ? block.getFieldValue("boardtype") : "uno";
 };

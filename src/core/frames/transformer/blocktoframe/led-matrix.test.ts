@@ -33,6 +33,9 @@ describe("led matrix  factories", () => {
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
     ledmatrixsetup = workspace.newBlock("led_matrix_setup") as BlockSvg;
+    ledmatrixsetup.setFieldValue("12", "PIN_DATA");
+    ledmatrixsetup.setFieldValue("10", "PIN_CLK");
+    ledmatrixsetup.setFieldValue("11", "PIN_CS");
   });
 
   test("should be able to draw with the led and should be limited", () => {

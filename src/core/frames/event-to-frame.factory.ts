@@ -105,6 +105,7 @@ export const eventToFrameFactory = (
   return {
     board: event.microController,
     frames: framesWithLoop,
+    error: false,
   };
 };
 

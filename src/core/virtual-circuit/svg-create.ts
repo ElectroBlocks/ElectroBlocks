@@ -3,7 +3,6 @@ import { Element, Svg } from "@svgdotjs/svg.js";
 import {
   ArduinoComponentState,
   ArduinoComponentType,
-  ArduinoFrameContainer,
 } from "../frames/arduino.frame";
 import { addDraggableEvent } from "./component-events.helpers";
 import {

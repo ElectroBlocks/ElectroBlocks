@@ -20,7 +20,6 @@ export const getBoard = (type: MicroControllerType) => {
 
 export const selectBoardBlockly = (): MicroControllerBlocks => {
   const boardType = getBoardType();
-
   return transformBoardBlockly(boardProfiles[boardType]);
 };
 

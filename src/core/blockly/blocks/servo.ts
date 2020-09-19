@@ -11,7 +11,9 @@ Blockly.Blocks["rotate_servo"] = {
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField("Pin# ")
       .appendField(
-        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
+        new Blockly.FieldDropdown(() => {
+          return selectBoardBlockly().digitalPins;
+        }),
         "PIN"
       );
     this.appendValueInput("DEGREE")

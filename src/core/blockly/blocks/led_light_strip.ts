@@ -50,7 +50,7 @@ Blockly.Blocks["neo_pixel_setup"] = {
     this.appendDummyInput()
       .appendField("Analog Data Pin")
       .appendField(
-        new Blockly.FieldDropdown(() => selectBoardBlockly().analogPins),
+        new Blockly.FieldDropdown(() => selectBoardBlockly().pwmPins),
         "PIN"
       );
     this.appendDummyInput()

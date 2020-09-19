@@ -5,6 +5,7 @@ import { MicroControllerType } from "../core/microcontroller/microcontroller";
 const stateStore = writable<ArduinoFrameContainer>({
   frames: [],
   board: MicroControllerType.ARDUINO_UNO,
+  error: false,
 });
 
 export default {

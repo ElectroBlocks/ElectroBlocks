@@ -5,6 +5,7 @@ import { MicroControllerType } from "../microcontroller/microcontroller";
 export interface ArduinoFrameContainer {
   board: MicroControllerType;
   frames: ArduinoFrame[];
+  error: boolean;
 }
 
 export interface ArduinoFrame {
