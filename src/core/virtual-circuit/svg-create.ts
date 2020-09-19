@@ -65,11 +65,7 @@ import {
 } from "./components/ultrasonic.sync";
 import { getSvgString } from "./svg-string";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
-import {
-  MicroController,
-  MicroControllerType,
-} from "../microcontroller/microcontroller";
-import { selectedBoard } from "../microcontroller/selectBoard";
+import { MicroController } from "../microcontroller/microcontroller";
 
 export default (
   state: ArduinoComponentState,
@@ -83,7 +79,6 @@ export default (
   if (componentEl) {
     return;
   }
-  selectedBoard();
   componentEl = createComponentEl(draw, state, getSvgString(state));
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;

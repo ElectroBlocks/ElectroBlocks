@@ -1,5 +1,4 @@
 import { writable } from "svelte/store";
-import { selectedBoard } from "../core/microcontroller/selectBoard";
 import { LineBreakTransformer } from "../core/serial/linebreak.transformer";
 
 export interface ArduinoMessage {
@@ -14,10 +13,10 @@ let writer: WritableStreamDefaultWriter | undefined;
 let reader: ReadableStreamDefaultReader | undefined;
 const arduinoMessageStore = writable<ArduinoMessage>(undefined);
 
-const connect = async (newPort: any) => {
+const connect = async (newPort: any, baudrate: number) => {
   await closePort();
   port = newPort;
-  await port.open({ baudrate: selectedBoard().serial_baud_rate });
+  await port.open({ baudrate: baudrate });
 
   // Link https://codelabs.developers.google.com/codelabs/web-serial/#6
   // Writing Section

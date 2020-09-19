@@ -8,12 +8,6 @@ import { transformBoardBlockly } from "./microcontroller.helpers";
 import { getBoardType } from "../blockly/helpers/get-board.helper";
 import arduinoMega from "./arduino_mega.board";
 
-export const selectedBoard = (): MicroController => {
-  const boardType = getBoardType();
-
-  return boardProfiles[boardType];
-};
-
 export const getBoard = (type: MicroControllerType) => {
   return boardProfiles[type] || boardProfiles[MicroControllerType.ARDUINO_UNO];
 };

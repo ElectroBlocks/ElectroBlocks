@@ -80,7 +80,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
         board: event.microController,
       };
       frameStore.set(currentFrameContainter);
-      codeStore.resetCode();
+      codeStore.resetCode(microControllerType);
       return;
     }
 
@@ -102,7 +102,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       console.log(event, "arduinoStateEvent");
       frameStore.set(currentFrameContainter);
     }
-    codeStore.set(getArduinoCode());
+    codeStore.set({ code: getArduinoCode(), boardType: microControllerType });
   });
 };
 
