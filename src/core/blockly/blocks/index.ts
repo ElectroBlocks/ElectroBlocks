@@ -1,5 +1,5 @@
 import "./arduino_blocks";
-import "./bluetooth";
+import "../../../plugins/components/bluetooth/bluetooth.blocks";
 import "./board_selector";
 import "./buttons";
 import "./debug";

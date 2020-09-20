@@ -1,7 +1,6 @@
 import { BlockData } from "../../blockly/dto/block.type";
 import { Timeline, ArduinoFrame } from "../arduino.frame";
 import { rfidSetup } from "./blocktoframe/rfid";
-import { bluetoothSetup, bluetoothMessage } from "./blocktoframe/bluetooth";
 import _ from "lodash";
 import { messageSetup, arduinoSendMessage } from "./blocktoframe/message";
 import { timeSetup } from "./blocktoframe/time";
@@ -52,6 +51,10 @@ import {
   findBlockById,
   findInputStatementStartBlock,
 } from "../../blockly/helpers/block-data.helper";
+import {
+  bluetoothMessage,
+  bluetoothSetup,
+} from "../../../plugins/components/bluetooth/bluetooth.blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

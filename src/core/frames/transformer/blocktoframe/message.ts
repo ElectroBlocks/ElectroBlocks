@@ -1,10 +1,11 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { ArduinoReceiveMessageState } from '../../arduino-components.state';
-import { BluetoothSensor } from '../../../blockly/dto/sensors.type';
-import { arduinoFrameByComponent } from '../frame-transformer.helpers';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { getInputValue } from '../block-to-value.factories';
-import _ from 'lodash';
+import { BlockToFrameTransformer } from "../block-to-frame.transformer";
+import { ArduinoReceiveMessageState } from "../../arduino-components.state";
+import { arduinoFrameByComponent } from "../frame-transformer.helpers";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { getInputValue } from "../block-to-value.factories";
+import _ from "lodash";
+//TODO FIX SO IT GETS OFF BLUETOOTH STATE
+import { BluetoothSensor } from "../../../../plugins/components/bluetooth/bluetooth.state";
 
 export const messageSetup: BlockToFrameTransformer = (
   blocks,
@@ -13,6 +14,7 @@ export const messageSetup: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
+  // TODO FIX WITH MESSAGE
   const messageDatum = JSON.parse(block.metaData) as BluetoothSensor[];
   const messbtnData = messageDatum.find((d) => d.loop == 1);
 
@@ -29,7 +31,7 @@ export const messageSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       messageComponent,
-      'Setting up Arduino messages.',
+      "Setting up Arduino messages.",
       previousState
     ),
   ];
@@ -47,8 +49,8 @@ export const arduinoSendMessage: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    'MESSAGE',
-    '',
+    "MESSAGE",
+    "",
     previousState
   );
 

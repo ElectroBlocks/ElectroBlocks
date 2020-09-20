@@ -1,12 +1,6 @@
-
 export interface Sensor {
   loop: number;
   blockName: string;
-}
-
-export interface BluetoothSensor extends Sensor {
-  receiving_message: boolean;
-  message: string;
 }
 
 export interface ButtonSensor extends Sensor {

@@ -8,18 +8,18 @@ import {
   SaveSetupSensorData,
   ActionType,
   Action,
-} from './actions/actions';
-import { deleteVariable } from './helpers/variable.helper';
-import { getBlockById } from './helpers/block.helper';
-import _ from 'lodash';
-import Blockly from 'blockly';
+} from "./actions/actions";
+import { deleteVariable } from "./helpers/variable.helper";
+import { getBlockById } from "./helpers/block.helper";
+import _ from "lodash";
+import Blockly from "blockly";
 
 export interface Updater {
   (action: Action): void;
 }
 
 const updateVariable = (action: VariableAction) => {
-  if (action.actionType === 'delete') {
+  if (action.actionType === "delete") {
     deleteVariable(action.variableId);
   }
 };
@@ -38,7 +38,7 @@ const updateSetupSensorBlockFields = (action: UpdateSetupSensorBlockFields) => {
       const blocklyField = block.getField(field.name);
       if (blocklyField instanceof Blockly.FieldCheckbox) {
         block.setFieldValue(
-          field.value === 1 || field.value === true ? 'TRUE' : 'FALSE',
+          field.value === 1 || field.value === true ? "TRUE" : "FALSE",
           field.name
         );
         return;
@@ -52,7 +52,7 @@ const updateSetupSensorBlockLoopField = (
   action: UpdateSetupSensorBlockLoop
 ) => {
   const block = getBlockById(action.blockId);
-  block.setFieldValue(action.loop.toString(), 'LOOP');
+  block.setFieldValue(action.loop.toString(), "LOOP");
 };
 
 const updateDisableBlock = (action: DisableBlock) => {
@@ -92,7 +92,7 @@ const updaterList: { [key: string]: Updater } = {
 
 export const updater = (action: Action) => {
   if (!updaterList[action.type]) {
-    throw new Error('No updater found for action type: ' + action.type);
+    throw new Error("No updater found for action type: " + action.type);
   }
 
   return updaterList[action.type](action);

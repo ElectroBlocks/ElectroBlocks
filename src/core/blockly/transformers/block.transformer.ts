@@ -5,7 +5,6 @@ import {
   InputStatement,
   blocksToBlockTypes,
   FieldValue,
-  PinFieldNames,
   BlocklyInputTypes,
 } from "../dto/block.type";
 import _ from "lodash";

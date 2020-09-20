@@ -2,7 +2,6 @@ import _ from "lodash";
 
 import {
   Sensor,
-  BluetoothSensor,
   ButtonSensor,
   IRRemoteSensor,
   PinSensor,
@@ -19,7 +18,6 @@ import {
   ArduinoComponentType,
 } from "../../frames/arduino.frame";
 import {
-  BluetoothState,
   ButtonState,
   IRRemoteState,
   PinState,
@@ -31,6 +29,12 @@ import {
   ArduinoReceiveMessageState,
 } from "../../frames/arduino-components.state";
 import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
+import { findSensorState } from "../helpers/sensor_block.helper";
+import {
+  BluetoothSensor,
+  saveBluetoothDataInSetupBlock,
+  setupBlockToBluetoothState,
+} from "../../../plugins/components/bluetooth/bluetooth.state";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -39,35 +43,6 @@ interface RetrieveSensorData {
 interface BlockToComponentState {
   (block: BlockData, timeline: Timeline): ArduinoComponentState;
 }
-
-const bluetoothData = (block: BlockData): BluetoothSensor => {
-  return {
-    receiving_message: findFieldValue(block, "receiving_message") === "TRUE",
-    message: findFieldValue(block, "message"),
-    loop: +findFieldValue(block, "LOOP"),
-    blockName: block.blockName,
-  };
-};
-
-const bluetoothState = (
-  block: BlockData,
-  timeline: Timeline
-): BluetoothState => {
-  const btState = findSensorState<BluetoothSensor>(block, timeline);
-
-  return {
-    type: ArduinoComponentType.BLUE_TOOTH,
-    rxPin: findFieldValue(block, "PIN_RX") as ARDUINO_PINS,
-    txPin: findFieldValue(block, "PIN_TX") as ARDUINO_PINS,
-    pins: [
-      findFieldValue(block, "PIN_TX") as ARDUINO_PINS,
-      findFieldValue(block, "PIN_RX") as ARDUINO_PINS,
-    ],
-    hasMessage: btState.receiving_message,
-    message: btState.message,
-    sendMessage: "",
-  };
-};
 
 const buttonData = (block: BlockData): ButtonSensor => {
   return {
@@ -231,6 +206,7 @@ const messageState = (
   block: BlockData,
   timeline: Timeline
 ): ArduinoReceiveMessageState => {
+  // TODO FIX WITH MESSAGE
   const btState = findSensorState<BluetoothSensor>(block, timeline);
 
   return {
@@ -241,23 +217,8 @@ const messageState = (
   };
 };
 
-const findSensorState = <S extends Sensor>(
-  block: BlockData,
-  timeline: Timeline
-): S => {
-  const sensorStates = JSON.parse(block.metaData) as S[];
-
-  return sensorStates.find((s) => {
-    return (
-      s.loop === timeline.iteration ||
-      ((timeline.function === "pre-setup" || timeline.function === "setup") &&
-        s.loop === 1)
-    );
-  }) as S;
-};
-
 const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
-  bluetooth_setup: bluetoothData,
+  bluetooth_setup: saveBluetoothDataInSetupBlock,
   button_setup: buttonData,
   ir_remote_setup: irRemoteData,
   digital_read_setup: digitalReadSetup,
@@ -266,13 +227,13 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   temp_setup: tempSetup,
   time_setup: timeSetup,
   ultra_sonic_sensor_setup: ultraSonicSensor,
-  message_setup: bluetoothData,
+  message_setup: saveBluetoothDataInSetupBlock,
 };
 
 const blockToSensorComponent: {
   [blockName: string]: BlockToComponentState;
 } = {
-  bluetooth_setup: bluetoothState,
+  bluetooth_setup: setupBlockToBluetoothState,
   button_setup: buttonState,
   ir_remote_setup: irRemoteState,
   digital_read_setup: pinReadState(PIN_TYPE.DIGITAL_INPUT),

@@ -1,5 +1,5 @@
 import Blockly from "blockly";
-import { selectBoardBlockly } from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../../core/microcontroller/selectBoard";
 
 Blockly["Arduino"]["bluetooth_setup"] = function (block) {
   const rxPin = block.getFieldValue("RX");

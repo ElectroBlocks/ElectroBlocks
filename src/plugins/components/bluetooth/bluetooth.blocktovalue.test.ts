@@ -1,33 +1,26 @@
 import "jest";
-import "../../../blockly/blocks";
+import "../../../core/blockly/blockslocks";
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
 import {
   getAllBlocks,
   getBlockById,
   connectToArduinoBlock,
-} from "../../../blockly/helpers/block.helper";
+} from "../../../core/blockly/helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
-import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
-import { updater } from "../../../blockly/updater";
-import {
-  ArduinoFrame,
-  ArduinoComponentType,
-  ArduinoComponentState,
-} from "../../arduino.frame";
-import { BluetoothState } from "../../arduino-components.state";
+
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
-import { findComponent } from "../frame-transformer.helpers";
+} from "../../../tests/tests.helper";
+import { VariableTypes } from "../../../core/blockly/dto/variable.type";
+import { saveSensorSetupBlockData } from "../../../core/blockly/actions/factories/saveSensorSetupBlockData";
+import { updater } from "../../../core/blockly/updater";
+import { ARDUINO_PINS } from "../../../core/microcontroller/selectBoard";
+import { ArduinoComponentType } from "../../../core/frames/arduino.frame";
+import { findComponent } from "../../../core/frames/transformer/frame-transformer.helpers";
+import { eventToFrameFactory } from "../../../core/frames/event-to-frame.factory";
+import { BluetoothState } from "./bluetooth.state";
 
 describe("bluetooth state factories", () => {
   let workspace: Workspace;

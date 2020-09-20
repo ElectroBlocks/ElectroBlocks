@@ -1,18 +1,9 @@
 import "jest";
 import "../../../blockly/blocks";
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
-import {
-  getAllBlocks,
-  getBlockById,
-  connectToArduinoBlock,
-} from "../../../blockly/helpers/block.helper";
+import { connectToArduinoBlock } from "../../../blockly/helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
 import { updater } from "../../../blockly/updater";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
@@ -22,10 +13,7 @@ import {
   createValueBlock,
   createTestEvent,
 } from "../../../../tests/tests.helper";
-import { BluetoothSensor } from "../../../blockly/dto/sensors.type";
 import { VariableTypes } from "../../../blockly/dto/variable.type";
-import { sensorSetupBlocks } from "../../../blockly/dto/block.type";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
 describe("arduino message state factories", () => {
   let workspace: Workspace;

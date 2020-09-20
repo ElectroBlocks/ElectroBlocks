@@ -38,14 +38,6 @@ export const BlockTypeRequireRootBlock = [
   BlockType.SENSOR_READ,
 ];
 
-export enum PinFieldNames {
-  RX = "RX",
-  TX = "TX",
-  PIN = "PIN",
-  ECHO = "ECHO",
-  TRIG = "TRIG",
-}
-
 export enum BlocklyInputTypes {
   INPUT_STATEMENT = 3,
   INPUT_BLOCK = 1,

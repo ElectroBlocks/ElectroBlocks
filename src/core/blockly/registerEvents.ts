@@ -94,7 +94,16 @@ const registerEvents = (workspace: WorkspaceSvg) => {
 
     secondActionPass.forEach((a) => updater(a));
 
-    const newFrameContainer = eventToFrameFactory(event);
+    // We need this because we save the sensor setup data to the
+    // block.
+    const refreshEvent = transformEvent(
+      getAllBlocks(),
+      getAllVariables(),
+      blocklyEvent,
+      microControllerType
+    );
+
+    const newFrameContainer = eventToFrameFactory(refreshEvent);
     console.log("new frames", newFrameContainer);
 
     if (!_.isEqual(newFrameContainer, currentFrameContainter)) {

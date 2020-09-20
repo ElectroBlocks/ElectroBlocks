@@ -1,14 +1,20 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
-import {
-  PositionComponent,
-  CreateWire,
-  CreateCompenentHook,
-} from "../svg-create";
-
-import { BluetoothState } from "../../frames/arduino-components.state";
 import { Element, Svg, Text } from "@svgdotjs/svg.js";
-import { positionComponent } from "../svg-position";
-import { createWire, createGroundWire, createPowerWire } from "../wire";
+import {
+  CreateCompenentHook,
+  CreateWire,
+  PositionComponent,
+} from "../../../core/virtual-circuit/svg-create";
+import { positionComponent } from "../../../core/virtual-circuit/svg-position";
+import {
+  ResetComponent,
+  SyncComponent,
+} from "../../../core/virtual-circuit/svg-sync";
+import {
+  createGroundWire,
+  createPowerWire,
+  createWire,
+} from "../../../core/virtual-circuit/wire";
+import { BluetoothState } from "./bluetooth.state";
 
 export const bluetoothReset: ResetComponent = (bluetoothEl: Element) => {
   bluetoothEl.findOne("#MESSAGE_LAYER").hide();
@@ -77,7 +83,6 @@ export const createBluetoothWires: CreateWire<BluetoothState> = (
   board
 ) => {
   const { rxPin, txPin } = state;
-  console.log(board, "board");
   createWire(
     bluetoothEl,
     rxPin,

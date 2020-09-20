@@ -6,14 +6,6 @@ export interface ArduinoReceiveMessageState extends ArduinoComponentState {
   message: string;
 }
 
-export interface BluetoothState extends ArduinoComponentState {
-  rxPin: ARDUINO_PINS;
-  txPin: ARDUINO_PINS;
-  hasMessage: boolean;
-  message: string;
-  sendMessage: string;
-}
-
 export interface ButtonState extends ArduinoComponentState {
   isPressed: boolean;
 }

@@ -1,16 +1,15 @@
-import { BlockEvent } from '../../dto/event.type';
-import { SaveSetupSensorData, ActionType } from '../actions';
-import { BlockType } from '../../dto/block.type';
-import _ from 'lodash';
-import { convertToSensorData } from '../../transformers/sensor-data.transformer';
-import { getLoopTimeFromBlockData } from '../../helpers/block-data.helper';
+import { BlockEvent } from "../../dto/event.type";
+import { SaveSetupSensorData, ActionType } from "../actions";
+import { BlockType } from "../../dto/block.type";
+import _ from "lodash";
+import { convertToSensorData } from "../../transformers/sensor-data.transformer";
+import { getLoopTimeFromBlockData } from "../../helpers/block-data.helper";
 
 export const saveSensorSetupBlockData = (
   event: BlockEvent
 ): SaveSetupSensorData[] => {
   const { fieldName, blockId, blocks, fieldType } = event;
-
-  if (fieldName == 'LOOP' && fieldType === 'field') {
+  if (fieldName == "LOOP" && fieldType === "field") {
     return [];
   }
 
@@ -21,7 +20,7 @@ export const saveSensorSetupBlockData = (
   if (
     !block ||
     block.type !== BlockType.SENSOR_SETUP ||
-    block.blockName === 'time_setup'
+    block.blockName === "time_setup"
   ) {
     return [];
   }

@@ -1,11 +1,10 @@
-import { BlockToFrameTransformer } from "../block-to-frame.transformer";
-import { BluetoothSensor } from "../../../blockly/dto/sensors.type";
-import { BluetoothState } from "../../arduino-components.state";
-import { ArduinoComponentType } from "../../arduino.frame";
-import { arduinoFrameByComponent } from "../frame-transformer.helpers";
-import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
-import { getInputValue } from "../block-to-value.factories";
+import { BlockToFrameTransformer } from "../../../core/frames/transformer/block-to-frame.transformer";
 import _ from "lodash";
+import { ArduinoComponentType } from "../../../core/frames/arduino.frame";
+import { findFieldValue } from "../../../core/blockly/helpers/block-data.helper";
+import { arduinoFrameByComponent } from "../../../core/frames/transformer/frame-transformer.helpers";
+import { getInputValue } from "../../../core/frames/transformer/block-to-value.factories";
+import { BluetoothSensor, BluetoothState } from "./bluetooth.state";
 
 export const bluetoothSetup: BlockToFrameTransformer = (
   blocks,
