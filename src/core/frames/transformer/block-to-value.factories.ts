@@ -41,7 +41,7 @@ import {
   getBtMessage,
   hasBtMessage,
 } from "../../../plugins/components/bluetooth/blocktovalue";
-import { isButtonPressed } from "../../../plugins/components/button/button.blocktovalue";
+import { isButtonPressed } from "../../../plugins/components/button/blocktovalue";
 
 export interface ValueGenerator {
   (

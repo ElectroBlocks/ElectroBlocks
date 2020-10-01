@@ -6,10 +6,6 @@ export interface ArduinoReceiveMessageState extends ArduinoComponentState {
   message: string;
 }
 
-export interface ButtonState extends ArduinoComponentState {
-  isPressed: boolean;
-}
-
 export interface IRRemoteState extends ArduinoComponentState {
   hasCode: boolean;
   code: string;

@@ -2,7 +2,7 @@ import "./arduino";
 import "./arduino_blocks";
 import "../../../plugins/components/bluetooth/generator";
 import "./board_selector";
-import "../../../plugins/components/button/button.generator";
+import "../../../plugins/components/button/generator";
 import "./colour";
 import "./debug";
 import "./ir_remote";

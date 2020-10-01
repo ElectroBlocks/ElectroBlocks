@@ -3,10 +3,6 @@ export interface Sensor {
   blockName: string;
 }
 
-export interface ButtonSensor extends Sensor {
-  is_pressed: boolean;
-}
-
 export interface IRRemoteSensor extends Sensor {
   scanned_new_code: boolean;
   code: string;

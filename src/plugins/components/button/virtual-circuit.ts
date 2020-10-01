@@ -8,13 +8,13 @@ import {
   CreateCompenentHook,
 } from "../../../core/virtual-circuit/svg-create";
 
-import { ButtonState } from "../../../core/frames/arduino-components.state";
 import { Element, Svg } from "@svgdotjs/svg.js";
 import {
   createWire,
   createGroundWire,
 } from "../../../core/virtual-circuit/wire";
 import { positionComponent } from "../../../core/virtual-circuit/svg-position";
+import { ButtonState } from "./state";
 
 export const positionButton: PositionComponent<ButtonState> = (
   state,

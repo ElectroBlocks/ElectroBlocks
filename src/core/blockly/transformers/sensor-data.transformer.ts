@@ -2,7 +2,6 @@ import _ from "lodash";
 
 import {
   Sensor,
-  ButtonSensor,
   IRRemoteSensor,
   PinSensor,
   TimeSensor,
@@ -18,7 +17,6 @@ import {
   ArduinoComponentType,
 } from "../../frames/arduino.frame";
 import {
-  ButtonState,
   IRRemoteState,
   PinState,
   PIN_TYPE,
@@ -33,6 +31,8 @@ import { findSensorState } from "../helpers/sensor_block.helper";
 import { BluetoothSensor } from "../../../plugins/components/bluetooth/state";
 import { bluetoothSetupBlockToSensorData } from "../../../plugins/components/bluetooth/setupblocktosensordata";
 import { bluetoothSetupBlockToComponentState } from "../../../plugins/components/bluetooth/setupblocktocomponentstate";
+import { buttonSetupBlockToSensorData } from "../../../plugins/components/button/setupblocktosensordata";
+import { buttonSetupBlockToComponentState } from "../../../plugins/components/button/setupblocktocomponentstate";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -41,24 +41,6 @@ interface RetrieveSensorData {
 interface BlockToComponentState {
   (block: BlockData, timeline: Timeline): ArduinoComponentState;
 }
-
-const buttonData = (block: BlockData): ButtonSensor => {
-  return {
-    is_pressed: findFieldValue(block, "is_pressed") === "TRUE",
-    loop: +findFieldValue(block, "LOOP"),
-    blockName: block.blockName,
-  };
-};
-
-const buttonState = (block: BlockData, timeline: Timeline): ButtonState => {
-  const btState = findSensorState<ButtonSensor>(block, timeline);
-
-  return {
-    type: ArduinoComponentType.BUTTON,
-    pins: [findFieldValue(block, "PIN") as ARDUINO_PINS],
-    isPressed: btState.is_pressed,
-  };
-};
 
 const irRemoteData = (block: BlockData): IRRemoteSensor => {
   return {
@@ -217,7 +199,7 @@ const messageState = (
 
 const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   bluetooth_setup: bluetoothSetupBlockToSensorData,
-  button_setup: buttonData,
+  button_setup: buttonSetupBlockToSensorData,
   ir_remote_setup: irRemoteData,
   digital_read_setup: digitalReadSetup,
   analog_read_setup: analogReadSetup,
@@ -232,7 +214,7 @@ const blockToSensorComponent: {
   [blockName: string]: BlockToComponentState;
 } = {
   bluetooth_setup: bluetoothSetupBlockToComponentState,
-  button_setup: buttonState,
+  button_setup: buttonSetupBlockToComponentState,
   ir_remote_setup: irRemoteState,
   digital_read_setup: pinReadState(PIN_TYPE.DIGITAL_INPUT),
   analog_read_setup: pinReadState(PIN_TYPE.ANALOG_INPUT),

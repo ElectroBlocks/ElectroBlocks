@@ -54,7 +54,7 @@ import {
   bluetoothMessage,
   bluetoothSetup,
 } from "../../../plugins/components/bluetooth/blocktoframe";
-import { buttonSetup } from "../../../plugins/components/button/button.blocktoframe";
+import { buttonSetup } from "../../../plugins/components/button/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

@@ -17,7 +17,7 @@ import {
   createSetVariableBlockWithValue,
   createTestEvent,
 } from "../../../../tests/tests.helper";
-import { ButtonState, IRRemoteState } from "../../arduino-components.state";
+import { IRRemoteState } from "../../arduino-components.state";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
 import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";

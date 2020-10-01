@@ -16,13 +16,14 @@ import { ARDUINO_PINS } from "../microcontroller/selectBoard";
 import { saveSensorSetupBlockData } from "../blockly/actions/factories/saveSensorSetupBlockData";
 import { updater } from "../blockly/updater";
 import { ArduinoFrame, ArduinoComponentType } from "./arduino.frame";
-import { RfidState, ButtonState } from "./arduino-components.state";
+import { RfidState } from "./arduino-components.state";
 import {
   createSetVariableBlockWithValue,
   createTestEvent,
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../blockly/dto/variable.type";
 import { MicroControllerType } from "../microcontroller/microcontroller";
+import { ButtonState } from "../../plugins/components/button/state";
 
 describe("generator", () => {
   let workspace: Workspace;

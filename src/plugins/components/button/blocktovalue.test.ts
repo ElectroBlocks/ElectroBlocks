@@ -17,7 +17,6 @@ import {
   createSetVariableBlockWithValue,
   createTestEvent,
 } from "../../../tests/tests.helper";
-import { ButtonState } from "../../../core/frames/arduino-components.state";
 import { eventToFrameFactory } from "../../../core/frames/event-to-frame.factory";
 import {
   ArduinoFrame,
@@ -26,6 +25,7 @@ import {
 import { ARDUINO_PINS } from "../../../core/microcontroller/selectBoard";
 import { VariableTypes } from "../../../core/blockly/dto/variable.type";
 import { findComponent } from "../../../core/frames/transformer/frame-transformer.helpers";
+import { ButtonState } from "./state";
 
 describe("button state factories", () => {
   let workspace: Workspace;

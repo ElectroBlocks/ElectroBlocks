@@ -2,8 +2,7 @@ import { BlockToFrameTransformer } from "../../../core/frames/transformer/block-
 import _ from "lodash";
 import { ArduinoComponentType } from "../../../core/frames/arduino.frame";
 import { arduinoFrameByComponent } from "../../../core/frames/transformer/frame-transformer.helpers";
-import { ButtonState } from "../../../core/frames/arduino-components.state";
-import { ButtonSensor } from "../../../core/blockly/dto/sensors.type";
+import { ButtonSensor, ButtonState } from "./state";
 
 export const buttonSetup: BlockToFrameTransformer = (
   blocks,

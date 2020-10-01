@@ -9,12 +9,12 @@ import {
   bluetoothPosition,
   createBluetoothWires,
   bluetoothCreate,
-} from "../../plugins/components/bluetooth/circuit";
+} from "../../plugins/components/bluetooth/virtual-circuit";
 import {
   createButton,
   createWiresButton,
   positionButton,
-} from "../../plugins/components/button/button.sync";
+} from "../../plugins/components/button/virtual-circuit";
 import {
   createIrRemote,
   createWiresIrRemote,

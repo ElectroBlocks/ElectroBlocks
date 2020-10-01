@@ -23,7 +23,7 @@ import { motorUpdate, motorReset } from "./components/motor.sync";
 import {
   updateButton,
   resetButton,
-} from "../../plugins/components/button/button.sync";
+} from "../../plugins/components/button/virtual-circuit";
 import { updateIrRemote, resetIrRemote } from "./components/ir_remote.sync";
 import {
   updateUltraSonicSensor,
@@ -34,7 +34,7 @@ import { updateTemp, resetTemp } from "./components/temp.sync";
 import {
   bluetoothReset,
   bluetoothUpdate,
-} from "../../plugins/components/bluetooth/circuit";
+} from "../../plugins/components/bluetooth/virtual-circuit";
 
 export interface SyncComponent {
   (

@@ -2,7 +2,7 @@ import _ from "lodash";
 import getToolBoxString from "./getToolBoxString";
 import { updateToolbox } from "../helpers/workspace.helper";
 import bluetoothXMLString from "../../../plugins/components/bluetooth/bluetooth.toolbox";
-import buttonXMLString from "../../../plugins/components/button/button.toolbox";
+import buttonXMLString from "../../../plugins/components/button/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
