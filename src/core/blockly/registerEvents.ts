@@ -108,7 +108,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
 
     if (!_.isEqual(newFrameContainer, currentFrameContainter)) {
       currentFrameContainter = newFrameContainer;
-      console.log(event, "arduinoStateEvent");
+      console.log(refreshEvent, "arduinoStateEvent");
       frameStore.set(currentFrameContainter);
     }
     codeStore.set({ code: getArduinoCode(), boardType: microControllerType });
