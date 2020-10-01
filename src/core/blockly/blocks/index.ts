@@ -1,9 +1,9 @@
 import "./arduino_blocks";
-import "../../../plugins/components/bluetooth/blocks";
+import "../../../blocks/bluetooth/blocks";
 import "./board_selector";
-import "../../../plugins/components/button/blocks";
-import "./debug";
-import "./ir_remote";
+import "../../../blocks/button/blocks";
+import "../../../blocks/debug/blocks";
+import "../../../blocks/ir_remote/blocks";
 import "./functions";
 import "./lcd_screen";
 import "./led_matrix";

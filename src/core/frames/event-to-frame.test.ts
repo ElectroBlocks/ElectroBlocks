@@ -23,7 +23,7 @@ import {
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../blockly/dto/variable.type";
 import { MicroControllerType } from "../microcontroller/microcontroller";
-import { ButtonState } from "../../plugins/components/button/state";
+import { ButtonState } from "../../blocks/button/state";
 
 describe("generator", () => {
   let workspace: Workspace;

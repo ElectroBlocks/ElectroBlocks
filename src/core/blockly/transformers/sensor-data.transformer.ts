@@ -2,7 +2,6 @@ import _ from "lodash";
 
 import {
   Sensor,
-  IRRemoteSensor,
   PinSensor,
   TimeSensor,
   MotionSensor,
@@ -17,8 +16,6 @@ import {
   ArduinoComponentType,
 } from "../../frames/arduino.frame";
 import {
-  IRRemoteState,
-  PinState,
   PIN_TYPE,
   RfidState,
   TemperatureState,
@@ -28,11 +25,13 @@ import {
 } from "../../frames/arduino-components.state";
 import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { findSensorState } from "../helpers/sensor_block.helper";
-import { BluetoothSensor } from "../../../plugins/components/bluetooth/state";
-import { bluetoothSetupBlockToSensorData } from "../../../plugins/components/bluetooth/setupblocktosensordata";
-import { bluetoothSetupBlockToComponentState } from "../../../plugins/components/bluetooth/setupblocktocomponentstate";
-import { buttonSetupBlockToSensorData } from "../../../plugins/components/button/setupblocktosensordata";
-import { buttonSetupBlockToComponentState } from "../../../plugins/components/button/setupblocktocomponentstate";
+import { BluetoothSensor } from "../../../blocks/bluetooth/state";
+import { bluetoothSetupBlockToSensorData } from "../../../blocks/bluetooth/setupblocktosensordata";
+import { buttonSetupBlockToSensorData } from "../../../blocks/button/setupblocktosensordata";
+import { bluetoothSetupBlockToComponentState } from "../../../blocks/bluetooth/setupblocktocomponentstate";
+import { buttonSetupBlockToComponentState } from "../../../blocks/button/setupblocktocomponentstate";
+import { irRemoteSetupBlocktoSensorData } from "../../../blocks/ir_remote/setupblocktosensordata";
+import { irRemoteSetupBlockToComponentState } from "../../../blocks/ir_remote/setupblocktocomponentstate";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -41,27 +40,6 @@ interface RetrieveSensorData {
 interface BlockToComponentState {
   (block: BlockData, timeline: Timeline): ArduinoComponentState;
 }
-
-const irRemoteData = (block: BlockData): IRRemoteSensor => {
-  return {
-    scanned_new_code: findFieldValue(block, "scanned_new_code") === "TRUE",
-    code: findFieldValue(block, "code"),
-    loop: +findFieldValue(block, "LOOP"),
-    blockName: block.blockName,
-  };
-};
-
-const irRemoteState = (block: BlockData, timeline: Timeline): IRRemoteState => {
-  const irRemoteData = findSensorState<IRRemoteSensor>(block, timeline);
-
-  return {
-    type: ArduinoComponentType.IR_REMOTE,
-    analogPin: findFieldValue(block, "PIN") as ARDUINO_PINS,
-    pins: [findFieldValue(block, "PIN") as ARDUINO_PINS],
-    code: irRemoteData.code,
-    hasCode: irRemoteData.scanned_new_code,
-  };
-};
 
 const digitalReadSetup = (block: BlockData): PinSensor => {
   return {
@@ -200,7 +178,7 @@ const messageState = (
 const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   bluetooth_setup: bluetoothSetupBlockToSensorData,
   button_setup: buttonSetupBlockToSensorData,
-  ir_remote_setup: irRemoteData,
+  ir_remote_setup: irRemoteSetupBlocktoSensorData,
   digital_read_setup: digitalReadSetup,
   analog_read_setup: analogReadSetup,
   rfid_setup: rfidSetup,
@@ -215,7 +193,7 @@ const blockToSensorComponent: {
 } = {
   bluetooth_setup: bluetoothSetupBlockToComponentState,
   button_setup: buttonSetupBlockToComponentState,
-  ir_remote_setup: irRemoteState,
+  ir_remote_setup: irRemoteSetupBlockToComponentState,
   digital_read_setup: pinReadState(PIN_TYPE.DIGITAL_INPUT),
   analog_read_setup: pinReadState(PIN_TYPE.ANALOG_INPUT),
   rfid_setup: rfidState,

@@ -3,11 +3,6 @@ export interface Sensor {
   blockName: string;
 }
 
-export interface IRRemoteSensor extends Sensor {
-  scanned_new_code: boolean;
-  code: string;
-}
-
 export interface MotionSensor extends Sensor {
   cm: number;
 }

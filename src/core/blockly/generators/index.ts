@@ -1,11 +1,11 @@
 import "./arduino";
 import "./arduino_blocks";
-import "../../../plugins/components/bluetooth/generator";
+import "../../../blocks/bluetooth/generator";
 import "./board_selector";
-import "../../../plugins/components/button/generator";
+import "../../../blocks/button/generator";
 import "./colour";
-import "./debug";
-import "./ir_remote";
+import "../../../blocks/debug/generator";
+import "../../../blocks/ir_remote/generator";
 import "./lcd_screen";
 import "./led_matrix";
 import "./led";

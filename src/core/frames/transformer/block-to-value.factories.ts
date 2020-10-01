@@ -33,15 +33,18 @@ import { getItemInList } from "./blocktovalue/list-get-item";
 import { getArduinoMessage, arduinoHasMessage } from "./blocktovalue/message";
 import { timeSeconds } from "./blocktovalue/time_seconds";
 import { getPinState } from "./blocktovalue/pin";
-import { irRemoteHasCode, irRemoteGetCode } from "./blocktovalue/ir_remote";
 import { ultraSonicSensorDistance } from "./blocktovalue/ultra_sonic_sensor";
 import { rfidScannedCard, rfidCardNumber, rfidTag } from "./blocktovalue/rfid";
 import { getHumidity, getTemp } from "./blocktovalue/temp";
 import {
   getBtMessage,
   hasBtMessage,
-} from "../../../plugins/components/bluetooth/blocktovalue";
-import { isButtonPressed } from "../../../plugins/components/button/blocktovalue";
+} from "../../../blocks/bluetooth/blocktovalue";
+import { isButtonPressed } from "../../../blocks/button/blocktovalue";
+import {
+  irRemoteGetCode,
+  irRemoteHasCode,
+} from "../../../blocks/ir_remote/blocktovalue";
 
 export interface ValueGenerator {
   (

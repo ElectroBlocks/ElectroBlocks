@@ -1,8 +1,9 @@
 import _ from "lodash";
 import getToolBoxString from "./getToolBoxString";
 import { updateToolbox } from "../helpers/workspace.helper";
-import bluetoothXMLString from "../../../plugins/components/bluetooth/bluetooth.toolbox";
-import buttonXMLString from "../../../plugins/components/button/toolbox";
+import bluetoothXMLString from "../../../blocks/bluetooth/toolbox";
+import buttonXMLString from "../../../blocks/button/toolbox";
+import irRmoteXMLString from "../../../blocks/ir_remote/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -43,6 +44,7 @@ export interface ToolBoxEntry {
 export enum ToolBoxCategory {
   COMPONENT = "Component",
   SENSORS = "Sensors",
+  ARDUINO = "Arduino",
 }
 
 const defaultToolbox: ToolBoxEntries[] = [
@@ -58,7 +60,22 @@ const defaultToolbox: ToolBoxEntries[] = [
     color: COLOR_THEME.SENSOR,
     category: ToolBoxCategory.SENSORS,
     name: "Sensors",
-    toolBoxEntries: [{ name: "Button", show: true, xml: buttonXMLString }],
+    toolBoxEntries: [
+      { name: "Button", show: true, xml: buttonXMLString },
+      { name: "IR Remote", show: true, xml: irRmoteXMLString },
+    ],
+  },
+  {
+    color: COLOR_THEME.ARDUINO,
+    category: ToolBoxCategory.ARDUINO,
+    name: "Arduino",
+    toolBoxEntries: [
+      {
+        name: "Arduino",
+        show: true,
+        xml: `<category name="Code" colour="${COLOR_THEME.ARDUINO}" custom="CODE"></category>`,
+      },
+    ],
   },
   // { name: 'Logic', show: true },
   // { name: 'Loops', show: true },

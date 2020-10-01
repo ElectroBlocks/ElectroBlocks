@@ -9,17 +9,12 @@ import {
   bluetoothPosition,
   createBluetoothWires,
   bluetoothCreate,
-} from "../../plugins/components/bluetooth/virtual-circuit";
-import {
-  createButton,
-  createWiresButton,
-  positionButton,
-} from "../../plugins/components/button/virtual-circuit";
+} from "../../blocks/bluetooth/virtual-circuit";
 import {
   createIrRemote,
   createWiresIrRemote,
   positionIrRemote,
-} from "./components/ir_remote.sync";
+} from "../../blocks/ir_remote/virtual-circuit";
 import { createWiresLcd, lcdCreate, lcdPosition } from "./components/lcd.sync";
 import {
   createWiresRgbLed,
@@ -66,6 +61,11 @@ import {
 import { getSvgString } from "./svg-string";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 import { MicroController } from "../microcontroller/microcontroller";
+import {
+  createButton,
+  createWiresButton,
+  positionButton,
+} from "../../blocks/button/virtual-circuit";
 
 export default (
   state: ArduinoComponentState,

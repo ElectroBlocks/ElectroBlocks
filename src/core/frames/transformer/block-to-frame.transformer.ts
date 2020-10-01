@@ -16,8 +16,6 @@ import {
 import { neoPixelSetup, setNeoPixelColor } from "./blocktoframe/neopixel";
 import { ledColorSetup, setLedColor } from "./blocktoframe/led-color";
 import { setupReadPin } from "./blocktoframe/pin";
-import { irRemoteSetup } from "./blocktoframe/ir_remote";
-import { debugBlock } from "./blocktoframe/debug";
 import { ultraSonicSensor } from "./blocktoframe/ultra_sonic_sensor";
 import { servoRotate } from "./blocktoframe/servo";
 import { tempSetupSensor } from "./blocktoframe/temp_setup";
@@ -53,8 +51,10 @@ import {
 import {
   bluetoothMessage,
   bluetoothSetup,
-} from "../../../plugins/components/bluetooth/blocktoframe";
-import { buttonSetup } from "../../../plugins/components/button/blocktoframe";
+} from "../../../blocks/bluetooth/blocktoframe";
+import { debugBlock } from "../../../blocks/debug/blocktoframe";
+import { buttonSetup } from "../../../blocks/button/blocktoframe";
+import { irRemoteSetup } from "../../../blocks/ir_remote/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

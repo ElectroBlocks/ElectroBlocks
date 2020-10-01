@@ -7,10 +7,10 @@ import analogSensorSvgString from "./svgs/digital_analog_sensor/digital_analog_s
 import soilSensorSvgString from "./svgs/soilsensor/soilsensor.svg";
 import photoSensorSvgString from "./svgs/photosensor/photosensor.svg";
 import touchSensorSvgString from "./svgs/touch-sensor/touch-sensor.svg";
-import bluetoothSvg from "../../plugins/components/bluetooth/bluetooth.svg";
-import buttonSvgString from "../../plugins/components/button/button.svg";
+import bluetoothSvg from "../../blocks/bluetooth/bluetooth.svg";
+import buttonSvgString from "../../blocks/button/button.svg";
 import analogdigitalWriteSvgString from "./svgs/analogdigital/digital_analog_write.svg";
-import irRemoteSvgString from "./svgs/ir_remote/ir_remote.svg";
+import irRemoteSvgString from "../../blocks/ir_remote/ir_remote.svg";
 import lcd_16_2_svg from "./svgs/lcd/lcd_16_2.svg";
 import lcd_20_4_svg from "./svgs/lcd/lcd_20_4.svg";
 import ledSvgString from "./svgs/led/led.svg";

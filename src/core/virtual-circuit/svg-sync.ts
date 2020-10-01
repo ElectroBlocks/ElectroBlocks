@@ -21,10 +21,9 @@ import { neoPixelUpdate, neoPixelReset } from "./components/neoPixel.sync";
 import { ledMatrixUpdate, ledMatrixReset } from "./components/ledmatrix.sync";
 import { motorUpdate, motorReset } from "./components/motor.sync";
 import {
-  updateButton,
-  resetButton,
-} from "../../plugins/components/button/virtual-circuit";
-import { updateIrRemote, resetIrRemote } from "./components/ir_remote.sync";
+  updateIrRemote,
+  resetIrRemote,
+} from "../../blocks/ir_remote/virtual-circuit";
 import {
   updateUltraSonicSensor,
   resetUltraSonicSensor,
@@ -34,7 +33,8 @@ import { updateTemp, resetTemp } from "./components/temp.sync";
 import {
   bluetoothReset,
   bluetoothUpdate,
-} from "../../plugins/components/bluetooth/virtual-circuit";
+} from "../../blocks/bluetooth/virtual-circuit";
+import { resetButton, updateButton } from "../../blocks/button/virtual-circuit";
 
 export interface SyncComponent {
   (

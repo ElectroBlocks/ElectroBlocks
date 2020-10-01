@@ -6,12 +6,6 @@ export interface ArduinoReceiveMessageState extends ArduinoComponentState {
   message: string;
 }
 
-export interface IRRemoteState extends ArduinoComponentState {
-  hasCode: boolean;
-  code: string;
-  analogPin: ARDUINO_PINS;
-}
-
 export interface LCDScreenState extends ArduinoComponentState {
   rows: number;
   columns: number;

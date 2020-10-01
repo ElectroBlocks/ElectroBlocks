@@ -5,7 +5,7 @@ import { ArduinoComponentType } from "../../arduino.frame";
 import { getInputValue } from "../block-to-value.factories";
 import _ from "lodash";
 //TODO FIX SO IT GETS OFF BLUETOOTH STATE
-import { BluetoothSensor } from "../../../../plugins/components/bluetooth/state";
+import { BluetoothSensor } from "../../../../blocks/bluetooth/state";
 
 export const messageSetup: BlockToFrameTransformer = (
   blocks,
