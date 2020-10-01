@@ -30,11 +30,9 @@ import {
 } from "../../frames/arduino-components.state";
 import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { findSensorState } from "../helpers/sensor_block.helper";
-import {
-  BluetoothSensor,
-  saveBluetoothDataInSetupBlock,
-  setupBlockToBluetoothState,
-} from "../../../plugins/components/bluetooth/bluetooth.state";
+import { BluetoothSensor } from "../../../plugins/components/bluetooth/state";
+import { bluetoothSetupBlockToSensorData } from "../../../plugins/components/bluetooth/setupblocktosensordata";
+import { bluetoothSetupBlockToComponentState } from "../../../plugins/components/bluetooth/setupblocktocomponentstate";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -218,7 +216,7 @@ const messageState = (
 };
 
 const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
-  bluetooth_setup: saveBluetoothDataInSetupBlock,
+  bluetooth_setup: bluetoothSetupBlockToSensorData,
   button_setup: buttonData,
   ir_remote_setup: irRemoteData,
   digital_read_setup: digitalReadSetup,
@@ -227,13 +225,13 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   temp_setup: tempSetup,
   time_setup: timeSetup,
   ultra_sonic_sensor_setup: ultraSonicSensor,
-  message_setup: saveBluetoothDataInSetupBlock,
+  message_setup: bluetoothSetupBlockToSensorData,
 };
 
 const blockToSensorComponent: {
   [blockName: string]: BlockToComponentState;
 } = {
-  bluetooth_setup: setupBlockToBluetoothState,
+  bluetooth_setup: bluetoothSetupBlockToComponentState,
   button_setup: buttonState,
   ir_remote_setup: irRemoteState,
   digital_read_setup: pinReadState(PIN_TYPE.DIGITAL_INPUT),

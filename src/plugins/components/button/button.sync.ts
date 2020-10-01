@@ -1,14 +1,20 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../../core/virtual-circuit/svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from "../svg-create";
+} from "../../../core/virtual-circuit/svg-create";
 
-import { ButtonState } from "../../frames/arduino-components.state";
+import { ButtonState } from "../../../core/frames/arduino-components.state";
 import { Element, Svg } from "@svgdotjs/svg.js";
-import { createWire, createGroundWire } from "../wire";
-import { positionComponent } from "../svg-position";
+import {
+  createWire,
+  createGroundWire,
+} from "../../../core/virtual-circuit/wire";
+import { positionComponent } from "../../../core/virtual-circuit/svg-position";
 
 export const positionButton: PositionComponent<ButtonState> = (
   state,

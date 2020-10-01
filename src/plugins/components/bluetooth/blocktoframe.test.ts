@@ -25,7 +25,7 @@ import {
 } from "../../../tests/tests.helper";
 import { VariableTypes } from "../../../core/blockly/dto/variable.type";
 import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
-import { BluetoothState } from "./bluetooth.state";
+import { BluetoothState } from "./state";
 
 describe("bluetooth state factories", () => {
   let workspace: Workspace;

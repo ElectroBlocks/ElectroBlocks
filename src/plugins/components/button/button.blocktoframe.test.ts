@@ -1,23 +1,26 @@
 import "jest";
-import "../../../blockly/blocks";
+import "../../../core/blockly/blocks";
 import Blockly, { Workspace, BlockSvg } from "blockly";
-import { getAllBlocks } from "../../../blockly/helpers/block.helper";
+import { getAllBlocks } from "../../../core/blockly/helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
-import { updater } from "../../../blockly/updater";
+import { BlockEvent } from "../../../core/blockly/dto/event.type";
+import { transformBlock } from "../../../core/blockly/transformers/block.transformer";
+import { getAllVariables } from "../../../core/blockly/helpers/variable.helper";
+import { transformVariable } from "../../../core/blockly/transformers/variables.transformer";
+import { saveSensorSetupBlockData } from "../../../core/blockly/actions/factories/saveSensorSetupBlockData";
+import { updater } from "../../../core/blockly/updater";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { ButtonState } from "../../arduino-components.state";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+} from "../../../tests/tests.helper";
+import { ButtonState } from "../../../core/frames/arduino-components.state";
+import { eventToFrameFactory } from "../../../core/frames/event-to-frame.factory";
+import {
+  ArduinoFrame,
+  ArduinoComponentType,
+} from "../../../core/frames/arduino.frame";
+import { ARDUINO_PINS } from "../../../core/microcontroller/selectBoard";
+import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
 
 describe("button state factories", () => {
   let workspace: Workspace;

@@ -1,6 +1,6 @@
 import { COLOR_THEME } from "../../../core/blockly/constants/colors";
 
-export const btXMLString = `<category name="Bluetooth" colour="${COLOR_THEME.COMPONENTS}">
+export default `<category name="Bluetooth" colour="${COLOR_THEME.COMPONENTS}">
   <block type="bluetooth_setup">
     <field name="PIN_RX">11</field>
     <field name="PIN_TX">10</field>
@@ -16,5 +16,3 @@ export const btXMLString = `<category name="Bluetooth" colour="${COLOR_THEME.COM
   <block type="bluetooth_has_message"></block>
   <block type="bluetooth_get_message"></block>
   </category>`;
-
-export const BtToolboxName = Symbol("electroblocks_bluetooth");

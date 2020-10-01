@@ -2,10 +2,10 @@ import Blockly from "blockly";
 import {
   getAvailablePins,
   configuredPins,
-} from "./helpers/getAvialablePinsFromSetupBlock";
-import { COLOR_THEME } from "../constants/colors";
-import loopTimes from "./helpers/looptimes";
-import { selectBoardBlockly } from "../../microcontroller/selectBoard";
+} from "../../../core/blockly/blocks/helpers/getAvialablePinsFromSetupBlock";
+import { COLOR_THEME } from "../../../core/blockly/constants/colors";
+import loopTimes from "../../../core/blockly/blocks/helpers/looptimes";
+import { selectBoardBlockly } from "../../../core/microcontroller/selectBoard";
 const buttonSetupBlock: any = {
   init: function () {
     this.appendDummyInput()

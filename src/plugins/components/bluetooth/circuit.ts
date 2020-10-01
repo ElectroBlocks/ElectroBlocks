@@ -14,7 +14,7 @@ import {
   createPowerWire,
   createWire,
 } from "../../../core/virtual-circuit/wire";
-import { BluetoothState } from "./bluetooth.state";
+import { BluetoothState } from "./state";
 
 export const bluetoothReset: ResetComponent = (bluetoothEl: Element) => {
   bluetoothEl.findOne("#MESSAGE_LAYER").hide();

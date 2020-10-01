@@ -4,7 +4,7 @@ import { ArduinoComponentType } from "../../../core/frames/arduino.frame";
 import { findFieldValue } from "../../../core/blockly/helpers/block-data.helper";
 import { arduinoFrameByComponent } from "../../../core/frames/transformer/frame-transformer.helpers";
 import { getInputValue } from "../../../core/frames/transformer/block-to-value.factories";
-import { BluetoothSensor, BluetoothState } from "./bluetooth.state";
+import { BluetoothSensor, BluetoothState } from "./state";
 
 export const bluetoothSetup: BlockToFrameTransformer = (
   blocks,

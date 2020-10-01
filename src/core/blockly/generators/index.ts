@@ -1,8 +1,8 @@
 import "./arduino";
 import "./arduino_blocks";
-import "../../../plugins/components/bluetooth/bluetooth.generator";
+import "../../../plugins/components/bluetooth/generator";
 import "./board_selector";
-import "./button";
+import "../../../plugins/components/button/button.generator";
 import "./colour";
 import "./debug";
 import "./ir_remote";

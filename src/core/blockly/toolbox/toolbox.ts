@@ -1,10 +1,9 @@
 import _ from "lodash";
 import getToolBoxString from "./getToolBoxString";
 import { updateToolbox } from "../helpers/workspace.helper";
-import {
-  BtToolboxName,
-  btXMLString,
-} from "../../../plugins/components/bluetooth/bluetooth.menu";
+import bluetoothXMLString from "../../../plugins/components/bluetooth/bluetooth.toolbox";
+import buttonXMLString from "../../../plugins/components/button/button.toolbox";
+
 import { COLOR_THEME } from "../constants/colors";
 
 const toolboxKey = "blockly_tool_box";
@@ -36,13 +35,14 @@ export interface ToolBoxEntries {
 }
 
 export interface ToolBoxEntry {
-  name: Symbol;
+  name: string;
   xml: string;
   show: boolean;
 }
 
 export enum ToolBoxCategory {
   COMPONENT = "Component",
+  SENSORS = "Sensors",
 }
 
 const defaultToolbox: ToolBoxEntries[] = [
@@ -50,7 +50,15 @@ const defaultToolbox: ToolBoxEntries[] = [
     color: COLOR_THEME.COMPONENTS,
     category: ToolBoxCategory.COMPONENT,
     name: "Components",
-    toolBoxEntries: [{ name: BtToolboxName, show: true, xml: btXMLString }],
+    toolBoxEntries: [
+      { name: "Bluetooth", show: true, xml: bluetoothXMLString },
+    ],
+  },
+  {
+    color: COLOR_THEME.SENSOR,
+    category: ToolBoxCategory.SENSORS,
+    name: "Sensors",
+    toolBoxEntries: [{ name: "Button", show: true, xml: buttonXMLString }],
   },
   // { name: 'Logic', show: true },
   // { name: 'Loops', show: true },

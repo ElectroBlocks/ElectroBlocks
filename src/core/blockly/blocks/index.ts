@@ -1,7 +1,7 @@
 import "./arduino_blocks";
-import "../../../plugins/components/bluetooth/bluetooth.blocks";
+import "../../../plugins/components/bluetooth/blocks";
 import "./board_selector";
-import "./buttons";
+import "../../../plugins/components/button/button.blocks";
 import "./debug";
 import "./ir_remote";
 import "./functions";
