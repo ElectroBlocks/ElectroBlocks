@@ -94,12 +94,19 @@ const registerEvents = (workspace: WorkspaceSvg) => {
 
     secondActionPass.forEach((a) => updater(a));
 
-    const newFrameContainer = eventToFrameFactory(event);
+    const refreshEvent = transformEvent(
+      getAllBlocks(),
+      getAllVariables(),
+      blocklyEvent,
+      microControllerType
+    );
+
+    const newFrameContainer = eventToFrameFactory(refreshEvent);
     console.log("new frames", newFrameContainer);
 
     if (!_.isEqual(newFrameContainer, currentFrameContainter)) {
       currentFrameContainter = newFrameContainer;
-      console.log(event, "arduinoStateEvent");
+      console.log(refreshEvent, "arduinoStateEvent");
       frameStore.set(currentFrameContainter);
     }
     codeStore.set({ code: getArduinoCode(), boardType: microControllerType });
