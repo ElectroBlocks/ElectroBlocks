@@ -4,7 +4,7 @@ import { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../../blockly/helpers/block.helper";
 import _ from "lodash";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
+import { saveSensorSetupBlockData } from "../../../blockly/actions/saveSensorSetupBlockData";
 import { updater } from "../../../blockly/updater";
 import {
   createArduinoAndWorkSpace,

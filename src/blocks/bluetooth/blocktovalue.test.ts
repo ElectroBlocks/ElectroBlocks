@@ -14,7 +14,7 @@ import {
   createTestEvent,
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { saveSensorSetupBlockData } from "../../core/blockly/actions/factories/saveSensorSetupBlockData";
+import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import { updater } from "../../core/blockly/updater";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";

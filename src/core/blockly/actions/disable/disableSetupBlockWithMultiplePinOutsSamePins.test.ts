@@ -1,20 +1,14 @@
 import "jest";
-import "../../../blocks";
-import Blockly, { Workspace, BlockSvg, WorkspaceSvg } from "blockly";
-import { getAllBlocks } from "../../../helpers/block.helper";
+import "../../blocks";
+import { Workspace } from "blockly";
 import _ from "lodash";
-import { BlockEvent } from "../../../dto/event.type";
-import { transformBlock } from "../../../transformers/block.transformer";
-import { getAllVariables } from "../../../helpers/variable.helper";
-import { transformVariable } from "../../../transformers/variables.transformer";
-import { ActionType } from "../../actions";
-import { ARDUINO_PINS } from "../../../../microcontroller/selectBoard";
+import { ActionType } from "../actions";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { disableSetupBlockWithMultiplePinOutsSamePins } from "./disableSetupBlockWithMultiplePinOutsSamePins";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../../../../tests/tests.helper";
-import { MicroControllerType } from "../../../../microcontroller/microcontroller";
+} from "../../../../tests/tests.helper";
 
 describe("disableSensorReadBlocksWithWrongPins", () => {
   let workspace: Workspace;

@@ -13,7 +13,7 @@ import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
-import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
+import { saveSensorSetupBlockData } from "../../../blockly/actions/saveSensorSetupBlockData";
 import { updater } from "../../../blockly/updater";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
 import {

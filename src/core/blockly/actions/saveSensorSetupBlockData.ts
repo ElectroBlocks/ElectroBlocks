@@ -1,9 +1,9 @@
-import { BlockEvent } from "../../dto/event.type";
-import { SaveSetupSensorData, ActionType } from "../actions";
-import { BlockType } from "../../dto/block.type";
+import { BlockEvent } from "../dto/event.type";
+import { SaveSetupSensorData, ActionType } from "./actions";
+import { BlockType } from "../dto/block.type";
 import _ from "lodash";
-import { convertToSensorData } from "../../transformers/sensor-data.transformer";
-import { getLoopTimeFromBlockData } from "../../helpers/block-data.helper";
+import { convertToSensorData } from "../transformers/sensor-data.transformer";
+import { getLoopTimeFromBlockData } from "../helpers/block-data.helper";
 
 export const saveSensorSetupBlockData = (
   event: BlockEvent

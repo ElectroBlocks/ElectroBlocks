@@ -1,20 +1,20 @@
 import "jest";
 import "../../blocks";
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
-import { getAllBlocks } from "../../helpers/block.helper";
+import { getAllBlocks } from "../helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../../dto/event.type";
-import { transformBlock } from "../../transformers/block.transformer";
-import { getAllVariables } from "../../helpers/variable.helper";
-import { transformVariable } from "../../transformers/variables.transformer";
+import { BlockEvent } from "../dto/event.type";
+import { transformBlock } from "../transformers/block.transformer";
+import { getAllVariables } from "../helpers/variable.helper";
+import { transformVariable } from "../transformers/variables.transformer";
 import { saveSensorSetupBlockData } from "./saveSensorSetupBlockData";
-import { MotionSensor } from "../../dto/sensors.type";
-import { ActionType } from "../actions";
+import { MotionSensor } from "../dto/sensors.type";
+import { ActionType } from "./actions";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+} from "../../../tests/tests.helper";
+import { MicroControllerType } from "../../microcontroller/microcontroller";
 
 describe("saveSensorSetupBlockData", () => {
   let workspace: Workspace;

@@ -1,6 +1,6 @@
-import { BlockEvent } from '../../../dto/event.type';
-import { DisableBlock, ActionType } from '../../actions';
-import { BlockType, multipleTopBlocks } from '../../../dto/block.type';
+import { BlockEvent } from "../../dto/event.type";
+import { DisableBlock, ActionType } from "../actions";
+import { BlockType, multipleTopBlocks } from "../../dto/block.type";
 
 /**
  * Disables duplicate setup blocks.  Example 2 RFID Setup Blocks
@@ -19,7 +19,7 @@ export const disableDuplicateSetupBlocks = (
       return {
         blockId: block.id,
         type: ActionType.DISABLE_BLOCK,
-        warningText: 'Duplicate setup blocks, please remove one',
+        warningText: "Duplicate setup blocks, please remove one",
       };
     });
 };

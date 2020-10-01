@@ -1,7 +1,7 @@
-import { getBoard } from "../../../../microcontroller/selectBoard";
-import { BlockEvent } from "../../../dto/event.type";
-import { getBoardType } from "../../../helpers/get-board.helper";
-import { ActionType, DisableBlock } from "../../actions";
+import { getBoard } from "../../../microcontroller/selectBoard";
+import { BlockEvent } from "../../dto/event.type";
+import { getBoardType } from "../../helpers/get-board.helper";
+import { ActionType, DisableBlock } from "../actions";
 
 export const disableBlocksWithInvalidPinNumbers = (
   event: BlockEvent

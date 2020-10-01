@@ -1,7 +1,7 @@
-import { BlockEvent } from '../../dto/event.type';
-import { UpdateSetupSensorBlockFields, ActionType } from '../actions';
-import _ from 'lodash';
-import { BlockType } from '../../dto/block.type';
+import { BlockEvent } from "../dto/event.type";
+import { UpdateSetupSensorBlockFields, ActionType } from "./actions";
+import _ from "lodash";
+import { BlockType } from "../dto/block.type";
 
 export const updateSensorSetupFields = (
   event: BlockEvent
@@ -14,7 +14,7 @@ export const updateSensorSetupFields = (
   }
 
   // Is the event about changing the loop drop down field on the block
-  if (!(fieldType === 'field' && fieldName === 'LOOP')) {
+  if (!(fieldType === "field" && fieldName === "LOOP")) {
     return [];
   }
 
@@ -35,7 +35,7 @@ export const updateSensorSetupFields = (
     (data) => data.loop === newLoopValue
   );
   const fields = _.keys(sensorData)
-    .filter((field) => field !== 'loop')
+    .filter((field) => field !== "loop")
     .map((fieldName) => {
       return {
         name: fieldName,

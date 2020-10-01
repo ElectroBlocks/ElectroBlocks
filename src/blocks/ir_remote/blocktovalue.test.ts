@@ -10,7 +10,7 @@ import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import _ from "lodash";
-import { saveSensorSetupBlockData } from "../../core/blockly/actions/factories/saveSensorSetupBlockData";
+import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import { updater } from "../../core/blockly/updater";
 import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
 import {

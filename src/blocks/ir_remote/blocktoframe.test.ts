@@ -8,7 +8,7 @@ import {
 } from "../../tests/tests.helper";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { updater } from "../../core/blockly/updater";
-import { saveSensorSetupBlockData } from "../../core/blockly/actions/factories/saveSensorSetupBlockData";
+import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import {
   ArduinoComponentType,
   ArduinoFrame,

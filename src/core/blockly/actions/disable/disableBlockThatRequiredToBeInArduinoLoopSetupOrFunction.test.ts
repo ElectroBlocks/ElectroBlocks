@@ -1,15 +1,15 @@
 import "jest";
-import "../../../blocks";
+import "../../blocks";
 import { Workspace, BlockSvg } from "blockly";
-import { connectToArduinoBlock } from "../../../helpers/block.helper";
+import { connectToArduinoBlock } from "../../helpers/block.helper";
 import _ from "lodash";
 
 import { disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction } from "./disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction";
-import { ActionType } from "../../actions";
+import { ActionType } from "../actions";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../../../../tests/tests.helper";
+} from "../../../../tests/tests.helper";
 
 describe("disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction", () => {
   let workspace: Workspace;

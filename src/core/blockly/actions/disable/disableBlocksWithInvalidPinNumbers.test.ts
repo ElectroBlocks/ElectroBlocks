@@ -1,13 +1,12 @@
 import "jest";
-import "../../../blocks";
+import { ActionType, DisableBlock } from "../actions";
 
-import Blockly, { BlockSvg, Workspace } from "blockly";
+import { disableBlocksWithInvalidPinNumbers } from "./disableBlocksWithInvalidPinNumbers";
+import { BlockSvg, Workspace } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../../../../tests/tests.helper";
-import { ActionType } from "../../actions";
-import { disableBlocksWithInvalidPinNumbers } from "./disableBlocksWithInvalidPinNumbers";
+} from "../../../../tests/tests.helper";
 
 describe("disable pins where the microcontroller does not have thoses pins", () => {
   let workspace: Workspace;

@@ -1,14 +1,14 @@
-import { BlockEvent } from "../../../dto/event.type";
-import { DisableBlock, ActionType } from "../../actions";
+import { BlockEvent } from "../../dto/event.type";
+import { DisableBlock, ActionType } from "../actions";
 import _ from "lodash";
 import {
   PinCategory,
   BlockData,
   BlockTypeRequireRootBlock,
   BlockType,
-} from "../../../dto/block.type";
-import { ARDUINO_PINS } from "../../../../microcontroller/selectBoard";
-import { findRootBlock } from "../../../helpers/block-data.helper";
+} from "../../dto/block.type";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
+import { findRootBlock } from "../../helpers/block-data.helper";
 
 /**
  * Disables blocks where multiple pins are being taken up by the same component.

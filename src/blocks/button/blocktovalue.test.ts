@@ -10,7 +10,7 @@ import { BlockEvent } from "../../core/blockly/dto/event.type";
 import { transformBlock } from "../../core/blockly/transformers/block.transformer";
 import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
 import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
-import { saveSensorSetupBlockData } from "../../core/blockly/actions/factories/saveSensorSetupBlockData";
+import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import { updater } from "../../core/blockly/updater";
 import {
   createArduinoAndWorkSpace,

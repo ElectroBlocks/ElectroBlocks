@@ -1,12 +1,12 @@
-import { BlockEvent } from '../../../dto/event.type';
-import { DisableBlock, ActionType } from '../../actions';
+import _ from "lodash";
+import { BlockEvent } from "../../dto/event.type";
 import {
-  multipleTopBlocks,
-  blocksThatRequireSetup,
-  setupBlockTypeToHumanName,
   BlockData,
-} from '../../../dto/block.type';
-import _ from 'lodash';
+  blocksThatRequireSetup,
+  multipleTopBlocks,
+  setupBlockTypeToHumanName,
+} from "../../dto/block.type";
+import { ActionType, DisableBlock } from "../actions";
 
 // This will disable blocks that require a setup block to run
 // If there are more than 2 setup blocks it will disable all the blocks

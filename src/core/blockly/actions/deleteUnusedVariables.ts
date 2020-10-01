@@ -1,5 +1,5 @@
-import { BlockEvent } from '../../dto/event.type';
-import { VariableAction, ActionType } from '../actions';
+import { BlockEvent } from "../dto/event.type";
+import { VariableAction, ActionType } from "./actions";
 
 export const deleteUnusedVariables = (event: BlockEvent): VariableAction[] => {
   const { variables } = event;
@@ -8,7 +8,7 @@ export const deleteUnusedVariables = (event: BlockEvent): VariableAction[] => {
     .map((v) => {
       return {
         variableId: v.id,
-        actionType: 'delete',
+        actionType: "delete",
         type: ActionType.DELETE_VARIABLE,
       };
     });

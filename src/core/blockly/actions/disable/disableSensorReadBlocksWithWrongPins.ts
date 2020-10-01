@@ -1,10 +1,10 @@
-import { BlockEvent } from "../../../dto/event.type";
-import { DisableBlock, ActionType } from "../../actions";
+import { BlockEvent } from "../../dto/event.type";
 import {
-  BlockType,
   blocksThatRequireSetup,
+  BlockType,
   multipleTopBlocks,
-} from "../../../dto/block.type";
+} from "../../dto/block.type";
+import { ActionType, DisableBlock } from "../actions";
 
 import _ from "lodash";
 

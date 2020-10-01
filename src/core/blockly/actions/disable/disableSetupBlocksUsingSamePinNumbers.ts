@@ -1,7 +1,7 @@
-import { BlockEvent } from "../../../dto/event.type";
-import { DisableBlock, ActionType } from "../../actions";
-import { multipleTopBlocks } from "../../../dto/block.type";
-import { ARDUINO_PINS } from "../../../../microcontroller/selectBoard";
+import { BlockEvent } from "../../dto/event.type";
+import { DisableBlock, ActionType } from "../actions";
+import { multipleTopBlocks } from "../../dto/block.type";
+import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 
 // This happens when the arduino runs out of a certain type of pin
 // The drop down box will populate with NO_PINS in it

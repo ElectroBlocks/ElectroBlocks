@@ -17,7 +17,7 @@ import { BlockEvent } from "../../../blockly/dto/event.type";
 import { transformBlock } from "../../../blockly/transformers/block.transformer";
 import { getAllVariables } from "../../../blockly/helpers/variable.helper";
 import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { saveSensorSetupBlockData } from "../../../blockly/actions/factories/saveSensorSetupBlockData";
+import { saveSensorSetupBlockData } from "../../../blockly/actions/saveSensorSetupBlockData";
 import { updater } from "../../../blockly/updater";
 import {
   createArduinoAndWorkSpace,

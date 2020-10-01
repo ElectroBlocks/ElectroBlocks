@@ -1,13 +1,13 @@
 import "jest";
-import "../../../blocks";
+import "../../blocks";
 import { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../../../../tests/tests.helper";
+} from "../../../../tests/tests.helper";
 
 import { disableBlocksThatNeedASetupBlock } from "./disableBlocksThatNeedASetupBlock";
-import { ActionType } from "../../actions";
+import { ActionType } from "../actions";
 
 describe("disableBlocksThatNeedASetupBlock", () => {
   let workspace: Workspace;
