@@ -1,5 +1,5 @@
 import "jest";
-import "../../blocks";
+import "../blocks";
 import _ from "lodash";
 import { BlockEvent } from "../dto/event.type";
 import updateForLoopText from "./updateForLoopText";

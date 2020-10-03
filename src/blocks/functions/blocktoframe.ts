@@ -1,9 +1,9 @@
-import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
-import { arduinoFrameByExplanation } from "../frame-transformer.helpers";
+import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import {
   BlockToFrameTransformer,
   generateInputFrame,
-} from "../block-to-frame.transformer";
+} from "../../core/frames/transformer/block-to-frame.transformer";
+import { arduinoFrameByExplanation } from "../../core/frames/transformer/frame-transformer.helpers";
 
 export const customBlock: BlockToFrameTransformer = (
   blocks,

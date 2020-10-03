@@ -3,11 +3,11 @@ import {
   MotorState,
   LedColorState,
   PinState,
-  LCDScreenState,
   NeoPixelState,
 } from "./arduino-components.state";
 
 import _ from "lodash";
+import { lcdStateId } from "../../blocks/lcd_screen/svg-id";
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;
@@ -27,10 +27,6 @@ const getLedColorId = (state: LedColorState) => {
 
 const getPinStateId = (state: PinState) => {
   return `${state.type}-${state.pinType}-${state.pinPicture}-${state.pin}`;
-};
-
-const lcdStateId = (state: LCDScreenState) => {
-  return `${state.type}-${state.rows}-${state.columns}-${state.sdaPin}-${state.sclPin}`;
 };
 
 const neoPixelId = (state: NeoPixelState) => {

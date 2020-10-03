@@ -1,4 +1,5 @@
 import "jest";
+import "../../blocks";
 import { ActionType, DisableBlock } from "../actions";
 
 import { disableBlocksWithInvalidPinNumbers } from "./disableBlocksWithInvalidPinNumbers";

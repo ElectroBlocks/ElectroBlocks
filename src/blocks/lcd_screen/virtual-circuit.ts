@@ -1,15 +1,22 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from "../svg-create";
+} from "../../core/virtual-circuit/svg-create";
 
-import { LCDScreenState } from "../../frames/arduino-components.state";
+import { LCDScreenState } from "./state";
 import { Element, Svg, Text } from "@svgdotjs/svg.js";
-import { positionComponent } from "../svg-position";
-import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
-import { createGroundWire, createPowerWire, createWire } from "../wire";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import {
+  createGroundWire,
+  createPowerWire,
+  createWire,
+} from "../../core/virtual-circuit/wire";
 
 /**
  * Timer for blinking

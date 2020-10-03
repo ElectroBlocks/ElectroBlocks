@@ -1,5 +1,5 @@
 import { COLOR_THEME } from "../constants/colors";
-import { ToolBoxEntries, ToolBoxEntry } from "./toolbox";
+import { ToolBoxCategory, ToolBoxEntries, ToolBoxEntry } from "./toolbox";
 
 /**
  * Turns the toolbox entries into a string
@@ -12,6 +12,10 @@ const getToolBoxString = (toolboxOptions: ToolBoxEntries[]): string => {
   >`;
 
   toolbox += toolboxOptions.reduce((acc, next) => {
+    if (next.category === ToolBoxCategory.NONE) {
+      return acc + getMenuItems(next.toolBoxEntries);
+    }
+
     return (
       acc +
       `<category name="${next.name}" colour="${next.color}">

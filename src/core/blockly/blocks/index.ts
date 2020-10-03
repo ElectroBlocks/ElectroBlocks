@@ -1,11 +1,11 @@
-import "./arduino_blocks";
+import "../../../blocks/arduino/blocks";
 import "../../../blocks/bluetooth/blocks";
-import "./board_selector";
+import "../../../blocks/board_selector/blocks";
 import "../../../blocks/button/blocks";
 import "../../../blocks/debug/blocks";
 import "../../../blocks/ir_remote/blocks";
-import "./functions";
-import "./lcd_screen";
+import "../../../blocks/functions/blocks";
+import "../../../blocks/lcd_screen/blocks";
 import "./led_matrix";
 import "./led";
 import "./led_light_strip";

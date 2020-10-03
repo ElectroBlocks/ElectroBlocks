@@ -1,5 +1,5 @@
 import "jest";
-import "../../../core/blockly/blocks";
+import "../../core/blockly/blocks";
 import Blockly, { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,

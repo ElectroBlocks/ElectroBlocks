@@ -1,31 +1,31 @@
-import Blockly from 'blockly';
-import { COLOR_THEME } from '../constants/colors';
+import Blockly from "blockly";
+import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
-Blockly.Blocks['procedures_defnoreturn'] = {
+Blockly.Blocks["procedures_defnoreturn"] = {
   /**
    * Block for defining a procedure with no return value.
    * @this Blockly.Block
    */
   init: function () {
-    var nameField = new Blockly.FieldTextInput('', Blockly.Procedures.rename);
+    var nameField = new Blockly.FieldTextInput("", Blockly.Procedures.rename);
     nameField.setSpellcheck(false);
     this.appendDummyInput()
-      .appendField(Blockly.Msg['PROCEDURES_DEFNORETURN_TITLE'])
-      .appendField(nameField, 'NAME')
-      .appendField('', 'PARAMS');
+      .appendField(Blockly.Msg["PROCEDURES_DEFNORETURN_TITLE"])
+      .appendField(nameField, "NAME")
+      .appendField("", "PARAMS");
     // Disabling the ability to add parameters to functions
     // this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
     if (
       (this.workspace.options.comments ||
         (this.workspace.options.parentWorkspace &&
           this.workspace.options.parentWorkspace.options.comments)) &&
-      Blockly.Msg['PROCEDURES_DEFNORETURN_COMMENT']
+      Blockly.Msg["PROCEDURES_DEFNORETURN_COMMENT"]
     ) {
-      this.setCommentText(Blockly.Msg['PROCEDURES_DEFNORETURN_COMMENT']);
+      this.setCommentText(Blockly.Msg["PROCEDURES_DEFNORETURN_COMMENT"]);
     }
-    this.setStyle('procedure_blocks');
-    this.setTooltip(Blockly.Msg['PROCEDURES_DEFNORETURN_TOOLTIP']);
-    this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFNORETURN_HELPURL']);
+    this.setStyle("procedure_blocks");
+    this.setTooltip(Blockly.Msg["PROCEDURES_DEFNORETURN_TOOLTIP"]);
+    this.setHelpUrl(Blockly.Msg["PROCEDURES_DEFNORETURN_HELPURL"]);
     this.arguments_ = [];
     this.argumentVarModels_ = [];
     this.setStatements_(true);
@@ -41,11 +41,11 @@ Blockly.Blocks['procedures_defnoreturn'] = {
       return;
     }
     if (hasStatements) {
-      this.appendStatementInput('STACK').appendField(
-        Blockly.Msg['PROCEDURES_DEFNORETURN_DO']
+      this.appendStatementInput("STACK").appendField(
+        Blockly.Msg["PROCEDURES_DEFNORETURN_DO"]
       );
     } else {
-      this.removeInput('STACK', true);
+      this.removeInput("STACK", true);
     }
     this.hasStatements_ = hasStatements;
   },
@@ -59,8 +59,8 @@ Blockly.Blocks['procedures_defnoreturn'] = {
    * @this Blockly.Block
    */
   getProcedureDef: function () {
-    return [this.getFieldValue('NAME'), [], false];
+    return [this.getFieldValue("NAME"), [], false];
   },
 
-  callType_: 'procedures_callnoreturn',
+  callType_: "procedures_callnoreturn",
 };

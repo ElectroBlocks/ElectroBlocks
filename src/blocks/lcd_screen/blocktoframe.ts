@@ -1,14 +1,14 @@
-import { BlockToFrameTransformer } from "../block-to-frame.transformer";
-import { LCDScreenState } from "../../arduino-components.state";
-import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
-import { ArduinoComponentType } from "../../arduino.frame";
+import _ from "lodash";
+import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
+import { LCDScreenState } from "./state";
+import { ArduinoComponentType } from "../../core/frames/arduino.frame";
+import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByComponent,
-  getDefaultIndexValue,
   findComponent,
-} from "../frame-transformer.helpers";
-import _ from "lodash";
-import { getInputValue } from "../block-to-value.factories";
+  getDefaultIndexValue,
+} from "../../core/frames/transformer/frame-transformer.helpers";
 
 export const lcdScreenSetup: BlockToFrameTransformer = (
   blocks,

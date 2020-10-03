@@ -1,4 +1,4 @@
-import Blockly, { Workspace } from 'blockly';
+import Blockly, { Workspace } from "blockly";
 
 /**
  * Construct the blocks required by the flyout for the procedure category.
@@ -7,18 +7,18 @@ import Blockly, { Workspace } from 'blockly';
  */
 Blockly.Procedures.flyoutCategory = (workspace: Workspace) => {
   const xmlList: Element[] = [];
-  if (Blockly.Blocks['procedures_defnoreturn']) {
+  if (Blockly.Blocks["procedures_defnoreturn"]) {
     // <block type="procedures_defnoreturn" gap="16">
     //     <field name="NAME">do something</field>
     // </block>
-    const block = Blockly.utils.xml.createElement('block');
-    block.setAttribute('type', 'procedures_defnoreturn');
-    block.setAttribute('gap', '16');
-    const nameField = Blockly.utils.xml.createElement('field');
-    nameField.setAttribute('name', 'NAME');
+    const block = Blockly.utils.xml.createElement("block");
+    block.setAttribute("type", "procedures_defnoreturn");
+    block.setAttribute("gap", "16");
+    const nameField = Blockly.utils.xml.createElement("field");
+    nameField.setAttribute("name", "NAME");
     nameField.appendChild(
       Blockly.utils.xml.createTextNode(
-        Blockly.Msg['PROCEDURES_DEFNORETURN_PROCEDURE']
+        Blockly.Msg["PROCEDURES_DEFNORETURN_PROCEDURE"]
       )
     );
     block.appendChild(nameField);
@@ -45,7 +45,7 @@ Blockly.Procedures.flyoutCategory = (workspace: Workspace) => {
 
   if (xmlList.length) {
     // Add slightly larger gap between system blocks and user calls.
-    xmlList[xmlList.length - 1].setAttribute('gap', '24');
+    xmlList[xmlList.length - 1].setAttribute("gap", "24");
   }
 
   function populateProcedures(procedureList, templateName) {
@@ -57,16 +57,16 @@ Blockly.Procedures.flyoutCategory = (workspace: Workspace) => {
       //     <arg name="x" type="Nubmer"></arg>
       //   </mutation>
       // </block>
-      const block = Blockly.utils.xml.createElement('block');
-      block.setAttribute('type', templateName);
-      block.setAttribute('gap', '40');
-      const mutation = Blockly.utils.xml.createElement('mutation');
-      mutation.setAttribute('name', name);
+      const block = Blockly.utils.xml.createElement("block");
+      block.setAttribute("type", templateName);
+      block.setAttribute("gap", "40");
+      const mutation = Blockly.utils.xml.createElement("mutation");
+      mutation.setAttribute("name", name);
       block.appendChild(mutation);
       for (let j = 0; j < argsModel.length; j++) {
-        const arg = Blockly.utils.xml.createElement('arg');
-        arg.setAttribute('name', argsModel[j].name);
-        arg.setAttribute('type', argsModel[j].type); // CHANGE TO GET TYPES
+        const arg = Blockly.utils.xml.createElement("arg");
+        arg.setAttribute("name", argsModel[j].name);
+        arg.setAttribute("type", argsModel[j].type); // CHANGE TO GET TYPES
         mutation.appendChild(arg);
       }
       xmlList.push(block);
@@ -74,7 +74,7 @@ Blockly.Procedures.flyoutCategory = (workspace: Workspace) => {
   }
 
   const tuple = Blockly.Procedures.allProcedures(workspace);
-  populateProcedures(tuple[0], 'procedures_callnoreturn');
-  populateProcedures(tuple[1], 'procedures_callreturn');
+  populateProcedures(tuple[0], "procedures_callnoreturn");
+  populateProcedures(tuple[1], "procedures_callreturn");
   return xmlList;
 };

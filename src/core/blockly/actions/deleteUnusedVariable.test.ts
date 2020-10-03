@@ -1,5 +1,5 @@
 import "jest";
-import "../../blocks";
+import "../blocks";
 import Blockly, { Workspace } from "blockly";
 import _ from "lodash";
 import { deleteUnusedVariables } from "./deleteUnusedVariables";

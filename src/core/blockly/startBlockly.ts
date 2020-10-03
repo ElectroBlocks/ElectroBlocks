@@ -9,7 +9,7 @@ import { theme } from "./theme";
 
 import registerListeners from "./registerEvents";
 import registerListMenu from "./menu/list.menu";
-import registerCodeMenu from "./menu/code.menu";
+import registerCodeMenu from "../../blocks/arduino/menu";
 
 import getToolBoxString from "./toolbox/getToolBoxString";
 import { fetchToolBox } from "./toolbox/toolbox";

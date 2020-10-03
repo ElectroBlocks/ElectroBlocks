@@ -1,6 +1,6 @@
 import Blockly from "blockly";
-import { selectBoardBlockly } from "../../microcontroller/selectBoard";
-import { COLOR_THEME } from "../constants/colors";
+import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
+import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 Blockly.defineBlocksWithJsonArray([
   {

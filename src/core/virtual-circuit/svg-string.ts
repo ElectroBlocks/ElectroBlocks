@@ -11,8 +11,8 @@ import bluetoothSvg from "../../blocks/bluetooth/bluetooth.svg";
 import buttonSvgString from "../../blocks/button/button.svg";
 import analogdigitalWriteSvgString from "./svgs/analogdigital/digital_analog_write.svg";
 import irRemoteSvgString from "../../blocks/ir_remote/ir_remote.svg";
-import lcd_16_2_svg from "./svgs/lcd/lcd_16_2.svg";
-import lcd_20_4_svg from "./svgs/lcd/lcd_20_4.svg";
+import lcd_16_2_svg from "../../blocks/lcd_screen/lcd_16_2.svg";
+import lcd_20_4_svg from "../../blocks/lcd_screen/lcd_20_4.svg";
 import ledSvgString from "./svgs/led/led.svg";
 import ledmatrixSvgString from "./svgs/ledmatrix/ledmatrix.svg";
 import motorSvgString from "./svgs/motor/motor.svg";
@@ -25,10 +25,10 @@ import tempSvgString from "./svgs/temp/temp-humidity.svg";
 import ultraSonicSvgString from "./svgs/ultrasonic-sensor/ultrasonic-sensor.svg";
 import {
   PinPicture,
-  LCDScreenState,
   LedColorState,
   PinState,
 } from "../frames/arduino-components.state";
+import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
@@ -49,10 +49,6 @@ const getPinSvgString = (state: PinState) => {
   }
 
   return pinPictureSvgString[(state as PinState).pinPicture];
-};
-
-const getLcdScreenSvgString = (state: LCDScreenState) => {
-  return state.rows === 4 ? lcd_20_4_svg : lcd_16_2_svg;
 };
 
 export const getSvgString = (state: ArduinoComponentState) => {

@@ -1,29 +1,30 @@
-import "../../../blockly/blocks";
+import "jest";
+import "../../core/blockly/blocks";
 import Blockly, { Workspace, BlockSvg } from "blockly";
 import {
   getAllBlocks,
   connectToArduinoBlock,
-} from "../../../blockly/helpers/block.helper";
+} from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
-import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
+import { BlockEvent } from "../../core/blockly/dto/event.type";
+import { transformBlock } from "../../core/blockly/transformers/block.transformer";
+import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
+import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import {
-  LCDScreenState,
-  LCD_SCREEN_MEMORY_TYPE,
-} from "../../arduino-components.state";
+  ArduinoFrame,
+  ArduinoComponentType,
+} from "../../core/frames/arduino.frame";
+import { LCDScreenState, LCD_SCREEN_MEMORY_TYPE } from "./state";
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
-import { findComponent } from "../frame-transformer.helpers";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+} from "../../tests/tests.helper";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
+import { MicroControllerType } from "../../core/microcontroller/microcontroller";
 
 describe("lcd  factories", () => {
   let workspace: Workspace;

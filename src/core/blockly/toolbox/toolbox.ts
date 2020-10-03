@@ -4,6 +4,9 @@ import { updateToolbox } from "../helpers/workspace.helper";
 import bluetoothXMLString from "../../../blocks/bluetooth/toolbox";
 import buttonXMLString from "../../../blocks/button/toolbox";
 import irRmoteXMLString from "../../../blocks/ir_remote/toolbox";
+import arduinoXMLString from "../../../blocks/arduino/toolbox";
+import functionXMLString from "../../../blocks/functions/toolbox";
+import lcdScreenXMLScreen from "../../../blocks/lcd_screen/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -45,15 +48,43 @@ export enum ToolBoxCategory {
   COMPONENT = "Component",
   SENSORS = "Sensors",
   ARDUINO = "Arduino",
+  NONE = "NONE",
+  SEPARATOR = "SEPARATOR",
 }
 
 const defaultToolbox: ToolBoxEntries[] = [
+  {
+    color: COLOR_THEME.CONTROL,
+    category: ToolBoxCategory.NONE,
+    name: "Functions",
+    toolBoxEntries: [
+      {
+        name: "My Blocks",
+        show: true,
+        xml: functionXMLString,
+      },
+    ],
+  },
+  {
+    color: COLOR_THEME.ARDUINO,
+    category: ToolBoxCategory.ARDUINO,
+    name: "Arduino",
+    toolBoxEntries: [
+      {
+        name: "Arduino",
+        show: true,
+        xml: arduinoXMLString,
+      },
+    ],
+  },
+
   {
     color: COLOR_THEME.COMPONENTS,
     category: ToolBoxCategory.COMPONENT,
     name: "Components",
     toolBoxEntries: [
       { name: "Bluetooth", show: true, xml: bluetoothXMLString },
+      { name: "LCD Screen", show: true, xml: lcdScreenXMLScreen },
     ],
   },
   {
@@ -65,18 +96,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "IR Remote", show: true, xml: irRmoteXMLString },
     ],
   },
-  {
-    color: COLOR_THEME.ARDUINO,
-    category: ToolBoxCategory.ARDUINO,
-    name: "Arduino",
-    toolBoxEntries: [
-      {
-        name: "Arduino",
-        show: true,
-        xml: `<category name="Code" colour="${COLOR_THEME.ARDUINO}" custom="CODE"></category>`,
-      },
-    ],
-  },
+
   // { name: 'Logic', show: true },
   // { name: 'Loops', show: true },
   // { name: 'List', show: true },

@@ -1,5 +1,5 @@
 import "jest";
-import "../../blocks";
+import "../blocks";
 import Blockly, { BlockSvg } from "blockly";
 import { getAllBlocks } from "../helpers/block.helper";
 import _ from "lodash";

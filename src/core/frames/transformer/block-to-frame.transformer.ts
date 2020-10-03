@@ -12,7 +12,7 @@ import {
   lcdBlink,
   lcdClear,
   lcdBacklight,
-} from "./blocktoframe/lcd";
+} from "../../../blocks/lcd_screen/blocktoframe";
 import { neoPixelSetup, setNeoPixelColor } from "./blocktoframe/neopixel";
 import { ledColorSetup, setLedColor } from "./blocktoframe/led-color";
 import { setupReadPin } from "./blocktoframe/pin";
@@ -33,7 +33,6 @@ import {
 import { setVariable } from "./blocktoframe/set_variables";
 import { ifElse } from "./blocktoframe/logic";
 import { simpleLoop, forLoop } from "./blocktoframe/loop";
-import { customBlock } from "./blocktoframe/function";
 import { delayBlock } from "./blocktoframe/delay";
 import { digitalWrite, analogWrite } from "./blocktoframe/led";
 import { PinPicture } from "../arduino-components.state";
@@ -55,6 +54,7 @@ import {
 import { debugBlock } from "../../../blocks/debug/blocktoframe";
 import { buttonSetup } from "../../../blocks/button/blocktoframe";
 import { irRemoteSetup } from "../../../blocks/ir_remote/blocktoframe";
+import { customBlock } from "../../../blocks/functions/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

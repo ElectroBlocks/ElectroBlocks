@@ -15,7 +15,11 @@ import {
   createWiresIrRemote,
   positionIrRemote,
 } from "../../blocks/ir_remote/virtual-circuit";
-import { createWiresLcd, lcdCreate, lcdPosition } from "./components/lcd.sync";
+import {
+  createWiresLcd,
+  lcdCreate,
+  lcdPosition,
+} from "../../blocks/lcd_screen/virtual-circuit";
 import {
   createWiresRgbLed,
   createRgbLed,

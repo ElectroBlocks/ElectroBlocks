@@ -6,11 +6,7 @@ import {
 } from "../svg-create";
 
 import { Element, Svg, Text } from "@svgdotjs/svg.js";
-import {
-  PinState,
-  PIN_TYPE,
-  LCDScreenState,
-} from "../../frames/arduino-components.state";
+import { PinState, PIN_TYPE } from "../../frames/arduino-components.state";
 import _ from "lodash";
 import resistorSvg from "../svgs/resistors/resistor-small.svg";
 import { ARDUINO_PINS, ANALOG_PINS } from "../../microcontroller/selectBoard";
