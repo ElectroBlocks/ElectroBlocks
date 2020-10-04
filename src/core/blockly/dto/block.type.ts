@@ -445,6 +445,7 @@ export interface BlockData {
 export interface FieldValue {
   name: string;
   value: any;
+  validOptions?: Array<{ name: string; value: string }>;
 }
 
 export interface InputStatement {

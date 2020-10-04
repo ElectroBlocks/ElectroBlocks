@@ -1,20 +1,27 @@
-import { getBoard } from "../../../microcontroller/selectBoard";
 import { BlockEvent } from "../../dto/event.type";
-import { getBoardType } from "../../helpers/get-board.helper";
 import { ActionType, DisableBlock } from "../actions";
 
+// This is so that when some switches microcontrollers the pins are
+// valid in the new microcontroller.  Otherwise disable the pins and force
+// the user to choose a valid option.
 export const disableBlocksWithInvalidPinNumbers = (
   event: BlockEvent
 ): DisableBlock[] => {
-  const board = getBoard(getBoardType());
-  const availablePins = [...board.digitalPins, ...board.analonPins];
   return event.blocks
     .filter((b) =>
       b.pins.find((p) => {
-        return !availablePins.includes(p);
+        // This makes sure that all the pins in the drop down box match
+        // the pins in being output
+        return !b.fieldValues
+          .filter((fv) => fv.validOptions)
+          .reduce((acc, next) => {
+            return [...acc, ...next.validOptions.map((v) => v.value)];
+          }, [])
+          .includes(p);
       })
     )
     .map((block) => {
+      console.log("disable bad pins");
       return {
         type: ActionType.DISABLE_BLOCK,
         warningText:

@@ -1,4 +1,4 @@
-import { BlockSvg } from "blockly";
+import Blockly, { BlockSvg } from "blockly";
 import {
   BlockData,
   Input,
@@ -41,9 +41,19 @@ const getFieldValues = (block: BlockSvg): FieldValue[] => {
             (block.type === "procedures_callnoreturn" && field.name === "NAME")
         )
         .map((field) => {
+          let validOptions = undefined;
+          if (field instanceof Blockly.FieldDropdown) {
+            validOptions = field.getOptions().map(([name, value]) => {
+              return {
+                name,
+                value,
+              };
+            });
+          }
           return {
             name: field.name,
             value: field.getValue(),
+            validOptions,
           };
         });
     })
