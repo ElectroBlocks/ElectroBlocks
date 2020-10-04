@@ -36,7 +36,7 @@ import {
   neoPixelCreate,
   createWiresNeoPixels,
   neoPixelPosition,
-} from "./components/neoPixel.sync";
+} from "../../blocks/neopixels/virtual-circuit";
 import {
   createDigitalAnalogWire,
   createPinComponent,

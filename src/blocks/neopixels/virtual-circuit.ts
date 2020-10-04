@@ -1,17 +1,24 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from "../svg-create";
+} from "../../core/virtual-circuit/svg-create";
 
-import { NeoPixelState } from "../../frames/arduino-components.state";
 import { Element, Svg } from "@svgdotjs/svg.js";
-import { createWire, createPowerWire, createGroundWire } from "../wire";
-import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
+import {
+  createWire,
+  createPowerWire,
+  createGroundWire,
+} from "../../core/virtual-circuit/wire";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import _ from "lodash";
-import { rgbToHex } from "../../blockly/helpers/color.helper";
-import { positionComponent } from "../svg-position";
+import { rgbToHex } from "../../core/blockly/helpers/color.helper";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { NeoPixelState } from "./state";
 
 export const neoPixelCreate: CreateCompenentHook<NeoPixelState> = (
   state,

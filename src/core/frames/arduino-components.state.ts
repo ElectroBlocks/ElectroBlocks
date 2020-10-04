@@ -32,11 +32,6 @@ export enum MOTOR_DIRECTION {
   BACKWARD = "BACKWARD",
 }
 
-export interface NeoPixelState extends ArduinoComponentState {
-  numberOfLeds: number;
-  neoPixels: Array<{ position: number; color: Color }>;
-}
-
 export interface PinState extends ArduinoComponentState {
   pin: ARDUINO_PINS;
   pinType: PIN_TYPE;

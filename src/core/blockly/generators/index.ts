@@ -16,7 +16,7 @@ import "./message";
 import "./math";
 import "./motion_sensor";
 import "./motor";
-import "./neo_pixel";
+import "../../../blocks/neopixels/generators";
 import "./pins";
 import "../../../blocks/functions/generators";
 import "./rfid";

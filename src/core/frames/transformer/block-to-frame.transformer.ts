@@ -13,7 +13,6 @@ import {
   lcdClear,
   lcdBacklight,
 } from "../../../blocks/lcd_screen/blocktoframe";
-import { neoPixelSetup, setNeoPixelColor } from "./blocktoframe/neopixel";
 import { ledColorSetup, setLedColor } from "./blocktoframe/led-color";
 import { setupReadPin } from "./blocktoframe/pin";
 import { ultraSonicSensor } from "./blocktoframe/ultra_sonic_sensor";
@@ -55,6 +54,10 @@ import { debugBlock } from "../../../blocks/debug/blocktoframe";
 import { buttonSetup } from "../../../blocks/button/blocktoframe";
 import { irRemoteSetup } from "../../../blocks/ir_remote/blocktoframe";
 import { customBlock } from "../../../blocks/functions/blocktoframe";
+import {
+  neoPixelSetup,
+  setNeoPixelColor,
+} from "../../../blocks/neopixels/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

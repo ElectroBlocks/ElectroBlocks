@@ -8,7 +8,7 @@ import "../../../blocks/functions/blocks";
 import "../../../blocks/lcd_screen/blocks";
 import "./led_matrix";
 import "./led";
-import "./led_light_strip";
+import "../../../blocks/neopixels/blocks";
 import "./list";
 import "./logic";
 import "./loops";

@@ -17,7 +17,10 @@ import {
   resetPinComponent,
 } from "./components/pin.component";
 import _ from "lodash";
-import { neoPixelUpdate, neoPixelReset } from "./components/neoPixel.sync";
+import {
+  neoPixelUpdate,
+  neoPixelReset,
+} from "../../blocks/neopixels/virtual-circuit";
 import { ledMatrixUpdate, ledMatrixReset } from "./components/ledmatrix.sync";
 import { motorUpdate, motorReset } from "./components/motor.sync";
 import {
