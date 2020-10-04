@@ -29,7 +29,7 @@ import {
   createWiresLedMatrix,
   ledMatrixCreate,
   ledMatrixPosition,
-} from "./components/ledmatrix.sync";
+} from "../../blocks/led_matrix/virtual-circuit";
 import { arduinoMessageCreate } from "./components/arduino-message.sync";
 import { motorCreate, motorPosition } from "./components/motor.sync";
 import {

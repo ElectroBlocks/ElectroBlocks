@@ -35,11 +35,6 @@ import { simpleLoop, forLoop } from "./blocktoframe/loop";
 import { delayBlock } from "./blocktoframe/delay";
 import { digitalWrite, analogWrite } from "./blocktoframe/led";
 import { PinPicture } from "../arduino-components.state";
-import {
-  ledMatrixDraw,
-  ledMatrixOnLed,
-  ledMatrixSetup,
-} from "./blocktoframe/led-matrix";
 import { moveMotor } from "./blocktoframe/motor";
 import { rfidScannedCard } from "./blocktovalue/rfid";
 import {
@@ -58,6 +53,11 @@ import {
   neoPixelSetup,
   setNeoPixelColor,
 } from "../../../blocks/neopixels/blocktoframe";
+import {
+  ledMatrixDraw,
+  ledMatrixOnLed,
+  ledMatrixSetup,
+} from "../../../blocks/led_matrix/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

@@ -12,7 +12,7 @@ import buttonSvgString from "../../blocks/button/button.svg";
 import analogdigitalWriteSvgString from "./svgs/analogdigital/digital_analog_write.svg";
 import irRemoteSvgString from "../../blocks/ir_remote/ir_remote.svg";
 import ledSvgString from "./svgs/led/led.svg";
-import ledmatrixSvgString from "./svgs/ledmatrix/ledmatrix.svg";
+import ledmatrixSvgString from "../../blocks/led_matrix/ledmatrix.svg";
 import motorSvgString from "./svgs/motor/motor.svg";
 import neopixelSvgString from "../../blocks/neopixels/neopixel.svg";
 import rfidSvgString from "./svgs/rfid/rfid.svg";

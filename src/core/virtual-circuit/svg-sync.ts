@@ -21,7 +21,10 @@ import {
   neoPixelUpdate,
   neoPixelReset,
 } from "../../blocks/neopixels/virtual-circuit";
-import { ledMatrixUpdate, ledMatrixReset } from "./components/ledmatrix.sync";
+import {
+  ledMatrixUpdate,
+  ledMatrixReset,
+} from "../../blocks/led_matrix/virtual-circuit";
 import { motorUpdate, motorReset } from "./components/motor.sync";
 import {
   updateIrRemote,

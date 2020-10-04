@@ -5,6 +5,7 @@ import bluetoothXMLString from "../../../blocks/bluetooth/toolbox";
 import buttonXMLString from "../../../blocks/button/toolbox";
 import irRmoteXMLString from "../../../blocks/ir_remote/toolbox";
 import neoPixelXMLString from "../../../blocks/neopixels/toolbox";
+import ledMatrixXMLString from "../../../blocks/led_matrix/toolbox";
 import arduinoXMLString from "../../../blocks/arduino/toolbox";
 import functionXMLString from "../../../blocks/functions/toolbox";
 import lcdScreenXMLScreen from "../../../blocks/lcd_screen/toolbox";
@@ -87,6 +88,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Bluetooth", show: true, xml: bluetoothXMLString },
       { name: "LCD Screen", show: true, xml: lcdScreenXMLScreen },
       { name: "Neo Pixel", show: true, xml: neoPixelXMLString },
+      { name: "Led Matrix", show: true, xml: ledMatrixXMLString },
     ],
   },
   {

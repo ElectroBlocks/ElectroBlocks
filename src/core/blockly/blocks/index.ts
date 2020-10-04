@@ -6,7 +6,7 @@ import "../../../blocks/debug/blocks";
 import "../../../blocks/ir_remote/blocks";
 import "../../../blocks/functions/blocks";
 import "../../../blocks/lcd_screen/blocks";
-import "./led_matrix";
+import "../../../blocks/led_matrix/blocks";
 import "./led";
 import "../../../blocks/neopixels/blocks";
 import "./list";

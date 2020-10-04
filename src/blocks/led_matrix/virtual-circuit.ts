@@ -1,16 +1,23 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from "../svg-create";
+} from "../../core/virtual-circuit/svg-create";
 
-import { LedMatrixState } from "../../frames/arduino-components.state";
 import { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from "../svg-position";
-import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
-import { createPowerWire, createGroundWire, createWire } from "../wire";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import {
+  createPowerWire,
+  createGroundWire,
+  createWire,
+} from "../../core/virtual-circuit/wire";
+import { LedMatrixState } from "./state";
 
 export const ledMatrixPosition: PositionComponent<LedMatrixState> = (
   _,

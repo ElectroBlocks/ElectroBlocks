@@ -1,27 +1,27 @@
-import "../../../blockly/blocks";
+import "../../core/blockly/blocks";
 import Blockly, { Workspace, BlockSvg } from "blockly";
 import {
   getAllBlocks,
   connectToArduinoBlock,
-} from "../../../blockly/helpers/block.helper";
+} from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
-import { ArduinoComponentType } from "../../arduino.frame";
-import { LedMatrixState } from "../../arduino-components.state";
+import { BlockEvent } from "../../core/blockly/dto/event.type";
+import { transformBlock } from "../../core/blockly/transformers/block.transformer";
+import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
+import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import { ArduinoComponentType } from "../../core/frames/arduino.frame";
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import "../../../../tests/fake-block";
-import { findComponent } from "../frame-transformer.helpers";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+} from "../../tests/tests.helper";
+import "../../tests/fake-block";
+import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { MicroControllerType } from "../../core/microcontroller/microcontroller";
+import { LedMatrixState } from "./state";
 
 describe("led matrix  factories", () => {
   let workspace: Workspace;

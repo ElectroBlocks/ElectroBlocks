@@ -14,13 +14,6 @@ export interface LedColorState extends ArduinoComponentState {
   color: Color;
 }
 
-export interface LedMatrixState extends ArduinoComponentState {
-  leds: Array<{ col: number; row: number; isOn: boolean }>;
-  dataPin: ARDUINO_PINS;
-  csPin: ARDUINO_PINS;
-  clkPin: ARDUINO_PINS;
-}
-
 export interface MotorState extends ArduinoComponentState {
   motorNumber: number;
   speed: number;

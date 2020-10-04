@@ -7,7 +7,7 @@ import "./colour";
 import "../../../blocks/debug/generators";
 import "../../../blocks/ir_remote/generators";
 import "../../../blocks/lcd_screen/generators";
-import "./led_matrix";
+import "../../../blocks/led_matrix/generators";
 import "./led";
 import "./list";
 import "./logic";

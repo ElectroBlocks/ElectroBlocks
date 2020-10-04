@@ -7,10 +7,7 @@ import {
   connectToArduinoBlock,
 } from "../../../blockly/helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
+
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { saveSensorSetupBlockData } from "../../../blockly/actions/saveSensorSetupBlockData";
