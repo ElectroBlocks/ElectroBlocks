@@ -22,19 +22,13 @@ import ultraSonicSvgString from "./svgs/ultrasonic-sensor/ultrasonic-sensor.svg"
 import { PinPicture, PinState } from "../frames/arduino-components.state";
 import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
 import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
+import { getLedSvgString } from "../../blocks/led/svg-string";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
 }
 
 const getPinSvgString = (state: PinState) => {
-  if (state.pinPicture === PinPicture.LED) {
-    return ledSvgString.replace(
-      /radial-gradient/g,
-      `radial-gradient-${(state as PinState).pin}`
-    );
-  }
-
   return pinPictureSvgString[(state as PinState).pinPicture];
 };
 
@@ -60,6 +54,7 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.LCD_SCREEN]: getLcdScreenSvgString,
   [ArduinoComponentType.LED_COLOR]: getLedColorSvgString,
   [ArduinoComponentType.PIN]: getPinSvgString,
+  [ArduinoComponentType.LED]: getLedSvgString,
 };
 
 const pinPictureSvgString = {

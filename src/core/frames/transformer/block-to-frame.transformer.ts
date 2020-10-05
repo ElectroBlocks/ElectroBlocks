@@ -61,6 +61,7 @@ import {
   ledColorSetup,
   setLedColor,
 } from "../../../blocks/rgbled/blocktoframe";
+import { led, ledFade } from "../../../blocks/led/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (
@@ -121,10 +122,10 @@ const blockToFrameTransformerList: {
   lcd_screen_clear: lcdClear,
   lcd_backlight: lcdBacklight,
 
-  led: digitalWrite(PinPicture.LED),
+  led: led,
   digital_write: digitalWrite(PinPicture.LED_DIGITAL_WRITE),
   analog_write: analogWrite(PinPicture.LED_ANALOG_WRITE, "WRITE_VALUE"),
-  led_fade: analogWrite(PinPicture.LED, "FADE"),
+  led_fade: ledFade,
   set_color_led: setLedColor,
   neo_pixel_set_color: setNeoPixelColor,
 

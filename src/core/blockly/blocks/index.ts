@@ -8,7 +8,7 @@ import "../../../blocks/functions/blocks";
 import "../../../blocks/lcd_screen/blocks";
 import "../../../blocks/led_matrix/blocks";
 import "../../../blocks/rgbled/blocks";
-import "./led";
+import "../../../blocks/led/blocks";
 import "../../../blocks/neopixels/blocks";
 import "./list";
 import "./logic";

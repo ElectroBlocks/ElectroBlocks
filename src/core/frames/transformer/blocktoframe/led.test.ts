@@ -12,11 +12,7 @@ import { transformVariable } from "../../../blockly/transformers/variables.trans
 import { eventToFrameFactory } from "../../event-to-frame.factory";
 import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import {
-  LedColorState,
-  PinState,
-  PinPicture,
-} from "../../arduino-components.state";
+import { PinState, PinPicture } from "../../arduino-components.state";
 import {
   createArduinoAndWorkSpace,
   createValueBlock,

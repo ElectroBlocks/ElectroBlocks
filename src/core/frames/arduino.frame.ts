@@ -63,6 +63,7 @@ export enum ArduinoComponentType {
   PIN = "PIN",
   BLUE_TOOTH = "BLUE_TOOTH",
   LED_COLOR = "LED_COLOR",
+  LED = "LED",
   RFID = "RFID",
   BUTTON = "BUTTON",
   MESSAGE = "MESSAGE",

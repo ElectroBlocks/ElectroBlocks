@@ -36,6 +36,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.ULTRASONICE_SENSOR]: genericSingleComponentId,
   [ArduinoComponentType.LCD_SCREEN]: lcdStateId,
   [ArduinoComponentType.LED_COLOR]: getLedColorId,
+  [ArduinoComponentType.LED]: genericSingleComponentId,
   [ArduinoComponentType.PIN]: getPinStateId,
 };
 

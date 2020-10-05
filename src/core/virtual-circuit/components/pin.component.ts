@@ -13,13 +13,6 @@ import {
   createWiresDigitalAnalogWrite,
   digitalAnanlogWritePinPosition,
 } from "./digitalanalogwritepin.sync";
-import {
-  ledCreate,
-  resetLed,
-  updateLed,
-  createWiresLed,
-  ledPosition,
-} from "./led.sync";
 import _ from "lodash";
 import { Element } from "@svgdotjs/svg.js";
 import {
@@ -113,7 +106,6 @@ export const createDigitalAnalogWire: CreateWire<PinState> = (
 const pinFunctionCreate = {
   [PinPicture.LED_ANALOG_WRITE]: digitalAnanlogWritePinCreate,
   [PinPicture.LED_DIGITAL_WRITE]: digitalAnanlogWritePinCreate,
-  [PinPicture.LED]: ledCreate,
   [PinPicture.PHOTO_SENSOR]: analogDigitalSensorCreate,
   [PinPicture.SOIL_SENSOR]: analogDigitalSensorCreate,
   [PinPicture.SENSOR]: analogDigitalSensorCreate,
@@ -123,7 +115,6 @@ const pinFunctionCreate = {
 const pinFunctionUpdate = {
   [PinPicture.LED_ANALOG_WRITE]: digitalAnalogWritePinSync,
   [PinPicture.LED_DIGITAL_WRITE]: digitalAnalogWritePinSync,
-  [PinPicture.LED]: updateLed,
   [PinPicture.PHOTO_SENSOR]: analogDigitalSensorUpdate,
   [PinPicture.SOIL_SENSOR]: analogDigitalSensorUpdate,
   [PinPicture.SENSOR]: analogDigitalSensorUpdate,
@@ -133,7 +124,6 @@ const pinFunctionUpdate = {
 const pinFunctionReset = {
   [PinPicture.LED_ANALOG_WRITE]: digitalAnalogWritePinReset,
   [PinPicture.LED_DIGITAL_WRITE]: digitalAnalogWritePinReset,
-  [PinPicture.LED]: resetLed,
   [PinPicture.PHOTO_SENSOR]: analogDigitalSensorReset,
   [PinPicture.SOIL_SENSOR]: analogDigitalSensorReset,
   [PinPicture.SENSOR]: analogDigitalSensorReset,
@@ -143,7 +133,6 @@ const pinFunctionReset = {
 const pinPositionFunc = {
   [PinPicture.LED_ANALOG_WRITE]: digitalAnanlogWritePinPosition,
   [PinPicture.LED_DIGITAL_WRITE]: digitalAnanlogWritePinPosition,
-  [PinPicture.LED]: ledPosition,
   [PinPicture.PHOTO_SENSOR]: analogDigitalSensorPosition,
   [PinPicture.SOIL_SENSOR]: analogDigitalSensorPosition,
   [PinPicture.SENSOR]: analogDigitalSensorPosition,
@@ -153,7 +142,6 @@ const pinPositionFunc = {
 const pinFunctionCreateWire = {
   [PinPicture.LED_ANALOG_WRITE]: createWiresDigitalAnalogWrite,
   [PinPicture.LED_DIGITAL_WRITE]: createWiresDigitalAnalogWrite,
-  [PinPicture.LED]: createWiresLed,
   [PinPicture.PHOTO_SENSOR]: createWireSensors,
   [PinPicture.SOIL_SENSOR]: createWireSensors,
   [PinPicture.SENSOR]: createWireSensors,

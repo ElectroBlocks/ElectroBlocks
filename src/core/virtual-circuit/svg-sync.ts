@@ -25,6 +25,8 @@ import {
   ledMatrixUpdate,
   ledMatrixReset,
 } from "../../blocks/led_matrix/virtual-circuit";
+import { resetLed, updateLed } from "../../blocks/led/virtual-circuit";
+
 import { motorUpdate, motorReset } from "./components/motor.sync";
 import {
   updateIrRemote,
@@ -64,6 +66,7 @@ const resetComponent = {
   [ArduinoComponentType.LED_MATRIX]: ledMatrixReset,
   [ArduinoComponentType.MESSAGE]: resetArduinoMessage,
   [ArduinoComponentType.MOTOR]: motorReset,
+  [ArduinoComponentType.LED]: resetLed,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelReset,
   [ArduinoComponentType.PIN]: resetPinComponent,
   [ArduinoComponentType.RFID]: resetRfid,
@@ -79,6 +82,7 @@ const syncComponent = {
   [ArduinoComponentType.LCD_SCREEN]: lcdUpdate,
   [ArduinoComponentType.LED_COLOR]: updateRgbLed,
   [ArduinoComponentType.LED_MATRIX]: ledMatrixUpdate,
+  [ArduinoComponentType.LED]: updateLed,
   [ArduinoComponentType.MOTOR]: motorUpdate,
   [ArduinoComponentType.MESSAGE]: arduinoMessageUpdate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelUpdate,

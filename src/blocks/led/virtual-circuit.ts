@@ -1,27 +1,31 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from "../svg-create";
+} from "../../core/virtual-circuit/svg-create";
 
 import { Element, Svg, Text } from "@svgdotjs/svg.js";
-import { PinState, PIN_TYPE } from "../../frames/arduino-components.state";
+import { PinState, PIN_TYPE } from "../../core/frames/arduino-components.state";
 import _ from "lodash";
-import resistorSvg from "../commonsvgs/resistors/resistor-small.svg";
-import { ARDUINO_PINS, ANALOG_PINS } from "../../microcontroller/selectBoard";
+import resistorSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-small.svg";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import {
   findResistorBreadboardHoleXY,
   createGroundWire,
   createWire,
-} from "../wire";
-import { positionComponent } from "../svg-position";
-import { arduinoComponentStateToId } from "../../frames/arduino-component-id";
-import { MicroController } from "../../microcontroller/microcontroller";
+} from "../../core/virtual-circuit/wire";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
+import { MicroController } from "../../core/microcontroller/microcontroller";
+import { LedState } from "./state";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
 
-export const ledCreate: CreateCompenentHook<PinState> = (
+export const ledCreate: CreateCompenentHook<LedState> = (
   state,
   ledEl,
   arduinoEl,
@@ -30,7 +34,6 @@ export const ledCreate: CreateCompenentHook<PinState> = (
 ) => {
   const randomColor = colors[_.random(0, colors.length)];
 
-  ledEl.data("picture-type", state.pinPicture);
   ledEl.data("pin-number", state.pin);
 
   ledEl
@@ -51,7 +54,7 @@ export const ledCreate: CreateCompenentHook<PinState> = (
   );
 };
 
-export const ledPosition: PositionComponent<PinState> = (
+export const ledPosition: PositionComponent<LedState> = (
   state,
   ledEl,
   arduinoEl,
@@ -61,7 +64,7 @@ export const ledPosition: PositionComponent<PinState> = (
   positionComponent(ledEl, arduinoEl, draw, state.pin, "POWER", board);
 };
 
-export const updateLed: SyncComponent = (state: PinState, ledEl, draw) => {
+export const updateLed: SyncComponent = (state: LedState, ledEl, draw) => {
   const stopEl = draw
     .find(`#radial-gradient-${state.pin} stop`)
     .toArray()
@@ -69,13 +72,13 @@ export const updateLed: SyncComponent = (state: PinState, ledEl, draw) => {
 
   const ledText = ledEl.findOne("#LED_TEXT") as Text;
 
-  if (state.pinType === PIN_TYPE.DIGITAL_OUTPUT) {
+  if (!state.fade) {
     const color = state.state === 1 ? ledEl.data("color") : "#FFF";
     ledText.node.innerHTML = state.state === 1 ? "ON" : "OFF";
     stopEl.attr("stop-color", color);
   }
 
-  if (state.pinType === PIN_TYPE.ANALOG_OUTPUT) {
+  if (state.fade) {
     ledText.node.innerHTML = `${state.state}`;
     stopEl.attr("stop-color", ledEl.data("color"));
     (ledEl.findOne("#LED_LIGHT") as Element).opacity(state.state / 255);
@@ -99,6 +102,7 @@ const createResistor = (
   componentId: string,
   board: MicroController
 ) => {
+  debugger;
   const resistorEl = draw.svg(resistorSvg).last();
   resistorEl.data("component-id", componentId);
 

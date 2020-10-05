@@ -10,6 +10,7 @@ import arduinoXMLString from "../../../blocks/arduino/toolbox";
 import functionXMLString from "../../../blocks/functions/toolbox";
 import lcdScreenXMLString from "../../../blocks/lcd_screen/toolbox";
 import rgbLedXMLString from "../../../blocks/rgbled/toolbox";
+import ledXMLString from "../../../blocks/led/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -88,8 +89,9 @@ const defaultToolbox: ToolBoxEntries[] = [
     toolBoxEntries: [
       { name: "Bluetooth", show: true, xml: bluetoothXMLString },
       { name: "LCD Screen", show: true, xml: lcdScreenXMLString },
-      { name: "Neo Pixel", show: true, xml: neoPixelXMLString },
+      { name: "Led", show: true, xml: ledXMLString },
       { name: "Led Matrix", show: true, xml: ledMatrixXMLString },
+      { name: "Neo Pixel", show: true, xml: neoPixelXMLString },
       { name: "RBG Led", show: true, xml: rgbLedXMLString },
     ],
   },
