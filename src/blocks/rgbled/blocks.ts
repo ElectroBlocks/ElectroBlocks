@@ -2,11 +2,11 @@ import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 
-Blockly.Blocks["led_color_setup"] = {
+Blockly.Blocks["rgb_led_setup"] = {
   init: function () {
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage("./blocks/led/color_led.png", 15, 15))
-      .appendField("Color Led Setup");
+      .appendField("Setup RGB LED");
     this.appendDummyInput()
       .appendField("Picture Type")
       .appendField(
@@ -41,7 +41,7 @@ Blockly.Blocks["led_color_setup"] = {
 Blockly.defineBlocksWithJsonArray([
   {
     type: "set_color_led",
-    message0: "%1 Set Color Led's Color %2",
+    message0: "%1 Set RGB LED's Color %2",
     args0: [
       {
         type: "field_image",

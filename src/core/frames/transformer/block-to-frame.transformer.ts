@@ -60,7 +60,7 @@ import {
 import {
   ledColorSetup,
   setLedColor,
-} from "../../../blocks/ledcolor/blocktoframe";
+} from "../../../blocks/rgbled/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (
@@ -81,7 +81,7 @@ const blockToFrameTransformerList: {
   time_setup: timeSetup,
   lcd_setup: lcdScreenSetup,
   neo_pixel_setup: neoPixelSetup,
-  led_color_setup: ledColorSetup,
+  rgb_led_setup: ledColorSetup,
   analog_read_setup: setupReadPin,
   digital_read_setup: setupReadPin,
   button_setup: buttonSetup,

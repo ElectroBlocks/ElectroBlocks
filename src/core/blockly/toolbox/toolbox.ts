@@ -9,7 +9,7 @@ import ledMatrixXMLString from "../../../blocks/led_matrix/toolbox";
 import arduinoXMLString from "../../../blocks/arduino/toolbox";
 import functionXMLString from "../../../blocks/functions/toolbox";
 import lcdScreenXMLString from "../../../blocks/lcd_screen/toolbox";
-import rgbLedXMLString from "../../../blocks/ledcolor/toolbox";
+import rgbLedXMLString from "../../../blocks/rgbled/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 

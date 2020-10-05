@@ -1,6 +1,6 @@
 import Blockly, { Block } from "blockly";
 
-Blockly["Arduino"]["led_color_setup"] = function (block: Block) {
+Blockly["Arduino"]["rgb_led_setup"] = function (block: Block) {
   const redPin = block.getFieldValue("PIN_RED");
   const greenPin = block.getFieldValue("PIN_GREEN");
   const bluePin = block.getFieldValue("PIN_BLUE");

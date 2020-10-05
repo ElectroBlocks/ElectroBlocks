@@ -2,7 +2,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 export default `<category name="RGB LED" colour="${COLOR_THEME.COMPONENTS}">
    
-   <block type="led_color_setup">
+   <block type="rgb_led_setup">
                            <field name="PIN_RED">6</field>
                          <field name="PIN_GREEN">5</field>
                          <field name="PIN_BLUE">3</field>

@@ -35,7 +35,7 @@ describe("lcd  factories", () => {
 
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
-    ledColorSetup = workspace.newBlock("led_color_setup") as BlockSvg;
+    ledColorSetup = workspace.newBlock("rgb_led_setup") as BlockSvg;
     ledColorSetup.setFieldValue("11", "PIN_RED");
     ledColorSetup.setFieldValue("10", "PIN_GREEN");
     ledColorSetup.setFieldValue("9", "PIN_BLUE");
@@ -57,7 +57,7 @@ describe("lcd  factories", () => {
 
     const state: ArduinoFrame = {
       blockId: ledColorSetup.id,
-      blockName: "led_color_setup",
+      blockName: "rgb_led_setup",
       timeLine: { function: "pre-setup", iteration: 0 },
       explanation: "Setting up color led.",
       components: [ledColorState],

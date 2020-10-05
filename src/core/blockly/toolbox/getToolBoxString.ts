@@ -364,7 +364,7 @@ function getMenuItems(toolBoxEntries: ToolBoxEntry[]) {
 //                   </block>
 //               </value>
 //   </block>
-//   <block type="led_color_setup">
+//   <block type="rgb_led_setup">
 //                           <field name="PIN_RED">6</field>
 //                         <field name="PIN_GREEN">5</field>
 //                         <field name="PIN_BLUE">3</field>

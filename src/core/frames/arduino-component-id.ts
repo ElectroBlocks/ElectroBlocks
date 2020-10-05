@@ -4,7 +4,7 @@ import { MotorState, PinState } from "./arduino-components.state";
 import _ from "lodash";
 import { lcdStateId } from "../../blocks/lcd_screen/component-state-to-id";
 import { neoPixelId } from "../../blocks/neopixels/component-state-to-id";
-import { getLedColorId } from "../../blocks/ledcolor/component-state-to-id";
+import { getLedColorId } from "../../blocks/rgbled/component-state-to-id";
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;

@@ -58,7 +58,7 @@ export const standAloneBlocks = [
   "ir_remote_setup",
   "temp_setup",
   "bluetooth_setup",
-  "led_color_setup",
+  "rgb_led_setup",
   "button_setup",
   "message_setup",
   "time_setup",
@@ -109,7 +109,7 @@ export const blocksThatRequireSetup = {
   ir_remote_get_code: "ir_remote_setup",
   temp_get_temp: "temp_setup",
   temp_get_humidity: "temp_setup",
-  set_color_led: "led_color_setup",
+  set_color_led: "rgb_led_setup",
   rfid_scan: "rfid_setup",
   rfid_tag: "rfid_setup",
   rfid_card: "rfid_setup",
@@ -132,7 +132,7 @@ export const setupBlockTypeToHumanName = {
   soil_sensor_setup: "soil sensor setup block",
   ir_remote_setup: "IR remote setup block",
   temp_setup: "temperature sensor setup block",
-  led_color_setup: "LED color setup block",
+  rgb_led_setup: "LED color setup block",
   rfid_setup: "RFID setup block",
   button_setup: "button setup block",
   message_setup: "message setup block",
@@ -357,7 +357,7 @@ export const blocksToBlockTypes: {
   move_motor: { type: BlockType.STATE, pinCategory: PinCategory.NONE },
 
   set_color_led: { type: BlockType.STATE, pinCategory: PinCategory.LED_COLOR },
-  led_color_setup: {
+  rgb_led_setup: {
     type: BlockType.SETUP,
     pinCategory: PinCategory.LED_COLOR,
   },

@@ -21,7 +21,7 @@ import tempSvgString from "./svgs/temp/temp-humidity.svg";
 import ultraSonicSvgString from "./svgs/ultrasonic-sensor/ultrasonic-sensor.svg";
 import { PinPicture, PinState } from "../frames/arduino-components.state";
 import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
-import { getLedColorSvgString } from "../../blocks/ledcolor/svg-string";
+import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
