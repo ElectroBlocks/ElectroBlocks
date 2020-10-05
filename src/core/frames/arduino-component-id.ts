@@ -1,13 +1,10 @@
 import { ArduinoComponentState, ArduinoComponentType } from "./arduino.frame";
-import {
-  MotorState,
-  LedColorState,
-  PinState,
-} from "./arduino-components.state";
+import { MotorState, PinState } from "./arduino-components.state";
 
 import _ from "lodash";
 import { lcdStateId } from "../../blocks/lcd_screen/component-state-to-id";
 import { neoPixelId } from "../../blocks/neopixels/component-state-to-id";
+import { getLedColorId } from "../../blocks/ledcolor/component-state-to-id";
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;
@@ -19,10 +16,6 @@ const genericSingleComponentId = (state: ArduinoComponentState) => {
 
 const getMotorStateId = (motorState: MotorState) => {
   return `${motorState.type}-${motorState.motorNumber}`;
-};
-
-const getLedColorId = (state: LedColorState) => {
-  return `${state.type}_${state.pictureType}_${state.pins.sort().join("-")}`;
 };
 
 const getPinStateId = (state: PinState) => {

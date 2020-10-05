@@ -13,7 +13,6 @@ import {
   lcdClear,
   lcdBacklight,
 } from "../../../blocks/lcd_screen/blocktoframe";
-import { ledColorSetup, setLedColor } from "./blocktoframe/led-color";
 import { setupReadPin } from "./blocktoframe/pin";
 import { ultraSonicSensor } from "./blocktoframe/ultra_sonic_sensor";
 import { servoRotate } from "./blocktoframe/servo";
@@ -58,6 +57,10 @@ import {
   ledMatrixOnLed,
   ledMatrixSetup,
 } from "../../../blocks/led_matrix/blocktoframe";
+import {
+  ledColorSetup,
+  setLedColor,
+} from "../../../blocks/ledcolor/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

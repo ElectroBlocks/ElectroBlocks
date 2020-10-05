@@ -1,23 +1,26 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from "../svg-create";
+} from "../../core/virtual-circuit/svg-create";
 
 import { Element, Svg } from "@svgdotjs/svg.js";
-import { positionComponent } from "../svg-position";
-import { LedColorState } from "../../frames/arduino-components.state";
-import resistorSmallSvg from "../svgs/resistors/resistor-small.svg";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { LedColorState } from "./state";
+import resistorSmallSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-small.svg";
 import {
   createGroundWire,
   createWire,
   findResistorBreadboardHoleXY,
-} from "../wire";
-import { rgbToHex } from "../../blockly/helpers/color.helper";
-import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
-import { arduinoComponentStateToId } from "../../frames/arduino-component-id";
-import { MicroController } from "../../microcontroller/microcontroller";
+} from "../../core/virtual-circuit/wire";
+import { rgbToHex } from "../../core/blockly/helpers/color.helper";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
+import { MicroController } from "../../core/microcontroller/microcontroller";
 
 export const createRgbLed: CreateCompenentHook<LedColorState> = (
   state,

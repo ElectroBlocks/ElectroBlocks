@@ -6,14 +6,6 @@ export interface ArduinoReceiveMessageState extends ArduinoComponentState {
   message: string;
 }
 
-export interface LedColorState extends ArduinoComponentState {
-  redPin: ARDUINO_PINS;
-  greenPin: ARDUINO_PINS;
-  bluePin: ARDUINO_PINS;
-  pictureType: "BUILT_IN" | "BREADBOARD";
-  color: Color;
-}
-
 export interface MotorState extends ArduinoComponentState {
   motorNumber: number;
   speed: number;

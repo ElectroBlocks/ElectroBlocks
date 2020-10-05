@@ -7,6 +7,7 @@ import "../../../blocks/ir_remote/blocks";
 import "../../../blocks/functions/blocks";
 import "../../../blocks/lcd_screen/blocks";
 import "../../../blocks/led_matrix/blocks";
+import "../../../blocks/ledcolor/blocks";
 import "./led";
 import "../../../blocks/neopixels/blocks";
 import "./list";

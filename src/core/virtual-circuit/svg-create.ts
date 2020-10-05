@@ -24,7 +24,7 @@ import {
   createWiresRgbLed,
   createRgbLed,
   positionRgbLed,
-} from "./components/rgbled.sync";
+} from "../../blocks/ledcolor/virtual-circuit";
 import {
   createWiresLedMatrix,
   ledMatrixCreate,

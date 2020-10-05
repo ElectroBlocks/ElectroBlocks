@@ -11,7 +11,10 @@ import {
   resetArduinoMessage,
 } from "./components/arduino-message.sync";
 import { lcdUpdate, lcdReset } from "../../blocks/lcd_screen/virtual-circuit";
-import { updateRgbLed, resetRgbLed } from "./components/rgbled.sync";
+import {
+  updateRgbLed,
+  resetRgbLed,
+} from "../../blocks/ledcolor/virtual-circuit";
 import {
   updatePinComponent,
   resetPinComponent,

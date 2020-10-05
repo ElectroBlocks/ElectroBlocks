@@ -16,27 +16,16 @@ import ledmatrixSvgString from "../../blocks/led_matrix/ledmatrix.svg";
 import motorSvgString from "./svgs/motor/motor.svg";
 import neopixelSvgString from "../../blocks/neopixels/neopixel.svg";
 import rfidSvgString from "./svgs/rfid/rfid.svg";
-import rgbLedBreadboard from "./svgs/rgbled/rgbled-breadboard.svg";
-import rgbLedResistorBuiltIn from "./svgs/rgbled/rgbled-resistorbuiltin.svg";
 import servoSVGText from "./svgs/servo/servo.svg";
 import tempSvgString from "./svgs/temp/temp-humidity.svg";
 import ultraSonicSvgString from "./svgs/ultrasonic-sensor/ultrasonic-sensor.svg";
-import {
-  PinPicture,
-  LedColorState,
-  PinState,
-} from "../frames/arduino-components.state";
+import { PinPicture, PinState } from "../frames/arduino-components.state";
 import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
+import { getLedColorSvgString } from "../../blocks/ledcolor/svg-string";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
 }
-
-const getLedColorSvgString = (state: LedColorState) => {
-  return state.pictureType === "BREADBOARD"
-    ? rgbLedBreadboard
-    : rgbLedResistorBuiltIn;
-};
 
 const getPinSvgString = (state: PinState) => {
   if (state.pinPicture === PinPicture.LED) {

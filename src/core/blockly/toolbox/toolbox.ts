@@ -8,7 +8,8 @@ import neoPixelXMLString from "../../../blocks/neopixels/toolbox";
 import ledMatrixXMLString from "../../../blocks/led_matrix/toolbox";
 import arduinoXMLString from "../../../blocks/arduino/toolbox";
 import functionXMLString from "../../../blocks/functions/toolbox";
-import lcdScreenXMLScreen from "../../../blocks/lcd_screen/toolbox";
+import lcdScreenXMLString from "../../../blocks/lcd_screen/toolbox";
+import rgbLedXMLString from "../../../blocks/ledcolor/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -86,9 +87,10 @@ const defaultToolbox: ToolBoxEntries[] = [
     name: "Components",
     toolBoxEntries: [
       { name: "Bluetooth", show: true, xml: bluetoothXMLString },
-      { name: "LCD Screen", show: true, xml: lcdScreenXMLScreen },
+      { name: "LCD Screen", show: true, xml: lcdScreenXMLString },
       { name: "Neo Pixel", show: true, xml: neoPixelXMLString },
       { name: "Led Matrix", show: true, xml: ledMatrixXMLString },
+      { name: "RBG Led", show: true, xml: rgbLedXMLString },
     ],
   },
   {
