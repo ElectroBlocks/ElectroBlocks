@@ -3,10 +3,8 @@ import {
   ArduinoComponentState,
 } from "../frames/arduino.frame";
 
-import analogSensorSvgString from "./svgs/digital_analog_sensor/digital_analog_sensor.svg";
 import soilSensorSvgString from "./svgs/soilsensor/soilsensor.svg";
 import photoSensorSvgString from "./svgs/photosensor/photosensor.svg";
-import touchSensorSvgString from "./svgs/touch-sensor/touch-sensor.svg";
 import bluetoothSvg from "../../blocks/bluetooth/bluetooth.svg";
 import buttonSvgString from "../../blocks/button/button.svg";
 import writePinSvgString from "../../blocks/writepin/writepin.svg";
@@ -21,8 +19,10 @@ import tempSvgString from "./svgs/temp/temp-humidity.svg";
 import ultraSonicSvgString from "./svgs/ultrasonic-sensor/ultrasonic-sensor.svg";
 import { PinPicture, PinState } from "../frames/arduino-components.state";
 import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
+import digitalSensorSvgString from "../../blocks/digitalsensor/digital_analog_sensor.svg";
 import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
 import { getLedSvgString } from "../../blocks/led/svg-string";
+import { getDigitalSensorSvg } from "../../blocks/digitalsensor/svg-string";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
@@ -54,13 +54,14 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.LCD_SCREEN]: getLcdScreenSvgString,
   [ArduinoComponentType.LED_COLOR]: getLedColorSvgString,
   [ArduinoComponentType.PIN]: getPinSvgString,
+  [ArduinoComponentType.DIGITAL_SENSOR]: getDigitalSensorSvg,
   [ArduinoComponentType.LED]: getLedSvgString,
   [ArduinoComponentType.WRITE_PIN]: (_) => writePinSvgString,
 };
 
 const pinPictureSvgString = {
   [PinPicture.SOIL_SENSOR]: soilSensorSvgString,
-  [PinPicture.SENSOR]: analogSensorSvgString,
+  [PinPicture.SENSOR]: "",
   [PinPicture.PHOTO_SENSOR]: photoSensorSvgString,
-  [PinPicture.TOUCH_SENSOR]: touchSensorSvgString,
+  [PinPicture.TOUCH_SENSOR]: "",
 };

@@ -47,6 +47,10 @@ import {
   bluetoothUpdate,
 } from "../../blocks/bluetooth/virtual-circuit";
 import { resetButton, updateButton } from "../../blocks/button/virtual-circuit";
+import {
+  resetDigitalSensor,
+  updateDigitalSensor,
+} from "../../blocks/digitalsensor/virtual-circuit";
 
 export interface SyncComponent {
   (
@@ -78,6 +82,7 @@ const resetComponent = {
   [ArduinoComponentType.TEMPERATURE_SENSOR]: resetTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: resetUltraSonicSensor,
   [ArduinoComponentType.WRITE_PIN]: digitalAnalogWritePinReset,
+  [ArduinoComponentType.DIGITAL_SENSOR]: resetDigitalSensor,
 };
 
 const syncComponent = {
@@ -97,6 +102,7 @@ const syncComponent = {
   [ArduinoComponentType.TEMPERATURE_SENSOR]: updateTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: updateUltraSonicSensor,
   [ArduinoComponentType.WRITE_PIN]: digitalAnalogWritePinSync,
+  [ArduinoComponentType.DIGITAL_SENSOR]: updateDigitalSensor,
 };
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {

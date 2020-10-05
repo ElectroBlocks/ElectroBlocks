@@ -6,6 +6,7 @@ import { lcdStateId } from "../../blocks/lcd_screen/component-state-to-id";
 import { neoPixelId } from "../../blocks/neopixels/component-state-to-id";
 import { getLedColorId } from "../../blocks/rgbled/component-state-to-id";
 import { writePinId } from "../../blocks/writepin/component-state-to-id";
+import { getDigitalSensorId } from "../../blocks/digitalsensor/component-state-to-id";
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;
@@ -40,6 +41,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.LED]: genericSingleComponentId,
   [ArduinoComponentType.WRITE_PIN]: writePinId,
   [ArduinoComponentType.PIN]: getPinStateId,
+  [ArduinoComponentType.DIGITAL_SENSOR]: getDigitalSensorId,
 };
 
 export const arduinoComponentStateToId = (

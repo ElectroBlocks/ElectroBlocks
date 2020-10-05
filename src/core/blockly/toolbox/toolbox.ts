@@ -12,6 +12,7 @@ import lcdScreenXMLString from "../../../blocks/lcd_screen/toolbox";
 import rgbLedXMLString from "../../../blocks/rgbled/toolbox";
 import ledXMLString from "../../../blocks/led/toolbox";
 import writePinXMLString from "../../../blocks/writepin/toolbox";
+import digitalSensorXMLString from "../../../blocks/digitalsensor/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -103,6 +104,7 @@ const defaultToolbox: ToolBoxEntries[] = [
     name: "Sensors",
     toolBoxEntries: [
       { name: "Button", show: true, xml: buttonXMLString },
+      { name: "Digital Sensor", show: true, xml: digitalSensorXMLString },
       { name: "IR Remote", show: true, xml: irRmoteXMLString },
     ],
   },

@@ -45,6 +45,7 @@ import {
   irRemoteGetCode,
   irRemoteHasCode,
 } from "../../../blocks/ir_remote/blocktovalue";
+import { digitalRead } from "../../../blocks/digitalsensor/blocktovalue";
 
 export interface ValueGenerator {
   (
@@ -107,7 +108,7 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   bluetooth_has_message: hasBtMessage,
   bluetooth_get_message: getBtMessage,
 
-  digital_read: getPinState,
+  digital_read: digitalRead,
   analog_read: getPinState,
 
   is_button_pressed: isButtonPressed,

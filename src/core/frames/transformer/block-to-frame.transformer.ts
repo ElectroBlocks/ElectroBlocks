@@ -65,6 +65,7 @@ import {
   setLedColor,
 } from "../../../blocks/rgbled/blocktoframe";
 import { led, ledFade } from "../../../blocks/led/blocktoframe";
+import { digitalReadSetup } from "../../../blocks/digitalsensor/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (
@@ -87,7 +88,7 @@ const blockToFrameTransformerList: {
   neo_pixel_setup: neoPixelSetup,
   rgb_led_setup: ledColorSetup,
   analog_read_setup: setupReadPin,
-  digital_read_setup: setupReadPin,
+  digital_read_setup: digitalReadSetup,
   button_setup: buttonSetup,
   ir_remote_setup: irRemoteSetup,
   ultra_sonic_sensor_setup: ultraSonicSensor,

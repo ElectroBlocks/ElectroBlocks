@@ -83,6 +83,10 @@ import {
   createWiresButton,
   positionButton,
 } from "../../blocks/button/virtual-circuit";
+import {
+  createWireDigitalSensor,
+  positionDigitalSensor,
+} from "../../blocks/digitalsensor/virtual-circuit";
 
 export default (
   state: ArduinoComponentState,
@@ -186,6 +190,7 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.WRITE_PIN]: createWiresDigitalAnalogWrite,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: createWiresTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: createWiresUltraSonicSensor,
+  [ArduinoComponentType.DIGITAL_SENSOR]: createWireDigitalSensor,
 };
 
 const positionComponentHookFunc: {
@@ -207,6 +212,7 @@ const positionComponentHookFunc: {
   [ArduinoComponentType.SERVO]: servoPosition,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: positionTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: positionUltraSonicSensor,
+  [ArduinoComponentType.DIGITAL_SENSOR]: positionDigitalSensor,
 };
 
 const createComponentHookFunc: {
@@ -228,4 +234,5 @@ const createComponentHookFunc: {
   [ArduinoComponentType.SERVO]: servoCreate,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: createTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: createUltraSonicSensor,
+  [ArduinoComponentType.DIGITAL_SENSOR]: positionDigitalSensor,
 };

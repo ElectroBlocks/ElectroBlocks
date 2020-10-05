@@ -11,6 +11,8 @@ import "../../../blocks/led_matrix/generators";
 import "../../../blocks/rgbled/generators";
 import "../../../blocks/led/generators";
 import "../../../blocks/writepin/generators";
+import "../../../blocks/digitalsensor/generators";
+
 import "./list";
 import "./logic";
 import "./loops";

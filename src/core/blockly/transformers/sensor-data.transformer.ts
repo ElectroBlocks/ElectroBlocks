@@ -8,7 +8,7 @@ import {
   TempSensor,
   RFIDSensor,
 } from "../dto/sensors.type";
-import { BlockData, BlockType } from "../dto/block.type";
+import { BlockData } from "../dto/block.type";
 import { findFieldValue } from "../helpers/block-data.helper";
 import {
   Timeline,
@@ -32,6 +32,8 @@ import { bluetoothSetupBlockToComponentState } from "../../../blocks/bluetooth/s
 import { buttonSetupBlockToComponentState } from "../../../blocks/button/setupblocktocomponentstate";
 import { irRemoteSetupBlocktoSensorData } from "../../../blocks/ir_remote/setupblocktosensordata";
 import { irRemoteSetupBlockToComponentState } from "../../../blocks/ir_remote/setupblocktocomponentstate";
+import { digitalSetupBlockToComponentState } from "../../../blocks/digitalsensor/setupblocktocomponentstate";
+import { digitalSetupBlockToSensorData } from "../../../blocks/digitalsensor/setupblocktosensordata";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -179,7 +181,7 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   bluetooth_setup: bluetoothSetupBlockToSensorData,
   button_setup: buttonSetupBlockToSensorData,
   ir_remote_setup: irRemoteSetupBlocktoSensorData,
-  digital_read_setup: digitalReadSetup,
+  digital_read_setup: digitalSetupBlockToSensorData,
   analog_read_setup: analogReadSetup,
   rfid_setup: rfidSetup,
   temp_setup: tempSetup,
@@ -194,7 +196,7 @@ const blockToSensorComponent: {
   bluetooth_setup: bluetoothSetupBlockToComponentState,
   button_setup: buttonSetupBlockToComponentState,
   ir_remote_setup: irRemoteSetupBlockToComponentState,
-  digital_read_setup: pinReadState(PIN_TYPE.DIGITAL_INPUT),
+  digital_read_setup: digitalSetupBlockToComponentState,
   analog_read_setup: pinReadState(PIN_TYPE.ANALOG_INPUT),
   rfid_setup: rfidState,
   temp_setup: tempState,
