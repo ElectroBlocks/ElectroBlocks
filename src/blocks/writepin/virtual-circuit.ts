@@ -1,15 +1,22 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from "../svg-create";
+} from "../../core/virtual-circuit/svg-create";
 
 import { Element, Svg, Text } from "@svgdotjs/svg.js";
-import { PinState, PinPicture } from "../../frames/arduino-components.state";
-import { positionComponent } from "../svg-position";
-import { ANALOG_PINS, ARDUINO_PINS } from "../../microcontroller/selectBoard";
-import { createGroundWire, createWire, updateWires } from "../wire";
+
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import {
+  ANALOG_PINS,
+  ARDUINO_PINS,
+} from "../../core/microcontroller/selectBoard";
+import { createGroundWire, createWire } from "../../core/virtual-circuit/wire";
+import { WritePinState, WritePinType } from "./state";
 
 export const digitalAnalogWritePinReset: ResetComponent = (
   componentEl: Element
@@ -20,7 +27,7 @@ export const digitalAnalogWritePinReset: ResetComponent = (
   (componentEl.findOne("#LIGHT_BULB") as Element).opacity(0);
 };
 
-export const digitalAnanlogWritePinPosition: CreateCompenentHook<PinState> = (
+export const digitalAnanlogWritePinPosition: CreateCompenentHook<WritePinState> = (
   state,
   componentEl,
   arduinoEl,
@@ -30,26 +37,26 @@ export const digitalAnanlogWritePinPosition: CreateCompenentHook<PinState> = (
   positionComponent(componentEl, arduinoEl, draw, state.pin, "POWER", board);
 };
 
-export const digitalAnanlogWritePinCreate: PositionComponent<PinState> = (
+export const digitalAnanlogWritePinCreate: PositionComponent<WritePinState> = (
   state,
   componentEl,
   arduinoEl,
   draw
 ) => {
-  componentEl.data("picture-type", state.pinPicture);
   componentEl.data("pin_number", state.pin);
 
-  setPinText(state.pin, componentEl);
+  const pinText = componentEl.findOne("#PIN_TEXT") as Text;
+  pinText.node.innerHTML = state.pin;
 };
 
 export const digitalAnalogWritePinSync: SyncComponent = (
-  state: PinState,
+  state: WritePinState,
   pinEl,
   draw
 ) => {
   const pinText = pinEl.findOne("#STATE_TEXT") as Text;
 
-  if (state.pinPicture === PinPicture.LED_DIGITAL_WRITE) {
+  if (state.pinType === WritePinType.DIGITAL_OUTPUT) {
     if (state.state === 1) {
       pinText.node.innerHTML = "ON";
       pinEl.findOne("#RAYS").show();
@@ -62,7 +69,7 @@ export const digitalAnalogWritePinSync: SyncComponent = (
     }
   }
 
-  if (state.pinPicture === PinPicture.LED_ANALOG_WRITE) {
+  if (state.pinType === WritePinType.ANALOG_OUTPUT) {
     const pinText = pinEl.findOne("#STATE_TEXT") as Text;
     pinText.node.innerHTML = state.state.toString();
     pinEl.findOne("#RAYS").show();
@@ -75,7 +82,7 @@ export const digitalAnalogWritePinSync: SyncComponent = (
   pinText.cx(16);
 };
 
-export const createWiresDigitalAnalogWrite: CreateWire<PinState> = (
+export const createWiresDigitalAnalogWrite: CreateWire<WritePinState> = (
   state,
   draw,
   componentEl,
@@ -102,21 +109,4 @@ export const createWiresDigitalAnalogWrite: CreateWire<PinState> = (
     "POWER",
     board
   );
-};
-
-const setPinText = (pin: ARDUINO_PINS, componentEl: Element) => {
-  const pinText = componentEl.findOne("#PIN_TEXT") as Text;
-  pinText.node.innerHTML = pin;
-  if (ANALOG_PINS.includes(pin)) {
-    pinText.x(-10);
-    return;
-  }
-
-  if (
-    [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_12].includes(
-      pin
-    )
-  ) {
-    pinText.x(-8);
-  }
 };

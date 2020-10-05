@@ -9,7 +9,7 @@ import photoSensorSvgString from "./svgs/photosensor/photosensor.svg";
 import touchSensorSvgString from "./svgs/touch-sensor/touch-sensor.svg";
 import bluetoothSvg from "../../blocks/bluetooth/bluetooth.svg";
 import buttonSvgString from "../../blocks/button/button.svg";
-import analogdigitalWriteSvgString from "./svgs/analogdigital/digital_analog_write.svg";
+import writePinSvgString from "../../blocks/writepin/writepin.svg";
 import irRemoteSvgString from "../../blocks/ir_remote/ir_remote.svg";
 import ledSvgString from "./svgs/led/led.svg";
 import ledmatrixSvgString from "../../blocks/led_matrix/ledmatrix.svg";
@@ -55,6 +55,7 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.LED_COLOR]: getLedColorSvgString,
   [ArduinoComponentType.PIN]: getPinSvgString,
   [ArduinoComponentType.LED]: getLedSvgString,
+  [ArduinoComponentType.WRITE_PIN]: (_) => writePinSvgString,
 };
 
 const pinPictureSvgString = {
@@ -62,6 +63,4 @@ const pinPictureSvgString = {
   [PinPicture.SENSOR]: analogSensorSvgString,
   [PinPicture.PHOTO_SENSOR]: photoSensorSvgString,
   [PinPicture.TOUCH_SENSOR]: touchSensorSvgString,
-  [PinPicture.LED_ANALOG_WRITE]: analogdigitalWriteSvgString,
-  [PinPicture.LED_DIGITAL_WRITE]: analogdigitalWriteSvgString,
 };

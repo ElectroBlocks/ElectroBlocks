@@ -10,7 +10,7 @@ import {
   createTestEvent,
   createValueBlock,
 } from "../../tests/tests.helper";
-import { LedState } from "./state";
+import { WritePinState, WritePinType } from "./state";
 
 describe("test leds", () => {
   let workspace: Workspace;
@@ -22,12 +22,12 @@ describe("test leds", () => {
     workspace.dispose();
   });
 
-  it("should not create 1 leds if they share the same pin", () => {
-    const ledBlock1 = workspace.newBlock("led");
+  it("should not create 1 digital write pin if they share the same pin number.", () => {
+    const ledBlock1 = workspace.newBlock("digital_write");
     ledBlock1.setFieldValue("3", "PIN");
     ledBlock1.setFieldValue("ON", "STATE");
 
-    const ledBlock2 = workspace.newBlock("led");
+    const ledBlock2 = workspace.newBlock("digital_write");
     ledBlock2.setFieldValue("3", "PIN");
     ledBlock2.setFieldValue("OFF", "STATE");
 
@@ -39,23 +39,27 @@ describe("test leds", () => {
     const [frame1, frame2] = eventToFrameFactory(event).frames;
     expect(frame1.components.length).toBe(1);
     expect(frame1.components[0].pins).toEqual(["3"]);
-    expect((frame1.components[0] as LedState).state).toBe(1);
-    expect((frame1.components[0] as LedState).fade).toBeFalsy();
-    expect(frame1.explanation).toBe("Turning on led 3.");
+    expect((frame1.components[0] as WritePinState).state).toBe(1);
+    expect((frame1.components[0] as WritePinState).pinType).toBe(
+      WritePinType.DIGITAL_OUTPUT
+    );
+    expect(frame1.explanation).toBe("Turning pin 3 on.");
 
     expect(frame2.components.length).toBe(1);
     expect(frame2.components[0].pins).toEqual(["3"]);
-    expect((frame2.components[0] as LedState).state).toBe(0);
-    expect((frame2.components[0] as LedState).fade).toBeFalsy();
-    expect(frame2.explanation).toBe("Turning off led 3.");
+    expect((frame2.components[0] as WritePinState).state).toBe(0);
+    expect((frame2.components[0] as WritePinState).pinType).toBe(
+      WritePinType.DIGITAL_OUTPUT
+    );
+    expect(frame2.explanation).toBe("Turning pin 3 off.");
   });
 
-  it("should create 2 leds if they are using different pins", () => {
-    const ledBlock1 = workspace.newBlock("led");
+  it("should create 2 digital write pins if they are using different pins", () => {
+    const ledBlock1 = workspace.newBlock("digital_write");
     ledBlock1.setFieldValue("3", "PIN");
     ledBlock1.setFieldValue("ON", "STATE");
 
-    const ledBlock2 = workspace.newBlock("led");
+    const ledBlock2 = workspace.newBlock("digital_write");
     ledBlock2.setFieldValue("5", "PIN");
     ledBlock2.setFieldValue("OFF", "STATE");
 
@@ -67,21 +71,23 @@ describe("test leds", () => {
     const [frame1, frame2] = eventToFrameFactory(event).frames;
     expect(frame1.components.length).toBe(1);
     expect(frame1.components[0].pins).toEqual(["3"]);
-    expect((frame1.components[0] as LedState).state).toBe(1);
-    expect((frame1.components[0] as LedState).fade).toBeFalsy();
-    expect(frame1.explanation).toBe("Turning on led 3.");
+    expect((frame1.components[0] as WritePinState).state).toBe(1);
+    expect((frame1.components[0] as WritePinState).pinType).toBe(
+      WritePinType.DIGITAL_OUTPUT
+    );
+    expect(frame1.explanation).toBe("Turning pin 3 on.");
 
     expect(frame2.components.length).toBe(2);
     const led3State = frame2.components.find(
-      (c: LedState) => c.pin === ARDUINO_PINS.PIN_3
-    ) as LedState;
+      (c: WritePinState) => c.pin === ARDUINO_PINS.PIN_3
+    ) as WritePinState;
 
     const led5State = frame2.components.find(
-      (c: LedState) => c.pin === ARDUINO_PINS.PIN_5
-    ) as LedState;
+      (c: WritePinState) => c.pin === ARDUINO_PINS.PIN_5
+    ) as WritePinState;
 
-    expect(led5State.fade).toBeFalsy();
-    expect(led3State.fade).toBeFalsy();
+    expect(led5State.pinType).toBe(WritePinType.DIGITAL_OUTPUT);
+    expect(led3State.pinType).toBe(WritePinType.DIGITAL_OUTPUT);
 
     expect(led3State.pin).toBe("3");
     expect(led5State.pin).toBe("5");
@@ -89,24 +95,28 @@ describe("test leds", () => {
     expect(led3State.state).toBe(1);
     expect(led5State.state).toBe(0);
 
-    expect(frame2.explanation).toBe("Turning off led 5.");
+    expect(frame2.explanation).toBe("Turning pin 5 off.");
   });
 
   it("should be able to do an led fade block", () => {
-    const ledFadeBlock = workspace.newBlock("led_fade");
+    const ledFadeBlock = workspace.newBlock("analog_write");
     connectToArduinoBlock(ledFadeBlock as BlockSvg);
     ledFadeBlock.setFieldValue("9", "PIN");
     const numBlock = createValueBlock(workspace, VariableTypes.NUMBER, 30);
-    ledFadeBlock.getInput("FADE").connection.connect(numBlock.outputConnection);
+    ledFadeBlock
+      .getInput("WRITE_VALUE")
+      .connection.connect(numBlock.outputConnection);
     connectToArduinoBlock(ledFadeBlock as BlockSvg);
     const event = createTestEvent(ledFadeBlock.id);
 
     const [frame1] = eventToFrameFactory(event).frames;
 
     expect(frame1.components.length).toBe(1);
-    expect((frame1.components[0] as LedState).fade).toBe(true);
-    expect((frame1.components[0] as LedState).state).toBe(30);
-    expect((frame1.components[0] as LedState).pin).toBe("9");
-    expect(frame1.explanation).toBe("Fading Led 9 to 30.");
+    expect((frame1.components[0] as WritePinState).pinType).toBe(
+      WritePinType.ANALOG_OUTPUT
+    );
+    expect((frame1.components[0] as WritePinState).state).toBe(30);
+    expect((frame1.components[0] as WritePinState).pin).toBe("9");
+    expect(frame1.explanation).toBe("Turning pin 9 to 30.");
   });
 });

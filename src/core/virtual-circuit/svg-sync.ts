@@ -26,6 +26,10 @@ import {
   ledMatrixReset,
 } from "../../blocks/led_matrix/virtual-circuit";
 import { resetLed, updateLed } from "../../blocks/led/virtual-circuit";
+import {
+  digitalAnalogWritePinSync,
+  digitalAnalogWritePinReset,
+} from "../../blocks/writepin/virtual-circuit";
 
 import { motorUpdate, motorReset } from "./components/motor.sync";
 import {
@@ -73,6 +77,7 @@ const resetComponent = {
   [ArduinoComponentType.SERVO]: servoReset,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: resetTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: resetUltraSonicSensor,
+  [ArduinoComponentType.WRITE_PIN]: digitalAnalogWritePinReset,
 };
 
 const syncComponent = {
@@ -91,6 +96,7 @@ const syncComponent = {
   [ArduinoComponentType.SERVO]: servoUpdate,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: updateTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: updateUltraSonicSensor,
+  [ArduinoComponentType.WRITE_PIN]: digitalAnalogWritePinSync,
 };
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {

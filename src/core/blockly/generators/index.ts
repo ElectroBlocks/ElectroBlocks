@@ -10,6 +10,7 @@ import "../../../blocks/lcd_screen/generators";
 import "../../../blocks/led_matrix/generators";
 import "../../../blocks/rgbled/generators";
 import "../../../blocks/led/generators";
+import "../../../blocks/writepin/generators";
 import "./list";
 import "./logic";
 import "./loops";

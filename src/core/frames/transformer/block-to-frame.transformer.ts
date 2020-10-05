@@ -3,6 +3,10 @@ import { Timeline, ArduinoFrame } from "../arduino.frame";
 import { rfidSetup } from "./blocktoframe/rfid";
 import _ from "lodash";
 import { messageSetup, arduinoSendMessage } from "./blocktoframe/message";
+import {
+  digitalWrite,
+  analogWrite,
+} from "../../../blocks/writepin/blocktoframe";
 import { timeSetup } from "./blocktoframe/time";
 import {
   lcdScreenSetup,
@@ -32,7 +36,6 @@ import { setVariable } from "./blocktoframe/set_variables";
 import { ifElse } from "./blocktoframe/logic";
 import { simpleLoop, forLoop } from "./blocktoframe/loop";
 import { delayBlock } from "./blocktoframe/delay";
-import { digitalWrite, analogWrite } from "./blocktoframe/led";
 import { PinPicture } from "../arduino-components.state";
 import { moveMotor } from "./blocktoframe/motor";
 import { rfidScannedCard } from "./blocktovalue/rfid";
@@ -123,8 +126,8 @@ const blockToFrameTransformerList: {
   lcd_backlight: lcdBacklight,
 
   led: led,
-  digital_write: digitalWrite(PinPicture.LED_DIGITAL_WRITE),
-  analog_write: analogWrite(PinPicture.LED_ANALOG_WRITE, "WRITE_VALUE"),
+  digital_write: digitalWrite,
+  analog_write: analogWrite,
   led_fade: ledFade,
   set_color_led: setLedColor,
   neo_pixel_set_color: setNeoPixelColor,

@@ -11,6 +11,7 @@ import functionXMLString from "../../../blocks/functions/toolbox";
 import lcdScreenXMLString from "../../../blocks/lcd_screen/toolbox";
 import rgbLedXMLString from "../../../blocks/rgbled/toolbox";
 import ledXMLString from "../../../blocks/led/toolbox";
+import writePinXMLString from "../../../blocks/writepin/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -93,6 +94,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Led Matrix", show: true, xml: ledMatrixXMLString },
       { name: "Neo Pixel", show: true, xml: neoPixelXMLString },
       { name: "RBG Led", show: true, xml: rgbLedXMLString },
+      { name: "Write Pins", show: true, xml: writePinXMLString },
     ],
   },
   {
