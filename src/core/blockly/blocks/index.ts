@@ -12,7 +12,7 @@ import "../../../blocks/led/blocks";
 import "../../../blocks/neopixels/blocks";
 import "../../../blocks/writepin/blocks";
 import "../../../blocks/digitalsensor/blocks";
-import "./list";
+import "../../../blocks/list/blocks";
 import "./logic";
 import "./loops";
 import "./math";

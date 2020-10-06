@@ -7,6 +7,7 @@ import irRmoteXMLString from "../../../blocks/ir_remote/toolbox";
 import neoPixelXMLString from "../../../blocks/neopixels/toolbox";
 import ledMatrixXMLString from "../../../blocks/led_matrix/toolbox";
 import arduinoXMLString from "../../../blocks/arduino/toolbox";
+import listXMLString from "../../../blocks/list/toolbox";
 import functionXMLString from "../../../blocks/functions/toolbox";
 import lcdScreenXMLString from "../../../blocks/lcd_screen/toolbox";
 import rgbLedXMLString from "../../../blocks/rgbled/toolbox";
@@ -65,6 +66,11 @@ const defaultToolbox: ToolBoxEntries[] = [
     category: ToolBoxCategory.NONE,
     name: "Functions",
     toolBoxEntries: [
+      {
+        name: "List",
+        show: true,
+        xml: listXMLString,
+      },
       {
         name: "My Blocks",
         show: true,

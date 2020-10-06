@@ -1,6 +1,6 @@
 import "jest";
-import "../../../blockly/blocks";
-import "../../../../tests/fake-block";
+import "../../core/blockly/blocks";
+import "../../tests/fake-block";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
@@ -9,23 +9,23 @@ import {
   createListSetupBlock,
   createSetListBlock,
   createTestEvent,
-} from "../../../../tests/tests.helper";
+} from "../../tests/tests.helper";
 import Blockly, { Workspace, blockAnimations, BlockSvg } from "blockly";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import {
   getAllBlocks,
   connectToArduinoBlock,
-} from "../../../blockly/helpers/block.helper";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
+} from "../../core/blockly/helpers/block.helper";
+import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
+import { transformBlock } from "../../core/blockly/transformers/block.transformer";
+import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
+import { BlockEvent } from "../../core/blockly/dto/event.type";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import _ from "lodash";
-import { Variable, Color } from "../../arduino.frame";
-import { VARIABLE_TYPES } from "../../../blockly/constants/variables";
-import { hexToRgb } from "../../../blockly/helpers/color.helper";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+import { Variable, Color } from "../../core/frames/arduino.frame";
+import { VARIABLE_TYPES } from "../../core/blockly/constants/variables";
+import { hexToRgb } from "../../core/blockly/helpers/color.helper";
+import { MicroControllerType } from "../../core/microcontroller/microcontroller";
 
 describe("list setup factories", () => {
   let workspace: Workspace;

@@ -1,6 +1,6 @@
 import "jest";
-import "../../../blockly/blocks";
-import "../../../../tests/fake-block";
+import "../../core/blockly/blocks";
+import "../../tests/fake-block";
 
 import {
   createValueBlock,
@@ -9,20 +9,20 @@ import {
   createSetListBlock,
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { Color } from "../../arduino.frame";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
+} from "../../tests/tests.helper";
+import { Color } from "../../core/frames/arduino.frame";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import Blockly, { Workspace, BlockSvg } from "blockly";
-import { getDefaultValue } from "../frame-transformer.helpers";
+import { getDefaultValue } from "../../core/frames/transformer/frame-transformer.helpers";
 import {
   connectToArduinoBlock,
   getAllBlocks,
-} from "../../../blockly/helpers/block.helper";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
+} from "../../core/blockly/helpers/block.helper";
+import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
+import { transformBlock } from "../../core/blockly/transformers/block.transformer";
+import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
+import { BlockEvent } from "../../core/blockly/dto/event.type";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import _ from "lodash";
 
 describe("list get items value factories", () => {

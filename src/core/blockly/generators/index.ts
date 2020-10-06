@@ -13,7 +13,7 @@ import "../../../blocks/led/generators";
 import "../../../blocks/writepin/generators";
 import "../../../blocks/digitalsensor/generators";
 
-import "./list";
+import "../../../blocks/list/generators";
 import "./logic";
 import "./loops";
 import "./message";

@@ -1,21 +1,15 @@
 import "jest";
 import "../../../blockly/blocks";
+import { Workspace } from "blockly";
+import _ from "lodash";
 import {
   createArduinoAndWorkSpace,
   createListSetupBlock,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import Blockly, { Workspace, blockAnimations } from "blockly";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
-import { getAllBlocks } from "../../../blockly/helpers/block.helper";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import _ from "lodash";
-import { Variable } from "../../arduino.frame";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+} from "../../tests/tests.helper";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import { Variable } from "../../core/frames/arduino.frame";
 
 describe("list  factories", () => {
   let workspace: Workspace;

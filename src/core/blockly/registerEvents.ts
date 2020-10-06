@@ -24,7 +24,7 @@ import { disableSensorReadBlocksWithWrongPins } from "./actions/disable/disableS
 import { disableBlocksThatNeedASetupBlock } from "./actions/disable/disableBlocksThatNeedASetupBlock";
 import { ActionType, DisableBlock, EnableBlock } from "./actions/actions";
 import { eventToFrameFactory } from "../frames/event-to-frame.factory";
-import { ArduinoFrame, ArduinoFrameContainer } from "../frames/arduino.frame";
+import { ArduinoFrameContainer } from "../frames/arduino.frame";
 import { MicroControllerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";

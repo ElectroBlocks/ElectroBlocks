@@ -15,6 +15,7 @@ import {
   logicOperation,
   logicNot,
 } from "./blocktovalue/logic";
+import { getItemInList } from "../../../blocks/list/blocktovalue";
 import {
   text,
   textJoin,
@@ -29,7 +30,6 @@ import { colorPicker, randomColor, rgbColor } from "./blocktovalue/colors";
 import { findBlockInput } from "./frame-transformer.helpers";
 import _ from "lodash";
 import { getVariable } from "./blocktovalue/get_variables";
-import { getItemInList } from "./blocktovalue/list-get-item";
 import { getArduinoMessage, arduinoHasMessage } from "./blocktovalue/message";
 import { timeSeconds } from "./blocktovalue/time_seconds";
 import { ultraSonicSensorDistance } from "./blocktovalue/ultra_sonic_sensor";

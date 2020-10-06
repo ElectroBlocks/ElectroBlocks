@@ -8,7 +8,7 @@ import "./generators/index";
 import { theme } from "./theme";
 
 import registerListeners from "./registerEvents";
-import registerListMenu from "./menu/list.menu";
+import registerListMenu from "../../blocks/list/menu";
 import registerCodeMenu from "../../blocks/arduino/menu";
 
 import getToolBoxString from "./toolbox/getToolBoxString";
