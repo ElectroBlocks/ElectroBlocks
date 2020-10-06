@@ -1,7 +1,7 @@
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 export default `
-<category name="Write Pins" colour="${COLOR_THEME.COMPONENTS}">
+<category name="Pins" colour="${COLOR_THEME.COMPONENTS}">
    <block type="digital_write"></block>
 
        <block type="analog_write">

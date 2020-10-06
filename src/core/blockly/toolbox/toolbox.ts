@@ -95,8 +95,8 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Led", show: true, xml: ledXMLString },
       { name: "Led Matrix", show: true, xml: ledMatrixXMLString },
       { name: "Neo Pixel", show: true, xml: neoPixelXMLString },
+      { name: "Pins", show: true, xml: writePinXMLString },
       { name: "RBG Led", show: true, xml: rgbLedXMLString },
-      { name: "Write Pins", show: true, xml: writePinXMLString },
     ],
   },
   {
