@@ -19,7 +19,7 @@ import "./math";
 import "./message";
 import "./motion_sensor";
 import "./motor";
-import "./pins";
+import "../../../blocks/analogsensor/blocks";
 import "./rfid";
 import "./servo";
 import "./temp";

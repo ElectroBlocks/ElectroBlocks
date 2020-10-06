@@ -2,7 +2,6 @@ import { BlockEvent } from "../blockly/dto/event.type";
 import {
   ArduinoFrame,
   Timeline,
-  ArduinoComponentType,
   ArduinoComponentState,
   SENSOR_COMPONENTS,
   ArduinoFrameContainer,
@@ -15,7 +14,6 @@ import {
   findArduinoLoopBlock,
   findArduinoSetupBlock,
 } from "../blockly/helpers/block-data.helper";
-import { PinState, PIN_TYPE } from "./arduino-components.state";
 import {
   sensorSetupBlockName,
   convertToState,

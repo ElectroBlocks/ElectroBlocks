@@ -16,7 +16,6 @@ import {
   ArduinoComponentType,
 } from "../../frames/arduino.frame";
 import {
-  PIN_TYPE,
   RfidState,
   TemperatureState,
   TimeState,
@@ -34,6 +33,8 @@ import { irRemoteSetupBlocktoSensorData } from "../../../blocks/ir_remote/setupb
 import { irRemoteSetupBlockToComponentState } from "../../../blocks/ir_remote/setupblocktocomponentstate";
 import { digitalSetupBlockToComponentState } from "../../../blocks/digitalsensor/setupblocktocomponentstate";
 import { digitalSetupBlockToSensorData } from "../../../blocks/digitalsensor/setupblocktosensordata";
+import { analogSetupBlockToComponentState } from "../../../blocks/analogsensor/setupblocktocomponentstate";
+import { analogSetupBlockToSensorData } from "../../../blocks/analogsensor/setupblocktosensordata";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -46,31 +47,6 @@ interface BlockToComponentState {
 const digitalReadSetup = (block: BlockData): PinSensor => {
   return {
     state: findFieldValue(block, "state") === "TRUE" ? 1 : 0,
-    loop: +findFieldValue(block, "LOOP"),
-    blockName: block.blockName,
-  };
-};
-
-const pinReadState = (pinType: PIN_TYPE) => {
-  return (block: BlockData, timeline: Timeline) => {
-    const pinSensor = findSensorState<PinSensor>(block, timeline);
-
-    const pictureType = findFieldValue(block, "TYPE");
-
-    return {
-      type: ArduinoComponentType.PIN,
-      pin: findFieldValue(block, "PIN") as ARDUINO_PINS,
-      pins: [findFieldValue(block, "PIN") as ARDUINO_PINS],
-      state: pinSensor.state,
-      pinType: pinType,
-      pinPicture: pictureType,
-    };
-  };
-};
-
-const analogReadSetup = (block: BlockData): PinSensor => {
-  return {
-    state: +findFieldValue(block, "state"),
     loop: +findFieldValue(block, "LOOP"),
     blockName: block.blockName,
   };
@@ -182,7 +158,7 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   button_setup: buttonSetupBlockToSensorData,
   ir_remote_setup: irRemoteSetupBlocktoSensorData,
   digital_read_setup: digitalSetupBlockToSensorData,
-  analog_read_setup: analogReadSetup,
+  analog_read_setup: analogSetupBlockToSensorData,
   rfid_setup: rfidSetup,
   temp_setup: tempSetup,
   time_setup: timeSetup,
@@ -197,7 +173,7 @@ const blockToSensorComponent: {
   button_setup: buttonSetupBlockToComponentState,
   ir_remote_setup: irRemoteSetupBlockToComponentState,
   digital_read_setup: digitalSetupBlockToComponentState,
-  analog_read_setup: pinReadState(PIN_TYPE.ANALOG_INPUT),
+  analog_read_setup: analogSetupBlockToComponentState,
   rfid_setup: rfidState,
   temp_setup: tempState,
   time_setup: timeState,

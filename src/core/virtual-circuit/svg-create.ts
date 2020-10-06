@@ -51,11 +51,6 @@ import {
 } from "../../blocks/writepin/virtual-circuit";
 
 import {
-  createDigitalAnalogWire,
-  createPinComponent,
-  positionPinComponent,
-} from "./components/pin.component";
-import {
   createWiresRfid,
   positionRfid,
   createRfid,
@@ -87,6 +82,12 @@ import {
   createWireDigitalSensor,
   positionDigitalSensor,
 } from "../../blocks/digitalsensor/virtual-circuit";
+
+import {
+  analogSensorCreate,
+  analogSensorPosition,
+  createWireAnalogSensors,
+} from "../../blocks/analogsensor/virtual-circuit";
 
 export default (
   state: ArduinoComponentState,
@@ -184,13 +185,13 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.MESSAGE]: createNoWires,
   [ArduinoComponentType.MOTOR]: createNoWires,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: createWiresNeoPixels,
-  [ArduinoComponentType.PIN]: createDigitalAnalogWire,
   [ArduinoComponentType.RFID]: createWiresRfid,
   [ArduinoComponentType.SERVO]: createWiresServo,
   [ArduinoComponentType.WRITE_PIN]: createWiresDigitalAnalogWrite,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: createWiresTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: createWiresUltraSonicSensor,
   [ArduinoComponentType.DIGITAL_SENSOR]: createWireDigitalSensor,
+  [ArduinoComponentType.ANALOG_SENSOR]: createWireAnalogSensors,
 };
 
 const positionComponentHookFunc: {
@@ -206,13 +207,13 @@ const positionComponentHookFunc: {
   [ArduinoComponentType.MESSAGE]: emptyPositionComponent,
   [ArduinoComponentType.MOTOR]: motorPosition,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelPosition,
-  [ArduinoComponentType.PIN]: positionPinComponent,
   [ArduinoComponentType.WRITE_PIN]: digitalAnanlogWritePinPosition,
   [ArduinoComponentType.RFID]: positionRfid,
   [ArduinoComponentType.SERVO]: servoPosition,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: positionTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: positionUltraSonicSensor,
   [ArduinoComponentType.DIGITAL_SENSOR]: positionDigitalSensor,
+  [ArduinoComponentType.ANALOG_SENSOR]: analogSensorPosition,
 };
 
 const createComponentHookFunc: {
@@ -227,7 +228,6 @@ const createComponentHookFunc: {
   [ArduinoComponentType.MESSAGE]: arduinoMessageCreate,
   [ArduinoComponentType.MOTOR]: motorCreate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,
-  [ArduinoComponentType.PIN]: createPinComponent,
   [ArduinoComponentType.WRITE_PIN]: digitalAnanlogWritePinCreate,
   [ArduinoComponentType.LED]: ledCreate,
   [ArduinoComponentType.RFID]: createRfid,
@@ -235,4 +235,5 @@ const createComponentHookFunc: {
   [ArduinoComponentType.TEMPERATURE_SENSOR]: createTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: createUltraSonicSensor,
   [ArduinoComponentType.DIGITAL_SENSOR]: positionDigitalSensor,
+  [ArduinoComponentType.ANALOG_SENSOR]: analogSensorCreate,
 };

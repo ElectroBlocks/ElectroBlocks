@@ -1,0 +1,71 @@
+import "jest";
+import "../../core/blockly/blocks";
+
+import { BlockSvg, Workspace } from "blockly";
+import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
+import { updater } from "../../core/blockly/updater";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import {
+  createArduinoAndWorkSpace,
+  createSetVariableBlockWithValue,
+  createTestEvent,
+} from "../../tests/tests.helper";
+
+describe("sensor value blocks", () => {
+  let workspace: Workspace;
+  let arduinoBlock: BlockSvg;
+
+  beforeEach(() => {
+    [workspace, arduinoBlock] = createArduinoAndWorkSpace();
+    arduinoBlock.setFieldValue("3", "LOOP_TIMES");
+  });
+
+  afterEach(() => {
+    workspace.dispose();
+  });
+
+  it("should be able to change based on the sensor data", () => {
+    const analogReadSetupBlock = workspace.newBlock(
+      "analog_read_setup"
+    ) as BlockSvg;
+
+    analogReadSetupBlock.setFieldValue("A3", "PIN");
+
+    const analogReadBlock = workspace.newBlock("analog_read");
+
+    saveSensorSetupBlockData(createTestEvent(analogReadSetupBlock.id)).forEach(
+      updater
+    );
+
+    analogReadSetupBlock.setFieldValue("2", "LOOP");
+    analogReadSetupBlock.setFieldValue("30", "state");
+    saveSensorSetupBlockData(createTestEvent(analogReadSetupBlock.id)).forEach(
+      updater
+    );
+
+    const setVariableBlock = createSetVariableBlockWithValue(
+      workspace,
+      "state",
+      VariableTypes.NUMBER,
+      true
+    );
+    setVariableBlock.getInput("VALUE").connection.disconnect();
+
+    setVariableBlock
+      .getInput("VALUE")
+      .connection.connect(analogReadBlock.outputConnection);
+
+    connectToArduinoBlock(setVariableBlock);
+
+    const [setupframe, frame1, frame2, frame3] = eventToFrameFactory(
+      createTestEvent(analogReadSetupBlock.id)
+    ).frames;
+
+    console.log(frame1, frame2);
+    expect(frame1.variables["state"].value).toBe(1);
+    expect(frame2.variables["state"].value).toBe(30);
+    expect(frame3.variables["state"].value).toBe(1);
+  });
+});

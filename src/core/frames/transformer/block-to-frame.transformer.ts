@@ -17,7 +17,6 @@ import {
   lcdClear,
   lcdBacklight,
 } from "../../../blocks/lcd_screen/blocktoframe";
-import { setupReadPin } from "./blocktoframe/pin";
 import { ultraSonicSensor } from "./blocktoframe/ultra_sonic_sensor";
 import { servoRotate } from "./blocktoframe/servo";
 import { tempSetupSensor } from "./blocktoframe/temp_setup";
@@ -36,9 +35,7 @@ import { setVariable } from "./blocktoframe/set_variables";
 import { ifElse } from "./blocktoframe/logic";
 import { simpleLoop, forLoop } from "./blocktoframe/loop";
 import { delayBlock } from "./blocktoframe/delay";
-import { PinPicture } from "../arduino-components.state";
 import { moveMotor } from "./blocktoframe/motor";
-import { rfidScannedCard } from "./blocktovalue/rfid";
 import {
   findBlockById,
   findInputStatementStartBlock,
@@ -66,6 +63,7 @@ import {
 } from "../../../blocks/rgbled/blocktoframe";
 import { led, ledFade } from "../../../blocks/led/blocktoframe";
 import { digitalReadSetup } from "../../../blocks/digitalsensor/blocktoframe";
+import { analogReadSetup } from "../../../blocks/analogsensor/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (
@@ -87,7 +85,7 @@ const blockToFrameTransformerList: {
   lcd_setup: lcdScreenSetup,
   neo_pixel_setup: neoPixelSetup,
   rgb_led_setup: ledColorSetup,
-  analog_read_setup: setupReadPin,
+  analog_read_setup: analogReadSetup,
   digital_read_setup: digitalReadSetup,
   button_setup: buttonSetup,
   ir_remote_setup: irRemoteSetup,

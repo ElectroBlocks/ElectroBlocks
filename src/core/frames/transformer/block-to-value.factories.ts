@@ -32,7 +32,6 @@ import { getVariable } from "./blocktovalue/get_variables";
 import { getItemInList } from "./blocktovalue/list-get-item";
 import { getArduinoMessage, arduinoHasMessage } from "./blocktovalue/message";
 import { timeSeconds } from "./blocktovalue/time_seconds";
-import { getPinState } from "./blocktovalue/pin";
 import { ultraSonicSensorDistance } from "./blocktovalue/ultra_sonic_sensor";
 import { rfidScannedCard, rfidCardNumber, rfidTag } from "./blocktovalue/rfid";
 import { getHumidity, getTemp } from "./blocktovalue/temp";
@@ -46,6 +45,7 @@ import {
   irRemoteHasCode,
 } from "../../../blocks/ir_remote/blocktovalue";
 import { digitalRead } from "../../../blocks/digitalsensor/blocktovalue";
+import { analogRead } from "../../../blocks/analogsensor/blocktovalue";
 
 export interface ValueGenerator {
   (
@@ -109,7 +109,7 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   bluetooth_get_message: getBtMessage,
 
   digital_read: digitalRead,
-  analog_read: getPinState,
+  analog_read: analogRead,
 
   is_button_pressed: isButtonPressed,
 

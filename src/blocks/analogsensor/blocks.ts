@@ -1,12 +1,12 @@
-import { selectBoardBlockly } from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 import Blockly from "blockly";
 
-import { COLOR_THEME } from "../constants/colors";
-import loopTimes from "./helpers/looptimes";
+import { COLOR_THEME } from "../../core/blockly/constants/colors";
+import loopTimes from "../../core/blockly/blocks/helpers/looptimes";
 import {
   configuredPins,
   getAvailablePins,
-} from "./helpers/getAvialablePinsFromSetupBlock";
+} from "../../core/blockly/blocks/helpers/getAvialablePinsFromSetupBlock";
 
 Blockly.Blocks["analog_write"] = {
   init: function () {
@@ -23,33 +23,6 @@ Blockly.Blocks["analog_write"] = {
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField("Wave Intensity");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(COLOR_THEME.COMPONENTS);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  },
-};
-
-Blockly.Blocks["digital_write"] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField(
-        new Blockly.FieldImage("./blocks/arduino/digital_write.png", 15, 15)
-      )
-      .appendField("Turn ")
-      .appendField(
-        new Blockly.FieldDropdown([
-          ["on", "ON"],
-          ["off", "OFF"],
-        ]),
-        "STATE"
-      )
-      .appendField("pin# ")
-      .appendField(
-        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
-        "PIN"
-      );
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(COLOR_THEME.COMPONENTS);

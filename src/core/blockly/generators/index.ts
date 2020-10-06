@@ -21,7 +21,7 @@ import "./math";
 import "./motion_sensor";
 import "./motor";
 import "../../../blocks/neopixels/generators";
-import "./pins";
+import "../../../blocks/analogsensor/genertors";
 import "../../../blocks/functions/generators";
 import "./rfid";
 import "./servo";

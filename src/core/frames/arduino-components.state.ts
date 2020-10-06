@@ -17,50 +17,6 @@ export enum MOTOR_DIRECTION {
   BACKWARD = "BACKWARD",
 }
 
-export interface PinState extends ArduinoComponentState {
-  pin: ARDUINO_PINS;
-  pinType: PIN_TYPE;
-  state: number;
-  pinPicture: PinPicture;
-  color?: Color;
-}
-
-export enum PIN_TYPE {
-  DIGITAL_OUTPUT = "DIGITAL_OUTPUT",
-  ANALOG_OUTPUT = "ANALOG_OUTPUT",
-  ANALOG_INPUT = "ANALOG_INPUT",
-  DIGITAL_INPUT = "DIGITAL_INPUT",
-}
-
-export enum PinPicture {
-  LED = "LED",
-  LED_DIGITAL_WRITE = "LED_DIGITAL_WRITE",
-  LED_ANALOG_WRITE = "LED_ANALOG_WRITE",
-  SENSOR = "SENSOR",
-  PHOTO_SENSOR = "PHOTO_SENSOR",
-  TOUCH_SENSOR = "TOUCH_SENSOR",
-  SOIL_SENSOR = "SOIL_SENSOR",
-}
-
-export const pinPictureToWork = (pinPicture: PinPicture) => {
-  switch (pinPicture) {
-    case PinPicture.LED:
-      return "led";
-    case PinPicture.LED_DIGITAL_WRITE:
-      return "digital pin";
-    case PinPicture.LED_ANALOG_WRITE:
-      return "analog pin";
-    case PinPicture.PHOTO_SENSOR:
-      return "photo sensor";
-    case PinPicture.TOUCH_SENSOR:
-      return "touch sensor";
-    case PinPicture.SOIL_SENSOR:
-      return "soil sensor";
-    default:
-      return "sensor";
-  }
-};
-
 export interface RfidState extends ArduinoComponentState {
   txPin: ARDUINO_PINS;
   scannedCard: boolean;

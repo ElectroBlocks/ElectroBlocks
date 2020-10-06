@@ -13,6 +13,7 @@ import rgbLedXMLString from "../../../blocks/rgbled/toolbox";
 import ledXMLString from "../../../blocks/led/toolbox";
 import writePinXMLString from "../../../blocks/writepin/toolbox";
 import digitalSensorXMLString from "../../../blocks/digitalsensor/toolbox";
+import analogSensorXMLString from "../../../blocks/analogsensor/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -103,6 +104,7 @@ const defaultToolbox: ToolBoxEntries[] = [
     category: ToolBoxCategory.SENSORS,
     name: "Sensors",
     toolBoxEntries: [
+      { name: "Analog", show: true, xml: analogSensorXMLString },
       { name: "Button", show: true, xml: buttonXMLString },
       { name: "Digital Sensor", show: true, xml: digitalSensorXMLString },
       { name: "IR Remote", show: true, xml: irRmoteXMLString },

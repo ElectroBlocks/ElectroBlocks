@@ -9,7 +9,6 @@ import {
 } from "../../core/virtual-circuit/svg-create";
 
 import { Element, Svg, Text } from "@svgdotjs/svg.js";
-import { PinState, PIN_TYPE } from "../../core/frames/arduino-components.state";
 import _ from "lodash";
 import resistorSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-small.svg";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
@@ -111,7 +110,7 @@ const createResistor = (
   resistorEl.y(y);
 };
 
-export const createWiresLed: CreateWire<PinState> = (
+export const createWiresLed: CreateWire<LedState> = (
   state,
   draw,
   ledEl,

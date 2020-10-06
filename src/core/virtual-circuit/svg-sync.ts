@@ -12,10 +12,6 @@ import {
 } from "./components/arduino-message.sync";
 import { lcdUpdate, lcdReset } from "../../blocks/lcd_screen/virtual-circuit";
 import { updateRgbLed, resetRgbLed } from "../../blocks/rgbled/virtual-circuit";
-import {
-  updatePinComponent,
-  resetPinComponent,
-} from "./components/pin.component";
 import _ from "lodash";
 import {
   neoPixelUpdate,
@@ -52,6 +48,11 @@ import {
   updateDigitalSensor,
 } from "../../blocks/digitalsensor/virtual-circuit";
 
+import {
+  analogSensorUpdate,
+  analogSensorReset,
+} from "../../blocks/analogsensor/virtual-circuit";
+
 export interface SyncComponent {
   (
     state: ArduinoComponentState,
@@ -76,13 +77,13 @@ const resetComponent = {
   [ArduinoComponentType.MOTOR]: motorReset,
   [ArduinoComponentType.LED]: resetLed,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelReset,
-  [ArduinoComponentType.PIN]: resetPinComponent,
   [ArduinoComponentType.RFID]: resetRfid,
   [ArduinoComponentType.SERVO]: servoReset,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: resetTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: resetUltraSonicSensor,
   [ArduinoComponentType.WRITE_PIN]: digitalAnalogWritePinReset,
   [ArduinoComponentType.DIGITAL_SENSOR]: resetDigitalSensor,
+  [ArduinoComponentType.ANALOG_SENSOR]: analogSensorReset,
 };
 
 const syncComponent = {
@@ -96,13 +97,13 @@ const syncComponent = {
   [ArduinoComponentType.MOTOR]: motorUpdate,
   [ArduinoComponentType.MESSAGE]: arduinoMessageUpdate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelUpdate,
-  [ArduinoComponentType.PIN]: updatePinComponent,
   [ArduinoComponentType.RFID]: updateRfid,
   [ArduinoComponentType.SERVO]: servoUpdate,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: updateTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: updateUltraSonicSensor,
   [ArduinoComponentType.WRITE_PIN]: digitalAnalogWritePinSync,
   [ArduinoComponentType.DIGITAL_SENSOR]: updateDigitalSensor,
+  [ArduinoComponentType.ANALOG_SENSOR]: analogSensorUpdate,
 };
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
