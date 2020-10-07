@@ -1,5 +1,5 @@
 import "jest";
-import "../../../blockly/blocks";
+import "../../core/blockly/blocks";
 
 import Blockly, { Workspace, BlockSvg } from "blockly";
 import {
@@ -7,18 +7,18 @@ import {
   createSetVariableBlockWithValue,
   createValueBlock,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
-import { Color } from "../../arduino.frame";
+} from "../../tests/tests.helper";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { Color } from "../../core/frames/arduino.frame";
 import {
   connectToArduinoBlock,
   getAllBlocks,
-} from "../../../blockly/helpers/block.helper";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { BlockEvent } from "../../../blockly/dto/event.type";
+} from "../../core/blockly/helpers/block.helper";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import { transformBlock } from "../../core/blockly/transformers/block.transformer";
+import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
+import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
+import { BlockEvent } from "../../core/blockly/dto/event.type";
 
 describe("logic compare blocks", () => {
   let workspace: Workspace;

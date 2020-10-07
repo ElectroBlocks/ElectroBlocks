@@ -7,7 +7,6 @@ import {
   digitalWrite,
   analogWrite,
 } from "../../../blocks/writepin/blocktoframe";
-import { timeSetup } from "./blocktoframe/time";
 import {
   lcdScreenSetup,
   lcdSimplePrint,
@@ -32,9 +31,7 @@ import {
   setBooleanInList,
 } from "../../../blocks/list/blocktoframe";
 import { setVariable } from "./blocktoframe/set_variables";
-import { ifElse } from "./blocktoframe/logic";
 import { simpleLoop, forLoop } from "./blocktoframe/loop";
-import { delayBlock } from "./blocktoframe/delay";
 import { moveMotor } from "./blocktoframe/motor";
 import {
   findBlockById,
@@ -64,6 +61,9 @@ import {
 import { led, ledFade } from "../../../blocks/led/blocktoframe";
 import { digitalReadSetup } from "../../../blocks/digitalsensor/blocktoframe";
 import { analogReadSetup } from "../../../blocks/analogsensor/blocktoframe";
+import { ifElse } from "../../../blocks/logic/blocktoframe";
+import { delayBlock } from "../../../blocks/time/blocktoframe.delay";
+import { timeSetup } from "../../../blocks/time/blocktoframe.time";
 
 export interface BlockToFrameTransformer {
   (

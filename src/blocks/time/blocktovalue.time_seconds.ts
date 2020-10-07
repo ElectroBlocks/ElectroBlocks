@@ -1,6 +1,6 @@
-import { ValueGenerator } from '../block-to-value.factories';
-import { TimeState } from '../../arduino-components.state';
-import { ArduinoComponentType } from '../../arduino.frame';
+import { TimeState } from "../../core/frames/arduino-components.state";
+import { ArduinoComponentType } from "../../core/frames/arduino.frame";
+import { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
 
 export const timeSeconds: ValueGenerator = (
   blocks,

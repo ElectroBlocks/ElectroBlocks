@@ -1,6 +1,6 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { getInputValue } from '../block-to-value.factories';
-import _ from 'lodash';
+import _ from "lodash";
+import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 
 export const delayBlock: BlockToFrameTransformer = (
   blocks,
@@ -14,7 +14,7 @@ export const delayBlock: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    'DELAY',
+    "DELAY",
     1,
     previousState
   );
@@ -34,7 +34,7 @@ export const delayBlock: BlockToFrameTransformer = (
     {
       blockId: block.id,
       blockName: block.blockName,
-      sendMessage: '',
+      sendMessage: "",
       timeLine: { ...timeline },
       variables: newVariables,
       txLedOn: false,

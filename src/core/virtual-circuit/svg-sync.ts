@@ -108,6 +108,7 @@ const syncComponent = {
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
   frame.components
+    .filter((state) => state.type !== ArduinoComponentType.TIME)
     .filter((state) => _.isFunction(syncComponent[state.type]))
     .filter(
       (state) =>
@@ -130,9 +131,9 @@ export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
     );
 
   // Reset all components elements that don't have state in the frame
-  const componentIds = frame.components.map((c) =>
-    arduinoComponentStateToId(c)
-  );
+  const componentIds = frame.components
+    .filter((c) => c.type !== ArduinoComponentType.TIME)
+    .map((c) => arduinoComponentStateToId(c));
 
   draw
     .find(".component")

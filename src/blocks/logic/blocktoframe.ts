@@ -1,9 +1,9 @@
 import {
   BlockToFrameTransformer,
   generateInputFrame,
-} from "../block-to-frame.transformer";
-import { getInputValue } from "../block-to-value.factories";
-import { arduinoFrameByExplanation } from "../frame-transformer.helpers";
+} from "../../core/frames/transformer/block-to-frame.transformer";
+import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
+import { arduinoFrameByExplanation } from "../../core/frames/transformer/frame-transformer.helpers";
 
 export const ifElse: BlockToFrameTransformer = (
   blocks,

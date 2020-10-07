@@ -14,7 +14,7 @@ import {
   logicCompare,
   logicOperation,
   logicNot,
-} from "./blocktovalue/logic";
+} from "../../../blocks/logic/blocktovalue";
 import { getItemInList } from "../../../blocks/list/blocktovalue";
 import {
   text,
@@ -31,7 +31,6 @@ import { findBlockInput } from "./frame-transformer.helpers";
 import _ from "lodash";
 import { getVariable } from "./blocktovalue/get_variables";
 import { getArduinoMessage, arduinoHasMessage } from "./blocktovalue/message";
-import { timeSeconds } from "./blocktovalue/time_seconds";
 import { ultraSonicSensorDistance } from "./blocktovalue/ultra_sonic_sensor";
 import { rfidScannedCard, rfidCardNumber, rfidTag } from "./blocktovalue/rfid";
 import { getHumidity, getTemp } from "./blocktovalue/temp";
@@ -46,6 +45,7 @@ import {
 } from "../../../blocks/ir_remote/blocktovalue";
 import { digitalRead } from "../../../blocks/digitalsensor/blocktovalue";
 import { analogRead } from "../../../blocks/analogsensor/blocktovalue";
+import { timeSeconds } from "../../../blocks/time/blocktovalue.time_seconds";
 
 export interface ValueGenerator {
   (

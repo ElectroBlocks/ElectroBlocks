@@ -14,7 +14,7 @@ import "../../../blocks/writepin/generators";
 import "../../../blocks/digitalsensor/generators";
 
 import "../../../blocks/list/generators";
-import "./logic";
+import "../../../blocks/logic/generators";
 import "./loops";
 import "./message";
 import "./math";
@@ -27,5 +27,5 @@ import "./rfid";
 import "./servo";
 import "./temp";
 import "./text";
-import "./time";
+import "../../../blocks/time/generators";
 import "./variables";

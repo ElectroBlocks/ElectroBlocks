@@ -25,6 +25,7 @@ export default (
   if (frame) {
     frame.components
       .filter((c) => c.type !== ArduinoComponentType.MESSAGE)
+      .filter((c) => c.type !== ArduinoComponentType.TIME)
       .forEach((state) => {
         state.pins.forEach((pin) => showWire(arduino, pin));
         createNewComponent(state, draw, arduino, board);

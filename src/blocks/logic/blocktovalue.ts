@@ -1,5 +1,8 @@
-import { ValueGenerator, getInputValue } from '../block-to-value.factories';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
+import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
+import {
+  getInputValue,
+  ValueGenerator,
+} from "../../core/frames/transformer/block-to-value.factories";
 
 export const logicBoolean: ValueGenerator = (
   blocks,
@@ -8,7 +11,7 @@ export const logicBoolean: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  return findFieldValue(block, 'BOOL') === 'TRUE';
+  return findFieldValue(block, "BOOL") === "TRUE";
 };
 
 export const logicCompare: ValueGenerator = (
@@ -18,13 +21,13 @@ export const logicCompare: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  const operator = findFieldValue(block, 'OP');
+  const operator = findFieldValue(block, "OP");
   const aValue = getInputValue(
     blocks,
     block,
     variables,
     timeline,
-    'A',
+    "A",
     undefined,
     previousState
   );
@@ -33,7 +36,7 @@ export const logicCompare: ValueGenerator = (
     block,
     variables,
     timeline,
-    'B',
+    "B",
     undefined,
     previousState
   );
@@ -43,17 +46,17 @@ export const logicCompare: ValueGenerator = (
   }
 
   switch (operator) {
-    case 'EQ':
+    case "EQ":
       return aValue === bValue;
-    case 'NEQ':
+    case "NEQ":
       return aValue !== bValue;
-    case 'LT':
+    case "LT":
       return aValue < bValue;
-    case 'LTE':
+    case "LTE":
       return aValue <= bValue;
-    case 'GT':
+    case "GT":
       return aValue > bValue;
-    case 'GTE':
+    case "GTE":
       return aValue >= bValue;
     default:
       return false;
@@ -67,13 +70,13 @@ export const logicOperation: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  const operator = findFieldValue(block, 'OP');
+  const operator = findFieldValue(block, "OP");
   const aValue = getInputValue(
     blocks,
     block,
     variables,
     timeline,
-    'A',
+    "A",
     undefined,
     previousState
   );
@@ -82,7 +85,7 @@ export const logicOperation: ValueGenerator = (
     block,
     variables,
     timeline,
-    'B',
+    "B",
     undefined,
     previousState
   );
@@ -92,9 +95,9 @@ export const logicOperation: ValueGenerator = (
   }
 
   switch (operator) {
-    case 'AND':
+    case "AND":
       return aValue && bValue;
-    case 'OR':
+    case "OR":
       return aValue || bValue;
 
     default:
@@ -114,7 +117,7 @@ export const logicNot: ValueGenerator = (
     block,
     variables,
     timeline,
-    'BOOL',
+    "BOOL",
     false,
     previousState
   );
