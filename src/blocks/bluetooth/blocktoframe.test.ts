@@ -1,6 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
-import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
+import Blockly, { Workspace, BlockSvg } from "blockly";
 import {
   getAllBlocks,
   connectToArduinoBlock,

@@ -45,8 +45,6 @@ const getSensorText = (type: AnalogSensorPicture) => {
       return "photo";
     case AnalogSensorPicture.SOIL_SENSOR:
       return "soil";
-    case AnalogSensorPicture.TOUCH_SENSOR:
-      return "touch";
     default:
       return "analog";
   }

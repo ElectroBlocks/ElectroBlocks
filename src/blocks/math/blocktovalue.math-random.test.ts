@@ -1,20 +1,13 @@
 import "jest";
-import "../../../blockly/blocks";
+import "../../core/blockly/blocks";
+import _ from "lodash";
+import { BlockSvg, Workspace } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import Blockly, { Workspace, BlockSvg } from "blockly";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import {
-  getAllBlocks,
-  connectToArduinoBlock,
-} from "../../../blockly/helpers/block.helper";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import _ from "lodash";
+} from "../../tests/tests.helper";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 
 describe("math_random_int state factories", () => {
   let workspace: Workspace;

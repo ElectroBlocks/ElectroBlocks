@@ -18,6 +18,7 @@ import analogSensorXMLString from "../../../blocks/analogsensor/toolbox";
 import logicXMLString from "../../../blocks/logic/toolbox";
 import loopXMLString from "../../../blocks/loops/toolbox";
 import timeXMLString from "../../../blocks/time/toolbox";
+import mathXMLString from "../../../blocks/math/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -59,6 +60,7 @@ export enum ToolBoxCategory {
   COMPONENT = "Component",
   SENSORS = "Sensors",
   ARDUINO = "Arduino",
+  DATA = "DATA",
   NONE = "NONE",
   SEPARATOR = "SEPARATOR",
 }
@@ -80,14 +82,26 @@ const defaultToolbox: ToolBoxEntries[] = [
         xml: loopXMLString,
       },
       {
+        name: "My Blocks",
+        show: true,
+        xml: functionXMLString,
+      },
+      {
         name: "List",
         show: true,
         xml: listXMLString,
       },
+    ],
+  },
+  {
+    color: COLOR_THEME.VALUES,
+    category: ToolBoxCategory.DATA,
+    name: "Data",
+    toolBoxEntries: [
       {
-        name: "My Blocks",
+        name: "Math",
         show: true,
-        xml: functionXMLString,
+        xml: mathXMLString,
       },
     ],
   },
@@ -108,7 +122,6 @@ const defaultToolbox: ToolBoxEntries[] = [
       },
     ],
   },
-
   {
     color: COLOR_THEME.COMPONENTS,
     category: ToolBoxCategory.COMPONENT,

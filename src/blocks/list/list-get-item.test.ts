@@ -12,16 +12,8 @@ import {
 } from "../../tests/tests.helper";
 import { Color } from "../../core/frames/arduino.frame";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import Blockly, { Workspace, BlockSvg } from "blockly";
-import { getDefaultValue } from "../../core/frames/transformer/frame-transformer.helpers";
-import {
-  connectToArduinoBlock,
-  getAllBlocks,
-} from "../../core/blockly/helpers/block.helper";
-import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
-import { transformBlock } from "../../core/blockly/transformers/block.transformer";
-import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
-import { BlockEvent } from "../../core/blockly/dto/event.type";
+import { Workspace, BlockSvg } from "blockly";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import _ from "lodash";
 

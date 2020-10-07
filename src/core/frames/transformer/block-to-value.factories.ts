@@ -8,7 +8,7 @@ import {
   mathModulus,
   mathRandom,
   numberToString,
-} from "./blocktovalue/math";
+} from "../../../blocks/math/blocktovalue";
 import {
   logicBoolean,
   logicCompare,

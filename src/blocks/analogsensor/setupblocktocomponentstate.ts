@@ -16,7 +16,7 @@ export const analogSetupBlockToComponentState = (
 
   const pin = findFieldValue(block, "PIN") as ARDUINO_PINS;
   return {
-    type: ArduinoComponentType.DIGITAL_SENSOR,
+    type: ArduinoComponentType.ANALOG_SENSOR,
     pins: [pin],
     pin,
     pictureType: findFieldValue(block, "TYPE") as AnalogSensorPicture,

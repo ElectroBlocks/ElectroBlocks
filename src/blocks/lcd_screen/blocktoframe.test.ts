@@ -1,10 +1,7 @@
 import "jest";
 import "../../core/blockly/blocks";
-import Blockly, { Workspace, BlockSvg } from "blockly";
-import {
-  getAllBlocks,
-  connectToArduinoBlock,
-} from "../../core/blockly/helpers/block.helper";
+import { Workspace, BlockSvg } from "blockly";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";

@@ -12,6 +12,7 @@ import {
   createSetVariableBlockWithValue,
   createTestEvent,
 } from "../../tests/tests.helper";
+import { analogReadSetup } from "./blocktoframe";
 
 describe("sensor value blocks", () => {
   let workspace: Workspace;
@@ -34,6 +35,7 @@ describe("sensor value blocks", () => {
     analogReadSetupBlock.setFieldValue("A3", "PIN");
 
     const analogReadBlock = workspace.newBlock("analog_read");
+    analogReadBlock.setFieldValue("A3", "PIN");
 
     saveSensorSetupBlockData(createTestEvent(analogReadSetupBlock.id)).forEach(
       updater

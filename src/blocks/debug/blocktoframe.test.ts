@@ -1,22 +1,14 @@
 import "jest";
 import "../../core/blockly/blocks";
-import Blockly, { Workspace, BlockSvg } from "blockly";
+import { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
   createTestEvent,
 } from "../../tests/tests.helper";
-import {
-  connectToArduinoBlock,
-  getAllBlocks,
-} from "../../core/blockly/helpers/block.helper";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { BlockEvent } from "../../core/blockly/dto/event.type";
-import { transformBlock } from "../../core/blockly/transformers/block.transformer";
-import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
-import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import { MicroControllerType } from "../../core/microcontroller/microcontroller";
 
 describe("factories debug state", () => {
   let workspace: Workspace;

@@ -1,5 +1,5 @@
 import "jest";
-import "../../../blockly/blocks";
+import "../../core/blockly/blocks";
 import { Workspace } from "blockly";
 import _ from "lodash";
 import {

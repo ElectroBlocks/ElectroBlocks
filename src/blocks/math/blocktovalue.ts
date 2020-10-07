@@ -1,8 +1,8 @@
-import { ValueGenerator, getInputValue } from "../block-to-value.factories";
+import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import {
-  findFieldValue,
-  findBlockById,
-} from "../../../blockly/helpers/block-data.helper";
+  getInputValue,
+  ValueGenerator,
+} from "../../core/frames/transformer/block-to-value.factories";
 
 export const mathNumber: ValueGenerator = (
   blocks,

@@ -1,6 +1,6 @@
 import "jest";
-import "../../../blockly/blocks";
-import Blockly, { Workspace, BlockSvg } from "blockly";
+import "../../core/blockly/blocks";
+import { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
@@ -9,7 +9,6 @@ import {
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import { transformBlock } from "../../core/blockly/transformers/block.transformer";
 
 describe("generate states controls_repeat_ext", () => {
   let workspace: Workspace;
