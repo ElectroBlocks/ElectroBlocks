@@ -1,22 +1,22 @@
 import "jest";
-import "../../../blockly/blocks";
+import "../../core/blockly/blocks";
 import Blockly, { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
+} from "../../tests/tests.helper";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import {
   connectToArduinoBlock,
   getAllBlocks,
-} from "../../../blockly/helpers/block.helper";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+} from "../../core/blockly/helpers/block.helper";
+import { BlockEvent } from "../../core/blockly/dto/event.type";
+import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
+import { transformBlock } from "../../core/blockly/transformers/block.transformer";
+import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import { MicroControllerType } from "../../core/microcontroller/microcontroller";
 
 describe("generate states controls_for block", () => {
   let workspace: Workspace;

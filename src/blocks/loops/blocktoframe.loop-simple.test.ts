@@ -3,20 +3,13 @@ import "../../../blockly/blocks";
 import Blockly, { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
-  createValueBlock,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
-import {
-  connectToArduinoBlock,
-  getAllBlocks,
-} from "../../../blockly/helpers/block.helper";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+  createValueBlock,
+} from "../../tests/tests.helper";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import { transformBlock } from "../../core/blockly/transformers/block.transformer";
 
 describe("generate states controls_repeat_ext", () => {
   let workspace: Workspace;
@@ -65,13 +58,7 @@ describe("generate states controls_repeat_ext", () => {
     // Testing if no loop times input is present
     numberBlock.dispose(true);
 
-    const event2: BlockEvent = {
-      blocks: getAllBlocks().map(transformBlock),
-      variables: getAllVariables().map(transformVariable),
-      type: Blockly.Events.BLOCK_MOVE,
-      blockId: simpleForLoop.id,
-      microController: MicroControllerType.ARDUINO_UNO,
-    };
+    const event2 = createTestEvent(simpleForLoop.id);
 
     const states2 = eventToFrameFactory(event2).frames;
     expect(states2.length).toBe(2);

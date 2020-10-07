@@ -31,7 +31,6 @@ import {
   setBooleanInList,
 } from "../../../blocks/list/blocktoframe";
 import { setVariable } from "./blocktoframe/set_variables";
-import { simpleLoop, forLoop } from "./blocktoframe/loop";
 import { moveMotor } from "./blocktoframe/motor";
 import {
   findBlockById,
@@ -64,6 +63,7 @@ import { analogReadSetup } from "../../../blocks/analogsensor/blocktoframe";
 import { ifElse } from "../../../blocks/logic/blocktoframe";
 import { delayBlock } from "../../../blocks/time/blocktoframe.delay";
 import { timeSetup } from "../../../blocks/time/blocktoframe.time";
+import { forLoop, simpleLoop } from "../../../blocks/loops/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

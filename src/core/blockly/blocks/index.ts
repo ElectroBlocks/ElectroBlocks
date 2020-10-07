@@ -14,7 +14,7 @@ import "../../../blocks/writepin/blocks";
 import "../../../blocks/digitalsensor/blocks";
 import "../../../blocks/list/blocks";
 import "../../../blocks/logic/blocks";
-import "./loops";
+import "../../../blocks/loops/blocks";
 import "./math";
 import "./message";
 import "./motion_sensor";

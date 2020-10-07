@@ -15,7 +15,7 @@ import "../../../blocks/digitalsensor/generators";
 
 import "../../../blocks/list/generators";
 import "../../../blocks/logic/generators";
-import "./loops";
+import "../../../blocks/loops/generators";
 import "./message";
 import "./math";
 import "./motion_sensor";

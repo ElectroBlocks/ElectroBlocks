@@ -1,16 +1,16 @@
 import {
   BlockToFrameTransformer,
   generateInputFrame,
-} from "../block-to-frame.transformer";
-import { getInputValue } from "../block-to-value.factories";
+} from "../../core/frames/transformer/block-to-frame.transformer";
+import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import _ from "lodash";
 import {
   arduinoFrameByExplanation,
   arduinoFrameByVariable,
-} from "../frame-transformer.helpers";
-import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
-import { Variable } from "../../arduino.frame";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
+} from "../../core/frames/transformer/frame-transformer.helpers";
+import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { Variable } from "../../core/frames/arduino.frame";
 
 export const simpleLoop: BlockToFrameTransformer = (
   blocks,

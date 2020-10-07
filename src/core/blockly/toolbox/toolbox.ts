@@ -16,6 +16,7 @@ import writePinXMLString from "../../../blocks/writepin/toolbox";
 import digitalSensorXMLString from "../../../blocks/digitalsensor/toolbox";
 import analogSensorXMLString from "../../../blocks/analogsensor/toolbox";
 import logicXMLString from "../../../blocks/logic/toolbox";
+import loopXMLString from "../../../blocks/loops/toolbox";
 import timeXMLString from "../../../blocks/time/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
@@ -72,6 +73,11 @@ const defaultToolbox: ToolBoxEntries[] = [
         name: "Logic",
         show: true,
         xml: logicXMLString,
+      },
+      {
+        name: "Loop",
+        show: true,
+        xml: loopXMLString,
       },
       {
         name: "List",
