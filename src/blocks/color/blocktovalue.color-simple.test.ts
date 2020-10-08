@@ -1,25 +1,17 @@
 import "jest";
-import "../../../blockly/blocks";
+import "../../core/blockly/blocks";
+
+import { BlockSvg, Workspace } from "blockly";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
+import { Color } from "../../core/frames/arduino.frame";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
-  verifyVariable,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import "../../../../tests/fake-block";
-import Blockly, { Workspace, BlockSvg } from "blockly";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import {
-  getAllBlocks,
-  connectToArduinoBlock,
-} from "../../../blockly/helpers/block.helper";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import _ from "lodash";
-import { Color } from "../../arduino.frame";
+  verifyVariable,
+} from "../../tests/tests.helper";
 
 describe("simple color state factories", () => {
   let workspace: Workspace;

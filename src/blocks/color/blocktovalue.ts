@@ -1,7 +1,10 @@
-import { ValueGenerator, getInputValue } from '../block-to-value.factories';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { hexToRgb } from '../../../blockly/helpers/color.helper';
-import _ from 'lodash';
+import _ from "lodash";
+import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
+import { hexToRgb } from "../../core/blockly/helpers/color.helper";
+import {
+  getInputValue,
+  ValueGenerator,
+} from "../../core/frames/transformer/block-to-value.factories";
 
 export const colorPicker: ValueGenerator = (
   blocks,
@@ -10,7 +13,7 @@ export const colorPicker: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  const color = findFieldValue(block, 'COLOUR');
+  const color = findFieldValue(block, "COLOUR");
 
   return hexToRgb(color);
 };
@@ -41,7 +44,7 @@ export const rgbColor: ValueGenerator = (
     block,
     variables,
     timeline,
-    'RED',
+    "RED",
     0,
     previousState
   );
@@ -50,7 +53,7 @@ export const rgbColor: ValueGenerator = (
     block,
     variables,
     timeline,
-    'GREEN',
+    "GREEN",
     0,
     previousState
   );
@@ -59,7 +62,7 @@ export const rgbColor: ValueGenerator = (
     block,
     variables,
     timeline,
-    'BLUE',
+    "BLUE",
     0,
     previousState
   );

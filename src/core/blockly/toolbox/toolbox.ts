@@ -19,6 +19,7 @@ import logicXMLString from "../../../blocks/logic/toolbox";
 import loopXMLString from "../../../blocks/loops/toolbox";
 import timeXMLString from "../../../blocks/time/toolbox";
 import mathXMLString from "../../../blocks/math/toolbox";
+import colorXMLString from "../../../blocks/color/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -98,6 +99,11 @@ const defaultToolbox: ToolBoxEntries[] = [
     category: ToolBoxCategory.DATA,
     name: "Data",
     toolBoxEntries: [
+      {
+        name: "Color",
+        show: true,
+        xml: colorXMLString,
+      },
       {
         name: "Math",
         show: true,

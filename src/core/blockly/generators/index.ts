@@ -3,7 +3,7 @@ import "../../../blocks/arduino/generators";
 import "../../../blocks/bluetooth/generators";
 import "../../../blocks/board_selector/generators";
 import "../../../blocks/button/generators";
-import "./colour";
+import "../../../blocks/color/generators";
 import "../../../blocks/debug/generators";
 import "../../../blocks/ir_remote/generators";
 import "../../../blocks/lcd_screen/generators";

@@ -26,7 +26,11 @@ import {
   numberToText,
 } from "./blocktovalue/text";
 import { VariableData } from "../../blockly/dto/variable.type";
-import { colorPicker, randomColor, rgbColor } from "./blocktovalue/colors";
+import {
+  colorPicker,
+  randomColor,
+  rgbColor,
+} from "../../../blocks/color/blocktovalue";
 import { findBlockInput } from "./frame-transformer.helpers";
 import _ from "lodash";
 import { getVariable } from "./blocktovalue/get_variables";
