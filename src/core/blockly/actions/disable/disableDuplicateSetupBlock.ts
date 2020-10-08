@@ -20,6 +20,7 @@ export const disableDuplicateSetupBlocks = (
         blockId: block.id,
         type: ActionType.DISABLE_BLOCK,
         warningText: "Duplicate setup blocks, please remove one",
+        stopCompiling: true,
       };
     });
 };

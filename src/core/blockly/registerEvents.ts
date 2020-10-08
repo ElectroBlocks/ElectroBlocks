@@ -73,7 +73,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       ) as DisableBlock[]
     );
 
-    if (firstActionPass.length >= 1) {
+    if (firstActionPass.filter((a) => a.stopCompiling).length >= 1) {
       currentFrameContainter = {
         error: true,
         frames: [],

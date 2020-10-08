@@ -23,6 +23,7 @@ export const disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction = (
         blockId: block.id,
         type: ActionType.DISABLE_BLOCK,
         warningText: null,
+        stopCompiling: false,
       };
     });
 };

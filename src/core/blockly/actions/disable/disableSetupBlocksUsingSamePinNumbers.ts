@@ -19,6 +19,7 @@ export const disableSetupBlocksUsingSamePinNumbers = (
         blockId: block.id,
         warningText: "Arduino is out of pins",
         type: ActionType.DISABLE_BLOCK,
+        stopCompiling: true,
       };
     });
 };

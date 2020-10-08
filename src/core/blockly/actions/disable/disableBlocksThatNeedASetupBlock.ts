@@ -28,6 +28,7 @@ export const disableBlocksThatNeedASetupBlock = (
         warningText: `This block requires a ${
           setupBlockTypeToHumanName[blocksThatRequireSetup[b.blockName]]
         }.`,
+        stopCompiling: true,
       };
     });
 };

@@ -58,6 +58,7 @@ export const disableDuplicatePinBlocks = (
             duplicatePins
           ).join(", ")}`,
           type: ActionType.DISABLE_BLOCK,
+          stopCompiling: true,
         };
       })
   );

@@ -27,6 +27,7 @@ export const disableBlocksWithInvalidPinNumbers = (
         warningText:
           "Pin is not avialable for the microcontroller you are using.",
         blockId: block.id,
+        stopCompiling: true,
       };
     });
 };

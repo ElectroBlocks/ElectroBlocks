@@ -48,6 +48,7 @@ export const disableSensorReadBlocksWithWrongPins = (
         blockId: block.id,
         type: ActionType.DISABLE_BLOCK,
         warningText: "Please change the pin number to match the setup block",
+        stopCompiling: true,
       };
     });
 };

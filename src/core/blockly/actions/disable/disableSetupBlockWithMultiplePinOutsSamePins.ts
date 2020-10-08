@@ -17,6 +17,7 @@ export const disableSetupBlockWithMultiplePinOutsSamePins = (
         type: ActionType.DISABLE_BLOCK,
         warningText: "Block using the same pin twice",
         blockId: b.id,
+        stopCompiling: true,
       };
     });
 };
