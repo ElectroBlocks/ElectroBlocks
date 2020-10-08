@@ -9,7 +9,7 @@ import { servoUpdate, servoReset } from "./components/servo.sync";
 import {
   arduinoMessageUpdate,
   resetArduinoMessage,
-} from "./components/arduino-message.sync";
+} from "../../blocks/message/virtual-circuit";
 import { lcdUpdate, lcdReset } from "../../blocks/lcd_screen/virtual-circuit";
 import { updateRgbLed, resetRgbLed } from "../../blocks/rgbled/virtual-circuit";
 import _ from "lodash";

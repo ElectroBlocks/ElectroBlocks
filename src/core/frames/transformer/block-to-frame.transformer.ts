@@ -2,7 +2,6 @@ import { BlockData } from "../../blockly/dto/block.type";
 import { Timeline, ArduinoFrame } from "../arduino.frame";
 import { rfidSetup } from "./blocktoframe/rfid";
 import _ from "lodash";
-import { messageSetup, arduinoSendMessage } from "./blocktoframe/message";
 import {
   digitalWrite,
   analogWrite,
@@ -64,6 +63,10 @@ import { ifElse } from "../../../blocks/logic/blocktoframe";
 import { delayBlock } from "../../../blocks/time/blocktoframe.delay";
 import { timeSetup } from "../../../blocks/time/blocktoframe.time";
 import { forLoop, simpleLoop } from "../../../blocks/loops/blocktoframe";
+import {
+  arduinoSendMessage,
+  messageSetup,
+} from "../../../blocks/message/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

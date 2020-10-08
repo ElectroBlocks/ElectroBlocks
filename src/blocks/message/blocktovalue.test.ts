@@ -1,17 +1,17 @@
 import "jest";
-import "../../../blockly/blocks";
+import "../../core/blockly/blocks";
 import { Workspace, BlockSvg } from "blockly";
-import { connectToArduinoBlock } from "../../../blockly/helpers/block.helper";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { saveSensorSetupBlockData } from "../../../blockly/actions/saveSensorSetupBlockData";
-import { updater } from "../../../blockly/updater";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
+import { updater } from "../../core/blockly/updater";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
+} from "../../tests/tests.helper";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
 
 describe("arduino message state factories", () => {
   let workspace: Workspace;

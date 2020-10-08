@@ -20,11 +20,9 @@ import {
   TemperatureState,
   TimeState,
   UltraSonicSensorState,
-  ArduinoReceiveMessageState,
 } from "../../frames/arduino-components.state";
 import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { findSensorState } from "../helpers/sensor_block.helper";
-import { BluetoothSensor } from "../../../blocks/bluetooth/state";
 import { bluetoothSetupBlockToSensorData } from "../../../blocks/bluetooth/setupblocktosensordata";
 import { buttonSetupBlockToSensorData } from "../../../blocks/button/setupblocktosensordata";
 import { bluetoothSetupBlockToComponentState } from "../../../blocks/bluetooth/setupblocktocomponentstate";
@@ -35,6 +33,8 @@ import { digitalSetupBlockToComponentState } from "../../../blocks/digitalsensor
 import { digitalSetupBlockToSensorData } from "../../../blocks/digitalsensor/setupblocktosensordata";
 import { analogSetupBlockToComponentState } from "../../../blocks/analogsensor/setupblocktocomponentstate";
 import { analogSetupBlockToSensorData } from "../../../blocks/analogsensor/setupblocktosensordata";
+import { messageSetupBlockToComponentState } from "../../../blocks/message/setupblocktocomponentstate";
+import { messageSetupBlockToSensorData } from "../../../blocks/message/setupblocktosensordata";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -43,14 +43,6 @@ interface RetrieveSensorData {
 interface BlockToComponentState {
   (block: BlockData, timeline: Timeline): ArduinoComponentState;
 }
-
-const digitalReadSetup = (block: BlockData): PinSensor => {
-  return {
-    state: findFieldValue(block, "state") === "TRUE" ? 1 : 0,
-    loop: +findFieldValue(block, "LOOP"),
-    blockName: block.blockName,
-  };
-};
 
 const rfidSetup = (block: BlockData): RFIDSensor => {
   return {
@@ -138,21 +130,6 @@ const ultraSonicState = (
   };
 };
 
-const messageState = (
-  block: BlockData,
-  timeline: Timeline
-): ArduinoReceiveMessageState => {
-  // TODO FIX WITH MESSAGE
-  const btState = findSensorState<BluetoothSensor>(block, timeline);
-
-  return {
-    type: ArduinoComponentType.MESSAGE,
-    pins: [],
-    hasMessage: btState.receiving_message,
-    message: btState.message,
-  };
-};
-
 const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   bluetooth_setup: bluetoothSetupBlockToSensorData,
   button_setup: buttonSetupBlockToSensorData,
@@ -163,7 +140,7 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   temp_setup: tempSetup,
   time_setup: timeSetup,
   ultra_sonic_sensor_setup: ultraSonicSensor,
-  message_setup: bluetoothSetupBlockToSensorData,
+  message_setup: messageSetupBlockToSensorData,
 };
 
 const blockToSensorComponent: {
@@ -178,7 +155,7 @@ const blockToSensorComponent: {
   temp_setup: tempState,
   time_setup: timeState,
   ultra_sonic_sensor_setup: ultraSonicState,
-  message_setup: messageState,
+  message_setup: messageSetupBlockToComponentState,
 };
 
 export const sensorSetupBlockName = _.keys(blockToSensorComponent);

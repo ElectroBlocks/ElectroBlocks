@@ -20,6 +20,7 @@ import loopXMLString from "../../../blocks/loops/toolbox";
 import timeXMLString from "../../../blocks/time/toolbox";
 import mathXMLString from "../../../blocks/math/toolbox";
 import colorXMLString from "../../../blocks/color/toolbox";
+import messageXMLString from "../../../blocks/message/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -120,6 +121,11 @@ const defaultToolbox: ToolBoxEntries[] = [
         name: "Arduino",
         show: true,
         xml: arduinoXMLString,
+      },
+      {
+        name: "Message",
+        show: true,
+        xml: messageXMLString,
       },
       {
         name: "Time",

@@ -1,19 +1,22 @@
 import "jest";
-import "../../../blockly/blocks";
-import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
-import { connectToArduinoBlock } from "../../../blockly/helpers/block.helper";
+import "../../core/blockly/blocks";
+import { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { saveSensorSetupBlockData } from "../../../blockly/actions/saveSensorSetupBlockData";
-import { updater } from "../../../blockly/updater";
-import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ArduinoReceiveMessageState } from "../../arduino-components.state";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
+import { updater } from "../../core/blockly/updater";
+import {
+  ArduinoFrame,
+  ArduinoComponentType,
+} from "../../core/frames/arduino.frame";
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
+} from "../../tests/tests.helper";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { ArduinoReceiveMessageState } from "./state";
 
 describe("arduino message state factories", () => {
   let workspace: Workspace;

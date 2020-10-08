@@ -1,13 +1,19 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
-import { CreateCompenentHook, CreateWire } from "../svg-create";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
+import {
+  CreateCompenentHook,
+  CreateWire,
+} from "../../core/virtual-circuit/svg-create";
 
-import { ArduinoReceiveMessageState } from "../../frames/arduino-components.state";
 import { Text, Svg } from "@svgdotjs/svg.js";
 import {
   findSvgElement,
   LED_COLORS,
   findMicronControllerEl,
-} from "../svg-helpers";
+} from "../../core/virtual-circuit/svg-helpers";
+import { ArduinoReceiveMessageState } from "./state";
 
 export const arduinoMessageUpdate: SyncComponent = (state, _, draw, frame) => {
   const messageState = state as ArduinoReceiveMessageState;

@@ -1,10 +1,5 @@
-import { ArduinoComponentState, Color, ArduinoFrame } from "./arduino.frame";
+import { ArduinoComponentState } from "./arduino.frame";
 import { ARDUINO_PINS } from "../microcontroller/selectBoard";
-
-export interface ArduinoReceiveMessageState extends ArduinoComponentState {
-  hasMessage: boolean;
-  message: string;
-}
 
 export interface MotorState extends ArduinoComponentState {
   motorNumber: number;

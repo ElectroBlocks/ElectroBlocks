@@ -16,7 +16,7 @@ import "../../../blocks/list/blocks";
 import "../../../blocks/logic/blocks";
 import "../../../blocks/loops/blocks";
 import "../../../blocks/math/blocks";
-import "./message";
+import "../../../blocks/message/blocks";
 import "./motion_sensor";
 import "./motor";
 import "../../../blocks/analogsensor/blocks";

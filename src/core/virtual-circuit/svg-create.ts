@@ -37,7 +37,7 @@ import {
   ledPosition,
 } from "../../blocks/led/virtual-circuit";
 
-import { arduinoMessageCreate } from "./components/arduino-message.sync";
+import { arduinoMessageCreate } from "../../blocks/message/virtual-circuit";
 import { motorCreate, motorPosition } from "./components/motor.sync";
 import {
   neoPixelCreate,
