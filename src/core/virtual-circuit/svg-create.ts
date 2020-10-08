@@ -69,7 +69,7 @@ import {
   createWiresUltraSonicSensor,
   positionUltraSonicSensor,
   createUltraSonicSensor,
-} from "./components/ultrasonic.sync";
+} from "../../blocks/ultrasonic_sensor/virtual-circuit";
 import { getSvgString } from "./svg-string";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 import { MicroController } from "../microcontroller/microcontroller";

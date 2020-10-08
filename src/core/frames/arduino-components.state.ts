@@ -31,9 +31,3 @@ export interface TemperatureState extends ArduinoComponentState {
 export interface TimeState extends ArduinoComponentState {
   timeInSeconds: number;
 }
-
-export interface UltraSonicSensorState extends ArduinoComponentState {
-  cm: number;
-  trigPin: ARDUINO_PINS;
-  echoPin: ARDUINO_PINS;
-}

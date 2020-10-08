@@ -21,6 +21,7 @@ import timeXMLString from "../../../blocks/time/toolbox";
 import mathXMLString from "../../../blocks/math/toolbox";
 import colorXMLString from "../../../blocks/color/toolbox";
 import messageXMLString from "../../../blocks/message/toolbox";
+import ultraSonicXMLString from "../../../blocks/ultrasonic_sensor/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -157,6 +158,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Button", show: true, xml: buttonXMLString },
       { name: "Digital Sensor", show: true, xml: digitalSensorXMLString },
       { name: "IR Remote", show: true, xml: irRmoteXMLString },
+      { name: "Motion Sensor", show: true, xml: ultraSonicXMLString },
     ],
   },
 

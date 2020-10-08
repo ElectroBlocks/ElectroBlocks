@@ -1,13 +1,6 @@
 import _ from "lodash";
 
-import {
-  Sensor,
-  PinSensor,
-  TimeSensor,
-  MotionSensor,
-  TempSensor,
-  RFIDSensor,
-} from "../dto/sensors.type";
+import { Sensor, TempSensor, RFIDSensor } from "../dto/sensors.type";
 import { BlockData } from "../dto/block.type";
 import { findFieldValue } from "../helpers/block-data.helper";
 import {
@@ -18,8 +11,6 @@ import {
 import {
   RfidState,
   TemperatureState,
-  TimeState,
-  UltraSonicSensorState,
 } from "../../frames/arduino-components.state";
 import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 import { findSensorState } from "../helpers/sensor_block.helper";
@@ -35,6 +26,10 @@ import { analogSetupBlockToComponentState } from "../../../blocks/analogsensor/s
 import { analogSetupBlockToSensorData } from "../../../blocks/analogsensor/setupblocktosensordata";
 import { messageSetupBlockToComponentState } from "../../../blocks/message/setupblocktocomponentstate";
 import { messageSetupBlockToSensorData } from "../../../blocks/message/setupblocktosensordata";
+import { timeSetupBlockToSensorData } from "../../../blocks/time/setupblocktosensordata";
+import { timeSetupBlockToComponentState } from "../../../blocks/time/setupblocktocomponentstate";
+import { ultraSonicSetupBlockToSensorData } from "../../../blocks/ultrasonic_sensor/setupblocktosensordata";
+import { ultraSonicSetupBlockToComponentState } from "../../../blocks/ultrasonic_sensor/setupblocktocomponentstate";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -87,49 +82,6 @@ const tempState = (block: BlockData, timeline: Timeline): TemperatureState => {
   };
 };
 
-const timeSetup = (block: BlockData): TimeSensor => {
-  return {
-    time_in_seconds: +findFieldValue(block, "time_in_seconds"),
-    loop: +findFieldValue(block, "LOOP"),
-    blockName: block.blockName,
-  };
-};
-
-const timeState = (block: BlockData, timeline: Timeline): TimeState => {
-  return {
-    type: ArduinoComponentType.TIME,
-    pins: [],
-    timeInSeconds:
-      +timeline.iteration * +findFieldValue(block, "time_in_seconds"),
-  };
-};
-
-const ultraSonicSensor = (block: BlockData): MotionSensor => {
-  return {
-    cm: +findFieldValue(block, "cm"),
-    loop: +findFieldValue(block, "LOOP"),
-    blockName: block.blockName,
-  };
-};
-
-const ultraSonicState = (
-  block: BlockData,
-  timeline: Timeline
-): UltraSonicSensorState => {
-  const ultraSensor = findSensorState<MotionSensor>(block, timeline);
-
-  return {
-    type: ArduinoComponentType.ULTRASONICE_SENSOR,
-    trigPin: findFieldValue(block, "PIN_TRIG") as ARDUINO_PINS,
-    echoPin: findFieldValue(block, "PIN_ECHO") as ARDUINO_PINS,
-    pins: [
-      findFieldValue(block, "PIN_TRIG") as ARDUINO_PINS,
-      findFieldValue(block, "PIN_ECHO") as ARDUINO_PINS,
-    ],
-    cm: ultraSensor.cm,
-  };
-};
-
 const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   bluetooth_setup: bluetoothSetupBlockToSensorData,
   button_setup: buttonSetupBlockToSensorData,
@@ -138,8 +90,8 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   analog_read_setup: analogSetupBlockToSensorData,
   rfid_setup: rfidSetup,
   temp_setup: tempSetup,
-  time_setup: timeSetup,
-  ultra_sonic_sensor_setup: ultraSonicSensor,
+  time_setup: timeSetupBlockToSensorData,
+  ultra_sonic_sensor_setup: ultraSonicSetupBlockToSensorData,
   message_setup: messageSetupBlockToSensorData,
 };
 
@@ -153,8 +105,8 @@ const blockToSensorComponent: {
   analog_read_setup: analogSetupBlockToComponentState,
   rfid_setup: rfidState,
   temp_setup: tempState,
-  time_setup: timeState,
-  ultra_sonic_sensor_setup: ultraSonicState,
+  time_setup: timeSetupBlockToComponentState,
+  ultra_sonic_sensor_setup: ultraSonicSetupBlockToComponentState,
   message_setup: messageSetupBlockToComponentState,
 };
 

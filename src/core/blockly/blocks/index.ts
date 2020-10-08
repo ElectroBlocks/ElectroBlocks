@@ -17,7 +17,7 @@ import "../../../blocks/logic/blocks";
 import "../../../blocks/loops/blocks";
 import "../../../blocks/math/blocks";
 import "../../../blocks/message/blocks";
-import "./motion_sensor";
+import "../../../blocks/ultrasonic_sensor/blocks";
 import "./motor";
 import "../../../blocks/analogsensor/blocks";
 import "./rfid";

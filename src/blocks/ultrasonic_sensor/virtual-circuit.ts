@@ -1,15 +1,22 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from "../svg-create";
+} from "../../core/virtual-circuit/svg-create";
 
-import { UltraSonicSensorState } from "../../frames/arduino-components.state";
+import { UltraSonicSensorState } from "./state";
 import { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from "../svg-position";
-import { createWire, createPowerWire, createGroundWire } from "../wire";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import {
+  createWire,
+  createPowerWire,
+  createGroundWire,
+} from "../../core/virtual-circuit/wire";
 
 export const positionUltraSonicSensor: PositionComponent<UltraSonicSensorState> = (
   state,

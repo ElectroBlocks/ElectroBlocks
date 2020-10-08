@@ -1,9 +1,8 @@
-import { BlockToFrameTransformer } from "../block-to-frame.transformer";
-import { MotionSensor } from "../../../blockly/dto/sensors.type";
-import { UltraSonicSensorState } from "../../arduino-components.state";
-import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
-import { ArduinoComponentType } from "../../arduino.frame";
-import { arduinoFrameByComponent } from "../frame-transformer.helpers";
+import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
+import { ArduinoComponentType } from "../../core/frames/arduino.frame";
+import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import { arduinoFrameByComponent } from "../../core/frames/transformer/frame-transformer.helpers";
+import { UltraSonicSensor, UltraSonicSensorState } from "./state";
 
 export const ultraSonicSensor: BlockToFrameTransformer = (
   blocks,
@@ -12,8 +11,8 @@ export const ultraSonicSensor: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  const sensorDatum = JSON.parse(block.metaData) as MotionSensor[];
-  const sensorData = sensorDatum.find((d) => d.loop === 1) as MotionSensor;
+  const sensorDatum = JSON.parse(block.metaData) as UltraSonicSensor[];
+  const sensorData = sensorDatum.find((d) => d.loop === 1) as UltraSonicSensor;
 
   const ultraSonicState: UltraSonicSensorState = {
     cm: sensorData.cm,

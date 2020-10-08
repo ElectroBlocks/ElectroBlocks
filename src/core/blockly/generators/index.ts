@@ -18,7 +18,7 @@ import "../../../blocks/logic/generators";
 import "../../../blocks/loops/generators";
 import "../../../blocks/message/generators";
 import "../../../blocks/math/generators";
-import "./motion_sensor";
+import "../../../blocks/ultrasonic_sensor/generators";
 import "./motor";
 import "../../../blocks/neopixels/generators";
 import "../../../blocks/analogsensor/genertors";

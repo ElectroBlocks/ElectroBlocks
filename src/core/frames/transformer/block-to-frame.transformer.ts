@@ -15,7 +15,6 @@ import {
   lcdClear,
   lcdBacklight,
 } from "../../../blocks/lcd_screen/blocktoframe";
-import { ultraSonicSensor } from "./blocktoframe/ultra_sonic_sensor";
 import { servoRotate } from "./blocktoframe/servo";
 import { tempSetupSensor } from "./blocktoframe/temp_setup";
 import { VariableData } from "../../blockly/dto/variable.type";
@@ -67,6 +66,7 @@ import {
   arduinoSendMessage,
   messageSetup,
 } from "../../../blocks/message/blocktoframe";
+import { ultraSonicSensor } from "../../../blocks/ultrasonic_sensor/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

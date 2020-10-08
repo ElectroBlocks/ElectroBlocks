@@ -13,7 +13,7 @@ import neopixelSvgString from "../../blocks/neopixels/neopixel.svg";
 import rfidSvgString from "./svgs/rfid/rfid.svg";
 import servoSVGText from "./svgs/servo/servo.svg";
 import tempSvgString from "./svgs/temp/temp-humidity.svg";
-import ultraSonicSvgString from "./svgs/ultrasonic-sensor/ultrasonic-sensor.svg";
+import ultraSonicSvgString from "../../blocks/ultrasonic_sensor/ultrasonic-sensor.svg";
 import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
 import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
 import { getLedSvgString } from "../../blocks/led/svg-string";

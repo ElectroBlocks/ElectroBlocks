@@ -1,29 +1,22 @@
 import "jest";
-import "../../../blockly/blocks";
+import "../../core/blockly/blocks";
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
-import {
-  getAllBlocks,
-  getBlockById,
-  connectToArduinoBlock,
-} from "../../../blockly/helpers/block.helper";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { saveSensorSetupBlockData } from "../../../blockly/actions/saveSensorSetupBlockData";
-import { updater } from "../../../blockly/updater";
+import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
+import { updater } from "../../core/blockly/updater";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { UltraSonicSensorState } from "../../arduino-components.state";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+} from "../../tests/tests.helper";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import {
+  ArduinoFrame,
+  ArduinoComponentType,
+} from "../../core/frames/arduino.frame";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { UltraSonicSensorState } from "./state";
 
 describe("ultra sonic sensor state factories", () => {
   let workspace: Workspace;

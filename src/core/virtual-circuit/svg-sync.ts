@@ -35,7 +35,7 @@ import {
 import {
   updateUltraSonicSensor,
   resetUltraSonicSensor,
-} from "./components/ultrasonic.sync";
+} from "../../blocks/ultrasonic_sensor/virtual-circuit";
 import { updateRfid, resetRfid } from "./components/rfid.sync";
 import { updateTemp, resetTemp } from "./components/temp.sync";
 import {
