@@ -23,6 +23,6 @@ import "../../../blocks/analogsensor/blocks";
 import "../../../blocks/rfid/blocks";
 import "../../../blocks/servo/blocks";
 import "../../../blocks/temperature/blocks";
-import "./text";
+import "../../../blocks/text/blocks";
 import "../../../blocks/time/blocks";
 import "../../../blocks/variables/blocks";

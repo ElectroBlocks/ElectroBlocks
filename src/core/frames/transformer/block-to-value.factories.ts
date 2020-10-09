@@ -24,7 +24,7 @@ import {
   textIsEmpty,
   changeCase,
   numberToText,
-} from "./blocktovalue/text";
+} from "../../../blocks/text/blocktovalue";
 import { VariableData } from "../../blockly/dto/variable.type";
 import {
   colorPicker,

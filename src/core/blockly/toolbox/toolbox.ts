@@ -27,6 +27,7 @@ import variablesXMLString from "../../../blocks/variables/toolbox";
 import rfidXMLString from "../../../blocks/rfid/toolbox";
 import servoXMLString from "../../../blocks/servo/toolbox";
 import temperatureXMLString from "../../../blocks/temperature/toolbox";
+import textXMLString from "../../../blocks/text/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -120,6 +121,11 @@ const defaultToolbox: ToolBoxEntries[] = [
         name: "Math",
         show: true,
         xml: mathXMLString,
+      },
+      {
+        name: "Text",
+        show: true,
+        xml: textXMLString,
       },
     ],
   },

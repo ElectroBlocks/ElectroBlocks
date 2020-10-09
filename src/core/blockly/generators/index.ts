@@ -26,6 +26,6 @@ import "../../../blocks/functions/generators";
 import "../../../blocks/rfid/generators";
 import "../../../blocks/servo/generators";
 import "../../../blocks/temperature/generators";
-import "./text";
+import "../../../blocks/text/generators";
 import "../../../blocks/time/generators";
 import "../../../blocks/variables/generators";
