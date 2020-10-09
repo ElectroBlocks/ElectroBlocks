@@ -25,4 +25,4 @@ import "./servo";
 import "./temp";
 import "./text";
 import "../../../blocks/time/blocks";
-import "./variables";
+import "../../../blocks/variables/blocks";

@@ -33,7 +33,6 @@ import {
 } from "../../../blocks/color/blocktovalue";
 import { findBlockInput } from "./frame-transformer.helpers";
 import _ from "lodash";
-import { getVariable } from "./blocktovalue/get_variables";
 import { rfidScannedCard, rfidCardNumber, rfidTag } from "./blocktovalue/rfid";
 import { getHumidity, getTemp } from "./blocktovalue/temp";
 import {
@@ -53,6 +52,7 @@ import {
   getArduinoMessage,
 } from "../../../blocks/message/blocktovalue";
 import { ultraSonicSensorDistance } from "../../../blocks/ultrasonic_sensor/blocktovalue";
+import { getVariable } from "../../../blocks/variables/blocktovalue";
 
 export interface ValueGenerator {
   (

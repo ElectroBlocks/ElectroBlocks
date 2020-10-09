@@ -28,7 +28,6 @@ import {
   setColorInList,
   setBooleanInList,
 } from "../../../blocks/list/blocktoframe";
-import { setVariable } from "./blocktoframe/set_variables";
 import {
   findBlockById,
   findInputStatementStartBlock,
@@ -67,6 +66,7 @@ import {
 } from "../../../blocks/message/blocktoframe";
 import { ultraSonicSensor } from "../../../blocks/ultrasonic_sensor/blocktoframe";
 import { moveMotor } from "../../../blocks/motors/blocktoframe";
+import { setVariable } from "../../../blocks/variables/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

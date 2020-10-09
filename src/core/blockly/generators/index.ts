@@ -28,4 +28,4 @@ import "./servo";
 import "./temp";
 import "./text";
 import "../../../blocks/time/generators";
-import "./variables";
+import "../../../blocks/variables/generators";

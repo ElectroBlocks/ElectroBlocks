@@ -1,13 +1,12 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { Variable, Color } from '../../arduino.frame';
-import { VariableTypes } from '../../../blockly/dto/variable.type';
+import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
+import { Variable } from "../../core/frames/arduino.frame";
+import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByVariable,
   getDefaultValue,
   valueToString,
-} from '../frame-transformer.helpers';
-import { getInputValue } from '../block-to-value.factories';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
+} from "../../core/frames/transformer/frame-transformer.helpers";
 
 export const setVariable: BlockToFrameTransformer = (
   blocks,
@@ -16,7 +15,7 @@ export const setVariable: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  const variableId = findFieldValue(block, 'VAR');
+  const variableId = findFieldValue(block, "VAR");
   const variable = variables.find((v) => v.id === variableId);
   const defaultValue = getDefaultValue(variable.type);
 
@@ -25,7 +24,7 @@ export const setVariable: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    'VALUE',
+    "VALUE",
     defaultValue,
     previousState
   );

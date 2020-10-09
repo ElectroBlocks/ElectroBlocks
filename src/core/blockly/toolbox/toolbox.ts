@@ -23,6 +23,7 @@ import colorXMLString from "../../../blocks/color/toolbox";
 import messageXMLString from "../../../blocks/message/toolbox";
 import ultraSonicXMLString from "../../../blocks/ultrasonic_sensor/toolbox";
 import motorXMLString from "../../../blocks/motors/toolbox";
+import variablesXMLString from "../../../blocks/variables/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -89,6 +90,11 @@ const defaultToolbox: ToolBoxEntries[] = [
         name: "My Blocks",
         show: true,
         xml: functionXMLString,
+      },
+      {
+        name: "Variables",
+        show: true,
+        xml: variablesXMLString,
       },
       {
         name: "List",
