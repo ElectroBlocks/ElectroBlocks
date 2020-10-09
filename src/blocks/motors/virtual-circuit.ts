@@ -1,12 +1,14 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
-import { PositionComponent, CreateCompenentHook } from "../svg-create";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
+import {
+  PositionComponent,
+  CreateCompenentHook,
+} from "../../core/virtual-circuit/svg-create";
 
 import { Element, Text } from "@svgdotjs/svg.js";
-import {
-  MotorState,
-  MOTOR_DIRECTION,
-} from "../../frames/arduino-components.state";
-import { findMicronControllerEl, createComponentEl } from "../svg-helpers";
+import { MotorState, MOTOR_DIRECTION } from "./state";
 
 import _ from "lodash";
 

@@ -22,6 +22,7 @@ import mathXMLString from "../../../blocks/math/toolbox";
 import colorXMLString from "../../../blocks/color/toolbox";
 import messageXMLString from "../../../blocks/message/toolbox";
 import ultraSonicXMLString from "../../../blocks/ultrasonic_sensor/toolbox";
+import motorXMLString from "../../../blocks/motors/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -144,6 +145,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "LCD Screen", show: true, xml: lcdScreenXMLString },
       { name: "Led", show: true, xml: ledXMLString },
       { name: "Led Matrix", show: true, xml: ledMatrixXMLString },
+      { name: "Motor", show: true, xml: motorXMLString },
       { name: "Neo Pixel", show: true, xml: neoPixelXMLString },
       { name: "Pins", show: true, xml: writePinXMLString },
       { name: "RBG Led", show: true, xml: rgbLedXMLString },

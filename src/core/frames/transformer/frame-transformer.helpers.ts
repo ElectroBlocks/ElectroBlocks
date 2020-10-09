@@ -19,7 +19,6 @@ import { VariableTypes, VariableData } from "../../blockly/dto/variable.type";
 import { generateFrame } from "./block-to-frame.transformer";
 import { Sensor } from "../../blockly/dto/sensors.type";
 import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
-import { MotorState } from "../arduino-components.state";
 
 export const arduinoFrameByVariable = (
   blockId: string,

@@ -1,5 +1,4 @@
 import { ArduinoComponentState, ArduinoComponentType } from "./arduino.frame";
-import { MotorState } from "./arduino-components.state";
 
 import _ from "lodash";
 import { lcdStateId } from "../../blocks/lcd_screen/component-state-to-id";
@@ -8,6 +7,8 @@ import { getLedColorId } from "../../blocks/rgbled/component-state-to-id";
 import { writePinId } from "../../blocks/writepin/component-state-to-id";
 import { getDigitalSensorId } from "../../blocks/digitalsensor/component-state-to-id";
 import { getAnalogSensorId } from "../../blocks/analogsensor/component-state-to-id";
+import { MotorState } from "../../blocks/motors/state";
+import { getMotorStateId } from "../../blocks/motors/component-to-state-id";
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;
@@ -15,10 +16,6 @@ export interface ComponentStateToId {
 
 const genericSingleComponentId = (state: ArduinoComponentState) => {
   return state.type + "_" + state.pins.sort().join("-");
-};
-
-const getMotorStateId = (motorState: MotorState) => {
-  return `${motorState.type}-${motorState.motorNumber}`;
 };
 
 const componentStateFuncs: { [key: string]: ComponentStateToId } = {

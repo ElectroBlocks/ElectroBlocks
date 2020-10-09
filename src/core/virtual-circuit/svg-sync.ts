@@ -27,7 +27,7 @@ import {
   digitalAnalogWritePinReset,
 } from "../../blocks/writepin/virtual-circuit";
 
-import { motorUpdate, motorReset } from "./components/motor.sync";
+import { motorUpdate, motorReset } from "../../blocks/motors/virtual-circuit";
 import {
   updateIrRemote,
   resetIrRemote,

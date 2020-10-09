@@ -1,12 +1,15 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { getInputValue } from '../block-to-value.factories';
+import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import {
-  getDefaultIndexValue,
+  ArduinoComponentType,
+  ArduinoFrame,
+} from "../../core/frames/arduino.frame";
+import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
+import {
   arduinoFrameByComponent,
-} from '../frame-transformer.helpers';
-import { MotorState, MOTOR_DIRECTION } from '../../arduino-components.state';
-import { ArduinoFrame, ArduinoComponentType } from '../../arduino.frame';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
+  getDefaultIndexValue,
+} from "../../core/frames/transformer/frame-transformer.helpers";
+import { MotorState, MOTOR_DIRECTION } from "./state";
 
 export const moveMotor: BlockToFrameTransformer = (
   blocks,
@@ -18,20 +21,20 @@ export const moveMotor: BlockToFrameTransformer = (
   const motorNumber = getDefaultIndexValue(
     1,
     4,
-    getInputValue(blocks, block, variables, timeline, 'MOTOR', 1, previousState)
+    getInputValue(blocks, block, variables, timeline, "MOTOR", 1, previousState)
   );
 
   const speed = getDefaultIndexValue(
     1,
     4000,
-    getInputValue(blocks, block, variables, timeline, 'SPEED', 1, previousState)
+    getInputValue(blocks, block, variables, timeline, "SPEED", 1, previousState)
   );
 
   const motorState = getMotorState(
     previousState,
     motorNumber,
     speed,
-    findFieldValue(block, 'DIRECTION')
+    findFieldValue(block, "DIRECTION")
   );
 
   return [
