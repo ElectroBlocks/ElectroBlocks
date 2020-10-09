@@ -1,27 +1,20 @@
 import "jest";
-import "../../../blockly/blocks";
-import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
-import {
-  getAllBlocks,
-  getBlockById,
-} from "../../../blockly/helpers/block.helper";
+import "../../core/blockly/blocks";
+import { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
 import _ from "lodash";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { saveSensorSetupBlockData } from "../../../blockly/actions/saveSensorSetupBlockData";
-import { updater } from "../../../blockly/updater";
+import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
+import { updater } from "../../core/blockly/updater";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { TemperatureState } from "../../arduino-components.state";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
-import { TempSensor } from "../../../blockly/dto/sensors.type";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+} from "../../tests/tests.helper";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import {
+  ArduinoFrame,
+  ArduinoComponentType,
+} from "../../core/frames/arduino.frame";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import { TemperatureState } from "./state";
 
 describe("rfid state factories", () => {
   let workspace: Workspace;

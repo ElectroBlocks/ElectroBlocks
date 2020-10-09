@@ -1,16 +1,8 @@
 import _ from "lodash";
 
-import { Sensor, TempSensor } from "../dto/sensors.type";
+import { Sensor } from "../dto/sensors.type";
 import { BlockData } from "../dto/block.type";
-import { findFieldValue } from "../helpers/block-data.helper";
-import {
-  Timeline,
-  ArduinoComponentState,
-  ArduinoComponentType,
-} from "../../frames/arduino.frame";
-import { TemperatureState } from "../../frames/arduino-components.state";
-import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
-import { findSensorState } from "../helpers/sensor_block.helper";
+import { Timeline, ArduinoComponentState } from "../../frames/arduino.frame";
 import { bluetoothSetupBlockToSensorData } from "../../../blocks/bluetooth/setupblocktosensordata";
 import { buttonSetupBlockToSensorData } from "../../../blocks/button/setupblocktosensordata";
 import { bluetoothSetupBlockToComponentState } from "../../../blocks/bluetooth/setupblocktocomponentstate";
@@ -29,6 +21,8 @@ import { ultraSonicSetupBlockToSensorData } from "../../../blocks/ultrasonic_sen
 import { ultraSonicSetupBlockToComponentState } from "../../../blocks/ultrasonic_sensor/setupblocktocomponentstate";
 import { rfidSetupBlockToSensorData } from "../../../blocks/rfid/setupblocktosensordata";
 import { rfidSetupBlockToComponentState } from "../../../blocks/rfid/setupblocktocomponentstate";
+import { temperatureSetupBlockToSensorData } from "../../../blocks/temperature/setupblocktosensordata";
+import { temperatureSetupBlockToComponentState } from "../../../blocks/temperature/setupblocktocomponentstate";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -38,26 +32,6 @@ interface BlockToComponentState {
   (block: BlockData, timeline: Timeline): ArduinoComponentState;
 }
 
-const tempSetup = (block: BlockData): TempSensor => {
-  return {
-    temp: +findFieldValue(block, "temp"),
-    humidity: +findFieldValue(block, "humidity"),
-    loop: +findFieldValue(block, "LOOP"),
-    blockName: block.blockName,
-  };
-};
-
-const tempState = (block: BlockData, timeline: Timeline): TemperatureState => {
-  const tempSensor = findSensorState<TempSensor>(block, timeline);
-
-  return {
-    type: ArduinoComponentType.TEMPERATURE_SENSOR,
-    pins: [findFieldValue(block, "PIN") as ARDUINO_PINS],
-    temperature: tempSensor.temp,
-    humidity: tempSensor.humidity,
-  };
-};
-
 const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   bluetooth_setup: bluetoothSetupBlockToSensorData,
   button_setup: buttonSetupBlockToSensorData,
@@ -65,7 +39,7 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   digital_read_setup: digitalSetupBlockToSensorData,
   analog_read_setup: analogSetupBlockToSensorData,
   rfid_setup: rfidSetupBlockToSensorData,
-  temp_setup: tempSetup,
+  temp_setup: temperatureSetupBlockToSensorData,
   time_setup: timeSetupBlockToSensorData,
   ultra_sonic_sensor_setup: ultraSonicSetupBlockToSensorData,
   message_setup: messageSetupBlockToSensorData,
@@ -80,7 +54,7 @@ const blockToSensorComponent: {
   digital_read_setup: digitalSetupBlockToComponentState,
   analog_read_setup: analogSetupBlockToComponentState,
   rfid_setup: rfidSetupBlockToComponentState,
-  temp_setup: tempState,
+  temp_setup: temperatureSetupBlockToComponentState,
   time_setup: timeSetupBlockToComponentState,
   ultra_sonic_sensor_setup: ultraSonicSetupBlockToComponentState,
   message_setup: messageSetupBlockToComponentState,

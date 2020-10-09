@@ -1,15 +1,22 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
 import {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
-} from "../svg-create";
+} from "../../core/virtual-circuit/svg-create";
 
-import { TemperatureState } from "../../frames/arduino-components.state";
 import { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from "../svg-position";
-import { createWire, createPowerWire, createGroundWire } from "../wire";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import {
+  createWire,
+  createPowerWire,
+  createGroundWire,
+} from "../../core/virtual-circuit/wire";
+import { TemperatureState } from "./state";
 
 export const createTemp: CreateCompenentHook<TemperatureState> = (
   state,

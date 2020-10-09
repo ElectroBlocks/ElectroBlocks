@@ -26,6 +26,7 @@ import motorXMLString from "../../../blocks/motors/toolbox";
 import variablesXMLString from "../../../blocks/variables/toolbox";
 import rfidXMLString from "../../../blocks/rfid/toolbox";
 import servoXMLString from "../../../blocks/servo/toolbox";
+import temperatureXMLString from "../../../blocks/temperature/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -76,7 +77,7 @@ const defaultToolbox: ToolBoxEntries[] = [
   {
     color: COLOR_THEME.CONTROL,
     category: ToolBoxCategory.NONE,
-    name: "Functions",
+    name: "TOP_LEVEL",
     toolBoxEntries: [
       {
         name: "Logic",
@@ -171,6 +172,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "IR Remote", show: true, xml: irRmoteXMLString },
       { name: "Motion Sensor", show: true, xml: ultraSonicXMLString },
       { name: "RFID", show: true, xml: rfidXMLString },
+      { name: "Temperature/Humidity", show: true, xml: temperatureXMLString },
     ],
   },
 

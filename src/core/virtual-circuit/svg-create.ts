@@ -67,7 +67,7 @@ import {
   createTemp,
   createWiresTemp,
   positionTemp,
-} from "./components/temp.sync";
+} from "../../blocks/temperature/virtual-circuit";
 import {
   createWiresUltraSonicSensor,
   positionUltraSonicSensor,

@@ -12,7 +12,7 @@ import motorSvgString from "../../blocks/motors/motor.svg";
 import neopixelSvgString from "../../blocks/neopixels/neopixel.svg";
 import rfidSvgString from "../../blocks/rfid/rfid.svg";
 import servoSVGText from "../../blocks/servo/servo.svg";
-import tempSvgString from "./svgs/temp/temp-humidity.svg";
+import tempSvgString from "../../blocks/temperature/temp-humidity.svg";
 import ultraSonicSvgString from "../../blocks/ultrasonic_sensor/ultrasonic-sensor.svg";
 import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
 import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";

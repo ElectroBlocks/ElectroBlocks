@@ -38,7 +38,7 @@ import {
   rfidCardNumber,
   rfidTag,
 } from "../../../blocks/rfid/blocktovalue";
-import { getHumidity, getTemp } from "./blocktovalue/temp";
+import { getHumidity, getTemp } from "../../../blocks/temperature/blocktovalue";
 import {
   getBtMessage,
   hasBtMessage,
