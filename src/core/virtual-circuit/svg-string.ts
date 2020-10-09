@@ -10,7 +10,7 @@ import irRemoteSvgString from "../../blocks/ir_remote/ir_remote.svg";
 import ledmatrixSvgString from "../../blocks/led_matrix/ledmatrix.svg";
 import motorSvgString from "../../blocks/motors/motor.svg";
 import neopixelSvgString from "../../blocks/neopixels/neopixel.svg";
-import rfidSvgString from "./svgs/rfid/rfid.svg";
+import rfidSvgString from "../../blocks/rfid/rfid.svg";
 import servoSVGText from "./svgs/servo/servo.svg";
 import tempSvgString from "./svgs/temp/temp-humidity.svg";
 import ultraSonicSvgString from "../../blocks/ultrasonic_sensor/ultrasonic-sensor.svg";

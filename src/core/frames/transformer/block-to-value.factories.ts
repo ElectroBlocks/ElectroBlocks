@@ -33,7 +33,11 @@ import {
 } from "../../../blocks/color/blocktovalue";
 import { findBlockInput } from "./frame-transformer.helpers";
 import _ from "lodash";
-import { rfidScannedCard, rfidCardNumber, rfidTag } from "./blocktovalue/rfid";
+import {
+  rfidScannedCard,
+  rfidCardNumber,
+  rfidTag,
+} from "../../../blocks/rfid/blocktovalue";
 import { getHumidity, getTemp } from "./blocktovalue/temp";
 import {
   getBtMessage,

@@ -20,7 +20,7 @@ import "../../../blocks/message/blocks";
 import "../../../blocks/ultrasonic_sensor/blocks";
 import "../../../blocks/motors/blocks";
 import "../../../blocks/analogsensor/blocks";
-import "./rfid";
+import "../../../blocks/rfid/blocks";
 import "./servo";
 import "./temp";
 import "./text";

@@ -1,6 +1,5 @@
 import { BlockData } from "../../blockly/dto/block.type";
 import { Timeline, ArduinoFrame } from "../arduino.frame";
-import { rfidSetup } from "./blocktoframe/rfid";
 import _ from "lodash";
 import {
   digitalWrite,
@@ -67,6 +66,7 @@ import {
 import { ultraSonicSensor } from "../../../blocks/ultrasonic_sensor/blocktoframe";
 import { moveMotor } from "../../../blocks/motors/blocktoframe";
 import { setVariable } from "../../../blocks/variables/blocktoframe";
+import { rfidSetup } from "../../../blocks/rfid/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

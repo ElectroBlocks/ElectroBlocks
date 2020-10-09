@@ -1,28 +1,15 @@
 import "../../core/blockly/blocks";
-import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
-import {
-  getAllBlocks,
-  getBlockById,
-  connectToArduinoBlock,
-} from "../../core/blockly/helpers/block.helper";
+import { Workspace, BlockSvg } from "blockly";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../../core/blockly/dto/event.type";
-import { transformBlock } from "../../core/blockly/transformers/block.transformer";
-import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
-import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
+
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import {
-  ArduinoFrame,
-  ArduinoComponentType,
-} from "../../core/frames/arduino.frame";
-import { TimeState } from "../../core/frames/arduino-components.state";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
   createTestEvent,
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { time } from "console";
 describe("get time block factories", () => {
   let workspace: Workspace;
   let timesetup;

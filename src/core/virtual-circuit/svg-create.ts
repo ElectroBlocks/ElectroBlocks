@@ -57,7 +57,7 @@ import {
   createWiresRfid,
   positionRfid,
   createRfid,
-} from "./components/rfid.sync";
+} from "../../blocks/rfid/virtual-circuit";
 import {
   servoCreate,
   createWiresServo,

@@ -23,7 +23,7 @@ import "../../../blocks/motors/generators";
 import "../../../blocks/neopixels/generators";
 import "../../../blocks/analogsensor/genertors";
 import "../../../blocks/functions/generators";
-import "./rfid";
+import "../../../blocks/rfid/generators";
 import "./servo";
 import "./temp";
 import "./text";

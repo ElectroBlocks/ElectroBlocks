@@ -1,26 +1,19 @@
 import "jest";
-import "../../../blockly/blocks";
-import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
+import "../../core/blockly/blocks";
+import { Workspace } from "blockly";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
+import { updater } from "../../core/blockly/updater";
 import {
-  getAllBlocks,
-  getBlockById,
-} from "../../../blockly/helpers/block.helper";
-import _ from "lodash";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
-import { saveSensorSetupBlockData } from "../../../blockly/actions/saveSensorSetupBlockData";
-import { updater } from "../../../blockly/updater";
-import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { RfidState } from "../../arduino-components.state";
+  ArduinoFrame,
+  ArduinoComponentType,
+} from "../../core/frames/arduino.frame";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
-} from "../../../../tests/tests.helper";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+} from "../../tests/tests.helper";
+import { RfidState } from "./state";
 
 describe("rfid state factories", () => {
   let workspace: Workspace;

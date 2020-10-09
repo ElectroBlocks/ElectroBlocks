@@ -24,6 +24,7 @@ import messageXMLString from "../../../blocks/message/toolbox";
 import ultraSonicXMLString from "../../../blocks/ultrasonic_sensor/toolbox";
 import motorXMLString from "../../../blocks/motors/toolbox";
 import variablesXMLString from "../../../blocks/variables/toolbox";
+import rfidXMLString from "../../../blocks/rfid/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -167,6 +168,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Digital Sensor", show: true, xml: digitalSensorXMLString },
       { name: "IR Remote", show: true, xml: irRmoteXMLString },
       { name: "Motion Sensor", show: true, xml: ultraSonicXMLString },
+      { name: "RFID", show: true, xml: rfidXMLString },
     ],
   },
 

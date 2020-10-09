@@ -1,9 +1,9 @@
-import { BlockToFrameTransformer } from '../block-to-frame.transformer';
-import { MotionSensor, TempSensor } from '../../../blockly/dto/sensors.type';
-import { TemperatureState } from '../../arduino-components.state';
-import { findFieldValue } from '../../../blockly/helpers/block-data.helper';
-import { ArduinoComponentType } from '../../arduino.frame';
-import { arduinoFrameByComponent } from '../frame-transformer.helpers';
+import { BlockToFrameTransformer } from "../block-to-frame.transformer";
+import { TempSensor } from "../../../blockly/dto/sensors.type";
+import { TemperatureState } from "../../arduino-components.state";
+import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+import { ArduinoComponentType } from "../../arduino.frame";
+import { arduinoFrameByComponent } from "../frame-transformer.helpers";
 
 export const tempSetupSensor: BlockToFrameTransformer = (
   blocks,
@@ -28,7 +28,7 @@ export const tempSetupSensor: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       tempSensorState,
-      'Setting up temperature sensor.',
+      "Setting up temperature sensor.",
       previousState
     ),
   ];

@@ -1,23 +1,12 @@
 import "../../core/blockly/blocks";
-import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
-import {
-  getAllBlocks,
-  getBlockById,
-} from "../../core/blockly/helpers/block.helper";
+import { Workspace } from "blockly";
 import _ from "lodash";
-import { BlockEvent } from "../../core/blockly/dto/event.type";
-import { transformBlock } from "../../core/blockly/transformers/block.transformer";
-import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
-import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
-import { updater } from "../../core/blockly/updater";
 import {
   ArduinoFrame,
   ArduinoComponentType,
 } from "../../core/frames/arduino.frame";
-import { TimeState } from "../../core/frames/arduino-components.state";
+import { TimeState } from "./state";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,

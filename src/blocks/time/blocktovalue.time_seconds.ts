@@ -1,4 +1,4 @@
-import { TimeState } from "../../core/frames/arduino-components.state";
+import { TimeState } from "./state";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
 import { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
 
