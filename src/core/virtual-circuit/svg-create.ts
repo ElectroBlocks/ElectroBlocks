@@ -62,7 +62,7 @@ import {
   servoCreate,
   createWiresServo,
   servoPosition,
-} from "./components/servo.sync";
+} from "../../blocks/servo/virtual-circuit";
 import {
   createTemp,
   createWiresTemp,

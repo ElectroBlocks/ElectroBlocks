@@ -1,14 +1,17 @@
-import { BlockToFrameTransformer } from "../block-to-frame.transformer";
+import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import {
-  getDefaultIndexValue,
-  findComponent,
+  ArduinoComponentType,
+  ArduinoFrame,
+} from "../../core/frames/arduino.frame";
+import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
+import {
   arduinoFrameByComponent,
-} from "../frame-transformer.helpers";
-import { getInputValue } from "../block-to-value.factories";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
-import { ArduinoFrame, ArduinoComponentType } from "../../arduino.frame";
-import { ServoState } from "../../arduino-components.state";
-import { findFieldValue } from "../../../blockly/helpers/block-data.helper";
+  findComponent,
+  getDefaultIndexValue,
+} from "../../core/frames/transformer/frame-transformer.helpers";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import { ServoState } from "./state";
 
 export const servoRotate: BlockToFrameTransformer = (
   blocks,

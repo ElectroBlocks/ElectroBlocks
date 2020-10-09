@@ -1,27 +1,22 @@
 import "jest";
-import "../../../blockly/blocks";
+import "../../core/blockly/blocks";
 
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
   createTestEvent,
-} from "../../../../tests/tests.helper";
+} from "../../tests/tests.helper";
 import Blockly, { Workspace, BlockSvg } from "blockly";
-import { VariableTypes } from "../../../blockly/dto/variable.type";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
+import { VariableTypes } from "../../core/blockly/dto/variable.type";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
+import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
+import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
 import {
-  connectToArduinoBlock,
-  getAllBlocks,
-} from "../../../blockly/helpers/block.helper";
-import { getAllVariables } from "../../../blockly/helpers/variable.helper";
-import { transformBlock } from "../../../blockly/transformers/block.transformer";
-import { transformVariable } from "../../../blockly/transformers/variables.transformer";
-import { BlockEvent } from "../../../blockly/dto/event.type";
-import { eventToFrameFactory } from "../../event-to-frame.factory";
-import { findComponent } from "../frame-transformer.helpers";
-import { ServoState } from "../../arduino-components.state";
-import { ArduinoComponentType, ArduinoFrame } from "../../arduino.frame";
-import { MicroControllerType } from "../../../microcontroller/microcontroller";
+  ArduinoComponentType,
+  ArduinoFrame,
+} from "../../core/frames/arduino.frame";
+import { ServoState } from "./state";
 
 describe("test servos factories", () => {
   let workspace: Workspace;

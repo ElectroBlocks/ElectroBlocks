@@ -25,6 +25,7 @@ import ultraSonicXMLString from "../../../blocks/ultrasonic_sensor/toolbox";
 import motorXMLString from "../../../blocks/motors/toolbox";
 import variablesXMLString from "../../../blocks/variables/toolbox";
 import rfidXMLString from "../../../blocks/rfid/toolbox";
+import servoXMLString from "../../../blocks/servo/toolbox";
 
 import { COLOR_THEME } from "../constants/colors";
 
@@ -156,6 +157,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Neo Pixel", show: true, xml: neoPixelXMLString },
       { name: "Pins", show: true, xml: writePinXMLString },
       { name: "RBG Led", show: true, xml: rgbLedXMLString },
+      { name: "Servos", show: true, xml: servoXMLString },
     ],
   },
   {

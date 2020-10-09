@@ -14,7 +14,6 @@ import {
   lcdClear,
   lcdBacklight,
 } from "../../../blocks/lcd_screen/blocktoframe";
-import { servoRotate } from "./blocktoframe/servo";
 import { tempSetupSensor } from "./blocktoframe/temp_setup";
 import { VariableData } from "../../blockly/dto/variable.type";
 import {
@@ -67,6 +66,7 @@ import { ultraSonicSensor } from "../../../blocks/ultrasonic_sensor/blocktoframe
 import { moveMotor } from "../../../blocks/motors/blocktoframe";
 import { setVariable } from "../../../blocks/variables/blocktoframe";
 import { rfidSetup } from "../../../blocks/rfid/blocktoframe";
+import { servoRotate } from "../../../blocks/servo/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (

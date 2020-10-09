@@ -24,7 +24,7 @@ import "../../../blocks/neopixels/generators";
 import "../../../blocks/analogsensor/genertors";
 import "../../../blocks/functions/generators";
 import "../../../blocks/rfid/generators";
-import "./servo";
+import "../../../blocks/servo/generators";
 import "./temp";
 import "./text";
 import "../../../blocks/time/generators";

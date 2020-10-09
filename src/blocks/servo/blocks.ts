@@ -1,6 +1,6 @@
-import { selectBoardBlockly } from "../../microcontroller/selectBoard";
+import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 import Blockly from "blockly";
-import { COLOR_THEME } from "../constants/colors";
+import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 Blockly.Blocks["rotate_servo"] = {
   init: function () {

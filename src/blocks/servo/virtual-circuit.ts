@@ -1,13 +1,21 @@
-import { SyncComponent, ResetComponent } from "../svg-sync";
-import { PositionComponent, CreateWire } from "../svg-create";
+import {
+  SyncComponent,
+  ResetComponent,
+} from "../../core/virtual-circuit/svg-sync";
+import {
+  PositionComponent,
+  CreateWire,
+} from "../../core/virtual-circuit/svg-create";
 
-import { ServoState } from "../../frames/arduino-components.state";
-import { findSvgElement } from "../svg-helpers";
+import { findSvgElement } from "../../core/virtual-circuit/svg-helpers";
 import { Svg, Text, Element } from "@svgdotjs/svg.js";
-import { createWire, createGroundWire, createPowerWire } from "../wire";
-import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
-import { positionComponent } from "../svg-position";
-import { addDraggableEvent } from "../component-events.helpers";
+import {
+  createWire,
+  createGroundWire,
+  createPowerWire,
+} from "../../core/virtual-circuit/wire";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { ServoState } from "./state";
 
 export const servoReset: ResetComponent = (servoEl) => {
   setDegrees(servoEl, 0);

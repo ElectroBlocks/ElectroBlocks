@@ -5,7 +5,7 @@ import {
 } from "../frames/arduino.frame";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 import { Svg, Element } from "@svgdotjs/svg.js";
-import { servoUpdate, servoReset } from "./components/servo.sync";
+import { servoUpdate, servoReset } from "../../blocks/servo/virtual-circuit";
 import {
   arduinoMessageUpdate,
   resetArduinoMessage,

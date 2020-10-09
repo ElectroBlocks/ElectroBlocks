@@ -21,7 +21,7 @@ import "../../../blocks/ultrasonic_sensor/blocks";
 import "../../../blocks/motors/blocks";
 import "../../../blocks/analogsensor/blocks";
 import "../../../blocks/rfid/blocks";
-import "./servo";
+import "../../../blocks/servo/blocks";
 import "./temp";
 import "./text";
 import "../../../blocks/time/blocks";
