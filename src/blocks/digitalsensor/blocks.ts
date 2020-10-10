@@ -2,8 +2,8 @@ import Blockly from "blockly";
 import {
   configuredPins,
   getAvailablePins,
-} from "../../core/blockly/blocks/helpers/getAvialablePinsFromSetupBlock";
-import loopTimes from "../../core/blockly/blocks/helpers/looptimes";
+} from "../../core/blockly/helpers/getAvialablePinsFromSetupBlock";
+import loopTimes from "../../core/blockly/helpers/looptimes";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 

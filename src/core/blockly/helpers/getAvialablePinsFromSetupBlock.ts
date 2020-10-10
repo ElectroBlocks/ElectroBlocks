@@ -1,4 +1,4 @@
-import { getBlocksByName } from "../../helpers/block.helper";
+import { getBlocksByName } from "./block.helper";
 import _ from "lodash";
 
 export const configuredPins = (

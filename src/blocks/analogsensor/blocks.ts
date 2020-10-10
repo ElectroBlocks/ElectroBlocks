@@ -2,11 +2,11 @@ import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 import Blockly from "blockly";
 
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
-import loopTimes from "../../core/blockly/blocks/helpers/looptimes";
+import loopTimes from "../../core/blockly/helpers/looptimes";
 import {
   configuredPins,
   getAvailablePins,
-} from "../../core/blockly/blocks/helpers/getAvialablePinsFromSetupBlock";
+} from "../../core/blockly/helpers/getAvialablePinsFromSetupBlock";
 
 Blockly.Blocks["analog_write"] = {
   init: function () {

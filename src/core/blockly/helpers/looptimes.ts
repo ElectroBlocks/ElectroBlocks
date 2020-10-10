@@ -1,5 +1,5 @@
-import { getTimesThroughLoop } from '../../helpers/arduino_loop_block.helper';
-import _ from 'lodash';
+import { getTimesThroughLoop } from "./arduino_loop_block.helper";
+import _ from "lodash";
 
 const loopTimes = () => {
   // Reason for +1 is because it does not include end number

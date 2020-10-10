@@ -1,9 +1,8 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
+import loopTimes from "../../core/blockly/helpers/looptimes";
 
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
-import loopTimes from "../../core/blockly/blocks/helpers/looptimes";
-
 Blockly.defineBlocksWithJsonArray([
   {
     type: "temp_get_temp",

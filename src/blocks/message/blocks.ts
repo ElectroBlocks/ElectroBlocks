@@ -1,8 +1,7 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
-import loopTimes from "../../core/blockly/blocks/helpers/looptimes";
-
+import loopTimes from "../../core/blockly/helpers/looptimes";
 Blockly.defineBlocksWithJsonArray([
   {
     type: "arduino_receive_message",
