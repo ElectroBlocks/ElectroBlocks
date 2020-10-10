@@ -1,5 +1,8 @@
-import { MicroController, MicroControllerType } from "./microcontroller";
-import { ARDUINO_PINS } from "./selectBoard";
+import {
+  MicroController,
+  MicroControllerType,
+} from "../../core/microcontroller/microcontroller";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 
 enum ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS {
   PIN_2 = "pin20E",

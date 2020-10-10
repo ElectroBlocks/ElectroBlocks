@@ -1,8 +1,8 @@
 import { MicroControllerBlocks, MicroControllerType } from "./microcontroller";
-import unoArduino from "./arduino_uno.board";
+import unoArduino from "../../microcontrollers/arduino_uno/profile";
 import { transformBoardBlockly } from "./microcontroller.helpers";
 import { getBoardType } from "../blockly/helpers/get-board.helper";
-import arduinoMega from "./arduino_mega.board";
+import arduinoMega from "../../microcontrollers/arduino_mega/profile";
 
 export const getBoard = (type: MicroControllerType) => {
   return boardProfiles[type] || boardProfiles[MicroControllerType.ARDUINO_UNO];

@@ -1,6 +1,6 @@
 import { MicroControllerType } from "../microcontroller/microcontroller";
-import arduinoUnoSvg from "./svgs/boards/arduino_uno.svg";
-import arduinoMegaSvg from "./svgs/boards/arduino_mega.svg";
+import arduinoUnoSvg from "../../microcontrollers/arduino_uno/board.svg";
+import arduinoMegaSvg from "../../microcontrollers/arduino_mega/board.svg";
 
 export const getBoardSvg = (board: MicroControllerType) => {
   if (boardSvg[board]) {
