@@ -4,6 +4,7 @@
   import currentFrameStore from "../../../stores/currentFrame.store";
   import frameStore from "../../../stores/frame.store";
   import { onDestroy } from "svelte";
+  import { VariableTypes } from "../../../core/blockly/dto/variable.type";
 
   let variables = [];
 
@@ -30,6 +31,23 @@
       }
     })
   );
+
+  function mapArrayValues(values, type) {
+    const innerString = values
+      .map((v) => (v === null ? "_" : v))
+      .map((v) => {
+        if (v === "_" || type !== VariableTypes.LIST_STRING) {
+          return v;
+        }
+
+        return `"${v}"`;
+      })
+      .reduce((acc, next) => {
+        return acc + next + ", ";
+      }, "");
+
+    return `[ ${innerString.substring(0, innerString.length - 2)} ]`;
+  }
 
   onDestroy(() => {
     unsubscribes.forEach((unSubFunc) => unSubFunc());
@@ -88,14 +106,19 @@
         <li>{variable.name} = "{variable.value}"</li>
       {/if}
       {#if ['List Number', 'List String', 'List Boolean'].includes(variable.type)}
-        <li>{variable.name} = {JSON.stringify(variable.value)}</li>
+        <li>
+          {variable.name}
+          =
+          {mapArrayValues(variable.value, variable.type)}
+        </li>
       {/if}
       {#if 'Colour' === variable.type}
         <li>
           <span
             class="color"
             style="border-bottom: {rgbToHex(variable.value)} solid 2px;">
-            {variable.name} = (r={variable.value.red},g={variable.value.green},b={variable.value.blue})
+            {variable.name}
+            = (r={variable.value.red},g={variable.value.green},b={variable.value.blue})
           </span>
         </li>
       {/if}

@@ -2,33 +2,59 @@ import {
   ArduinoComponentState,
   ArduinoFrame,
   ArduinoComponentType,
-} from '../frames/arduino.frame';
-import { arduinoComponentStateToId } from '../frames/arduino-component-id';
-import { Svg, Element } from '@svgdotjs/svg.js';
-import { servoUpdate, servoReset } from './components/servo.sync';
-import { bluetoothUpdate, bluetoothReset } from './components/bluetooth.sync';
+} from "../frames/arduino.frame";
+import { arduinoComponentStateToId } from "../frames/arduino-component-id";
+import { Svg, Element } from "@svgdotjs/svg.js";
+import { servoUpdate, servoReset } from "../../blocks/servo/virtual-circuit";
 import {
   arduinoMessageUpdate,
   resetArduinoMessage,
-} from './components/arduino-message.sync';
-import { lcdUpdate, lcdReset } from './components/lcd.sync';
-import { updateRgbLed, resetRgbLed } from './components/rgbled.sync';
+} from "../../blocks/message/virtual-circuit";
+import { lcdUpdate, lcdReset } from "../../blocks/lcd_screen/virtual-circuit";
+import { updateRgbLed, resetRgbLed } from "../../blocks/rgbled/virtual-circuit";
+import _ from "lodash";
 import {
-  updatePinComponent,
-  resetPinComponent,
-} from './components/pin.component';
-import _ from 'lodash';
-import { neoPixelUpdate, neoPixelReset } from './components/neoPixel.sync';
-import { ledMatrixUpdate, ledMatrixReset } from './components/ledmatrix.sync';
-import { motorUpdate, motorReset } from './components/motor.sync';
-import { updateButton, resetButton } from './components/button.sync';
-import { updateIrRemote, resetIrRemote } from './components/ir_remote.sync';
+  neoPixelUpdate,
+  neoPixelReset,
+} from "../../blocks/neopixels/virtual-circuit";
+import {
+  ledMatrixUpdate,
+  ledMatrixReset,
+} from "../../blocks/led_matrix/virtual-circuit";
+import { resetLed, updateLed } from "../../blocks/led/virtual-circuit";
+import {
+  digitalAnalogWritePinSync,
+  digitalAnalogWritePinReset,
+} from "../../blocks/writepin/virtual-circuit";
+
+import { motorUpdate, motorReset } from "../../blocks/motors/virtual-circuit";
+import {
+  updateIrRemote,
+  resetIrRemote,
+} from "../../blocks/ir_remote/virtual-circuit";
 import {
   updateUltraSonicSensor,
   resetUltraSonicSensor,
-} from './components/ultrasonic.sync';
-import { updateRfid, resetRfid } from './components/rfid.sync';
-import { updateTemp, resetTemp } from './components/temp.sync';
+} from "../../blocks/ultrasonic_sensor/virtual-circuit";
+import { updateRfid, resetRfid } from "../../blocks/rfid/virtual-circuit";
+import {
+  updateTemp,
+  resetTemp,
+} from "../../blocks/temperature/virtual-circuit";
+import {
+  bluetoothReset,
+  bluetoothUpdate,
+} from "../../blocks/bluetooth/virtual-circuit";
+import { resetButton, updateButton } from "../../blocks/button/virtual-circuit";
+import {
+  resetDigitalSensor,
+  updateDigitalSensor,
+} from "../../blocks/digitalsensor/virtual-circuit";
+
+import {
+  analogSensorUpdate,
+  analogSensorReset,
+} from "../../blocks/analogsensor/virtual-circuit";
 
 export interface SyncComponent {
   (
@@ -52,12 +78,15 @@ const resetComponent = {
   [ArduinoComponentType.LED_MATRIX]: ledMatrixReset,
   [ArduinoComponentType.MESSAGE]: resetArduinoMessage,
   [ArduinoComponentType.MOTOR]: motorReset,
+  [ArduinoComponentType.LED]: resetLed,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelReset,
-  [ArduinoComponentType.PIN]: resetPinComponent,
   [ArduinoComponentType.RFID]: resetRfid,
   [ArduinoComponentType.SERVO]: servoReset,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: resetTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: resetUltraSonicSensor,
+  [ArduinoComponentType.WRITE_PIN]: digitalAnalogWritePinReset,
+  [ArduinoComponentType.DIGITAL_SENSOR]: resetDigitalSensor,
+  [ArduinoComponentType.ANALOG_SENSOR]: analogSensorReset,
 };
 
 const syncComponent = {
@@ -67,28 +96,32 @@ const syncComponent = {
   [ArduinoComponentType.LCD_SCREEN]: lcdUpdate,
   [ArduinoComponentType.LED_COLOR]: updateRgbLed,
   [ArduinoComponentType.LED_MATRIX]: ledMatrixUpdate,
+  [ArduinoComponentType.LED]: updateLed,
   [ArduinoComponentType.MOTOR]: motorUpdate,
   [ArduinoComponentType.MESSAGE]: arduinoMessageUpdate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelUpdate,
-  [ArduinoComponentType.PIN]: updatePinComponent,
   [ArduinoComponentType.RFID]: updateRfid,
   [ArduinoComponentType.SERVO]: servoUpdate,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: updateTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: updateUltraSonicSensor,
+  [ArduinoComponentType.WRITE_PIN]: digitalAnalogWritePinSync,
+  [ArduinoComponentType.DIGITAL_SENSOR]: updateDigitalSensor,
+  [ArduinoComponentType.ANALOG_SENSOR]: analogSensorUpdate,
 };
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
   frame.components
+    .filter((state) => state.type !== ArduinoComponentType.TIME)
     .filter((state) => _.isFunction(syncComponent[state.type]))
     .filter(
       (state) =>
         state.type === ArduinoComponentType.MESSAGE ||
-        draw.findOne('#' + arduinoComponentStateToId(state))
+        draw.findOne("#" + arduinoComponentStateToId(state))
     )
     .map((state) => [
       state,
       syncComponent[state.type],
-      draw.findOne('#' + arduinoComponentStateToId(state)),
+      draw.findOne("#" + arduinoComponentStateToId(state)),
     ])
     .forEach(
       ([state, func, compoenntEl]: [
@@ -101,19 +134,19 @@ export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
     );
 
   // Reset all components elements that don't have state in the frame
-  const componentIds = frame.components.map((c) =>
-    arduinoComponentStateToId(c)
-  );
+  const componentIds = frame.components
+    .filter((c) => c.type !== ArduinoComponentType.TIME)
+    .map((c) => arduinoComponentStateToId(c));
 
   draw
-    .find('.component')
+    .find(".component")
     .filter((componentEl) => !componentIds.includes(componentEl.id()))
     .filter((componentEl) =>
-      _.isFunction(resetComponent[componentEl.data('component-type')])
+      _.isFunction(resetComponent[componentEl.data("component-type")])
     )
     .map((componentEl) => [
       componentEl,
-      resetComponent[componentEl.data('component-type')],
+      resetComponent[componentEl.data("component-type")],
     ])
     .forEach(([componentEl, func]: [Element, ResetComponent]) =>
       func(componentEl)

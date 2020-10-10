@@ -9,63 +9,88 @@ import {
   bluetoothPosition,
   createBluetoothWires,
   bluetoothCreate,
-} from "./components/bluetooth.sync";
-import {
-  createButton,
-  createWiresButton,
-  positionButton,
-} from "./components/button.sync";
+} from "../../blocks/bluetooth/virtual-circuit";
 import {
   createIrRemote,
   createWiresIrRemote,
   positionIrRemote,
-} from "./components/ir_remote.sync";
-import { createWiresLcd, lcdCreate, lcdPosition } from "./components/lcd.sync";
+} from "../../blocks/ir_remote/virtual-circuit";
+import {
+  createWiresLcd,
+  lcdCreate,
+  lcdPosition,
+} from "../../blocks/lcd_screen/virtual-circuit";
 import {
   createWiresRgbLed,
   createRgbLed,
   positionRgbLed,
-} from "./components/rgbled.sync";
+} from "../../blocks/rgbled/virtual-circuit";
 import {
   createWiresLedMatrix,
   ledMatrixCreate,
   ledMatrixPosition,
-} from "./components/ledmatrix.sync";
-import { arduinoMessageCreate } from "./components/arduino-message.sync";
-import { motorCreate, motorPosition } from "./components/motor.sync";
+} from "../../blocks/led_matrix/virtual-circuit";
+
+import {
+  ledCreate,
+  createWiresLed,
+  ledPosition,
+} from "../../blocks/led/virtual-circuit";
+
+import { arduinoMessageCreate } from "../../blocks/message/virtual-circuit";
+import {
+  motorCreate,
+  motorPosition,
+} from "../../blocks/motors/virtual-circuit";
 import {
   neoPixelCreate,
   createWiresNeoPixels,
   neoPixelPosition,
-} from "./components/neoPixel.sync";
+} from "../../blocks/neopixels/virtual-circuit";
 import {
-  createDigitalAnalogWire,
-  createPinComponent,
-  positionPinComponent,
-} from "./components/pin.component";
+  digitalAnanlogWritePinCreate,
+  createWiresDigitalAnalogWrite,
+  digitalAnanlogWritePinPosition,
+} from "../../blocks/writepin/virtual-circuit";
+
 import {
   createWiresRfid,
   positionRfid,
   createRfid,
-} from "./components/rfid.sync";
+} from "../../blocks/rfid/virtual-circuit";
 import {
   servoCreate,
   createWiresServo,
   servoPosition,
-} from "./components/servo.sync";
+} from "../../blocks/servo/virtual-circuit";
 import {
   createTemp,
   createWiresTemp,
   positionTemp,
-} from "./components/temp.sync";
+} from "../../blocks/temperature/virtual-circuit";
 import {
   createWiresUltraSonicSensor,
   positionUltraSonicSensor,
   createUltraSonicSensor,
-} from "./components/ultrasonic.sync";
+} from "../../blocks/ultrasonic_sensor/virtual-circuit";
 import { getSvgString } from "./svg-string";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 import { MicroController } from "../microcontroller/microcontroller";
+import {
+  createButton,
+  createWiresButton,
+  positionButton,
+} from "../../blocks/button/virtual-circuit";
+import {
+  createWireDigitalSensor,
+  positionDigitalSensor,
+} from "../../blocks/digitalsensor/virtual-circuit";
+
+import {
+  analogSensorCreate,
+  analogSensorPosition,
+  createWireAnalogSensors,
+} from "../../blocks/analogsensor/virtual-circuit";
 
 export default (
   state: ArduinoComponentState,
@@ -159,14 +184,17 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.LCD_SCREEN]: createWiresLcd,
   [ArduinoComponentType.LED_COLOR]: createWiresRgbLed,
   [ArduinoComponentType.LED_MATRIX]: createWiresLedMatrix,
+  [ArduinoComponentType.LED]: createWiresLed,
   [ArduinoComponentType.MESSAGE]: createNoWires,
   [ArduinoComponentType.MOTOR]: createNoWires,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: createWiresNeoPixels,
-  [ArduinoComponentType.PIN]: createDigitalAnalogWire,
   [ArduinoComponentType.RFID]: createWiresRfid,
   [ArduinoComponentType.SERVO]: createWiresServo,
+  [ArduinoComponentType.WRITE_PIN]: createWiresDigitalAnalogWrite,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: createWiresTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: createWiresUltraSonicSensor,
+  [ArduinoComponentType.DIGITAL_SENSOR]: createWireDigitalSensor,
+  [ArduinoComponentType.ANALOG_SENSOR]: createWireAnalogSensors,
 };
 
 const positionComponentHookFunc: {
@@ -178,14 +206,17 @@ const positionComponentHookFunc: {
   [ArduinoComponentType.LCD_SCREEN]: lcdPosition,
   [ArduinoComponentType.LED_COLOR]: positionRgbLed,
   [ArduinoComponentType.LED_MATRIX]: ledMatrixPosition,
+  [ArduinoComponentType.LED]: ledPosition,
   [ArduinoComponentType.MESSAGE]: emptyPositionComponent,
   [ArduinoComponentType.MOTOR]: motorPosition,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelPosition,
-  [ArduinoComponentType.PIN]: positionPinComponent,
+  [ArduinoComponentType.WRITE_PIN]: digitalAnanlogWritePinPosition,
   [ArduinoComponentType.RFID]: positionRfid,
   [ArduinoComponentType.SERVO]: servoPosition,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: positionTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: positionUltraSonicSensor,
+  [ArduinoComponentType.DIGITAL_SENSOR]: positionDigitalSensor,
+  [ArduinoComponentType.ANALOG_SENSOR]: analogSensorPosition,
 };
 
 const createComponentHookFunc: {
@@ -200,9 +231,12 @@ const createComponentHookFunc: {
   [ArduinoComponentType.MESSAGE]: arduinoMessageCreate,
   [ArduinoComponentType.MOTOR]: motorCreate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,
-  [ArduinoComponentType.PIN]: createPinComponent,
+  [ArduinoComponentType.WRITE_PIN]: digitalAnanlogWritePinCreate,
+  [ArduinoComponentType.LED]: ledCreate,
   [ArduinoComponentType.RFID]: createRfid,
   [ArduinoComponentType.SERVO]: servoCreate,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: createTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: createUltraSonicSensor,
+  [ArduinoComponentType.DIGITAL_SENSOR]: positionDigitalSensor,
+  [ArduinoComponentType.ANALOG_SENSOR]: analogSensorCreate,
 };

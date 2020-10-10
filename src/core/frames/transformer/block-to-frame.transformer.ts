@@ -1,10 +1,10 @@
 import { BlockData } from "../../blockly/dto/block.type";
 import { Timeline, ArduinoFrame } from "../arduino.frame";
-import { rfidSetup } from "./blocktoframe/rfid";
-import { bluetoothSetup, bluetoothMessage } from "./blocktoframe/bluetooth";
 import _ from "lodash";
-import { messageSetup, arduinoSendMessage } from "./blocktoframe/message";
-import { timeSetup } from "./blocktoframe/time";
+import {
+  digitalWrite,
+  analogWrite,
+} from "../../../blocks/writepin/blocktoframe";
 import {
   lcdScreenSetup,
   lcdSimplePrint,
@@ -13,16 +13,7 @@ import {
   lcdBlink,
   lcdClear,
   lcdBacklight,
-} from "./blocktoframe/lcd";
-import { neoPixelSetup, setNeoPixelColor } from "./blocktoframe/neopixel";
-import { ledColorSetup, setLedColor } from "./blocktoframe/led-color";
-import { setupReadPin } from "./blocktoframe/pin";
-import { buttonSetup } from "./blocktoframe/button";
-import { irRemoteSetup } from "./blocktoframe/ir_remote";
-import { debugBlock } from "./blocktoframe/debug";
-import { ultraSonicSensor } from "./blocktoframe/ultra_sonic_sensor";
-import { servoRotate } from "./blocktoframe/servo";
-import { tempSetupSensor } from "./blocktoframe/temp_setup";
+} from "../../../blocks/lcd_screen/blocktoframe";
 import { VariableData } from "../../blockly/dto/variable.type";
 import {
   createListNumberState,
@@ -33,25 +24,49 @@ import {
   setNumberInList,
   setColorInList,
   setBooleanInList,
-} from "./blocktoframe/list";
-import { setVariable } from "./blocktoframe/set_variables";
-import { ifElse } from "./blocktoframe/logic";
-import { simpleLoop, forLoop } from "./blocktoframe/loop";
-import { customBlock } from "./blocktoframe/function";
-import { delayBlock } from "./blocktoframe/delay";
-import { digitalWrite, analogWrite } from "./blocktoframe/led";
-import { PinPicture } from "../arduino-components.state";
-import {
-  ledMatrixDraw,
-  ledMatrixOnLed,
-  ledMatrixSetup,
-} from "./blocktoframe/led-matrix";
-import { moveMotor } from "./blocktoframe/motor";
-import { rfidScannedCard } from "./blocktovalue/rfid";
+} from "../../../blocks/list/blocktoframe";
 import {
   findBlockById,
   findInputStatementStartBlock,
 } from "../../blockly/helpers/block-data.helper";
+import {
+  bluetoothMessage,
+  bluetoothSetup,
+} from "../../../blocks/bluetooth/blocktoframe";
+import { debugBlock } from "../../../blocks/debug/blocktoframe";
+import { buttonSetup } from "../../../blocks/button/blocktoframe";
+import { irRemoteSetup } from "../../../blocks/ir_remote/blocktoframe";
+import { customBlock } from "../../../blocks/functions/blocktoframe";
+import {
+  neoPixelSetup,
+  setNeoPixelColor,
+} from "../../../blocks/neopixels/blocktoframe";
+import {
+  ledMatrixDraw,
+  ledMatrixOnLed,
+  ledMatrixSetup,
+} from "../../../blocks/led_matrix/blocktoframe";
+import {
+  ledColorSetup,
+  setLedColor,
+} from "../../../blocks/rgbled/blocktoframe";
+import { led, ledFade } from "../../../blocks/led/blocktoframe";
+import { digitalReadSetup } from "../../../blocks/digitalsensor/blocktoframe";
+import { analogReadSetup } from "../../../blocks/analogsensor/blocktoframe";
+import { ifElse } from "../../../blocks/logic/blocktoframe";
+import { delayBlock } from "../../../blocks/time/blocktoframe.delay";
+import { timeSetup } from "../../../blocks/time/blocktoframe.time";
+import { forLoop, simpleLoop } from "../../../blocks/loops/blocktoframe";
+import {
+  arduinoSendMessage,
+  messageSetup,
+} from "../../../blocks/message/blocktoframe";
+import { ultraSonicSensor } from "../../../blocks/ultrasonic_sensor/blocktoframe";
+import { moveMotor } from "../../../blocks/motors/blocktoframe";
+import { setVariable } from "../../../blocks/variables/blocktoframe";
+import { rfidSetup } from "../../../blocks/rfid/blocktoframe";
+import { servoRotate } from "../../../blocks/servo/blocktoframe";
+import { tempSetupSensor } from "../../../blocks/temperature/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (
@@ -72,9 +87,9 @@ const blockToFrameTransformerList: {
   time_setup: timeSetup,
   lcd_setup: lcdScreenSetup,
   neo_pixel_setup: neoPixelSetup,
-  led_color_setup: ledColorSetup,
-  analog_read_setup: setupReadPin,
-  digital_read_setup: setupReadPin,
+  rgb_led_setup: ledColorSetup,
+  analog_read_setup: analogReadSetup,
+  digital_read_setup: digitalReadSetup,
   button_setup: buttonSetup,
   ir_remote_setup: irRemoteSetup,
   ultra_sonic_sensor_setup: ultraSonicSensor,
@@ -112,10 +127,10 @@ const blockToFrameTransformerList: {
   lcd_screen_clear: lcdClear,
   lcd_backlight: lcdBacklight,
 
-  led: digitalWrite(PinPicture.LED),
-  digital_write: digitalWrite(PinPicture.LED_DIGITAL_WRITE),
-  analog_write: analogWrite(PinPicture.LED_ANALOG_WRITE, "WRITE_VALUE"),
-  led_fade: analogWrite(PinPicture.LED, "FADE"),
+  led: led,
+  digital_write: digitalWrite,
+  analog_write: analogWrite,
+  led_fade: ledFade,
   set_color_led: setLedColor,
   neo_pixel_set_color: setNeoPixelColor,
 

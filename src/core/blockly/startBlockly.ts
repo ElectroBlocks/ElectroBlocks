@@ -1,18 +1,17 @@
 import Blockly, { WorkspaceSvg, BlocklyOptions } from "blockly";
 
-import "./menu/index";
-import "./blocks/index";
+import "./menus";
+import "./blocks";
 import "./overrides/index";
 import "./generators/index";
 
 import { theme } from "./theme";
 
 import registerListeners from "./registerEvents";
-import registerListMenu from "./menu/list.menu";
-import registerCodeMenu from "./menu/code.menu";
+import registerListMenu from "../../blocks/list/menu";
+import registerCodeMenu from "../../blocks/arduino/menu";
 
-import getToolBoxString from "./toolbox/getToolBoxString";
-import { fetchToolBox } from "./toolbox/toolbox";
+import { getToolBoxString } from "./toolbox";
 
 import { createBlock } from "./helpers/block.helper";
 
@@ -51,8 +50,7 @@ const createWorkspace = (blocklyElement: HTMLElement) => {
  * Returns the blockly config object
  */
 const createBlockConfig = (): BlocklyOptions => {
-  const savedToolOptions = fetchToolBox();
-  const toolboxString = getToolBoxString(savedToolOptions);
+  const toolboxString = getToolBoxString();
 
   return {
     toolbox: toolboxString,

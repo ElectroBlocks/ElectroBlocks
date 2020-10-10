@@ -2,7 +2,6 @@ import { BlockEvent } from "../blockly/dto/event.type";
 import {
   ArduinoFrame,
   Timeline,
-  ArduinoComponentType,
   ArduinoComponentState,
   SENSOR_COMPONENTS,
   ArduinoFrameContainer,
@@ -15,7 +14,6 @@ import {
   findArduinoLoopBlock,
   findArduinoSetupBlock,
 } from "../blockly/helpers/block-data.helper";
-import { PinState, PIN_TYPE } from "./arduino-components.state";
 import {
   sensorSetupBlockName,
   convertToState,
@@ -133,15 +131,6 @@ const getPreviousState = (
 
 const isSensorComponent = (component: ArduinoComponentState) => {
   {
-    if (
-      ArduinoComponentType.PIN == component.type &&
-      [PIN_TYPE.ANALOG_INPUT, PIN_TYPE.DIGITAL_INPUT].includes(
-        (component as PinState).pinType
-      )
-    ) {
-      return true;
-    }
-
     return SENSOR_COMPONENTS.includes(component.type);
   }
 };

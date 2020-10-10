@@ -1,4 +1,4 @@
-import updateForLoopText from "./actions/factories/updateForLoopText";
+import updateForLoopText from "./actions/updateForLoopText";
 import { WorkspaceSvg } from "blockly";
 import _ from "lodash";
 
@@ -10,24 +10,24 @@ import { getAllBlocks } from "./helpers/block.helper";
 import { transformBlock } from "./transformers/block.transformer";
 import { transformEvent } from "./transformers/event.transformer";
 import { getAllVariables } from "./helpers/variable.helper";
-import { deleteUnusedVariables } from "./actions/factories/deleteUnusedVariables";
-import { saveSensorSetupBlockData } from "./actions/factories/saveSensorSetupBlockData";
-import { updateLoopNumberInSensorSetupBlock } from "./actions/factories/updateLoopNumberInSensorSetupBlock";
-import { updateSensorSetupFields } from "./actions/factories/updateSensorSetupFields";
-import { disableSetupBlocksUsingSamePinNumbers } from "./actions/factories/disable/disableSetupBlocksUsingSamePinNumbers";
-import { disableSetupBlockWithMultiplePinOutsSamePins } from "./actions/factories/disable/disableSetupBlockWithMultiplePinOutsSamePins";
-import { disableDuplicateSetupBlocks } from "./actions/factories/disable/disableDuplicateSetupBlock";
-import { disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction } from "./actions/factories/disable/disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction";
-import { disableDuplicatePinBlocks } from "./actions/factories/disable/disableDuplicatePinBlocks";
+import { deleteUnusedVariables } from "./actions/deleteUnusedVariables";
+import { saveSensorSetupBlockData } from "./actions/saveSensorSetupBlockData";
+import { updateLoopNumberInSensorSetupBlock } from "./actions/updateLoopNumberInSensorSetupBlock";
+import { updateSensorSetupFields } from "./actions/updateSensorSetupFields";
+import { disableSetupBlocksUsingSamePinNumbers } from "./actions/disable/disableSetupBlocksUsingSamePinNumbers";
+import { disableSetupBlockWithMultiplePinOutsSamePins } from "./actions/disable/disableSetupBlockWithMultiplePinOutsSamePins";
+import { disableDuplicateSetupBlocks } from "./actions/disable/disableDuplicateSetupBlock";
+import { disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction } from "./actions/disable/disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction";
+import { disableDuplicatePinBlocks } from "./actions/disable/disableDuplicatePinBlocks";
 import { updater } from "./updater";
-import { disableSensorReadBlocksWithWrongPins } from "./actions/factories/disable/disableSensorReadBlocksWithWrongPins";
-import { disableBlocksThatNeedASetupBlock } from "./actions/factories/disable/disableBlocksThatNeedASetupBlock";
+import { disableSensorReadBlocksWithWrongPins } from "./actions/disable/disableSensorReadBlocksWithWrongPins";
+import { disableBlocksThatNeedASetupBlock } from "./actions/disable/disableBlocksThatNeedASetupBlock";
 import { ActionType, DisableBlock, EnableBlock } from "./actions/actions";
 import { eventToFrameFactory } from "../frames/event-to-frame.factory";
-import { ArduinoFrame, ArduinoFrameContainer } from "../frames/arduino.frame";
+import { ArduinoFrameContainer } from "../frames/arduino.frame";
 import { MicroControllerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
-import { disableBlocksWithInvalidPinNumbers } from "./actions/factories/disable/disableBlocksWithInvalidPinNumbers";
+import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
@@ -73,7 +73,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       ) as DisableBlock[]
     );
 
-    if (firstActionPass.length >= 1) {
+    if (firstActionPass.filter((a) => a.stopCompiling).length >= 1) {
       currentFrameContainter = {
         error: true,
         frames: [],
@@ -94,6 +94,8 @@ const registerEvents = (workspace: WorkspaceSvg) => {
 
     secondActionPass.forEach((a) => updater(a));
 
+    // We need this because we save the sensor setup data to the
+    // block.
     const refreshEvent = transformEvent(
       getAllBlocks(),
       getAllVariables(),

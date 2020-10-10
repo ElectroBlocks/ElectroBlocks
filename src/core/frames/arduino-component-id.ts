@@ -1,13 +1,14 @@
 import { ArduinoComponentState, ArduinoComponentType } from "./arduino.frame";
-import {
-  MotorState,
-  LedColorState,
-  PinState,
-  LCDScreenState,
-  NeoPixelState,
-} from "./arduino-components.state";
 
 import _ from "lodash";
+import { lcdStateId } from "../../blocks/lcd_screen/component-state-to-id";
+import { neoPixelId } from "../../blocks/neopixels/component-state-to-id";
+import { getLedColorId } from "../../blocks/rgbled/component-state-to-id";
+import { writePinId } from "../../blocks/writepin/component-state-to-id";
+import { getDigitalSensorId } from "../../blocks/digitalsensor/component-state-to-id";
+import { getAnalogSensorId } from "../../blocks/analogsensor/component-state-to-id";
+import { MotorState } from "../../blocks/motors/state";
+import { getMotorStateId } from "../../blocks/motors/component-to-state-id";
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;
@@ -15,26 +16,6 @@ export interface ComponentStateToId {
 
 const genericSingleComponentId = (state: ArduinoComponentState) => {
   return state.type + "_" + state.pins.sort().join("-");
-};
-
-const getMotorStateId = (motorState: MotorState) => {
-  return `${motorState.type}-${motorState.motorNumber}`;
-};
-
-const getLedColorId = (state: LedColorState) => {
-  return `${state.type}_${state.pictureType}_${state.pins.sort().join("-")}`;
-};
-
-const getPinStateId = (state: PinState) => {
-  return `${state.type}-${state.pinType}-${state.pinPicture}-${state.pin}`;
-};
-
-const lcdStateId = (state: LCDScreenState) => {
-  return `${state.type}-${state.rows}-${state.columns}-${state.sdaPin}-${state.sclPin}`;
-};
-
-const neoPixelId = (state: NeoPixelState) => {
-  return `${state.type}-${state.pins.sort().join("-")}-${state.numberOfLeds}`;
 };
 
 const componentStateFuncs: { [key: string]: ComponentStateToId } = {
@@ -51,7 +32,10 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.ULTRASONICE_SENSOR]: genericSingleComponentId,
   [ArduinoComponentType.LCD_SCREEN]: lcdStateId,
   [ArduinoComponentType.LED_COLOR]: getLedColorId,
-  [ArduinoComponentType.PIN]: getPinStateId,
+  [ArduinoComponentType.LED]: genericSingleComponentId,
+  [ArduinoComponentType.WRITE_PIN]: writePinId,
+  [ArduinoComponentType.DIGITAL_SENSOR]: getDigitalSensorId,
+  [ArduinoComponentType.ANALOG_SENSOR]: getAnalogSensorId,
 };
 
 export const arduinoComponentStateToId = (

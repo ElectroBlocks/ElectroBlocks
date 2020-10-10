@@ -1,11 +1,11 @@
 export enum ActionType {
-  FOR_LOOP_BLOCK_CHANGE = 'FOR_LOOP_CHANGE',
-  SETUP_SENSOR_BLOCK_FIELD_UPDATE = 'SETUP_SENSOR_BLOCK_FIELD_UPDATE',
-  SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE = 'SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE',
-  SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA = 'SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA',
-  DISABLE_BLOCK = 'DISABLE_BLOCK',
-  ENABLE_BLOCK = 'ENABLE_BLOCK',
-  DELETE_VARIABLE = 'DELETE_VARIABLE'
+  FOR_LOOP_BLOCK_CHANGE = "FOR_LOOP_CHANGE",
+  SETUP_SENSOR_BLOCK_FIELD_UPDATE = "SETUP_SENSOR_BLOCK_FIELD_UPDATE",
+  SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE = "SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE",
+  SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA = "SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA",
+  DISABLE_BLOCK = "DISABLE_BLOCK",
+  ENABLE_BLOCK = "ENABLE_BLOCK",
+  DELETE_VARIABLE = "DELETE_VARIABLE",
 }
 
 export interface Action {
@@ -18,7 +18,7 @@ export interface BlockAction extends Action {
 
 export interface VariableAction extends Action {
   variableId: string;
-  actionType: 'delete';
+  actionType: "delete";
 }
 
 export interface ForLoopTextChange extends BlockAction {
@@ -39,8 +39,7 @@ export interface SaveSetupSensorData extends BlockAction {
 
 export interface DisableBlock extends BlockAction {
   warningText: string;
+  stopCompiling: boolean;
 }
 
-export interface EnableBlock extends BlockAction {
-  
-}
+export interface EnableBlock extends BlockAction {}
