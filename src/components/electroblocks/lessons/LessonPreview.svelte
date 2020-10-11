@@ -4,7 +4,7 @@
   let lessonMainImage = `/lessons/${lesson.authorFolderName}/${lesson.folderName}/main.${lesson.contentType}`;
 
   async function pickLesson(id) {
-    await goto(`/electroblocks?lessonId=${id}`);
+    await goto(`?lessonId=${id}`);
   }
 </script>
 

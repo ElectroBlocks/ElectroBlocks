@@ -1,6 +1,6 @@
 <script>
-  import Lesson from "../../components/electroblocks/lessons/LessonPreview.svelte";
-  import { getLessons } from "../../lessons/lesson.list";
+  import Lesson from "../components/electroblocks/lessons/LessonPreview.svelte";
+  import { getLessons } from "../lessons/lesson.list";
   import _ from "lodash";
   const lessons = _.chunk(getLessons(), 3);
 </script>

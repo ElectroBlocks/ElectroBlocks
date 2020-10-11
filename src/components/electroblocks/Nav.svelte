@@ -38,26 +38,25 @@
 </style>
 
 <nav>
-  <a
-    href="/electroblocks"
-    class:active={segment === '' || segment === undefined}>
+  <a href="/" class:active={segment === '' || segment === undefined}>
     <i class="fa fa-home" />
   </a>
 
-  <a href="/electroblocks/code" class:active={segment === 'code'}>
+  <a href="/code" class:active={segment === 'code'}>
     <i class="fa fa-code" />
   </a>
-  <a href="/electroblocks/arduino" class:active={segment === 'arduino'}>
+  <a href="/arduino" class:active={segment === 'arduino'}>
     <i class="fa fa-microchip" />
   </a>
-  <a href="/electroblocks/lessons" class:active={segment === 'lessons'}>
+  <a href="/lessons" class:active={segment === 'lessons'}>
     <i class="fa fa-book" />
   </a>
-  <a href="/electroblocks/file" class:active={segment === 'file'}>
-    <i class="fa fa-folder-open" />
+  <a href="/open" class:active={segment === 'open'}>
+    <i class="fa fa-folder-open-o" />
   </a>
   <span> <i class="fa fa-download" /> </span>
-  <a href="/electroblocks/settings" class:active={segment === 'settings'}>
+  <!-- <span> <i class="fa  fa-floppy-o" /> </span> -->
+  <a href="/settings" class:active={segment === 'settings'}>
     <i class="fa fa-gears" />
   </a>
 </nav>

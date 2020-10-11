@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import codeStore from "../../stores/code.store.ts";
+  import codeStore from "../stores/code.store.ts";
   import "prismjs/themes/prism.css";
   import "prismjs/themes/prism-coy.css";
   import "prismjs/plugins/line-numbers/prism-line-numbers.css";
