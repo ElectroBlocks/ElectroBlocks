@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { Block } from 'blockly';
+import type { Block } from 'blockly';
 
 function servoSetup(pin) {
   Blockly['Arduino'].libraries_['define_servo'] = '#include <Servo.h>\n';

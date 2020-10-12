@@ -1,5 +1,5 @@
 import { createComponentEl } from "./svg-helpers";
-import { Element, Svg } from "@svgdotjs/svg.js";
+import type { Element, Svg } from "@svgdotjs/svg.js";
 import {
   ArduinoComponentState,
   ArduinoComponentType,
@@ -75,7 +75,7 @@ import {
 } from "../../blocks/ultrasonic_sensor/virtual-circuit";
 import { getSvgString } from "./svg-string";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
-import { MicroController } from "../microcontroller/microcontroller";
+import type { MicroController } from "../microcontroller/microcontroller";
 import {
   createButton,
   createWiresButton,

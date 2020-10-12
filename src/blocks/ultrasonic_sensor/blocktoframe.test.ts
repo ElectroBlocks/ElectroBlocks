@@ -1,6 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
-import { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import _ from "lodash";
 import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import { updater } from "../../core/blockly/updater";
@@ -14,7 +14,7 @@ import {
   ArduinoComponentType,
 } from "../../core/frames/arduino.frame";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import { UltraSonicSensorState } from "./state";
+import type { UltraSonicSensorState } from "./state";
 
 describe("ultra sonic sensor state factories", () => {
   let workspace: Workspace;

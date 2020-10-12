@@ -1,4 +1,4 @@
-import { MicroController, MicroControllerBlocks } from "./microcontroller";
+import type { MicroController, MicroControllerBlocks } from "./microcontroller";
 
 const pinArrayToFieldList = (pins: string[]) => {
   return pins.map((pin) => [pin, pin]);

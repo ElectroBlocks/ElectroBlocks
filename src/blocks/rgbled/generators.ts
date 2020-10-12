@@ -1,4 +1,5 @@
-import Blockly, { Block } from "blockly";
+import Blockly from "blockly";
+import type { Block } from "blockly";
 
 Blockly["Arduino"]["rgb_led_setup"] = function (block: Block) {
   const redPin = block.getFieldValue("PIN_RED");

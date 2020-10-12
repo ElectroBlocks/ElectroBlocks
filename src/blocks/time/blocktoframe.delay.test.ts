@@ -1,9 +1,9 @@
 import "jest";
 import "../../core/blockly/blocks";
-import Blockly, { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
+import Blockly from 'blockly';
 import {
   createArduinoAndWorkSpace,
-  createSetVariableBlockWithValue,
   createValueBlock,
   createTestEvent,
 } from "../../tests/tests.helper";
@@ -12,7 +12,7 @@ import {
   getAllBlocks,
 } from "../../core/blockly/helpers/block.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { BlockEvent } from "../../core/blockly/dto/event.type";
+import type { BlockEvent } from "../../core/blockly/dto/event.type";
 import { transformBlock } from "../../core/blockly/transformers/block.transformer";
 import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
 import { transformVariable } from "../../core/blockly/transformers/variables.transformer";

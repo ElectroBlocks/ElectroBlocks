@@ -1,17 +1,17 @@
-import {
+import type {
   SyncComponent,
   ResetComponent,
 } from "../../core/virtual-circuit/svg-sync";
-import {
+import type {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
 } from "../../core/virtual-circuit/svg-create";
 
-import { Element, Svg, Text } from "@svgdotjs/svg.js";
+import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import _ from "lodash";
 import resistorSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-small.svg";
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import {
   findResistorBreadboardHoleXY,
   createGroundWire,
@@ -19,8 +19,8 @@ import {
 } from "../../core/virtual-circuit/wire";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
-import { MicroController } from "../../core/microcontroller/microcontroller";
-import { LedState } from "./state";
+import type { MicroController } from "../../core/microcontroller/microcontroller";
+import type { LedState } from "./state";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
 

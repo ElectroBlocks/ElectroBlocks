@@ -1,7 +1,7 @@
 import "jest";
 import "../../core/blockly/blocks";
 
-import { BlockSvg, Workspace } from "blockly";
+import type { BlockSvg, Workspace } from "blockly";
 import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";

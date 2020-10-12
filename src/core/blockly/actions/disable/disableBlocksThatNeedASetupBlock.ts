@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { BlockEvent } from "../../dto/event.type";
+import type { BlockEvent } from "../../dto/event.type";
 import {
   BlockData,
   blocksThatRequireSetup,

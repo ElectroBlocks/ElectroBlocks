@@ -1,5 +1,4 @@
 import Blockly from "blockly";
-import { Block } from "blockly";
 
 Blockly["Arduino"]["neo_pixel_setup"] = function (block) {
   const numberOfLeds = block.getFieldValue("NUMBER_LEDS");

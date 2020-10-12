@@ -1,4 +1,4 @@
-import { Color } from '../../frames/arduino.frame';
+import type { Color } from "../../frames/arduino.frame";
 
 export const hexToRgb = (hex: string): Color => {
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")

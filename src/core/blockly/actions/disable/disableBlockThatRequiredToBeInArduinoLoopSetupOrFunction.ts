@@ -1,4 +1,4 @@
-import { BlockEvent } from "../../dto/event.type";
+import type { BlockEvent } from "../../dto/event.type";
 import { DisableBlock, ActionType } from "../actions";
 import { BlockTypeRequireRootBlock } from "../../dto/block.type";
 

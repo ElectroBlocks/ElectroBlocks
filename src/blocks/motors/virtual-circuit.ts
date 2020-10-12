@@ -1,13 +1,13 @@
-import {
+import type {
   SyncComponent,
   ResetComponent,
 } from "../../core/virtual-circuit/svg-sync";
-import {
+import type {
   PositionComponent,
   CreateCompenentHook,
 } from "../../core/virtual-circuit/svg-create";
 
-import { Element, Text } from "@svgdotjs/svg.js";
+import type { Element, Text } from "@svgdotjs/svg.js";
 import { MotorState, MOTOR_DIRECTION } from "./state";
 
 import _ from "lodash";

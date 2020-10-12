@@ -1,7 +1,7 @@
 import "jest";
 import "../../core/blockly/blocks";
 
-import Blockly, { Workspace, BlockSvg } from "blockly";
+import  type { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
@@ -18,7 +18,7 @@ import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import { transformBlock } from "../../core/blockly/transformers/block.transformer";
 import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
 import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
-import { BlockEvent } from "../../core/blockly/dto/event.type";
+import type { BlockEvent } from "../../core/blockly/dto/event.type";
 
 describe("logic compare blocks", () => {
   let workspace: Workspace;

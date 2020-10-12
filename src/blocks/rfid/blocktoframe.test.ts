@@ -1,6 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
-import { Workspace } from "blockly";
+import type { Workspace } from "blockly";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
@@ -13,7 +13,7 @@ import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../tests/tests.helper";
-import { RfidState } from "./state";
+import type { RfidState } from "./state";
 
 describe("rfid state factories", () => {
   let workspace: Workspace;

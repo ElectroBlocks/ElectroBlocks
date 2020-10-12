@@ -1,17 +1,17 @@
-import {
+import type {
   SyncComponent,
   ResetComponent,
 } from "../../core/virtual-circuit/svg-sync";
-import {
+import type {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
 } from "../../core/virtual-circuit/svg-create";
 
-import { Element, Svg } from "@svgdotjs/svg.js";
+import type { Element, Svg } from "@svgdotjs/svg.js";
 import { createWire, createGroundWire } from "../../core/virtual-circuit/wire";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import { ButtonState } from "./state";
+import type { ButtonState } from "./state";
 
 export const positionButton: PositionComponent<ButtonState> = (
   state,

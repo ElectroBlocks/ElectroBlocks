@@ -1,4 +1,4 @@
-import { BlockSvg, Workspace } from "blockly";
+import type { BlockSvg, Workspace } from "blockly";
 import "jest";
 import "../../core/blockly/blocks";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
@@ -10,7 +10,7 @@ import {
   createTestEvent,
   createValueBlock,
 } from "../../tests/tests.helper";
-import { LedState } from "./state";
+import type { LedState } from "./state";
 
 describe("test leds", () => {
   let workspace: Workspace;

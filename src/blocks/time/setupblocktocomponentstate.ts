@@ -1,6 +1,6 @@
-import { BlockData } from "../../core/blockly/dto/block.type";
+import type { BlockData } from "../../core/blockly/dto/block.type";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { TimeState } from "./state";
+import type { TimeState } from "./state";
 import {
   ArduinoComponentType,
   Timeline,

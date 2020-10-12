@@ -1,6 +1,6 @@
-import { BlockData } from "../../core/blockly/dto/block.type";
+import type { BlockData } from "../../core/blockly/dto/block.type";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { BluetoothSensor } from "./state";
+import type { BluetoothSensor } from "./state";
 
 export const bluetoothSetupBlockToSensorData = (
   block: BlockData

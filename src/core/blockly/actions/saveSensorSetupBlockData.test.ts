@@ -3,7 +3,7 @@ import "../blocks";
 import Blockly, { Workspace } from "blockly";
 import { getAllBlocks } from "../helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../dto/event.type";
+import type { BlockEvent } from "../dto/event.type";
 import { transformBlock } from "../transformers/block.transformer";
 import { getAllVariables } from "../helpers/variable.helper";
 import { transformVariable } from "../transformers/variables.transformer";
@@ -14,7 +14,7 @@ import {
   createTestEvent,
 } from "../../../tests/tests.helper";
 import { MicroControllerType } from "../../microcontroller/microcontroller";
-import { MotionSensor } from "../../../blocks/motors/state";
+import type { MotionSensor } from "../../../blocks/motors/state";
 
 describe("saveSensorSetupBlockData", () => {
   let workspace: Workspace;

@@ -1,6 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
-import { Workspace } from "blockly";
+import type { Workspace } from "blockly";
 import _ from "lodash";
 import {
   createArduinoAndWorkSpace,
@@ -9,7 +9,7 @@ import {
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import { Variable } from "../../core/frames/arduino.frame";
+import type { Variable } from "../../core/frames/arduino.frame";
 
 describe("list  factories", () => {
   let workspace: Workspace;

@@ -1,10 +1,10 @@
-import { BlockData } from "../../core/blockly/dto/block.type";
+import type { BlockData } from "../../core/blockly/dto/block.type";
 import { findSensorState } from "../../core/blockly/helpers/sensor_block.helper";
 import {
   ArduinoComponentType,
   Timeline,
 } from "../../core/frames/arduino.frame";
-import {
+import type {
   ArduinoReceiveMessageState,
   ArduinoRecieveMessageSensor,
 } from "./state";

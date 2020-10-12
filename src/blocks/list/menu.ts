@@ -1,4 +1,5 @@
-import Blockly, { WorkspaceSvg } from "blockly";
+import type { WorkspaceSvg } from "blockly";
+import Blockly from 'blockly';
 import { getVariableByName } from "../../core/blockly/helpers/variable.helper";
 import { createBlock } from "../../core/blockly/helpers/block.helper";
 /**

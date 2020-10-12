@@ -1,11 +1,11 @@
-import { Element, Svg, Text } from "@svgdotjs/svg.js";
-import {
+import type { Element, Svg, Text } from "@svgdotjs/svg.js";
+import type {
   CreateCompenentHook,
   CreateWire,
   PositionComponent,
 } from "../../core/virtual-circuit/svg-create";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import {
+import type {
   ResetComponent,
   SyncComponent,
 } from "../../core/virtual-circuit/svg-sync";

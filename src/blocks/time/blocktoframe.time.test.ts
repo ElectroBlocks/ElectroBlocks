@@ -1,5 +1,5 @@
 import "../../core/blockly/blocks";
-import { Workspace } from "blockly";
+import type { Workspace } from "blockly";
 import _ from "lodash";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import {

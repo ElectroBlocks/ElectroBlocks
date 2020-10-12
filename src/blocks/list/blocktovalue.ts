@@ -1,8 +1,8 @@
 import _ from "lodash";
-import { BlockData } from "../../core/blockly/dto/block.type";
-import { VariableData } from "../../core/blockly/dto/variable.type";
+import type { BlockData } from "../../core/blockly/dto/block.type";
+import type { VariableData } from "../../core/blockly/dto/variable.type";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { ArduinoFrame, Color, Timeline } from "../../core/frames/arduino.frame";
+import type { ArduinoFrame, Color, Timeline } from "../../core/frames/arduino.frame";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 
 export const getItemInList = (

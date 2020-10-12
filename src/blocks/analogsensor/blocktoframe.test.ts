@@ -1,4 +1,4 @@
-import { BlockSvg, Workspace } from "blockly";
+import type { BlockSvg, Workspace } from "blockly";
 import "jest";
 import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import "../../core/blockly/blocks";

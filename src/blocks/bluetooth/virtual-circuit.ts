@@ -1,11 +1,11 @@
-import { Element, Svg, Text } from "@svgdotjs/svg.js";
-import {
+import type { Element, Svg, Text } from "@svgdotjs/svg.js";
+import type {
   CreateCompenentHook,
   CreateWire,
   PositionComponent,
 } from "../../core/virtual-circuit/svg-create";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import {
+import type {
   ResetComponent,
   SyncComponent,
 } from "../../core/virtual-circuit/svg-sync";
@@ -14,7 +14,7 @@ import {
   createPowerWire,
   createWire,
 } from "../../core/virtual-circuit/wire";
-import { BluetoothState } from "./state";
+import type { BluetoothState } from "./state";
 
 export const bluetoothReset: ResetComponent = (bluetoothEl: Element) => {
   bluetoothEl.findOne("#MESSAGE_LAYER").hide();

@@ -1,5 +1,5 @@
-import Blockly, { Workspace } from "blockly";
-
+import type { Workspace } from "blockly";
+import Blockly from 'blockly';
 /**
  * Construct the blocks required by the flyout for the procedure category.
  * @param {!Blockly.Workspace} workspace The workspace containing procedures.

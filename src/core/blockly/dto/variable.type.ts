@@ -1,4 +1,4 @@
-import { Color } from '../../frames/arduino.frame';
+import type { Color } from "../../frames/arduino.frame";
 
 export enum VariableTypes {
   NUMBER = 'Number',
@@ -20,7 +20,7 @@ export interface VariableData {
     | number
     | string
     | boolean
-    | Color
+    | Color 
     | number[]
     | string[]
     | boolean[]

@@ -8,7 +8,7 @@ import {
   BlocklyInputTypes,
 } from "../dto/block.type";
 import _ from "lodash";
-import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
+import type { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 
 export interface BlockTransformer {
   (block: BlockSvg): BlockData;

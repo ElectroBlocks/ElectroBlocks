@@ -1,4 +1,4 @@
-import { BlockSvg, Workspace } from "blockly";
+import type { BlockSvg, Workspace } from "blockly";
 import "jest";
 import "../../core/blockly/blocks";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";

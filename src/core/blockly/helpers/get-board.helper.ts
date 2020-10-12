@@ -1,5 +1,5 @@
 import Blockly from "blockly";
-import { MicroControllerType } from "../../microcontroller/microcontroller";
+import type { MicroControllerType } from "../../microcontroller/microcontroller";
 import { getBlockByType } from "./block.helper";
 
 export const getBoardType = (): MicroControllerType => {

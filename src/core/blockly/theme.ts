@@ -1,5 +1,5 @@
 import { COLOR_THEME } from './constants/colors';
-import { BlocklyThemeOptions } from 'blockly';
+import type { BlocklyThemeOptions } from 'blockly';
 
 export const theme: BlocklyThemeOptions = {
   blockStyles: {

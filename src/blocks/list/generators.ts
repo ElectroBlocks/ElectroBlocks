@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { Block } from 'blockly';
+import type { Block } from 'blockly';
 
 export const setZeroIndexAdjustFunc = () => {
   Blockly['Arduino'].functionNames_['zeroIndexAdjustNumber'] =

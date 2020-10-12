@@ -1,5 +1,5 @@
-import { ArduinoComponentState } from "../frames/arduino.frame";
-import { Element, Svg, Line } from "@svgdotjs/svg.js";
+import type { ArduinoComponentState } from "../frames/arduino.frame";
+import type { Element, Svg, Line } from "@svgdotjs/svg.js";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 
 export const findComponentConnection = (

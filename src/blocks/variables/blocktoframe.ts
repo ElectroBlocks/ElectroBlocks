@@ -1,6 +1,6 @@
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { Variable } from "../../core/frames/arduino.frame";
-import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type { Variable } from "../../core/frames/arduino.frame";
+import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByVariable,

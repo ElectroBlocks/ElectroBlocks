@@ -3,13 +3,14 @@ import {
   ArduinoComponentType,
   ArduinoFrame,
 } from "../../core/frames/arduino.frame";
-import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByComponent,
   getDefaultIndexValue,
 } from "../../core/frames/transformer/frame-transformer.helpers";
-import { MotorState, MOTOR_DIRECTION } from "./state";
+import type { MotorState } from "./state";
+import type { MOTOR_DIRECTION } from "./state";
 
 export const moveMotor: BlockToFrameTransformer = (
   blocks,

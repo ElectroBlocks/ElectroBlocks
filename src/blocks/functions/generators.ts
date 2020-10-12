@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { Block } from 'blockly';
+import type { Block } from 'blockly';
 
 Blockly['Arduino']['procedures_defreturn'] = function(block: Block | any) {
   // Define a procedure with a return value.

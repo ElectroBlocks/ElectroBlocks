@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { Block } from 'blockly';
+import type { Block } from 'blockly';
 
 Blockly['Arduino']['temp_setup'] = function(block: Block) {
   Blockly['Arduino'].libraries_['temp_setup'] =

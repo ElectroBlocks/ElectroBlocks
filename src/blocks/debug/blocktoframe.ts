@@ -1,4 +1,4 @@
-import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { arduinoFrameByExplanation } from "../../core/frames/transformer/frame-transformer.helpers";
 
 export const debugBlock: BlockToFrameTransformer = (

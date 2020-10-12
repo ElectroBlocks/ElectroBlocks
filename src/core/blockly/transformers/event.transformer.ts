@@ -1,9 +1,9 @@
-import { BlockSvg, VariableModel } from "blockly";
+import type { BlockSvg, VariableModel } from "blockly";
 import { transformBlock } from "./block.transformer";
-import { BlockEvent } from "../dto/event.type";
+import type { BlockEvent } from "../dto/event.type";
 import _ from "lodash";
 import { transformVariable } from "./variables.transformer";
-import { MicroControllerType } from "../../microcontroller/microcontroller";
+import type { MicroControllerType } from "../../microcontroller/microcontroller";
 
 export const transformEvent = (
   blocks: BlockSvg[],

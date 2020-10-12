@@ -4,14 +4,14 @@ import {
   ArduinoComponentType,
   ArduinoFrame,
 } from "../../core/frames/arduino.frame";
-import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByComponent,
   findComponent,
   getDefaultIndexValue,
 } from "../../core/frames/transformer/frame-transformer.helpers";
-import { LedMatrixState } from "./state";
+import type { LedMatrixState } from "./state";
 
 export const ledMatrixSetup: BlockToFrameTransformer = (
   blocks,

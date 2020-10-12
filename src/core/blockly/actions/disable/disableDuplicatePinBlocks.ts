@@ -1,4 +1,4 @@
-import { BlockEvent } from "../../dto/event.type";
+import type { BlockEvent } from "../../dto/event.type";
 import { DisableBlock, ActionType } from "../actions";
 import _ from "lodash";
 import {
@@ -7,7 +7,7 @@ import {
   BlockTypeRequireRootBlock,
   BlockType,
 } from "../../dto/block.type";
-import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
+import type { ARDUINO_PINS } from "../../../microcontroller/selectBoard";
 import { findRootBlock } from "../../helpers/block-data.helper";
 
 /**

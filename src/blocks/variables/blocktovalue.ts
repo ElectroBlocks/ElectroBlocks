@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
+import type { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
 
 export const getVariable: ValueGenerator = (
   blocks,

@@ -6,7 +6,7 @@ import {
   createValueBlock,
   createTestEvent,
 } from "../../tests/tests.helper";
-import Blockly, { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -16,7 +16,7 @@ import {
   ArduinoComponentType,
   ArduinoFrame,
 } from "../../core/frames/arduino.frame";
-import { ServoState } from "./state";
+import type { ServoState } from "./state";
 
 describe("test servos factories", () => {
   let workspace: Workspace;

@@ -1,22 +1,14 @@
 import "jest";
 import "../../core/blockly/blocks";
-import Blockly, {
+import type {
   Workspace,
   BlockSvg,
-  WorkspaceSvg,
-  Blocks,
   Block,
 } from "blockly";
 import {
-  getAllBlocks,
-  getBlockById,
   connectToArduinoBlock,
 } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../../core/blockly/dto/event.type";
-import { transformBlock } from "../../core/blockly/transformers/block.transformer";
-import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
-import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
 import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import { updater } from "../../core/blockly/updater";
 import {
@@ -35,7 +27,7 @@ import {
   getDefaultValue,
   findComponent,
 } from "../../core/frames/transformer/frame-transformer.helpers";
-import { TemperatureState } from "./state";
+import type { TemperatureState } from "./state";
 
 describe("rfid value factories", () => {
   let workspace: Workspace;

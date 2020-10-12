@@ -1,6 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
-import { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import _ from "lodash";
 import {
   createArduinoAndWorkSpace,
@@ -14,7 +14,7 @@ import {
   ArduinoFrame,
 } from "../../core/frames/arduino.frame";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import { IRRemoteState } from "./state";
+import type { IRRemoteState } from "./state";
 
 describe("button state factories", () => {
   let workspace: Workspace;

@@ -1,7 +1,7 @@
 import "jest";
 import "../../core/blockly/blocks";
 
-import Blockly, { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
@@ -14,7 +14,7 @@ import {
   ArduinoFrame,
   ArduinoComponentType,
 } from "../../core/frames/arduino.frame";
-import { MotorState } from "./state";
+import type { MotorState } from "./state";
 
 describe("test servos factories", () => {
   let workspace: Workspace;

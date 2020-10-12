@@ -1,17 +1,17 @@
 import _ from "lodash";
-import { BlockData } from "../../core/blockly/dto/block.type";
+import type { BlockData } from "../../core/blockly/dto/block.type";
 import {
   VariableData,
   VariableTypes,
 } from "../../core/blockly/dto/variable.type";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import {
+import type {
   ArduinoFrame,
   Color,
   Timeline,
   Variable,
 } from "../../core/frames/arduino.frame";
-import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByVariable,

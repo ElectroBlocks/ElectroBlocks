@@ -10,7 +10,7 @@ import {
 } from "../../core/frames/transformer/frame-transformer.helpers";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { Variable } from "../../core/frames/arduino.frame";
+import type { Variable } from "../../core/frames/arduino.frame";
 
 export const simpleLoop: BlockToFrameTransformer = (
   blocks,
@@ -117,6 +117,5 @@ export const forLoop: BlockToFrameTransformer = (
       prevState = _.cloneDeep(states[states.length - 1]);
 
       return states;
-    })
-    .flat(2);
+    }).flat(2);
 };

@@ -1,6 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
-import { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import _ from "lodash";
 import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import { updater } from "../../core/blockly/updater";
@@ -14,7 +14,7 @@ import {
   ArduinoComponentType,
 } from "../../core/frames/arduino.frame";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import { TemperatureState } from "./state";
+import type { TemperatureState } from "./state";
 
 describe("rfid state factories", () => {
   let workspace: Workspace;

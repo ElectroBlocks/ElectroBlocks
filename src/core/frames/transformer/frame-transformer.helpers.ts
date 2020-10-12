@@ -1,4 +1,4 @@
-import {
+import type {
   ArduinoFrame,
   Timeline,
   ArduinoComponentState,
@@ -10,15 +10,12 @@ import {
 import { arduinoComponentStateToId } from "../arduino-component-id";
 
 import _ from "lodash";
-import { BlockData, PinCategory } from "../../blockly/dto/block.type";
+import type { BlockData, PinCategory } from "../../blockly/dto/block.type";
 import {
   findBlockById,
-  findInputStatementStartBlock,
 } from "../../blockly/helpers/block-data.helper";
-import { VariableTypes, VariableData } from "../../blockly/dto/variable.type";
-import { generateFrame } from "./block-to-frame.transformer";
-import { Sensor } from "../../blockly/dto/sensors.type";
-import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
+import { VariableTypes } from "../../blockly/dto/variable.type";
+import type { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 
 export const arduinoFrameByVariable = (
   blockId: string,

@@ -1,5 +1,5 @@
 import updateForLoopText from "./actions/updateForLoopText";
-import { WorkspaceSvg } from "blockly";
+import type { WorkspaceSvg } from "blockly";
 import _ from "lodash";
 
 import codeStore from "../../stores/code.store";
@@ -24,8 +24,8 @@ import { disableSensorReadBlocksWithWrongPins } from "./actions/disable/disableS
 import { disableBlocksThatNeedASetupBlock } from "./actions/disable/disableBlocksThatNeedASetupBlock";
 import { ActionType, DisableBlock, EnableBlock } from "./actions/actions";
 import { eventToFrameFactory } from "../frames/event-to-frame.factory";
-import { ArduinoFrameContainer } from "../frames/arduino.frame";
-import { MicroControllerType } from "../microcontroller/microcontroller";
+import type { ArduinoFrameContainer } from "../frames/arduino.frame";
+import type { MicroControllerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
 

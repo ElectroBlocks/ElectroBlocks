@@ -1,4 +1,4 @@
-import { BlockEvent } from "../blockly/dto/event.type";
+import type { BlockEvent } from "../blockly/dto/event.type";
 import {
   ArduinoFrame,
   Timeline,

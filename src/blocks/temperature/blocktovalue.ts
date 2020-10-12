@@ -1,7 +1,7 @@
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
-import { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
+import type { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
 import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
-import { TemperatureState } from "./state";
+import type { TemperatureState } from "./state";
 
 export const getTemp: ValueGenerator = (
   blocks,

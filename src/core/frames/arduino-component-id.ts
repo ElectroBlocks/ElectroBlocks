@@ -7,7 +7,6 @@ import { getLedColorId } from "../../blocks/rgbled/component-state-to-id";
 import { writePinId } from "../../blocks/writepin/component-state-to-id";
 import { getDigitalSensorId } from "../../blocks/digitalsensor/component-state-to-id";
 import { getAnalogSensorId } from "../../blocks/analogsensor/component-state-to-id";
-import { MotorState } from "../../blocks/motors/state";
 import { getMotorStateId } from "../../blocks/motors/component-to-state-id";
 
 export interface ComponentStateToId {

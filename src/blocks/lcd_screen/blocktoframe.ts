@@ -1,8 +1,8 @@
 import _ from "lodash";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { LCDScreenState } from "./state";
+import type { LCDScreenState } from "./state";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
-import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByComponent,

@@ -1,4 +1,4 @@
-import { BlockEvent } from "../dto/event.type";
+import type { BlockEvent } from "../dto/event.type";
 import { UpdateSetupSensorBlockLoop, ActionType } from "./actions";
 import { BlockType } from "../dto/block.type";
 

@@ -1,5 +1,4 @@
 import Blockly from 'blockly';
-import { Block } from 'blockly';
 
 const setVariableFunction = function(defaultValue) {
   return function(block) {

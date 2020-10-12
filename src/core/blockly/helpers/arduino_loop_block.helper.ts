@@ -1,4 +1,4 @@
-import { getBlockByType, createBlock } from './block.helper';
+import { getBlockByType } from './block.helper';
 
 /**
  * Shows the number of times to go through the arduino loop block

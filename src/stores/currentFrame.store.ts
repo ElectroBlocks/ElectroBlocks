@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { ArduinoFrame } from '../core/frames/arduino.frame';
+import type { ArduinoFrame } from '../core/frames/arduino.frame';
 
 const currentFrameStore = writable<ArduinoFrame>(undefined);
 

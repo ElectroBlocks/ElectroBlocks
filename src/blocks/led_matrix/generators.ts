@@ -1,5 +1,4 @@
 import Blockly from "blockly";
-import { Block } from "blockly";
 // TODO REPLACE WITH THIS -> https://github.com/valmat/LedMatrix
 
 Blockly["Arduino"]["led_matrix_setup"] = function (block) {

@@ -1,6 +1,6 @@
-import { BlockData } from "../../core/blockly/dto/block.type";
+import type { BlockData } from "../../core/blockly/dto/block.type";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { RFIDSensor } from "./state";
+import type { RFIDSensor } from "./state";
 
 export const rfidSetupBlockToSensorData = (block: BlockData): RFIDSensor => {
   return {

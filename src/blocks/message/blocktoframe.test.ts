@@ -1,6 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
-import { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
+import type { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
@@ -16,7 +16,7 @@ import {
   createTestEvent,
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { ArduinoReceiveMessageState } from "./state";
+import type { ArduinoReceiveMessageState } from "./state";
 
 describe("arduino message state factories", () => {
   let workspace: Workspace;

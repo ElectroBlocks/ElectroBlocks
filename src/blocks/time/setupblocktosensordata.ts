@@ -1,6 +1,6 @@
-import { BlockData } from "../../core/blockly/dto/block.type";
+import type { BlockData } from "../../core/blockly/dto/block.type";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { TimeSensor } from "./state";
+import type { TimeSensor } from "./state";
 
 export const timeSetupBlockToSensorData = (block: BlockData): TimeSensor => {
   return {

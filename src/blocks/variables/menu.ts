@@ -1,4 +1,5 @@
-import Blockly, { WorkspaceSvg } from "blockly";
+import type { WorkspaceSvg } from "blockly";
+import Blockly from 'blockly';
 import {
   createBlock,
   connectToArduinoBlock,

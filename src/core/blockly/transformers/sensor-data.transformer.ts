@@ -1,8 +1,8 @@
 import _ from "lodash";
 
-import { Sensor } from "../dto/sensors.type";
-import { BlockData } from "../dto/block.type";
-import { Timeline, ArduinoComponentState } from "../../frames/arduino.frame";
+import type { Sensor } from "../dto/sensors.type";
+import type { BlockData } from "../dto/block.type";
+import type { Timeline, ArduinoComponentState } from "../../frames/arduino.frame";
 import { bluetoothSetupBlockToSensorData } from "../../../blocks/bluetooth/setupblocktosensordata";
 import { buttonSetupBlockToSensorData } from "../../../blocks/button/setupblocktosensordata";
 import { bluetoothSetupBlockToComponentState } from "../../../blocks/bluetooth/setupblocktocomponentstate";

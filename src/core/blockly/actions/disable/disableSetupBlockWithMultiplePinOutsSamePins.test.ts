@@ -1,6 +1,6 @@
 import "jest";
 import "../../blocks";
-import { Workspace } from "blockly";
+import type { Workspace } from "blockly";
 import _ from "lodash";
 import { ActionType } from "../actions";
 import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";

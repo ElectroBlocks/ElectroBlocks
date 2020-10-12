@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { Block } from 'blockly';
+import type { Block } from 'blockly';
 
 Blockly['Arduino']['controls_repeat_ext'] = function(block: Block) {
   // Repeat n times.

@@ -1,21 +1,21 @@
-import {
+import type {
   SyncComponent,
   ResetComponent,
 } from "../../core/virtual-circuit/svg-sync";
-import {
+import type {
   PositionComponent,
   CreateWire,
 } from "../../core/virtual-circuit/svg-create";
 
 import { findSvgElement } from "../../core/virtual-circuit/svg-helpers";
-import { Svg, Text, Element } from "@svgdotjs/svg.js";
+import type { Svg, Text, Element } from "@svgdotjs/svg.js";
 import {
   createWire,
   createGroundWire,
   createPowerWire,
 } from "../../core/virtual-circuit/wire";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import { ServoState } from "./state";
+import type { ServoState } from "./state";
 
 export const servoReset: ResetComponent = (servoEl) => {
   setDegrees(servoEl, 0);

@@ -1,4 +1,4 @@
-import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
+import type { ARDUINO_PINS } from "../../microcontroller/selectBoard";
 
 export enum BlockType {
   SETUP = "SETUP",

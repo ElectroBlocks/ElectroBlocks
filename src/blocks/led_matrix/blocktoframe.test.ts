@@ -1,5 +1,5 @@
 import "../../core/blockly/blocks";
-import { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
@@ -13,8 +13,7 @@ import {
 import "../../tests/fake-block";
 import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { MicroControllerType } from "../../core/microcontroller/microcontroller";
-import { LedMatrixState } from "./state";
+import type { LedMatrixState } from "./state";
 
 describe("led matrix  factories", () => {
   let workspace: Workspace;

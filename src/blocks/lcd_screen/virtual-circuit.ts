@@ -1,15 +1,15 @@
-import {
+import type {
   SyncComponent,
   ResetComponent,
 } from "../../core/virtual-circuit/svg-sync";
-import {
+import type {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
 } from "../../core/virtual-circuit/svg-create";
 
-import { LCDScreenState } from "./state";
-import { Element, Svg, Text } from "@svgdotjs/svg.js";
+import type { LCDScreenState } from "./state";
+import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import {

@@ -1,8 +1,8 @@
 import { findComponentConnection, findSvgElement } from "./svg-helpers";
-import { Svg, Element, Line } from "@svgdotjs/svg.js";
-import { ARDUINO_PINS } from "../microcontroller/selectBoard";
+import type { Svg, Element, Line } from "@svgdotjs/svg.js";
+import type { ARDUINO_PINS } from "../microcontroller/selectBoard";
 import _ from "lodash";
-import { MicroController } from "../microcontroller/microcontroller";
+import type { MicroController } from "../microcontroller/microcontroller";
 
 export interface Wire {
   id: string;

@@ -1,4 +1,4 @@
-import { ARDUINO_PINS } from "./selectBoard";
+import type { ARDUINO_PINS } from "./selectBoard";
 
 export enum MicroControllerType {
   ARDUINO_UNO = "uno",

@@ -1,4 +1,4 @@
-import { BlockData } from '../dto/block.type';
+import type { BlockData } from "../dto/block.type";
 
 export const findFieldValue = (block: BlockData, fieldName: string) => {
   const field = block.fieldValues.find((f) => f.name === fieldName);

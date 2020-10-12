@@ -1,4 +1,4 @@
-import { LedColorState } from "./state";
+import type { LedColorState } from "./state";
 
 import rgbLedBreadboard from "./rgbled-breadboard.svg";
 import rgbLedResistorBuiltIn from "./rgbled-resistorbuiltin.svg";

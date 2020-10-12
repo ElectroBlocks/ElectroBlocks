@@ -1,14 +1,14 @@
-import {
+import type {
   SyncComponent,
   ResetComponent,
 } from "../../core/virtual-circuit/svg-sync";
-import {
+import type {
   PositionComponent,
   CreateWire,
   CreateCompenentHook,
 } from "../../core/virtual-circuit/svg-create";
 
-import { Element, Svg } from "@svgdotjs/svg.js";
+import type { Element, Svg } from "@svgdotjs/svg.js";
 import {
   createWire,
   createPowerWire,
@@ -18,7 +18,7 @@ import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import _ from "lodash";
 import { rgbToHex } from "../../core/blockly/helpers/color.helper";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import { NeoPixelState } from "./state";
+import type { NeoPixelState } from "./state";
 
 export const neoPixelCreate: CreateCompenentHook<NeoPixelState> = (
   state,

@@ -1,4 +1,5 @@
-import { MicroControllerBlocks, MicroControllerType } from "./microcontroller";
+import type { MicroControllerBlocks } from "./microcontroller";
+import { MicroControllerType } from "./microcontroller";
 import unoArduino from "../../microcontrollers/arduino_uno/profile";
 import { transformBoardBlockly } from "./microcontroller.helpers";
 import { getBoardType } from "../blockly/helpers/get-board.helper";

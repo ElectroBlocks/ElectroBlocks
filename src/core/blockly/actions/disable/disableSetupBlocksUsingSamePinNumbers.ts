@@ -1,4 +1,4 @@
-import { BlockEvent } from "../../dto/event.type";
+import type { BlockEvent } from "../../dto/event.type";
 import { DisableBlock, ActionType } from "../actions";
 import { multipleTopBlocks } from "../../dto/block.type";
 import { ARDUINO_PINS } from "../../../microcontroller/selectBoard";

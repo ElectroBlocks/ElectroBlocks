@@ -1,6 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
-import { Workspace, BlockSvg } from "blockly";
+import type  { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
 
@@ -16,7 +16,7 @@ import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
 import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import { BluetoothState } from "./state";
+import  type { BluetoothState } from "./state";
 
 describe("bluetooth state factories", () => {
   let workspace: Workspace;

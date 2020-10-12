@@ -1,4 +1,4 @@
-import { BlockEvent } from "../../dto/event.type";
+import type { BlockEvent } from "../../dto/event.type";
 import { ActionType, DisableBlock } from "../actions";
 
 // This is so that when some switches microcontrollers the pins are

@@ -1,5 +1,5 @@
 import Blockly from "blockly";
-import { Block } from "blockly";
+import type { Block } from "blockly";
 
 Blockly["Arduino"]["analog_read_setup"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");

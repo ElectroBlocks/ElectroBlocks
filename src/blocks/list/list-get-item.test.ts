@@ -10,9 +10,9 @@ import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../tests/tests.helper";
-import { Color } from "../../core/frames/arduino.frame";
+import type { Color } from "../../core/frames/arduino.frame";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import _ from "lodash";

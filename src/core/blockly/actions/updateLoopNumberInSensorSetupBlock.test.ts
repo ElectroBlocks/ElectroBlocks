@@ -3,7 +3,7 @@ import "../blocks";
 import Blockly, { BlockSvg } from "blockly";
 import { getAllBlocks } from "../helpers/block.helper";
 import _ from "lodash";
-import { BlockEvent } from "../dto/event.type";
+import type { BlockEvent } from "../dto/event.type";
 import { transformBlock } from "../transformers/block.transformer";
 import { updateLoopNumberInSensorSetupBlock } from "./updateLoopNumberInSensorSetupBlock";
 import { ActionType } from "./actions";

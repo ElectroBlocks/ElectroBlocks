@@ -3,7 +3,7 @@ import "../../blocks";
 import { ActionType, DisableBlock } from "../actions";
 
 import { disableBlocksWithInvalidPinNumbers } from "./disableBlocksWithInvalidPinNumbers";
-import { BlockSvg, Workspace } from "blockly";
+import type { BlockSvg, Workspace } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,

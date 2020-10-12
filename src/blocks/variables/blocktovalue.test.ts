@@ -5,7 +5,7 @@ import {
   createSetVariableBlockWithValue,
   createTestEvent,
 } from "../../tests/tests.helper";
-import { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 

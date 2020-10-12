@@ -1,4 +1,4 @@
-import { MotorState } from "./state";
+import type { MotorState } from "./state";
 
 export const getMotorStateId = (motorState: MotorState) => {
   return `${motorState.type}-${motorState.motorNumber}`;

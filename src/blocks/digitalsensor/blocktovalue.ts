@@ -1,8 +1,8 @@
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
-import { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
+import type { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
 import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
-import { DigitalSensorState } from "./state";
+import type { DigitalSensorState } from "./state";
 
 export const digitalRead: ValueGenerator = (
   blocks,

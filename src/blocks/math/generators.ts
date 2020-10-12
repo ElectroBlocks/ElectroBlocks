@@ -1,5 +1,5 @@
 import Blockly from 'blockly';
-import { Block } from 'blockly';
+import type { Block } from 'blockly';
 
 Blockly['Arduino']['math_number'] = function(block: Block) {
   // Numeric value.

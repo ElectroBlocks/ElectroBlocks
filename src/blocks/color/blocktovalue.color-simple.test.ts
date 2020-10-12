@@ -1,10 +1,10 @@
 import "jest";
 import "../../core/blockly/blocks";
 
-import { BlockSvg, Workspace } from "blockly";
+import type { BlockSvg, Workspace } from "blockly";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
-import { Color } from "../../core/frames/arduino.frame";
+import type { Color } from "../../core/frames/arduino.frame";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import {
   createArduinoAndWorkSpace,

@@ -1,7 +1,7 @@
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
-import { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
+import type { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
 import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
-import { UltraSonicSensorState } from "./state";
+import type { UltraSonicSensorState } from "./state";
 
 export const ultraSonicSensorDistance: ValueGenerator = (
   blocks,

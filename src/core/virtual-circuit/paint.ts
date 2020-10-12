@@ -1,11 +1,11 @@
-import { Svg, Element } from "@svgdotjs/svg.js";
+import type { Svg, Element } from "@svgdotjs/svg.js";
 import { ArduinoFrame, ArduinoComponentType } from "../frames/arduino.frame";
 import { getBoard } from "../microcontroller/selectBoard";
 import { resetBreadBoardWholes } from "./wire";
 import { findMicronControllerEl } from "./svg-helpers";
 import createNewComponent from "./svg-create";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
-import {
+import type {
   MicroController,
   MicroControllerType,
 } from "../microcontroller/microcontroller";

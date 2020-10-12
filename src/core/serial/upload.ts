@@ -1,4 +1,4 @@
-import { MicroControllerType } from "../microcontroller/microcontroller";
+import type { MicroControllerType } from "../microcontroller/microcontroller";
 
 declare class AvrgirlArduino {
   constructor(config: any);

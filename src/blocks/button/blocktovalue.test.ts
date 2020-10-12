@@ -1,6 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
-import { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
 import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
@@ -18,7 +18,7 @@ import {
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
-import { ButtonState } from "./state";
+import type { ButtonState } from "./state";
 
 describe("button state factories", () => {
   let workspace: Workspace;

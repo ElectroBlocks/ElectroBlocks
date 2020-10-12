@@ -1,6 +1,6 @@
 import "jest";
 import "../../blocks";
-import { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,

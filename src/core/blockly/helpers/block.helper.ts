@@ -1,5 +1,5 @@
 import { getWorkspace } from './workspace.helper';
-import { BlockSvg } from 'blockly';
+import type { BlockSvg } from 'blockly';
 
 export const getAllBlocks = () => {
   return getWorkspace().getAllBlocks(true) as BlockSvg[];

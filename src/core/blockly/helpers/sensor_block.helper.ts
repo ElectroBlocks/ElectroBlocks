@@ -1,6 +1,6 @@
-import { Timeline } from "../../frames/arduino.frame";
-import { BlockData } from "../dto/block.type";
-import { Sensor } from "../dto/sensors.type";
+import type { Timeline } from "../../frames/arduino.frame";
+import type { BlockData } from "../dto/block.type";
+import type { Sensor } from "../dto/sensors.type";
 
 export const findSensorState = <S extends Sensor>(
   block: BlockData,

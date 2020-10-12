@@ -1,5 +1,5 @@
-import Blockly, { WorkspaceSvg, BlocklyOptions } from "blockly";
-
+import type { WorkspaceSvg, BlocklyOptions } from "blockly";
+import Blockly from 'blockly';
 import "./menus";
 import "./blocks";
 import "./overrides/index";

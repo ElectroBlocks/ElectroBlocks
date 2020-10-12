@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { updateToolbox } from "./helpers/workspace.helper";
 import bluetoothXMLString from "../../blocks/bluetooth/toolbox";
 import buttonXMLString from "../../blocks/button/toolbox";
 import irRmoteXMLString from "../../blocks/ir_remote/toolbox";

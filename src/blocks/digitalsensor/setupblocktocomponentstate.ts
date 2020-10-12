@@ -1,12 +1,12 @@
-import { BlockData } from "../../core/blockly/dto/block.type";
+import type { BlockData } from "../../core/blockly/dto/block.type";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import { findSensorState } from "../../core/blockly/helpers/sensor_block.helper";
 import {
   ArduinoComponentType,
   Timeline,
 } from "../../core/frames/arduino.frame";
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import { DigitalSensor, DigitalSensorState, DigitalPictureType } from "./state";
+import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import type { DigitalSensor, DigitalSensorState, DigitalPictureType } from "./state";
 
 export const digitalSetupBlockToComponentState = (
   block: BlockData,

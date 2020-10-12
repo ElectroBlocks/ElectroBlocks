@@ -1,5 +1,5 @@
-import { BlockData } from "../../blockly/dto/block.type";
-import { Timeline, ArduinoFrame } from "../arduino.frame";
+import type { BlockData } from "../../blockly/dto/block.type";
+import type { Timeline, ArduinoFrame } from "../arduino.frame";
 import _ from "lodash";
 import {
   digitalWrite,
@@ -14,7 +14,7 @@ import {
   lcdClear,
   lcdBacklight,
 } from "../../../blocks/lcd_screen/blocktoframe";
-import { VariableData } from "../../blockly/dto/variable.type";
+import type { VariableData } from "../../blockly/dto/variable.type";
 import {
   createListNumberState,
   createListStringState,

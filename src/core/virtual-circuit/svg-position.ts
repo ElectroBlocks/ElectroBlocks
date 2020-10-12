@@ -1,7 +1,7 @@
 import { findSvgElement } from "./svg-helpers";
-import { Element, Svg } from "@svgdotjs/svg.js";
-import { ARDUINO_PINS } from "../microcontroller/selectBoard";
-import { MicroController } from "../microcontroller/microcontroller";
+import type { Element, Svg } from "@svgdotjs/svg.js";
+import type { ARDUINO_PINS } from "../microcontroller/selectBoard";
+import type { MicroController } from "../microcontroller/microcontroller";
 
 export const positionComponent = (
   element: Element,

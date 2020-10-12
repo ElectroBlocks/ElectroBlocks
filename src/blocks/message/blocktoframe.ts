@@ -1,8 +1,8 @@
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
-import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import { arduinoFrameByComponent } from "../../core/frames/transformer/frame-transformer.helpers";
-import {
+import type {
   ArduinoReceiveMessageState,
   ArduinoRecieveMessageSensor,
 } from "./state";

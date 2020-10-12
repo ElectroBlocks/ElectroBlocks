@@ -3,15 +3,15 @@ import {
   ArduinoComponentType,
   ArduinoFrame,
 } from "../../core/frames/arduino.frame";
-import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByComponent,
   findComponent,
   getDefaultIndexValue,
 } from "../../core/frames/transformer/frame-transformer.helpers";
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import { ServoState } from "./state";
+import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import type { ServoState } from "./state";
 
 export const servoRotate: BlockToFrameTransformer = (
   blocks,

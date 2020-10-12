@@ -1,8 +1,8 @@
-import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import _ from "lodash";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
 import { arduinoFrameByComponent } from "../../core/frames/transformer/frame-transformer.helpers";
-import { ButtonSensor, ButtonState } from "./state";
+import type { ButtonSensor, ButtonState } from "./state";
 
 export const buttonSetup: BlockToFrameTransformer = (
   blocks,

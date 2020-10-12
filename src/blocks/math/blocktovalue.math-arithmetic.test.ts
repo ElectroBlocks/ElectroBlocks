@@ -7,7 +7,7 @@ import {
 } from "../../tests/tests.helper";
 import Blockly, { Workspace, BlockSvg } from "blockly";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { BlockEvent } from "../../core/blockly/dto/event.type";
+import type { BlockEvent } from "../../core/blockly/dto/event.type";
 import {
   getAllBlocks,
   connectToArduinoBlock,

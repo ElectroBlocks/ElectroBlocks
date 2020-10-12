@@ -1,6 +1,6 @@
-import { Timeline, ArduinoFrame } from "../arduino.frame";
-import { Color } from "../arduino.frame";
-import { BlockData } from "../../blockly/dto/block.type";
+import type { Timeline, ArduinoFrame } from "../arduino.frame";
+import type { Color } from "../arduino.frame";
+import type { BlockData } from "../../blockly/dto/block.type";
 import {
   mathNumber,
   mathArithmetic,
@@ -25,7 +25,7 @@ import {
   changeCase,
   numberToText,
 } from "../../../blocks/text/blocktovalue";
-import { VariableData } from "../../blockly/dto/variable.type";
+import type { VariableData } from "../../blockly/dto/variable.type";
 import {
   colorPicker,
   randomColor,

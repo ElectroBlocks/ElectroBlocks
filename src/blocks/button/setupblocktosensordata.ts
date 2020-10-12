@@ -1,6 +1,6 @@
-import { BlockData } from "../../core/blockly/dto/block.type";
+import type { BlockData } from "../../core/blockly/dto/block.type";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { ButtonSensor } from "./state";
+import type { ButtonSensor } from "./state";
 
 export const buttonSetupBlockToSensorData = (
   block: BlockData
