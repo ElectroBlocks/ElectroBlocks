@@ -22,6 +22,6 @@ Blockly.defineBlocksWithJsonArray([
     nextStatement: null,
     colour: COLOR_THEME.ARDUINO,
     tooltip: "",
-    helpUrl: "",
+    helpUrl: "/block/debug",
   },
 ]);
