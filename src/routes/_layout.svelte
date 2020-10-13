@@ -66,7 +66,13 @@
     resizeStore.mainWindow();
   }, 2);
 
-  onMount(() => {
+  onMount(async () => {
+    try {
+    // This has to be loaded on the client side
+    await import('../firebase/init');
+    } catch (e) {
+      console.log(e, 'error');
+    }
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
       const isOnHomePage = path === "/";

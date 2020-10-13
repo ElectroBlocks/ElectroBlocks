@@ -16,6 +16,7 @@
     "@svgdotjs/svg.draggable.js": "^3.0.2",
     "@svgdotjs/svg.js": "^3.0.16",
     "@svgdotjs/svg.panzoom.js": "^2.1.1",
+    "@types/firebase": "^3.2.1",
     "@types/lodash": "^4.14.157",
     "avrgirl-arduino": "^4.2.3",
     "blockly": "^3.20200625.2",
