@@ -1,5 +1,7 @@
-<script>
-  export let segment;
+<script lang="ts">
+  export let segment: string;
+  import userStore from '../../stores/user.store';
+
 </script>
 
 <style>
@@ -51,10 +53,10 @@
   <a href="/lessons" class:active={segment === 'lessons'}>
     <i class="fa fa-book" />
   </a>
-  <a href="/open" class:active={segment === 'open'}>
-    <i class="fa fa-folder-open-o" />
+  <a href="/projects" class:active={segment === 'projects'}>
+    <i class="fa " class:fa-folder-open-o={segment !== 'projects'} class:fa-folder-open={segment === 'projects'} />
   </a>
-  <span> <i class="fa fa-download" /> </span>
+  <span> <i class="fa " class:fa-download={!$userStore} class:fa-floppy-o={$userStore} /> </span>
   <!-- <span> <i class="fa  fa-floppy-o" /> </span> -->
   <a href="/settings" class:active={segment === 'settings'}>
     <i class="fa fa-gears" />

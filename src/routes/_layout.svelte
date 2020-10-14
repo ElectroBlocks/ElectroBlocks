@@ -7,6 +7,7 @@
   import Player from "../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../stores/resize.store";
   import { stores } from "@sapper/app";
+  import userStore from '../stores/user.store';
   const { page } = stores();
 
   export let segment = "";
@@ -67,12 +68,7 @@
   }, 2);
 
   onMount(async () => {
-    try {
-    // This has to be loaded on the client side
-    await import('../firebase/init');
-    } catch (e) {
-      console.log(e, 'error');
-    }
+    
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
       const isOnHomePage = path === "/";
@@ -86,6 +82,10 @@
         resizeStore.mainWindow();
       }, 5);
     });
+
+    userStore.subscribe((user) => {
+      console.log('new user info', user);
+    })
   });
 </script>
 
