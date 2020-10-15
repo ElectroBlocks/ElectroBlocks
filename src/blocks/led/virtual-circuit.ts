@@ -32,7 +32,7 @@ export const ledCreate: CreateCompenentHook<LedState> = (
   board
 ) => {
   const randomColor = colors[_.random(0, colors.length)];
-
+  
   ledEl.data("pin-number", state.pin);
 
   ledEl

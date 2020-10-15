@@ -1,0 +1,1 @@
+<h1>Mailing List</h1>

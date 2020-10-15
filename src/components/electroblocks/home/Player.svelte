@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onDestroy } from "svelte";
 
   import frameStore from "../../../stores/frame.store";
@@ -9,7 +9,6 @@
   let frameNumber = 1;
   let playing = false;
   let speedDivisor = 1;
-  let code = "";
 
   const unsubscribes = [];
 
@@ -84,6 +83,15 @@
     if (!playing || isLastFrame()) {
       return;
     }
+
+    if (frames[frameNumber].delay > 0) {
+      console.log('1');
+      await wait(frames[frameNumber].delay);
+      console.log('2');
+    }
+
+    console.log('3');
+
     currentFrameStore.set(frames[frameNumber]);
     frameNumber += 1;
     await moveWait();
@@ -99,10 +107,6 @@
     await moveWait();
     currentFrameStore.set(frames[frameIndex]);
     await play();
-  }
-
-  function stop() {
-    playing = false;
   }
 
   function moveSlider() {
@@ -135,6 +139,10 @@
 
   function moveWait() {
     return new Promise((resolve) => setTimeout(resolve, 800 / speedDivisor));
+  }
+
+  function wait(msTime) {
+    return new Promise((resolve) => setTimeout(resolve, msTime));
   }
 
   onDestroy(() => {
