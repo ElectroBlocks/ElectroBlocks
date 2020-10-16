@@ -4,11 +4,15 @@
   import frameStore from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
   import currentStepStore from "../../../stores/currentStep.store";
+  import settingStore from "../../../stores/settings.store";
+
+ 
 
   let frames = [];
   let frameNumber = 1;
   let playing = false;
   let speedDivisor = 1;
+  let maxTimePerStep = 1000;
 
   const unsubscribes = [];
 
@@ -39,7 +43,10 @@
 
       frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
       currentFrameStore.set(frames[frameNumber]);
-    })
+    }),
+    settingStore.subscribe(newSettings => {
+      maxTimePerStep = newSettings.maxTimePerMove;
+    }),
   );
 
   function navigateToClosestTimeline(timeLine) {
@@ -75,6 +82,8 @@
 
     if (playing) {
       playing = true;
+      // Because we want to make it look like the first frame has a wait time equal
+      await moveWait();
       await playFrame();
     }
   }
@@ -85,12 +94,9 @@
     }
 
     if (frames[frameNumber].delay > 0) {
-      console.log('1');
       await wait(frames[frameNumber].delay);
-      console.log('2');
     }
 
-    console.log('3');
 
     currentFrameStore.set(frames[frameNumber]);
     frameNumber += 1;
@@ -138,7 +144,7 @@
   }
 
   function moveWait() {
-    return new Promise((resolve) => setTimeout(resolve, 800 / speedDivisor));
+    return new Promise((resolve) => setTimeout(resolve, maxTimePerStep / speedDivisor));
   }
 
   function wait(msTime) {

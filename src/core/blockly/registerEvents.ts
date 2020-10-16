@@ -28,10 +28,18 @@ import type { ArduinoFrameContainer } from "../frames/arduino.frame";
 import type { MicroControllerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
+import type { Settings } from "../../stores/settings.store";
+import settingStore from "../../stores/settings.store";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
-let currentFrameContainter: ArduinoFrameContainer;
+let currentFrameContainter: ArduinoFrameContainer = undefined;
+
+let settings: Settings = undefined;
+
+settingStore.subscribe((newSettings) => {
+  settings = newSettings;
+});
 
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (blocklyEvent) => {
@@ -78,6 +86,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
         error: true,
         frames: [],
         board: event.microController,
+        settings,
       };
       frameStore.set(currentFrameContainter);
       codeStore.resetCode(microControllerType);
@@ -103,7 +112,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       microControllerType
     );
 
-    const newFrameContainer = eventToFrameFactory(refreshEvent);
+    const newFrameContainer = eventToFrameFactory(refreshEvent, settings);
     console.log("new frames", newFrameContainer);
 
     if (!_.isEqual(newFrameContainer, currentFrameContainter)) {

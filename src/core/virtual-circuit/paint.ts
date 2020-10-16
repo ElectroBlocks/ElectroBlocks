@@ -1,5 +1,9 @@
 import type { Svg, Element } from "@svgdotjs/svg.js";
-import { ArduinoFrame, ArduinoComponentType } from "../frames/arduino.frame";
+import {
+  ArduinoFrame,
+  ArduinoComponentType,
+  ArduinoFrameContainer,
+} from "../frames/arduino.frame";
 import { getBoard } from "../microcontroller/selectBoard";
 import { resetBreadBoardWholes } from "./wire";
 import { findMicronControllerEl } from "./svg-helpers";
@@ -7,32 +11,28 @@ import createNewComponent from "./svg-create";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 import type {
   MicroController,
-  MicroControllerType,
 } from "../microcontroller/microcontroller";
 import { getBoardSvg } from "./get-board-svg";
 
-export default (
-  draw: Svg,
-  boardType: MicroControllerType,
-  frame: ArduinoFrame = undefined
-) => {
-  const board = getBoard(boardType);
+export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
+  const board = getBoard(frameContainer.board);
 
   const arduino = findOrCreateMicroController(draw, board);
+  const lastFrame =frameContainer.frames ? frameContainer.frames[frameContainer.frames.length - 1]: undefined;
   resetBreadBoardWholes(board);
   hideAllWires(arduino, board);
 
-  if (frame) {
-    frame.components
+  if (lastFrame) {
+    lastFrame.components
       .filter((c) => c.type !== ArduinoComponentType.MESSAGE)
       .filter((c) => c.type !== ArduinoComponentType.TIME)
       .forEach((state) => {
         state.pins.forEach((pin) => showWire(arduino, pin));
-        createNewComponent(state, draw, arduino, board);
+        createNewComponent(state,draw,arduino,board,frameContainer.settings);
       });
   }
 
-  deleteUnusedComponents(draw, frame);
+  deleteUnusedComponents(draw, lastFrame);
 };
 
 const findOrCreateMicroController = (draw: Svg, board: MicroController) => {

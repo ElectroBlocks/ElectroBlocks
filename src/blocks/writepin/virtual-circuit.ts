@@ -27,17 +27,16 @@ export const digitalAnalogWritePinReset: ResetComponent = (
   (componentEl.findOne("#LIGHT_BULB") as Element).opacity(0);
 };
 
-export const digitalAnanlogWritePinPosition: CreateCompenentHook<WritePinState> = (
+export const digitalAnanlogWritePinPosition: PositionComponent<WritePinState> = (
   state,
   componentEl,
   arduinoEl,
   draw,
-  board
-) => {
+  board) => {
   positionComponent(componentEl, arduinoEl, draw, state.pin, "POWER", board);
 };
 
-export const digitalAnanlogWritePinCreate: PositionComponent<WritePinState> = (
+export const digitalAnanlogWritePinCreate: CreateCompenentHook<WritePinState> = (
   state,
   componentEl,
   arduinoEl,

@@ -84,6 +84,7 @@ import {
 import {
   createWireDigitalSensor,
   positionDigitalSensor,
+  createDigitalSensor
 } from "../../blocks/digitalsensor/virtual-circuit";
 
 import {
@@ -91,12 +92,14 @@ import {
   analogSensorPosition,
   createWireAnalogSensors,
 } from "../../blocks/analogsensor/virtual-circuit";
+import type { Settings } from "../../stores/settings.store";
 
 export default (
   state: ArduinoComponentState,
   draw: Svg,
   arduinoEl: Element,
-  board: MicroController
+  board: MicroController,
+  settings: Settings
 ): void => {
   const id = arduinoComponentStateToId(state);
   let componentEl = draw.findOne("#" + id) as Element;
@@ -120,7 +123,8 @@ export default (
     componentEl,
     arduinoEl,
     draw,
-    board
+    board,
+    settings
   );
 };
 
@@ -140,7 +144,8 @@ export interface CreateCompenentHook<T extends ArduinoComponentState> {
     componentEl: Element,
     arduinoEl: Element,
     draw: Svg,
-    board: MicroController
+    board: MicroController,
+    settings: Settings
   ): void;
 }
 
@@ -237,6 +242,6 @@ const createComponentHookFunc: {
   [ArduinoComponentType.SERVO]: servoCreate,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: createTemp,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: createUltraSonicSensor,
-  [ArduinoComponentType.DIGITAL_SENSOR]: positionDigitalSensor,
+  [ArduinoComponentType.DIGITAL_SENSOR]: createDigitalSensor,
   [ArduinoComponentType.ANALOG_SENSOR]: analogSensorCreate,
 };

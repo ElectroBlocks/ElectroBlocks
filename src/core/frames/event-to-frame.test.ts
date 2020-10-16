@@ -78,7 +78,13 @@ describe("generator", () => {
     connectToArduinoBlock(setNumberBlock);
 
     const event = createTestEvent(arduinoBlock.id, Blockly.Events.BLOCK_DELETE);
-    const states = eventToFrameFactory(event).frames;
+    const states = eventToFrameFactory(event, {
+      backgroundColor: "#d9e4ec",
+      touchSkinColor: "#a424d3",
+      ledColor: "#AA0000",
+      customLedColor: false,
+      maxTimePerMove: 1000,
+    }).frames;
     expect(states.length).toBe(5);
     expect(states[0].blockName).toBe("button_setup");
     expect(states[0].variables["num_var"]).toBeUndefined();

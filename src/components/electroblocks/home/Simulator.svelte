@@ -3,15 +3,13 @@
   import { SVG } from "@svgdotjs/svg.js";
   import frameStore from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
-  import settingsStore from "../../../stores/settings.store";
+  import settings from "../../../stores/settings.store";
   import { resizeStore } from "../../../stores/resize.store";
   import paint from "../../../core/virtual-circuit/paint.ts";
   import update from "../../../core/virtual-circuit/update.ts";
   // What if we made everything a series of components.
   import { onMount, onDestroy } from "svelte";
   let container;
-  let svgContainer;
-  let virtualCircuit;
   let frames = [];
   let currentFrame = undefined;
   let draw;
@@ -37,7 +35,7 @@
         const lastFrame = frames ? frames[frames.length - 1] : undefined;
         const firstFrame = frames ? frames[0] : undefined;
         currentFrame = firstFrame;
-        paint(draw, frameContainer.board, lastFrame);
+        paint(draw, frameContainer);
         update(draw, firstFrame);
       })
     );
@@ -98,7 +96,7 @@
   }
 </style>
 
-<div class="container">
+<div style="background-color: {$settings.backgroundColor}" class="container">
   <div bind:this={container} id="simulator" />
   <div id="simulator-controls">
     <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
