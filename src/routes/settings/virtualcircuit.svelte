@@ -1,16 +1,10 @@
 <script lang="ts">
-    import settingStore from '../../stores/settings.store';
-    	import { fade } from 'svelte/transition';
+    import settingStore, { defaultSetting } from '../../stores/settings.store';
+    import type { Settings } from '../../stores/settings.store';
+    import FlashMessage from '../../components/electroblocks/ui/FlashMessage.svelte';
+    let settings: Settings
 
-    let settings: {
-  backgroundColor: string;
-  touchSkinColor: string;
-  ledColor: string;
-  customLedColor: boolean;
-  maxTimePerMove: number;
-};
-
-    let savedMessages = [];
+    let showMessage = false;
 
     settingStore.subscribe(newSettings => {
         settings = newSettings;
@@ -18,14 +12,13 @@
     
     function onSaveSettings() {
         settingStore.set(settings);
-        savedMessages = [1, ...savedMessages];
-        setTimeout(() => {
-            savedMessages.pop();
-            savedMessages = savedMessages;
-        }, 2000);
+        showMessage = true;
     }
 
-    
+    function onReset() {
+        settingStore.set(defaultSetting);
+        showMessage = true;
+    }
 </script>
 <style>
     .row {
@@ -56,17 +49,17 @@
         cursor: pointer;
         outline: none;
         position: absolute;
+        transition: .3s linear transform;
+    }
+    button#save {
         top: 0;
         right: -13px;
-        transition: .3s linear transform;
         width: 100px;
     }
-    #saved-settings {
-        width: 100%;
-        margin-top: 100px;
-        border-radius: 4px;
-        padding: 10px;
-        border: solid black 1px;
+    button#reset {
+        top: 0;
+        right: 113px;
+        width: 100px;
     }
     button:active  {
         transform: scale(.9);
@@ -101,11 +94,11 @@
 </div>
 
 <div class="row">
-    <button on:click={onSaveSettings}>Save</button>
+    <button id="save" on:click={onSaveSettings}>Save</button>
+    <button id="reset" on:click={onReset}>Reset</button>
 </div>
 {/if}
-{#if savedMessages.length > 0}
-    <div class="row" transition:fade id="saved-settings" >
-        Saved Settings
-    </div>
-{/if}
+
+<FlashMessage bind:show={showMessage} message="Successfully Saved" />
+
+

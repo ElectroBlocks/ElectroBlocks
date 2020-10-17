@@ -10,7 +10,9 @@ export const resizeWorkspace = () => {
 };
 
 export const updateToolbox = (toolbox: string) => {
-  return getWorkspace().updateToolbox(toolbox);
+  if (getWorkspace()) {
+    return getWorkspace().updateToolbox(toolbox);
+  }
 };
 
 export const getArduinoCode = () => {

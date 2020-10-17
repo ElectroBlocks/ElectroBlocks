@@ -19,17 +19,12 @@ import {
   convertToState,
 } from "../blockly/transformers/sensor-data.transformer";
 import { generateInputFrame } from "./transformer/block-to-frame.transformer";
-import { Settings } from "../../stores/settings.store";
+import type {  Settings } from "../../stores/settings.store";
+import { defaultSetting } from '../../stores/settings.store';
 
 export const eventToFrameFactory = (
   event: BlockEvent,
-  settings: Settings = {
-    backgroundColor: "#d9e4ec",
-    touchSkinColor: "#a424d3",
-    ledColor: "#AA0000",
-    customLedColor: false,
-    maxTimePerMove: 1000,
-  }): ArduinoFrameContainer => {
+  settings: Settings = defaultSetting): ArduinoFrameContainer => {
   const { blocks } = event;
 
   const preSetupBlockType = [

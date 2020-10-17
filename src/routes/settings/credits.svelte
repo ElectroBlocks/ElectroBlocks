@@ -1,1 +1,0 @@
-<h1>Credits and Thank Yous!</h1>

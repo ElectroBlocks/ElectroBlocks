@@ -26,8 +26,10 @@ import rfidXMLString from "../../blocks/rfid/toolbox";
 import servoXMLString from "../../blocks/servo/toolbox";
 import temperatureXMLString from "../../blocks/temperature/toolbox";
 import textXMLString from "../../blocks/text/toolbox";
+import { updateToolbox } from '../blockly/helpers/workspace.helper';
 
 import { COLOR_THEME } from "./constants/colors";
+import is_browser from "../../helpers/is_browser";
 
 export interface ToolBoxEntries {
   category: ToolBoxCategory;
@@ -39,7 +41,6 @@ export interface ToolBoxEntries {
 export interface ToolBoxEntry {
   name: string;
   xml: string;
-  show: boolean;
 }
 
 export enum ToolBoxCategory {
@@ -59,27 +60,22 @@ const defaultToolbox: ToolBoxEntries[] = [
     toolBoxEntries: [
       {
         name: "Logic",
-        show: true,
         xml: logicXMLString,
       },
       {
         name: "Loop",
-        show: true,
         xml: loopXMLString,
       },
       {
         name: "My Blocks",
-        show: true,
         xml: functionXMLString,
       },
       {
         name: "Variables",
-        show: true,
         xml: variablesXMLString,
       },
       {
         name: "List",
-        show: true,
         xml: listXMLString,
       },
     ],
@@ -91,17 +87,14 @@ const defaultToolbox: ToolBoxEntries[] = [
     toolBoxEntries: [
       {
         name: "Color",
-        show: true,
         xml: colorXMLString,
       },
       {
         name: "Math",
-        show: true,
         xml: mathXMLString,
       },
       {
         name: "Text",
-        show: true,
         xml: textXMLString,
       },
     ],
@@ -113,17 +106,14 @@ const defaultToolbox: ToolBoxEntries[] = [
     toolBoxEntries: [
       {
         name: "Arduino",
-        show: true,
         xml: arduinoXMLString,
       },
       {
         name: "Message",
-        show: true,
         xml: messageXMLString,
       },
       {
         name: "Time",
-        show: true,
         xml: timeXMLString,
       },
     ],
@@ -133,15 +123,15 @@ const defaultToolbox: ToolBoxEntries[] = [
     category: ToolBoxCategory.COMPONENT,
     name: "Components",
     toolBoxEntries: [
-      { name: "Bluetooth", show: true, xml: bluetoothXMLString },
-      { name: "LCD Screen", show: true, xml: lcdScreenXMLString },
-      { name: "Led", show: true, xml: ledXMLString },
-      { name: "Led Matrix", show: true, xml: ledMatrixXMLString },
-      { name: "Motor", show: true, xml: motorXMLString },
-      { name: "Neo Pixel", show: true, xml: neoPixelXMLString },
-      { name: "Pins", show: true, xml: writePinXMLString },
-      { name: "RBG Led", show: true, xml: rgbLedXMLString },
-      { name: "Servos", show: true, xml: servoXMLString },
+      { name: "Bluetooth", xml: bluetoothXMLString },
+      { name: "LCD Screen", xml: lcdScreenXMLString },
+      { name: "Led", xml: ledXMLString },
+      { name: "Led Matrix", xml: ledMatrixXMLString },
+      { name: "Motor", xml: motorXMLString },
+      { name: "Neo Pixel", xml: neoPixelXMLString },
+      { name: "Pins", xml: writePinXMLString },
+      { name: "RBG Led", xml: rgbLedXMLString },
+      { name: "Servos", xml: servoXMLString },
     ],
   },
   {
@@ -149,18 +139,48 @@ const defaultToolbox: ToolBoxEntries[] = [
     category: ToolBoxCategory.SENSORS,
     name: "Sensors",
     toolBoxEntries: [
-      { name: "Analog", show: true, xml: analogSensorXMLString },
-      { name: "Button", show: true, xml: buttonXMLString },
-      { name: "Digital Sensor", show: true, xml: digitalSensorXMLString },
-      { name: "IR Remote", show: true, xml: irRmoteXMLString },
-      { name: "Motion Sensor", show: true, xml: ultraSonicXMLString },
-      { name: "RFID", show: true, xml: rfidXMLString },
-      { name: "Temperature/Humidity", show: true, xml: temperatureXMLString },
+      { name: "Analog", xml: analogSensorXMLString },
+      { name: "Button", xml: buttonXMLString },
+      { name: "Digital Sensor", xml: digitalSensorXMLString },
+      { name: "IR Remote", xml: irRmoteXMLString },
+      { name: "Motion Sensor", xml: ultraSonicXMLString },
+      { name: "RFID", xml: rfidXMLString },
+      { name: "Temperature/Humidity", xml: temperatureXMLString },
     ],
   },
 ];
 
-export const getToolBoxString = (): string => {
+const getSavedSetting = () => {
+  if (is_browser() && localStorage.getItem('toolbox')) {
+      return JSON.parse(localStorage.getItem('toolbox'));
+  }
+  return {};
+}
+
+export const getToolboxOptions = () => {
+  const savedToolboxSettings = getSavedSetting();
+  return defaultToolbox.reduce((acc, next) => {
+    next.toolBoxEntries.forEach(entry => {
+      acc[entry.name] = savedToolboxSettings[entry.name] === true;
+    })
+    return acc;
+    }, {});
+}
+
+export const updateToolboxXML = (entries: { [name: string]: boolean }) => {
+  if (is_browser()) {
+    const xmlString = getToolBoxString(entries);
+    localStorage.setItem('toolbox', JSON.stringify(entries));
+    updateToolbox(xmlString);
+  }
+}
+
+export const getToolBoxString = (showOption: { [name: string]: boolean } = {}): string => {
+
+  if (_.isEmpty(showOption)) {
+    showOption = getSavedSetting();
+  }
+  
   const toolboxOptions = defaultToolbox; // TODO Make this dynamic
   let toolbox = `<xml
     xmlns="https://developers.google.com/blockly/xml"
@@ -170,13 +190,13 @@ export const getToolBoxString = (): string => {
 
   toolbox += toolboxOptions.reduce((acc, next) => {
     if (next.category === ToolBoxCategory.NONE) {
-      return acc + getMenuItems(next.toolBoxEntries);
+      return acc + getMenuItems(next.toolBoxEntries, showOption);
     }
 
     return (
       acc +
       `<category name="${next.name}" colour="${next.color}">
-        ${getMenuItems(next.toolBoxEntries)}
+        ${getMenuItems(next.toolBoxEntries, showOption)}
       </category>`
     );
   }, "");
@@ -186,9 +206,9 @@ export const getToolBoxString = (): string => {
   return toolbox;
 };
 
-function getMenuItems(toolBoxEntries: ToolBoxEntry[]) {
+function getMenuItems(toolBoxEntries: ToolBoxEntry[], showOption: { [name: string]: boolean } = {}) {
   return toolBoxEntries.reduce((acc, next) => {
-    if (next.show) {
+    if (showOption[next.name] === undefined || showOption[next.name]) {
       return acc + next.xml;
     }
     return acc;
