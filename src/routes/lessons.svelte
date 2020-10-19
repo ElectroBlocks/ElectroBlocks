@@ -1,8 +1,28 @@
-<script>
-  import Lesson from "../components/electroblocks/lessons/LessonPreview.svelte";
-  import { getLessons } from "../lessons/lesson.list";
+<script context="module" lang="ts">
   import _ from "lodash";
-  const lessons = _.chunk(getLessons(), 3);
+  import { getLessons } from "../lessons/lesson.list";
+  import type { LessonCompat, Lessons } from "../lessons/lesson.model";
+
+	export async function preload(page, session) {
+    try {
+    const lessonList = await getLessons(session.bucket_name);
+
+    return { lessonList };
+
+    } catch(e) {
+      console.log('error', e);
+      return {
+        lessons: [],
+        date: '2020-01-01'
+      }
+    }
+	}
+</script>
+<script lang="ts">
+  export let lessonList: Lessons;
+  let lessons = _.chunk(lessonList.lessons, 3);
+  import Lesson from "../components/electroblocks/lessons/LessonPreview.svelte";
+  
 </script>
 
 <style>

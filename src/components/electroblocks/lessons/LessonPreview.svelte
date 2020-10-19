@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
   import { goto } from "@sapper/app";
-  export let lesson;
-  let lessonMainImage = `/lessons/${lesson.authorFolderName}/${lesson.folderName}/main.${lesson.contentType}`;
+  import type { LessonCompat } from "../../../lessons/lesson.model";
+  export let lesson: LessonCompat;
 
   async function pickLesson(id) {
     await goto(`?lessonId=${id}`);
@@ -35,6 +35,6 @@
 </style>
 
 <article on:click={() => pickLesson(lesson.id)} data-id={lesson.id}>
-  <img src={lessonMainImage} alt={lesson.title} />
+  <img src={lesson.mainPicture} alt={lesson.title} />
   <h2>{lesson.title}</h2>
 </article>

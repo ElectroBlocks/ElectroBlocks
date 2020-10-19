@@ -29,7 +29,8 @@ export default {
 		plugins: [
 			replace({
 				'process.browser': true,
-				'process.env.NODE_ENV': JSON.stringify(mode)
+				'process.env.NODE_ENV': JSON.stringify(mode),
+			    'process.bucket_name': 'electroblocks-lesson-test'
 			}),
 			svelte({
 				dev,
@@ -47,6 +48,11 @@ export default {
             src: "node_modules/avrgirl-arduino/dist/avrgirl-arduino.global.js",
             dest: "static/",
             rename: "avrgirl-arduino.js",
+			},
+			{
+            src: "node_modules/ng-tutorial-web-component/public/build/ng-tutorial-component.js",
+            dest: "static/",
+            rename: "ng-tutorial-web-component.js",
           },
         ],
       }),
@@ -90,7 +96,8 @@ export default {
 		plugins: [
 			replace({
 				'process.browser': false,
-				'process.env.NODE_ENV': JSON.stringify(mode)
+				'process.env.NODE_ENV': JSON.stringify(mode),
+				'process.bucket_name': 'electroblocks-lesson-test'
 			}),
 			svelte({
 				generate: 'ssr',

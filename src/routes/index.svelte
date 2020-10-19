@@ -1,22 +1,35 @@
 <script>
   import { stores } from "@sapper/app";
-
   import VerticalComponentContainer from "../components/electroblocks/VerticalComponentContainer.svelte";
   import Simulator from "../components/electroblocks/home/Simulator.svelte";
   import Step from "../components/electroblocks/home/Steps.svelte";
   import { getLesson } from "../lessons/lesson.list";
-  import Lesson from "../components/electroblocks/lessons/Lesson.svelte";
-  let lesson;
-  const { page } = stores();
-  page.subscribe(({ path, params, query }) => {
-    if (query["lessonId"]) {
-      lesson = getLesson(query["lessonId"]);
+  import { onMount } from "svelte";
+  const { page, session } = stores();
+  let showLesson = false; 
+  onMount(async () => {
+    console.log($page);
+    if ($page.query["lessonId"]) {
+          try {
+            showLesson = true;
+            const lesson =  await getLesson($session.bucket_name, $page.query["lessonId"]);
+            const event = new Event('lesson-change');
+            event.detail = lesson;
+            console.log(lesson);
+            document.dispatchEvent(event);
+          } catch(e) {
+          alert('failed');
+          console.log(e);
+        }
     }
-  });
 
-  function closeLesson() {
-    lesson = undefined;
-  }
+    document.addEventListener('lesson-close', () => {
+      showLesson = false;
+    })
+  })
+
+  
+ 
 </script>
 
 <style>
@@ -25,11 +38,9 @@
     width: 100%;
   }
 </style>
-
-{#if lesson}
-  <Lesson on:close={closeLesson} {lesson} />
+{#if showLesson}
+  <ng-lessons left="500" top="150" />
 {/if}
-
 <VerticalComponentContainer>
   <div class="slot-wrapper" slot="top">
     <Simulator />

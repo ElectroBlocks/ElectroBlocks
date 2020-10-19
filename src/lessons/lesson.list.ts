@@ -1,32 +1,23 @@
-import type { Lesson } from "./lesson.model";
-
+import type { Lesson, Lessons } from "./lesson.model";
+import axios from 'axios';
 import electroblockServoLesson from "./electroblocks/servo.json";
 
 const lessons: Array<Lesson> = [];
 
-export const getLessons = (): Array<Lesson> => {
-  // TODO ORDER LESSONS
-  return lessons;
+export const getLessons = async (bucketName: string): Promise<Lessons> => {
+  const response =
+    await axios.get<Lessons>(`https://storage.googleapis.com/${bucketName}/lesson-list.json`);
+
+  return response.data;
 };
 
-export const getLesson = (id: string) => {
-  const lesson = lessons.find((l) => l.id === id);
-  if (lesson) {
-    return lesson;
-  }
+export const getLesson = async (bucketName: string, id: string) => {
+  const lesson =  await axios.get<Lesson>(`https://storage.googleapis.com/${bucketName}/lessons/${id}.json`);
 
-  throw new Error(`No lesson id found for ${id}.`);
+  return lesson.data;
 };
 
 const addLesson = (lesson: Lesson) => {
   lessons.push(lesson);
 };
 
-// added Servo Lesson
-addLesson(electroblockServoLesson as Lesson);
-addLesson(electroblockServoLesson as Lesson);
-addLesson(electroblockServoLesson as Lesson);
-addLesson(electroblockServoLesson as Lesson);
-addLesson(electroblockServoLesson as Lesson);
-addLesson(electroblockServoLesson as Lesson);
-addLesson(electroblockServoLesson as Lesson);

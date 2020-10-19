@@ -8,8 +8,8 @@
   import { resizeStore } from "../stores/resize.store";
   import { stores } from "@sapper/app";
   import userStore from '../stores/user.store';
-  const { page } = stores();
-
+  const { page, session } = stores();
+  console.log($session);
   export let segment = "";
 
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
