@@ -21,7 +21,7 @@
 </style>
 
 <main>
-    <h1>Project Settings</h1>
+<h2>Project Navigation</h2>
     <select  >
     <option value="/settings">Save Project</option>
     <option value="/settings/virtualcircuit">Open Project</option>

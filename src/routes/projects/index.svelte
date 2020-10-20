@@ -1,5 +1,9 @@
 <script lang="ts">
-    import userStore from '../../stores/user.store';
+    import { compact } from 'lodash';
+import userStore from '../../stores/user.store';
+import Projescts from '../projescts.svelte';
+    import Login from '../../components/auth/Login.svelte';
+
 </script>
 
 <style>
@@ -45,4 +49,7 @@
             <div class="row">
         <button>Save</button>
     </div>
+    {:else}
+    <p>To Save project you must be logged in.  If you don't want to login you can go to the <a href="/projects/download">download page</a> to download the code or project onto your computer</p>
+    <Login />
 {/if}
