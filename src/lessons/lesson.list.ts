@@ -1,6 +1,5 @@
 import type { Lesson, Lessons } from "./lesson.model";
 import axios from 'axios';
-import electroblockServoLesson from "./electroblocks/servo.json";
 
 const lessons: Array<Lesson> = [];
 

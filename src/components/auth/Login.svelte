@@ -17,10 +17,9 @@
 <!-- https://github.com/eswarasai/social-login is where it came from -->
 <style>
 .login-box {
-  	  font-family: 'Montserrat', sans-serif;
-	  box-sizing: border-box;
+  	font-family: 'Montserrat', sans-serif;
+	box-sizing: border-box;
     background: #fff;
-    padding: 20px;
     max-width: 480px;
     text-align: center;
     letter-spacing: 1px;

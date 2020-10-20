@@ -4,6 +4,6 @@ export const loginGoogleUser = async () => {
   console.log(result, "result");
 };
 
-export const logoutGoogleUser = async () => {
+export const logout = async () => {
   await firebase.auth().signOut();
 };

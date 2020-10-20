@@ -37,7 +37,7 @@
     <option value="/settings/about">About</option>
     <option value="/settings/mailinglist">Mailing List</option>
     <option value="/settings/bug">Report Bugs</option>
-    <option value="/settings/user">User Settings</option>
+    <option value="/settings/myprofile">My Profile</option>
     <option value="/settings/privacy-policy">Privacy Policy</option>
 </select>
 
