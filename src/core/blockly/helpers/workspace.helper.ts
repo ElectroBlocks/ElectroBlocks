@@ -18,3 +18,13 @@ export const updateToolbox = (toolbox: string) => {
 export const getArduinoCode = () => {
   return Blockly['Arduino'].workspaceToCode(getWorkspace()) as string;
 };
+
+export const workspaceToXML = () => {
+  const xml = Blockly.Xml.workspaceToDom(getWorkspace());
+  return Blockly.Xml.domToText(xml);
+}
+
+export const loadProject = (xmlString: string) => {
+  const xml = Blockly.Xml.textToDom(xmlString);
+  Blockly.Xml.domToWorkspace(xml, getWorkspace());
+}
