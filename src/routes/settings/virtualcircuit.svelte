@@ -25,6 +25,7 @@
         display: block;
         margin-top: 20px;
         position: relative;
+        min-height: 30px;
     }
     .row label {
         display: block;
@@ -34,7 +35,10 @@
         display: block;
         font-size: 20px;
         padding: 5px;
-        width: 100%;
+        width: calc(100% - 20px);
+    }
+    .row input[type="color"] {
+        padding: 0;
     }
     #use-led-color {
         width: 30px;
@@ -53,7 +57,7 @@
     }
     button#save {
         top: 0;
-        right: -13px;
+        right: 3px;
         width: 100px;
     }
     button#reset {

@@ -22,10 +22,12 @@
 
 <style>
     #message {
-        width: 100%;
-        margin-top: 100px;
+        width: 75%;
+        display: block;
+        margin: 20px auto;
         border-radius: 4px;
         padding: 10px;
+        text-align: center;
         border: solid black 1px;
     }
 </style>

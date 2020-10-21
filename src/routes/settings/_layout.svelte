@@ -20,6 +20,9 @@
     }
     main {
         margin: 20px 5%;
+        overflow-y: scroll; 
+        overflow-x: hidden;
+        min-height: 600px;
     }
     select {
         width: 90%;
@@ -41,6 +44,6 @@
     <option value="/settings/privacy-policy">Privacy Policy</option>
 </select>
 
-<main style="overflow-y: scroll;">
+<main style="">
     <slot></slot>
 </main>
