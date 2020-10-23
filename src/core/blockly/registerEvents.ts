@@ -28,7 +28,7 @@ import type { ArduinoFrameContainer } from "../frames/arduino.frame";
 import type { MicroControllerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
-import type { Settings } from "../../stores/settings.store";
+import type { Settings } from "../../firebase/model";
 import settingStore from "../../stores/settings.store";
 
 // This is the current frame list

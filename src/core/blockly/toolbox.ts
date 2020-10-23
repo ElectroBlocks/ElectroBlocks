@@ -26,10 +26,8 @@ import rfidXMLString from "../../blocks/rfid/toolbox";
 import servoXMLString from "../../blocks/servo/toolbox";
 import temperatureXMLString from "../../blocks/temperature/toolbox";
 import textXMLString from "../../blocks/text/toolbox";
-import { updateToolbox } from '../blockly/helpers/workspace.helper';
 
 import { COLOR_THEME } from "./constants/colors";
-import is_browser from "../../helpers/is_browser";
 
 export interface ToolBoxEntries {
   category: ToolBoxCategory;
@@ -150,36 +148,7 @@ const defaultToolbox: ToolBoxEntries[] = [
   },
 ];
 
-const getSavedSetting = () => {
-  if (is_browser() && localStorage.getItem('toolbox')) {
-      return JSON.parse(localStorage.getItem('toolbox'));
-  }
-  return {};
-}
-
-export const getToolboxOptions = () => {
-  const savedToolboxSettings = getSavedSetting();
-  return defaultToolbox.reduce((acc, next) => {
-    next.toolBoxEntries.forEach(entry => {
-      acc[entry.name] = savedToolboxSettings[entry.name] === true;
-    })
-    return acc;
-    }, {});
-}
-
-export const updateToolboxXML = (entries: { [name: string]: boolean }) => {
-  if (is_browser()) {
-    const xmlString = getToolBoxString(entries);
-    localStorage.setItem('toolbox', JSON.stringify(entries));
-    updateToolbox(xmlString);
-  }
-}
-
-export const getToolBoxString = (showOption: { [name: string]: boolean } = {}): string => {
-
-  if (_.isEmpty(showOption)) {
-    showOption = getSavedSetting();
-  }
+export const getToolBoxString = (): string => {
   
   const toolboxOptions = defaultToolbox; // TODO Make this dynamic
   let toolbox = `<xml
@@ -190,13 +159,13 @@ export const getToolBoxString = (showOption: { [name: string]: boolean } = {}): 
 
   toolbox += toolboxOptions.reduce((acc, next) => {
     if (next.category === ToolBoxCategory.NONE) {
-      return acc + getMenuItems(next.toolBoxEntries, showOption);
+      return acc + getMenuItems(next.toolBoxEntries);
     }
 
     return (
       acc +
       `<category name="${next.name}" colour="${next.color}">
-        ${getMenuItems(next.toolBoxEntries, showOption)}
+        ${getMenuItems(next.toolBoxEntries)}
       </category>`
     );
   }, "");
@@ -206,11 +175,8 @@ export const getToolBoxString = (showOption: { [name: string]: boolean } = {}): 
   return toolbox;
 };
 
-function getMenuItems(toolBoxEntries: ToolBoxEntry[], showOption: { [name: string]: boolean } = {}) {
+function getMenuItems(toolBoxEntries: ToolBoxEntry[]) {
   return toolBoxEntries.reduce((acc, next) => {
-    if (showOption[next.name] === undefined || showOption[next.name]) {
-      return acc + next.xml;
-    }
-    return acc;
+      return acc + next.xml;    
   }, "");
 }

@@ -1,7 +1,6 @@
 export const loginGoogleUser = async () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  const result = await firebase.auth().signInWithPopup(provider);
-  console.log(result, "result");
+  await firebase.auth()
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider());
 };
 
 export const logout = async () => {

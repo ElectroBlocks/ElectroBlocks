@@ -1,7 +1,5 @@
-import { writable } from "svelte/store";
 import is_browser from "../helpers/is_browser";
-
-const userStore = writable<{ email: string; id: string }>(undefined);
+import userStore from "../stores/auth.store";
 
 if (is_browser()) {
   // Your web app's Firebase configuration
@@ -23,15 +21,18 @@ if (is_browser()) {
 
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      let slimUser = { id: user.uid, email: user.email };
-      userStore.set(slimUser);
+      userStore.set({ isLoggedIn: true, uid: user.uid  });
       return;
     }
-    userStore.set(undefined);
+    userStore.set({ isLoggedIn: false, uid: null  });
   });
+    
+    firebase.firestore().settings({
+        cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
+    });
+
+    firebase.firestore().enablePersistence()
+
+    
+    
 }
-
-
-export default {
-  subscribe: userStore.subscribe,
-};

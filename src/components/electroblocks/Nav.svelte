@@ -1,6 +1,6 @@
 <script lang="ts">
   export let segment: string;
-  import userStore from '../../stores/user.store';
+  import authStore from '../../stores/auth.store';
 
 </script>
 
@@ -56,7 +56,7 @@
   <a href="/projects" class:active={segment === 'projects'}>
     <i class="fa " class:fa-folder-open-o={segment !== 'projects'} class:fa-folder-open={segment === 'projects'} />
   </a>
-  <span> <i class="fa " class:fa-download={!$userStore} class:fa-floppy-o={$userStore} /> </span>
+  <span> <i class="fa " class:fa-download={!$authStore.isLoggedIn} class:fa-floppy-o={$authStore.isLoggedIn} /> </span>
   <!-- <span> <i class="fa  fa-floppy-o" /> </span> -->
   <a href="/settings" class:active={segment === 'settings'}>
     <i class="fa fa-gears" />

@@ -21,7 +21,7 @@ import {
 import { VariableTypes } from "../blockly/dto/variable.type";
 import { MicroControllerType } from "../microcontroller/microcontroller";
 import type { ButtonState } from "../../blocks/button/state";
-import { defaultSetting } from "../../stores/settings.store";
+import { defaultSetting } from "../../firebase/model";
 
 describe("generator", () => {
   let workspace: Workspace;

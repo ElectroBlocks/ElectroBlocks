@@ -1,13 +1,13 @@
 <script lang="ts">
     import { logout } from "../../firebase/auth";
-    import userStore from "../../stores/user.store";
     import Login from '../../components/auth/Login.svelte';
+    import authStore from '../../stores/auth.store';
     async function onLogout() {
        await logout();
     }
 </script>
 
-{#if $userStore}
+{#if $authStore.isLoggedIn}
 
 <div class="row">
     <label for="username">User Name</label>

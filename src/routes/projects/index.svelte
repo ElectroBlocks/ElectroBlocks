@@ -1,5 +1,5 @@
 <script lang="ts">
-    import userStore from '../../stores/user.store';
+    import authStore from '../../stores/auth.store';
     import Login from '../../components/auth/Login.svelte';
 
 </script>
@@ -10,7 +10,7 @@
     }
 </style>
 
-{#if $userStore}
+{#if $authStore.isLoggedIn}
         <div class="row">
             <label for="project-name">Name</label>
             <input id="project-name" type="text">

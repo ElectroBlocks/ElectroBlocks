@@ -1,40 +1,124 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import { getToolboxOptions, updateToolboxXML } from '../../core/blockly/toolbox';
-    let toolboxSettings;
-    onMount(() => {
-        toolboxSettings = getToolboxOptions();
-    })
-    function updateToolbox(name) {
-        // We do this manually because only want this triggered when the 
-        // click happens not when things are loading.
-        toolboxSettings[name] = !toolboxSettings[name];
-        updateToolboxXML(toolboxSettings);
-    }
-</script>
+    import { defaultSetting } from '../../firebase/model';
+    import type { Settings } from '../../firebase/model';
+    import { fbSaveSettings } from '../../firebase/db';
+    import authStore from '../../stores/auth.store';
+    import settingsStore from '../../stores/settings.store';
+    import FlashMessage from '../../components/electroblocks/ui/FlashMessage.svelte';
 
-<style>
-    .entry {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 10px;
-        border: 1px gray solid;
-        font-size: 20px;
-        cursor: pointer;
+    let uid: string;
+
+    let settings: Settings
+
+    let showMessage = false;
+
+    settingsStore.subscribe(newSettings => {
+        settings = newSettings;
+    })
+    
+    async function onSaveSettings() {
+        await saveSettings(settings)
     }
-    .entry input {
-        float: right;
-        width: 20px;
-        height: 20px;
+
+    async function onReset() {
+        await saveSettings(defaultSetting)
+    }
+
+    async function saveSettings(settings: Settings) {
+        settingsStore.set(settings);
+        showMessage = true;
+        if (uid) {
+           await fbSaveSettings(uid, settings);
+        }
+    }
+
+    authStore.subscribe(auth => {
+        uid = auth.uid;
+    })
+</script>
+<style>
+    .row {
+        display: block;
+        margin-top: 20px;
+        position: relative;
+        min-height: 30px;
+    }
+    .row label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .row input, .row input {
+        display: block;
+        font-size: 20px;
+        padding: 5px;
+        width: calc(100% - 20px);
+    }
+    .row input[type="color"] {
+        padding: 0;
+    }
+    #use-led-color {
+        width: 30px;
+        height: 30px;
+        margin: 0;
+    }
+    button {
+        padding: 10px;
+        border-radius: 0;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        position: absolute;
+        transition: .3s linear transform;
+    }
+    button#save {
+        top: 0;
+        right: 3px;
+        width: 100px;
+    }
+    button#reset {
+        top: 0;
+        right: 113px;
+        width: 100px;
+    }
+    button:active  {
+        transform: scale(.9);
     }
 </style>
+{#if settings}
+<div class="row">
+    <label for="use-led-color">Use Led Color</label>
+    <input type="checkbox"  bind:checked={settings.customLedColor} id="use-led-color">
+</div>
 
-
-
-{#if toolboxSettings}
-    {#each Object.keys(toolboxSettings) as name}
-        <div on:click={() => updateToolbox(name)} class="entry">
-            {name} <input  type="checkbox" name={name} bind:checked={toolboxSettings[name]} />
-        </div>
-    {/each}
+{#if settings.customLedColor }
+    <div class="row">
+    <label for="led-color">Led Color</label>
+    <input bind:value={settings.ledColor} id="led-color" type="color">
+    </div>
 {/if}
+
+<div class="row">
+    <label for="touch-skin-color">Touch sensor's finger color</label>
+    <input id="touch-skin-color" bind:value={settings.touchSkinColor} type="color">
+</div>
+
+<div class="row">
+    <label for="background-color">Background Color</label>
+    <input id="background-color" bind:value={settings.backgroundColor} type="color">
+</div>
+
+<div class="row">
+    <label for="max-time">Max time per move</label>
+    <input id="max-time" bind:value={settings.maxTimePerMove} type="number">
+</div>
+
+<div class="row">
+    <button id="save" on:click={onSaveSettings}  >Save</button>
+    <button id="reset" on:click={onReset} >Reset</button>
+</div>
+{/if}
+
+<FlashMessage bind:show={showMessage} message="Successfully Save." />
+
+

@@ -7,7 +7,6 @@
   import Player from "../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../stores/resize.store";
   import { stores } from "@sapper/app";
-  import userStore from '../stores/user.store';
   const { page, session } = stores();
   console.log($session);
   export let segment = "";
@@ -83,9 +82,7 @@
       }, 5);
     });
 
-    userStore.subscribe((user) => {
-      console.log('new user info', user);
-    })
+    await import('../firebase/init');
   });
 </script>
 

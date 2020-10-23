@@ -1,7 +1,8 @@
 <script>
     import Login from '../../components/auth/Login.svelte';
-    import userStore from '../../stores/user.store';
     import { loadProject } from "../../core/blockly/helpers/workspace.helper";
+    import authStore from '../../stores/auth.store';
+
     let projectList = [
         {
             name: 'Awesome Project 1',
@@ -105,7 +106,7 @@ table th {
 <input on:change={changeProject} id="file-upload" type="file"/>
 </div>
 
-{#if $userStore}
+{#if $authStore.isLoggedIn}
     <div class="row">
         <label for="sort">Sort By</label>
         <select name="" id="sort">

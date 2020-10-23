@@ -92,7 +92,7 @@ import {
   analogSensorPosition,
   createWireAnalogSensors,
 } from "../../blocks/analogsensor/virtual-circuit";
-import type { Settings } from "../../stores/settings.store";
+import type { Settings } from "../../firebase/model";
 
 export default (
   state: ArduinoComponentState,

@@ -35,12 +35,10 @@
 <h2>Settings Navigation</h2>
 
 <select bind:this={selectBox} on:change={navigate} >
-    <option value="/settings">ToolBox</option>
-    <option value="/settings/virtualcircuit">Virtual Circuit Settings</option>
-    <option value="/settings/about">About</option>
-    <option value="/settings/mailinglist">Mailing List</option>
-    <option value="/settings/bug">Report Bugs</option>
+    <option value="/settings">Virtual Circuit</option>
     <option value="/settings/myprofile">My Profile</option>
+    <option value="/settings/about">About</option>
+    <option value="/settings/support">Support</option>
     <option value="/settings/privacy-policy">Privacy Policy</option>
 </select>
 

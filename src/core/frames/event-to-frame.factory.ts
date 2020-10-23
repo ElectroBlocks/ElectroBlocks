@@ -19,8 +19,8 @@ import {
   convertToState,
 } from "../blockly/transformers/sensor-data.transformer";
 import { generateInputFrame } from "./transformer/block-to-frame.transformer";
-import type {  Settings } from "../../stores/settings.store";
-import { defaultSetting } from '../../stores/settings.store';
+import type {  Settings } from "../../firebase/model";
+import { defaultSetting } from '../../firebase/model';
 
 export const eventToFrameFactory = (
   event: BlockEvent,
