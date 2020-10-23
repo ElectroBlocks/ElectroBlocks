@@ -5,12 +5,14 @@
     import authStore from '../../stores/auth.store';
     import settingsStore from '../../stores/settings.store';
     import FlashMessage from '../../components/electroblocks/ui/FlashMessage.svelte';
-
+    import _ from 'lodash';
     let uid: string;
 
     let settings: Settings
 
     let showMessage = false;
+
+    let previousSettings = null;
 
     settingsStore.subscribe(newSettings => {
         settings = newSettings;
@@ -25,11 +27,27 @@
     }
 
     async function saveSettings(settings: Settings) {
-        settingsStore.set(settings);
-        showMessage = true;
-        if (uid) {
-           await fbSaveSettings(uid, settings);
+
+        if (_.isEqual(previousSettings, settings)) {
+            showMessage = true;
+            console.log('blocked saved', previousSettings, settings);
+            return;
         }
+        
+        if (uid) {
+            try {
+                await fbSaveSettings(uid, settings);
+                console.log('saved settings', settings);
+            } catch(e) {
+                console.log(e, 'error');
+                alert('Error trying to save setting.');
+            }
+        }
+        
+        settingsStore.set(settings);
+        previousSettings = { ...settings};
+        showMessage = true;
+
     }
 
     authStore.subscribe(auth => {
