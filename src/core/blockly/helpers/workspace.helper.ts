@@ -28,3 +28,15 @@ export const loadProject = (xmlString: string) => {
   const xml = Blockly.Xml.textToDom(xmlString);
   Blockly.Xml.domToWorkspace(xml, getWorkspace());
 }
+
+export const resetWorkspace = () => {
+  const workspace = getWorkspace();
+  workspace.getAllBlocks(true).forEach((b) => {
+    if (b.type !== "arduino_loop" && b.type !== "board_selector") {
+      b.dispose(true);
+    }
+    if (b.type === "arduino_loop") {
+      b.setFieldValue(3, "LOOP_TIMES");
+    }
+  });
+};

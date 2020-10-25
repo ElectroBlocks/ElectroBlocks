@@ -14,6 +14,11 @@ export interface Project {
     updated: Date;
 }
 
+export interface ProjectList {
+  userId: string;
+  projects: Project[];
+}
+
 export interface Toolbox {
     name: string;
     show: boolean;

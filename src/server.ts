@@ -16,8 +16,16 @@ polka() // You can also use Express
 			{
 				session: () => {
 					return {
-						'bucket_name': process.env.BUCKET_NAME
-					}
+            bucket_name: process.env.BUCKET_NAME,
+            apiKey: process.env.apiKey,
+            authDomain: process.env.authDomain,
+            databaseURL: process.env.databaseURL,
+            projectId: process.env.projectId,
+            storageBucket: process.env.storageBucket,
+            messagingSenderId: process.env.messagingSenderId,
+            appId: process.env.appId,
+            measurementId: process.env.measurementId,
+          };
 				}
 			})
 	)

@@ -72,6 +72,7 @@
 <h2>Project Navigation</h2>
     <select bind:this={selectBox} on:change={navigate} >
     <option value="/projects">Save</option>
+    <option value="/projects/new">New</option>
     <option value="/projects/open">Open</option>
     <option value="/projects/download">Download</option>
 </select>

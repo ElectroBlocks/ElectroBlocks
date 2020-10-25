@@ -7,8 +7,8 @@
   import Player from "../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../stores/resize.store";
   import { stores } from "@sapper/app";
+  import { initFirebase } from '../firebase/init'
   const { page, session } = stores();
-  console.log($session);
   export let segment = "";
 
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
@@ -67,7 +67,7 @@
   }, 2);
 
   onMount(async () => {
-    
+    initFirebase($session);
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
       const isOnHomePage = path === "/";
@@ -82,7 +82,6 @@
       }, 5);
     });
 
-    await import('../firebase/init');
   });
 </script>
 
