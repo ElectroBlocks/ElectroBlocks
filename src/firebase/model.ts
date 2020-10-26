@@ -33,9 +33,9 @@ export interface Settings {
 }
 
 export const defaultSetting: Settings = {
-    backgroundColor: "#d9e4ec",
-    touchSkinColor: "#a424d3",
-    ledColor: "#AA0000",
-    customLedColor: false,
-    maxTimePerMove: 1000,
+  backgroundColor: "#d9e4ec",
+  touchSkinColor: "#a424d3",
+  ledColor: "#AA0000",
+  customLedColor: false,
+  maxTimePerMove: 1000,
 }

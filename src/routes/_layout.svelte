@@ -1,14 +1,15 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import _ from "lodash";
+  import firebase from 'firebase';
 
   import Nav from "../components/electroblocks/Nav.svelte";
   import Blockly from "../components/electroblocks/Blockly.svelte";
   import Player from "../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../stores/resize.store";
   import { stores } from "@sapper/app";
-  import { initFirebase } from '../firebase/init'
-  const { page, session } = stores();
+  import authStore from '../stores/auth.store';
+  const { page } = stores();
   export let segment = "";
 
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
@@ -67,7 +68,6 @@
   }, 2);
 
   onMount(async () => {
-    initFirebase($session);
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
       const isOnHomePage = path === "/";
@@ -80,6 +80,14 @@
       setTimeout(() => {
         resizeStore.mainWindow();
       }, 5);
+    });
+
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        authStore.set({ isLoggedIn: true, uid: user.uid  });
+        return;
+      }
+      authStore.set({ isLoggedIn: false, uid: null  });
     });
 
   });

@@ -27,6 +27,7 @@
     "compression": "^1.7.1",
     "dotenv": "^8.2.0",
     "file-saver": "^2.0.2",
+    "firebase": "^7.24.0",
     "lodash": "^4.17.19",
     "ng-tutorial-web-component": "git+https://github.com/phptuts/NGTutorialWebComponent.git",
     "polka": "^0.5.0",

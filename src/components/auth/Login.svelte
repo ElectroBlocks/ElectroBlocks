@@ -1,7 +1,7 @@
 
 
 <script lang="ts">
-    import { loginGoogleUser } from '../../firebase/auth'
+    import { loginGoogleUser } from '../../firebase/auth';
     
     async function googleLogin() {
         try {

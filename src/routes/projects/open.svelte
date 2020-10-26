@@ -1,8 +1,11 @@
 <script>
+import { onMount } from 'svelte';
+
     import Login from '../../components/auth/Login.svelte';
     import { loadProject } from "../../core/blockly/helpers/workspace.helper";
     import authStore from '../../stores/auth.store';
-
+    import firebase from 'firebase';
+    
     let projectList = [
         {
             name: 'Awesome Project 1',
@@ -48,6 +51,10 @@
 
         reader.readAsText(file);
     }
+
+    onMount(async () => {
+        const db = firebase.f
+    });
 </script>
 <style>
     input[type="file"] {
