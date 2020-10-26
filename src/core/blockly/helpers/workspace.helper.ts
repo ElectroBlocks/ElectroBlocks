@@ -1,5 +1,6 @@
 import type { WorkspaceSvg } from 'blockly';
 import Blockly from 'blockly';
+import { arduinoLoopBlockShowLoopForeverText } from "./arduino_loop_block.helper";
 
 export const getWorkspace = () => {
   return Blockly.getMainWorkspace() as WorkspaceSvg;
@@ -25,8 +26,12 @@ export const workspaceToXML = () => {
 }
 
 export const loadProject = (xmlString: string) => {
+  getWorkspace()
+    .getAllBlocks(true)
+    .forEach((b) => b.dispose(true));
   const xml = Blockly.Xml.textToDom(xmlString);
   Blockly.Xml.domToWorkspace(xml, getWorkspace());
+  arduinoLoopBlockShowLoopForeverText();
 }
 
 export const resetWorkspace = () => {

@@ -34,3 +34,15 @@ async function saveFile(projectId: string, uid: string) {
     new Blob([workspaceToXML()], { type: "application/xml;charset=utf-8" })
   );
 }
+
+export async function getFile(project: Project, uid: string) {
+  const storage = firebase.storage();
+  const storageRef = storage.ref();
+  const fileRef = storageRef.child(`${uid}/${project.id}.xml`);
+  alert(`${uid}/${project.id}.xml`);
+  const url = await fileRef.getDownloadURL();
+
+  const response = await fetch(url);
+
+  return await response.text();
+}

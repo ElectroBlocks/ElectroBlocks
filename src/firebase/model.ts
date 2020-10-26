@@ -7,11 +7,11 @@ export interface User {
 }
 
 export interface Project {
-    id: string;
-    name: string;
-    description: string;
-    created: Date;
-    updated: Date;
+  id: string;
+  name: string;
+  description: string;
+  created: firebase.firestore.Timestamp | Date;
+  updated: firebase.firestore.Timestamp | Date;
 }
 
 export interface ProjectList {

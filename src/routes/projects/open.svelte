@@ -1,31 +1,16 @@
-<script>
-import { onMount } from 'svelte';
+<script lang="ts" >
+import { onMount, onDestroy } from 'svelte';
 
     import Login from '../../components/auth/Login.svelte';
     import { loadProject } from "../../core/blockly/helpers/workspace.helper";
     import authStore from '../../stores/auth.store';
     import firebase from 'firebase';
+    import type { Project } from '../../firebase/model';
+    import { getFile } from '../../firebase/db';
+
+    const unSubList: Function[] = [];
     
-    let projectList = [
-        {
-            name: 'Awesome Project 1',
-            created: '2020-02-20',
-            description: 'adsf asd fa  asdfads fasd fa sdfa sdf asd fas',
-            id: '234234234223423'
-        },
-        {
-            name: 'Awesome Project 2',
-            created: '2020-02-20',
-            description: 'adsf asd fa  asdfads fasd fa sdfa sdf asd fas',
-            id: '234234234223423'
-        },
-        {
-            name: 'Awesome Project 3',
-            created: '2020-02-20',
-            description: 'adsf asd fa  asdfads fasd fa sdfa sdf asd fas',
-            id: '234234234223423'
-        },
-    ];
+    let projectList: Project[] = [];
     function changeProject(e) {
         const file = e.target.files[0];
         if (!file) {
@@ -45,7 +30,7 @@ import { onMount } from 'svelte';
                 return;
             }
 
-            loadProject(evt.target.result);
+            loadProject(evt.target.result as string);
 
         };
 
@@ -53,8 +38,41 @@ import { onMount } from 'svelte';
     }
 
     onMount(async () => {
-        const db = firebase.f
+       const unSubAuth = authStore.subscribe(async auth => {
+            if (auth.isLoggedIn) {
+                const db = firebase.firestore();
+                const projectCollection =  db.collection('projects');
+                const projectRef = await projectCollection.doc(auth.uid).get();
+                if (projectRef.exists) {
+                    projectList = projectRef.data().projects;
+                }
+            }
+        });
+        unSubList.push(unSubAuth)
     });
+
+    onDestroy(() => {
+        unSubList.forEach(s => s());
+    });
+
+    function formatDate(timestamp: firebase.firestore.Timestamp | Date) {
+        if (timestamp instanceof Date) {
+            return timestamp.toDateString();
+        }
+
+        const date = new Date(timestamp.seconds * 1000);
+
+        return date.toDateString();
+    }
+
+    async function openProject(id) {
+        try {
+            const project = projectList.find(p => p.id === id);
+            loadProject(await getFile(project, $authStore.uid));
+        } catch(e) {
+            alert('error');
+        }   
+    }
 </script>
 <style>
     input[type="file"] {
@@ -70,37 +88,32 @@ import { onMount } from 'svelte';
         width: fit-content;
     }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
+    table {
+    border-collapse: collapse;
+    width: 100%;
+    }
 
-table td, table th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
+    table td, table th {
+    border: 1px solid #ddd;
+    padding: 2px;
+    text-align: center;
+    }
 
-table tr:nth-child(even){background-color: #f2f2f2;}
+    table tr:nth-child(even){background-color: #f2f2f2;}
 
-table tr:hover {background-color: #ddd;}
+    table tr:hover {background-color: #ddd;}
 
-table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
-#sort {
-    padding: 8px;
-    border: solid black 1px;
-    border-radius: 0;
-    margin-bottom: 5px;
-}
-.btn {
-    display: block;
-    margin: auto;
-}
+    table th {
+    background-color: #512c62;
+    color: white;
+    }
+    .row {
+        margin-bottom: 10px;
+    }
+    .btn {
+        display: block;
+        margin: auto;
+    }
 </style>
 
 <div class="row">
@@ -113,19 +126,16 @@ table th {
 <input on:change={changeProject} id="file-upload" type="file"/>
 </div>
 
-{#if $authStore.isLoggedIn}
+{#if $authStore.isLoggedIn }
     <div class="row">
-        <label for="sort">Sort By</label>
-        <select name="" id="sort">
-            <option value="name">Name</option>
-            <option value="name">Recent</option>
-        </select>
+        <label for="search">Search</label>
+        <input type="text" id="searc" />
     </div>
     <table>
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Created</th>
+                <th>Modified</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -134,8 +144,8 @@ table th {
             {#each projectList as project }
                 <tr>
                     <td>{project.name}</td>
-                    <td>Aug, 2020</td>
-                    <td><button class="btn">Open</button></td>
+                    <td>{formatDate((project.updated))}</td>
+                    <td><button on:click={() => openProject(project.id)} class="btn">Open</button> </td>
                     <td><button class="btn"><i class="fa fa-trash"></i></button></td>
                 </tr>
             {/each}

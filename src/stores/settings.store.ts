@@ -4,6 +4,7 @@ import is_browser from '../helpers/is_browser';
 import { defaultSetting } from '../firebase/model';
 import _ from 'lodash';
 import authStore from './auth.store';
+import firebase from "firebase";
 
 
 const settings =
