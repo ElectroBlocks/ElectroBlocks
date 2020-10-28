@@ -1,5 +1,6 @@
 <script lang="ts" >
-import { onMount, onDestroy } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
+    import { goto } from '@sapper/app';
 
     import Login from '../../components/auth/Login.svelte';
     import { loadProject } from "../../core/blockly/helpers/workspace.helper";
@@ -7,7 +8,6 @@ import { onMount, onDestroy } from 'svelte';
     import firebase from 'firebase';
     import { getFile, getProject } from '../../firebase/db';
     import type { Project } from '../../firebase/model';
-import projectStore from '../../stores/project.store';
 
     const unSubList: Function[] = [];
     let projectList: [Project, string][] = [];
@@ -50,14 +50,19 @@ import projectStore from '../../stores/project.store';
     });
 
     async function updateProjectList() {
-        const db = firebase.firestore();
-        const projectCollection =  db.collection('projects');
-        const querySnapshot = await projectCollection.where('userId', '==', $authStore.uid).get();
-        projectList = [];
-        querySnapshot.forEach(doc => {
-            projectList.push([doc.data(), doc.id]);
-        });
-        projectList = [...projectList];
+        try {
+            const db = firebase.firestore();
+            const projectCollection =  db.collection('projects');
+            const querySnapshot = await projectCollection.where('userId', '==', $authStore.uid).get();
+            projectList = [];
+            querySnapshot.forEach(doc => {
+                projectList.push([doc.data(), doc.id]);
+            });
+            projectList = [...projectList];
+
+        } catch(e) {
+            console.log(e, 'error');
+        }
 
     }
 
@@ -76,13 +81,7 @@ import projectStore from '../../stores/project.store';
     }
 
     async function openProject(projectId) {
-        try {
-             loadProject(await getFile(projectId, $authStore.uid));
-             const project = await getProject(projectId);
-             projectStore.set({ project, projectId });
-        } catch(e) {
-            alert('error');
-        }   
+        await goto(`/?projectId=${projectId}`);
     }
 </script>
 <style>

@@ -12,6 +12,7 @@ export interface Project {
   description: string;
   created: firebase.firestore.Timestamp | Date;
   updated: firebase.firestore.Timestamp | Date;
+  canShare: boolean;
 }
 
 export interface Toolbox {

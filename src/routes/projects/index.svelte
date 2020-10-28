@@ -1,11 +1,26 @@
 <script lang="ts">
+    
     import authStore from '../../stores/auth.store';
     import projectStore from '../../stores/project.store';
     import Login from '../../components/auth/Login.svelte';
     import { addProject, saveProject } from '../../firebase/db';
+    import { onDestroy } from 'svelte';
     
-    let projectName;
-    let projectDescription;
+    let projectName = '';
+    let projectDescription = '';
+
+    const unSubProjectStore = projectStore.subscribe(projectInfo => {
+        if (projectInfo.project) {
+            projectName = projectInfo.project.name;
+            projectDescription = projectInfo.project.description;
+        }
+    });
+
+    onDestroy(() => {
+        if (unSubProjectStore) {
+            unSubProjectStore();
+        }
+    })
 
 
     async function saveFile() {
@@ -14,7 +29,8 @@
                     description: projectDescription,
                     userId: $authStore.uid,
                     updated: null,
-                    created: null
+                    created: null,
+                    canShare: false
             })
             projectStore.set({ projectId, project });
             return;

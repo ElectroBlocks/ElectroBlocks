@@ -1,11 +1,11 @@
 <script context="module" lang="ts">
   import _ from "lodash";
   import { getLessons } from "../lessons/lesson.list";
-  import type { LessonCompat, Lessons } from "../lessons/lesson.model";
-
-	export async function preload(page, session) {
+  import type {  Lessons } from "../lessons/lesson.model";
+  import config from '../env';
+	export async function preload(page) {
     try {
-    const lessonList = await getLessons(session.bucket_name);
+    const lessonList = await getLessons(config.bucket_name);
 
     return { lessonList };
 

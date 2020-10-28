@@ -17,9 +17,13 @@ const settingsStore = writable<Settings>(settings);
 
 authStore.subscribe(async auth => {
   if (auth.isLoggedIn && is_browser()) {
-    const db = firebase.firestore();
-    const settings = await db.collection('settings').doc(auth.uid).get();
-    settingsStore.set(settings.data());
+    try {
+        const db = firebase.firestore();
+        const settings = await db.collection("settings").doc(auth.uid).get();
+        settingsStore.set(settings.data());
+    } catch (e) {
+      console.log(e, 'error settings');
+    }
   }
 });
 

@@ -13,6 +13,7 @@ export async function addProject(project: Project) {
   const projectDb = db.collection("projects");
   project.created = project.created ? project.created : new Date();
   project.updated = new Date();
+  project.canShare = false;
   const projectRef = await projectDb.add(project);
 
   await saveFile(projectRef.id, project.userId);
@@ -50,7 +51,6 @@ export async function getFile(projectId: string, uid: string) {
   const storage = firebase.storage();
   const storageRef = storage.ref();
   const fileRef = storageRef.child(`${uid}/${projectId}.xml`);
-  alert(`${uid}/${projectId}.xml`);
   const url = await fileRef.getDownloadURL();
 
   const response = await fetch(url);
