@@ -5,12 +5,13 @@ import { onMount, onDestroy } from 'svelte';
     import { loadProject } from "../../core/blockly/helpers/workspace.helper";
     import authStore from '../../stores/auth.store';
     import firebase from 'firebase';
+    import { getFile, getProject } from '../../firebase/db';
     import type { Project } from '../../firebase/model';
-    import { getFile } from '../../firebase/db';
+import projectStore from '../../stores/project.store';
 
     const unSubList: Function[] = [];
+    let projectList: [Project, string][] = [];
     
-    let projectList: Project[] = [];
     function changeProject(e) {
         const file = e.target.files[0];
         if (!file) {
@@ -40,16 +41,25 @@ import { onMount, onDestroy } from 'svelte';
     onMount(async () => {
        const unSubAuth = authStore.subscribe(async auth => {
             if (auth.isLoggedIn) {
-                const db = firebase.firestore();
-                const projectCollection =  db.collection('projects');
-                const projectRef = await projectCollection.doc(auth.uid).get();
-                if (projectRef.exists) {
-                    projectList = projectRef.data().projects;
-                }
-            }
+                await updateProjectList();
+                return;
+            } 
+            projectList = [];
         });
         unSubList.push(unSubAuth)
     });
+
+    async function updateProjectList() {
+        const db = firebase.firestore();
+        const projectCollection =  db.collection('projects');
+        const querySnapshot = await projectCollection.where('userId', '==', $authStore.uid).get();
+        projectList = [];
+        querySnapshot.forEach(doc => {
+            projectList.push([doc.data(), doc.id]);
+        });
+        projectList = [...projectList];
+
+    }
 
     onDestroy(() => {
         unSubList.forEach(s => s());
@@ -65,10 +75,11 @@ import { onMount, onDestroy } from 'svelte';
         return date.toDateString();
     }
 
-    async function openProject(id) {
+    async function openProject(projectId) {
         try {
-            const project = projectList.find(p => p.id === id);
-            loadProject(await getFile(project, $authStore.uid));
+             loadProject(await getFile(projectId, $authStore.uid));
+             const project = await getProject(projectId);
+             projectStore.set({ project, projectId });
         } catch(e) {
             alert('error');
         }   
@@ -143,9 +154,9 @@ import { onMount, onDestroy } from 'svelte';
         <tbody>
             {#each projectList as project }
                 <tr>
-                    <td>{project.name}</td>
-                    <td>{formatDate((project.updated))}</td>
-                    <td><button on:click={() => openProject(project.id)} class="btn">Open</button> </td>
+                    <td>{project[0].name}</td>
+                    <td>{formatDate((project[0].updated))}</td>
+                    <td><button on:click={() => openProject(project[1])} class="btn">Open</button> </td>
                     <td><button class="btn"><i class="fa fa-trash"></i></button></td>
                 </tr>
             {/each}

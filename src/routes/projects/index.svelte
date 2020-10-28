@@ -1,12 +1,27 @@
 <script lang="ts">
     import authStore from '../../stores/auth.store';
+    import projectStore from '../../stores/project.store';
     import Login from '../../components/auth/Login.svelte';
-    import { fbSaveFile } from '../../firebase/db';
+    import { addProject, saveProject } from '../../firebase/db';
+    
     let projectName;
     let projectDescription;
 
+
     async function saveFile() {
-        await fbSaveFile({ name: projectName, description: projectDescription, id: null, created: null, updated: null }, $authStore.uid);
+        if (!$projectStore.projectId) {
+            const [projectId, project] = await addProject({ name: projectName, 
+                    description: projectDescription,
+                    userId: $authStore.uid,
+                    updated: null,
+                    created: null
+            })
+            projectStore.set({ projectId, project });
+            return;
+        }
+        const projectToSave = {...$projectStore.project, name: projectName, description: projectDescription};
+        await saveProject(projectToSave, $projectStore.projectId);
+        projectStore.set({ projectId: $projectStore.projectId, project: projectToSave });
     }
 </script>
 
