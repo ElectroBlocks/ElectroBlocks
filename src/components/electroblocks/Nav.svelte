@@ -1,4 +1,6 @@
 <script lang="ts">
+import { auth } from 'firebase';
+
   export let segment: string;
   import authStore from '../../stores/auth.store';
 
@@ -29,7 +31,7 @@
   nav a,
   nav span {
     float: left;
-    width: 14.285714%;
+    width: 10%;
     text-align: center;
     padding: 2px 0;
     transition: all 0.3s ease;
@@ -37,9 +39,12 @@
     font-size: 30px;
     cursor: pointer;
   }
+  nav.small a, nav.small span {
+    width: 12.5%
+  }
 </style>
 
-<nav>
+<nav class:small={!$authStore.isLoggedIn}>
   <a href="/" class:active={segment === '' || segment === undefined}>
     <i class="fa fa-home" />
   </a>
@@ -56,8 +61,21 @@
   <a href="/projects" class:active={segment === 'projects'}>
     <i class="fa " class:fa-folder-open-o={segment !== 'projects'} class:fa-folder-open={segment === 'projects'} />
   </a>
-  <span> <i class="fa " class:fa-download={!$authStore.isLoggedIn} class:fa-floppy-o={$authStore.isLoggedIn} /> </span>
-  <!-- <span> <i class="fa  fa-floppy-o" /> </span> -->
+  {#if $authStore.isLoggedIn}
+    <span><i class="fa fa-floppy-o"></i></span>
+  {/if}
+
+  <span>
+    <i class="fa fa-download"></i>
+  </span>
+  <span>
+    <i class="fa fa-file-o"></i>
+  </span>
+  {#if $authStore.isLoggedIn}
+  <span>
+    <i class="fa fa-wrench" aria-hidden="true"></i>
+  </span>
+  {/if}
   <a href="/settings" class:active={segment === 'settings'}>
     <i class="fa fa-gears" />
   </a>

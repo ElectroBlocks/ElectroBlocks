@@ -11,7 +11,7 @@
   import authStore from '../stores/auth.store';
   const { page } = stores();
   export let segment = "";
-
+  let isOnHomePage = false;
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
   let showLoopExecutionTimesArduinoStartBlock;
@@ -70,7 +70,7 @@
   onMount(async () => {
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
-      const isOnHomePage = path === "/";
+      isOnHomePage = path === "/" || /\/project\/.*\/edit/g.test(path);
       // Calculates the height of the window
       // We know that if it's  the home page that we want less height
       // for the main window because we want to display the player component
@@ -130,6 +130,6 @@
 
 <!-- This means we are on the home page and need to display the player component -->
 
-{#if !segment}
+{#if isOnHomePage}
   <Player />
 {/if}

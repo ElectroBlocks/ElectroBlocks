@@ -5,10 +5,6 @@
   import Step from "../components/electroblocks/home/Steps.svelte";
   import { getLesson } from "../lessons/lesson.list";
   import { onMount } from "svelte";
-  import authStore from "../stores/auth.store";
-  import { getFile, getProject } from "../firebase/db";
-  import projectStore from "../stores/project.store";
-import { loadProject } from "../core/blockly/helpers/workspace.helper";
 
 
   const { page, session } = stores();
@@ -29,20 +25,7 @@ import { loadProject } from "../core/blockly/helpers/workspace.helper";
             console.log(e);
         }
     }
-
-    const unsubAuth = authStore.subscribe(async auth => {
-      if($page.query['projectId'] && auth.isLoggedIn) {
-          try {
-             loadProject(await getFile($page.query['projectId'], $authStore.uid));
-             const project = await getProject($page.query['projectId']);
-             projectStore.set({ project, projectId: $page.query['projectId'] });
-          } catch(e) {
-              console.log(e);
-          }
-          unsubAuth();
-          return;
-      } 
-    });
+    
 
     document.addEventListener('lesson-close', () => {
       showLesson = false;
