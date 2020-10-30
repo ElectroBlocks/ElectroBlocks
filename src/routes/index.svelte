@@ -1,11 +1,11 @@
-<script>
-  import { stores } from "@sapper/app";
+<script lang="ts">
   import VerticalComponentContainer from "../components/electroblocks/VerticalComponentContainer.svelte";
   import Simulator from "../components/electroblocks/home/Simulator.svelte";
   import Step from "../components/electroblocks/home/Steps.svelte";
   import { getLesson } from "../lessons/lesson.list";
   import { onMount } from "svelte";
 
+  import { stores } from "@sapper/app";
 
   const { page, session } = stores();
   let showLesson = false; 

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import VerticalComponentContainer from "../components/electroblocks/VerticalComponentContainer.svelte";
   import Debug from "../components/electroblocks/arduino/Debug.svelte";
   import Message from "../components/electroblocks/arduino/Message.svelte";

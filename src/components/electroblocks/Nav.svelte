@@ -1,9 +1,28 @@
 <script lang="ts">
-import { auth } from 'firebase';
 
   export let segment: string;
   import authStore from '../../stores/auth.store';
+  import projectStore from '../../stores/project.store';
+  import { stores } from "@sapper/app";
 
+  const { page, session } = stores();
+
+  let urlProject = '/';
+  let urlProjectHome =   '/';
+  projectStore.subscribe(p => {
+    urlProjectHome = p.projectId ? `/project/${p.projectId}` : '/';
+    urlProject = p.projectId ? `/project/${p.projectId}/` : '/';
+  })
+
+  function isPathOnHomePage(path) {
+    if (path === "/") {
+      return true;
+    }
+
+    const pathParts = path.split("/").slice(1);
+   
+    return pathParts.length === 2 && pathParts[0] === "project"
+  }
 </script>
 
 <style>
@@ -45,14 +64,14 @@ import { auth } from 'firebase';
 </style>
 
 <nav class:small={!$authStore.isLoggedIn}>
-  <a href="/" class:active={segment === '' || segment === undefined}>
+  <a href="{urlProjectHome}" class:active={isPathOnHomePage($page.path)}>
     <i class="fa fa-home" />
   </a>
 
-  <a href="/code" class:active={segment === 'code'}>
+  <a href="{urlProject}code" class:active={$page.path.includes('code')}>
     <i class="fa fa-code" />
   </a>
-  <a href="/arduino" class:active={segment === 'arduino'}>
+  <a href="{urlProject}arduino" class:active={$page.path.includes('arduino')}>
     <i class="fa fa-microchip" />
   </a>
   <a href="/lessons" class:active={segment === 'lessons'}>

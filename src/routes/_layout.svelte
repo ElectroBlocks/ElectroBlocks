@@ -67,10 +67,21 @@
     resizeStore.mainWindow();
   }, 2);
 
+  function isPathOnHomePage(path) {
+    if (path === "/") {
+      return true;
+    }
+
+    const pathParts = path.split("/").slice(1);
+   
+    return pathParts.length === 2 && pathParts[0] === "project"
+  }
+
   onMount(async () => {
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
-      isOnHomePage = path === "/" || /\/project\/.*\/edit/g.test(path);
+      console.log(path, 'path', params);
+      isOnHomePage = isPathOnHomePage(path);
       // Calculates the height of the window
       // We know that if it's  the home page that we want less height
       // for the main window because we want to display the player component
@@ -84,10 +95,10 @@
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        authStore.set({ isLoggedIn: true, uid: user.uid  });
+        authStore.set({ isLoggedIn: true, uid: user.uid, firebaseControlled: true });
         return;
       }
-      authStore.set({ isLoggedIn: false, uid: null  });
+      authStore.set({ isLoggedIn: false, uid: null, firebaseControlled: true  });
     });
 
   });

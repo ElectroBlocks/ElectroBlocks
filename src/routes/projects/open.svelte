@@ -81,7 +81,7 @@
     }
 
     async function openProject(projectId) {
-        await goto(`/?projectId=${projectId}`);
+        await goto(`/project/${projectId}`);
     }
 </script>
 <style>
