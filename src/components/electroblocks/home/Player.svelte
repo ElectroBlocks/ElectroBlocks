@@ -206,6 +206,7 @@
     font-family: "Biryani", Arial, Helvetica, sans-serif;
     color: #505bda;
     font-weight: 600;
+    display: inline;
   }
   #video-controls-container input {
     margin-top: 10px;

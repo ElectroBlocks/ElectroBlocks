@@ -4,8 +4,6 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
 
-console.log("here here");
-
 sapper.start({
   target: document.querySelector('#sapper'),
 });

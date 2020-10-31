@@ -1,8 +1,10 @@
 <script lang="ts">
   import { onMount } from "svelte";
+	import { fade } from 'svelte/transition';
   import _ from "lodash";
   import firebase from 'firebase';
 
+  import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
   import Nav from "../components/electroblocks/Nav.svelte";
   import Blockly from "../components/electroblocks/Blockly.svelte";
   import Player from "../components/electroblocks/home/Player.svelte";
@@ -11,11 +13,14 @@
   import authStore from '../stores/auth.store';
   const { page } = stores();
   export let segment = "";
+
+  // This means that the ui is loading we want to wait till firebase is complete before loading
+  let loadingUi = true;
   let isOnHomePage = false;
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
   let showLoopExecutionTimesArduinoStartBlock;
-  $: showLoopExecutionTimesArduinoStartBlock = _.isEmpty(segment);
+  $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
 
   let height = "500px";
   let leftFlex = 49;
@@ -67,15 +72,7 @@
     resizeStore.mainWindow();
   }, 2);
 
-  function isPathOnHomePage(path) {
-    if (path === "/") {
-      return true;
-    }
-
-    const pathParts = path.split("/").slice(1);
-   
-    return pathParts.length === 2 && pathParts[0] === "project"
-  }
+  
 
   onMount(async () => {
     // Wrapped in an onMount because we don't want it executed by the server
@@ -94,6 +91,9 @@
     });
 
     firebase.auth().onAuthStateChanged(function (user) {
+      setTimeout(() => {
+            loadingUi = false;
+      }, 20)
       if (user) {
         authStore.set({ isLoggedIn: true, uid: user.uid, firebaseControlled: true });
         return;
@@ -124,8 +124,39 @@
   #right_panel {
     overflow-y: scroll;
   }
+  #loading {
+    position: fixed;
+    left: 0;
+    top: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background-color: rgba(0,0,0, .8);
+  }
+  #loading h1 {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 300px;
+    color: wheat;
+    pointer-events: none;
+  }
+  #loading img {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 400px;
+    pointer-events: none;
+  }
 </style>
 
+{#if loadingUi}
+  <div id="loading" transition:fade  >
+    <h1>Loading...</h1>
+    <img src="/logo.png" alt="electroblock logo">
+  </div>
+{/if}
 <Nav {segment} />
 <svelte:body on:mouseup={stopResize} />
 

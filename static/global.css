@@ -52,3 +52,13 @@ code {
     font-size: 16px;
   }
 }
+
+button {
+        float: right;
+    }
+button:first-of-type {
+    margin-left: 20px;
+}
+button:active  {
+    transform: scale(.9);
+}

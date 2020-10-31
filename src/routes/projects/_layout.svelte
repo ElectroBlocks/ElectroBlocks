@@ -39,38 +39,11 @@
         font-size: 20px;
     }
 
-    :global(.row){
-        width: 100%;
-        margin-top: 20px;
-    }
-    :global(.row *) {
-        box-sizing: border-box;
-    }
-
-    :global(.row input[type="text"], .row textarea, .row label) {
-        width: 100%;
-        display: block;
-        font-size: 16px;
-    }
-
-    :global(.row input[type="text"]) {
-        padding: 5px 0px 5px 5px;
-    }
-
-    :global(button.btn) {
-        border-radius: 0;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        font-size: 20px;
-        padding: 6px 12px;
-        font-size: 16px;
-    }
 </style>
 
 <main>
 <h2>Project Navigation</h2>
-    <select bind:this={selectBox} on:change={navigate} >
+    <select class="form" bind:this={selectBox} on:change={navigate} >
     <option value="/projects">Save</option>
     <option value="/projects/new">New</option>
     <option value="/projects/open">Open</option>

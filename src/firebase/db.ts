@@ -47,6 +47,29 @@ async function saveFile(projectId: string, uid: string) {
   );
 }
 
+export async function saveUserProfile(
+  bio: string,
+  username: string,
+  uid: string
+) {
+  const db = firebase.firestore();
+  const profileDb = db.collection("profiles");
+  await profileDb.doc(uid).set({ bio, username });
+  console.log("saved executed");
+}
+
+export async function getUserProfile(uid: string) {
+  const db = firebase.firestore();
+  const profileDb = db.collection("profiles");
+  const profileRef = await profileDb.doc(uid).get();
+
+  if (profileRef.exists) {
+    return profileRef.data();
+  }
+
+  return { username: "", bio: "" };
+}
+
 export async function getFile(projectId: string, uid: string) {
   const storage = firebase.storage();
   const storageRef = storage.ref();

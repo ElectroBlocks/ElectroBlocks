@@ -35,7 +35,7 @@ export default {
       svelte({
         dev,
         hydratable: true,
-        preprocess: sveltePreprocess(),
+        preprocess: sveltePreprocess({ postcss: true }),
         emitCss: true,
       }),
       resolve({
@@ -44,7 +44,6 @@ export default {
           importee === "svelte" || importee.startsWith("svelte/"),
         mainFields: ["main", "module"],
       }),
-
       copy({
         targets: [
           {
@@ -114,7 +113,7 @@ export default {
       svelte({
         generate: "ssr",
         hydratable: true,
-        preprocess: sveltePreprocess(),
+        preprocess: sveltePreprocess({ postcss: true }),
         dev,
       }),
       svg({

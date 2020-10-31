@@ -192,7 +192,6 @@
   }
   button {
     margin: 5px;
-    border: none;
     border-radius: 2px;
     font-size: 20px;
     padding: 0 10px;
@@ -200,6 +199,7 @@
     height: 40px;
     margin-top: 10px;
     cursor: pointer;
+    color: black;
   }
   button i {
     transition: ease-in-out 0.4s font-size;
@@ -256,10 +256,11 @@
       bind:value={messageToSend}
       placeholder="send message" />
   </form>
-  <button disabled={!(arduinoStatus === PortState.OPEN)} on:click={sendMessage}>
+  <button class="button-black button-clear" disabled={!(arduinoStatus === PortState.OPEN)} on:click={sendMessage}>
     <i class="fa fa-paper-plane" />
   </button>
   <button
+  class="button-black button-clear"
     disabled={arduinoStatus !== PortState.OPEN && arduinoStatus !== PortState.CLOSE}
     on:click={connectOrDisconnectArduino}>
     <i
@@ -268,11 +269,11 @@
       class:fa-usb={arduinoStatus === PortState.CLOSE} />
   </button>
 
-  <button disabled={!(arduinoStatus === PortState.CLOSE)} on:click={uploadCode}>
+  <button class="button-black button-clear" disabled={!(arduinoStatus === PortState.CLOSE)} on:click={uploadCode}>
     <i class="fa {uploadingClass}" />
   </button>
-  <button on:click={clearMessages}> <i class="fa fa-trash" /> </button>
-  <button class:scroll-active={autoScroll} on:click={toggleAutoScroll}>
+  <button class="button-black button-clear" on:click={clearMessages}> <i class="fa fa-trash" /> </button>
+  <button class="button-black button-clear" class:scroll-active={autoScroll} on:click={toggleAutoScroll}>
     <i class="fa fa-arrow-down" />
   </button>
 </section>
