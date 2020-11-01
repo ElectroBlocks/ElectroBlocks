@@ -18,7 +18,7 @@
             showLesson = true;
             const lesson =  await getLesson($session.bucket_name, $page.query["lessonId"]);
             const event = new Event('lesson-change');
-            event.detail = lesson;
+            (event as any).detial = lesson;
             console.log(lesson);
             document.dispatchEvent(event);
           } catch(e) {

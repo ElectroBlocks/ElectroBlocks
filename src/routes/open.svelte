@@ -159,6 +159,7 @@
 <main>
     <h2>Your Projects</h2>
     {#if $authStore.isLoggedIn }
+        {#if projectList.length > 0 }
         <label class="form" for="search">Search</label>
         <input bind:value={searchTerm} type="text" id="search" class="form" />
         <table>
@@ -181,7 +182,11 @@
                 {/each}
             </tbody>
         </table>
-
+        {:else}
+        <h2>Once you save a project it will appear here.</h2>
+        
+{/if}
+<hr>
         <h3>Load project from your computer</h3>
         <label for="file-upload" class="form custom-file-upload">
             <i class="fa fa-cloud-upload"></i> Choose Project
