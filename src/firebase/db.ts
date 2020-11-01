@@ -55,7 +55,6 @@ export async function saveUserProfile(
   const db = firebase.firestore();
   const profileDb = db.collection("profiles");
   await profileDb.doc(uid).set({ bio, username });
-  console.log("saved executed");
 }
 
 export async function getUserProfile(uid: string) {
@@ -79,4 +78,15 @@ export async function getFile(projectId: string, uid: string) {
   const response = await fetch(url);
 
   return await response.text();
+}
+
+export async function deleteProject(projectId: string, uid: string) {
+  const storage = firebase.storage();
+  const storageRef = storage.ref();
+  const fileRef = storageRef.child(`${uid}/${projectId}.xml`);
+  await fileRef.delete();
+
+  const db = firebase.firestore();
+  const projectDb = db.collection("projects");
+  await projectDb.doc(projectId).delete();
 }

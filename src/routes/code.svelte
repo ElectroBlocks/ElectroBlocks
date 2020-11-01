@@ -56,3 +56,6 @@
     {@html code}
   </code>
 </pre>
+<svelte:head>
+  <title>Electroblocks - Code</title>
+</svelte:head>

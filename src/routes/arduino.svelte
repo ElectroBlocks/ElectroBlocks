@@ -19,3 +19,6 @@
     <Debug />
   </div>
 </VerticalComponentContainer>
+<svelte:head>
+  <title>Electroblocks - Arduino</title>
+</svelte:head>

@@ -91,3 +91,6 @@
 <FlashMessage bind:show={showMessage} message="Successfully Save." />
 
 
+<svelte:head>
+  <title>Electroblocks - Virtual Circuit</title>
+</svelte:head>

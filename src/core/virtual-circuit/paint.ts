@@ -32,7 +32,7 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
       });
   }
 
-  deleteUnusedComponents(draw, lastFrame);
+  deleteUnusedComponents(draw, arduino, lastFrame);
 };
 
 const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
@@ -77,7 +77,11 @@ const showWire = (arduino: Element, wire: string) => {
   }
 };
 
-const deleteUnusedComponents = (draw: Svg, frame: ArduinoFrame | undefined) => {
+const deleteUnusedComponents = (
+  draw: Svg,
+  arduino: Element,
+  frame: ArduinoFrame | undefined
+) => {
   draw.find(".component").forEach((c: Element) => {
     const componentId = c.attr("id");
     // If there are not frames just delete all the components
@@ -89,7 +93,7 @@ const deleteUnusedComponents = (draw: Svg, frame: ArduinoFrame | undefined) => {
       return;
     }
 
-    // If the component does not exist delete it
+    // If the component does exist delete it
     if (
       frame.components.filter(
         (c) => componentId === arduinoComponentStateToId(c)
@@ -101,4 +105,14 @@ const deleteUnusedComponents = (draw: Svg, frame: ArduinoFrame | undefined) => {
         .forEach((c) => c.remove());
     }
   });
+
+  if (
+    
+    !frame ||
+
+       !frame.components.find((c) => c.type === ArduinoComponentType.MESSAGE)
+  
+  ) {
+    arduino.findOne("#MESSAGE").hide();
+  }
 };

@@ -6,12 +6,23 @@
     import { loadProject } from "../core/blockly/helpers/workspace.helper";
     import authStore from '../stores/auth.store';
     import firebase from 'firebase';
-    import { getFile, getProject } from '../firebase/db';
+    import { deleteProject, getFile, getProject } from '../firebase/db';
     import type { Project } from '../firebase/model';
 
     const unSubList: Function[] = [];
     let projectList: [Project, string][] = [];
-    
+    let searchList:  [Project, string][] = []
+    let searchTerm = '';
+    $: filterSearch(searchTerm);
+
+    function filterSearch(term: string) {
+        if (term === '') {
+            searchList = [... projectList];
+            return;
+        }
+        searchList = searchList.filter(([p, id]) => p.name.toLowerCase().includes(term.toLowerCase()));
+    }
+
     function changeProject(e) {
         const file = e.target.files[0];
         if (!file) {
@@ -59,6 +70,7 @@
                 projectList.push([doc.data(), doc.id]);
             });
             projectList = [...projectList];
+            searchList = [...projectList];
 
         } catch(e) {
             console.log(e, 'error');
@@ -78,6 +90,18 @@
         const date = new Date(timestamp.seconds * 1000);
 
         return date.toDateString();
+    }
+
+    async function onDeleteProject(projectId: string) {
+        if (!confirm('Are you want to delete this project?')) {
+            return;
+        }
+        try {
+            await deleteProject(projectId, $authStore.uid);
+            await updateProjectList();
+        } catch(e) {
+
+        }
     }
 
     async function openProject(projectId) {
@@ -119,16 +143,24 @@
         padding: 12px 15px;
     }
 
-    .btn {
-        display: block;
+    button:first-of-type {
+        text-align: center;
         margin: auto;
+        display: block;
+        width: 80px;
+    }
+    .fa-trash {
+        color: #A30d11;
+        width: 40px;
+        text-align: right;
+        cursor: pointer;
     }
 </style>
 <main>
     <h2>Your Projects</h2>
     {#if $authStore.isLoggedIn }
         <label class="form" for="search">Search</label>
-        <input type="text" id="search" class="form" />
+        <input bind:value={searchTerm} type="text" id="search" class="form" />
         <table>
             <thead>
                 <tr>
@@ -139,12 +171,12 @@
                 </tr>
             </thead>
             <tbody>
-                {#each projectList as project }
+                {#each searchList as project }
                     <tr>
                         <td>{project[0].name}</td>
                         <td>{formatDate((project[0].updated))}</td>
                         <td><button class="form" on:click={() => openProject(project[1])} >Open</button> </td>
-                        <td><button class="btn"><i class="fa fa-trash"></i></button></td>
+                        <td><i on:click={() => onDeleteProject(project[1])} class="fa fa-trash"></i></td>
                     </tr>
                 {/each}
             </tbody>
@@ -162,3 +194,6 @@
     {/if}
 
 </main>
+<svelte:head>
+  <title>Electroblocks - Open Projects</title>
+</svelte:head>

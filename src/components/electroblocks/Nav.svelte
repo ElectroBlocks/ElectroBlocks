@@ -4,16 +4,20 @@
   import authStore from '../../stores/auth.store';
   import projectStore from '../../stores/project.store';
   import { isPathOnHomePage } from '../../helpers/is-path-on-homepage';
+  import { fade } from 'svelte/transition'
   import { stores, goto } from "@sapper/app";
   import { logout } from '../../firebase/auth';
   import { loadNewProjectFile } from '../../helpers/open-project-file';
-import { arduinoLoopBlockShowLoopForeverText, arduinoLoopBlockShowNumberOfTimesThroughLoop } from '../../core/blockly/helpers/arduino_loop_block.helper';
-import { resetWorkspace } from '../../core/blockly/helpers/workspace.helper';
-import { saveProject } from '../../firebase/db';
+  import { arduinoLoopBlockShowLoopForeverText, arduinoLoopBlockShowNumberOfTimesThroughLoop } from '../../core/blockly/helpers/arduino_loop_block.helper';
+  import { resetWorkspace } from '../../core/blockly/helpers/workspace.helper';
+  import { saveProject } from '../../firebase/db';
+  import { wait } from '../../helpers/wait';
   let isOpeningFile = false;
   let fileUpload;
+  let canSave = true;
+  let showSaveSuccess = false;
 
-  const { page, session } = stores();
+  const { page } = stores();
 
   let urlProject = '/';
   let urlProjectHome =   '/';
@@ -48,6 +52,21 @@ import { saveProject } from '../../firebase/db';
 
     resetWorkspace();
     
+  }
+
+  async function onSaveClick() {
+    if (!$projectStore.projectId) {
+      await goto("/project-settings");
+      return;
+    }
+
+    if (!canSave) return;
+     
+    await saveProject($projectStore.project, $projectStore.projectId);
+    showSaveSuccess = true;
+    await wait(1500);
+    canSave = true;
+    showSaveSuccess = false;
   }
   
 
@@ -114,6 +133,18 @@ import { saveProject } from '../../firebase/db';
   nav.small a, nav.small span, nav.small label {
     width: 11.11111%
   }
+  #saved {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    background: #2c75e6;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    transform: translateX(-50%);
+    z-index: 21;
+    color: #fff;
+}
 </style>
 
 <nav class:small={!$authStore.isLoggedIn} >
@@ -137,10 +168,10 @@ import { saveProject } from '../../firebase/db';
   <span on:click={onNewFileAuth} >
     <i class="fa fa-file-o"></i>
   </span>
-  <span ><i class="fa fa-floppy-o"></i></span>
-    <span>
+  <span on:click={onSaveClick} ><i class="fa fa-floppy-o"></i></span>
+  <a href="{urlProject}project-settings" class:active={$page.path.includes('project-settings')}>
       <i class="fa fa-wrench" aria-hidden="true"></i>
-    </span>
+    </a>
     <a href="/settings" class:active={segment === 'settings'}>
     <i class="fa fa-gears" />
   </a>
@@ -179,9 +210,10 @@ import { saveProject } from '../../firebase/db';
    <a href="/login" class:active={segment === 'login'}>
     <i class="fa fa-sign-in" />
   </a>
-  {/if}
-
- 
-
-  
+  {/if}  
 </nav>
+{#if showSaveSuccess}
+<p transition:fade id="saved">
+  project saved
+</p>
+{/if}

@@ -53,3 +53,6 @@
     </section>
   {/each}
 </main>
+<svelte:head>
+  <title>Electroblocks - Lessons</title>
+</svelte:head>

@@ -20,4 +20,6 @@
 <Login />
 
 <p>We might include more options in the future, but for now we are sticking with google.</p>
-
+<svelte:head>
+  <title>Electroblocks - Login</title>
+</svelte:head>

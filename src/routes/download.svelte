@@ -71,3 +71,6 @@
         </div>
     </div>
 </main>
+<svelte:head>
+  <title>Electroblocks - Download</title>
+</svelte:head>

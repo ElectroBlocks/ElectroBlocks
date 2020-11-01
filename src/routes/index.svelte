@@ -53,3 +53,6 @@
     <Step />
   </div>
 </VerticalComponentContainer>
+<svelte:head>
+  <title>Electroblocks</title>
+</svelte:head>
