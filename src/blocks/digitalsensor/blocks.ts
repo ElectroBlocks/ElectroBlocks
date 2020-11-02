@@ -75,7 +75,7 @@ const digitalReadSetupBlock: any = {
       );
     this.appendDummyInput()
       .appendField("Has Power? ")
-      .appendField(new Blockly.FieldCheckbox("TRUE"), "state");
+      .appendField(new Blockly.FieldCheckbox("TRUE"), "isOn");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

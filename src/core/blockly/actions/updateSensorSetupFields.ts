@@ -42,7 +42,7 @@ export const updateSensorSetupFields = (
         value: sensorData[fieldName],
       };
     });
-
+  
   return [
     {
       blockId: blockData.id,

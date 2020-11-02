@@ -40,7 +40,7 @@ describe("sensor value blocks", () => {
     );
 
     digitalReadSetupBlock.setFieldValue("2", "LOOP");
-    digitalReadSetupBlock.setFieldValue("FALSE", "state");
+    digitalReadSetupBlock.setFieldValue("FALSE", "isOn");
     saveSensorSetupBlockData(createTestEvent(digitalReadSetupBlock.id)).forEach(
       updater
     );
