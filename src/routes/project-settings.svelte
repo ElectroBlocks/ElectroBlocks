@@ -7,6 +7,7 @@
     import FlashMessage from '../components/electroblocks/ui/FlashMessage.svelte';
     import { wait } from '../helpers/wait';
     import { goto } from '@sapper/app';
+import { onErrorMessage } from '../help/alerts';
     
     let showMessage = false;
     let projectName = '';
@@ -53,8 +54,7 @@
             showMessage = true;
             canSave = true;
         } catch(e) {
-            alert('error');
-            console.log(e);
+            onErrorMessage("Please try again in 5 minutes", e);
             canSave = true;
         }
     }

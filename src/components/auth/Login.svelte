@@ -3,14 +3,14 @@
 <script lang="ts">
     import { loginGoogleUser } from '../../firebase/auth';
     import { goto } from '@sapper/app'
+    import { onErrorMessage } from '../../help/alerts';
     
     async function googleLogin() {
         try {
             await loginGoogleUser();
             await goto("/");
         } catch(e) {
-            console.log(e);
-            alert('error');
+            onErrorMessage("Sorry, please try again in 5 minutes. :)", e);
         }
     }
     

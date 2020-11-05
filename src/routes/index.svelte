@@ -6,6 +6,7 @@
   import { onMount } from "svelte";
 
   import { stores } from "@sapper/app";
+import { onErrorMessage } from "../help/alerts";
 
   const { page, session } = stores();
   let showLesson = false; 
@@ -22,7 +23,7 @@
             console.log(lesson);
             document.dispatchEvent(event);
           } catch(e) {
-            console.log(e);
+            onErrorMessage("Error loading the lesson", e)
         }
     }
     

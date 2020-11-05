@@ -6,6 +6,7 @@
     import settingsStore from '../../stores/settings.store';
     import FlashMessage from '../../components/electroblocks/ui/FlashMessage.svelte';
     import _ from 'lodash';
+import { onErrorMessage } from '../../help/alerts';
     let uid: string;
 
     let settings: Settings
@@ -39,8 +40,7 @@
                 await fbSaveSettings(uid, settings);
                 console.log('saved settings', settings);
             } catch(e) {
-                console.log(e, 'error');
-                alert('Error trying to save setting.');
+                onErrorMessage("Please try again in 5 minutes.", e);
             }
         }
         

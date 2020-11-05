@@ -12,6 +12,7 @@
   import { resetWorkspace } from '../../core/blockly/helpers/workspace.helper';
   import { saveProject } from '../../firebase/db';
   import { wait } from '../../helpers/wait';
+import { onConfirm, onErrorMessage } from '../../help/alerts';
   let isOpeningFile = false;
   let fileUpload;
   let canSave = true;
@@ -27,24 +28,28 @@
   })
 
   async function onNewFileAuth() {
+    
       if (!$projectStore.project) {
         onNewFileNoAuth();
         return;
       }
 
-      const confirmNewFile = confirm('We are about to save your current project and create a new one? Would you like to continue?');
+      const confirmNewFile = await onConfirm('We are about to save your current project and create a new one? Would you like to continue?');
 
       if (!confirmNewFile) {
         return;
       }
-
-     await saveProject($projectStore.project, $projectStore.projectId);
-     await goto("/");
-     resetWorkspace();
+    try {
+      await saveProject($projectStore.project, $projectStore.projectId);
+      await goto("/");
+      resetWorkspace();
+    } catch(e) {
+       onErrorMessage("Error saving your project please try agian.", e);
+    }
   }
 
-  function onNewFileNoAuth() {
-    const confirmNewFile = confirm('You are creating a new file, which will delete your work.  Would you like to continue?');
+  async function onNewFileNoAuth() {
+    const confirmNewFile = onConfirm('You are creating a new file, which will delete your work.  Would you like to continue?');
 
     if (!confirmNewFile) {
       return;
@@ -61,17 +66,24 @@
     }
 
     if (!canSave) return;
-     
-    await saveProject($projectStore.project, $projectStore.projectId);
-    showSaveSuccess = true;
-    await wait(1500);
-    canSave = true;
-    showSaveSuccess = false;
+    try {
+      await saveProject($projectStore.project, $projectStore.projectId);
+      showSaveSuccess = true;
+      await wait(1500);
+      canSave = true;
+      showSaveSuccess = false;
+    } catch(e) {
+       onErrorMessage("Error saving your project please try agian.", e);
+    }
   }
   
 
   async function onSignOut() {
-    await logout();
+    try {
+        await logout();
+    } catch(e) {
+      onErrorMessage("Please try again in 5 minutes", e);
+    }
   }
 
  async function openFile(e) {
@@ -84,7 +96,7 @@
     try {
         await loadNewProjectFile(file);
     } catch (e) {
-        alert('Error loading the project file please make sure that it is valid.');
+        onErrorMessage("Please make sure you uploaded a valid file.", e);
     }
 
     isOpeningFile = false;

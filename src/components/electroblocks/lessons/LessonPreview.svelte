@@ -1,10 +1,15 @@
 <script lang="ts">
   import { goto } from "@sapper/app";
+import { onErrorMessage } from "../../../help/alerts";
   import type { LessonCompat } from "../../../lessons/lesson.model";
   export let lesson: LessonCompat;
 
   async function pickLesson(id) {
-    await goto(`?lessonId=${id}`);
+    try {
+        await goto(`?lessonId=${id}`);
+    } catch(e) {
+      onErrorMessage("Please refresh your browser and try again", e);
+    }
   }
 </script>
 

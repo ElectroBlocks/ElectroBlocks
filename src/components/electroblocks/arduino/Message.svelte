@@ -7,6 +7,7 @@
 
   import { afterUpdate } from "svelte";
   import { getBoard } from "../../../core/microcontroller/selectBoard";
+  import { onErrorMessage } from "../../../help/alerts";
 
   // controls whether the messages should autoscroll
   let autoScroll = false;
@@ -74,14 +75,14 @@
   });
 
   async function connectOrDisconnectArduino() {
+    
     if (arduinoStatus == PortState.OPEN) {
       arduinoStore.set(PortState.CLOSING);
       try {
         await arduionMessageStore.closePort();
       } catch (e) {
-        console.error("close port error", e);
-        alert(
-          "Please report that there was an error closing the port " + e.message
+        onErrorMessage(
+          "Sorry, error with the arduino.  Please refresh your browser to disconnect.", e
         );
       }
 
@@ -99,9 +100,10 @@
       arduionMessageStore.connect(port, board.serial_baud_rate).then();
       arduinoStore.set(PortState.OPEN);
     } catch (error) {
-      console.error(error, "error");
-      console.log("connectArduino error");
       arduinoStore.set(PortState.CLOSE);
+      onErrorMessage(
+          "Sorry, please refresh your browser and try again.", error
+        );
     }
   }
 
@@ -129,10 +131,7 @@
       });
       await upload(code, avrgirl, boardType);
     } catch (e) {
-      console.error(e, "error message");
-      alert(
-        "There was an error uploading your code.  Please check console for error messages."
-      );
+      onErrorMessage("Sorry, please try again in 5 minutes. :)", e);
     }
     arduinoStore.set(PortState.CLOSE);
   }

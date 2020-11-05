@@ -74,7 +74,7 @@
 
   
 
-  onMount(async () => {
+  onMount(() => {
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
       console.log(path, 'path', params);

@@ -8,6 +8,7 @@
     import firebase from 'firebase';
     import { deleteProject, getFile, getProject } from '../firebase/db';
     import type { Project } from '../firebase/model';
+import { onConfirm, onErrorMessage } from '../help/alerts';
 
     const unSubList: Function[] = [];
     let projectList: [Project, string][] = [];
@@ -23,13 +24,13 @@
         searchList = searchList.filter(([p, id]) => p.name.toLowerCase().includes(term.toLowerCase()));
     }
 
-    function changeProject(e) {
+   async function changeProject(e) {
         const file = e.target.files[0];
         if (!file) {
             return;
         }
 
-        if (!confirm(`Do you want to load ${file.name}, this will erase everything that you have done.`)) {
+        if (!await onConfirm(`Do you want to load ${file.name}, this will erase everything that you have done.`)) {
             return;
         }
 
@@ -38,7 +39,7 @@
         reader.onload = function(evt) {
             if(evt.target.readyState != 2) return;
             if(evt.target.error) {
-                alert('Error while reading file');
+                onErrorMessage("Please upload a valid electroblock file.", e);
                 return;
             }
 
@@ -49,8 +50,8 @@
         reader.readAsText(file);
     }
 
-    onMount(async () => {
-       const unSubAuth = authStore.subscribe(async auth => {
+    onMount(() => {
+        const unSubAuth = authStore.subscribe(async auth => {
             if (auth.isLoggedIn) {
                 await updateProjectList();
                 return;
@@ -73,7 +74,7 @@
             searchList = [...projectList];
 
         } catch(e) {
-            console.log(e, 'error');
+            onErrorMessage("Please refresh the page and try again.", e);
         }
 
     }
@@ -93,14 +94,14 @@
     }
 
     async function onDeleteProject(projectId: string) {
-        if (!confirm('Are you want to delete this project?')) {
+        if (!await onConfirm('Are you want to delete this project?')) {
             return;
         }
         try {
             await deleteProject(projectId, $authStore.uid);
             await updateProjectList();
         } catch(e) {
-
+            onErrorMessage("Please try agian in 5 minutes.", e);
         }
     }
 

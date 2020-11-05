@@ -1,11 +1,12 @@
 import { createBlock } from "../core/blockly/helpers/block.helper";
 import { loadProject } from "../core/blockly/helpers/workspace.helper";
+import { onConfirm } from "../help/alerts";
 
-export function loadNewProjectFile(file): Promise<boolean> {
+export async function loadNewProjectFile(file): Promise<boolean> {
   if (
-    !confirm(
+    !((await onConfirm(
       `Do you want to load ${file.name}, this will erase everything that you have done.`
-    )
+    )))
   ) {
     return;
   }

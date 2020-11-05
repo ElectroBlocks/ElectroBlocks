@@ -5,6 +5,7 @@
   import currentFrameStore from "../../../stores/currentFrame.store";
   import currentStepStore from "../../../stores/currentStep.store";
   import settingStore from "../../../stores/settings.store";
+  import { onErrorMessage } from "../../../help/alerts";
 
  
 
@@ -79,12 +80,16 @@
     if (playing && isLastFrame()) {
       frameNumber = 0;
     }
-
     if (playing) {
-      playing = true;
-      // Because we want to make it look like the first frame has a wait time equal
-      await moveWait();
-      await playFrame();
+        try {
+          playing = true;
+          // Because we want to make it look like the first frame has a wait time equal
+          await moveWait();
+          await playFrame();
+        
+        } catch(e) {
+          onErrorMessage("Please refresh your browser and try again.", e);
+        }
     }
   }
 
@@ -108,11 +113,15 @@
   }
 
   async function resetPlayer() {
-    frameNumber = 0;
-    playing = false;
-    await moveWait();
-    currentFrameStore.set(frames[frameIndex]);
-    await play();
+    try {
+      frameNumber = 0;
+      playing = false;
+      await moveWait();
+      currentFrameStore.set(frames[frameIndex]);
+      await play();
+    } catch(e) {
+      onErrorMessage("Please refresh your browser and try again.", e)
+    }
   }
 
   function moveSlider() {

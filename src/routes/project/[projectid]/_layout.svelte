@@ -11,6 +11,7 @@
 
     import projectStore from '../../../stores/project.store';
     import { arduinoLoopBlockShowLoopForeverText, arduinoLoopBlockShowNumberOfTimesThroughLoop } from "../../../core/blockly/helpers/arduino_loop_block.helper";
+import { onErrorMessage } from "../../../help/alerts";
     let loadingProject = true;
 
     if ($page.params['projectid']) {
@@ -34,7 +35,7 @@
 
         if (!$authStore.isLoggedIn) {
             loadingProject = false;
-            alert('You must be logged in to view your project.');
+            onErrorMessage("You must be logged in to view your projects.", {});
             await goto("/login")
             return;
         }

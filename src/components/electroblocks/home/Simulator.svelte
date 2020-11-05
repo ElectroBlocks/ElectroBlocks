@@ -9,15 +9,21 @@
   import update from "../../../core/virtual-circuit/update.ts";
   // What if we made everything a series of components.
   import { onMount, onDestroy } from "svelte";
+import { onErrorMessage } from "../../../help/alerts";
   let container;
   let frames = [];
   let currentFrame = undefined;
   let draw;
   let unsubscribes = [];
   onMount(async () => {
-    await import("@svgdotjs/svg.draggable.js");
+    try {
+      await import("@svgdotjs/svg.draggable.js");
 
-    await import("@svgdotjs/svg.panzoom.js");
+      await import("@svgdotjs/svg.panzoom.js");
+
+    } catch(e) {
+      onErrorMessage("Please refresh your browser and try again.", e);
+    }
 
     // THE VIEWBOX MUST BE THE SAME SIZE AS THE COMPONENT OR VIEW
     // OTHERWISE WE DEAL WITH 2 COORDINATE SYSTEMS AND MATRIX MATH
