@@ -14,11 +14,41 @@ import { onErrorMessage } from "../../../help/alerts";
 </script>
 
 <style>
+
+  
+  /** Doc
+    https://jsfiddle.net/3ha1gw64/
+
+   */
   article {
-    margin-bottom: 10px;
-    width: 200px;
-    margin: 20px;
     cursor: pointer;
+    /*
+      1/3  - 3 columns per row
+      10px - spacing between columns 
+    */
+    box-sizing: border-box;
+    margin: 10px 10px 0 0;
+    /* width: calc(1/3*100% - (1 - 1/3)*10px); */
+  }
+  
+
+  /*
+    align last row columns to the left
+    3n - 3 columns per row
+  */
+  article:nth-child(3n) {
+    margin-right: 0;
+  }
+  article::after {
+    content: '';
+    flex: auto;
+  }
+  /*
+    remove top margin from first row
+    -n+3 - 3 columns per row 
+  */
+  article:nth-child(-n+3) {
+    margin-top: 0;
   }
   article img {
     border: solid gray 1px;

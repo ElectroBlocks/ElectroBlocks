@@ -6,9 +6,10 @@
   import { onMount } from "svelte";
 
   import { stores } from "@sapper/app";
-import { onErrorMessage } from "../help/alerts";
+  import { onErrorMessage } from "../help/alerts";
+  import config from '../env';
 
-  const { page, session } = stores();
+  const { page } = stores();
   let showLesson = false; 
 
 
@@ -17,9 +18,9 @@ import { onErrorMessage } from "../help/alerts";
     if ($page.query["lessonId"]) {
           try {
             showLesson = true;
-            const lesson =  await getLesson($session.bucket_name, $page.query["lessonId"]);
+            const lesson =  await getLesson(config.bucket_name, $page.query["lessonId"]);
             const event = new Event('lesson-change');
-            (event as any).detial = lesson;
+            (event as any).detail = lesson;
             console.log(lesson);
             document.dispatchEvent(event);
           } catch(e) {
