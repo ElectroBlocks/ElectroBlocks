@@ -29,18 +29,23 @@ export const ledCreate: CreateCompenentHook<LedState> = (
   ledEl,
   arduinoEl,
   draw,
-  board
+  board,
+  settings
 ) => {
-  const randomColor = colors[_.random(0, colors.length)];
+  let ledColor = colors[_.random(0, colors.length)];
 
+  if (settings.customLedColor) {
+    ledColor = settings.ledColor;
+  }
+  
   ledEl.data("pin-number", state.pin);
 
   ledEl
     .find(`#radial-gradient-${state.pin} stop`)
     .toArray()
     .find((stop) => stop.attr("offset") == 1)
-    .attr("stop-color", randomColor);
-  ledEl.data("color", randomColor);
+    .attr("stop-color", ledColor);
+  ledEl.data("color", ledColor);
   const pinText = ledEl.findOne("#PIN_NUMBER") as Text;
   pinText.node.innerHTML = state.pin;
 

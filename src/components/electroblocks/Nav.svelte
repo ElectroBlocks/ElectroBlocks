@@ -1,5 +1,112 @@
-<script>
-  export let segment;
+<script lang="ts">
+
+  export let segment: string;
+  import authStore from '../../stores/auth.store';
+  import projectStore from '../../stores/project.store';
+  import { isPathOnHomePage } from '../../helpers/is-path-on-homepage';
+  import { fade } from 'svelte/transition'
+  import { stores, goto } from "@sapper/app";
+  import { logout } from '../../firebase/auth';
+  import { loadNewProjectFile } from '../../helpers/open-project-file';
+  import { arduinoLoopBlockShowLoopForeverText, arduinoLoopBlockShowNumberOfTimesThroughLoop } from '../../core/blockly/helpers/arduino_loop_block.helper';
+  import { resetWorkspace } from '../../core/blockly/helpers/workspace.helper';
+  import { saveProject } from '../../firebase/db';
+  import { wait } from '../../helpers/wait';
+import { onConfirm, onErrorMessage } from '../../help/alerts';
+  let isOpeningFile = false;
+  let fileUpload;
+  let canSave = true;
+  let showSaveSuccess = false;
+
+  const { page } = stores();
+
+  let urlProject = '/';
+  let urlProjectHome =   '/';
+  projectStore.subscribe(p => {
+    urlProjectHome = p.projectId ? `/project/${p.projectId}` : '/';
+    urlProject = p.projectId ? `/project/${p.projectId}/` : '/';
+  })
+
+  async function onNewFileAuth() {
+    
+      if (!$projectStore.project) {
+        onNewFileNoAuth();
+        return;
+      }
+
+      const confirmNewFile = await onConfirm('We are about to save your current project and create a new one? Would you like to continue?');
+
+      if (!confirmNewFile) {
+        return;
+      }
+    try {
+      await saveProject($projectStore.project, $projectStore.projectId);
+      await goto("/");
+      resetWorkspace();
+    } catch(e) {
+       onErrorMessage("Error saving your project please try agian.", e);
+    }
+  }
+
+  async function onNewFileNoAuth() {
+    const confirmNewFile = onConfirm('You are creating a new file, which will delete your work.  Would you like to continue?');
+
+    if (!confirmNewFile) {
+      return;
+    }
+
+    resetWorkspace();
+    
+  }
+
+  async function onSaveClick() {
+    if (!$projectStore.projectId) {
+      await goto("/project-settings");
+      return;
+    }
+
+    if (!canSave) return;
+    try {
+      await saveProject($projectStore.project, $projectStore.projectId);
+      showSaveSuccess = true;
+      await wait(1500);
+      canSave = true;
+      showSaveSuccess = false;
+    } catch(e) {
+       onErrorMessage("Error saving your project please try agian.", e);
+    }
+  }
+  
+
+  async function onSignOut() {
+    try {
+        await logout();
+    } catch(e) {
+      onErrorMessage("Please try again in 5 minutes", e);
+    }
+  }
+
+ async function openFile(e) {
+    isOpeningFile = true;
+    const file = fileUpload.files[0];
+    if (!file) {
+      return
+    }
+
+    try {
+        await loadNewProjectFile(file);
+    } catch (e) {
+        onErrorMessage("Please make sure you uploaded a valid file.", e);
+    }
+
+    isOpeningFile = false;
+    if (isPathOnHomePage($page.path)) {
+      arduinoLoopBlockShowNumberOfTimesThroughLoop();
+    } else {
+      arduinoLoopBlockShowLoopForeverText();
+    }
+}
+  
 </script>
 
 <style>
@@ -25,9 +132,9 @@
   }
 
   nav a,
-  nav span {
+  nav span, label {
     float: left;
-    width: 14.285714%;
+    width: 10%;
     text-align: center;
     padding: 2px 0;
     transition: all 0.3s ease;
@@ -35,28 +142,90 @@
     font-size: 30px;
     cursor: pointer;
   }
+  nav.small a, nav.small span, nav.small label {
+    width: 11.11111%
+  }
+  #saved {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    background: #2c75e6;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    transform: translateX(-50%);
+    z-index: 21;
+    color: #fff;
+}
 </style>
 
-<nav>
-  <a href="/" class:active={segment === '' || segment === undefined}>
+<nav class:small={!$authStore.isLoggedIn} >
+  {#if $authStore.isLoggedIn }
+  <a href="{urlProjectHome}" class:active={isPathOnHomePage($page.path)}>
     <i class="fa fa-home" />
   </a>
 
-  <a href="/code" class:active={segment === 'code'}>
+  <a href="{urlProject}code" class:active={$page.path.includes('code')}>
     <i class="fa fa-code" />
   </a>
-  <a href="/arduino" class:active={segment === 'arduino'}>
+  <a href="{urlProject}arduino" class:active={$page.path.includes('arduino')}>
     <i class="fa fa-microchip" />
   </a>
   <a href="/lessons" class:active={segment === 'lessons'}>
     <i class="fa fa-book" />
   </a>
   <a href="/open" class:active={segment === 'open'}>
-    <i class="fa fa-folder-open-o" />
+    <i class="fa " class:fa-folder-open-o={segment !== 'open'} class:fa-folder-open={segment === 'open'} />
   </a>
-  <span> <i class="fa fa-download" /> </span>
-  <!-- <span> <i class="fa  fa-floppy-o" /> </span> -->
+  <span on:click={onNewFileAuth} >
+    <i class="fa fa-file-o"></i>
+  </span>
+  <span on:click={onSaveClick} ><i class="fa fa-floppy-o"></i></span>
+  <a href="{urlProject}project-settings" class:active={$page.path.includes('project-settings')}>
+      <i class="fa fa-wrench" aria-hidden="true"></i>
+    </a>
+    <a href="/settings" class:active={segment === 'settings'}>
+    <i class="fa fa-gears" />
+  </a>
+   <span on:click={onSignOut}>
+    <i class="fa fa-sign-out" title="Sign Out" aria-hidden="true"></i>
+  </span>
+  {/if}
+
+  {#if !$authStore.isLoggedIn}
+    <a href="{urlProjectHome}" class:active={isPathOnHomePage($page.path)}>
+      <i class="fa fa-home" />
+    </a>
+
+  <a href="{urlProject}code" class:active={$page.path.includes('code')}>
+    <i class="fa fa-code" />
+  </a>
+  <a href="{urlProject}arduino" class:active={$page.path.includes('arduino')}>
+    <i class="fa fa-microchip" />
+  </a>
+  <a href="/lessons" class:active={segment === 'lessons'}>
+    <i class="fa fa-book" />
+  </a>
+  <label class:active={segment === 'open'}>
+    <i class="fa " class:fa-folder-open-o={!isOpeningFile} class:fa-folder-open={isOpeningFile} />
+    <input on:change={openFile} type="file"  accept="text/xml" style="display:none" bind:this={fileUpload}/>
+  </label>
+  <span on:click={onNewFileNoAuth} class="active">
+    <i class="fa fa-file-o"></i>
+  </span>
+  <a href="/download" class:active={segment === 'download'}>
+    <i class="fa fa-download" />
+  </a>
   <a href="/settings" class:active={segment === 'settings'}>
     <i class="fa fa-gears" />
   </a>
+   <a href="/login" class:active={segment === 'login'}>
+    <i class="fa fa-sign-in" />
+  </a>
+  {/if}  
 </nav>
+{#if showSaveSuccess}
+<p transition:fade id="saved">
+  project saved
+</p>
+{/if}

@@ -1,20 +1,26 @@
 <script lang="ts">
   import { onMount } from "svelte";
+	import { fade } from 'svelte/transition';
   import _ from "lodash";
+  import firebase from 'firebase';
 
+  import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
   import Nav from "../components/electroblocks/Nav.svelte";
   import Blockly from "../components/electroblocks/Blockly.svelte";
   import Player from "../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../stores/resize.store";
   import { stores } from "@sapper/app";
+  import authStore from '../stores/auth.store';
   const { page } = stores();
-
   export let segment = "";
 
+  // This means that the ui is loading we want to wait till firebase is complete before loading
+  let loadingUi = true;
+  let isOnHomePage = false;
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
   let showLoopExecutionTimesArduinoStartBlock;
-  $: showLoopExecutionTimesArduinoStartBlock = _.isEmpty(segment);
+  $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
 
   let height = "500px";
   let leftFlex = 49;
@@ -66,10 +72,13 @@
     resizeStore.mainWindow();
   }, 2);
 
+  
+
   onMount(() => {
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
-      const isOnHomePage = path === "/";
+      console.log(path, 'path', params);
+      isOnHomePage = isPathOnHomePage(path);
       // Calculates the height of the window
       // We know that if it's  the home page that we want less height
       // for the main window because we want to display the player component
@@ -80,6 +89,18 @@
         resizeStore.mainWindow();
       }, 5);
     });
+
+    firebase.auth().onAuthStateChanged(function (user) {
+      setTimeout(() => {
+            loadingUi = false;
+      }, 20)
+      if (user) {
+        authStore.set({ isLoggedIn: true, uid: user.uid, firebaseControlled: true });
+        return;
+      }
+      authStore.set({ isLoggedIn: false, uid: null, firebaseControlled: true  });
+    });
+
   });
 </script>
 
@@ -100,8 +121,42 @@
     background-repeat: no-repeat;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==);
   }
+  #right_panel {
+    overflow-y: scroll;
+  }
+  #loading {
+    position: fixed;
+    left: 0;
+    top: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background-color: rgba(0,0,0, .8);
+  }
+  #loading h1 {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 300px;
+    color: wheat;
+    pointer-events: none;
+  }
+  #loading img {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 400px;
+    pointer-events: none;
+  }
 </style>
 
+{#if loadingUi}
+  <div id="loading" transition:fade  >
+    <h1>Loading...</h1>
+    <img src="/logo.png" alt="electroblock logo">
+  </div>
+{/if}
 <Nav {segment} />
 <svelte:body on:mouseup={stopResize} />
 
@@ -117,6 +172,6 @@
 
 <!-- This means we are on the home page and need to display the player component -->
 
-{#if !segment}
+{#if isOnHomePage}
   <Player />
 {/if}

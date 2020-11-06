@@ -6,7 +6,7 @@ export const digitalSetupBlockToSensorData = (
   block: BlockData
 ): DigitalSensor => {
   return {
-    isOn: findFieldValue(block, "state") === "TRUE",
+    isOn: findFieldValue(block, "isOn") === "TRUE",
     loop: +findFieldValue(block, "LOOP"),
     blockName: block.blockName,
   };

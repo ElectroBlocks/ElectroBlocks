@@ -40,6 +40,7 @@
     margin: 0;
     min-height: 100%;
     min-width: 100%;
+    border-left: none;
   }
   code {
     height: 100% !important;
@@ -55,3 +56,6 @@
     {@html code}
   </code>
 </pre>
+<svelte:head>
+  <title>Electroblocks - Code</title>
+</svelte:head>

@@ -18,7 +18,11 @@ import { DigitalPictureType, DigitalSensorState } from "./state";
 
 export const createDigitalSensor: CreateCompenentHook<DigitalSensorState> = (
   state,
-  sensorEl
+  sensorEl,
+  arduinoEl,
+  draw,
+  micro,
+  settings
 ) => {
   sensorEl.findOne("#PIN_TEXT").node.innerHTML = state.pin.toString();
   sensorEl.data("picture-type", state.pictureType);
@@ -26,6 +30,10 @@ export const createDigitalSensor: CreateCompenentHook<DigitalSensorState> = (
     (sensorEl.findOne("#PIN_TEXT") as Element).cx(
       pinCenterText[state.pictureType]
     );
+  }
+
+  if (state.pictureType === DigitalPictureType.TOUCH_SENSOR) {
+    (sensorEl.findOne("#SKIN_COLOR_CHANGE") as Element).node.style.fill = settings.touchSkinColor;
   }
 };
 

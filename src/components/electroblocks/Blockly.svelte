@@ -12,7 +12,6 @@
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop,
   } from "../../core/blockly/helpers/arduino_loop_block.helper";
-  import { getWorkspace } from "../../core/blockly/helpers/workspace.helper";
 
   import {
     getAllBlocks,

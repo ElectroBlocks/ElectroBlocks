@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import VerticalComponentContainer from "../components/electroblocks/VerticalComponentContainer.svelte";
   import Debug from "../components/electroblocks/arduino/Debug.svelte";
   import Message from "../components/electroblocks/arduino/Message.svelte";
@@ -19,3 +19,6 @@
     <Debug />
   </div>
 </VerticalComponentContainer>
+<svelte:head>
+  <title>Electroblocks - Arduino</title>
+</svelte:head>

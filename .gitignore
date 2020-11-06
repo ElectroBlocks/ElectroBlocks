@@ -6,3 +6,4 @@ yarn-error.log
 /__sapper__/
 .rpt2_cache
 /static/avrgirl-arduino.js
+/src/env.ts

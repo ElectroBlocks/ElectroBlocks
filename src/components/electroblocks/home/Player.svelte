@@ -1,15 +1,19 @@
-<script>
+<script lang="ts">
   import { onDestroy } from "svelte";
 
   import frameStore from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
   import currentStepStore from "../../../stores/currentStep.store";
+  import settingStore from "../../../stores/settings.store";
+  import { onErrorMessage } from "../../../help/alerts";
+
+ 
 
   let frames = [];
   let frameNumber = 1;
   let playing = false;
   let speedDivisor = 1;
-  let code = "";
+  let maxTimePerStep = 1000;
 
   const unsubscribes = [];
 
@@ -40,7 +44,10 @@
 
       frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
       currentFrameStore.set(frames[frameNumber]);
-    })
+    }),
+    settingStore.subscribe(newSettings => {
+      maxTimePerStep = newSettings.maxTimePerMove;
+    }),
   );
 
   function navigateToClosestTimeline(timeLine) {
@@ -73,10 +80,16 @@
     if (playing && isLastFrame()) {
       frameNumber = 0;
     }
-
     if (playing) {
-      playing = true;
-      await playFrame();
+        try {
+          playing = true;
+          // Because we want to make it look like the first frame has a wait time equal
+          await moveWait();
+          await playFrame();
+        
+        } catch(e) {
+          onErrorMessage("Please refresh your browser and try again.", e);
+        }
     }
   }
 
@@ -84,6 +97,12 @@
     if (!playing || isLastFrame()) {
       return;
     }
+
+    if (frames[frameNumber].delay > 0) {
+      await wait(frames[frameNumber].delay);
+    }
+
+
     currentFrameStore.set(frames[frameNumber]);
     frameNumber += 1;
     await moveWait();
@@ -94,15 +113,15 @@
   }
 
   async function resetPlayer() {
-    frameNumber = 0;
-    playing = false;
-    await moveWait();
-    currentFrameStore.set(frames[frameIndex]);
-    await play();
-  }
-
-  function stop() {
-    playing = false;
+    try {
+      frameNumber = 0;
+      playing = false;
+      await moveWait();
+      currentFrameStore.set(frames[frameIndex]);
+      await play();
+    } catch(e) {
+      onErrorMessage("Please refresh your browser and try again.", e)
+    }
   }
 
   function moveSlider() {
@@ -134,7 +153,11 @@
   }
 
   function moveWait() {
-    return new Promise((resolve) => setTimeout(resolve, 800 / speedDivisor));
+    return new Promise((resolve) => setTimeout(resolve, maxTimePerStep / speedDivisor));
+  }
+
+  function wait(msTime) {
+    return new Promise((resolve) => setTimeout(resolve, msTime));
   }
 
   onDestroy(() => {
@@ -192,6 +215,7 @@
     font-family: "Biryani", Arial, Helvetica, sans-serif;
     color: #505bda;
     font-weight: 600;
+    display: inline;
   }
   #video-controls-container input {
     margin-top: 10px;

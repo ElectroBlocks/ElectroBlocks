@@ -7,6 +7,6 @@ import { goto } from '@sapper/app';
 Blockly.BlockSvg.prototype.showHelp = function() {
   var url = (typeof this.helpUrl == 'function') ? this.helpUrl() : this.helpUrl;
   if (url) {
-      goto(url);
+    goto(url);
   }
 };

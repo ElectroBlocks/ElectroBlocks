@@ -19,10 +19,12 @@ import {
   convertToState,
 } from "../blockly/transformers/sensor-data.transformer";
 import { generateInputFrame } from "./transformer/block-to-frame.transformer";
+import type {  Settings } from "../../firebase/model";
+import { defaultSetting } from '../../firebase/model';
 
 export const eventToFrameFactory = (
-  event: BlockEvent
-): ArduinoFrameContainer => {
+  event: BlockEvent,
+  settings: Settings = defaultSetting): ArduinoFrameContainer => {
   const { blocks } = event;
 
   const preSetupBlockType = [
@@ -104,6 +106,7 @@ export const eventToFrameFactory = (
     board: event.microController,
     frames: framesWithLoop,
     error: false,
+    settings,
   };
 };
 

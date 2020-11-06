@@ -32,9 +32,7 @@
 </svelte:head>
 
 <h1>{status}</h1>
-<pre>
-	{JSON.stringify(error, null, 2)}
-</pre>
+
 <p>{error.message}</p>
 
 {#if dev && error.stack}
