@@ -20,7 +20,7 @@
     }
     main {
         margin: 5px 5%;
-        overflow-y: scroll; 
+        overflow-y: hidden; 
         overflow-x: hidden;
         min-height: 600px;
     }

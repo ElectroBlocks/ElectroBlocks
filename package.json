@@ -21,7 +21,7 @@
     "@types/file-saver": "^2.0.1",
     "@types/firebase": "^3.2.1",
     "@types/lodash": "^4.14.157",
-    "avrgirl-arduino": "^4.2.3",
+    "avrgirl-arduino": "git+https://github.com/noopkat/avrgirl-arduino.git",
     "axios": "^0.20.0",
     "blockly": "^3.20200625.2",
     "compression": "^1.7.1",
