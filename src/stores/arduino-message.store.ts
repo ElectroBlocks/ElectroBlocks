@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
-import { LineBreakTransformer } from "../core/serial/linebreak.transformer";
-
+import { wait } from "../helpers/wait";
+import { SerialPort } from "../core/serial/avrgirl-serial";
 export interface ArduinoMessage {
   type: "Arduino" | "Computer";
   message: string;
@@ -8,66 +8,41 @@ export interface ArduinoMessage {
   time: string;
 }
 
-let port;
-let writer: WritableStreamDefaultWriter | undefined;
-let reader: ReadableStreamDefaultReader | undefined;
+let serialPort: SerialPort;
 const arduinoMessageStore = writable<ArduinoMessage>(undefined);
 
-const connect = async (newPort: any, baudrate: number) => {
-  await closePort();
-  port = newPort;
-  await port.open({ baudrate: baudrate });
-
-  // Link https://codelabs.developers.google.com/codelabs/web-serial/#6
-  // Writing Section
-  const encoder = new TextEncoderStream();
-  encoder.readable.pipeTo(port.writable);
-  writer = encoder.writable.getWriter();
-
-  // Reading from Arduino Section
-  let decoder = new TextDecoderStream();
-  port.readable.pipeTo(decoder.writable);
-  // Open and begin reading.
-  reader = decoder.readable
-    .pipeThrough(new TransformStream(new LineBreakTransformer()))
-    .getReader();
-  // Listen to data coming from the serial device.
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) {
-      reader.releaseLock();
-      break;
-    }
-    arduinoMessageStore.set({
-      message: value,
-      type: "Arduino",
-      id: new Date().getTime() + "_" + Math.random().toString(),
-      time: new Date().toLocaleTimeString(),
-    });
-  }
+const onMessage = (message: string) => {
+  arduinoMessageStore.set({
+    message,
+    type: "Arduino",
+    id: new Date().getTime() + "_" + Math.random().toString(),
+    time: new Date().toLocaleTimeString(),
+  });
+  wait(20);
 };
 
-const sendMessage = (message: string) => {
-  if (writer) {
-    writer.write(message);
-    arduinoMessageStore.set({
-      message: message,
-      type: "Computer",
-      id: new Date().getTime() + "_" + Math.random().toString(),
-      time: new Date().toLocaleTimeString(),
-    });
-  }
+const connect = async (baudRate) => {
+  serialPort = new SerialPort(
+    {
+      requestOptions: {
+        // Filter on devices with the Arduino USB vendor ID.
+        filters: [{ usbVendorId: 0x2341, usbProductId: 0x0043 }], // todo mega arduino
+      },
+      baudRate,
+    },
+    onMessage
+  );
+
+  await serialPort.open((info) => console.log("open", info));
 };
 
 const closePort = async () => {
-  if (port) {
-    await writer.close();
-    await reader.cancel();
-    await port.close();
-    port = null;
-    writer = null;
-    reader = null;
-  }
+  debugger;
+  await serialPort.close((info) => console.log("closed", info));
+};
+
+const sendMessage = async (message: string) => {
+  await serialPort.write(message, (info) => console.log("write", info));
 };
 
 export default {

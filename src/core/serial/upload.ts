@@ -1,4 +1,5 @@
 import type { MicroControllerType } from "../microcontroller/microcontroller";
+import config from "../../env";
 
 declare class AvrgirlArduino {
   constructor(config: any);
@@ -30,7 +31,7 @@ const compileCode = async (code: string, type: string): Promise<string> => {
   headers.append("Content-Type", "text/plain");
 
   const response = await fetch(
-    `https://arduino-compile.noahglaser.net/upload-code/${type}`,
+    `${config.server_arduino_url}/upload-code/${type}`,
     {
       method: "POST",
       body: code,

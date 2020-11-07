@@ -17,3 +17,7 @@ export const onConfirm = async (message: string): Promise<boolean> => {
     return confirm(message);
   }
 };
+
+export const onSuccess = (message: string) => {
+  swal("Good job!", message, "success");
+};

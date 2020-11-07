@@ -7,7 +7,7 @@
 
   import { afterUpdate } from "svelte";
   import { getBoard } from "../../../core/microcontroller/selectBoard";
-  import { onErrorMessage } from "../../../help/alerts";
+  import { onErrorMessage, onSuccess } from "../../../help/alerts";
 
   // controls whether the messages should autoscroll
   let autoScroll = false;
@@ -85,21 +85,20 @@
           "Sorry, error with the arduino.  Please refresh your browser to disconnect.", e
         );
       }
-
       arduinoStore.set(PortState.CLOSE);
       return;
     }
     try {
       arduinoStore.set(PortState.OPENNING);
-      const requestOptions = {
-        // Filter on devices with the Arduino USB vendor ID.
-        filters: [{ usbVendorId: 0x2341, usbProductId: 0x0043 }],
-      };
-      const port = await navigator.serial.requestPort(requestOptions);
       const board = getBoard(boardType);
-      arduionMessageStore.connect(port, board.serial_baud_rate).then();
+      console.log(board, 'board');
+      arduionMessageStore.connect(board.serial_baud_rate).then();
       arduinoStore.set(PortState.OPEN);
     } catch (error) {
+      if (e.message === 'No Port selected by the user.') {
+        arduinoStore.set(PortState.CLOSE);
+        return;
+      }
       arduinoStore.set(PortState.CLOSE);
       onErrorMessage(
           "Sorry, please refresh your browser and try again.", error
@@ -129,8 +128,14 @@
         board: boardType,
         debug: true,
       });
+      
       await upload(code, avrgirl, boardType);
+      onSuccess('Your code is uploaded!! :)')
     } catch (e) {
+      if (e.message === 'No Port selected by the user.') {
+        arduinoStore.set(PortState.CLOSE);
+        return;
+      }
       onErrorMessage("Sorry, please try again in 5 minutes. :)", e);
     }
     arduinoStore.set(PortState.CLOSE);
@@ -235,7 +240,6 @@
     color: #16bb3a;
   }
 </style>
-
 <section bind:this={messagesEl} id="messages">
   {#each messages as mes (mes.id)}
     <article class="message-computer">
