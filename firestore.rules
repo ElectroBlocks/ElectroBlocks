@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+
+match /databases/{database}/documents {
+
+			// The user id is saved as the id of the setting 
+      match /settings/{userId}  {
+          allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      
+      // allows anyone logged in to create settings
+      match /settings/{document=**} {
+      	allow create: if request.auth != null;
+      }
+      
+      // allows anyone logged in to create projects
+      match /projects/{document=**} {
+      	allow create: if request.auth != null;
+      }
+    
+    	// only allows people to edit and see projects they own
+      match /projects/{document=**}  {
+        allow read, write, list, update, delete: if request.auth != null && request.auth.uid == resource.data.userId;
+      }
+      
+      // allows anyone logged in to create profiles
+      match /profiles/{document=**} {
+      	allow create: if request.auth != null;
+      }
+      
+      // only allows people to edit and see profiles they own
+      match /profiles/{userId}  {
+        allow read, write, list, update, delete: if request.auth != null && request.auth.uid == userId;
+      }
+      
+    
+  }
+}

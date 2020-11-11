@@ -63,11 +63,11 @@
     </div>
     <div class="row">
         <div class="column">
-            <button id="project" class="button button-primary" on:click={downloadProject}>Download Project</button>
+            <button id="project" class="form button-primary" on:click={downloadProject}>Download Project</button>
 
         </div>
         <div class="column">
-            <button id="code" class="button button-primary" on:click={downlaodCode}>Download Code</button>
+            <button id="code" class="form button-primary" on:click={downlaodCode}>Download Code</button>
         </div>
     </div>
 </main>

@@ -117,6 +117,6 @@ describe("test leds", () => {
     );
     expect((frame1.components[0] as WritePinState).state).toBe(30);
     expect((frame1.components[0] as WritePinState).pin).toBe("9");
-    expect(frame1.explanation).toBe("Turning pin 9 to 30.");
+    expect(frame1.explanation).toBe("Sending 30 to pin 9.");
   });
 });

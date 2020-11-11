@@ -27,6 +27,26 @@ export default {
     input: config.client.input().replace(/.js$/, ".ts"),
     output: config.client.output(),
     plugins: [
+      copy({
+        targets: [
+          {
+            src: "node_modules/avrgirl-arduino/dist/avrgirl-arduino.global.js",
+            dest: "static/",
+            rename: "avrgirl-arduino.js",
+          },
+          {
+            src:
+              "node_modules/ng-tutorial-web-component/public/build/ng-tutorial-component.js",
+            dest: "static/",
+            rename: "ng-tutorial-web-component.js",
+          },
+          // {
+          //   src: `./env/env.${mode}.ts`,
+          //   dest: "src",
+          //   rename: "env.ts",
+          // },
+        ],
+      }),
       replace({
         "process.browser": true,
         "process.env.NODE_ENV": JSON.stringify(mode),
@@ -43,21 +63,6 @@ export default {
         dedupe: (importee) =>
           importee === "svelte" || importee.startsWith("svelte/"),
         mainFields: ["main", "module"],
-      }),
-      copy({
-        targets: [
-          {
-            src: "node_modules/avrgirl-arduino/dist/avrgirl-arduino.global.js",
-            dest: "static/",
-            rename: "avrgirl-arduino.js",
-          },
-          {
-            src:
-              "node_modules/ng-tutorial-web-component/public/build/ng-tutorial-component.js",
-            dest: "static/",
-            rename: "ng-tutorial-web-component.js",
-          },
-        ],
       }),
       json(),
       svg({

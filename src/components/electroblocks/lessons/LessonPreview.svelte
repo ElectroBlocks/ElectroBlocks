@@ -1,6 +1,6 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { goto } from "@sapper/app";
-import { onErrorMessage } from "../../../help/alerts";
+  import { onErrorMessage } from "../../../help/alerts";
   import type { LessonCompat } from "../../../lessons/lesson.model";
   export let lesson: LessonCompat;
 
@@ -72,4 +72,64 @@ import { onErrorMessage } from "../../../help/alerts";
 <article on:click={() => pickLesson(lesson.id)} data-id={lesson.id}>
   <img src={lesson.mainPicture} alt={lesson.title} />
   <h2>{lesson.title}</h2>
-</article>
+</article> -->
+<script lang="ts">
+    import { goto } from "@sapper/app";
+
+   import type { LessonCompat } from "../../../lessons/lesson.model";
+   export let lesson: LessonCompat;
+    import { onErrorMessage } from "../../../help/alerts";
+
+    $: src = lesson.mainPicture || "https://fakeimg.pl/160x90";
+    $: showTitle = lesson.title || 'Enter Title';
+    $: showDescription = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry';
+
+  async function pickLesson(id) {
+    try {
+        await goto(`?lessonId=${id}`);
+    } catch(e) {
+      onErrorMessage("Please refresh your browser and try again", e);
+    }
+  }
+</script>
+
+<style>
+    h3 {
+        text-align: center;
+        font-size: 20px;
+    }
+    .preview-lesson {
+        width: 675px;
+        height: 90px;
+        border: solid 1px #d3d3d3;
+        border-radius: 2px;
+        margin-bottom: 5px;
+        margin-left: auto;
+        position: relative;
+    }
+    .preview-lesson img {
+        width: 160px;
+        height: 90px;
+        position: absolute;
+        border-right: 1px solid gray;
+        left: 0;
+        top: 0;
+    }
+    
+    .preview-lesson #title {
+        position: absolute;
+        left: 180px;
+        top: 10px;
+    }
+    .preview-lesson p {
+        position: absolute;
+        top: 40px;
+        left: 180px;
+        width: 500px;
+    }
+</style>
+<div on:click={() => pickLesson(lesson.id)} class="preview-lesson">
+    <h3 id="title">{showTitle}</h3>
+        <img src={src} alt={lesson.title} />
+        <p>{showDescription} {showDescription.length > 127 ? '...': ''}</p>
+</div>

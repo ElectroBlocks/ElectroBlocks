@@ -60,7 +60,7 @@ export const analogWrite: BlockToFrameTransformer = (
     state,
     pinType: WritePinType.ANALOG_OUTPUT,
   };
-  const explanation = `Turning pin ${pin} to ${state}.`;
+  const explanation = `Sending ${state} to pin ${pin}.`;
 
   return [
     arduinoFrameByComponent(

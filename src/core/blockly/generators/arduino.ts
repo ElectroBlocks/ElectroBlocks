@@ -263,7 +263,11 @@ Blockly["Arduino"].quote_ = function (string) {
 Blockly["Arduino"].scrub_ = function (block, code) {
   let commentCode = "";
   // Only collect comments for blocks that aren't inline.
-  if (!block.outputConnection || !block.outputConnection.targetConnection) {
+  // Do not collect comments for setup blocks
+  if (
+    (!block.outputConnection || !block.outputConnection.targetConnection) &&
+    block.nextConnection !== null
+  ) {
     // Collect comment for this block.
     let comment = block.getCommentText();
     //@ts-ignore

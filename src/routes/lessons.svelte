@@ -23,7 +23,7 @@
   const [lesson1, lesson2] = lessonList.lessons;
   lesson2.title = 'Motion Sensor';
   const lesson3 = _.cloneDeep(lesson1);
-  lesson3.title = 'BlueTooh'
+  lesson3.title = 'Bluetooth'
   const lesson4 = _.cloneDeep(lesson1);
   lesson4.title = 'Touch Sensor'
   const lesson5 = _.cloneDeep(lesson1);
@@ -72,7 +72,7 @@
   }
 
   .search-container input {
-    width: 620px !important;
+    width: 675px !important;
   }
 
 </style>
