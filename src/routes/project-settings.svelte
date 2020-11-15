@@ -34,14 +34,14 @@ import { onErrorMessage } from '../help/alerts';
         canSave = false;
         try {
             if (!$projectStore.projectId) {
-                const [projectId, project] = await addProject({ name: projectName, 
+                const { projectId, project } = await addProject({ name: projectName, 
                         description: projectDescription,
                         userId: $authStore.uid,
                         updated: null,
                         created: null,
                         canShare: false
                 })
-                projectStore.set({ projectId, project });
+                projectStore.set({ project: project, projectId });
                 showMessage = true;
                 wait(400);
                 await goto(`/project/${$projectStore.projectId}/project-settings`);

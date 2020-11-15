@@ -17,8 +17,8 @@ export async function addProject(project: Project) {
   const projectRef = await projectDb.add(project);
 
   await saveFile(projectRef.id, project.userId);
-  const projectData = (await projectRef.get()).data();
-  return [projectRef.id,  projectData];
+  const projectData = (await projectRef.get()).data() as Project;
+  return { projectId: projectRef.id, project: projectData };
 }
 
 export async function saveProject(project: Project, projectId: string) {
