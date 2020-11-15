@@ -12,8 +12,18 @@ sapper.start({
 firebase.initializeApp(config.firebase);
 firebase.analytics();
 
-firebase.firestore().settings({
-  cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
-});
+if (window.location.hostname === "localhost") {
+  firebase.auth().useEmulator("http://localhost:9099/");
+  firebase.firestore().settings({
+    host: "localhost:8080",
+    ssl: false,
+  });
+} else {
+  firebase.firestore().settings({
+    cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
+  });
+}
 
 firebase.firestore().enablePersistence({ synchronizeTabs: true });
+
+

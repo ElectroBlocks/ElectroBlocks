@@ -1,3 +1,4 @@
+import firebase from "firebase";
 
 export interface User {
     id: string;

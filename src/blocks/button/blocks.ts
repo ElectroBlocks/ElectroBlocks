@@ -11,6 +11,7 @@ const buttonSetupBlock: any = {
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage("./blocks/button/button.png", 15, 15))
       .appendField("Button Setup");
+
     this.appendDummyInput()
       .appendField("Connected to PIN# ")
       .appendField(
@@ -62,6 +63,7 @@ const isBtnPressedBlock: any = {
         "PIN"
       )
       .appendField("pressed?");
+    this.setCommentText("If the button is pressed it will return true.");
 
     this.setOutput(true, "Boolean");
 

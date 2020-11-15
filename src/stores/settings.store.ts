@@ -25,7 +25,7 @@ authStore.subscribe(async auth => {
       const db = firebase.firestore();
       const settings = await db.collection("settings").doc(auth.uid).get();
       if (settings.exists) {
-        settingsStore.set(settings.data());
+        settingsStore.set(settings.data() as Settings);
       }
     } catch (e) {
       console.log(e, 'error settings');
