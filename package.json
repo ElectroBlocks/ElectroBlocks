@@ -5,7 +5,7 @@
   "version": "3.0.0",
   "scripts": {
     "dev": "concurrently \"cp env/env.development.ts src/env.ts\" \"firebase emulators:start --only auth,firestore\"  \"sapper dev\"",
-    "build": "sapper build --legacy && cp -R ./__sapper__/build ./functions/__sapper__",
+    "build": "NODE_OPTIONS=--max-old-space-size=4096 sapper build --legacy && cp -R ./__sapper__/build ./functions/__sapper__",
     "prebuild": "./build-cloud-functions.sh",
     "export": "sapper export --legacy",
     "start": "npm run build && firebase serve",

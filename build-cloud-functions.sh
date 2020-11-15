@@ -1,4 +1,5 @@
 
+npm install
 rm src/env.ts
 cp env/env.staging.ts src/env.ts
 rm -rf functions/package.json
