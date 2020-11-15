@@ -29,6 +29,7 @@
     "axios": "^0.20.0",
     "blockly": "^3.20200625.2",
     "compression": "^1.7.1",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "file-saver": "^2.0.2",
