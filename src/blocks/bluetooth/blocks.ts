@@ -5,42 +5,6 @@ import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 import loopTimes from "../../core/blockly/helpers/looptimes";
 Blockly.defineBlocksWithJsonArray([
   {
-    type: "bluetooth_get_message",
-    message0: "%1 bluetooth get message.",
-    args0: [
-      {
-        type: "field_image",
-        src: "./blocks/bluetooth/bluetooth.png",
-        width: 15,
-        height: 15,
-        alt: "*",
-        flipRtl: false,
-      },
-    ],
-    output: "String",
-    colour: COLOR_THEME.COMPONENTS,
-    tooltip: "",
-    helpUrl: "",
-  },
-  {
-    type: "bluetooth_has_message",
-    message0: "%1 Is bluetooth receiving message?",
-    args0: [
-      {
-        type: "field_image",
-        src: "./blocks/bluetooth/bluetooth.png",
-        width: 15,
-        height: 15,
-        alt: "*",
-        flipRtl: false,
-      },
-    ],
-    output: "Boolean",
-    colour: COLOR_THEME.COMPONENTS,
-    tooltip: "",
-    helpUrl: "",
-  },
-  {
     type: "bluetooth_send_message",
     message0: "%1 bluetooth send message. %2",
     args0: [
@@ -66,6 +30,22 @@ Blockly.defineBlocksWithJsonArray([
   },
 ]);
 
+Blockly.Blocks["bluetooth_has_message"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage("./blocks/bluetooth/bluetooth.png", 15, 15)
+      )
+      .appendField("Is bluetooth receiving message?");
+    this.setOutput(true, "Boolean");
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setCommentText(
+      "Returns true if the bluetooth has received a message."
+    );
+    this.comment.setBubbleSize(553, 60);
+  },
+};
+
 Blockly.Blocks["bluetooth_get_message"] = {
   init: function () {
     this.appendDummyInput()
@@ -77,7 +57,7 @@ Blockly.Blocks["bluetooth_get_message"] = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
-    this.setCommentText(`Get's the message received from the bluetooth.`);
+    this.setCommentText(`Get's the message that the bluetooth recieved.`);
     this.comment.setBubbleSize(553, 60);
   },
 };

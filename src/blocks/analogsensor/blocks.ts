@@ -46,7 +46,7 @@ const analogReadSetupBlock: any = {
   init: function () {
 
   this.setCommentText(
-    `This block (analog read setup) is used to tell the Arduino which pin is being used for sensing electricity.${whatIsAPin}${virtualCircuitComment}`
+    `This block (analog read setup) tells the Arduino which pin is sense electricity.${whatIsAPin}${virtualCircuitComment}`
   );
   this.comment.setBubbleSize(553, 171);
 

@@ -1,21 +1,26 @@
 <script lang="ts">
   import { onMount } from "svelte";
-	import { fade } from 'svelte/transition';
   import _ from "lodash";
   import firebase from 'firebase';
+  import { fade } from 'svelte/transition';
 
   import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
   import Nav from "../components/electroblocks/Nav.svelte";
   import Blockly from "../components/electroblocks/Blockly.svelte";
   import Player from "../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../stores/resize.store";
-  import { stores } from "@sapper/app";
+  import { stores, goto } from "@sapper/app";
   import authStore from '../stores/auth.store';
+  import projectStore from '../stores/project.store';
+  import { onErrorMessage } from "../help/alerts";
+  import { getFile, getProject } from "../firebase/db";
+  import { loadProject } from "../core/blockly/helpers/workspace.helper";
+  import { arduinoLoopBlockShowLoopForeverText, arduinoLoopBlockShowNumberOfTimesThroughLoop } from "../core/blockly/helpers/arduino_loop_block.helper";
+import swal from "sweetalert";
+
   const { page } = stores();
   export let segment = "";
 
-  // This means that the ui is loading we want to wait till firebase is complete before loading
-  let loadingUi = true;
   let isOnHomePage = false;
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
@@ -90,16 +95,44 @@
       }, 5);
     });
 
-    firebase.auth().onAuthStateChanged(function (user) {
-      setTimeout(() => {
-            loadingUi = false;
-      }, 20)
-      if (user) {
-        authStore.set({ isLoggedIn: true, uid: user.uid, firebaseControlled: true });
+    firebase.auth().onAuthStateChanged(async (user) => {
+      if (!user) {
+        authStore.set({ isLoggedIn: false, uid: null, firebaseControlled: true  });
         return;
       }
-      authStore.set({ isLoggedIn: false, uid: null, firebaseControlled: true  });
+      if (!user) {
+        onErrorMessage('You must be logged in to see your project.', {});
+        return;
+      }
+      authStore.set({ isLoggedIn: true, uid: user.uid, firebaseControlled: true });
+      if ($projectStore.projectId === $page.query['projectid'] || !$page.query['projectid']) {
+          return;
+      }
+
+      swal({
+        title: 'Loading your project',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        onOpen: () => {
+          (swal as any).showLoading();
+        }
+      } as any)
+
+      const project = await getProject($page.query['projectid']);
+      const file = await getFile($page.query['projectid'], $authStore.uid);
+      loadProject(file);
+      projectStore.set({ project, projectId: $page.query['projectid'] });
+      if (isPathOnHomePage($page.path)) {
+          arduinoLoopBlockShowNumberOfTimesThroughLoop();
+      } else {
+          arduinoLoopBlockShowLoopForeverText()
+      }
+      swal.close();
+      return;
+      
     });
+
+    
 
   });
 </script>
@@ -124,42 +157,10 @@
   #right_panel {
     overflow-y: scroll;
   }
-  #loading {
-    position: fixed;
-    left: 0;
-    top: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10000;
-    background-color: rgba(0,0,0, .8);
-  }
-  #loading h1 {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 300px;
-    color: wheat;
-    pointer-events: none;
-  }
-  #loading img {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 400px;
-    pointer-events: none;
-  }
 </style>
 
-{#if loadingUi}
-  <div id="loading" transition:fade  >
-    <h1>Loading...</h1>
-    <img src="/logo.png" alt="electroblock logo">
-  </div>
-{/if}
 <Nav {segment} />
 <svelte:body on:mouseup={stopResize} />
-
 <main style="height: {height}" on:mousemove={resize}>
   <div style="flex: {leftFlex}" id="left_panel">
     <Blockly {showLoopExecutionTimesArduinoStartBlock} />
