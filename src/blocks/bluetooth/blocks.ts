@@ -3,32 +3,27 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 import loopTimes from "../../core/blockly/helpers/looptimes";
-Blockly.defineBlocksWithJsonArray([
-  {
-    type: "bluetooth_send_message",
-    message0: "%1 bluetooth send message. %2",
-    args0: [
-      {
-        type: "field_image",
-        src: "./blocks/bluetooth/bluetooth.png",
-        width: 15,
-        height: 15,
-        alt: "*",
-        flipRtl: false,
-      },
-      {
-        type: "input_value",
-        name: "MESSAGE",
-        check: "String",
-      },
-    ],
-    previousStatement: null,
-    nextStatement: null,
-    colour: COLOR_THEME.COMPONENTS,
-    tooltip: "",
-    helpUrl: "",
+import { virtualCircuitComment } from "../comment-text";
+
+Blockly.Blocks["bluetooth_send_message"] = {
+  init: function () {
+    this.appendValueInput("MESSAGE")
+      .setCheck("String")
+      .appendField(
+        new Blockly.FieldImage("./blocks/bluetooth/bluetooth.png", 15, 15)
+      )
+      .appendField("bluetooth send message.");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setTooltip("");
+    this.setHelpUrl("");
+    this.setCommentText(
+      `This block sends a message through the Bluetooth.`
+    );
+    this.comment.setBubbleSize(553, 60);
   },
-]);
+};
 
 Blockly.Blocks["bluetooth_has_message"] = {
   init: function () {
@@ -40,7 +35,7 @@ Blockly.Blocks["bluetooth_has_message"] = {
     this.setOutput(true, "Boolean");
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setCommentText(
-      "Returns true if the bluetooth has received a message."
+      `Returns true if the Bluetooth has received a message.`
     );
     this.comment.setBubbleSize(553, 60);
   },
@@ -57,7 +52,7 @@ Blockly.Blocks["bluetooth_get_message"] = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
-    this.setCommentText(`Get's the message that the bluetooth recieved.`);
+    this.setCommentText(`Get's the message that the Bluetooth received.`);
     this.comment.setBubbleSize(553, 60);
   },
 };
@@ -115,6 +110,11 @@ const bluetoothSetupBlock: any = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setCommentText(
+      `This block (Bluetooth setup block) tells the Arduino we are using Bluetooth devices.${virtualCircuitComment}`
+    );
+    this.comment.setBubbleSize(553, 120);
+
   },
 };
 

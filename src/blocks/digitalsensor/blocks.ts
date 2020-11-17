@@ -6,6 +6,7 @@ import {
 import loopTimes from "../../core/blockly/helpers/looptimes";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
+import { virtualCircuitComment, whatIsAPin } from "../comment-text";
 
 const digitalReadBlock: any = {
   init: function () {
@@ -28,6 +29,9 @@ const digitalReadBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setCommentText("Returns true if the sensor is sensing something.");
+    this.comment.setBubbleSize(553, 70);
+
   },
 };
 
@@ -79,6 +83,11 @@ const digitalReadSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setCommentText(
+      `This block (analog read setup) tells the Arduino which pin is sense electricity.${whatIsAPin}${virtualCircuitComment}`
+    );
+    this.comment.setBubbleSize(553, 171);
+
   },
 };
 

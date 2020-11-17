@@ -6,6 +6,7 @@ import {
 import loopTimes from "../../core/blockly/helpers/looptimes";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
+import { virtualCircuitComment, whatIsAPin } from "../comment-text";
 const buttonSetupBlock: any = {
   init: function () {
     this.appendDummyInput()
@@ -41,6 +42,10 @@ const buttonSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setCommentText(
+      `This block (button setup) tells the Arduino which pin the button is using.${whatIsAPin}${virtualCircuitComment}`
+    );
+    this.comment.setBubbleSize(553, 171);
   },
 };
 
@@ -63,7 +68,8 @@ const isBtnPressedBlock: any = {
         "PIN"
       )
       .appendField("pressed?");
-    this.setCommentText("If the button is pressed it will return true.");
+    this.setCommentText("Returns true if the button is pressed.");
+    this.comment.setBubbleSize(310, 50);
 
     this.setOutput(true, "Boolean");
 

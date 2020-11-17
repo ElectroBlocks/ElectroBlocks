@@ -2,6 +2,7 @@ import "../../blocks/arduino/blocks";
 import "../../blocks/bluetooth/blocks";
 import "../../blocks/board_selector/blocks";
 import "../../blocks/button/blocks";
+import "../../blocks/color/blocks";
 import "../../blocks/debug/blocks";
 import "../../blocks/ir_remote/blocks";
 import "../../blocks/functions/blocks";

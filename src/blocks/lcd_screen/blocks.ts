@@ -4,33 +4,6 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 Blockly.defineBlocksWithJsonArray([
   {
-    type: "lcd_scroll",
-    message0: "%1 LCD move everything 1 space %2",
-    args0: [
-      {
-        type: "field_image",
-        src: "./blocks/lcd/lcd.png",
-        width: 15,
-        height: 15,
-        alt: "*",
-        flipRtl: false,
-      },
-      {
-        type: "field_dropdown",
-        name: "DIR",
-        options: [
-          ["RIGHT", "RIGHT"],
-          ["LEFT", "LEFT"],
-        ],
-      },
-    ],
-    previousStatement: null,
-    nextStatement: null,
-    colour: COLOR_THEME.COMPONENTS,
-    tooltip: "",
-    helpUrl: "",
-  },
-  {
     type: "lcd_blink",
     message0: "%1 LCD %2 %3 Row %4 Column %5",
     args0: [
@@ -212,6 +185,29 @@ Blockly.defineBlocksWithJsonArray([
     helpUrl: "",
   },
 ]);
+
+
+Blockly.Blocks["lcd_scroll"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(new Blockly.FieldImage("./blocks/lcd/lcd.png", 15, 15))
+      .appendField("LCD move everything 1 space")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["RIGHT", "RIGHT"],
+          ["LEFT", "LEFT"],
+        ]),
+        "DIR"
+      );
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setTooltip("");
+    this.setHelpUrl("");
+    this.setCommentText(`This shifts all the text to the left or right.`);
+    this.comment.setBubbleSize(553, 70);
+  },
+};
 
 Blockly.Blocks["lcd_setup"] = {
   init: function () {
