@@ -18,7 +18,7 @@ Blockly.Blocks["lcd_screen_clear"] = {
     this.setCommentText(
       "This block clears all the text on the LCD Screen."
     );
-    this.comment.setBubbleSize(553, 60);
+    this.comment.setBubbleSize(460, 60);
 
   },
 };
@@ -48,7 +48,7 @@ Blockly.Blocks["lcd_screen_print"] = {
     this.setCommentText(
       "This block prints something on the LCD screen.  The column number controls the x position, and the row number controls the y.  X means left to right, and Y means up and down.\n\nFor Y, as you go down, the numbers go up.  So the first column is 1, and the next column down is 2."
     );
-    this.comment.setBubbleSize(553, 150);
+    this.comment.setBubbleSize(460, 150);
   },
 };
 
@@ -73,7 +73,7 @@ Blockly.Blocks["lcd_backlight"] = {
     this.setCommentText(
       "This block turns on and off the backlight in the LCD Screen."
     );
-    this.comment.setBubbleSize(553, 60);
+    this.comment.setBubbleSize(460, 60);
   },
 };
 
@@ -110,7 +110,7 @@ Blockly.Blocks["lcd_screen_simple_print"] = {
     this.setCommentText(
       "Prints something on the LCD screens and then clears it off.  The “Seconds to show” block is how many seconds the LCD Screen will display the message."
     );
-    this.comment.setBubbleSize(553, 120);
+    this.comment.setBubbleSize(460, 120);
   },
 };
 
@@ -142,7 +142,7 @@ Blockly.Blocks["lcd_blink"] = {
     this.setCommentText(
       "This block turns on or off the blinking space on the LCD screen."
     );
-    this.comment.setBubbleSize(553, 60);
+    this.comment.setBubbleSize(460, 60);
   },
 };
 
@@ -165,7 +165,7 @@ Blockly.Blocks["lcd_scroll"] = {
     this.setTooltip("");
     this.setHelpUrl("");
     this.setCommentText(`This block shifts all the text to the left or right.`);
-    this.comment.setBubbleSize(553, 70);
+    this.comment.setBubbleSize(460, 70);
   },
 };
 
@@ -213,7 +213,7 @@ The chip determines the memory type.  Check where you purchased your chip; if yo
 For the size we the first number is the width, and the second number is the height.  16 x 2, 16 would be spaces left to right, and 2 would be 2 spaces up and down.
 `);
     
-    this.comment.setBubbleSize(553, 190);
+    this.comment.setBubbleSize(460, 195);
 
   },
 };

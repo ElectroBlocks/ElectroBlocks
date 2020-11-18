@@ -19,7 +19,7 @@ Blockly.Blocks["ir_remote_get_code"] = {
     this.setCommentText(
       "Get's the message that the ir remote received."
     );
-    this.comment.setBubbleSize(553, 60);
+    this.comment.setBubbleSize(460, 60);
 
   },
 };
@@ -38,7 +38,7 @@ Blockly.Blocks["ir_remote_has_code_receive"] = {
     this.setCommentText(
       "Returns true if the ir sensor has received a message."
     );
-    this.comment.setBubbleSize(553, 60);
+    this.comment.setBubbleSize(460, 60);
   },
 };
 
@@ -94,7 +94,7 @@ const irSetupBlock: any = {
     this.setCommentText(
       `This block sets up the ir remote sensor.${virtualCircuitComment}`
     );
-    this.comment.setBubbleSize(553, 100);
+    this.comment.setBubbleSize(460, 100);
 
   },
 };

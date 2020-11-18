@@ -30,7 +30,7 @@ const digitalReadBlock: any = {
     this.setTooltip("");
     this.setHelpUrl("");
     this.setCommentText("Returns true if the sensor is sensing something.");
-    this.comment.setBubbleSize(553, 70);
+    this.comment.setBubbleSize(460, 70);
 
   },
 };
@@ -86,7 +86,7 @@ const digitalReadSetupBlock: any = {
     this.setCommentText(
       `This block (analog read setup) tells the Arduino which pin is sense electricity.${whatIsAPin}${virtualCircuitComment}`
     );
-    this.comment.setBubbleSize(553, 171);
+    this.comment.setBubbleSize(460, 171);
 
   },
 };

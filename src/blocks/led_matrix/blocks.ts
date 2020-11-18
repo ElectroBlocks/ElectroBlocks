@@ -34,7 +34,7 @@ Blockly.Blocks["led_matrix_turn_one_on_off"] = {
 
 The higher the number for the column, the more right the led will be.  The higher the number for the row, the lower the will be.`
     );
-    this.comment.setBubbleSize(553, 120);
+    this.comment.setBubbleSize(460, 120);
   },
 };
 
@@ -62,7 +62,7 @@ Blockly.Blocks["led_matrix_make_draw"] = {
     this.setCommentText(
       `Check the checkboxes to draw a pattern on the led matrix.`
     );
-    this.comment.setBubbleSize(553, 60);
+    this.comment.setBubbleSize(460, 60);
   },
 };
 
@@ -97,7 +97,7 @@ Blockly.Blocks["led_matrix_setup"] = {
     this.setCommentText(
       `This block sets up the let matrix.  You can use any digital pins you want.`
     );
-    this.comment.setBubbleSize(553, 60);
+    this.comment.setBubbleSize(460, 60);
 
   },
 };

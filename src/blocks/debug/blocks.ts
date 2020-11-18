@@ -13,6 +13,6 @@ Blockly.Blocks["debug_block"] = {
     this.setTooltip("");
     this.setHelpUrl("");
     this.setCommentText('Pauses the Arduino while it’s running and prints out the variables.');
-    this.comment.setBubbleSize(553, 70);
+    this.comment.setBubbleSize(460, 70);
   },
 };

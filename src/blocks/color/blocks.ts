@@ -23,6 +23,6 @@ Blockly.Blocks["colour_rgb"] = {
     this.setCommentText(
       `This is used to create a custom color.  Google "RGB color picker" to find a custom color.`
     );
-    this.comment.setBubbleSize(553, 70);
+    this.comment.setBubbleSize(460, 70);
   },
 };

@@ -30,7 +30,7 @@ Blockly.Blocks["led"] = {
     this.setCommentText(
       `Turn on or off the led attached to the pin in the dropdown box.${whatIsAPin}`
     );
-    this.comment.setBubbleSize(553, 100);
+    this.comment.setBubbleSize(460, 117);
 
   },
 };
@@ -56,7 +56,7 @@ Blockly.Blocks["led_fade"] = {
     this.setCommentText(
       `This block controls the amount of electricity going into the led attached to the pin in the dropdown box.  It has a fade effect on the led light.${whatIsAPin}`
     );
-    this.comment.setBubbleSize(553, 130);
+    this.comment.setBubbleSize(460, 145);
 
   },
 };

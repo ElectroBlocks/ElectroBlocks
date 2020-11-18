@@ -21,7 +21,7 @@ Blockly.Blocks["bluetooth_send_message"] = {
     this.setCommentText(
       `This block sends a message through the Bluetooth.`
     );
-    this.comment.setBubbleSize(553, 60);
+    this.comment.setBubbleSize(460, 60);
   },
 };
 
@@ -37,7 +37,7 @@ Blockly.Blocks["bluetooth_has_message"] = {
     this.setCommentText(
       `Returns true if the Bluetooth has received a message.`
     );
-    this.comment.setBubbleSize(553, 60);
+    this.comment.setBubbleSize(460, 60);
   },
 };
 
@@ -53,7 +53,7 @@ Blockly.Blocks["bluetooth_get_message"] = {
     this.setTooltip("");
     this.setHelpUrl("");
     this.setCommentText(`Get's the message that the Bluetooth received.`);
-    this.comment.setBubbleSize(553, 60);
+    this.comment.setBubbleSize(460, 60);
   },
 };
 
@@ -113,7 +113,7 @@ const bluetoothSetupBlock: any = {
     this.setCommentText(
       `This block (Bluetooth setup block) tells the Arduino we are using Bluetooth devices.${virtualCircuitComment}`
     );
-    this.comment.setBubbleSize(553, 120);
+    this.comment.setBubbleSize(460, 120);
 
   },
 };

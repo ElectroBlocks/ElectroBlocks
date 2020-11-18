@@ -45,7 +45,7 @@ const buttonSetupBlock: any = {
     this.setCommentText(
       `This block (button setup) tells the Arduino which pin the button is using.${whatIsAPin}${virtualCircuitComment}`
     );
-    this.comment.setBubbleSize(553, 171);
+    this.comment.setBubbleSize(460, 171);
   },
 };
 

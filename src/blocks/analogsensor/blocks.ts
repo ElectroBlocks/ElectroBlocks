@@ -35,7 +35,7 @@ const analogReadBlock: any = {
     this.setCommentText(
       `This block (analog read) senses the amount of electricity flowing through a pin.${whatIsAPin}`
     );
-    this.comment.setBubbleSize(553, 140);
+    this.comment.setBubbleSize(460, 140);
 
   },
 };
@@ -48,7 +48,7 @@ const analogReadSetupBlock: any = {
   this.setCommentText(
     `This block (analog read setup) tells the Arduino which pin is sense electricity.${whatIsAPin}${virtualCircuitComment}`
   );
-  this.comment.setBubbleSize(553, 171);
+  this.comment.setBubbleSize(460, 171);
 
     this.appendDummyInput()
       .appendField(
