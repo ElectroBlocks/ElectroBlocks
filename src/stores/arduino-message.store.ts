@@ -32,8 +32,17 @@ const connect = async (baudRate) => {
     },
     onMessage
   );
+  return new Promise((res, rej) => {
+    serialPort.open((err) => {
+      console.log(err);
+      if (!err) {
+        res(undefined);
+        return;
+      }
+      rej(err);
+  });
 
-  await serialPort.open((info) => console.log("open", info));
+  })
 };
 
 const closePort = async () => {

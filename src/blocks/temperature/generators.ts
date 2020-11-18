@@ -2,21 +2,20 @@ import Blockly from 'blockly';
 import type { Block } from 'blockly';
 
 Blockly['Arduino']['temp_setup'] = function(block: Block) {
-  Blockly['Arduino'].libraries_['temp_setup'] =
-    '#include <dht.h>;\n dht DHT;\n';
+  Blockly["Arduino"].libraries_[
+    "temp_setup"
+  ] = `#define DHTPIN ${block.getFieldValue("PIN")}
+#define DHTTYPE ${block.getFieldValue("TYPE")}
+#include <DHT.h>;
+DHT dht(DHTPIN, DHTTYPE);`;
 
-  Blockly['Arduino'].functionNames_['takeTempReading'] = `
-void takeTempReading() {
-  DHT.read11(${block.getFieldValue('PIN')});
-}`;
-
-  return '';
+  return "";
 };
 
 Blockly['Arduino']['temp_get_temp'] = function() {
-  return ['DHT.temperature', Blockly['Arduino'].ORDER_ATOMIC];
+  return ["(double)dht.readTemperature()", Blockly["Arduino"].ORDER_ATOMIC];
 };
 
 Blockly['Arduino']['temp_get_humidity'] = function() {
-  return ['DHT.humidity', Blockly['Arduino'].ORDER_ATOMIC];
+  return ["(double)dht.readHumidity()", Blockly["Arduino"].ORDER_ATOMIC];
 };

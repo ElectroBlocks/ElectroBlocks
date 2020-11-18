@@ -1,6 +1,7 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
+import { whatIsAPin } from "../comment-text";
 
 Blockly.Blocks["led"] = {
   init: function () {
@@ -25,6 +26,12 @@ Blockly.Blocks["led"] = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
+
+    this.setCommentText(
+      `Turn on or off the led attached to the pin in the dropdown box.${whatIsAPin}`
+    );
+    this.comment.setBubbleSize(553, 100);
+
   },
 };
 
@@ -46,5 +53,10 @@ Blockly.Blocks["led_fade"] = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
+    this.setCommentText(
+      `This block controls the amount of electricity going into the led attached to the pin in the dropdown box.  It has a fade effect on the led light.${whatIsAPin}`
+    );
+    this.comment.setBubbleSize(553, 130);
+
   },
 };

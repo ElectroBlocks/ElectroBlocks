@@ -88,22 +88,24 @@
       arduinoStore.set(PortState.CLOSE);
       return;
     }
-    try {
-      arduinoStore.set(PortState.OPENNING);
-      const board = getBoard(boardType);
-      console.log(board, 'board');
-      arduionMessageStore.connect(board.serial_baud_rate).then();
-      arduinoStore.set(PortState.OPEN);
-    } catch (error) {
-      if (e.message === 'No Port selected by the user.') {
-        arduinoStore.set(PortState.CLOSE);
-        return;
+    arduinoStore.set(PortState.OPENNING);
+    const board = getBoard(boardType);
+    console.log(board, 'board');
+    arduionMessageStore.connect(board.serial_baud_rate)
+    .then(() => {
+        arduinoStore.set(PortState.OPEN);
+    })
+    .catch(e => {
+      if (e.message.toLowerCase() === 'no port selected by the user.') {
+          arduinoStore.set(PortState.CLOSE);
+          return;
       }
       arduinoStore.set(PortState.CLOSE);
       onErrorMessage(
-          "Sorry, please refresh your browser and try again.", error
+          "Sorry, please refresh your browser and try again.", e
         );
-    }
+    });
+    
   }
 
   function sendMessage() {
@@ -125,11 +127,11 @@
     arduinoStore.set(PortState.UPLOADING);
     try {
       const avrgirl = new AvrgirlArduino({
-        board: boardType,
+        board: 'lilypad-usb',
         debug: true,
       });
       
-      await upload(code, avrgirl, boardType);
+      await upload(code, avrgirl, "flora");
       onSuccess('Your code is uploaded!! :)')
     } catch (e) {
       if (e.message === 'No Port selected by the user.') {

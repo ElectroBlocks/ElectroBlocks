@@ -22,7 +22,11 @@ import { onConfirm, onErrorMessage } from '../../help/alerts';
 
   let params = '';
   projectStore.subscribe(p => {
-    params = `?projectid=${p.projectId}`;
+    if (p.projectId) {
+        params = `?projectid=${p.projectId}`;
+    } else {
+      params = '';
+    }
   })
 
   async function onNewFileAuth() {
