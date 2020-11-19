@@ -2,45 +2,45 @@ import Blockly from "blockly";
 import loopTimes from "../../core/blockly/helpers/looptimes";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
-import { virtualCircuitComment, whatIsAPin } from "../comment-text";
 
-
-Blockly.Blocks["ir_remote_get_code"] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField(
-        new Blockly.FieldImage("./blocks/ir_remote/ir_remote.png", 15, 15)
-      )
-      .appendField("get ir remote code.");
-    this.setOutput(true, "String");
-    this.setColour(COLOR_THEME.SENSOR);
-    this.setTooltip("");
-    this.setHelpUrl("");
-    this.setCommentText(
-      "Get's the message that the ir remote received."
-    );
-    this.comment.setBubbleSize(460, 60);
-
+Blockly.defineBlocksWithJsonArray([
+  {
+    type: "ir_remote_has_code_receive",
+    message0: "%1 is receiving a code? ",
+    args0: [
+      {
+        type: "field_image",
+        src: "./blocks/ir_remote/ir_remote.png",
+        width: 15,
+        height: 15,
+        alt: "*",
+        flipRtl: false,
+      },
+    ],
+    output: "Boolean",
+    colour: COLOR_THEME.SENSOR,
+    tooltip: "",
+    helpUrl: "",
   },
-};
-
-Blockly.Blocks["ir_remote_has_code_receive"] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField(
-        new Blockly.FieldImage("./blocks/ir_remote/ir_remote.png", 15, 15)
-      )
-      .appendField("is receiving a code?");
-    this.setOutput(true, "Boolean");
-    this.setColour(COLOR_THEME.SENSOR);
-    this.setTooltip("");
-    this.setHelpUrl("");
-    this.setCommentText(
-      "Returns true if the ir sensor has received a message."
-    );
-    this.comment.setBubbleSize(460, 60);
+  {
+    type: "ir_remote_get_code",
+    message0: "%1 get ir remote code.",
+    args0: [
+      {
+        type: "field_image",
+        src: "./blocks/ir_remote/ir_remote.png",
+        width: 15,
+        height: 15,
+        alt: "*",
+        flipRtl: false,
+      },
+    ],
+    output: "String",
+    colour: COLOR_THEME.SENSOR,
+    tooltip: "",
+    helpUrl: "",
   },
-};
+]);
 
 const irSetupBlock: any = {
   init: function () {
@@ -91,11 +91,6 @@ const irSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");
-    this.setCommentText(
-      `This block sets up the ir remote sensor.${virtualCircuitComment}`
-    );
-    this.comment.setBubbleSize(460, 100);
-
   },
 };
 

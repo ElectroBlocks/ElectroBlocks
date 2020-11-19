@@ -3,7 +3,9 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 export default `
 <category name="Text" colour="${COLOR_THEME.VALUES}">
    <block type="text"></block>
-   <block type="text_join"></block>
+   <block type="text_join">
+    
+   </block>
    <block type="text_length">
      <value name="VALUE">
        <block type="text">

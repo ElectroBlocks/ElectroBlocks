@@ -7,8 +7,29 @@ import {
   configuredPins,
   getAvailablePins,
 } from "../../core/blockly/helpers/getAvialablePinsFromSetupBlock";
-import { virtualCircuitComment, whatIsAPin } from "../comment-text";
 
+Blockly.Blocks["analog_write"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage("./blocks/arduino/analog_write.png", 15, 15)
+      )
+      .appendField("Send analog wave to pin ")
+      .appendField(
+        new Blockly.FieldDropdown(() => selectBoardBlockly().pwmPins),
+        "PIN"
+      );
+    this.appendValueInput("WRITE_VALUE")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Wave Intensity");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+};
 
 const analogReadBlock: any = {
   init: function () {
@@ -31,12 +52,6 @@ const analogReadBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");
-
-    this.setCommentText(
-      `This block (analog read) senses the amount of electricity flowing through a pin.${whatIsAPin}`
-    );
-    this.comment.setBubbleSize(460, 140);
-
   },
 };
 
@@ -44,12 +59,6 @@ Blockly.Blocks["analog_read"] = analogReadBlock;
 
 const analogReadSetupBlock: any = {
   init: function () {
-
-  this.setCommentText(
-    `This block (analog read setup) tells the Arduino which pin is sense electricity.${whatIsAPin}${virtualCircuitComment}`
-  );
-  this.comment.setBubbleSize(460, 171);
-
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage("./blocks/arduino/analog_read.png", 15, 15)

@@ -2,8 +2,6 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 export default `<category name="Loops" colour="${COLOR_THEME.CONTROL}">
      <block type="controls_repeat_ext">
-     <comment pinned="false" h="130" w="460">The loop block runs on repeat until your Arduino loses power. It runs right after your setup block if you have one. If you are using the simulator, you can control how many times it repeats.</comment>
-
        <value name="TIMES">
          <block type="math_number">
            <field name="NUM">10</field>
@@ -11,6 +9,8 @@ export default `<category name="Loops" colour="${COLOR_THEME.CONTROL}">
        </value>
      </block>
      <block type="controls_for">
+         <comment pinned="false" h="100" w="460">A for "count with block" creates a loop where it will stop looping once the variable has reached the "to" point.  The best way to learn this block is to drag it out and play around with its values in the simulator.</comment>
+
        <value name="FROM">
          <block type="math_number">
            <field name="NUM">1</field>
