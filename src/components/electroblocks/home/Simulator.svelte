@@ -10,6 +10,7 @@
   // What if we made everything a series of components.
   import { onMount, onDestroy } from "svelte";
 import { onErrorMessage } from "../../../help/alerts";
+import { wait } from "../../../helpers/wait";
   let container;
   let frames = [];
   let currentFrame = undefined;
@@ -23,6 +24,21 @@ import { onErrorMessage } from "../../../help/alerts";
 
     } catch(e) {
       onErrorMessage("Please refresh your browser and try again.", e);
+    }
+
+    let width = container.clientWidth - 10;
+    let height = container.clientHeight - 10;
+    let count = 0;
+    while (width < 0 || height < 0 ) {
+      console.log('waiting to load');
+      width = container.clientWidth - 10;
+      height = container.clientHeight - 10;
+      await wait(5);
+      count += 1;
+      if (count > 1000) {
+        onErrorMessage("There is not enough room to render the Arduino", {});
+        return;
+      }
     }
 
     // THE VIEWBOX MUST BE THE SAME SIZE AS THE COMPONENT OR VIEW
