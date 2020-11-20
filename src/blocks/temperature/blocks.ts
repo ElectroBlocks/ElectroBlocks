@@ -25,7 +25,7 @@ Blockly.defineBlocksWithJsonArray([
 
   {
     type: "temp_get_humidity",
-    message0: "%1 Humidity percentage?",
+    message0: "%1 Humidity percentage.",
     args0: [
       {
         type: "field_image",

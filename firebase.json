@@ -4,22 +4,11 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "static",
+    "public": "__sapper__/export",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [{
-      "source": "**",
-      "function": "ssr"
-    }]
-  },
-  "functions": {
-    "source": "./functions",
-    "runtime": "nodejs10",
-    "predeploy": [
-      "npm run build"
     ]
   },
   "storage": {

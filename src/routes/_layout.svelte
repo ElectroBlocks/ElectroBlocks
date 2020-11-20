@@ -1,8 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import _ from "lodash";
-  import firebase from 'firebase';
-  import { fade } from 'svelte/transition';
+  import firebase from "firebase/app";
 
   import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
   import Nav from "../components/electroblocks/Nav.svelte";

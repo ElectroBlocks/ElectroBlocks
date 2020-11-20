@@ -1,7 +1,6 @@
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
-import { whatIsAPin } from "../comment-text";
 
 Blockly.Blocks["analog_write"] = {
   init: function () {
@@ -23,12 +22,6 @@ Blockly.Blocks["analog_write"] = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
-
-    this.setCommentText(
-      `This block (analog write) sends a number from 0 to 255 to a pin.\n255 means that pins is completely on while 0 means the pin is off.${whatIsAPin}`
-    );
-    this.comment.setBubbleSize(460, 120);
-
   },
 };
 
@@ -56,10 +49,5 @@ Blockly.Blocks["digital_write"] = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
-    this.setCommentText(
-      `This block (digital write) turns on and off a pin.${whatIsAPin}`
-    );
-    this.comment.setBubbleSize(460, 150);
-
   },
 };

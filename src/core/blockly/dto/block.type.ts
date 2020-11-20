@@ -120,6 +120,7 @@ export const blocksThatRequireSetup = {
   digital_read: "digital_read_setup",
   analog_read: "analog_read_setup",
   ultra_sonic_sensor_motion: "ultra_sonic_sensor_setup",
+  time_seconds: "time_setup",
 };
 
 /**
@@ -139,7 +140,8 @@ export const setupBlockTypeToHumanName = {
   digital_read_setup: "digital read setup block",
   analog_read_setup: "analog read setup block",
   ultra_sonic_sensor_setup: "ultra sonic sensor setup block",
-  led_matrix_setup: "led matrix setup",
+  led_matrix_setup: "led matrix setup block",
+  time_setup: "time setup block",
 };
 
 export const blocksToBlockTypes: {

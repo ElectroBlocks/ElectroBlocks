@@ -5,10 +5,10 @@
     import Login from '../components/auth/Login.svelte';
     import { loadProject } from "../core/blockly/helpers/workspace.helper";
     import authStore from '../stores/auth.store';
-    import firebase from 'firebase';
-    import { deleteProject, getFile, getProject } from '../firebase/db';
+    import firebase from "firebase/app";;
+    import { deleteProject } from '../firebase/db';
     import type { Project } from '../firebase/model';
-import { onConfirm, onErrorMessage } from '../help/alerts';
+    import { onConfirm, onErrorMessage } from '../help/alerts';
 
     const unSubList: Function[] = [];
     let projectList: [Project, string][] = [];
@@ -68,7 +68,7 @@ import { onConfirm, onErrorMessage } from '../help/alerts';
             const querySnapshot = await projectCollection.where('userId', '==', $authStore.uid).get();
             projectList = [];
             querySnapshot.forEach(doc => {
-                projectList.push([doc.data(), doc.id]);
+                projectList.push([doc.data() as Project, doc.id]);
             });
             projectList = [...projectList];
             searchList = [...projectList];
@@ -106,7 +106,7 @@ import { onConfirm, onErrorMessage } from '../help/alerts';
     }
 
     async function openProject(projectId) {
-        await goto(`/project/${projectId}`);
+        await goto(`/?projectid=${projectId}`);
     }
 </script>
 <style>
