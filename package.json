@@ -5,7 +5,7 @@
   "version": "3.0.0",
   "scripts": {
     "dev": "concurrently \"cp env/env.development.ts src/env.ts\" \"firebase emulators:start --only auth,firestore\"  \"sapper dev\"",
-    "build": "NODE_OPTIONS=--max-old-space-size=4096 sapper export --legacy --entry=\"/ /arduino /code /download /lesson /login /open /project-settings /settings /settings/about /settings/myprofile /settings/privacy-policy /settings/support \"",
+    "build": "cp ./env/env.staging.ts ./src/env.ts && NODE_OPTIONS=--max-old-space-size=4096 sapper export --legacy --entry=\"/ /arduino /code /download /lesson /login /open /project-settings /settings /settings/about /settings/myprofile /settings/privacy-policy /settings/support \"",
     "export": "sapper export --legacy",
     "start": "npm run build && firebase serve",
     "export-local": "firebase emulators:start && cp env/env.development.ts src/env.ts && npm run build",
