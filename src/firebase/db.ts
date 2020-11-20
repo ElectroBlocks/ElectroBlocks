@@ -1,7 +1,7 @@
 import { Settings, Project } from "./model";
 import { v4 } from "uuid";
 import { workspaceToXML } from "../core/blockly/helpers/workspace.helper";
-import firebase from "firebase";
+import firebase from "firebase/app";
 
 export async function fbSaveSettings(uid: string, settings: Settings) {
     const db = firebase.firestore();

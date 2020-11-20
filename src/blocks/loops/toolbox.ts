@@ -9,6 +9,8 @@ export default `<category name="Loops" colour="${COLOR_THEME.CONTROL}">
        </value>
      </block>
      <block type="controls_for">
+         <comment pinned="false" h="100" w="460">A for "count with block" creates a loop where it will stop looping once the variable has reached the "to" point.  The best way to learn this block is to drag it out and play around with its values in the simulator.</comment>
+
        <value name="FROM">
          <block type="math_number">
            <field name="NUM">1</field>

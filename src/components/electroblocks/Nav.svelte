@@ -20,11 +20,13 @@ import { onConfirm, onErrorMessage } from '../../help/alerts';
 
   const { page } = stores();
 
-  let urlProject = '/';
-  let urlProjectHome =   '/';
+  let params = '';
   projectStore.subscribe(p => {
-    urlProjectHome = p.projectId ? `/project/${p.projectId}` : '/';
-    urlProject = p.projectId ? `/project/${p.projectId}/` : '/';
+    if (p.projectId) {
+        params = `?projectid=${p.projectId}`;
+    } else {
+      params = '';
+    }
   })
 
   async function onNewFileAuth() {
@@ -161,14 +163,14 @@ import { onConfirm, onErrorMessage } from '../../help/alerts';
 
 <nav class:small={!$authStore.isLoggedIn} >
   {#if $authStore.isLoggedIn }
-  <a href="{urlProjectHome}" class:active={isPathOnHomePage($page.path)}>
+  <a href="/{params}" class:active={isPathOnHomePage($page.path)}>
     <i class="fa fa-home" />
   </a>
 
-  <a href="{urlProject}code" class:active={$page.path.includes('code')}>
+  <a href="/code{params}" class:active={$page.path.includes('code')}>
     <i class="fa fa-code" />
   </a>
-  <a href="{urlProject}arduino" class:active={$page.path.includes('arduino')}>
+  <a href="/arduino{params}" class:active={$page.path.includes('arduino')}>
     <i class="fa fa-microchip" />
   </a>
   <a href="/lessons" class:active={segment === 'lessons'}>
@@ -181,7 +183,7 @@ import { onConfirm, onErrorMessage } from '../../help/alerts';
     <i class="fa fa-file-o"></i>
   </span>
   <span on:click={onSaveClick} ><i class="fa fa-floppy-o"></i></span>
-  <a href="{urlProject}project-settings" class:active={$page.path.includes('project-settings')}>
+  <a href="/project-settings" class:active={$page.path.includes('project-settings')}>
       <i class="fa fa-wrench" aria-hidden="true"></i>
     </a>
     <a href="/settings" class:active={segment === 'settings'}>
@@ -193,14 +195,14 @@ import { onConfirm, onErrorMessage } from '../../help/alerts';
   {/if}
 
   {#if !$authStore.isLoggedIn}
-    <a href="{urlProjectHome}" class:active={isPathOnHomePage($page.path)}>
+    <a href="/" class:active={isPathOnHomePage($page.path)}>
       <i class="fa fa-home" />
     </a>
 
-  <a href="{urlProject}code" class:active={$page.path.includes('code')}>
+  <a href="/code" class:active={$page.path.includes('code')}>
     <i class="fa fa-code" />
   </a>
-  <a href="{urlProject}arduino" class:active={$page.path.includes('arduino')}>
+  <a href="/arduino" class:active={$page.path.includes('arduino')}>
     <i class="fa fa-microchip" />
   </a>
   <a href="/lessons" class:active={segment === 'lessons'}>

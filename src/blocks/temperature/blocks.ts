@@ -25,7 +25,7 @@ Blockly.defineBlocksWithJsonArray([
 
   {
     type: "temp_get_humidity",
-    message0: "%1 Humidity percentage?",
+    message0: "%1 Humidity percentage.",
     args0: [
       {
         type: "field_image",
@@ -53,6 +53,16 @@ const tempSetupBlock: any = {
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN"
+    );
+    this.appendDummyInput()
+      .appendField("Type: ")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["DHT11", "DHT11"],
+          ["DHT21", "DHT21"],
+          ["DHT22", "DHT22"],
+        ]),
+        "TYPE"
       );
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(
       "------------------------------------------"

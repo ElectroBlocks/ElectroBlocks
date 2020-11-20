@@ -1,12 +1,11 @@
 {
   "private": true,
   "name": "electroblocks",
-  "description": "wip",
+  "description": "This is electroblocks video editing for code.",
   "version": "3.0.0",
   "scripts": {
     "dev": "concurrently \"cp env/env.development.ts src/env.ts\" \"firebase emulators:start --only auth,firestore\"  \"sapper dev\"",
-    "build": "NODE_OPTIONS=--max-old-space-size=4096 sapper build --legacy && cp -R ./__sapper__/build ./functions/__sapper__",
-    "prebuild": "./build-cloud-functions.sh",
+    "build": "cp ./env/env.staging.ts ./src/env.ts && NODE_OPTIONS=--max-old-space-size=4096 sapper export --legacy --entry=\"/ /arduino /code /download /lesson /login /open /project-settings /settings /settings/about /settings/myprofile /settings/privacy-policy /settings/support \"",
     "export": "sapper export --legacy",
     "start": "npm run build && firebase serve",
     "export-local": "firebase emulators:start && cp env/env.development.ts src/env.ts && npm run build",
@@ -29,6 +28,7 @@
     "axios": "^0.20.0",
     "blockly": "^3.20200625.2",
     "compression": "^1.7.1",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "file-saver": "^2.0.2",

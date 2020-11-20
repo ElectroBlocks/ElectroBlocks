@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["http://localhost:3000", "https://electroblocks.com"],
+    "origin": ["*"],
     "responseHeader": ["Content-Type"],
     "method": ["GET"],
     "maxAgeSeconds": 3600

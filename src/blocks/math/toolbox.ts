@@ -18,6 +18,9 @@ export default `
        </value>
      </block>
      <block type="string_to_number">
+          <comment pinned="false" h="60" w="460">This block will take text data and turn it into a number.  
+          </comment>
+
        <value name="VALUE">
          <block type="text">
            <field name="TEXT">5.35</field>

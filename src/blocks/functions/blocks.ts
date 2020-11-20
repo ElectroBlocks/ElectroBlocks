@@ -10,7 +10,7 @@ Blockly.Blocks["procedures_defnoreturn"] = {
     var nameField = new Blockly.FieldTextInput("", Blockly.Procedures.rename);
     nameField.setSpellcheck(false);
     this.appendDummyInput()
-      .appendField(Blockly.Msg["PROCEDURES_DEFNORETURN_TITLE"])
+      .appendField("create custom block")
       .appendField(nameField, "NAME")
       .appendField("", "PARAMS");
     // Disabling the ability to add parameters to functions
@@ -21,7 +21,10 @@ Blockly.Blocks["procedures_defnoreturn"] = {
           this.workspace.options.parentWorkspace.options.comments)) &&
       Blockly.Msg["PROCEDURES_DEFNORETURN_COMMENT"]
     ) {
-      this.setCommentText(Blockly.Msg["PROCEDURES_DEFNORETURN_COMMENT"]);
+      this.setCommentText(
+        `This block allows you to create your own blocks.  The blocks you put inside this block will ran when you use your custom block.`
+      );
+      this.comment.setBubbleSize(460, 110);
     }
     this.setStyle("procedure_blocks");
     this.setTooltip(Blockly.Msg["PROCEDURES_DEFNORETURN_TOOLTIP"]);

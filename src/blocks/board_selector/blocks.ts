@@ -1,25 +1,22 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
-Blockly.defineBlocksWithJsonArray([
-  {
-    type: "board_selector",
-    message0: "Select Board %1 %2",
-    args0: [
-      {
-        type: "input_dummy",
-      },
-      {
-        type: "field_dropdown",
-        name: "boardtype",
-        options: [
-          ["Arduino Uno", "uno"],
-          ["Arduino Mega", "mega"],
-        ],
-      },
-    ],
-    colour: COLOR_THEME.ARDUINO_START_BLOCK,
-    tooltip: "",
-    helpUrl: "",
+
+Blockly.Blocks["board_selector"] = {
+  init: function () {
+    this.appendDummyInput().appendField("Select Board");
+    this.appendDummyInput().appendField(
+      new Blockly.FieldDropdown([
+        ["Arduino Uno", "uno"],
+        ["Arduino Mega", "mego"],
+      ]),
+      "boardtype"
+    );
+    this.setColour(COLOR_THEME.ARDUINO_START_BLOCK);
+    this.setTooltip("");
+    this.setHelpUrl("");
+    this.setCommentText('Tells Arduino simulator type of Arduino use.');
+    this.comment.setBubbleSize(460, 70);
+
   },
-]);
+};

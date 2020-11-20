@@ -22,5 +22,5 @@ Blockly["Arduino"]["led_fade"] = function (block: Block) {
   Blockly["Arduino"].setupCode_["led_pin" + pin] =
     "\tpinMode(" + pin + ", OUTPUT); \n";
 
-  return "analogWrite(" + pin + ", " + fadeNumber || 1 + "); \n";
+  return "analogWrite(" + pin + ", " + (fadeNumber || 1) + "); \n";
 };

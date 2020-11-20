@@ -66,24 +66,6 @@ Blockly.defineBlocksWithJsonArray([
   },
 ]);
 
-Blockly.Blocks["bluetooth_get_message"] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField(
-        new Blockly.FieldImage("./blocks/bluetooth/bluetooth.png", 15, 15)
-      )
-      .appendField("bluetooth get message");
-    this.setOutput(true, "String");
-    this.setColour(COLOR_THEME.COMPONENTS);
-    this.setTooltip("");
-    this.setHelpUrl("");
-    this.setCommentText(`Get's the message received from the bluetooth.`);
-    this.comment.setBubbleSize(553, 60);
-  },
-};
-
-
-
 const bluetoothSetupBlock: any = {
   init: function () {
     this.appendDummyInput()
