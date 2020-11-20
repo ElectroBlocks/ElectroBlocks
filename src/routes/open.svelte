@@ -6,9 +6,10 @@
     import { loadProject } from "../core/blockly/helpers/workspace.helper";
     import authStore from '../stores/auth.store';
     import firebase from "firebase/app";;
-    import { deleteProject } from '../firebase/db';
+    import { deleteProject, getFile, getProject } from '../firebase/db';
     import type { Project } from '../firebase/model';
     import { onConfirm, onErrorMessage } from '../help/alerts';
+import projectStore from '../stores/project.store';
 
     const unSubList: Function[] = [];
     let projectList: [Project, string][] = [];
@@ -106,7 +107,11 @@
     }
 
     async function openProject(projectId) {
-        await goto(`/?projectid=${projectId}`);
+      const project = await getProject(projectId);
+      const file = await getFile(projectId, $authStore.uid);
+      loadProject(file);
+      projectStore.set({ project, projectId });
+      await goto(`/?projectid=${projectId}`);
     }
 </script>
 <style>
