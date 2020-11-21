@@ -62,6 +62,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       blocklyEvent,
       microControllerType
     );
+
     const firstActionPass = [
       ...disableBlocksWithInvalidPinNumbers(event),
       ...disableSetupBlocksUsingSamePinNumbers(event),
@@ -73,7 +74,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       ...disableSensorReadBlocksWithWrongPins(event),
       ...disableBlocksThatNeedASetupBlock(event),
     ];
-
+    console.log(firstActionPass, 'firstActionPass');
     firstActionPass.forEach((a) => updater(a));
     enableBlocks(
       firstActionPass.filter(
@@ -81,7 +82,32 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       ) as DisableBlock[]
     );
 
-    if (firstActionPass.filter((a) => a.stopCompiling).length >= 1) {
+    const event2 = transformEvent(
+      getAllBlocks(),
+      getAllVariables(),
+      blocklyEvent,
+      microControllerType
+    );
+    // We need to run this again incase anything got enable that was disabled.
+    const secondActionPass = [
+      ...disableBlocksWithInvalidPinNumbers(event2),
+      ...disableSetupBlocksUsingSamePinNumbers(event2),
+      ...disableSetupBlockWithMultiplePinOutsSamePins(event2),
+      ...disableDuplicateSetupBlocks(event2),
+      ...disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(event2),
+      ...disableDuplicatePinBlocks(event2),
+
+      ...disableSensorReadBlocksWithWrongPins(event2),
+      ...disableBlocksThatNeedASetupBlock(event2),
+    ];
+    secondActionPass.forEach((a) => updater(a));
+    enableBlocks(
+      secondActionPass.filter(
+        (a) => a.type === ActionType.DISABLE_BLOCK
+      ) as DisableBlock[]
+    );
+    
+    if (secondActionPass.filter((a) => a.stopCompiling).length >= 1) {
       currentFrameContainter = {
         error: true,
         frames: [],
@@ -93,15 +119,15 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       return;
     }
 
-    const secondActionPass = [
-      ...deleteUnusedVariables(event),
-      ...saveSensorSetupBlockData(event),
-      ...updateSensorSetupFields(event),
-      ...updateForLoopText(event),
-      ...updateLoopNumberInSensorSetupBlock(event),
+    const thirdActionPass = [
+      ...deleteUnusedVariables(event2),
+      ...saveSensorSetupBlockData(event2),
+      ...updateSensorSetupFields(event2),
+      ...updateForLoopText(event2),
+      ...updateLoopNumberInSensorSetupBlock(event2),
     ];
 
-    secondActionPass.forEach((a) => updater(a));
+    thirdActionPass.forEach((a) => updater(a));
 
     // We need this because we save the sensor setup data to the
     // block.

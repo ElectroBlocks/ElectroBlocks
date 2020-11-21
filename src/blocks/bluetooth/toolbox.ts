@@ -3,8 +3,7 @@ import { virtualCircuitComment } from "../comment-text";
 
 export default `<category name="Bluetooth" colour="${COLOR_THEME.COMPONENTS}">
   <block type="bluetooth_setup">
-      <comment pinned="false" h="120" w="460">This block (Bluetooth setup block) tells the Arduino we are using Bluetooth devices.${virtualCircuitComment}
-</comment>
+      <comment pinned="false" h="120" w="460">This block (Bluetooth setup block) tells the Arduino we are using Bluetooth devices.${virtualCircuitComment}</comment>
 
     <field name="PIN_RX">11</field>
     <field name="PIN_TX">10</field>
