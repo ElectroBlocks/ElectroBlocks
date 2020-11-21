@@ -7,8 +7,11 @@
     import FlashMessage from '../components/electroblocks/ui/FlashMessage.svelte';
     import { wait } from '../helpers/wait';
     import { goto } from '@sapper/app';
-import { onErrorMessage } from '../help/alerts';
-    
+    import { onErrorMessage } from '../help/alerts';
+    import { workspaceToXML } from '../core/blockly/helpers/workspace.helper';
+    import codeStore from '../stores/code.store';
+    import { saveAs } from 'file-saver';
+
     let showMessage = false;
     let projectName = '';
     let projectDescription = '';
@@ -44,7 +47,7 @@ import { onErrorMessage } from '../help/alerts';
                 projectStore.set({ project: project, projectId });
                 showMessage = true;
                 wait(400);
-                await goto(`/project/${$projectStore.projectId}/project-settings`);
+                await goto(`/?projectid=${$projectStore.projectId}`);
                 canSave  = true;
                 return;
             }
@@ -58,6 +61,27 @@ import { onErrorMessage } from '../help/alerts';
             canSave = true;
         }
     }
+
+
+    let code;
+
+    let unsubCodeStore = codeStore.subscribe(newCode => {
+        code = newCode.code;
+    })
+
+    function downlaodCode() {
+        const blob = new Blob([code], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, 'electroblocks_code.ino');
+    }
+
+    function downloadProject() {
+        const blob = new Blob([workspaceToXML()], {type: "application/xml;charset=utf-8"});
+        saveAs(blob, 'electroblocks_project.xml');
+    }
+
+    onDestroy(() => {
+        unsubCodeStore();
+    });
 </script>
 
 <style>
@@ -74,6 +98,11 @@ import { onErrorMessage } from '../help/alerts';
         height: 30px;
         width: 100%;
     }
+    #download-container {
+        margin: 75px auto;
+        text-align: center;
+        width: 400px;
+    }
 </style>
 
 <main>
@@ -88,7 +117,11 @@ import { onErrorMessage } from '../help/alerts';
             <button disabled={!canSave} on:click={saveFile} class="form">Save</button>
         </div> 
         <FlashMessage bind:show={showMessage} message="Saved Project." />
+    <div id="download-container" >
 
+            <button on:click={downloadProject} id="project" class="form button-primary" >Download Project</button>
+            <button on:click={downlaodCode} id="code" class="form button-primary" >Download Code</button>
+    </div>
     {:else}
     <p>To Save project you must be logged in.  If you don't want to login you can go to the <a href="/projects/download">download page</a> to download the code or project onto your computer.</p>
     <Login />

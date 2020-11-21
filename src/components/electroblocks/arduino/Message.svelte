@@ -127,14 +127,14 @@
     arduinoStore.set(PortState.UPLOADING);
     try {
       const avrgirl = new AvrgirlArduino({
-        board: 'lilypad-usb',
+        board: boardType,
         debug: true,
       });
       
-      await upload(code, avrgirl, "flora");
+      await upload(code, avrgirl, boardType);
       onSuccess('Your code is uploaded!! :)')
     } catch (e) {
-      if (e.message === 'No Port selected by the user.') {
+      if (e.message.toLowerCase() === 'no port selected by the user.') {
         arduinoStore.set(PortState.CLOSE);
         return;
       }

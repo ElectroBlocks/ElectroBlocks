@@ -44,6 +44,8 @@ import projectStore from '../stores/project.store';
                 return;
             }
 
+            projectStore.set({ project: null, projectId: null });
+
             loadProject(evt.target.result as string);
 
         };

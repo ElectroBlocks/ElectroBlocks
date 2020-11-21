@@ -22,7 +22,7 @@ export const arduinoMessageUpdate: SyncComponent = (state, _, draw, frame) => {
     return;
   }
 
-  if (!messageState.hasMessage) {
+  if (!messageState.hasMessage && !frame.sendMessage) {
     arduino.findOne("#MESSAGE").hide();
     findSvgElement("RX_LED", arduino as Svg).fill(LED_COLORS.LED_OFF);
     return;

@@ -43,6 +43,7 @@ import { onConfirm, onErrorMessage } from '../../help/alerts';
       }
     try {
       await saveProject($projectStore.project, $projectStore.projectId);
+      projectStore.set({ projectId: null, project: null });
       await goto("/");
       resetWorkspace();
     } catch(e) {

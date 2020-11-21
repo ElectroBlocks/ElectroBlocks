@@ -28,6 +28,7 @@ sapper.start({
   // }
 
   firebase.firestore().enablePersistence({ synchronizeTabs: true });
+  localStorage.removeItem("no_alert");
 
 
 

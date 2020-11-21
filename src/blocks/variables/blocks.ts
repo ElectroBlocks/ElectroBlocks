@@ -12,17 +12,25 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
   Blockly.Blocks[`variables_get_${blockName}`] = {
     init: function () {
+      const fieldVar = new Blockly.FieldVariable(
+        null,
+        null,
+        [variable_type],
+        variable_type
+      );
+      (fieldVar as any).createNewVariable = false;
+      (fieldVar as any).showOnlyVariableAssigned = false;
       this.appendDummyInput()
-        .appendField(`=${humanType} variable`)
-        .appendField(new Blockly.FieldVariable(null, null, [variable_type], variable_type), "VAR");
+        .appendField(`= ${humanType} variable`)
+        .appendField(fieldVar, "VAR");
       this.setOutput(true, variable_type);
       this.setColour(COLOR_THEME.DATA);
       this.setTooltip("");
       this.setHelpUrl("");
-            this.setCommentText(
-              `This block gets the value that the variable is storing.  This variable store a ${type}.`
-            );
-            this.comment.setBubbleSize(460, 60);
+      this.setCommentText(
+        `This block gets the value that the variable is storing.  This variable store a ${type}.`
+      );
+      this.comment.setBubbleSize(460, 60);
 
     },
   };
@@ -31,6 +39,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
     init: function () {
       const fieldVar = new Blockly.FieldVariable(null, null, [variable_type], variable_type);
       (fieldVar as any).createNewVariable = false;
+      (fieldVar as any).showOnlyVariableAssigned = false;
       this.appendValueInput("VALUE")
         .setCheck(variable_type)
         .appendField(`${humanType} variable`)

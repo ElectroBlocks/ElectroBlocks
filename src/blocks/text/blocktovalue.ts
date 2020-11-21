@@ -141,7 +141,7 @@ export const numberToText: ValueGenerator = (
     "",
     previousState
   );
-  if (numberAttached === "") {
+  if (numberAttached === "" || !numberAttached) {
     const number = 0;
     return number.toFixed(precision);
   }

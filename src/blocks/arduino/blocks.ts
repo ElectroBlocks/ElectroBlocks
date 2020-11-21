@@ -23,7 +23,7 @@ Blockly.Blocks["arduino_loop"] = {
 Blockly.Blocks["arduino_setup"] = {
   init: function () {
     this.appendDummyInput().appendField("Setup (runs once)");
-    this.appendStatementInput("loop").setCheck(null);
+    this.appendStatementInput("setup").setCheck(null);
     this.setColour(COLOR_THEME.ARDUINO_START_BLOCK);
     this.setTooltip("");
     this.setHelpUrl("");

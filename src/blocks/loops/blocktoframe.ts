@@ -100,7 +100,9 @@ export const forLoop: BlockToFrameTransformer = (
         block.blockName,
         timeline,
         newVariable,
-        `Running loop ${counter + 1} out ${array.length} times; i = ${i}`,
+        `Running loop ${counter + 1} out ${array.length} times; ${
+          newVariable.name
+        } = ${i}`,
         prevState
       );
       const states = [
