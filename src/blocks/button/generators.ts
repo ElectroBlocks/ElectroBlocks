@@ -12,8 +12,5 @@ Blockly['Arduino']['button_setup'] = function(block: BlockSvg) {
 Blockly['Arduino']['is_button_pressed'] = function(block: BlockSvg) {
   const pin = block.getFieldValue('PIN');
 
-  return [
-    '(digitalRead(' + pin + ') === LOW)',
-    Blockly['Arduino'].ORDER_ATOMIC
-  ];
+  return ["(digitalRead(" + pin + ") == LOW)", Blockly["Arduino"].ORDER_ATOMIC];
 };

@@ -50,6 +50,7 @@ Blockly.defineBlocksWithJsonArray([
         name: "DELIMITER",
         options: [
           [",", ","],
+          ["-", "-"],
           ["*", "*"],
           [":", ":"],
           ["#", "#"],

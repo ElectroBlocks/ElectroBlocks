@@ -10,6 +10,9 @@
             await loginGoogleUser();
             await goto("/");
         } catch(e) {
+            if (e.code === "auth/cancelled-popup-request") {
+                return;
+            }
             onErrorMessage("Sorry, please try again in 5 minutes. :)", e);
         }
     }

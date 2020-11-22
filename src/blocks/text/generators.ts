@@ -144,10 +144,10 @@ Blockly["Arduino"]["parse_string_block"] = function (block: Block | any) {
     "\tint strIndex[] = {0, -1}; \n" +
     "\tint maxIndex = data.length()-1; \n" +
     "\tfor(int i=0; i<=maxIndex && found<=index; i++){   \n" +
-    "\t    if(data.charAt(i)==separator || i==maxIndex){    \n" +
+    "\t    if(data.charAt(i) == separator || i == maxIndex){    \n" +
     "\t        found++;                      \n" +
     "\t        strIndex[0] = strIndex[1]+1;    \n" +
-    "\t        strIndex[1] = (i === maxIndex) ? i+1 : i;    \n" +
+    "\t        strIndex[1] = (i == maxIndex) ? i+1 : i;    \n" +
     "\t    }                            \n" +
     "\t}                     \n" +
     '\treturn found>index ? data.substring(strIndex[0], strIndex[1]) : ""; \n' +
