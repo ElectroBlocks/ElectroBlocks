@@ -75,6 +75,10 @@
   });
 
   async function connectOrDisconnectArduino() {
+    if (!navigator['serial']) {
+      onErrorMessage(`You must be on chrome browser and have Experimental Web Platform features turned on to talk to the arduino. Go to our tutorial section under setup.`)
+      return;
+    }
     
     if (arduinoStatus == PortState.OPEN) {
       arduinoStore.set(PortState.CLOSING);
@@ -121,6 +125,11 @@
   }
 
   async function uploadCode() {
+    if (!navigator['serial']) {
+      onErrorMessage(`You must be on chrome browser and have Experimental Web Platform features turned on to talk to the arduino. Go to our tutorial section under setup.`)
+      return;
+    }
+
     if (arduinoStatus !== PortState.CLOSE) {
       return;
     }
