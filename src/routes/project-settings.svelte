@@ -97,6 +97,9 @@
     main {
         margin: 10px auto;
     }
+    .row {
+        margin-bottom: 10px;
+    }
 </style>
 
 <main class="container">
