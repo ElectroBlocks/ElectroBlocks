@@ -1,96 +1,138 @@
 <script lang="ts">
-    import { defaultSetting } from '../../firebase/model';
-    import type { Settings } from '../../firebase/model';
-    import { fbSaveSettings } from '../../firebase/db';
-    import authStore from '../../stores/auth.store';
-    import settingsStore from '../../stores/settings.store';
-    import FlashMessage from '../../components/electroblocks/ui/FlashMessage.svelte';
-    import _ from 'lodash';
-import { onErrorMessage } from '../../help/alerts';
+    import { FormGroup, Input, Label, Button } from "sveltestrap/src";
+
+    import { defaultSetting } from "../../firebase/model";
+    import type { Settings } from "../../firebase/model";
+    import { fbSaveSettings } from "../../firebase/db";
+    import authStore from "../../stores/auth.store";
+    import settingsStore from "../../stores/settings.store";
+    import FlashMessage from "../../components/electroblocks/ui/FlashMessage.svelte";
+    import _ from "lodash";
+    import { onErrorMessage } from "../../help/alerts";
     let uid: string;
 
-    let settings: Settings
+    let settings: Settings;
 
     let showMessage = false;
 
     let previousSettings = null;
 
-    settingsStore.subscribe(newSettings => {
+    settingsStore.subscribe((newSettings) => {
         settings = newSettings;
-    })
-    
+    });
+
     async function onSaveSettings() {
-        await saveSettings(settings)
+        await saveSettings(settings);
     }
 
     async function onReset() {
-        await saveSettings(defaultSetting)
+        await saveSettings(defaultSetting);
     }
 
     async function saveSettings(settings: Settings) {
-
         if (_.isEqual(previousSettings, settings)) {
             showMessage = true;
-            console.log('blocked saved', previousSettings, settings);
+            console.log("blocked saved", previousSettings, settings);
             return;
         }
-        
+
         if (uid) {
             try {
                 await fbSaveSettings(uid, settings);
-                console.log('saved settings', settings);
-            } catch(e) {
+                console.log("saved settings", settings);
+            } catch (e) {
                 onErrorMessage("Please try again in 5 minutes.", e);
             }
         }
-        
+
         settingsStore.set(settings);
-        previousSettings = { ...settings};
+        previousSettings = { ...settings };
         showMessage = true;
-
     }
 
-    authStore.subscribe(auth => {
+    authStore.subscribe((auth) => {
         uid = auth.uid;
-    })
+    });
 </script>
-<style>    
-    .btn-container {
-        height: 40px;
-    }
-    input.form[type="color"] {
-        padding-bottom: 1px!important;
-        padding-top: 1px !important;
-    }
-    
-</style>
+
 {#if settings}
-    <label class="form" for="use-led-color">Use Led Color</label>
-    <input class="form"   type="checkbox"  bind:checked={settings.customLedColor} />
-    <br />
-{#if settings.customLedColor }
-    <label class="form"  for="led-color">Led Color</label>
-    <input class="form"  bind:value={settings.ledColor} id="led-color" type="color">
-{/if}
+    <div class="row">
+        <div class="col">
+            <FormGroup check>
+                <Label check>
+                    <Input
+                        type="checkbox"
+                        bind:checked={settings.customLedColor} />
+                    Use Led Color
+                </Label>
+            </FormGroup>
+        </div>
+    </div>
 
-    <label class="form"  for="touch-skin-color">Touch sensor's finger color</label>
-    <input class="form"  id="touch-skin-color" bind:value={settings.touchSkinColor} type="color">
+    <div class="row">
+        <div class="col">
+            {#if settings.customLedColor}
+                <FormGroup>
+                    <Label for="led-color">Led Color</Label>
+                    <Input
+                        bind:value={settings.ledColor}
+                        type="color"
+                        id="led-color" />
+                </FormGroup>
+            {/if}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <FormGroup>
+                <Label for="touch-skin-color">
+                    Touch sensor's finger color
+                </Label>
+                <Input
+                    bind:value={settings.touchSkinColor}
+                    type="color"
+                    id="touch-skin-color" />
+            </FormGroup>
+        </div>
+    </div>
 
-    <label class="form"  for="background-color">Background Color</label>
-    <input class="form"  id="background-color" bind:value={settings.backgroundColor} type="color">
+    <div class="row">
+        <div class="col">
+            <FormGroup>
+                <Label for="background-color">Arduino's Background Color</Label>
+                <Input
+                    bind:value={settings.backgroundColor}
+                    type="color"
+                    id="background-color" />
+            </FormGroup>
+        </div>
+    </div>
 
-    <label class="form"  for="max-time">Max time per move</label>
-    <input class="form"  id="max-time" bind:value={settings.maxTimePerMove} type="number">
-    <div class="btn-container">
-        <button class="form success"  id="save" on:click={onSaveSettings}  >Save</button>
-        <button class="form" id="reset" on:click={onReset} >Reset</button>
+    <div class="row">
+        <div class="col">
+            <FormGroup>
+                <Label for="max-time-per-move">Max time per move</Label>
+                <Input
+                    bind:value={settings.maxTimePerMove}
+                    type="number"
+                    id="max-time-per-move" />
+            </FormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Button type="button" color="success" on:click={onSaveSettings}>
+                Save
+            </Button>
+            <Button type="button" color="warning" on:click={onReset}>
+                Reset
+            </Button>
+        </div>
     </div>
 {/if}
 
-
 <FlashMessage bind:show={showMessage} message="Successfully Save." />
 
-
 <svelte:head>
-  <title>Electroblocks - Virtual Circuit</title>
+    <title>Electroblocks - Virtual Circuit</title>
 </svelte:head>

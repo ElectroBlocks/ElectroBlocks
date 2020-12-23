@@ -54,11 +54,15 @@ code {
 }
 
 button {
-        float: right;
-    }
-button:first-of-type {
-    margin-left: 20px;
+  float: right;
 }
-button:active  {
-    transform: scale(.9);
+button:first-of-type {
+  margin-left: 20px;
+}
+button:active {
+  transform: scale(0.9);
+}
+
+.row {
+  margin-top: 10px;
 }

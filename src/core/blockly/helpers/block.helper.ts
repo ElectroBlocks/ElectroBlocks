@@ -1,5 +1,5 @@
-import { getWorkspace } from './workspace.helper';
-import type { BlockSvg } from 'blockly';
+import { getWorkspace } from "./workspace.helper";
+import type { BlockSvg } from "blockly";
 
 export const getAllBlocks = () => {
   return getWorkspace().getAllBlocks(true) as BlockSvg[];
@@ -24,11 +24,11 @@ export const getTopBlocks = () => {
   return getWorkspace().getTopBlocks(true) as BlockSvg[];
 };
 
-export const connectToArduinoBlock = function(variableBlock: BlockSvg) {
+export const connectToArduinoBlock = function (variableBlock: BlockSvg) {
   let arduinoBlock =
-    getBlockByType('arduino_setup') || getBlockByType('arduino_loop'); // See if
+    getBlockByType("arduino_setup") || getBlockByType("arduino_loop"); // See if
   const inputToAttachVariableTo =
-    arduinoBlock.type == 'arduino_setup' ? 'setup' : 'loop';
+    arduinoBlock.type == "arduino_setup" ? "setup" : "loop";
 
   const parentConnection = arduinoBlock.getInput(inputToAttachVariableTo)
     .connection;

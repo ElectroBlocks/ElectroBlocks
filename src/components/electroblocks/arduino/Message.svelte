@@ -75,18 +75,21 @@
   });
 
   async function connectOrDisconnectArduino() {
-    if (!navigator['serial']) {
-      onErrorMessage(`You must be on chrome browser and have Experimental Web Platform features turned on to talk to the arduino. Go to our tutorial section under setup.`)
+    if (!navigator["serial"]) {
+      onErrorMessage(
+        `You must be on chrome browser and have Experimental Web Platform features turned on to talk to the arduino. Go to our tutorial section under setup.`
+      );
       return;
     }
-    
+
     if (arduinoStatus == PortState.OPEN) {
       arduinoStore.set(PortState.CLOSING);
       try {
         await arduionMessageStore.closePort();
       } catch (e) {
         onErrorMessage(
-          "Sorry, error with the arduino.  Please refresh your browser to disconnect.", e
+          "Sorry, error with the arduino.  Please refresh your browser to disconnect.",
+          e
         );
       }
       arduinoStore.set(PortState.CLOSE);
@@ -94,22 +97,20 @@
     }
     arduinoStore.set(PortState.OPENNING);
     const board = getBoard(boardType);
-    console.log(board, 'board');
-    arduionMessageStore.connect(board.serial_baud_rate)
-    .then(() => {
+    console.log(board, "board");
+    arduionMessageStore
+      .connect(board.serial_baud_rate)
+      .then(() => {
         arduinoStore.set(PortState.OPEN);
-    })
-    .catch(e => {
-      if (e.message.toLowerCase() === 'no port selected by the user.') {
+      })
+      .catch((e) => {
+        if (e.message.toLowerCase() === "no port selected by the user.") {
           arduinoStore.set(PortState.CLOSE);
           return;
-      }
-      arduinoStore.set(PortState.CLOSE);
-      onErrorMessage(
-          "Sorry, please refresh your browser and try again.", e
-        );
-    });
-    
+        }
+        arduinoStore.set(PortState.CLOSE);
+        onErrorMessage("Sorry, please refresh your browser and try again.", e);
+      });
   }
 
   function sendMessage() {
@@ -125,8 +126,10 @@
   }
 
   async function uploadCode() {
-    if (!navigator['serial']) {
-      onErrorMessage(`You must be on chrome browser and have Experimental Web Platform features turned on to talk to the arduino. Go to our tutorial section under setup.`)
+    if (!navigator["serial"]) {
+      onErrorMessage(
+        `You must be on chrome browser and have Experimental Web Platform features turned on to talk to the arduino. Go to our tutorial section under setup.`
+      );
       return;
     }
 
@@ -139,11 +142,11 @@
         board: boardType,
         debug: true,
       });
-      
+
       await upload(code, avrgirl, boardType);
-      onSuccess('Your code is uploaded!! :)')
+      onSuccess("Your code is uploaded!! :)");
     } catch (e) {
-      if (e.message.toLowerCase() === 'no port selected by the user.') {
+      if (e.message.toLowerCase() === "no port selected by the user.") {
         arduinoStore.set(PortState.CLOSE);
         return;
       }
@@ -209,13 +212,14 @@
     margin: 5px;
     border-radius: 2px;
     font-size: 20px;
-    padding: 0 10px;
+    padding: 5px 10px;
     width: 50px;
-    height: 40px;
+    height: 36px;
     margin-top: 10px;
     cursor: pointer;
     color: black;
-    background-color: rgb(251, 251, 247);
+    background-color: rgb(254 244 255);
+    border: none;
   }
   button i {
     transition: ease-in-out 0.4s font-size;
@@ -251,6 +255,7 @@
     color: #16bb3a;
   }
 </style>
+
 <section bind:this={messagesEl} id="messages">
   {#each messages as mes (mes.id)}
     <article class="message-computer">
@@ -258,7 +263,8 @@
         <img
           src={mes.type === 'Computer' ? './laptop.png' : './cpu.png'}
           alt={mes.type === 'Computer' ? 'computer' : 'arduino'} />
-        {mes.message} ({mes.time})
+        {mes.message}
+        ({mes.time})
       </p>
     </article>
   {/each}
@@ -275,7 +281,6 @@
     <i class="fa fa-paper-plane" />
   </button>
   <button
-
     disabled={arduinoStatus !== PortState.OPEN && arduinoStatus !== PortState.CLOSE}
     on:click={connectOrDisconnectArduino}>
     <i

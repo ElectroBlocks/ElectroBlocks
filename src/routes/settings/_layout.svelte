@@ -1,42 +1,56 @@
-<script lang="ts"> 
+<script lang="ts">
+    import { FormGroup, Input, Label } from "sveltestrap/src";
+
     export let segment;
-    import { goto } from '@sapper/app';
-    import { onMount } from 'svelte';
-    let selectBox;
+    import { goto } from "@sapper/app";
+    import { onMount } from "svelte";
+    let value;
     async function navigate(e) {
-        await goto(e.target.value)
+        await goto(e.target.value);
     }
 
     onMount(() => {
         // This is to fix the drop down box
-        const value = segment ? '/settings/' + segment : '/settings';
-        selectBox.value = value;
-    }) 
-
+        value = segment ? "/settings/" + segment : "/settings";
+        //selectBox.value = value;
+    });
 </script>
+
 <style>
-    h2 {
-        margin: 10px 5%;
-    }
     main {
-        margin: 5px 5%;
-        overflow-y: hidden; 
+        overflow-y: hidden;
         overflow-x: hidden;
-        min-height: 600px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
-    
 </style>
-<h2>Settings Navigation</h2>
 
-
-
-<main>
-    <select class="form" bind:this={selectBox} on:change={navigate} >
-    <option value="/settings">Virtual Circuit</option>
-    <option value="/settings/myprofile">My Profile</option>
-    <option value="/settings/about">About</option>
-    <option value="/settings/support">Support</option>
-    <option value="/settings/privacy-policy">Privacy Policy</option>
-</select>
-    <slot></slot>
+<main class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h2>Settings</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <FormGroup>
+                <Label for="exampleSelect">Navigation</Label>
+                <Input
+                    bind:value
+                    type="select"
+                    name="select"
+                    on:change={navigate}
+                    id="exampleSelect">
+                    <option value="/settings">Virtual Circuit</option>
+                    <option value="/settings/myprofile">My Profile</option>
+                    <option value="/settings/about">About</option>
+                    <option value="/settings/support">Support</option>
+                    <option value="/settings/privacy-policy">
+                        Privacy Policy
+                    </option>
+                </Input>
+            </FormGroup>
+        </div>
+    </div>
+    <slot />
 </main>
