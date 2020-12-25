@@ -1,93 +1,81 @@
 <script context="module" lang="ts">
   import _ from "lodash";
   import { getLessons } from "../lessons/lesson.list";
-  import type {  Lessons } from "../lessons/lesson.model";
-  import config from '../env';
-	export async function preload(page) {
+  import type { Lessons } from "../lessons/lesson.model";
+  import LessonPreview from "../components/electroblocks/lessons/LessonPreview.svelte";
+  import { FormGroup, Input, Label, Button } from "sveltestrap/src";
+
+  import config from "../env";
+  export async function preload(page) {
     try {
-    const lessonList = await getLessons(config.bucket_name);
+      const lessonList = await getLessons(config.bucket_name);
 
-    return { lessonList };
-
-    } catch(e) {
-      console.log('error', e);
+      return { lessonList };
+    } catch (e) {
+      console.log("error", e);
       return {
         lessons: [],
-        date: '2020-01-01'
-      }
+        date: "2020-01-01",
+      };
     }
-	}
+  }
 </script>
+
 <script lang="ts">
   export let lessonList: Lessons;
   const [lesson1, lesson2] = lessonList.lessons;
-  lesson2.title = 'Motion Sensor';
+  lesson2.title = "Motion Sensor";
   const lesson3 = _.cloneDeep(lesson1);
-  lesson3.title = 'Bluetooth'
+  lesson3.title = "Bluetooth";
   const lesson4 = _.cloneDeep(lesson1);
-  lesson4.title = 'Touch Sensor'
+  lesson4.title = "Touch Sensor";
   const lesson5 = _.cloneDeep(lesson1);
-  lesson5.title = 'Soil Sensor'
+  lesson5.title = "Soil Sensor";
   lessonList.lessons = [lesson1, lesson2, lesson3, lesson4, lesson5];
-  let filteredLesson = lessonList.lessons;
-  import Lesson from "../components/electroblocks/lessons/LessonPreview.svelte";
-  let searchTerm = '';
-  $: if (searchTerm === '') {
-      filteredLesson = lessonList.lessons
+  let filteredLesson = _.chunk(lessonList.lessons, 2);
+  let searchTerm = "";
+  $: if (searchTerm === "") {
+    filteredLesson = _.chunk(lessonList.lessons, 2);
   } else {
-     filteredLesson = lessonList.lessons.filter(l => l.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    filteredLesson = _.chunk(
+      lessonList.lessons.filter((l) =>
+        l.title.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
+      2
+    );
   }
 </script>
 
 <style>
-  :global(#right_panel) {
-    overflow-y: scroll;
-  }
-  main {
-    margin: 20px;
-    min-height: 100vh;
-    overflow-y: scroll;
-  }
-  
-  h1 {
-    font-size: 2em;
-    margin: 0 auto;
-    width: 675px;
-  }
-
-  
-
-  section {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin: 0 auto;
-    width: 675px;
-}
-
-  .search-container {
-      margin: 0 auto;
-      width: 675px;
-  }
-
-  .search-container input {
-    width: 675px !important;
-  }
-
 </style>
 
 <main>
-  <h1>Lessons</h1>
-  <div class="search-container">
-    <input class="form" placeholder="Search Lessons" bind:value={searchTerm} type="text"  id="lesson-search" />
-  </div>
-    <section>
-        {#each filteredLesson as lesson}
-              <Lesson {lesson} />
+  <section class="container">
+    <div class="row">
+      <div class="col-10 offset-1">
+        <h1>Lessons</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 offset-1">
+        <FormGroup>
+          <Label for="search">Search</Label>
+          <Input bind:value={searchTerm} type="text" name="text" id="search" />
+        </FormGroup>
+      </div>
+    </div>
+    {#each filteredLesson as lessons}
+      <section class="row mt-5">
+        <div class="col-1" />
+        {#each lessons as lesson}
+          <LessonPreview
+            lessonId={lesson.id}
+            image={lesson.mainPicture}
+            title={lesson.title} />
         {/each}
-    </section>
-
+      </section>
+    {/each}
+  </section>
 </main>
 <svelte:head>
   <title>Electroblocks - Lessons</title>

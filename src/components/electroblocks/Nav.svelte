@@ -179,7 +179,7 @@
     <a href="/arduino{params}" class:active={$page.path.includes('arduino')}>
       <i class="fa fa-microchip" />
     </a>
-    <a href="/lessons" class:active={segment === 'lessons'}>
+    <a href="/lessons{params}" class:active={segment === 'lessons'}>
       <i class="fa fa-book" />
     </a>
     <a href="/open" class:active={segment === 'open'}>
