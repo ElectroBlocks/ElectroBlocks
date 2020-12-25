@@ -57,10 +57,20 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-10 offset-1">
+      <div class="col-7 offset-1">
         <FormGroup>
           <Label for="search">Search</Label>
           <Input bind:value={searchTerm} type="text" name="text" id="search" />
+        </FormGroup>
+      </div>
+      <div class="col-3">
+        <FormGroup>
+          <Label for="Level">Level</Label>
+          <Input type="select" name="select" id="Level">
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </Input>
         </FormGroup>
       </div>
     </div>
