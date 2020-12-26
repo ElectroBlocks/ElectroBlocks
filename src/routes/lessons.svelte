@@ -47,23 +47,29 @@
 </script>
 
 <style>
+  .no-padding-left {
+    padding-left: 0;
+  }
+  .no-padding-right {
+    padding-right: 0;
+  }
 </style>
 
 <main>
   <section class="container">
     <div class="row">
-      <div class="col-10 offset-1">
+      <div class="col-10 offset-1 no-padding-left">
         <h1>Lessons</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-7 offset-1">
+      <div class="col-7 offset-1 no-padding-left">
         <FormGroup>
           <Label for="search">Search</Label>
           <Input bind:value={searchTerm} type="text" name="text" id="search" />
         </FormGroup>
       </div>
-      <div class="col-3">
+      <div class="col-3 no-padding-right">
         <FormGroup>
           <Label for="Level">Level</Label>
           <Input type="select" name="select" id="Level">
