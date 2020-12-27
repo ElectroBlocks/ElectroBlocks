@@ -22,6 +22,8 @@
   h3 {
     text-align: center;
     font-size: 20px;
+    padding: 3px;
+    height: 60px;
   }
 
   img {

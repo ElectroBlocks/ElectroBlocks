@@ -1,22 +1,40 @@
-import type { Lesson, Lessons } from "./lesson.model";
-import axios from 'axios';
+import firebase from "firebase/app";
+import { LessonType, Lesson } from "./lesson.model";
 
-const lessons: Array<Lesson> = [];
+export const getLessons = async () => {
+  const db = firebase.firestore();
+  const lessonsRef = await db
+    .collection("lessons")
+    .where("type", "==", LessonType.ELECTROBLOCK)
+    .where("published", "==", true)
+    .get();
 
-export const getLessons = async (bucketName: string): Promise<Lessons> => {
-  const response =
-    await axios.get<Lessons>(`https://storage.googleapis.com/${bucketName}/lesson-list.json`);
+  if (lessonsRef.empty) {
+    return [];
+  }
 
-  return response.data;
+  return lessonsRef.docs.map((d) => {
+    return {
+      ...d.data(),
+      id: d.id,
+    } as Lesson<any>;
+  });
 };
 
-export const getLesson = async (bucketName: string, id: string) => {
-  const lesson =  await axios.get<Lesson>(`https://storage.googleapis.com/${bucketName}/lessons/${id}.json`);
+export const getLesson = async (id: string) => {
+  const db = firebase.firestore();
+  const lessonsRef = await db.collection("lessons").doc(id).get();
 
-  return lesson.data;
+  const lesson = { ...lessonsRef.data(), id: id, steps: [] };
+
+  const stepsRef = await db
+    .collection("lessons")
+    .doc(id)
+    .collection("steps")
+    .orderBy("stepNumber", "asc")
+    .get();
+
+  lesson.steps = stepsRef.docs.map((d) => d.data());
+
+  return lesson;
 };
-
-const addLesson = (lesson: Lesson) => {
-  lessons.push(lesson);
-};
-

@@ -7,35 +7,30 @@
 
   import { stores } from "@sapper/app";
   import { onErrorMessage } from "../help/alerts";
-  import config from '../env';
+  import config from "../env";
 
   const { page } = stores();
-  let showLesson = false; 
-
+  let showLesson = false;
 
   onMount(async () => {
     console.log($page);
     if ($page.query["lessonId"]) {
-          try {
-            showLesson = true;
-            const lesson =  await getLesson(config.bucket_name, $page.query["lessonId"]);
-            const event = new Event('lesson-change');
-            (event as any).detail = lesson;
-            console.log(lesson);
-            document.dispatchEvent(event);
-          } catch(e) {
-            onErrorMessage("Error loading the lesson", e)
-        }
+      try {
+        showLesson = true;
+        const lesson = await getLesson($page.query["lessonId"]);
+        const event = new Event("lesson-change");
+        (event as any).detail = lesson;
+        console.log(lesson);
+        document.dispatchEvent(event);
+      } catch (e) {
+        onErrorMessage("Error loading the lesson", e);
+      }
     }
-    
 
-    document.addEventListener('lesson-close', () => {
+    document.addEventListener("lesson-close", () => {
       showLesson = false;
-    })
-  })
-
-  
- 
+    });
+  });
 </script>
 
 <style>
@@ -44,6 +39,7 @@
     width: 100%;
   }
 </style>
+
 {#if showLesson}
   <ng-lessons left="500" top="150" />
 {/if}
