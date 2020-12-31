@@ -6,7 +6,7 @@ import loopTimes from "../../core/blockly/helpers/looptimes";
 Blockly.defineBlocksWithJsonArray([
   {
     type: "bluetooth_get_message",
-    message0: "%1 bluetooth get message.",
+    message0: "%1 get message",
     args0: [
       {
         type: "field_image",
@@ -24,7 +24,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "bluetooth_has_message",
-    message0: "%1 Is bluetooth receiving message?",
+    message0: "%1 Is receiving message?",
     args0: [
       {
         type: "field_image",
@@ -42,7 +42,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "bluetooth_send_message",
-    message0: "%1 bluetooth send message. %2",
+    message0: "%1 send message. %2",
     args0: [
       {
         type: "field_image",

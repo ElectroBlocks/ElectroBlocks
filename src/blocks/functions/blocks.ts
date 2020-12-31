@@ -10,7 +10,7 @@ Blockly.Blocks["procedures_defnoreturn"] = {
     var nameField = new Blockly.FieldTextInput("", Blockly.Procedures.rename);
     nameField.setSpellcheck(false);
     this.appendDummyInput()
-      .appendField("create custom block")
+      .appendField("create block")
       .appendField(nameField, "NAME")
       .appendField("", "PARAMS");
     // Disabling the ability to add parameters to functions

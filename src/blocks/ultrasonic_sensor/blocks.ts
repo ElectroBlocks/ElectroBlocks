@@ -6,7 +6,7 @@ import loopTimes from "../../core/blockly/helpers/looptimes";
 Blockly.defineBlocksWithJsonArray([
   {
     type: "ultra_sonic_sensor_motion",
-    message0: "%1 Ultrasonic sensor distance (cm).",
+    message0: "%1 distance (cm).",
     args0: [
       {
         type: "field_image",

@@ -8,36 +8,13 @@ import {
   getAvailablePins,
 } from "../../core/blockly/helpers/getAvialablePinsFromSetupBlock";
 
-Blockly.Blocks["analog_write"] = {
-  init: function () {
-    this.appendDummyInput()
-      .appendField(
-        new Blockly.FieldImage("./blocks/arduino/analog_write.png", 15, 15)
-      )
-      .appendField("Send analog wave to pin ")
-      .appendField(
-        new Blockly.FieldDropdown(() => selectBoardBlockly().pwmPins),
-        "PIN"
-      );
-    this.appendValueInput("WRITE_VALUE")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Wave Intensity");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(COLOR_THEME.COMPONENTS);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  },
-};
-
 const analogReadBlock: any = {
   init: function () {
     this.appendDummyInput()
       .appendField(
         new Blockly.FieldImage("./blocks/arduino/analog_read.png", 15, 15)
       )
-      .appendField("Read number from analog pin#")
+      .appendField("Read analog pin#")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return configuredPins(

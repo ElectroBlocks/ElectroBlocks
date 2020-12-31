@@ -2,11 +2,13 @@ import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 [
-  { type: "number", blockName: 'number', variable_type: "List Number" },
-  { type: "string", blockName: 'string', variable_type: "List String" },
-  { type: "boolean", blockName: 'boolean', variable_type: "List Boolean" },
-  { type: "color", blockName: 'colour', variable_type: "List Colour" },
+  { type: "number", blockName: "number", variable_type: "List Number" },
+  { type: "string", blockName: "string", variable_type: "List String" },
+  { type: "boolean", blockName: "boolean", variable_type: "List Boolean" },
+  { type: "color", blockName: "colour", variable_type: "List Colour" },
 ].forEach(({ type, blockName, variable_type }) => {
+  const humanType = type === "string" ? "text" : type;
+
   Blockly.Blocks[`create_list_${blockName}_block`] = {
     init: function () {
       const varField = new Blockly.FieldVariable(
@@ -25,7 +27,6 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       this.setColour(COLOR_THEME.DATA);
       this.setTooltip("");
       this.setHelpUrl("");
-      const humanType = type === 'string' ? 'text block' : type;
       this.setCommentText(
         `This block creates a list of ${humanType}s.  The size determines how many ${humanType}s are in the list.`
       );
@@ -35,15 +36,13 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
   Blockly.Blocks[`set_${blockName}_list_block`] = {
     init: function () {
-      const humanType = type === "string" ? "text block" : type;
-
       this.appendValueInput("VALUE")
-        .setCheck(variable_type.replace('List ', ''))
+        .setCheck(variable_type.replace("List ", ""))
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(`Store a ${humanType}`);
+        .appendField(`Store ${humanType}`);
       this.appendValueInput("POSITION")
         .setCheck("Number")
-        .appendField(" in list ")
+        .appendField(" in ")
         .appendField(
           new Blockly.FieldVariable(null, null, [variable_type], variable_type),
           "VAR"
@@ -60,14 +59,13 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
         `This block puts a ${humanType} into the list.  The position determines where in the list the ${humanType} will be.  The first ${humanType} in the list starts at position 1.`
       );
       this.comment.setBubbleSize(460, 120);
-
     },
   };
 
   Blockly.Blocks[`get_${blockName}_from_list`] = {
     init: function () {
       this.appendDummyInput()
-        .appendField("Get a number from list at")
+        .appendField(`Get ${humanType} from `)
         .appendField(
           new Blockly.FieldVariable(null, null, [variable_type], variable_type),
           "VAR"
@@ -80,13 +78,10 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       this.setColour(COLOR_THEME.DATA);
       this.setTooltip("");
       this.setHelpUrl("");
-      const humanType = type === "string" ? "text block" : type;
       this.setCommentText(
         `This block gets a ${humanType} from the list.  The position determines where in the list you are getting the ${humanType}.  The first ${humanType} in the list starts at position 1.`
       );
       this.comment.setBubbleSize(460, 120);
-
     },
   };
-
-})
+});

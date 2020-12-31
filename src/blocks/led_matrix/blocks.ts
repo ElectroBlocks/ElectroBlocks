@@ -369,7 +369,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "led_matrix_turn_one_on_off",
-    message0: "%1 Turn one led in led matrix %2 %3 Row %4 Column %5",
+    message0: "%1 Turn one led %2 %3 Row %4 Column %5",
     args0: [
       {
         type: "field_image",

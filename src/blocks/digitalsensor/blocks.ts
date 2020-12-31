@@ -13,7 +13,7 @@ const digitalReadBlock: any = {
       .appendField(
         new Blockly.FieldImage("./blocks/arduino/digital_read.png", 15, 15)
       )
-      .appendField("Is electricity running through pin#")
+      .appendField("Is digital pin#")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return configuredPins(
@@ -22,8 +22,8 @@ const digitalReadBlock: any = {
           );
         }),
         "PIN"
-      );
-
+      )
+      .appendField(" on?");
     this.setOutput(true, "Boolean");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");

@@ -6,7 +6,7 @@ import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 Blockly.defineBlocksWithJsonArray([
   {
     type: "temp_get_temp",
-    message0: "%1 Temperature in Celsius.",
+    message0: "%1 Temp in °C",
     args0: [
       {
         type: "field_image",
@@ -25,7 +25,7 @@ Blockly.defineBlocksWithJsonArray([
 
   {
     type: "temp_get_humidity",
-    message0: "%1 Humidity percentage.",
+    message0: "%1 humidity %",
     args0: [
       {
         type: "field_image",
@@ -53,7 +53,7 @@ const tempSetupBlock: any = {
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN"
-    );
+      );
     this.appendDummyInput()
       .appendField("Type: ")
       .appendField(

@@ -5,7 +5,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 Blockly.defineBlocksWithJsonArray([
   {
     type: "lcd_scroll",
-    message0: "%1 LCD move everything 1 space %2",
+    message0: "%1 move 1 space %2",
     args0: [
       {
         type: "field_image",
@@ -32,7 +32,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "lcd_blink",
-    message0: "%1 LCD %2 %3 Row %4 Column %5",
+    message0: "%1 %2 %3 Row %4 Column %5",
     args0: [
       {
         type: "field_image",
@@ -75,7 +75,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     type: "lcd_screen_simple_print",
     message0:
-      "%1 LCD Print  ->  Delay ->  Clear %2 Print on Row 1 %3 Print on Row 2 %4 Print on Row 3 %5 Print on Row 4 %6 Delay in seconds %7",
+      "%1  Print -> Delay -> Clear %2 Print on Row 1 %3 Print on Row 2 %4 Print on Row 3 %5 Print on Row 4 %6 Delay in seconds %7",
     args0: [
       {
         type: "field_image",
@@ -127,7 +127,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "lcd_backlight",
-    message0: "%1 LCD turn backlight %2",
+    message0: "%1 turn backlight %2",
     args0: [
       {
         type: "field_image",
@@ -154,7 +154,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "lcd_screen_print",
-    message0: "%1 LCD Print %2 Row %3 Column %4 Message %5",
+    message0: "%1 Print %2 Row %3 Column %4 Message %5",
     args0: [
       {
         type: "field_image",
@@ -194,7 +194,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "lcd_screen_clear",
-    message0: "%1 LCD Clear",
+    message0: "%1 Clear",
     args0: [
       {
         type: "field_image",

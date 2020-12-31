@@ -8,7 +8,7 @@ Blockly.Blocks["analog_write"] = {
       .appendField(
         new Blockly.FieldImage("./blocks/arduino/analog_write.png", 15, 15)
       )
-      .appendField("Send analog wave to pin ")
+      .appendField("Analog Pin# ")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().pwmPins),
         "PIN"
@@ -16,7 +16,7 @@ Blockly.Blocks["analog_write"] = {
     this.appendValueInput("WRITE_VALUE")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Wave Intensity");
+      .appendField("Power");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(COLOR_THEME.COMPONENTS);

@@ -24,7 +24,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "ir_remote_get_code",
-    message0: "%1 get ir remote code.",
+    message0: "%1 get code",
     args0: [
       {
         type: "field_image",

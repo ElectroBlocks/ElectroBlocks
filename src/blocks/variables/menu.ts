@@ -1,5 +1,5 @@
 import type { WorkspaceSvg } from "blockly";
-import Blockly from 'blockly';
+import Blockly from "blockly";
 import {
   createBlock,
   connectToArduinoBlock,
@@ -32,7 +32,7 @@ Blockly.Variables.flyoutCategory = function (workspace: Blockly.Workspace) {
 
   const btnStringVariable = document.createElement("button");
 
-  btnStringVariable.setAttribute("text", "Create String Variable");
+  btnStringVariable.setAttribute("text", "Create Text Variable");
   btnStringVariable.setAttribute("callbackKey", "CREATE_STRING_VARIABLE");
 
   castedWorkspace.registerButtonCallback("CREATE_STRING_VARIABLE", function (
