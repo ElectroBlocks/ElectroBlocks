@@ -1,7 +1,7 @@
 export default {
   firebase: {
     apiKey: "AIzaSyBwZ_RJDOuWRQLAzgEh7wiL8FwBvnsnoUA",
-    authDomain: "electroblocks-test.firebaseapp.com",
+    authDomain: "auth.electroblocks.org",
     databaseURL: "https://electroblocks-test.firebaseio.com",
     projectId: "electroblocks-test",
     storageBucket: "electroblocks-test.appspot.com",
