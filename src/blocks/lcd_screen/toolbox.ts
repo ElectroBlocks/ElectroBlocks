@@ -2,7 +2,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 export default `<category colour="${COLOR_THEME.COMPONENTS}" name="LCD Screen">
    <block type="lcd_setup">
-    <comment pinned="false" h="195" w="460">This block sets up the LCD screen.
+    <comment pinned="false" h="240" w="460">This block sets up the LCD screen.
 
 The chip determines the memory type.  Check where you purchased your chip; if you don’t know, try both, and it will be easy to see.
 
@@ -37,7 +37,7 @@ For the size we the first number is the width, and the second number is the heig
                </value>
    </block>
    <block type="lcd_screen_print">
-   <comment pinned="false" h="150" w="460">This block prints something on the LCD screen.  The column number controls the x position, and the row number controls the y.  X means left to right, and Y means up and down.
+   <comment pinned="false" h="190" w="460">This block prints something on the LCD screen.  The column number controls the x position, and the row number controls the y.  X means left to right, and Y means up and down.
    
 For Y, as you go down, the numbers go up.  So the first column is 1, and the next column down is 2.</comment>
    <value name="ROW">
@@ -63,7 +63,7 @@ For Y, as you go down, the numbers go up.  So the first column is 1, and the nex
     <comment pinned="false" h="70" w="460">This block shifts all the text to the left or right.</comment>
    </block>
    <block type="lcd_blink">
-        <comment pinned="false" h="60" w="460">This block turns on or off the blinking space on the LCD screen.</comment>
+        <comment pinned="false" h="80" w="460">This block turns on or off the blinking space on the LCD screen.</comment>
    <value name="ROW">
                    <block type="math_number">
                        <field name="NUM">1</field>
@@ -76,7 +76,7 @@ For Y, as you go down, the numbers go up.  So the first column is 1, and the nex
                </value>
    </block>
    <block type="lcd_backlight">
-    <comment pinned="false" h="60" w="460">This block turns on and off the backlight in the LCD Screen.</comment>
+    <comment pinned="false" h="80" w="460">This block turns on and off the backlight in the LCD Screen.</comment>
    </block>
    </category>
    `;

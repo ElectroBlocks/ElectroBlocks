@@ -15,7 +15,7 @@ export default `
      </value>
    </block>
    <block type="parse_string_block">
-   <comment pinned="false" h="175" w="460">This block will break a text block into sections and return one of those sections.  It separates a text block is by the separating character.  
+   <comment pinned="false" h="220" w="460">This block will break a text block into sections and return one of those sections.  It separates a text block is by the separating character.  
 
 Let’s say you have a text block that stores “12-0-40” and your separating character is “-”.  If you put 1 for the position, it will return 12.  If you want 40, you pass in 2 for the position.</comment>
 
@@ -32,7 +32,7 @@ Let’s say you have a text block that stores “12-0-40” and your separating 
    </block>
 
    <block type="number_to_string">
-   <comment pinned="false" h="160" w="460">This block turns a number into a text block.  The precision controls how many decimal places of the number will be turned into text.    
+   <comment pinned="false" h="190" w="460">This block turns a number into a text block.  The precision controls how many decimal places of the number will be turned into text.    
    
 Let’s say you have 5.23234, and you specify 2 for the precision.  The text block that this block would return “5.23”.</comment>
      <value name="NUMBER">

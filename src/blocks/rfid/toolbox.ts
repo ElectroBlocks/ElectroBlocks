@@ -4,7 +4,7 @@ import { virtualCircuitComment } from "../comment-text";
 export default `
 <category name="RFID" colour="${COLOR_THEME.SENSOR}" >
            <block type="rfid_setup">
-            <comment pinned="false" h="120" w="460">This block setups the RFID sensor and tells the Arduino which pin it should use to transmit RFID data.${virtualCircuitComment}</comment>
+            <comment pinned="false" h="150" w="460">This block setups the RFID sensor and tells the Arduino which pin it should use to transmit RFID data.${virtualCircuitComment}</comment>
                <field name="PIN_TX">6</field>
            </block>
            <block type="rfid_card">

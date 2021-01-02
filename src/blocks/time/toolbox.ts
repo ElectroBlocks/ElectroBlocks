@@ -2,10 +2,10 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 export default `<category colour="${COLOR_THEME.ARDUINO}" name="Time">
    <block type="time_setup">
-   <comment pinned="false" h="60" w="460">This block sets up how much time will pass in the virtual circuit per loop.</comment>
+   <comment pinned="false" h="80" w="460">This block sets up how much time will pass in the virtual circuit per loop.</comment>
    </block>
    <block type="delay_block">
-      <comment pinned="false" h="60" w="460">This block pauses the Arduino for x number of seconds.  Nothing will be able to be sensed while the delay is running.</comment>
+      <comment pinned="false" h="90" w="460">This block pauses the Arduino for x number of seconds.  Nothing will be able to be sensed while the delay is running.</comment>
 
    <value name="DELAY">
 
@@ -15,7 +15,7 @@ export default `<category colour="${COLOR_THEME.ARDUINO}" name="Time">
    </value>
    </block>
    <block type="time_seconds">
-      <comment pinned="false" h="60" w="460">Gets the number of seconds the arduino has been turned on.</comment>
+      <comment pinned="false" h="80" w="460">Gets the number of seconds the arduino has been turned on.</comment>
 
    </block>
 
