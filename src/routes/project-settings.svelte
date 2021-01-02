@@ -137,7 +137,9 @@
 
         <div class="row">
             <div class="col">
-                <Button color="success" on:click={saveFile}>Save</Button>
+                <Button class="w-100" color="success" on:click={saveFile}>
+                    Save
+                </Button>
             </div>
         </div>
         <div class="row">
@@ -149,10 +151,14 @@
         </div>
         <div class="row">
             <div class="col">
-                <Button color="info" on:click={downloadProject}>
+                <Button class="w-100" color="info" on:click={downloadProject}>
                     Download Project
                 </Button>
-                <Button color="info" on:click={downlaodCode}>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <Button class="w-100" color="info" on:click={downlaodCode}>
                     Download Code
                 </Button>
             </div>
