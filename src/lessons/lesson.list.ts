@@ -5,7 +5,7 @@ export const getLessons = async () => {
   const db = firebase.firestore();
   const lessonsRef = await db
     .collection("lessons")
-    .where("type", "==", LessonType.ELECTROBLOCK)
+    .where("type", "==", LessonType.ELECTROBLOCK_WEBSITE)
     .where("published", "==", true)
     .get();
 

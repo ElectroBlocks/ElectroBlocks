@@ -14,17 +14,6 @@ export interface LessonForm<T> {
   type: LessonType;
 }
 
-export interface UplaodFileStep {
-  file: File;
-  step: string;
-}
-export interface UploadStep {
-  contentType: "youtube" | "picture";
-  youtubeId?: string;
-  file?: File;
-  body: string;
-}
-
 export enum LessonType {
   SCRATCH = "Scratch",
   ROBLOX = "Roblox",
@@ -34,12 +23,13 @@ export enum LessonType {
   APP_INVENTOR = "App Inventor",
   P5JS = "P5.js",
   ELECTROBLOCK = "Electroblocks",
+  ELECTROBLOCK_WEBSITE = "Electroblocks Website",
 }
 
 export enum Categories {
   BIG_PROJECTS = "Big Projects",
   PROJECTS = "Projects",
-  HOW_TOS = "How to use platform",
+  HOW_TOS = "How Tos",
   QUICK_TIPS = "Quick Tips",
   TEACHERS = "Teachers",
 }
@@ -59,13 +49,6 @@ export interface Lesson<T> {
   created: T;
   updated: T;
   author?: Author;
-}
-
-export interface Author {
-  name: string;
-  email: string;
-  bio: string;
-  link: string;
 }
 
 export interface LessonForm<T> {
@@ -88,17 +71,6 @@ export interface Step {
   step: string;
   id?: string;
   stepNumber: number;
-}
-
-export interface UplaodFileStep {
-  file: File;
-  step: string;
-}
-export interface UploadStep {
-  contentType: "youtube" | "picture";
-  youtubeId?: string;
-  file?: File;
-  body: string;
 }
 
 export enum LessonLevel {
