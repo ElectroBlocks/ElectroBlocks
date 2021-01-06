@@ -9,8 +9,8 @@
   import update from "../../../core/virtual-circuit/update.ts";
   // What if we made everything a series of components.
   import { onMount, onDestroy } from "svelte";
-import { onErrorMessage } from "../../../help/alerts";
-import { wait } from "../../../helpers/wait";
+  import { onErrorMessage } from "../../../help/alerts";
+  import { wait } from "../../../helpers/wait";
   let container;
   let frames = [];
   let currentFrame = undefined;
@@ -21,16 +21,15 @@ import { wait } from "../../../helpers/wait";
       await import("@svgdotjs/svg.draggable.js");
 
       await import("@svgdotjs/svg.panzoom.js");
-
-    } catch(e) {
+    } catch (e) {
       onErrorMessage("Please refresh your browser and try again.", e);
     }
 
     let width = container.clientWidth - 10;
     let height = container.clientHeight - 10;
     let count = 0;
-    while (width < 0 || height < 0 ) {
-      console.log('waiting to load');
+    while (width < 0 || height < 0) {
+      console.log("waiting to load");
       width = container.clientWidth - 10;
       height = container.clientHeight - 10;
       await wait(5);
@@ -89,7 +88,7 @@ import { wait } from "../../../helpers/wait";
 </script>
 
 <style>
-  .container,
+  #container,
   #simulator {
     width: 100%;
     height: 100%;
@@ -97,7 +96,7 @@ import { wait } from "../../../helpers/wait";
     top: 0;
     left: 0;
   }
-  .container {
+  #container {
     background-color: #d9e4ec;
   }
   #simulator {
@@ -118,7 +117,7 @@ import { wait } from "../../../helpers/wait";
   }
 </style>
 
-<div style="background-color: {$settings.backgroundColor}" class="container">
+<div style="background-color: {$settings.backgroundColor}" id="container">
   <div bind:this={container} id="simulator" />
   <div id="simulator-controls">
     <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
