@@ -9,6 +9,7 @@ export interface LessonForm<T> {
   title: string;
   description: string;
   mainPicture: T;
+  priority: number;
   level: LessonLevel;
   category: string;
   type: LessonType;
