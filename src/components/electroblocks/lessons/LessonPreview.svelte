@@ -27,7 +27,9 @@
   }
 
   img {
-    width: 100%;
+    max-height: 275px;
+    display: block;
+    margin: 0 auto;
   }
 
   .lesson-preview {
@@ -40,6 +42,7 @@
 
   p {
     margin-top: 10px;
+    text-align: center;
   }
 </style>
 
