@@ -10,21 +10,20 @@
   let lessonList: Lesson<any>[] = [];
   let filteredLesson: Array<Array<Lesson<any>>> = [];
   let searchTerm = "";
-  let categoryFilter = "All";
-  $: if (searchTerm === "" && categoryFilter === "All") {
-    filteredLesson = _.chunk(lessonList, 2);
-  } else {
+  let categoryFilter = Categories.HOW_TOS;
+  $: if (searchTerm === "") {
     filteredLesson = _.chunk(
       lessonList
-        .filter(
-          (l) => categoryFilter === "all" || l.category === categoryFilter
-        )
+        .filter((l) => l.category === categoryFilter)
         .filter((l) => {
           return (
             searchTerm === "" ||
             l.title.toLowerCase().includes(searchTerm.toLowerCase())
           );
-        }),
+        })
+        .sort(
+          (a: Lesson<any>, b: Lesson<any>) => a.lessonOrder - b.lessonOrder
+        ),
       2
     );
   }
@@ -67,10 +66,9 @@
             type="select"
             name="select"
             id="Category">
-            {#each Object.values(Categories) as cat}
-              <option>{cat}</option>
-            {/each}
-            <option>All</option>
+            <option>How Tos</option>
+            <option>Lessons</option>
+            <option>Projects</option>
           </Input>
         </FormGroup>
       </div>

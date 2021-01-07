@@ -33,6 +33,7 @@ export enum Categories {
   HOW_TOS = "How Tos",
   QUICK_TIPS = "Quick Tips",
   TEACHERS = "Teachers",
+  LESSONS = "Lessons",
 }
 
 export interface Lesson<T> {
@@ -50,6 +51,7 @@ export interface Lesson<T> {
   created: T;
   updated: T;
   author?: Author;
+  lessonOrder: number;
 }
 
 export interface LessonForm<T> {
