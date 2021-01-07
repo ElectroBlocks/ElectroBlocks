@@ -35,6 +35,7 @@ export const createWire = (
   line.data("component-id", element.id());
   line.data("wire-type", type);
   line.data("type", "wire");
+  line.data("update-wire", true);
   line.data("hole-id", board.pinToBreadboardHole(pin));
 
   return line;
@@ -101,20 +102,45 @@ const createBottomBreadboardWire = (
   const hole = findSvgElement(`pin${holeId}${breadBoardLetter}`, arduino);
   const holeX = hole.cx() + arduino.x();
   const holeY = hole.cy() + arduino.y();
+
+  const aHole = findSvgElement(`pin${holeId}A`, arduino);
+
+  const aHoleX = aHole.cx() + +arduino.x();
+  const aHoleY = aHole.cy() + +arduino.y();
+
   const componentPin = findComponentConnection(element, componentBoxId);
   (window as any).componentPin = componentPin;
-  const line = draw
+  const stationaryWire = draw
     .line()
-    .plot(holeX, holeY, componentPin.x, componentPin.y)
+    .plot(holeX, holeY, aHoleX, aHoleY)
     .stroke({ width: 2, color: wireColor, linecap: "round" });
-  line.data("component-id", componentId);
-  line.data("connection-id", componentBoxId);
-  line.data("hole-id", `pin${holeId}${breadBoardLetter}`);
-  line.data("wire-type", "POWER");
-  line.data("type", "wire");
 
-  (window as any).line = line;
-  return line;
+  stationaryWire.data("component-id", componentId);
+  stationaryWire.data("connection-id", componentBoxId);
+  stationaryWire.data("update-wire", false);
+  stationaryWire.data("hole-id", `pin${holeId}${breadBoardLetter}`);
+  stationaryWire.data("wire-type", wireType);
+  stationaryWire.data("type", "wire");
+
+  const eHole = findSvgElement(`pin${holeId}E`, arduino);
+
+  const eHoleX = eHole.cx() + +arduino.x();
+  const eHoleY = eHole.cy() + +arduino.y();
+
+  const movingWire = draw
+    .line()
+    .plot(eHoleX, eHoleY, componentPin.x, componentPin.y)
+    .stroke({ width: 2, color: wireColor, linecap: "round" });
+
+  movingWire.data("component-id", componentId);
+  movingWire.data("connection-id", componentBoxId);
+  movingWire.data("update-wire", true);
+  movingWire.data("hole-id", `pin${holeId}E`);
+  movingWire.data("wire-type", wireType);
+  movingWire.data("type", "wire");
+
+  (window as any).line = stationaryWire;
+  return stationaryWire;
 };
 
 export const updateWires = (element: Element, draw: Svg, arduino: Svg) => {
@@ -123,7 +149,7 @@ export const updateWires = (element: Element, draw: Svg, arduino: Svg) => {
   ) as any[]) as Line[];
   wires
     .filter((w) => {
-      return w.data("type") == "wire";
+      return w.data("type") == "wire" && w.data("update-wire");
     })
     .forEach((w) => {
       const holeId = w.data("hole-id");

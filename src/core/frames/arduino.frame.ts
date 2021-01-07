@@ -2,7 +2,6 @@ import type { Settings } from "../../firebase/model";
 import type { VariableTypes } from "../blockly/dto/variable.type";
 import type { MicroControllerType } from "../microcontroller/microcontroller";
 import type { ARDUINO_PINS } from "../microcontroller/selectBoard";
- 
 
 export interface ArduinoFrameContainer {
   board: MicroControllerType;
@@ -58,25 +57,25 @@ export interface ArduinoComponentState {
 }
 
 export enum ArduinoComponentType {
-  SERVO = "SERVO",
-  LCD_SCREEN = "LCD_SCREEN",
-  LED_MATRIX = "LED_MATRIX",
-  NEO_PIXEL_STRIP = "NEO_PIXEL_STRIP",
-  MOTOR = "MOTOR",
-  PIN = "PIN",
-  BLUE_TOOTH = "BLUE_TOOTH",
-  LED_COLOR = "LED_COLOR",
-  LED = "LED",
-  WRITE_PIN = "WRITE_PIN",
-  RFID = "RFID",
-  BUTTON = "BUTTON",
-  MESSAGE = "MESSAGE",
-  TIME = "TIME",
-  DIGITAL_SENSOR = "DIGITAL_SENSOR",
-  ANALOG_SENSOR = "ANALOG_SENSOR",
-  IR_REMOTE = "IR_REMOTE",
-  ULTRASONICE_SENSOR = "ULTRASONICE_SENSOR",
-  TEMPERATURE_SENSOR = "TEMPERATURE_SENSOR",
+  SERVO = "SERVO_COMPONENT",
+  LCD_SCREEN = "LCD_SCREEN_COMPONENT",
+  LED_MATRIX = "LED_MATRIX_COMPONENT",
+  NEO_PIXEL_STRIP = "NEO_PIXEL_STRIP_COMPONENT",
+  MOTOR = "MOTOR_COMPONENT",
+  PIN = "PIN_COMPONENT",
+  BLUE_TOOTH = "BLUE_TOOTH_COMPONENT",
+  LED_COLOR = "LED_COLOR_COMPONENT",
+  LED = "LED_COMPONENT",
+  WRITE_PIN = "WRITE_PIN_COMPONENT",
+  RFID = "RFID_COMPONENT",
+  BUTTON = "BUTTON_COMPONENT",
+  MESSAGE = "MESSAGE_COMPONENT",
+  TIME = "TIME_COMPONENT",
+  DIGITAL_SENSOR = "DIGITAL_SENSOR_COMPONENT",
+  ANALOG_SENSOR = "ANALOG_SENSOR_COMPONENT",
+  IR_REMOTE = "IR_REMOTE_COMPONENT",
+  ULTRASONICE_SENSOR = "ULTRASONICE_SENSOR_COMPONENT",
+  TEMPERATURE_SENSOR = "TEMPERATURE_SENSOR_COMPONENT",
 }
 
 export const SENSOR_COMPONENTS = [

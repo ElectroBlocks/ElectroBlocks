@@ -40,13 +40,11 @@ const connect = async (baudRate) => {
         return;
       }
       rej(err);
+    });
   });
-
-  })
 };
 
 const closePort = async () => {
-  debugger;
   await serialPort.close((info) => console.log("closed", info));
 };
 

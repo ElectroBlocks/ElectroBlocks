@@ -37,7 +37,7 @@ export const ledCreate: CreateCompenentHook<LedState> = (
   if (settings.customLedColor) {
     ledColor = settings.ledColor;
   }
-  
+
   ledEl.data("pin-number", state.pin);
 
   ledEl
@@ -106,7 +106,6 @@ const createResistor = (
   componentId: string,
   board: MicroController
 ) => {
-  debugger;
   const resistorEl = draw.svg(resistorSvg).last();
   resistorEl.data("component-id", componentId);
 

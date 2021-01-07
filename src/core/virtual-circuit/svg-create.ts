@@ -84,7 +84,7 @@ import {
 import {
   createWireDigitalSensor,
   positionDigitalSensor,
-  createDigitalSensor
+  createDigitalSensor,
 } from "../../blocks/digitalsensor/virtual-circuit";
 
 import {
