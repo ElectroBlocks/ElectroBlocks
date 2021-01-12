@@ -1,26 +1,27 @@
-import resolve from '@rollup/plugin-node-resolve';
-import replace from '@rollup/plugin-replace';
-import commonjs from '@rollup/plugin-commonjs';
-import svelte from 'rollup-plugin-svelte';
-import babel from '@rollup/plugin-babel';
-import { terser } from 'rollup-plugin-terser';
-import sveltePreprocess from 'svelte-preprocess';
-import typescript from '@rollup/plugin-typescript';
-import config from 'sapper/config/rollup.js';
-import pkg from './package.json';
+import resolve from "@rollup/plugin-node-resolve";
+import replace from "@rollup/plugin-replace";
+import commonjs from "@rollup/plugin-commonjs";
+import svelte from "rollup-plugin-svelte";
+import babel from "@rollup/plugin-babel";
+import { terser } from "rollup-plugin-terser";
+import sveltePreprocess from "svelte-preprocess";
+import typescript from "@rollup/plugin-typescript";
+import config from "sapper/config/rollup.js";
+import pkg from "./package.json";
 import svg from "rollup-plugin-svg-import";
 import copy from "rollup-plugin-copy";
 import json from "@rollup/plugin-json";
 
 const mode = process.env.NODE_ENV;
-const dev = mode === 'development';
+const dev = mode === "development";
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 
 const onwarn = (warning, onwarn) =>
-	(warning.code === 'MISSING_EXPORT' && /'preload'/.test(warning.message)) ||
-	(warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) ||
-	(warning.code === 'THIS_IS_UNDEFINED') ||
-	onwarn(warning);
+  (warning.code === "MISSING_EXPORT" && /'preload'/.test(warning.message)) ||
+  (warning.code === "CIRCULAR_DEPENDENCY" &&
+    /[/\\]@sapper[/\\]/.test(warning.message)) ||
+  warning.code === "THIS_IS_UNDEFINED" ||
+  onwarn(warning);
 
 export default {
   client: {
@@ -33,12 +34,6 @@ export default {
             src: "node_modules/avrgirl-arduino/dist/avrgirl-arduino.global.js",
             dest: "static/",
             rename: "avrgirl-arduino.js",
-          },
-          {
-            src:
-              "node_modules/ng-tutorial-web-component/public/build/ng-tutorial-component.js",
-            dest: "static/",
-            rename: "ng-tutorial-web-component.js",
           },
           // {
           //   src: `./env/env.${mode}.ts`,

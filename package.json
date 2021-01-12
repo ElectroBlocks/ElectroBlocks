@@ -36,7 +36,6 @@
     "firebase-admin": "^9.4.1",
     "firebase-functions": "^3.11.0",
     "lodash": "^4.17.19",
-    "ng-tutorial-web-component": "git+https://github.com/phptuts/NGTutorialWebComponent.git",
     "polka": "^0.5.0",
     "prismjs": "^1.21.0",
     "rollup-plugin-copy": "^3.3.0",
