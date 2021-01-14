@@ -6625,12 +6625,12 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[18] = list[i];
-    	child_ctx[20] = i;
+    	child_ctx[19] = list[i];
+    	child_ctx[21] = i;
     	return child_ctx;
     }
 
-    // (221:0) {#if lesson}
+    // (224:0) {#if lesson}
     function create_if_block$1(ctx) {
     	let section1;
     	let section0;
@@ -6648,8 +6648,8 @@ var app = (function () {
     	let dispose;
     	fa0 = new Fa({ props: { icon: faTimes } });
     	fa1 = new Fa({ props: { icon: faWindowMinimize } });
-    	let if_block0 = /*lesson*/ ctx[4].steps.length > 1 && create_if_block_10(ctx);
-    	let if_block1 = !/*min*/ ctx[2] && create_if_block_1$1(ctx);
+    	let if_block0 = /*lesson*/ ctx[5].steps.length > 1 && create_if_block_10(ctx);
+    	let if_block1 = !/*min*/ ctx[3] && create_if_block_1$1(ctx);
 
     	return {
     		c() {
@@ -6694,18 +6694,18 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					listen(button0, "click", stop_propagation(prevent_default(onClose))),
-    					listen(button1, "click", stop_propagation(prevent_default(/*onMin*/ ctx[9]))),
-    					listen(section0, "mousedown", /*startMove*/ ctx[10]),
-    					listen(section1, "mousemove", /*move*/ ctx[11]),
-    					listen(section1, "mouseup", /*stopMove*/ ctx[12]),
-    					listen(section1, "mouseleave", /*stopMove*/ ctx[12])
+    					listen(button1, "click", stop_propagation(prevent_default(/*onMin*/ ctx[10]))),
+    					listen(section0, "mousedown", /*startMove*/ ctx[11]),
+    					listen(section1, "mousemove", /*move*/ ctx[12]),
+    					listen(section1, "mouseup", /*stopMove*/ ctx[13]),
+    					listen(section1, "mouseleave", /*stopMove*/ ctx[13])
     				];
 
     				mounted = true;
     			}
     		},
     		p(ctx, dirty) {
-    			if (/*lesson*/ ctx[4].steps.length > 1) {
+    			if (/*lesson*/ ctx[5].steps.length > 1) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
@@ -6718,11 +6718,11 @@ var app = (function () {
     				if_block0 = null;
     			}
 
-    			if (!/*min*/ ctx[2]) {
+    			if (!/*min*/ ctx[3]) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
 
-    					if (dirty & /*min*/ 4) {
+    					if (dirty & /*min*/ 8) {
     						transition_in(if_block1, 1);
     					}
     				} else {
@@ -6774,15 +6774,15 @@ var app = (function () {
     	};
     }
 
-    // (239:8) {#if lesson.steps.length > 1}
+    // (242:8) {#if lesson.steps.length > 1}
     function create_if_block_10(ctx) {
     	let select;
     	let t0;
-    	let t1_value = /*lesson*/ ctx[4].steps.length + "";
+    	let t1_value = /*lesson*/ ctx[5].steps.length + "";
     	let t1;
     	let mounted;
     	let dispose;
-    	let each_value = /*lesson*/ ctx[4].steps;
+    	let each_value = /*lesson*/ ctx[5].steps;
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -6799,7 +6799,7 @@ var app = (function () {
 
     			t0 = text("\n          /\n          ");
     			t1 = text(t1_value);
-    			if (/*stepIndex*/ ctx[3] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[14].call(select));
+    			if (/*stepIndex*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[15].call(select));
     		},
     		m(target, anchor) {
     			insert(target, select, anchor);
@@ -6808,18 +6808,18 @@ var app = (function () {
     				each_blocks[i].m(select, null);
     			}
 
-    			select_option(select, /*stepIndex*/ ctx[3]);
+    			select_option(select, /*stepIndex*/ ctx[4]);
     			insert(target, t0, anchor);
     			insert(target, t1, anchor);
 
     			if (!mounted) {
-    				dispose = listen(select, "change", /*select_change_handler*/ ctx[14]);
+    				dispose = listen(select, "change", /*select_change_handler*/ ctx[15]);
     				mounted = true;
     			}
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*lesson*/ 16) {
-    				each_value = /*lesson*/ ctx[4].steps;
+    			if (dirty & /*lesson*/ 32) {
+    				each_value = /*lesson*/ ctx[5].steps;
     				let i;
 
     				for (i = 0; i < each_value.length; i += 1) {
@@ -6841,11 +6841,11 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*stepIndex*/ 8) {
-    				select_option(select, /*stepIndex*/ ctx[3]);
+    			if (dirty & /*stepIndex*/ 16) {
+    				select_option(select, /*stepIndex*/ ctx[4]);
     			}
 
-    			if (dirty & /*lesson*/ 16 && t1_value !== (t1_value = /*lesson*/ ctx[4].steps.length + "")) set_data(t1, t1_value);
+    			if (dirty & /*lesson*/ 32 && t1_value !== (t1_value = /*lesson*/ ctx[5].steps.length + "")) set_data(t1, t1_value);
     		},
     		d(detaching) {
     			if (detaching) detach(select);
@@ -6858,10 +6858,10 @@ var app = (function () {
     	};
     }
 
-    // (241:12) {#each lesson.steps as step, index}
+    // (244:12) {#each lesson.steps as step, index}
     function create_each_block(ctx) {
     	let option;
-    	let t_value = /*index*/ ctx[20] + 1 + "";
+    	let t_value = /*index*/ ctx[21] + 1 + "";
     	let t;
     	let option_value_value;
 
@@ -6869,7 +6869,7 @@ var app = (function () {
     		c() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*index*/ ctx[20];
+    			option.__value = option_value_value = /*index*/ ctx[21];
     			option.value = option.__value;
     		},
     		m(target, anchor) {
@@ -6883,66 +6883,43 @@ var app = (function () {
     	};
     }
 
-    // (250:4) {#if !min}
+    // (253:4) {#if !min}
     function create_if_block_1$1(ctx) {
     	let t0;
+    	let previous_key = /*restart*/ ctx[2];
     	let t1;
     	let t2;
-    	let t3;
-    	let t4;
-    	let t5;
-    	let t6;
-    	let if_block7_anchor;
+    	let if_block2_anchor;
     	let current;
-    	let if_block0 = /*currentStep*/ ctx[6].step && /*currentStep*/ ctx[6].contentType !== ContentTypes.YOUTUBE && /*currentStep*/ ctx[6].contentType !== ContentTypes.YOUTUBE_PLAYLIST && create_if_block_9(ctx);
-    	let if_block1 = /*currentStep*/ ctx[6].contentType === ContentTypes.YOUTUBE_PLAYLIST && create_if_block_8(ctx);
-    	let if_block2 = /*currentStep*/ ctx[6].contentType === ContentTypes.YOUTUBE && create_if_block_7(ctx);
-    	let if_block3 = /*currentStep*/ ctx[6].contentType == ContentTypes.CODE && create_if_block_6(ctx);
-    	let if_block4 = /*currentStep*/ ctx[6].contentType === ContentTypes.PICTURE && create_if_block_5(ctx);
-    	let if_block5 = /*currentStep*/ ctx[6].contentType === ContentTypes.VIDEO && create_if_block_4(ctx);
-    	let if_block6 = /*currentStep*/ ctx[6].description && create_if_block_3(ctx);
-    	let if_block7 = /*lesson*/ ctx[4].steps.length > 1 && create_if_block_2(ctx);
+    	let if_block0 = /*currentStep*/ ctx[7].step && /*currentStep*/ ctx[7].contentType !== ContentTypes.YOUTUBE && /*currentStep*/ ctx[7].contentType !== ContentTypes.YOUTUBE_PLAYLIST && create_if_block_9(ctx);
+    	let key_block = create_key_block(ctx);
+    	let if_block1 = /*currentStep*/ ctx[7].description && create_if_block_3(ctx);
+    	let if_block2 = /*lesson*/ ctx[5].steps.length > 1 && create_if_block_2(ctx);
 
     	return {
     		c() {
     			if (if_block0) if_block0.c();
     			t0 = space();
-    			if (if_block1) if_block1.c();
+    			key_block.c();
     			t1 = space();
-    			if (if_block2) if_block2.c();
+    			if (if_block1) if_block1.c();
     			t2 = space();
-    			if (if_block3) if_block3.c();
-    			t3 = space();
-    			if (if_block4) if_block4.c();
-    			t4 = space();
-    			if (if_block5) if_block5.c();
-    			t5 = space();
-    			if (if_block6) if_block6.c();
-    			t6 = space();
-    			if (if_block7) if_block7.c();
-    			if_block7_anchor = empty();
+    			if (if_block2) if_block2.c();
+    			if_block2_anchor = empty();
     		},
     		m(target, anchor) {
     			if (if_block0) if_block0.m(target, anchor);
     			insert(target, t0, anchor);
-    			if (if_block1) if_block1.m(target, anchor);
+    			key_block.m(target, anchor);
     			insert(target, t1, anchor);
-    			if (if_block2) if_block2.m(target, anchor);
+    			if (if_block1) if_block1.m(target, anchor);
     			insert(target, t2, anchor);
-    			if (if_block3) if_block3.m(target, anchor);
-    			insert(target, t3, anchor);
-    			if (if_block4) if_block4.m(target, anchor);
-    			insert(target, t4, anchor);
-    			if (if_block5) if_block5.m(target, anchor);
-    			insert(target, t5, anchor);
-    			if (if_block6) if_block6.m(target, anchor);
-    			insert(target, t6, anchor);
-    			if (if_block7) if_block7.m(target, anchor);
-    			insert(target, if_block7_anchor, anchor);
+    			if (if_block2) if_block2.m(target, anchor);
+    			insert(target, if_block2_anchor, anchor);
     			current = true;
     		},
     		p(ctx, dirty) {
-    			if (/*currentStep*/ ctx[6].step && /*currentStep*/ ctx[6].contentType !== ContentTypes.YOUTUBE && /*currentStep*/ ctx[6].contentType !== ContentTypes.YOUTUBE_PLAYLIST) {
+    			if (/*currentStep*/ ctx[7].step && /*currentStep*/ ctx[7].contentType !== ContentTypes.YOUTUBE && /*currentStep*/ ctx[7].contentType !== ContentTypes.YOUTUBE_PLAYLIST) {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
@@ -6955,102 +6932,46 @@ var app = (function () {
     				if_block0 = null;
     			}
 
-    			if (/*currentStep*/ ctx[6].contentType === ContentTypes.YOUTUBE_PLAYLIST) {
+    			if (dirty & /*restart*/ 4 && safe_not_equal(previous_key, previous_key = /*restart*/ ctx[2])) {
+    				key_block.d(1);
+    				key_block = create_key_block(ctx);
+    				key_block.c();
+    				key_block.m(t1.parentNode, t1);
+    			} else {
+    				key_block.p(ctx, dirty);
+    			}
+
+    			if (/*currentStep*/ ctx[7].description) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     				} else {
-    					if_block1 = create_if_block_8(ctx);
+    					if_block1 = create_if_block_3(ctx);
     					if_block1.c();
-    					if_block1.m(t1.parentNode, t1);
+    					if_block1.m(t2.parentNode, t2);
     				}
     			} else if (if_block1) {
     				if_block1.d(1);
     				if_block1 = null;
     			}
 
-    			if (/*currentStep*/ ctx[6].contentType === ContentTypes.YOUTUBE) {
+    			if (/*lesson*/ ctx[5].steps.length > 1) {
     				if (if_block2) {
     					if_block2.p(ctx, dirty);
-    				} else {
-    					if_block2 = create_if_block_7(ctx);
-    					if_block2.c();
-    					if_block2.m(t2.parentNode, t2);
-    				}
-    			} else if (if_block2) {
-    				if_block2.d(1);
-    				if_block2 = null;
-    			}
 
-    			if (/*currentStep*/ ctx[6].contentType == ContentTypes.CODE) {
-    				if (if_block3) {
-    					if_block3.p(ctx, dirty);
-    				} else {
-    					if_block3 = create_if_block_6(ctx);
-    					if_block3.c();
-    					if_block3.m(t3.parentNode, t3);
-    				}
-    			} else if (if_block3) {
-    				if_block3.d(1);
-    				if_block3 = null;
-    			}
-
-    			if (/*currentStep*/ ctx[6].contentType === ContentTypes.PICTURE) {
-    				if (if_block4) {
-    					if_block4.p(ctx, dirty);
-    				} else {
-    					if_block4 = create_if_block_5(ctx);
-    					if_block4.c();
-    					if_block4.m(t4.parentNode, t4);
-    				}
-    			} else if (if_block4) {
-    				if_block4.d(1);
-    				if_block4 = null;
-    			}
-
-    			if (/*currentStep*/ ctx[6].contentType === ContentTypes.VIDEO) {
-    				if (if_block5) {
-    					if_block5.p(ctx, dirty);
-    				} else {
-    					if_block5 = create_if_block_4(ctx);
-    					if_block5.c();
-    					if_block5.m(t5.parentNode, t5);
-    				}
-    			} else if (if_block5) {
-    				if_block5.d(1);
-    				if_block5 = null;
-    			}
-
-    			if (/*currentStep*/ ctx[6].description) {
-    				if (if_block6) {
-    					if_block6.p(ctx, dirty);
-    				} else {
-    					if_block6 = create_if_block_3(ctx);
-    					if_block6.c();
-    					if_block6.m(t6.parentNode, t6);
-    				}
-    			} else if (if_block6) {
-    				if_block6.d(1);
-    				if_block6 = null;
-    			}
-
-    			if (/*lesson*/ ctx[4].steps.length > 1) {
-    				if (if_block7) {
-    					if_block7.p(ctx, dirty);
-
-    					if (dirty & /*lesson*/ 16) {
-    						transition_in(if_block7, 1);
+    					if (dirty & /*lesson*/ 32) {
+    						transition_in(if_block2, 1);
     					}
     				} else {
-    					if_block7 = create_if_block_2(ctx);
-    					if_block7.c();
-    					transition_in(if_block7, 1);
-    					if_block7.m(if_block7_anchor.parentNode, if_block7_anchor);
+    					if_block2 = create_if_block_2(ctx);
+    					if_block2.c();
+    					transition_in(if_block2, 1);
+    					if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
     				}
-    			} else if (if_block7) {
+    			} else if (if_block2) {
     				group_outros();
 
-    				transition_out(if_block7, 1, 1, () => {
-    					if_block7 = null;
+    				transition_out(if_block2, 1, 1, () => {
+    					if_block2 = null;
     				});
 
     				check_outros();
@@ -7058,38 +6979,30 @@ var app = (function () {
     		},
     		i(local) {
     			if (current) return;
-    			transition_in(if_block7);
+    			transition_in(if_block2);
     			current = true;
     		},
     		o(local) {
-    			transition_out(if_block7);
+    			transition_out(if_block2);
     			current = false;
     		},
     		d(detaching) {
     			if (if_block0) if_block0.d(detaching);
     			if (detaching) detach(t0);
-    			if (if_block1) if_block1.d(detaching);
+    			key_block.d(detaching);
     			if (detaching) detach(t1);
-    			if (if_block2) if_block2.d(detaching);
+    			if (if_block1) if_block1.d(detaching);
     			if (detaching) detach(t2);
-    			if (if_block3) if_block3.d(detaching);
-    			if (detaching) detach(t3);
-    			if (if_block4) if_block4.d(detaching);
-    			if (detaching) detach(t4);
-    			if (if_block5) if_block5.d(detaching);
-    			if (detaching) detach(t5);
-    			if (if_block6) if_block6.d(detaching);
-    			if (detaching) detach(t6);
-    			if (if_block7) if_block7.d(detaching);
-    			if (detaching) detach(if_block7_anchor);
+    			if (if_block2) if_block2.d(detaching);
+    			if (detaching) detach(if_block2_anchor);
     		}
     	};
     }
 
-    // (251:6) {#if currentStep.step && currentStep.contentType !== ContentTypes.YOUTUBE && currentStep.contentType !== ContentTypes.YOUTUBE_PLAYLIST}
+    // (254:6) {#if currentStep.step && currentStep.contentType !== ContentTypes.YOUTUBE && currentStep.contentType !== ContentTypes.YOUTUBE_PLAYLIST}
     function create_if_block_9(ctx) {
     	let h3;
-    	let t_value = /*currentStep*/ ctx[6].step + "";
+    	let t_value = /*currentStep*/ ctx[7].step + "";
     	let t;
 
     	return {
@@ -7103,7 +7016,7 @@ var app = (function () {
     			append(h3, t);
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*currentStep*/ 64 && t_value !== (t_value = /*currentStep*/ ctx[6].step + "")) set_data(t, t_value);
+    			if (dirty & /*currentStep*/ 128 && t_value !== (t_value = /*currentStep*/ ctx[7].step + "")) set_data(t, t_value);
     		},
     		d(detaching) {
     			if (detaching) detach(h3);
@@ -7111,7 +7024,7 @@ var app = (function () {
     	};
     }
 
-    // (254:6) {#if currentStep.contentType === ContentTypes.YOUTUBE_PLAYLIST}
+    // (258:8) {#if currentStep.contentType === ContentTypes.YOUTUBE_PLAYLIST}
     function create_if_block_8(ctx) {
     	let iframe;
     	let iframe_src_value;
@@ -7121,7 +7034,7 @@ var app = (function () {
     			iframe = element("iframe");
     			attr(iframe, "width", "560");
     			attr(iframe, "height", "450");
-    			if (iframe.src !== (iframe_src_value = "https://www.youtube.com/embed/videoseries?list=" + /*currentStep*/ ctx[6].youtubeId)) attr(iframe, "src", iframe_src_value);
+    			if (iframe.src !== (iframe_src_value = "https://www.youtube.com/embed/videoseries?list=" + /*currentStep*/ ctx[7].youtubeId)) attr(iframe, "src", iframe_src_value);
     			attr(iframe, "frameborder", "0");
     			attr(iframe, "allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
     			iframe.allowFullscreen = true;
@@ -7130,7 +7043,7 @@ var app = (function () {
     			insert(target, iframe, anchor);
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*currentStep*/ 64 && iframe.src !== (iframe_src_value = "https://www.youtube.com/embed/videoseries?list=" + /*currentStep*/ ctx[6].youtubeId)) {
+    			if (dirty & /*currentStep*/ 128 && iframe.src !== (iframe_src_value = "https://www.youtube.com/embed/videoseries?list=" + /*currentStep*/ ctx[7].youtubeId)) {
     				attr(iframe, "src", iframe_src_value);
     			}
     		},
@@ -7140,7 +7053,7 @@ var app = (function () {
     	};
     }
 
-    // (265:6) {#if currentStep.contentType === ContentTypes.YOUTUBE}
+    // (269:8) {#if currentStep.contentType === ContentTypes.YOUTUBE}
     function create_if_block_7(ctx) {
     	let iframe;
     	let iframe_src_value;
@@ -7150,7 +7063,7 @@ var app = (function () {
     			iframe = element("iframe");
     			attr(iframe, "width", "560");
     			attr(iframe, "height", "450");
-    			if (iframe.src !== (iframe_src_value = "https://www.youtube.com/embed/" + /*currentStep*/ ctx[6].youtubeId)) attr(iframe, "src", iframe_src_value);
+    			if (iframe.src !== (iframe_src_value = "https://www.youtube.com/embed/" + /*currentStep*/ ctx[7].youtubeId)) attr(iframe, "src", iframe_src_value);
     			attr(iframe, "frameborder", "0");
     			attr(iframe, "allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
     			iframe.allowFullscreen = true;
@@ -7159,7 +7072,7 @@ var app = (function () {
     			insert(target, iframe, anchor);
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*currentStep*/ 64 && iframe.src !== (iframe_src_value = "https://www.youtube.com/embed/" + /*currentStep*/ ctx[6].youtubeId)) {
+    			if (dirty & /*currentStep*/ 128 && iframe.src !== (iframe_src_value = "https://www.youtube.com/embed/" + /*currentStep*/ ctx[7].youtubeId)) {
     				attr(iframe, "src", iframe_src_value);
     			}
     		},
@@ -7169,7 +7082,7 @@ var app = (function () {
     	};
     }
 
-    // (276:6) {#if currentStep.contentType == ContentTypes.CODE}
+    // (280:8) {#if currentStep.contentType == ContentTypes.CODE}
     function create_if_block_6(ctx) {
     	let pre;
     	let code;
@@ -7182,43 +7095,43 @@ var app = (function () {
     		c() {
     			pre = element("pre");
     			code = element("code");
-    			attr(pre, "class", pre_class_value = "language-" + /*currentStep*/ ctx[6].language + " line-numbers");
-    			toggle_class(pre, "copy", /*currentStep*/ ctx[6].canCopy);
-    			toggle_class(pre, "not-copy", !/*currentStep*/ ctx[6].canCopy);
+    			attr(pre, "class", pre_class_value = "language-" + /*currentStep*/ ctx[7].language + " line-numbers");
+    			toggle_class(pre, "copy", /*currentStep*/ ctx[7].canCopy);
+    			toggle_class(pre, "not-copy", !/*currentStep*/ ctx[7].canCopy);
     		},
     		m(target, anchor) {
     			insert(target, pre, anchor);
     			append(pre, code);
-    			/*pre_binding*/ ctx[15](pre);
+    			/*pre_binding*/ ctx[16](pre);
 
     			if (!mounted) {
-    				dispose = action_destroyer(highlight_action = /*highlight*/ ctx[13].call(null, pre));
+    				dispose = action_destroyer(highlight_action = /*highlight*/ ctx[14].call(null, pre));
     				mounted = true;
     			}
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*currentStep*/ 64 && pre_class_value !== (pre_class_value = "language-" + /*currentStep*/ ctx[6].language + " line-numbers")) {
+    			if (dirty & /*currentStep*/ 128 && pre_class_value !== (pre_class_value = "language-" + /*currentStep*/ ctx[7].language + " line-numbers")) {
     				attr(pre, "class", pre_class_value);
     			}
 
-    			if (dirty & /*currentStep, currentStep*/ 64) {
-    				toggle_class(pre, "copy", /*currentStep*/ ctx[6].canCopy);
+    			if (dirty & /*currentStep, currentStep*/ 128) {
+    				toggle_class(pre, "copy", /*currentStep*/ ctx[7].canCopy);
     			}
 
-    			if (dirty & /*currentStep, currentStep*/ 64) {
-    				toggle_class(pre, "not-copy", !/*currentStep*/ ctx[6].canCopy);
+    			if (dirty & /*currentStep, currentStep*/ 128) {
+    				toggle_class(pre, "not-copy", !/*currentStep*/ ctx[7].canCopy);
     			}
     		},
     		d(detaching) {
     			if (detaching) detach(pre);
-    			/*pre_binding*/ ctx[15](null);
+    			/*pre_binding*/ ctx[16](null);
     			mounted = false;
     			dispose();
     		}
     	};
     }
 
-    // (287:6) {#if currentStep.contentType === ContentTypes.PICTURE}
+    // (291:8) {#if currentStep.contentType === ContentTypes.PICTURE}
     function create_if_block_5(ctx) {
     	let img;
     	let img_src_value;
@@ -7229,24 +7142,24 @@ var app = (function () {
     	return {
     		c() {
     			img = element("img");
-    			if (img.src !== (img_src_value = /*currentStep*/ ctx[6].url)) attr(img, "src", img_src_value);
-    			attr(img, "alt", img_alt_value = "step " + (/*stepIndex*/ ctx[3] + 1));
+    			if (img.src !== (img_src_value = /*currentStep*/ ctx[7].url)) attr(img, "src", img_src_value);
+    			attr(img, "alt", img_alt_value = "step " + (/*stepIndex*/ ctx[4] + 1));
     			attr(img, "id", "main-image");
     		},
     		m(target, anchor) {
     			insert(target, img, anchor);
 
     			if (!mounted) {
-    				dispose = listen(img, "dragstart", prevent_default(/*dragstart_handler*/ ctx[16]));
+    				dispose = listen(img, "dragstart", prevent_default(/*dragstart_handler*/ ctx[17]));
     				mounted = true;
     			}
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*currentStep*/ 64 && img.src !== (img_src_value = /*currentStep*/ ctx[6].url)) {
+    			if (dirty & /*currentStep*/ 128 && img.src !== (img_src_value = /*currentStep*/ ctx[7].url)) {
     				attr(img, "src", img_src_value);
     			}
 
-    			if (dirty & /*stepIndex*/ 8 && img_alt_value !== (img_alt_value = "step " + (/*stepIndex*/ ctx[3] + 1))) {
+    			if (dirty & /*stepIndex*/ 16 && img_alt_value !== (img_alt_value = "step " + (/*stepIndex*/ ctx[4] + 1))) {
     				attr(img, "alt", img_alt_value);
     			}
     		},
@@ -7258,7 +7171,7 @@ var app = (function () {
     	};
     }
 
-    // (296:6) {#if currentStep.contentType === ContentTypes.VIDEO}
+    // (300:8) {#if currentStep.contentType === ContentTypes.VIDEO}
     function create_if_block_4(ctx) {
     	let video;
     	let track;
@@ -7271,7 +7184,7 @@ var app = (function () {
     			track = element("track");
     			source = element("source");
     			attr(track, "kind", "captions");
-    			if (source.src !== (source_src_value = /*currentStep*/ ctx[6].url)) attr(source, "src", source_src_value);
+    			if (source.src !== (source_src_value = /*currentStep*/ ctx[7].url)) attr(source, "src", source_src_value);
     			video.controls = true;
     			attr(video, "width", "560px");
     		},
@@ -7281,7 +7194,7 @@ var app = (function () {
     			append(video, source);
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*currentStep*/ 64 && source.src !== (source_src_value = /*currentStep*/ ctx[6].url)) {
+    			if (dirty & /*currentStep*/ 128 && source.src !== (source_src_value = /*currentStep*/ ctx[7].url)) {
     				attr(source, "src", source_src_value);
     			}
     		},
@@ -7291,10 +7204,129 @@ var app = (function () {
     	};
     }
 
-    // (303:6) {#if currentStep.description}
+    // (257:6) {#key restart}
+    function create_key_block(ctx) {
+    	let t0;
+    	let t1;
+    	let t2;
+    	let t3;
+    	let if_block4_anchor;
+    	let if_block0 = /*currentStep*/ ctx[7].contentType === ContentTypes.YOUTUBE_PLAYLIST && create_if_block_8(ctx);
+    	let if_block1 = /*currentStep*/ ctx[7].contentType === ContentTypes.YOUTUBE && create_if_block_7(ctx);
+    	let if_block2 = /*currentStep*/ ctx[7].contentType == ContentTypes.CODE && create_if_block_6(ctx);
+    	let if_block3 = /*currentStep*/ ctx[7].contentType === ContentTypes.PICTURE && create_if_block_5(ctx);
+    	let if_block4 = /*currentStep*/ ctx[7].contentType === ContentTypes.VIDEO && create_if_block_4(ctx);
+
+    	return {
+    		c() {
+    			if (if_block0) if_block0.c();
+    			t0 = space();
+    			if (if_block1) if_block1.c();
+    			t1 = space();
+    			if (if_block2) if_block2.c();
+    			t2 = space();
+    			if (if_block3) if_block3.c();
+    			t3 = space();
+    			if (if_block4) if_block4.c();
+    			if_block4_anchor = empty();
+    		},
+    		m(target, anchor) {
+    			if (if_block0) if_block0.m(target, anchor);
+    			insert(target, t0, anchor);
+    			if (if_block1) if_block1.m(target, anchor);
+    			insert(target, t1, anchor);
+    			if (if_block2) if_block2.m(target, anchor);
+    			insert(target, t2, anchor);
+    			if (if_block3) if_block3.m(target, anchor);
+    			insert(target, t3, anchor);
+    			if (if_block4) if_block4.m(target, anchor);
+    			insert(target, if_block4_anchor, anchor);
+    		},
+    		p(ctx, dirty) {
+    			if (/*currentStep*/ ctx[7].contentType === ContentTypes.YOUTUBE_PLAYLIST) {
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
+    				} else {
+    					if_block0 = create_if_block_8(ctx);
+    					if_block0.c();
+    					if_block0.m(t0.parentNode, t0);
+    				}
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if (/*currentStep*/ ctx[7].contentType === ContentTypes.YOUTUBE) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+    				} else {
+    					if_block1 = create_if_block_7(ctx);
+    					if_block1.c();
+    					if_block1.m(t1.parentNode, t1);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
+    			}
+
+    			if (/*currentStep*/ ctx[7].contentType == ContentTypes.CODE) {
+    				if (if_block2) {
+    					if_block2.p(ctx, dirty);
+    				} else {
+    					if_block2 = create_if_block_6(ctx);
+    					if_block2.c();
+    					if_block2.m(t2.parentNode, t2);
+    				}
+    			} else if (if_block2) {
+    				if_block2.d(1);
+    				if_block2 = null;
+    			}
+
+    			if (/*currentStep*/ ctx[7].contentType === ContentTypes.PICTURE) {
+    				if (if_block3) {
+    					if_block3.p(ctx, dirty);
+    				} else {
+    					if_block3 = create_if_block_5(ctx);
+    					if_block3.c();
+    					if_block3.m(t3.parentNode, t3);
+    				}
+    			} else if (if_block3) {
+    				if_block3.d(1);
+    				if_block3 = null;
+    			}
+
+    			if (/*currentStep*/ ctx[7].contentType === ContentTypes.VIDEO) {
+    				if (if_block4) {
+    					if_block4.p(ctx, dirty);
+    				} else {
+    					if_block4 = create_if_block_4(ctx);
+    					if_block4.c();
+    					if_block4.m(if_block4_anchor.parentNode, if_block4_anchor);
+    				}
+    			} else if (if_block4) {
+    				if_block4.d(1);
+    				if_block4 = null;
+    			}
+    		},
+    		d(detaching) {
+    			if (if_block0) if_block0.d(detaching);
+    			if (detaching) detach(t0);
+    			if (if_block1) if_block1.d(detaching);
+    			if (detaching) detach(t1);
+    			if (if_block2) if_block2.d(detaching);
+    			if (detaching) detach(t2);
+    			if (if_block3) if_block3.d(detaching);
+    			if (detaching) detach(t3);
+    			if (if_block4) if_block4.d(detaching);
+    			if (detaching) detach(if_block4_anchor);
+    		}
+    	};
+    }
+
+    // (308:6) {#if currentStep.description}
     function create_if_block_3(ctx) {
     	let section;
-    	let raw_value = marked(/*currentStep*/ ctx[6].description) + "";
+    	let raw_value = marked(/*currentStep*/ ctx[7].description) + "";
 
     	return {
     		c() {
@@ -7306,14 +7338,14 @@ var app = (function () {
     			section.innerHTML = raw_value;
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*currentStep*/ 64 && raw_value !== (raw_value = marked(/*currentStep*/ ctx[6].description) + "")) section.innerHTML = raw_value;		},
+    			if (dirty & /*currentStep*/ 128 && raw_value !== (raw_value = marked(/*currentStep*/ ctx[7].description) + "")) section.innerHTML = raw_value;		},
     		d(detaching) {
     			if (detaching) detach(section);
     		}
     	};
     }
 
-    // (309:6) {#if lesson.steps.length > 1}
+    // (314:6) {#if lesson.steps.length > 1}
     function create_if_block_2(ctx) {
     	let section;
     	let button0;
@@ -7337,9 +7369,9 @@ var app = (function () {
     			t = space();
     			button1 = element("button");
     			create_component(fa1.$$.fragment);
-    			button0.disabled = button0_disabled_value = /*stepIndex*/ ctx[3] === 0;
+    			button0.disabled = button0_disabled_value = /*stepIndex*/ ctx[4] === 0;
     			attr(button0, "id", "back");
-    			button1.disabled = button1_disabled_value = /*stepIndex*/ ctx[3] === /*lesson*/ ctx[4].steps.length - 1;
+    			button1.disabled = button1_disabled_value = /*stepIndex*/ ctx[4] === /*lesson*/ ctx[5].steps.length - 1;
     			attr(button1, "id", "forward");
     			attr(section, "id", "controls");
     		},
@@ -7354,19 +7386,19 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen(button0, "click", stop_propagation(prevent_default(/*moveBack*/ ctx[7]))),
-    					listen(button1, "click", stop_propagation(prevent_default(/*moveForward*/ ctx[8])))
+    					listen(button0, "click", stop_propagation(prevent_default(/*moveBack*/ ctx[8]))),
+    					listen(button1, "click", stop_propagation(prevent_default(/*moveForward*/ ctx[9])))
     				];
 
     				mounted = true;
     			}
     		},
     		p(ctx, dirty) {
-    			if (!current || dirty & /*stepIndex*/ 8 && button0_disabled_value !== (button0_disabled_value = /*stepIndex*/ ctx[3] === 0)) {
+    			if (!current || dirty & /*stepIndex*/ 16 && button0_disabled_value !== (button0_disabled_value = /*stepIndex*/ ctx[4] === 0)) {
     				button0.disabled = button0_disabled_value;
     			}
 
-    			if (!current || dirty & /*stepIndex, lesson*/ 24 && button1_disabled_value !== (button1_disabled_value = /*stepIndex*/ ctx[3] === /*lesson*/ ctx[4].steps.length - 1)) {
+    			if (!current || dirty & /*stepIndex, lesson*/ 48 && button1_disabled_value !== (button1_disabled_value = /*stepIndex*/ ctx[4] === /*lesson*/ ctx[5].steps.length - 1)) {
     				button1.disabled = button1_disabled_value;
     			}
     		},
@@ -7394,7 +7426,7 @@ var app = (function () {
     function create_fragment$1(ctx) {
     	let if_block_anchor;
     	let current;
-    	let if_block = /*lesson*/ ctx[4] && create_if_block$1(ctx);
+    	let if_block = /*lesson*/ ctx[5] && create_if_block$1(ctx);
 
     	return {
     		c() {
@@ -7408,11 +7440,11 @@ var app = (function () {
     			current = true;
     		},
     		p(ctx, [dirty]) {
-    			if (/*lesson*/ ctx[4]) {
+    			if (/*lesson*/ ctx[5]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
-    					if (dirty & /*lesson*/ 16) {
+    					if (dirty & /*lesson*/ 32) {
     						transition_in(if_block, 1);
     					}
     				} else {
@@ -7455,6 +7487,7 @@ var app = (function () {
     function instance$1($$self, $$props, $$invalidate) {
     	let { top = 300 } = $$props;
     	let { left = 300 } = $$props;
+    	let restart = {};
 
     	onMount(() => {
     		window.Prism = window.Prism || {};
@@ -7467,23 +7500,25 @@ var app = (function () {
     	let preEl;
 
     	document.addEventListener("lesson-change", event => {
-    		$$invalidate(4, lesson = event.detail);
+    		$$invalidate(5, lesson = event.detail);
     	});
 
     	function moveBack() {
     		if (stepIndex > 0) {
-    			$$invalidate(3, stepIndex -= 1);
+    			$$invalidate(4, stepIndex -= 1);
+    			$$invalidate(2, restart = {});
     		}
     	}
 
     	function moveForward() {
     		if (stepIndex <= lesson.steps.length - 2) {
-    			$$invalidate(3, stepIndex += 1);
+    			$$invalidate(4, stepIndex += 1);
+    			$$invalidate(2, restart = {});
     		}
     	}
 
     	function onMin() {
-    		$$invalidate(2, min = !min);
+    		$$invalidate(3, min = !min);
     	}
 
     	let moving = false;
@@ -7521,13 +7556,13 @@ var app = (function () {
 
     	function select_change_handler() {
     		stepIndex = select_value(this);
-    		($$invalidate(3, stepIndex), $$invalidate(4, lesson));
+    		($$invalidate(4, stepIndex), $$invalidate(5, lesson));
     	}
 
     	function pre_binding($$value) {
     		binding_callbacks[$$value ? "unshift" : "push"](() => {
     			preEl = $$value;
-    			$$invalidate(5, preEl);
+    			$$invalidate(6, preEl);
     		});
     	}
 
@@ -7541,17 +7576,17 @@ var app = (function () {
     	let currentStep;
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*lesson, stepIndex*/ 24) {
-    			 $$invalidate(3, stepIndex = lesson && lesson.steps.length <= stepIndex && stepIndex > 0
+    		if ($$self.$$.dirty & /*lesson, stepIndex*/ 48) {
+    			 $$invalidate(4, stepIndex = lesson && lesson.steps.length <= stepIndex && stepIndex > 0
     			? lesson.steps.length - 1
     			: stepIndex);
     		}
 
-    		if ($$self.$$.dirty & /*lesson, stepIndex*/ 24) {
-    			 $$invalidate(6, currentStep = lesson && lesson.steps[stepIndex]);
+    		if ($$self.$$.dirty & /*lesson, stepIndex*/ 48) {
+    			 $$invalidate(7, currentStep = lesson && lesson.steps[stepIndex]);
     		}
 
-    		if ($$self.$$.dirty & /*currentStep, preEl*/ 96) {
+    		if ($$self.$$.dirty & /*currentStep, preEl*/ 192) {
     			 if (currentStep && currentStep.contentType == "code" && currentStep.code && preEl) {
     				highlight(preEl);
     			}
@@ -7561,6 +7596,7 @@ var app = (function () {
     	return [
     		top,
     		left,
+    		restart,
     		min,
     		stepIndex,
     		lesson,
