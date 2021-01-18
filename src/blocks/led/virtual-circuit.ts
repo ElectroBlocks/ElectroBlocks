@@ -42,7 +42,7 @@ export const ledCreate: CreateCompenentHook<LedState> = (
   ledEl
     .find(`#radial-gradient-${state.pin} stop`)
     .toArray()
-    .find((stopEl) => stopEl.attr("offset") == 1)
+    .find((stopEl) => +stopEl.attr("offset") === 1)
     .attr("stop-color", ledColor);
 
   ledEl.data("color", ledColor);
@@ -72,7 +72,7 @@ export const updateLed: SyncComponent = (state: LedState, ledEl, draw) => {
   const stopEl = draw
     .find(`#radial-gradient-${state.pin} stop`)
     .toArray()
-    .find((sp) => sp.attr("offset") === 1);
+    .find((sp) => +sp.attr("offset") === 1);
 
   const ledText = ledEl.findOne("#LED_TEXT") as Text;
 
@@ -95,7 +95,7 @@ export const resetLed: ResetComponent = (componentEl: Element) => {
   componentEl
     .find(`#radial-gradient-${componentEl.data("pin-number")} stop`)
     .toArray()
-    .find((stop) => stop.attr("offset") == 1)
+    .find((stop) => +stop.attr("offset") === 1)
     .attr("stop-color", "#FFF");
 };
 
