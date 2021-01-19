@@ -59,7 +59,7 @@ describe("factories if block tests", () => {
       expect(states.length).toBe(1);
       const [state1] = states;
       expect(state1.explanation).toBe(
-        'Not executing blocks inside "DO" because waht is connected is false.'
+        'Not executing blocks inside "DO" because what is connected is false.'
       );
     });
   });

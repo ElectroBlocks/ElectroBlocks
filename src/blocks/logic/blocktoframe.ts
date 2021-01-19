@@ -68,7 +68,7 @@ export const ifElse: BlockToFrameTransformer = (
     ];
   }
   const explanation =
-    'Not executing blocks inside "DO" because waht is connected is false.';
+    'Not executing blocks inside "DO" because what is connected is false.';
   return [
     arduinoFrameByExplanation(
       block.id,
