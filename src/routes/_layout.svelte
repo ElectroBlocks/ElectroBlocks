@@ -3,19 +3,22 @@
   import _ from "lodash";
   import firebase from "firebase/app";
 
-  import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
+  import { isPathOnHomePage } from "../helpers/is-path-on-homepage";
   import Nav from "../components/electroblocks/Nav.svelte";
   import Blockly from "../components/electroblocks/Blockly.svelte";
   import Player from "../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../stores/resize.store";
   import { stores, goto } from "@sapper/app";
-  import authStore from '../stores/auth.store';
-  import projectStore from '../stores/project.store';
+  import authStore from "../stores/auth.store";
+  import projectStore from "../stores/project.store";
   import { onErrorMessage } from "../help/alerts";
   import { getFile, getProject } from "../firebase/db";
   import { loadProject } from "../core/blockly/helpers/workspace.helper";
-  import { arduinoLoopBlockShowLoopForeverText, arduinoLoopBlockShowNumberOfTimesThroughLoop } from "../core/blockly/helpers/arduino_loop_block.helper";
-import swal from "sweetalert";
+  import {
+    arduinoLoopBlockShowLoopForeverText,
+    arduinoLoopBlockShowNumberOfTimesThroughLoop,
+  } from "../core/blockly/helpers/arduino_loop_block.helper";
+  import swal from "sweetalert";
 
   const { page } = stores();
   export let segment = "";
@@ -76,12 +79,10 @@ import swal from "sweetalert";
     resizeStore.mainWindow();
   }, 2);
 
-  
-
   onMount(() => {
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
-      console.log(path, 'path', params);
+      console.log(path, "path", params);
       isOnHomePage = isPathOnHomePage(path);
       // Calculates the height of the window
       // We know that if it's  the home page that we want less height
@@ -93,48 +94,79 @@ import swal from "sweetalert";
         resizeStore.mainWindow();
       }, 5);
     });
+    let loadedProject = false;
+    if (localStorage.getItem("reload_once_workspace")) {
+      const xmlText = localStorage.getItem("reload_once_workspace");
+      localStorage.removeItem("reload_once_workspace");
+      loadProject(xmlText);
+      loadedProject = true;
+    }
 
     firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
-        authStore.set({ isLoggedIn: false, uid: null, firebaseControlled: true  });
+        authStore.set({
+          isLoggedIn: false,
+          uid: null,
+          firebaseControlled: true,
+        });
         return;
       }
-      if (!user) {
-        onErrorMessage('You must be logged in to see your project.', {});
+
+      authStore.set({
+        isLoggedIn: true,
+        uid: user.uid,
+        firebaseControlled: true,
+      });
+
+      if (
+        $projectStore.projectId === $page.query["projectid"] ||
+        !$page.query["projectid"] ||
+        loadedProject
+      ) {
         return;
-      }
-      authStore.set({ isLoggedIn: true, uid: user.uid, firebaseControlled: true });
-      if ($projectStore.projectId === $page.query['projectid'] || !$page.query['projectid']) {
-          return;
       }
 
       swal({
-        title: 'Loading your project',
+        title: "Loading your project",
         allowEscapeKey: false,
         allowOutsideClick: false,
         onOpen: () => {
           (swal as any).showLoading();
-        }
-      } as any)
+        },
+      } as any);
 
-      const project = await getProject($page.query['projectid']);
-      const file = await getFile($page.query['projectid'], $authStore.uid);
+      const project = await getProject($page.query["projectid"]);
+      const file = await getFile($page.query["projectid"], $authStore.uid);
       loadProject(file);
-      projectStore.set({ project, projectId: $page.query['projectid'] });
+      projectStore.set({ project, projectId: $page.query["projectid"] });
       if (isPathOnHomePage($page.path)) {
-          arduinoLoopBlockShowNumberOfTimesThroughLoop();
+        arduinoLoopBlockShowNumberOfTimesThroughLoop();
       } else {
-          arduinoLoopBlockShowLoopForeverText()
+        arduinoLoopBlockShowLoopForeverText();
       }
       swal.close();
       return;
-      
     });
-
-    
-
   });
 </script>
+
+<Nav {segment} />
+<svelte:body on:mouseup={stopResize} />
+<main style="height: {height}" on:mousemove={resize}>
+  <div style="flex: {leftFlex}" id="left_panel">
+    <Blockly {showLoopExecutionTimesArduinoStartBlock} />
+  </div>
+  <div on:mousedown={startResize} id="grabber" />
+  <div style="flex: {rightFlex}" id="right_panel">
+    <slot />
+  </div>
+</main>
+
+<!-- This means we are on the home page and need to display the player component -->
+
+{#if isOnHomePage}
+  <Player />
+{/if}
 
 <style>
   /** the container of all the elements */
@@ -157,21 +189,3 @@ import swal from "sweetalert";
     overflow-y: scroll;
   }
 </style>
-
-<Nav {segment} />
-<svelte:body on:mouseup={stopResize} />
-<main style="height: {height}" on:mousemove={resize}>
-  <div style="flex: {leftFlex}" id="left_panel">
-    <Blockly {showLoopExecutionTimesArduinoStartBlock} />
-  </div>
-  <div on:mousedown={startResize} id="grabber" />
-  <div style="flex: {rightFlex}" id="right_panel">
-    <slot />
-  </div>
-</main>
-
-<!-- This means we are on the home page and need to display the player component -->
-
-{#if isOnHomePage}
-  <Player />
-{/if}

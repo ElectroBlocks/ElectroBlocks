@@ -7,7 +7,8 @@
 
   import { afterUpdate } from "svelte";
   import { getBoard } from "../../../core/microcontroller/selectBoard";
-  import { onErrorMessage, onSuccess } from "../../../help/alerts";
+  import { onConfirm, onErrorMessage, onSuccess } from "../../../help/alerts";
+  import { workspaceToXML } from "../../../core/blockly/helpers/workspace.helper";
 
   // controls whether the messages should autoscroll
   let autoScroll = false;
@@ -148,6 +149,20 @@
     } catch (e) {
       if (e.message.toLowerCase() === "no port selected by the user.") {
         arduinoStore.set(PortState.CLOSE);
+        return;
+      }
+      if (e.message.includes("receiveData timeout after 400ms")) {
+        const reloadBrowser = await onConfirm(
+          "Something timed out but we think your code upload. In order to connect we need to refresh your browser.  You will not lose anything you wrote.  Click ok to agree.",
+          e
+        );
+
+        if (reloadBrowser) {
+          const reloadedWorkspaceText = workspaceToXML();
+          localStorage.setItem("reload_once_workspace", reloadedWorkspaceText);
+          location.reload();
+        }
+
         return;
       }
       onErrorMessage("Sorry, please try again in 5 minutes. :)", e);
