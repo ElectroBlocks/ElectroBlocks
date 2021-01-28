@@ -169,6 +169,52 @@
   }
 </script>
 
+<section bind:this={messagesEl} id="messages">
+  {#each messages as mes (mes.id)}
+    <article class="message-computer">
+      <p>
+        <img
+          src={mes.type === 'Computer' ? './laptop.png' : './cpu.png'}
+          alt={mes.type === 'Computer' ? 'computer' : 'arduino'}
+        />
+        {mes.message}
+        ({mes.time})
+      </p>
+    </article>
+  {/each}
+</section>
+<section id="send-message-container">
+  <form on:submit|preventDefault={sendMessage}>
+    <input
+      readonly={!(arduinoStatus === PortState.OPEN)}
+      type="text"
+      bind:value={messageToSend}
+      placeholder="send message"
+    />
+  </form>
+  <button disabled={!(arduinoStatus === PortState.OPEN)} on:click={sendMessage}>
+    <i class="fa fa-paper-plane" />
+  </button>
+  <button
+    disabled={arduinoStatus !== PortState.OPEN && arduinoStatus !== PortState.CLOSE}
+    on:click={connectOrDisconnectArduino}
+  >
+    <i
+      class="fa"
+      class:fa-eject={arduinoStatus === PortState.OPEN}
+      class:fa-usb={arduinoStatus === PortState.CLOSE}
+    />
+  </button>
+
+  <button disabled={!(arduinoStatus === PortState.CLOSE)} on:click={uploadCode}>
+    <i class="fa {uploadingClass}" />
+  </button>
+  <button on:click={clearMessages}> <i class="fa fa-trash" /> </button>
+  <button class:scroll-active={autoScroll} on:click={toggleAutoScroll}>
+    <i class="fa fa-arrow-down" />
+  </button>
+</section>
+
 <style>
   #messages {
     padding: 10px;
@@ -255,45 +301,3 @@
     color: #16bb3a;
   }
 </style>
-
-<section bind:this={messagesEl} id="messages">
-  {#each messages as mes (mes.id)}
-    <article class="message-computer">
-      <p>
-        <img
-          src={mes.type === 'Computer' ? './laptop.png' : './cpu.png'}
-          alt={mes.type === 'Computer' ? 'computer' : 'arduino'} />
-        {mes.message}
-        ({mes.time})
-      </p>
-    </article>
-  {/each}
-</section>
-<section id="send-message-container">
-  <form on:submit|preventDefault={sendMessage}>
-    <input
-      readonly={!(arduinoStatus === PortState.OPEN)}
-      type="text"
-      bind:value={messageToSend}
-      placeholder="send message" />
-  </form>
-  <button disabled={!(arduinoStatus === PortState.OPEN)} on:click={sendMessage}>
-    <i class="fa fa-paper-plane" />
-  </button>
-  <button
-    disabled={arduinoStatus !== PortState.OPEN && arduinoStatus !== PortState.CLOSE}
-    on:click={connectOrDisconnectArduino}>
-    <i
-      class="fa"
-      class:fa-eject={arduinoStatus === PortState.OPEN}
-      class:fa-usb={arduinoStatus === PortState.CLOSE} />
-  </button>
-
-  <button disabled={!(arduinoStatus === PortState.CLOSE)} on:click={uploadCode}>
-    <i class="fa {uploadingClass}" />
-  </button>
-  <button on:click={clearMessages}> <i class="fa fa-trash" /> </button>
-  <button class:scroll-active={autoScroll} on:click={toggleAutoScroll}>
-    <i class="fa fa-arrow-down" />
-  </button>
-</section>

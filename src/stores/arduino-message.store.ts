@@ -26,7 +26,7 @@ const connect = async (baudRate) => {
     {
       requestOptions: {
         // Filter on devices with the Arduino USB vendor ID.
-        filters: [{ usbVendorId: 0x2341, usbProductId: 0x0043 }], // todo mega arduino
+        // filters: [{ usbVendorId: 0x2341 }], // todo mega arduino
       },
       baudRate,
     },
