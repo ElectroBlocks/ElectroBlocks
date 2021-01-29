@@ -11,6 +11,7 @@ import createNewComponent from "./svg-create";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 import type { MicroController } from "../microcontroller/microcontroller";
 import { getBoardSvg } from "./get-board-svg";
+import { registerHighlightEvents } from "./highlightevent";
 
 export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
   const board = getBoard(frameContainer.board);
@@ -22,7 +23,6 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
   resetBreadBoardWholes(board);
   hideAllWires(arduino, board);
 
-  console.log("lastframe", lastFrame);
   if (lastFrame) {
     lastFrame.components
       .filter((c) => c.type !== ArduinoComponentType.MESSAGE)
@@ -66,6 +66,10 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   (draw as any).zoom((0.5 / 650) * draw.width()); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
   arduino.y(draw.viewbox().y2 - arduino.height() + 80);
   arduino.x(0);
+
+  // Events
+
+  registerHighlightEvents(arduino);
 
   return arduino;
 };

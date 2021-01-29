@@ -67,7 +67,6 @@
       .replace("}", "")
       .split("-")
       .map((colorNum) => parseInt(colorNum, 0));
-    console.log(red, green, blue, "test color");
     return `(red=${red},green=${green},blue=${blue})`;
   }
 
@@ -87,7 +86,6 @@
       .replace("]", "")
       .split(",")
       .map((colorString) => {
-        console.log(colorString, "colorString");
         const [red, green, blue] = colorString
           .replace("{", "")
           .replace("}", "")
@@ -118,6 +116,69 @@
     }
   }
 </script>
+
+<div id="debug">
+  <h3>
+    Debug
+    <span>
+      <i
+        class="fa fa-play"
+        on:click={continueDebug}
+        class:not-active={disableDebugBtn}
+      />
+      <i
+        class="fa fa-stop"
+        on:click={stopDebug}
+        class:not-active={disableDebugBtn}
+      />
+      <i class:debug-start={debugStart} class="fa fa-bug" />
+    </span>
+  </h3>
+  <div id="variable-table-container">
+    <table id="variable-table">
+      <thead>
+        <tr>
+          <th>Variable Name</th>
+          <th>Data Type</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody id="variable-tbody">
+        {#each variables as variable}
+          <tr class:coloredElement={variable.type === 'Colour'}>
+            <td>{variable.name}</td>
+            <td>{variable.type}</td>
+            <td>
+              {#if variable.type !== 'Colour' && variable.type !== 'List Colour'}
+                {variable.value}
+              {/if}
+              {#if variable.type === 'Colour'}
+                <span
+                  style="color: {colorValueHex(variable.value)}"
+                  class="coloredElement"
+                >
+                  {colorValueString(variable.value)}
+                </span>
+              {/if}
+              {#if variable.type === 'List Colour'}
+                <span class="colorValue">
+                  {#each parseColorList(variable.value) as colorValue, index}
+                    <span
+                      style="background-color: {rgbToHex(colorValue)}"
+                      class="coloredElement"
+                    >
+                      {index + 1}
+                    </span>
+                  {/each}
+                </span>
+              {/if}
+            </td>
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <style>
   #debug {
@@ -204,59 +265,3 @@
     color: #23922b;
   }
 </style>
-
-<div id="debug">
-  <h3>
-    Debug <span> <i
-        class="fa fa-play"
-        on:click={continueDebug}
-        class:not-active={disableDebugBtn} /> <i
-        class="fa fa-stop"
-        on:click={stopDebug}
-        class:not-active={disableDebugBtn} /> <i
-        class:debug-start={debugStart}
-        class="fa fa-bug" /> </span>
-  </h3>
-  <div id="variable-table-container">
-    <table id="variable-table">
-      <thead>
-        <tr>
-          <th>Variable Name</th>
-          <th>Data Type</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody id="variable-tbody">
-        {#each variables as variable}
-          <tr class:coloredElement={variable.type === 'Colour'}>
-            <td>{variable.name}</td>
-            <td>{variable.type}</td>
-            <td>
-              {#if variable.type !== 'Colour' && variable.type !== 'List Colour'}
-                {variable.value}
-              {/if}
-              {#if variable.type === 'Colour'}
-                <span
-                  style="color: {colorValueHex(variable.value)}"
-                  class="coloredElement">
-                  {colorValueString(variable.value)}
-                </span>
-              {/if}
-              {#if variable.type === 'List Colour'}
-                <span class="colorValue">
-                  {#each parseColorList(variable.value) as colorValue, index}
-                    <span
-                      style="background-color: {rgbToHex(colorValue)}"
-                      class="coloredElement">
-                      {index + 1}
-                    </span>
-                  {/each}
-                </span>
-              {/if}
-            </td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  </div>
-</div>

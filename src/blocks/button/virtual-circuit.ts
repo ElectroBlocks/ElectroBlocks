@@ -50,7 +50,6 @@ export const resetButton: ResetComponent = (componentEl: Element) => {
 };
 
 const toggleButton = (componentEl: Element, isOn: boolean) => {
-  console.log("buttonEl update", isOn, componentEl);
   if (isOn) {
     componentEl.findOne("#PRESSED_STATE").show();
     componentEl.findOne("#BUTTON_PRESSED").show();

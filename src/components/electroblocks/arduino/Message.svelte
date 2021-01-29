@@ -45,13 +45,10 @@
   });
 
   arduinoStore.subscribe((status) => {
-    console.log(status, "arduino status");
     arduinoStatus = status;
   });
 
   arduionMessageStore.subscribe((newMessage) => {
-    console.log(newMessage, "newMessage");
-
     if (!newMessage) {
       return;
     }
@@ -98,7 +95,6 @@
     }
     arduinoStore.set(PortState.OPENNING);
     const board = getBoard(boardType);
-    console.log(board, "board");
     arduionMessageStore
       .connect(board.serial_baud_rate)
       .then(() => {

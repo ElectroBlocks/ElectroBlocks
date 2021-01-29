@@ -65,7 +65,6 @@ describe("sensor value blocks", () => {
       createTestEvent(analogReadSetupBlock.id)
     ).frames;
 
-    console.log(frame1, frame2);
     expect(frame1.variables["state"].value).toBe(1);
     expect(frame2.variables["state"].value).toBe(30);
     expect(frame3.variables["state"].value).toBe(1);
