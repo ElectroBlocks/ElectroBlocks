@@ -1,39 +1,9 @@
-export interface Author {
-  name: string;
-  email: string;
-  bio: string;
-  link: string;
-}
-
 export interface LessonForm<T> {
   title: string;
   description: string;
   mainPicture: T;
-  priority: number;
-  level: LessonLevel;
-  category: string;
-  type: LessonType;
-}
-
-export enum LessonType {
-  SCRATCH = "Scratch",
-  ROBLOX = "Roblox",
-  JAVASCRIPT = "Javascript",
-  PYGAME = "PyGame",
-  PHASERJS = "Phaser.js",
-  APP_INVENTOR = "App Inventor",
-  P5JS = "P5.js",
-  ELECTROBLOCK = "Electroblocks",
-  ELECTROBLOCK_WEBSITE = "Electroblocks Website",
-}
-
-export enum Categories {
-  BIG_PROJECTS = "Big Projects",
-  PROJECTS = "Projects",
-  HOW_TOS = "How Tos",
-  QUICK_TIPS = "Quick Tips",
-  TEACHERS = "Teachers",
-  LESSONS = "Lessons",
+  url: string;
+  type: LessonTypes;
 }
 
 export interface Lesson<T> {
@@ -42,44 +12,49 @@ export interface Lesson<T> {
   description: string;
   steps?: Step[];
   mainPicture: string;
-  level: LessonLevel;
-  type: LessonType;
-  category: string; // This will be used later on
-  approved: boolean;
+  url?: string;
   published: boolean;
   userId: string;
+  type: LessonTypes;
   created: T;
   updated: T;
   author?: Author;
-  lessonOrder: number;
 }
 
-export interface LessonForm<T> {
-  title: string;
-  description: string;
-  mainPicture: T;
-  level: LessonLevel;
-  category: string;
-  type: LessonType;
+export interface Author {
+  name: string;
+  email: string;
+  bio: string;
+  link: string;
+}
+
+export enum ContentTypes {
+  YOUTUBE = "YOUTUBE",
+  YOUTUBE_PLAYLIST = "YOUTUBE_PLAYLIST",
+  PICTURE = "PICTURE",
+  PDF = "PDF",
+  AUDIO = "AUDIO",
+  CODE = "CODE",
+  MARKDOWN = "MARKDOWN",
+  VIDEO = "VIDEO",
+}
+
+export enum LessonTypes {
+  YOUTUBE_ONLY = "YOUTUBE_ONLY",
+  TUTORIALS = "TUTORIALS",
 }
 
 export interface Step {
-  contentType: "youtube" | "picture" | "code";
+  contentType: ContentTypes;
   url?: string;
   youtubeId?: string;
   code?: string;
   language?: string;
   canCopy?: boolean;
   description: string;
-  step: string;
+  step?: string;
   id?: string;
   stepNumber: number;
-}
-
-export enum LessonLevel {
-  BEGINNER = "Beginner",
-  INTERMEDIATE = "Intermediate",
-  ADVANCED = "Advanced",
 }
 
 export enum Languages {
@@ -101,4 +76,16 @@ export enum Languages {
   swift = "swift",
   r = "r",
   cpp = "cpp",
+}
+
+export interface Page {
+  lessonIds: string[];
+}
+
+export interface Organization {
+  name: string;
+  website: string;
+  pages: { [key: string]: Page };
+  userIds: string[];
+  ownerUserId: string;
 }

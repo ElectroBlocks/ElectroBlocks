@@ -3,46 +3,44 @@
   import LessonPreview from "../components/electroblocks/lessons/LessonPreview.svelte";
   import { FormGroup, Input, Label, Button } from "sveltestrap/src";
 
-  import { getLessons } from "../lessons/lesson.list";
+  import InAppTutorialFeter from "../lessons/InAppTutorialFetcher";
   import { onMount } from "svelte";
   import type { Lesson } from "../lessons/lesson.model";
-  import { Categories } from "../lessons/lesson.model";
+
   let lessonList: Lesson<any>[] = [];
   let filteredLesson: Array<Array<Lesson<any>>> = [];
   let searchTerm = "";
-  let categoryFilter = Categories.HOW_TOS;
+  let tutFetcher: InAppTutorialFeter;
+  let pageName = "All";
+
   $: if (searchTerm === "") {
     filteredLesson = _.chunk(
-      lessonList
-        .filter((l) => l.category === categoryFilter)
-        .filter((l) => {
-          return (
-            searchTerm === "" ||
-            l.title.toLowerCase().includes(searchTerm.toLowerCase())
-          );
-        })
-        .sort(
-          (a: Lesson<any>, b: Lesson<any>) => a.lessonOrder - b.lessonOrder
-        ),
+      lessonList.filter((l) => {
+        return (
+          searchTerm === "" ||
+          l.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }),
       2
     );
   }
 
-  onMount(async () => {
-    lessonList = await getLessons();
+  async function changePage(e) {
+    searchTerm = "";
+    const pageName = e.target.value;
+    lessonList = await tutFetcher.getLessonsByPage(pageName);
+
     filteredLesson = _.chunk(lessonList, 2);
-    console.log(filteredLesson);
+    console.log(pageName, lessonList, "changepage");
+  }
+
+  onMount(async () => {
+    tutFetcher = new InAppTutorialFeter("electroblocks-org");
+    lessonList = await tutFetcher.getLessonsByPage("All");
+    console.log(lessonList, "lessonList");
+    filteredLesson = _.chunk(lessonList, 2);
   });
 </script>
-
-<style>
-  .no-padding-left {
-    padding-left: 0;
-  }
-  .no-padding-right {
-    padding-right: 0;
-  }
-</style>
 
 <main>
   <section class="container">
@@ -62,13 +60,15 @@
         <FormGroup>
           <Label for="Category">Category</Label>
           <Input
-            bind:value={categoryFilter}
+            on:change={changePage}
+            bind:value={pageName}
             type="select"
             name="select"
-            id="Category">
-            <option>How Tos</option>
+            id="Category"
+          >
+            <option>All</option>
             <option>Lessons</option>
-            <option>Projects</option>
+            <option>How Tos</option>
           </Input>
         </FormGroup>
       </div>
@@ -81,7 +81,8 @@
             lessonId={lesson.id}
             image={lesson.mainPicture}
             title={lesson.title}
-            description={lesson.description} />
+            description={lesson.description}
+          />
         {/each}
       </section>
     {/each}
@@ -90,3 +91,12 @@
 <svelte:head>
   <title>Electroblocks - Lessons</title>
 </svelte:head>
+
+<style>
+  .no-padding-left {
+    padding-left: 0;
+  }
+  .no-padding-right {
+    padding-right: 0;
+  }
+</style>
