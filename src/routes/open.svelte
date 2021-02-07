@@ -148,7 +148,11 @@
               <td>{project[0].name}</td>
               <td>{formatDate(project[0].updated)}</td>
               <td>
-                <Button color="info" on:click={() => openProject(project[1])}>
+                <Button
+                  color="info"
+                  class="w-100"
+                  on:click={() => openProject(project[1])}
+                >
                   Open
                 </Button>
               </td>
