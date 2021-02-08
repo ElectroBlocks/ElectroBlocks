@@ -35,9 +35,11 @@ export default class InAppTutorialFeter {
       );
 
       const stepsJSON = await requestSteps.json();
-      const steps = stepsJSON.documents.map((step: Step) => {
-        return this.parseJSON(step);
-      });
+      const steps = stepsJSON.documents
+        .map((step: Step) => {
+          return this.parseJSON(step);
+        })
+        .sort((a, b) => a.stepNumber - b.stepNumber);
       const lesson = this.parseJSON(lessonJSON) as Lesson<any>;
       lesson.steps = steps;
       lesson.id = lessonJSON.name.split("/").pop();

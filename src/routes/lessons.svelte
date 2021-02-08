@@ -78,6 +78,7 @@
         <div class="col-1" />
         {#each lessons as lesson}
           <LessonPreview
+            url={lesson.url}
             lessonId={lesson.id}
             image={lesson.mainPicture}
             title={lesson.title}

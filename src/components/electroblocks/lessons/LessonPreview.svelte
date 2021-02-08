@@ -5,18 +5,27 @@
   export let title;
   export let description;
   export let lessonId;
+  export let url = "/";
   $: src = image || "https://fakeimg.pl/320x300/";
   $: showTitle = title || "Enter Title";
   $: showDescription = description || "Enter Description";
 
   async function gotToLesson() {
     if ($page.query["projectid"]) {
-      await goto(`?lessonId=${lessonId}&projectid=${$page.query["projectid"]}`);
+      await goto(
+        `${url}?lessonId=${lessonId}&projectid=${$page.query["projectid"]}`
+      );
       return;
     }
-    await goto(`?lessonId=${lessonId}`);
+    await goto(`${url}?lessonId=${lessonId}`);
   }
 </script>
+
+<div on:click={gotToLesson} class="col-5 lesson-preview">
+  <h3 id="title">{showTitle}</h3>
+  <img {src} alt={title} />
+  <p>{showDescription} {showDescription.length > 145 ? '...' : ''}</p>
+</div>
 
 <style>
   h3 {
@@ -46,9 +55,3 @@
     text-align: center;
   }
 </style>
-
-<div on:click={gotToLesson} class="col-5 lesson-preview">
-  <h3 id="title">{showTitle}</h3>
-  <img {src} alt={title} />
-  <p>{showDescription} {showDescription.length > 145 ? '...' : ''}</p>
-</div>

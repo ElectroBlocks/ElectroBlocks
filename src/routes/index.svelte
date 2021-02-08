@@ -6,13 +6,12 @@
 
   import { stores } from "@sapper/app";
   import { onErrorMessage } from "../help/alerts";
-  import config from "../env";
   import InAppTutorialFeter from "../lessons/InAppTutorialFetcher";
 
   const { page } = stores();
 
   onMount(async () => {
-    console.log($page);
+    // move this to layout view
     const inAppTutorialFetcher = new InAppTutorialFeter("electroblocks-org");
     if ($page.query["lessonId"]) {
       try {
