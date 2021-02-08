@@ -2,47 +2,27 @@
   import VerticalComponentContainer from "../components/electroblocks/VerticalComponentContainer.svelte";
   import Simulator from "../components/electroblocks/home/Simulator.svelte";
   import Step from "../components/electroblocks/home/Steps.svelte";
-  import { getLesson } from "../lessons/lesson.list";
   import { onMount } from "svelte";
 
   import { stores } from "@sapper/app";
   import { onErrorMessage } from "../help/alerts";
-  import config from "../env";
+  import InAppTutorialFeter from "../lessons/InAppTutorialFetcher";
 
   const { page } = stores();
-  let showLesson = false;
 
   onMount(async () => {
-    console.log($page);
+    // move this to layout view
+    const inAppTutorialFetcher = new InAppTutorialFeter("electroblocks-org");
     if ($page.query["lessonId"]) {
       try {
-        showLesson = true;
-        const lesson = await getLesson($page.query["lessonId"]);
-        const event = new Event("lesson-change");
-        (event as any).detail = lesson;
-        console.log(lesson);
-        document.dispatchEvent(event);
+        await inAppTutorialFetcher.open(500, 150, $page.query["lessonId"]);
       } catch (e) {
         onErrorMessage("Error loading the lesson", e);
       }
     }
-
-    document.addEventListener("lesson-close", () => {
-      showLesson = false;
-    });
   });
 </script>
 
-<style>
-  .slot-wrapper {
-    height: 100%;
-    width: 100%;
-  }
-</style>
-
-{#if showLesson}
-  <ng-lessons left="500" top="150" />
-{/if}
 <VerticalComponentContainer>
   <div class="slot-wrapper" slot="top">
     <Simulator />
@@ -54,3 +34,10 @@
 <svelte:head>
   <title>Electroblocks</title>
 </svelte:head>
+
+<style>
+  .slot-wrapper {
+    height: 100%;
+    width: 100%;
+  }
+</style>
