@@ -32,7 +32,7 @@ export const ledCreate: CreateCompenentHook<LedState> = (
   board,
   settings
 ) => {
-  let ledColor = colors[_.random(0, colors.length)];
+  let ledColor = colors[_.random(0, colors.length - 1)];
 
   if (settings.customLedColor) {
     ledColor = settings.ledColor;
