@@ -6,7 +6,7 @@ export function stepSerialBegin() {
     "\tSerial.begin(" +
     selectBoardBlockly().serial_baud_rate +
     "); \n" +
-    "\tSerial.setTimeout(10);\n";
+    "\tSerial.setTimeout(50);\n";
 
   Blockly["Arduino"].setupCode_["debug_clean_pipes"] =
     "\tdelay(200); // to prevent noise after uploading code \n";
