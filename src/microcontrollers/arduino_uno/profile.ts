@@ -1,6 +1,4 @@
-import {
-  MicroControllerType,
-} from "../../core/microcontroller/microcontroller";
+import { MicroControllerType } from "../../core/microcontroller/microcontroller";
 import type { MicroController } from "../../core/microcontroller/microcontroller";
 
 import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
@@ -62,7 +60,7 @@ const unoArduino: MicroController = {
   ssPins: ["10"],
   sclPins: ["A5"],
   sdaPins: ["A4"],
-  serial_baud_rate: 115200,
+  serial_baud_rate: 9600,
   type: MicroControllerType.ARDUINO_UNO,
   pinToBreadboardHole,
   skipHoles: [

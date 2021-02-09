@@ -1,6 +1,4 @@
-import {
-  MicroControllerType,
-} from "../../core/microcontroller/microcontroller";
+import { MicroControllerType } from "../../core/microcontroller/microcontroller";
 import type { MicroController } from "../../core/microcontroller/microcontroller";
 import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 
@@ -208,7 +206,7 @@ const arduinoMega: MicroController = {
   ssPins: ["53"],
   sclPins: ["21"],
   sdaPins: ["20"],
-  serial_baud_rate: 115200,
+  serial_baud_rate: 9600,
   type: MicroControllerType.ARDUINO_MEGA,
   pinToBreadboardHole,
   skipHoles: [
