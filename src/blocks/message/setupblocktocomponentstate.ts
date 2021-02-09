@@ -18,7 +18,7 @@ export const messageSetupBlockToComponentState = (
   return {
     type: ArduinoComponentType.MESSAGE,
     pins: [],
-    hasMessage: btState.receiving_message,
-    message: btState.message,
+    hasMessage: btState?.receiving_message || false,
+    message: btState?.message || "",
   };
 };
