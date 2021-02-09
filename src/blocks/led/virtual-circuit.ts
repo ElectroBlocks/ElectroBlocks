@@ -56,6 +56,9 @@ export const ledCreate: CreateCompenentHook<LedState> = (
     arduinoComponentStateToId(state),
     board
   );
+
+  const ledText = ledEl.findOne("#LED_TEXT") as Text;
+  ledText.node.innerHTML = "";
 };
 
 export const ledPosition: PositionComponent<LedState> = (
@@ -92,6 +95,9 @@ export const updateLed: SyncComponent = (state: LedState, ledEl, draw) => {
 };
 
 export const resetLed: ResetComponent = (componentEl: Element) => {
+  const ledText = componentEl.findOne("#LED_TEXT") as Text;
+  ledText.node.innerHTML = "";
+
   componentEl
     .find(`#radial-gradient-${componentEl.data("pin-number")} stop`)
     .toArray()
