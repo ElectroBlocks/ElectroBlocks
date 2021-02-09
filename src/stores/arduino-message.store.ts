@@ -49,7 +49,11 @@ const closePort = async () => {
 };
 
 const sendMessage = async (message: string) => {
-  await serialPort.write(message, (info) => console.log("write", info));
+  await serialPort.write(message, (err) => {
+    if (err) {
+      console.log(err, "sendmessage");
+    }
+  });
 };
 
 export default {
