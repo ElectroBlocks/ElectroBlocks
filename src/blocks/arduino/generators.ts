@@ -20,6 +20,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   let resetMessageVariable = "";
   let resetIrRemoteCode = "";
   let getNewTempReading = "";
+  let setSerialMessageDEV = "";
 
   if (!_.isEmpty(Blockly["Arduino"].setupCode_["bluetooth_setup"])) {
     resetBluetoothVariable = '\tbluetoothMessageDEV = ""; \n';
@@ -27,6 +28,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
 
   if (!_.isEmpty(Blockly["Arduino"].setupCode_["serial_begin"])) {
     resetMessageVariable = '\tserialMessageDEV= ""; \n';
+    setSerialMessageDEV = "\tsetSerialMessage();";
   }
 
   if (!_.isEmpty(Blockly["Arduino"].setupCode_["setup_ir_remote"])) {
@@ -38,6 +40,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   }
   return (
     "\nvoid loop() { \n" +
+    setSerialMessageDEV +
     statementsLoop +
     "\n" +
     resetBluetoothVariable +

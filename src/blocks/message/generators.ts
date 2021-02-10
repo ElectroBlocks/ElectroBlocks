@@ -6,7 +6,7 @@ export function stepSerialBegin() {
     "\tSerial.begin(" +
     selectBoardBlockly().serial_baud_rate +
     "); \n" +
-    "\tSerial.setTimeout(50);\n";
+    "\tSerial.setTimeout(10);\n";
 
   Blockly["Arduino"].setupCode_["debug_clean_pipes"] =
     "\tdelay(200); // to prevent noise after uploading code \n";
@@ -22,26 +22,23 @@ export function stepSerialBegin() {
 Blockly["Arduino"]["message_setup"] = function () {
   stepSerialBegin();
   Blockly["Arduino"].functionNames_[
-    "getSerialMessage"
-  ] = `String getSerialMessage() {
-   if (serialMessageDEV.length() > 0) {
-     return serialMessageDEV;
-   }
-
-   serialMessageDEV = Serial.readStringUntil('|');
-
-   return serialMessageDEV;
+    "setSerialMessage"
+  ] = `void setSerialMessage() {
+  if (Serial.available() > 0) {
+      serialMessageDEV = Serial.readString();
+      serialMessageDEV.trim();      
+  }
 };
   `;
   return "";
 };
 
 Blockly["Arduino"]["arduino_get_message"] = function (block) {
-  return ["getSerialMessage()", Blockly["Arduino"].ORDER_ATOMIC];
+  return ["serialMessageDEV", Blockly["Arduino"].ORDER_ATOMIC];
 };
 
 Blockly["Arduino"]["arduino_receive_message"] = function (block) {
-  return ["(getSerialMessage().length() > 0)", Blockly["Arduino"].ORDER_ATOMIC];
+  return ["(serialMessageDEV.length() > 0)", Blockly["Arduino"].ORDER_ATOMIC];
 };
 
 Blockly["Arduino"]["arduino_send_message"] = function (block) {
