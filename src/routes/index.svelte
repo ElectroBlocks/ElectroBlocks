@@ -7,6 +7,7 @@
   import { stores } from "@sapper/app";
   import { onErrorMessage } from "../help/alerts";
   import InAppTutorialFeter from "../lessons/InAppTutorialFetcher";
+  import authStore from "../stores/auth.store";
 
   const { page } = stores();
 
@@ -20,6 +21,18 @@
         onErrorMessage("Error loading the lesson", e);
       }
     }
+
+    authStore.subscribe(async (info) => {
+      if (
+        info.firebaseControlled &&
+        !info.isLoggedIn &&
+        !sessionStorage.getItem("showed_lesson") &&
+        !$page.query["lessonId"]
+      ) {
+        sessionStorage.setItem("showed_lesson", "yes");
+        await inAppTutorialFetcher.open(500, 150, "F074ph1AOoQALhHV2mKA");
+      }
+    });
   });
 </script>
 
