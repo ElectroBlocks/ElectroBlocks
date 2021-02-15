@@ -56,6 +56,10 @@ Blockly.Blocks["neo_pixel_setup"] = {
     this.appendDummyInput()
       .appendField("Number of leds")
       .appendField(new Blockly.FieldNumber(30, 1, 150), "NUMBER_LEDS");
+    this.appendDummyInput()
+      .appendField("Brightness 1 to 20")
+      .appendField(new Blockly.FieldNumber(10, 1, 20, 1), "BRIGHTNESS");
+
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");

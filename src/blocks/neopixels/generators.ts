@@ -11,6 +11,7 @@ Blockly["Arduino"]["neo_pixel_setup"] = function (block) {
     "\t#include <avr/power.h>; \n" +
     "#endif\n";
   Blockly["Arduino"].libraries_["neo_pixel_setup"] =
+    `double brightness = ${block.getFieldValue("BRIGHTNESS")}.0 / 20.0;\n\n` +
     "Adafruit_NeoPixel pixels = Adafruit_NeoPixel(" +
     numberOfLeds +
     ", " +
@@ -27,7 +28,7 @@ Blockly["Arduino"]["neo_pixel_set_color"] = function (block) {
     "\n\nvoid setNeoPixelColor(double pos, RGB color) {\n" +
     "\tpos = pos <= 0 ? 0 : pos;\n" +
     "\tpos = pos >= 1 ? pos - 1 : pos;\n" +
-    "\tpixels.setPixelColor((int)pos, color.red, color.green, color.blue);\n" +
+    "\tpixels.setPixelColor((int)pos, color.red * brightness, color.green * brightness, color.blue * brightness);\n" +
     "\tpixels.show();\n" +
     "}\n";
 

@@ -149,7 +149,7 @@ const showRGBStripLeds = (
     neoPixelEl.findOne("#LEVEL2").hide();
     neoPixelEl.findOne("#LEVEL3").hide();
     neoPixelEl.findOne("#LEVEL4").hide();
-  } else if (neoPixelState.numberOfLeds < 12) {
+  } else if (neoPixelState.numberOfLeds <= 12) {
     neoPixelEl.findOne("#LEVEL1").hide();
     neoPixelEl.findOne("#LEVEL2").hide();
     neoPixelEl.findOne("#LEVEL3").hide();
