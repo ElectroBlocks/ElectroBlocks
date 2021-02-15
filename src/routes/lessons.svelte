@@ -11,7 +11,7 @@
   let filteredLesson: Array<Array<Lesson<any>>> = [];
   let searchTerm = "";
   let tutFetcher: InAppTutorialFeter;
-  let pageName = "All";
+  let pageName = "Lessons";
 
   $: if (searchTerm === "") {
     filteredLesson = _.chunk(
@@ -66,9 +66,9 @@
             name="select"
             id="Category"
           >
-            <option>All</option>
             <option>Lessons</option>
             <option>How Tos</option>
+            <option>All</option>
           </Input>
         </FormGroup>
       </div>
