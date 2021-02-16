@@ -11,6 +11,17 @@
       answer them.
     </p>
 
+    <h2>Lessons & Docs</h2>
+
+    <p>
+      There is also an
+      <a href="https://phptuts.github.io/electroblocks-lessons/">
+        ElectroBlock Docs</a>, which contains all the lessons in webpage form.
+      We also have a page full of
+      <a href="/lessons">lessons</a>
+      as well.
+    </p>
+
     <h2>Training</h2>
     <p>
       All training will be scheduled ElectroBlock's

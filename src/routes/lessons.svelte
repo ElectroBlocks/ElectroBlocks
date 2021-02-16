@@ -36,7 +36,7 @@
 
   onMount(async () => {
     tutFetcher = new InAppTutorialFeter("electroblocks-org");
-    lessonList = await tutFetcher.getLessonsByPage("All");
+    lessonList = await tutFetcher.getLessonsByPage("Lessons");
     console.log(lessonList, "lessonList");
     filteredLesson = _.chunk(lessonList, 2);
   });
