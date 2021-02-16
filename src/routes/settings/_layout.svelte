@@ -1,56 +1,62 @@
 <script lang="ts">
-    import { FormGroup, Input, Label } from "sveltestrap/src";
+  import { FormGroup, Input, Label } from "sveltestrap/src";
 
-    export let segment;
-    import { goto } from "@sapper/app";
-    import { onMount } from "svelte";
-    let value;
-    async function navigate(e) {
-        await goto(e.target.value);
-    }
+  export let segment;
+  import { goto } from "@sapper/app";
+  import { onMount } from "svelte";
+  let value;
+  async function navigate(e) {
+    await goto(e.target.value);
+  }
 
-    onMount(() => {
-        // This is to fix the drop down box
-        value = segment ? "/settings/" + segment : "/settings";
-        //selectBox.value = value;
-    });
+  onMount(() => {
+    // This is to fix the drop down box
+    value = segment ? "/settings/" + segment : "/settings";
+    //selectBox.value = value;
+  });
+
+  $: if (segment) {
+    value = segment ? "/settings/" + segment : "/settings";
+  }
 </script>
 
-<style>
-    main {
-        overflow-y: hidden;
-        overflow-x: hidden;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-</style>
-
 <main class="container-fluid">
-    <div class="row">
-        <div class="col">
-            <h2>Settings</h2>
-        </div>
+  <div class="row">
+    <div class="col">
+      <h2>Settings</h2>
     </div>
-    <div class="row">
-        <div class="col">
-            <FormGroup>
-                <Label for="exampleSelect">Navigation</Label>
-                <Input
-                    bind:value
-                    type="select"
-                    name="select"
-                    on:change={navigate}
-                    id="exampleSelect">
-                    <option value="/settings">Virtual Circuit</option>
-                    <option value="/settings/myprofile">My Profile</option>
-                    <option value="/settings/about">About</option>
-                    <option value="/settings/support">Support</option>
-                    <option value="/settings/privacy-policy">
-                        Privacy Policy
-                    </option>
-                </Input>
-            </FormGroup>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <FormGroup>
+        <Label for="exampleSelect">Navigation</Label>
+        <Input
+          bind:value
+          type="select"
+          name="select"
+          on:change={navigate}
+          id="exampleSelect"
+        >
+          <option value="/settings">Virtual Circuit</option>
+          <option value="/settings/myprofile">My Profile</option>
+          <option value="/settings/about">About</option>
+          <option value="/settings/support">Support</option>
+          <option value="/settings/feature-request">Feature Requests</option>
+          <option value="/settings/bugs">Report a bug</option>
+
+          <option value="/settings/privacy-policy">Privacy Policy</option>
+        </Input>
+      </FormGroup>
     </div>
-    <slot />
+  </div>
+  <slot />
 </main>
+
+<style>
+  main {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+</style>

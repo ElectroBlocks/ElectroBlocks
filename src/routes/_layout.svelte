@@ -82,7 +82,6 @@
   onMount(() => {
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
-      console.log(path, "path", params);
       isOnHomePage = isPathOnHomePage(path);
       // Calculates the height of the window
       // We know that if it's  the home page that we want less height

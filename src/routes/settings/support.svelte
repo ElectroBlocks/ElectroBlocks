@@ -1,3 +1,33 @@
+<svelte:head>
+  <title>Electroblocks - Support</title>
+</svelte:head>
+<div class="row">
+  <div class="col">
+    <h2>Getting Help</h2>
+    <p>
+      The fastest way to get help is join our
+      <a href="https://discord.gg/8fq8Dj5BtA">discord</a>
+      channel. Post any related question you have there and we'll be happy to
+      answer them.
+    </p>
+
+    <h2>Training</h2>
+    <p>
+      All training will be scheduled ElectroBlock's
+      <a href="https://www.downtomeet.com/ElectroBlocks/events">Down to Meet.</a>
+      We'll be using either zoom or google hangouts. Anything you want to be
+      trained on please let us know. :)
+    </p>
+    <h2>Filling Bugs</h2>
+    <p>
+      If you want to file a bug you can use the built
+      <a href="/settings/bugs">bug form</a>
+      or
+      <a href="https://github.com/phptuts/ElectroBlocksV3/issues">Github Issues</a>.
+    </p>
+  </div>
+</div>
+
 <style>
   h2 {
     margin-top: 20px;
@@ -7,29 +37,3 @@
     color: blue;
   }
 </style>
-
-<svelte:head>
-  <title>Electroblocks - Support</title>
-</svelte:head>
-<div class="row">
-  <div class="col">
-    <h2>Discord Channel</h2>
-    <a href="https://discord.gg/74MHEWBK">ElectroBlock Discord</a>
-
-    <h2>Training</h2>
-    <p>
-      I am going to try to have monthly training for ElectroBlocks. They will be
-      over zoom. We'll be going over the basics of ElectrBlocks and answering
-      your questions about the platform.
-    </p>
-    <!-- svelte-ignore a11y-missing-attribute -->
-    <iframe src="https://calendar.google.com/calendar/embed?src=oarf7s8iamjsjgmu9h0hcklguc%40group.calendar.google.com&ctz=America%2FLos_Angeles" style="border: 0" width="600" height="450" frameborder="0" scrolling="no">
-  </iframe>
-    <h2>Bug Report</h2>
-    <p>
-      File a
-      <a href="https://github.com/phptuts/ElectroBlocksV3/issues">bug report</a>
-      at github.com. You will need a github account but it's 100% free.
-    </p>
-  </div>
-</div>
