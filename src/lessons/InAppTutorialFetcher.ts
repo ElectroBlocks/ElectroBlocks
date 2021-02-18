@@ -11,7 +11,11 @@ export default class InAppTutorialFeter {
   constructor(private organization: string) {
     if (window && document) {
       document.addEventListener("nglesson-close", () => {
-        document.querySelector("website-nglesson").remove();
+        const element = document.querySelector("website-nglesson");
+
+        if (element) {
+          element.remove();
+        }
       });
     }
   }
@@ -43,7 +47,6 @@ export default class InAppTutorialFeter {
       const lesson = this.parseJSON(lessonJSON) as Lesson<any>;
       lesson.steps = steps;
       lesson.id = lessonJSON.name.split("/").pop();
-
       return lesson;
     } catch (e) {
       this.onError(e, "getLesson");
