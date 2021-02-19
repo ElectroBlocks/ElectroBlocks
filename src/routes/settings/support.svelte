@@ -15,9 +15,9 @@
 
     <p>
       There is also an
-      <a href="https://phptuts.github.io/electroblocks-lessons/">
-        ElectroBlock Docs</a>, which contains all the lessons in webpage form.
-      We also have a page full of
+      <a href="https://electroblocks.github.io/docs/"> ElectroBlock Docs</a>,
+      which contains all the lessons in webpage form. We also have a page full
+      of
       <a href="/lessons">lessons</a>
       as well.
     </p>
