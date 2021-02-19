@@ -32,6 +32,17 @@
   });
 </script>
 
+<pre class="line-numbers language-c ">
+  <code
+    class="language-c"
+  >
+    {@html code}
+  </code>
+</pre>
+<svelte:head>
+  <title>ElectroBlocks - Code</title>
+</svelte:head>
+
 <style>
   :global(#right_panel) {
     overflow-y: scroll;
@@ -49,13 +60,3 @@
     overflow: scroll !important;
   }
 </style>
-
-<pre class="line-numbers language-c ">
-  <code
-    class="language-c">
-    {@html code}
-  </code>
-</pre>
-<svelte:head>
-  <title>Electroblocks - Code</title>
-</svelte:head>

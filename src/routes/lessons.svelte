@@ -90,7 +90,7 @@
   </section>
 </main>
 <svelte:head>
-  <title>Electroblocks - Lessons</title>
+  <title>ElectroBlocks - Lessons</title>
 </svelte:head>
 
 <style>

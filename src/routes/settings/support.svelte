@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Electroblocks - Support</title>
+  <title>ElectroBlocks - Support</title>
 </svelte:head>
 <div class="row">
   <div class="col">

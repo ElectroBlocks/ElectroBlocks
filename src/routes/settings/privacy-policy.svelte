@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Electroblocks - Privacy Policy</title>
+  <title>ElectroBlocks - Privacy Policy</title>
 </svelte:head>
 
 <div class="row">
@@ -36,8 +36,8 @@
       By using our website, you hereby consent to our Privacy Policy and agree
       to its terms. For our Terms and Conditions, please visit the
       <a
-        href="https://www.privacypolicyonline.com/terms-conditions-generator/">Terms
-        & Conditions Generator</a>.
+        href="https://www.privacypolicyonline.com/terms-conditions-generator/"
+      >Terms & Conditions Generator</a>.
     </p>
 
     <h2>Information we collect</h2>

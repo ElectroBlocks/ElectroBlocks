@@ -2,21 +2,8 @@
   import { ListGroup, ListGroupItem } from "sveltestrap/src";
 </script>
 
-<style>
-  h2 {
-    margin-top: 20px;
-  }
-  h3 {
-    margin-top: 15px;
-  }
-  a {
-    text-decoration: underline;
-    color: blue;
-  }
-</style>
-
 <svelte:head>
-  <title>Electroblocks - About</title>
+  <title>ElectroBlocks - About</title>
 </svelte:head>
 <div class="row">
   <div class="col">
@@ -26,7 +13,7 @@
 <div class="row">
   <div class="col">
     <p>
-      Electroblocks is website for coding microcontrollers like the Arduino Uno
+      ElectroBlocks is website for coding microcontrollers like the Arduino Uno
       and Arduino Mega. The basic idea is video editting for code. It allows you
       to create code with an easy to use drag and drop language called Blockly.
       I wanted to create something easy to use and fun for kids and adults to
@@ -103,7 +90,8 @@
         Servo
       </ListGroupItem>
       <ListGroupItem
-        href="https://github.com/adafruit/Adafruit-Motor-Shield-library">
+        href="https://github.com/adafruit/Adafruit-Motor-Shield-library"
+      >
         Adafruit Motor Shield Library
       </ListGroupItem>
     </ListGroup>
@@ -139,3 +127,16 @@
     </ListGroup>
   </div>
 </div>
+
+<style>
+  h2 {
+    margin-top: 20px;
+  }
+  h3 {
+    margin-top: 15px;
+  }
+  a {
+    text-decoration: underline;
+    color: blue;
+  }
+</style>

@@ -45,7 +45,7 @@
   </div>
 </VerticalComponentContainer>
 <svelte:head>
-  <title>Electroblocks</title>
+  <title>ElectroBlocks</title>
 </svelte:head>
 
 <style>

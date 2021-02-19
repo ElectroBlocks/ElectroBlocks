@@ -182,7 +182,7 @@
   {/if}
 </main>
 <svelte:head>
-  <title>Electroblocks - Open Projects</title>
+  <title>ElectroBlocks - Open Projects</title>
 </svelte:head>
 
 <style>

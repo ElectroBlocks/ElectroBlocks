@@ -31,7 +31,7 @@
   </div>
 </VerticalComponentContainer>
 <svelte:head>
-  <title>Electroblocks - Arduino</title>
+  <title>ElectroBlocks - Arduino</title>
 </svelte:head>
 
 <style>
