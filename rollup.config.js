@@ -30,11 +30,11 @@ export default {
     plugins: [
       copy({
         targets: [
-          {
-            src: "node_modules/avrgirl-arduino/dist/avrgirl-arduino.global.js",
-            dest: "static/",
-            rename: "avrgirl-arduino.js",
-          },
+          //{
+           // src: "node_modules/avrgirl-arduino/dist/avrgirl-arduino.global.js",
+           // dest: "static/",
+           // rename: "avrgirl-arduino.js",
+         // },
           // {
           //   src: `./env/env.${mode}.ts`,
           //   dest: "src",
