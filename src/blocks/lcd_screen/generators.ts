@@ -1,4 +1,5 @@
 import Blockly from "blockly";
+import { numberToCode } from "../../core/blockly/helpers/number-code.helper";
 
 Blockly["Arduino"]["lcd_setup"] = function (block) {
   const size = block.getFieldValue("SIZE");
@@ -90,14 +91,14 @@ Blockly["Arduino"]["lcd_screen_clear"] = function (block) {
 };
 
 Blockly["Arduino"]["lcd_screen_print"] = function (block) {
-  let row = parseInt(
+  let row = numberToCode(
     Blockly["Arduino"].valueToCode(
       block,
       "ROW",
       Blockly["Arduino"].ORDER_ATOMIC
     )
   );
-  let column = parseInt(
+  let column = numberToCode(
     Blockly["Arduino"].valueToCode(
       block,
       "COLUMN",
@@ -109,9 +110,6 @@ Blockly["Arduino"]["lcd_screen_print"] = function (block) {
     "PRINT",
     Blockly["Arduino"].ORDER_ATOMIC
   );
-
-  column = column > 0 ? column - 1 : 0;
-  row = row > 0 ? row - 1 : 0;
 
   return (
     "\tlcd.setCursor(" +
@@ -126,14 +124,14 @@ Blockly["Arduino"]["lcd_screen_print"] = function (block) {
 };
 
 Blockly["Arduino"]["lcd_blink"] = function (block) {
-  let row = parseInt(
+  let row = numberToCode(
     Blockly["Arduino"].valueToCode(
       block,
       "ROW",
       Blockly["Arduino"].ORDER_ATOMIC
     )
   );
-  let column = parseInt(
+  let column = numberToCode(
     Blockly["Arduino"].valueToCode(
       block,
       "COLUMN",
@@ -141,9 +139,6 @@ Blockly["Arduino"]["lcd_blink"] = function (block) {
     )
   );
   const blink = block.getFieldValue("BLINK").toUpperCase() === "BLINK";
-
-  column = column > 0 ? column - 1 : 0;
-  row = row > 0 ? row - 1 : 0;
 
   let code = "\tlcd.setCursor(" + column + ", " + row + ");\n";
   code += blink ? "\tlcd.blink();\n" : "\tlcd.noBlink();\n";

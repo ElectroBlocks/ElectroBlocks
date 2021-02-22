@@ -1,4 +1,5 @@
 import Blockly from "blockly";
+import { numberToCode } from "../../core/blockly/helpers/number-code.helper";
 // TODO REPLACE WITH THIS -> https://github.com/valmat/LedMatrix
 
 Blockly["Arduino"]["led_matrix_setup"] = function (block) {
@@ -34,25 +35,27 @@ Blockly["Arduino"]["led_matrix_make_draw"] = function (block) {
 };
 
 Blockly["Arduino"]["led_matrix_turn_one_on_off"] = function (block) {
-  let row = parseInt(
-    Blockly["Arduino"].valueToCode(
-      block,
-      "ROW",
-      Blockly["Arduino"].ORDER_ATOMIC
-    )
+  // todo fix code with variables
+  let row = Blockly["Arduino"].valueToCode(
+    block,
+    "ROW",
+    Blockly["Arduino"].ORDER_ATOMIC
   );
-  let column = parseInt(
-    Blockly["Arduino"].valueToCode(
-      block,
-      "COLUMN",
-      Blockly["Arduino"].ORDER_ATOMIC
-    )
+  let column = Blockly["Arduino"].valueToCode(
+    block,
+    "COLUMN",
+    Blockly["Arduino"].ORDER_ATOMIC
   );
-
-  column = column > 0 ? column - 1 : 0;
-  row = row > 0 ? row - 1 : 0;
 
   const state = block.getFieldValue("STATE") === "ON" ? "true" : "false";
 
-  return "\tlc.setLed(0, " + row + ", " + column + ", " + state + ");\n";
+  return (
+    "\tlc.setLed(0, " +
+    numberToCode(row) +
+    ", " +
+    numberToCode(column) +
+    ", " +
+    state +
+    ");\n"
+  );
 };
