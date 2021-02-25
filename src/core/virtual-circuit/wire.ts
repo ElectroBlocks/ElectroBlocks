@@ -229,7 +229,7 @@ export const returnBottomHole = (position: number) => {
   bottomBreadBoardHoles[index].status = "available";
 };
 
-export const resetBreadBoardWholes = (board: MicroController) => {
+export const resetBreadBoardHoles = (board: MicroController) => {
   bottomBreadBoardHoles = _.range(4, 62)
     .filter((i) => !board.skipHoles.includes(i))
     .map((i) => {

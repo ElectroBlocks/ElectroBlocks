@@ -12,15 +12,16 @@ import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import _ from "lodash";
 import resistorSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-small.svg";
 import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import {
-  findResistorBreadboardHoleXY,
-  createGroundWire,
-  createWire,
-} from "../../core/virtual-circuit/wire";
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
 import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
 import type { MicroController } from "../../core/microcontroller/microcontroller";
 import type { LedState } from "./state";
+import {
+  createWireBreadboard,
+  createWireComponentToBreadboard,
+  createWireFromArduinoToBreadBoard,
+  findResistorBreadboardHoleXY,
+} from "../../core/virtual-circuit/wire-v2";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
 
@@ -30,14 +31,19 @@ export const ledCreate: CreateCompenentHook<LedState> = (
   arduinoEl,
   draw,
   board,
-  settings
+  settings,
+  area
 ) => {
+  const { holes } = area;
+  const resitorHoleId = `pin${holes[3]}D`;
+
   let ledColor = colors[_.random(0, colors.length - 1)];
 
   if (settings.customLedColor) {
     ledColor = settings.ledColor;
   }
 
+  ledEl.data("color", ledColor);
   ledEl.data("pin-number", state.pin);
   ledEl
     .find(`#radial-gradient-${state.pin} stop`)
@@ -52,9 +58,8 @@ export const ledCreate: CreateCompenentHook<LedState> = (
   createResistor(
     arduinoEl,
     draw,
-    state.pin,
-    arduinoComponentStateToId(state),
-    board
+    resitorHoleId,
+    arduinoComponentStateToId(state)
   );
 
   const ledText = ledEl.findOne("#LED_TEXT") as Text;
@@ -66,9 +71,14 @@ export const ledPosition: PositionComponent<LedState> = (
   ledEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(ledEl, arduinoEl, draw, state.pin, "POWER", board);
+  const { holes } = area;
+
+  const powerHoleLed = `pin${holes[3]}E`;
+
+  positionComponent(ledEl, arduinoEl, draw, powerHoleLed, "POWER");
 };
 
 export const updateLed: SyncComponent = (state: LedState, ledEl, draw) => {
@@ -108,14 +118,13 @@ export const resetLed: ResetComponent = (componentEl: Element) => {
 const createResistor = (
   arduino: Svg | Element,
   draw: Svg,
-  pin: ARDUINO_PINS,
-  componentId: string,
-  board: MicroController
+  holeId: string,
+  componentId: string
 ) => {
   const resistorEl = draw.svg(resistorSvg).last();
   resistorEl.data("component-id", componentId);
 
-  const { x, y } = findResistorBreadboardHoleXY(pin, arduino, draw, board);
+  const { x, y } = findResistorBreadboardHoleXY(holeId, arduino, draw);
   resistorEl.cx(x);
   resistorEl.y(y);
 };
@@ -126,18 +135,53 @@ export const createWiresLed: CreateWire<LedState> = (
   ledEl,
   arduino,
   id,
-  board
+  board,
+  area
 ) => {
-  createGroundWire(ledEl, state.pin, arduino as Svg, draw, id, "left", board);
+  const { holes, color } = area;
+  const groundHoleLed = `pin${holes[1]}E`;
+  const powerHoleLed = `pin${holes[3]}E`;
 
-  createWire(
+  const groundBreadBoardHoleA = `pin${holes[1]}A`;
+  const groundBreadBoardHoleB = `pin${holes[1]}X`;
+
+  const powerBreadboardHole = `pin${holes[3]}A`;
+
+  createWireComponentToBreadboard(
+    groundHoleLed,
     ledEl,
-    state.pin,
-    "POWER",
-    arduino,
     draw,
-    "#FF0000",
+    arduino,
+    "PIN_GND",
+    id,
+    "#000"
+  );
+
+  createWireComponentToBreadboard(
+    powerHoleLed,
+    ledEl,
+    draw,
+    arduino,
     "POWER",
-    board
+    id,
+    "#AA0000"
+  );
+
+  createWireBreadboard(
+    groundBreadBoardHoleA,
+    groundBreadBoardHoleB,
+    "#000",
+    draw,
+    arduino as Svg,
+    id
+  );
+
+  createWireFromArduinoToBreadBoard(
+    state.pin,
+    arduino as Svg,
+    draw,
+    powerBreadboardHole,
+    id,
+    color
   );
 };

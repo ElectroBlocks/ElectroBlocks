@@ -5,6 +5,17 @@ export enum MicroControllerType {
   ARDUINO_MEGA = "mega",
 }
 
+export interface BreadBoardArea {
+  holes: number[];
+  taken: boolean;
+  color: string;
+}
+
+export interface Breadboard {
+  areas: BreadBoardArea[];
+  order: number[];
+}
+
 export interface MicroController {
   digitalPins: string[];
   analonPins: string[];
@@ -18,6 +29,7 @@ export interface MicroController {
   ssPins: string[];
   type: MicroControllerType;
   pinToBreadboardHole: (pin: ARDUINO_PINS) => string;
+  breadboard: Breadboard;
   skipHoles: number[];
 }
 

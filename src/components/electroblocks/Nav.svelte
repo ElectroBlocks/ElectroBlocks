@@ -114,59 +114,6 @@
   }
 </script>
 
-<style>
-  nav {
-    height: 50px;
-    width: 100%;
-    overflow: auto;
-    border-bottom: 1px solid gray;
-  }
-
-  nav .fa {
-    color: #505bda;
-  }
-
-  nav a .fa,
-  nav .disabled .fa {
-    opacity: 0.5;
-  }
-
-  nav .active .fa {
-    color: #505bda !important;
-    opacity: 1;
-  }
-
-  nav a,
-  nav span,
-  label {
-    float: left;
-    width: 10%;
-    text-align: center;
-    padding: 2px 0;
-    transition: all 0.3s ease;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-  }
-  nav.small a,
-  nav.small span,
-  nav.small label {
-    width: 11.11111%;
-  }
-  #saved {
-    position: absolute;
-    left: 50%;
-    top: 100px;
-    background: #2c75e6;
-    text-align: center;
-    vertical-align: middle;
-    padding: 10px;
-    transform: translateX(-50%);
-    z-index: 21;
-    color: #fff;
-  }
-</style>
-
 <nav class:small={!$authStore.isLoggedIn}>
   {#if $authStore.isLoggedIn}
     <a href="/{params}" class:active={isPathOnHomePage($page.path)}>
@@ -186,13 +133,15 @@
       <i
         class="fa "
         class:fa-folder-open-o={segment !== 'open'}
-        class:fa-folder-open={segment === 'open'} />
+        class:fa-folder-open={segment === 'open'}
+      />
     </a>
     <span on:click={onNewFileAuth}> <i class="fa fa-file-o" /> </span>
     <span on:click={onSaveClick}><i class="fa fa-floppy-o" /></span>
     <a
       href="/project-settings"
-      class:active={$page.path.includes('project-settings')}>
+      class:active={$page.path.includes('project-settings')}
+    >
       <i class="fa fa-wrench" aria-hidden="true" />
     </a>
     <a href="/settings" class:active={segment === 'settings'}>
@@ -221,13 +170,15 @@
       <i
         class="fa "
         class:fa-folder-open-o={!isOpeningFile}
-        class:fa-folder-open={isOpeningFile} />
+        class:fa-folder-open={isOpeningFile}
+      />
       <input
         on:change={openFile}
         type="file"
         accept="text/xml"
         style="display:none"
-        bind:this={fileUpload} />
+        bind:this={fileUpload}
+      />
     </label>
     <span on:click={onNewFileNoAuth} class="active">
       <i class="fa fa-file-o" />
@@ -246,3 +197,57 @@
 {#if showSaveSuccess}
   <p transition:fade id="saved">project saved</p>
 {/if}
+
+<style>
+  nav {
+    width: 100%;
+    overflow: auto;
+    border-bottom: 1px solid gray;
+  }
+
+  nav .fa {
+    color: #505bda;
+  }
+
+  nav a .fa,
+  nav .disabled .fa {
+    opacity: 0.5;
+  }
+
+  nav .active .fa {
+    color: #505bda !important;
+    opacity: 1;
+  }
+
+  nav a,
+  nav span,
+  label {
+    float: left;
+    width: 10%;
+    text-align: center;
+    padding: 2px 0;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 3rem;
+    margin-top: 3px;
+    cursor: pointer;
+    line-height: 1px;
+  }
+  nav.small a,
+  nav.small span,
+  nav.small label {
+    width: 11.11111%;
+  }
+  #saved {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    background: #2c75e6;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    transform: translateX(-50%);
+    z-index: 21;
+    color: #fff;
+  }
+</style>

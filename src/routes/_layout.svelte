@@ -6,7 +6,6 @@
   import { isPathOnHomePage } from "../helpers/is-path-on-homepage";
   import Nav from "../components/electroblocks/Nav.svelte";
   import Blockly from "../components/electroblocks/Blockly.svelte";
-  import Player from "../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../stores/resize.store";
   import { stores, goto } from "@sapper/app";
   import authStore from "../stores/auth.store";
@@ -86,8 +85,9 @@
       // Calculates the height of the window
       // We know that if it's  the home page that we want less height
       // for the main window because we want to display the player component
-      const subtractSpace = isOnHomePage ? 140 : 50;
-      height = window.innerHeight - subtractSpace + "px";
+      const navBarHeight = document.querySelector("nav").clientHeight - 10;
+
+      height = window.innerHeight - navBarHeight + "px";
       // Hack to make sure everything update
       setTimeout(() => {
         resizeStore.mainWindow();
@@ -162,11 +162,6 @@
 </main>
 
 <!-- This means we are on the home page and need to display the player component -->
-
-{#if isOnHomePage}
-  <Player />
-{/if}
-
 <style>
   /** the container of all the elements */
   main {

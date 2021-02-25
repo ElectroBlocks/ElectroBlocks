@@ -1,6 +1,26 @@
-import { MicroControllerType } from "../../core/microcontroller/microcontroller";
+import {
+  Breadboard,
+  BreadBoardArea,
+  MicroControllerType,
+} from "../../core/microcontroller/microcontroller";
 import type { MicroController } from "../../core/microcontroller/microcontroller";
 import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+
+const breadboard: Breadboard = {
+  areas: [
+    { holes: [4, 5, 6, 7], taken: false, color: "#d07f92" },
+    { holes: [9, 10, 11, 12, 13], taken: false, color: "#b47fd0" },
+    { holes: [15, 16, 17, 18, 19], taken: false, color: "#7f8dd0" },
+    { holes: [21, 22, 23, 24, 25], taken: false, color: "#7fd0c1" },
+    { holes: [27, 28, 29, 30, 31], taken: false, color: "#c0d07f" },
+    { holes: [33, 34, 35, 36, 37], taken: false, color: "#2c8d2a" },
+    { holes: [39, 40, 41, 42, 43], taken: false, color: "#2a5b8d" },
+    { holes: [45, 46, 47, 48, 49], taken: false, color: "#8b2a8d" },
+    { holes: [51, 52, 53, 54, 55], taken: false, color: "#2a4d8d" },
+    { holes: [57, 58, 59, 60], taken: false, color: "#d78b3e" },
+  ],
+  order: [5, 7, 3, 4, 6, 2, 8, 1, 9, 0],
+};
 
 enum ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS {
   PIN_2 = "pin20E",
@@ -208,6 +228,7 @@ const arduinoMega: MicroController = {
   sdaPins: ["20"],
   serial_baud_rate: 9600,
   type: MicroControllerType.ARDUINO_MEGA,
+  breadboard,
   pinToBreadboardHole,
   skipHoles: [
     1,

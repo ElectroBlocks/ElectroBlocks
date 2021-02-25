@@ -14,6 +14,18 @@ export const findComponentConnection = (
   };
 };
 
+export const findArduinoConnectionCenter = (
+  element: Element,
+  connectionId: string
+) => {
+  const connection = findSvgElement(connectionId, element);
+
+  return {
+    x: connection.cx() + element.x(),
+    y: connection.cy() + element.y(),
+  };
+};
+
 export const findSvgElement = (
   id: string,
   draw: Svg | Element
