@@ -66,3 +66,7 @@ button:active {
 .row {
   margin-top: 10px;
 }
+
+body {
+  overflow: hidden;
+}

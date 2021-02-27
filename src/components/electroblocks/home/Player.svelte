@@ -203,6 +203,7 @@
     height: 40px;
     margin: auto;
     margin-top: 5px;
+    overflow: hidden;
   }
 
   #video-controls-container span {

@@ -1,4 +1,4 @@
-<svg id="MicroController" xmlns="http://www.w3.org/2000/svg" width="603.53" height="405.14" viewBox="0 0 603.53 405.14">
+<svg id="MicroController" xmlns="http://www.w3.org/2000/svg" width="603.53" height="439.92" viewBox="0 0 603.53 439.92">
   <g>
     <g id="breadboard">
       <g id="breadboardbreadboard">
@@ -4982,32 +4982,32 @@
         <g id="_0.1.1" data-name=" 0.1.1">
           <g id="_1x06" data-name=" 1x06">
             <rect id="_0.1.1.0.0" data-name=" 0.1.1.0.0" x="384.56" y="378" width="43.2" height="7.2" style="fill: #404040"/>
-            <rect id="ARDUINO_PIN_A0" x="386.77" y="380.21" width="2.78" height="2.78"/>
+            <rect id="ARDUINO_PIN_A0_HOLE" x="386.77" y="380.21" width="2.78" height="2.78"/>
             <polygon id="_0.1.1.0.2" data-name=" 0.1.1.0.2" points="385.75 379.18 386.77 380.21 389.56 380.21 390.58 379.18 385.75 379.18" style="fill: #2a2a29"/>
             <polygon id="_0.1.1.0.3" data-name=" 0.1.1.0.3" points="390.58 379.18 389.56 380.21 389.56 382.99 390.58 384.02 390.58 379.18" style="fill: #474747"/>
             <polygon id="_0.1.1.0.4" data-name=" 0.1.1.0.4" points="390.58 384.02 389.56 382.99 386.77 382.99 385.75 384.02 390.58 384.02" style="fill: #595959"/>
             <polygon id="_0.1.1.0.5" data-name=" 0.1.1.0.5" points="385.75 384.02 386.77 382.99 386.77 380.21 385.75 379.18 385.75 384.02" style="fill: #373737"/>
-            <rect id="ARDUINO_PIN_A1" x="393.97" y="380.21" width="2.78" height="2.78"/>
+            <rect id="ARDUINO_PIN_A1_HOLE" x="393.97" y="380.21" width="2.78" height="2.78"/>
             <polygon id="_0.1.1.0.7" data-name=" 0.1.1.0.7" points="392.95 379.18 393.97 380.21 396.75 380.21 397.78 379.18 392.95 379.18" style="fill: #2a2a29"/>
             <polygon id="_0.1.1.0.8" data-name=" 0.1.1.0.8" points="397.78 379.18 396.75 380.21 396.75 382.99 397.78 384.02 397.78 379.18" style="fill: #474747"/>
             <polygon id="_0.1.1.0.9" data-name=" 0.1.1.0.9" points="397.78 384.02 396.75 382.99 393.97 382.99 392.95 384.02 397.78 384.02" style="fill: #595959"/>
             <polygon id="_0.1.1.0.10" data-name=" 0.1.1.0.10" points="392.95 384.02 393.97 382.99 393.97 380.21 392.95 379.18 392.95 384.02" style="fill: #373737"/>
-            <rect id="ARDUINO_PIN_A2" x="401.17" y="380.21" width="2.78" height="2.78"/>
+            <rect id="ARDUINO_PIN_A2_HOLE" x="401.17" y="380.21" width="2.78" height="2.78"/>
             <polygon id="_0.1.1.0.12" data-name=" 0.1.1.0.12" points="400.15 379.18 401.17 380.21 403.96 380.21 404.98 379.18 400.15 379.18" style="fill: #2a2a29"/>
             <polygon id="_0.1.1.0.13" data-name=" 0.1.1.0.13" points="404.98 379.18 403.96 380.21 403.96 382.99 404.98 384.02 404.98 379.18" style="fill: #474747"/>
             <polygon id="_0.1.1.0.14" data-name=" 0.1.1.0.14" points="404.98 384.02 403.96 382.99 401.17 382.99 400.15 384.02 404.98 384.02" style="fill: #595959"/>
             <polygon id="_0.1.1.0.15" data-name=" 0.1.1.0.15" points="400.15 384.02 401.17 382.99 401.17 380.21 400.15 379.18 400.15 384.02" style="fill: #373737"/>
-            <rect id="ARDUINO_PIN_A3" x="408.37" y="380.21" width="2.78" height="2.78"/>
+            <rect id="ARDUINO_PIN_A3_HOLE" x="408.37" y="380.21" width="2.78" height="2.78"/>
             <polygon id="_0.1.1.0.17" data-name=" 0.1.1.0.17" points="407.35 379.18 408.37 380.21 411.16 380.21 412.18 379.18 407.35 379.18" style="fill: #2a2a29"/>
             <polygon id="_0.1.1.0.18" data-name=" 0.1.1.0.18" points="412.18 379.18 411.16 380.21 411.16 382.99 412.18 384.02 412.18 379.18" style="fill: #474747"/>
             <polygon id="_0.1.1.0.19" data-name=" 0.1.1.0.19" points="412.18 384.02 411.15 382.99 408.37 382.99 407.35 384.02 412.18 384.02" style="fill: #595959"/>
             <polygon id="_0.1.1.0.20" data-name=" 0.1.1.0.20" points="407.35 384.02 408.37 382.99 408.37 380.21 407.35 379.18 407.35 384.02" style="fill: #373737"/>
-            <rect id="ARDUINO_PIN_A4" x="415.57" y="380.21" width="2.78" height="2.78"/>
+            <rect id="ARDUINO_PIN_A4_HOLE" x="415.57" y="380.21" width="2.78" height="2.78"/>
             <polygon id="_0.1.1.0.22" data-name=" 0.1.1.0.22" points="414.55 379.18 415.57 380.21 418.36 380.21 419.38 379.18 414.55 379.18" style="fill: #2a2a29"/>
             <polygon id="_0.1.1.0.23" data-name=" 0.1.1.0.23" points="419.38 379.18 418.36 380.21 418.36 382.99 419.38 384.02 419.38 379.18" style="fill: #474747"/>
             <polygon id="_0.1.1.0.24" data-name=" 0.1.1.0.24" points="419.38 384.02 418.36 382.99 415.57 382.99 414.55 384.02 419.38 384.02" style="fill: #595959"/>
             <polygon id="_0.1.1.0.25" data-name=" 0.1.1.0.25" points="414.55 384.02 415.57 382.99 415.57 380.21 414.55 379.18 414.55 384.02" style="fill: #373737"/>
-            <rect id="ARDUINO_PIN_A5" x="422.77" y="380.21" width="2.78" height="2.78"/>
+            <rect id="ARDUINO_PIN_A5_HOLE" x="422.77" y="380.21" width="2.78" height="2.78"/>
             <polygon id="_0.1.1.0.27" data-name=" 0.1.1.0.27" points="421.75 379.18 422.77 380.21 425.56 380.21 426.58 379.18 421.75 379.18" style="fill: #2a2a29"/>
             <polygon id="_0.1.1.0.28" data-name=" 0.1.1.0.28" points="426.58 379.18 425.56 380.21 425.56 382.99 426.58 384.02 426.58 379.18" style="fill: #474747"/>
             <polygon id="_0.1.1.0.29" data-name=" 0.1.1.0.29" points="426.58 384.02 425.56 382.99 422.77 382.99 421.75 384.02 426.58 384.02" style="fill: #595959"/>
@@ -5814,5 +5814,37 @@
     <text id="MESSAGE_ARDUINO_TITLE" data-name="MESSAGE ARDUINO TITLE" transform="translate(7.45 222.32)" style="isolation: isolate;font-size: 16px;font-family: Biryani-ExtraBold, Biryani;font-weight: 800">Sending Message:</text>
     <text id="MESSAGE_LINE_3" transform="matrix(0.98, 0, -0.17, 0.98, 9.23, 271)" style="isolation: isolate;font-size: 16px;fill: #156cff;font-family: Biryani-ExtraBold, Biryani;font-weight: 800">THIS IS LINE OF MESS</text>
     <text id="MESSAGE_LINE_2" transform="matrix(0.98, 0, -0.17, 0.98, 9.23, 251)" style="isolation: isolate;font-size: 16px;fill: #156cff;font-family: Biryani-ExtraBold, Biryani;font-weight: 800">THIS IS LINE OF MESS</text>
+  </g>
+  <g id="ANALOG_WIRES">
+    <g id="A5">
+      <line x1="424.27" y1="381.69" x2="424.27" y2="411.02" style="fill: none;stroke: #d331c7;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="450.15" y1="411.02" x2="424.27" y2="411.02" style="fill: none;stroke: #d331c7;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line id="ARDUINO_PIN_A5" x1="450.15" y1="225.92" x2="450.15" y2="411.02" style="fill: none;stroke: #d331c7;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </g>
+    <g id="A4">
+      <line x1="417.01" y1="381.6" x2="417.01" y2="415.73" style="fill: none;stroke: #d33158;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="458.19" y1="415.73" x2="417.01" y2="415.73" style="fill: none;stroke: #d33158;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line id="ARDUINO_PIN_A4" x1="458.19" y1="226.02" x2="458.19" y2="415.73" style="fill: none;stroke: #d33158;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </g>
+    <g id="A3">
+      <line x1="409.77" y1="381.59" x2="409.77" y2="421.97" style="fill: none;stroke: #5533d1;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="465.52" y1="421.97" x2="409.77" y2="421.97" style="fill: none;stroke: #5533d1;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line id="ARDUINO_PIN_A3" x1="465.52" y1="226.02" x2="465.52" y2="421.97" style="fill: none;stroke: #5533d1;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </g>
+    <g id="A2">
+      <line x1="402.57" y1="381.59" x2="402.57" y2="427.84" style="fill: none;stroke: #34ce5f;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="473.34" y1="427.84" x2="402.57" y2="427.84" style="fill: none;stroke: #34ce5f;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line id="ARDUINO_PIN_A2" x1="473.34" y1="226.02" x2="473.34" y2="427.84" style="fill: none;stroke: #34ce5f;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </g>
+    <g id="A1">
+      <line x1="395.37" y1="381.69" x2="395.37" y2="433.7" style="fill: none;stroke: #cc9e37;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="482.36" y1="433.7" x2="395.37" y2="433.7" style="fill: none;stroke: #cc9e37;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line id="ARDUINO_PIN_A1" x1="482.36" y1="226.13" x2="482.36" y2="433.7" style="fill: none;stroke: #cc9e37;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </g>
+    <g id="A0">
+      <line x1="388.2" y1="381.47" x2="388.2" y2="438.92" style="fill: none;stroke: #b637cc;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="490.61" y1="438.92" x2="388.2" y2="438.92" style="fill: none;stroke: #b637cc;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line id="ARDUINO_PIN_A0" x1="490.61" y1="226.24" x2="490.61" y2="438.92" style="fill: none;stroke: #b637cc;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </g>
   </g>
 </svg>

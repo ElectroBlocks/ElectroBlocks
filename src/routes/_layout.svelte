@@ -22,15 +22,16 @@
   const { page } = stores();
   export let segment = "";
 
-  let isOnHomePage = false;
+  let showScrollOnRightSide = false;
+
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
   let showLoopExecutionTimesArduinoStartBlock;
   $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
 
   let height = "500px";
-  let leftFlex = 49;
-  let rightFlex = 49;
+  let leftFlex = 65;
+  let rightFlex = 33;
   let isResizing = false;
 
   /**
@@ -81,7 +82,9 @@
   onMount(() => {
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
-      isOnHomePage = isPathOnHomePage(path);
+      if (["/code", "/open", "/settings"].includes(path)) {
+        showScrollOnRightSide = true;
+      }
       // Calculates the height of the window
       // We know that if it's  the home page that we want less height
       // for the main window because we want to display the player component
@@ -156,7 +159,11 @@
     <Blockly {showLoopExecutionTimesArduinoStartBlock} />
   </div>
   <div on:mousedown={startResize} id="grabber" />
-  <div style="flex: {rightFlex}" id="right_panel">
+  <div
+    style="flex: {rightFlex}"
+    class:scroll={showScrollOnRightSide}
+    id="right_panel"
+  >
     <slot />
   </div>
 </main>
@@ -180,6 +187,9 @@
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==);
   }
   #right_panel {
+    overflow: hidden;
+  }
+  #right_panel.scroll {
     overflow-y: scroll;
   }
 </style>

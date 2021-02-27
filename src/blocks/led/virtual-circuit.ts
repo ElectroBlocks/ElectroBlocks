@@ -35,7 +35,16 @@ export const ledCreate: CreateCompenentHook<LedState> = (
   area
 ) => {
   const { holes } = area;
-  const resitorHoleId = `pin${holes[3]}D`;
+  if (holes.length > 0) {
+    const resitorHoleId = `pin${holes[3]}D`;
+
+    createResistor(
+      arduinoEl,
+      draw,
+      resitorHoleId,
+      arduinoComponentStateToId(state)
+    );
+  }
 
   let ledColor = colors[_.random(0, colors.length - 1)];
 
@@ -55,13 +64,6 @@ export const ledCreate: CreateCompenentHook<LedState> = (
   const pinText = ledEl.findOne("#PIN_NUMBER") as Text;
   pinText.node.innerHTML = state.pin;
 
-  createResistor(
-    arduinoEl,
-    draw,
-    resitorHoleId,
-    arduinoComponentStateToId(state)
-  );
-
   const ledText = ledEl.findOne("#LED_TEXT") as Text;
   ledText.node.innerHTML = "";
 };
@@ -75,6 +77,11 @@ export const ledPosition: PositionComponent<LedState> = (
   area
 ) => {
   const { holes } = area;
+
+  if (holes.length == 0) {
+    positionComponent(ledEl, arduinoEl, draw, "pin60E", "POWER");
+    return;
+  }
 
   const powerHoleLed = `pin${holes[3]}E`;
 
@@ -138,6 +145,10 @@ export const createWiresLed: CreateWire<LedState> = (
   board,
   area
 ) => {
+  if (area.holes.length === 0) {
+    return;
+  }
+
   const { holes, color } = area;
   const groundHoleLed = `pin${holes[1]}E`;
   const powerHoleLed = `pin${holes[3]}E`;
