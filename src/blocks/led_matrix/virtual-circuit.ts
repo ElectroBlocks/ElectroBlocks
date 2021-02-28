@@ -5,7 +5,7 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
@@ -49,7 +49,7 @@ export const ledMatrixUpdate: SyncComponent = (
   });
 };
 
-export const ledMatrixCreate: CreateCompenentHook<LedMatrixState> = (
+export const ledMatrixCreate: AfterComponentCreateHook<LedMatrixState> = (
   state,
   ledMatrixEl
 ) => {

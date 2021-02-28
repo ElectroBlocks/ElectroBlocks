@@ -1,6 +1,6 @@
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import type {
-  CreateCompenentHook,
+  AfterComponentCreateHook,
   CreateWire,
   PositionComponent,
 } from "../../core/virtual-circuit/svg-create";
@@ -66,7 +66,7 @@ export const bluetoothPosition: PositionComponent<BluetoothState> = (
   positionComponent(bluetoothEl, arduinoEl, draw, state.txPin, "PIN_TX", board);
 };
 
-export const bluetoothCreate: CreateCompenentHook<BluetoothState> = (
+export const bluetoothCreate: AfterComponentCreateHook<BluetoothState> = (
   state,
   bluetoothEl
 ) => {

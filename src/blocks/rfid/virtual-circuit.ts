@@ -5,7 +5,7 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
@@ -29,7 +29,10 @@ export const positionRfid: PositionComponent<RfidState> = (
   rfidEl.x(rfidEl.x() + 100);
 };
 
-export const createRfid: CreateCompenentHook<RfidState> = (state, rfidEl) => {
+export const createRfid: AfterComponentCreateHook<RfidState> = (
+  state,
+  rfidEl
+) => {
   rfidEl.findOne("#PIN_TEXT_RX").node.innerHTML = state.txPin;
 };
 

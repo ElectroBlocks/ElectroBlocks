@@ -5,7 +5,7 @@ import {
 import {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import { Element, Svg } from "@svgdotjs/svg.js";
@@ -18,7 +18,7 @@ import {
 } from "../../core/virtual-circuit/wire";
 import { TemperatureState } from "./state";
 
-export const createTemp: CreateCompenentHook<TemperatureState> = (
+export const createTemp: AfterComponentCreateHook<TemperatureState> = (
   state,
   tempEl
 ) => {

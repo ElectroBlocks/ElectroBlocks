@@ -1,6 +1,6 @@
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import type {
-  CreateCompenentHook,
+  AfterComponentCreateHook,
   CreateWire,
   PositionComponent,
 } from "../../core/virtual-circuit/svg-create";
@@ -16,7 +16,7 @@ import {
 } from "../../core/virtual-circuit/wire";
 import { DigitalPictureType, DigitalSensorState } from "./state";
 
-export const createDigitalSensor: CreateCompenentHook<DigitalSensorState> = (
+export const createDigitalSensor: AfterComponentCreateHook<DigitalSensorState> = (
   state,
   sensorEl,
   arduinoEl,
@@ -33,7 +33,8 @@ export const createDigitalSensor: CreateCompenentHook<DigitalSensorState> = (
   }
 
   if (state.pictureType === DigitalPictureType.TOUCH_SENSOR) {
-    (sensorEl.findOne("#SKIN_COLOR_CHANGE") as Element).node.style.fill = settings.touchSkinColor;
+    (sensorEl.findOne("#SKIN_COLOR_CHANGE") as Element).node.style.fill =
+      settings.touchSkinColor;
   }
 };
 

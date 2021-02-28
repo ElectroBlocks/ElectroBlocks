@@ -4,7 +4,7 @@ import type {
 } from "../../core/virtual-circuit/svg-sync";
 import type {
   PositionComponent,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Text } from "@svgdotjs/svg.js";
@@ -20,7 +20,7 @@ export const motorPosition: PositionComponent<MotorState> = (
   motorEl.y(10);
 };
 
-export const motorCreate: CreateCompenentHook<MotorState> = (
+export const motorCreate: AfterComponentCreateHook<MotorState> = (
   state,
   motorEl
 ) => {

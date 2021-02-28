@@ -6,7 +6,10 @@ import {
 } from "../frames/arduino.frame";
 import { ANALOG_PINS, getBoard } from "../microcontroller/selectBoard";
 import { resetBreadBoardHoles } from "./wire";
-import { resetBreadBoardHoles as resetBreadBoardHolesV2 } from "./wire-v2";
+import {
+  hideAllAnalogWires,
+  resetBreadBoardHoles as resetBreadBoardHolesV2,
+} from "./wire-v2";
 import { findMicronControllerEl } from "./svg-helpers";
 import createNewComponent from "./svg-create";
 import type { MicroController } from "../microcontroller/microcontroller";
@@ -25,6 +28,8 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
     : undefined;
   resetBreadBoardHoles(board);
   resetBreadBoardHolesV2(board);
+  hideAllAnalogWires(draw);
+  // TODO HIDE ANALOG PINS AND CREATE MAP FOR EACH BOARD PROFILE.
 
   if (lastFrame) {
     lastFrame.components
@@ -70,20 +75,13 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   console.log(zoomWidth, zoomHeight, "zoom");
   (draw as any).zoom(zoomHeight < zoomWidth ? zoomHeight : zoomWidth); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
   arduino.y(draw.viewbox().y2 - arduino.height());
-  arduino.x(draw.viewbox().x + 10);
+  arduino.x(0);
 
   // Events
 
   registerHighlightEvents(arduino);
 
   return arduino;
-};
-
-const hideAllWires = (arduino: Element, board: MicroController) => {
-  [...board.digitalPins, ...board.analonPins]
-    .map((key) => arduino.findOne("#PIN_" + key))
-    .filter((wire) => wire !== undefined)
-    .forEach((wire) => wire.hide());
 };
 
 const showWire = (arduino: Element, wire: string) => {

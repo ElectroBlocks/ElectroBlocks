@@ -5,7 +5,7 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { LCDScreenState } from "./state";
@@ -33,7 +33,7 @@ let blinkPosition = { row: 0, col: 0 };
  */
 let isDarkBlinking = false;
 
-export const lcdCreate: CreateCompenentHook<LCDScreenState> = (
+export const lcdCreate: AfterComponentCreateHook<LCDScreenState> = (
   state,
   lcdScreenEl
 ) => {

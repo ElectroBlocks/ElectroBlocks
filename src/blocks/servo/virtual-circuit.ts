@@ -4,7 +4,7 @@ import type {
 } from "../../core/virtual-circuit/svg-sync";
 import type {
   PositionComponent,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
   CreateWire,
 } from "../../core/virtual-circuit/svg-create";
 
@@ -29,7 +29,7 @@ export const servoUpdate: SyncComponent = (state: ServoState, servoEl) => {
   setText(servoEl, state.degree);
 };
 
-export const servoCreate: CreateCompenentHook<ServoState> = (
+export const servoCreate: AfterComponentCreateHook<ServoState> = (
   state,
   servoEl,
   arduinoEl,

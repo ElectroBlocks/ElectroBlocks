@@ -8,6 +8,16 @@ export enum MicroControllerType {
 export interface BreadBoardArea {
   holes: number[];
   taken: boolean;
+}
+
+export interface PinConnection {
+  /**
+   * The connection id for the pin
+   */
+  id: string;
+  /**
+   * The hex color to use for the wire
+   */
   color: string;
 }
 
@@ -31,6 +41,7 @@ export interface MicroController {
   pinToBreadboardHole: (pin: ARDUINO_PINS) => string;
   breadboard: Breadboard;
   skipHoles: number[];
+  pinConnections: { [key: string]: PinConnection };
 }
 
 export interface MicroControllerBlocks {

@@ -5,7 +5,7 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
@@ -21,31 +21,19 @@ import {
   createWireComponentToBreadboard,
   createWireFromArduinoToBreadBoard,
   findResistorBreadboardHoleXY,
+  showPin,
 } from "../../core/virtual-circuit/wire-v2";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
 
-export const ledCreate: CreateCompenentHook<LedState> = (
+export const ledCreate: AfterComponentCreateHook<LedState> = (
   state,
   ledEl,
   arduinoEl,
   draw,
   board,
-  settings,
-  area
+  settings
 ) => {
-  const { holes } = area;
-  if (holes.length > 0) {
-    const resitorHoleId = `pin${holes[3]}D`;
-
-    createResistor(
-      arduinoEl,
-      draw,
-      resitorHoleId,
-      arduinoComponentStateToId(state)
-    );
-  }
-
   let ledColor = colors[_.random(0, colors.length - 1)];
 
   if (settings.customLedColor) {
@@ -77,11 +65,6 @@ export const ledPosition: PositionComponent<LedState> = (
   area
 ) => {
   const { holes } = area;
-
-  if (holes.length == 0) {
-    positionComponent(ledEl, arduinoEl, draw, "pin60E", "POWER");
-    return;
-  }
 
   const powerHoleLed = `pin${holes[3]}E`;
 
@@ -145,11 +128,7 @@ export const createWiresLed: CreateWire<LedState> = (
   board,
   area
 ) => {
-  if (area.holes.length === 0) {
-    return;
-  }
-
-  const { holes, color } = area;
+  const { holes } = area;
   const groundHoleLed = `pin${holes[1]}E`;
   const powerHoleLed = `pin${holes[3]}E`;
 
@@ -157,6 +136,8 @@ export const createWiresLed: CreateWire<LedState> = (
   const groundBreadBoardHoleB = `pin${holes[1]}X`;
 
   const powerBreadboardHole = `pin${holes[3]}A`;
+
+  const resitorHoleId = `pin${holes[3]}D`;
 
   createWireComponentToBreadboard(
     groundHoleLed,
@@ -168,6 +149,21 @@ export const createWiresLed: CreateWire<LedState> = (
     "#000"
   );
 
+  createWireBreadboard(
+    groundBreadBoardHoleA,
+    groundBreadBoardHoleB,
+    "#000",
+    draw,
+    arduino as Svg,
+    id
+  );
+
+  createResistor(
+    arduino,
+    draw,
+    resitorHoleId,
+    arduinoComponentStateToId(state)
+  );
   createWireComponentToBreadboard(
     powerHoleLed,
     ledEl,
@@ -178,21 +174,13 @@ export const createWiresLed: CreateWire<LedState> = (
     "#AA0000"
   );
 
-  createWireBreadboard(
-    groundBreadBoardHoleA,
-    groundBreadBoardHoleB,
-    "#000",
-    draw,
-    arduino as Svg,
-    id
-  );
-
+  showPin(draw, state.pin);
   createWireFromArduinoToBreadBoard(
     state.pin,
     arduino as Svg,
     draw,
     powerBreadboardHole,
     id,
-    color
+    board
   );
 };

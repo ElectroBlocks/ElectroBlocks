@@ -5,7 +5,7 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
@@ -22,7 +22,7 @@ import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
 import type { MicroController } from "../../core/microcontroller/microcontroller";
 
-export const createRgbLed: CreateCompenentHook<LedColorState> = (
+export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
   state,
   rgbLedEl,
   arduinoEl,

@@ -2,24 +2,92 @@ import {
   Breadboard,
   BreadBoardArea,
   MicroControllerType,
+  PinConnection,
 } from "../../core/microcontroller/microcontroller";
 import type { MicroController } from "../../core/microcontroller/microcontroller";
-import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+
+// A0 => #B637CC
+// A1 => #CC9E37
+// A2 => #34CE5F
+// A3 => #5533D1
+// A4 => #D33158
+// A5 => #D15F33
+
+enum WIRE_COLORS {
+  PURPLE = "#B637CC",
+  LIGHT_BROWN = "#CC9E37",
+  GREEN = "#34CE5F",
+  DEEP_PURPLE = "#5533D1",
+  DEEP_RED = "#D33158",
+  ORANGE = "#D15F33",
+}
 
 const breadboard: Breadboard = {
   areas: [
-    { holes: [4, 5, 6, 7], taken: false, color: "#d07f92" },
-    { holes: [9, 10, 11, 12, 13], taken: false, color: "#b47fd0" },
-    { holes: [15, 16, 17, 18, 19], taken: false, color: "#7f8dd0" },
-    { holes: [21, 22, 23, 24, 25], taken: false, color: "#7fd0c1" },
-    { holes: [27, 28, 29, 30, 31], taken: false, color: "#c0d07f" },
-    { holes: [33, 34, 35, 36, 37], taken: false, color: "#2c8d2a" },
-    { holes: [39, 40, 41, 42, 43], taken: false, color: "#2a5b8d" },
-    { holes: [45, 46, 47, 48, 49], taken: false, color: "#8b2a8d" },
-    { holes: [51, 52, 53, 54, 55], taken: false, color: "#2a4d8d" },
-    { holes: [57, 58, 59, 60], taken: false, color: "#d78b3e" },
+    { holes: [4, 5, 6, 7], taken: false },
+    { holes: [9, 10, 11, 12, 13], taken: false },
+    { holes: [15, 16, 17, 18, 19], taken: false },
+    { holes: [21, 22, 23, 24, 25], taken: false },
+    { holes: [27, 28, 29, 30, 31], taken: false },
+    { holes: [33, 34, 35, 36, 37], taken: false },
+    { holes: [39, 40, 41, 42, 43], taken: false },
+    { holes: [45, 46, 47, 48, 49], taken: false },
+    { holes: [51, 52, 53, 54, 55], taken: false },
+    { holes: [57, 58, 59, 60], taken: false },
   ],
   order: [5, 7, 3, 4, 6, 2, 8, 1, 9, 0],
+};
+
+const pinConnections: { [key: string]: PinConnection } = {
+  "2": {
+    color: WIRE_COLORS.DEEP_PURPLE,
+    id: "ARDUINO_PIN_2",
+  },
+  "3": { color: WIRE_COLORS.DEEP_RED, id: "ARDUINO_PIN_3" },
+  "4": { color: WIRE_COLORS.GREEN, id: "ARDUINO_PIN_4" },
+  "5": { color: WIRE_COLORS.LIGHT_BROWN, id: "ARDUINO_PIN_5" },
+  "6": { color: WIRE_COLORS.ORANGE, id: "ARDUINO_PIN_6" },
+  "7": { color: WIRE_COLORS.PURPLE, id: "ARDUINO_PIN_7" },
+  "8": { color: WIRE_COLORS.DEEP_PURPLE, id: "ARDUINO_PIN_8" },
+  "9": { color: WIRE_COLORS.DEEP_RED, id: "ARDUINO_PIN_9" },
+  "10": { color: WIRE_COLORS.GREEN, id: "ARDUINO_PIN_10" },
+  "11": {
+    color: WIRE_COLORS.LIGHT_BROWN,
+    id: "ARDUINO_PIN_11",
+  },
+  "12": {
+    color: WIRE_COLORS.ORANGE,
+    id: "ARDUINO_PIN_12",
+  },
+  "13": {
+    color: WIRE_COLORS.PURPLE,
+    id: "ARDUINO_PIN_13",
+  },
+  A0: {
+    color: WIRE_COLORS.PURPLE,
+    id: "ARDUINO_PIN_A0",
+  },
+  A1: {
+    color: WIRE_COLORS.LIGHT_BROWN,
+    id: "ARDUINO_PIN_A1",
+  },
+  A2: {
+    color: WIRE_COLORS.GREEN,
+    id: "ARDUINO_PIN_A2",
+  },
+  A3: {
+    color: WIRE_COLORS.DEEP_PURPLE,
+    id: "ARDUINO_PIN_A3",
+  },
+  A4: {
+    color: WIRE_COLORS.DEEP_RED,
+    id: "ARDUINO_PIN_A4",
+  },
+  A5: {
+    color: WIRE_COLORS.ORANGE,
+    id: "ARDUINO_PIN_A5",
+  },
 };
 
 enum ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS {
@@ -271,6 +339,7 @@ const arduinoMega: MicroController = {
     56,
     61,
   ],
+  pinConnections,
 };
 
 export default arduinoMega;

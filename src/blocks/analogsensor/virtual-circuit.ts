@@ -5,7 +5,7 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import {
@@ -19,7 +19,7 @@ import _ from "lodash";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { AnalogSensorPicture, AnalogSensorState } from "./state";
 
-export const analogSensorCreate: CreateCompenentHook<AnalogSensorState> = (
+export const analogSensorCreate: AfterComponentCreateHook<AnalogSensorState> = (
   state,
   analogSensorEl
 ) => {

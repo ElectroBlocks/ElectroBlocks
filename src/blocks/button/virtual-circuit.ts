@@ -5,7 +5,7 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
@@ -30,7 +30,7 @@ export const positionButton: PositionComponent<ButtonState> = (
   );
 };
 
-export const createButton: CreateCompenentHook<ButtonState> = (
+export const createButton: AfterComponentCreateHook<ButtonState> = (
   state,
   buttonEl
 ) => {

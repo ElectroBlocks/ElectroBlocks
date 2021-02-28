@@ -5817,9 +5817,9 @@
   </g>
   <g id="ANALOG_WIRES">
     <g id="A5">
-      <line x1="424.27" y1="381.69" x2="424.27" y2="411.02" style="fill: none;stroke: #d331c7;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-      <line x1="450.15" y1="411.02" x2="424.27" y2="411.02" style="fill: none;stroke: #d331c7;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-      <line id="ARDUINO_PIN_A5" x1="450.15" y1="225.92" x2="450.15" y2="411.02" style="fill: none;stroke: #d331c7;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="424.27" y1="381.69" x2="424.27" y2="411.02" style="fill: none;stroke: #d15f33;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="450.15" y1="411.02" x2="424.27" y2="411.02" style="fill: none;stroke: #d15f33;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line id="ARDUINO_PIN_A5" x1="450.15" y1="225.92" x2="450.15" y2="411.02" style="fill: none;stroke: #d15f33;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
     </g>
     <g id="A4">
       <line x1="417.01" y1="381.6" x2="417.01" y2="415.73" style="fill: none;stroke: #d33158;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>

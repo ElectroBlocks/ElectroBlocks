@@ -1,11 +1,11 @@
-import { Element, Svg } from "@svgdotjs/svg.js";
+import { Element, Line, Svg } from "@svgdotjs/svg.js";
 import _ from "lodash";
 import {
   Breadboard,
   BreadBoardArea,
   MicroController,
 } from "../microcontroller/microcontroller";
-import { ARDUINO_PINS } from "../microcontroller/selectBoard";
+import { ANALOG_PINS, ARDUINO_PINS } from "../microcontroller/selectBoard";
 import {
   findSvgElement,
   findComponentConnection,
@@ -17,9 +17,8 @@ let breadboard: Breadboard = {
   order: [],
 };
 
-export const takeBoardArea = (): BreadBoardArea => {
+export const takeBoardArea = (): BreadBoardArea | null => {
   const areas = breadboard.areas;
-  console.log(breadboard);
   for (let orderIndex in breadboard.order) {
     const areaIndex = breadboard.order[orderIndex];
     const area = areas[areaIndex];
@@ -29,7 +28,7 @@ export const takeBoardArea = (): BreadBoardArea => {
     }
   }
 
-  return { holes: [], taken: false, color: "" };
+  return null;
 };
 
 export const createWireFromArduinoToBreadBoard = (
@@ -38,19 +37,16 @@ export const createWireFromArduinoToBreadBoard = (
   draw: Svg,
   breadBoardHoleId,
   componentId: string,
-  color: string
+  board: MicroController
 ) => {
   const hole = findBreadboardHoleXY(breadBoardHoleId, arduinoEl, draw);
-
-  const arduinoPin = findArduinoConnectionCenter(
-    arduinoEl,
-    "ARDUINO_PIN_" + pin
-  );
+  const pinConnection = board.pinConnections[pin];
+  const arduinoPin = findArduinoConnectionCenter(arduinoEl, pinConnection.id);
 
   const line = draw
     .line()
     .plot(hole.x, hole.y, arduinoPin.x, arduinoPin.y)
-    .stroke({ width: 2, color, linecap: "round" });
+    .stroke({ width: 2, color: pinConnection.color, linecap: "round" });
 
   line.data("component-id", componentId);
   line.data("type", "wire");
@@ -131,4 +127,22 @@ export const findResistorBreadboardHoleXY = (
 
 export const resetBreadBoardHoles = (board: MicroController) => {
   breadboard = _.cloneDeep(board.breadboard);
+};
+
+export const showPin = (draw: Svg, pin: ARDUINO_PINS) => {
+  if (ANALOG_PINS.includes(pin)) {
+    const wire = draw.findOne(`#${pin}`);
+    if (wire) {
+      wire.show();
+    }
+  }
+};
+
+export const hideAllAnalogWires = (draw: Svg) => {
+  ANALOG_PINS.forEach((pin) => {
+    const wire = draw.findOne(`#${pin}`);
+    if (wire) {
+      wire.hide();
+    }
+  });
 };

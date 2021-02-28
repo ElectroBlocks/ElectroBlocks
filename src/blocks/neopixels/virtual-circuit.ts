@@ -5,7 +5,7 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
@@ -20,7 +20,7 @@ import { rgbToHex } from "../../core/blockly/helpers/color.helper";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import type { NeoPixelState } from "./state";
 
-export const neoPixelCreate: CreateCompenentHook<NeoPixelState> = (
+export const neoPixelCreate: AfterComponentCreateHook<NeoPixelState> = (
   state,
   neoPixelEl
 ) => {

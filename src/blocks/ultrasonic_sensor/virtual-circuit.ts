@@ -5,7 +5,7 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { UltraSonicSensorState } from "./state";
@@ -36,7 +36,7 @@ export const positionUltraSonicSensor: PositionComponent<UltraSonicSensorState> 
   );
 };
 
-export const createUltraSonicSensor: CreateCompenentHook<UltraSonicSensorState> = (
+export const createUltraSonicSensor: AfterComponentCreateHook<UltraSonicSensorState> = (
   state,
   ultraSonicEl
 ) => {

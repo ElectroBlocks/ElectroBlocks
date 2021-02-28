@@ -111,7 +111,7 @@
     background-color: #d9e4ec;
   }
   #simulator {
-    width: calc(100% - 10px);
+    width: 100%;
     height: calc(100% - 10px);
   }
   #simulator-controls {

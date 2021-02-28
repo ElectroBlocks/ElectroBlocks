@@ -1,6 +1,6 @@
 import type { Element, Svg } from "@svgdotjs/svg.js";
 import type {
-  CreateCompenentHook,
+  AfterComponentCreateHook,
   CreateWire,
   PositionComponent,
 } from "../../core/virtual-circuit/svg-create";
@@ -16,7 +16,7 @@ import {
 } from "../../core/virtual-circuit/wire";
 import type { IRRemoteState } from "./state";
 
-export const createIrRemote: CreateCompenentHook<IRRemoteState> = (
+export const createIrRemote: AfterComponentCreateHook<IRRemoteState> = (
   state,
   irRemoteEl
 ) => {

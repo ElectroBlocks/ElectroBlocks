@@ -119,23 +119,32 @@ export default (
   componentEl = createComponentEl(draw, state, getSvgString(state));
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;
-  positionComponentHookFunc[state.type](
-    state,
-    componentEl,
-    arduinoEl,
-    draw,
-    board,
-    area
-  );
-  createWires[state.type](state, draw, componentEl, arduinoEl, id, board, area);
+  if (area) {
+    positionComponentHookFunc[state.type](
+      state,
+      componentEl,
+      arduinoEl,
+      draw,
+      board,
+      area
+    );
+    createWires[state.type](
+      state,
+      draw,
+      componentEl,
+      arduinoEl,
+      id,
+      board,
+      area
+    );
+  }
   createComponentHookFunc[state.type](
     state,
     componentEl,
     arduinoEl,
     draw,
     board,
-    settings,
-    area
+    settings
   );
 };
 
@@ -150,15 +159,14 @@ export interface PositionComponent<T extends ArduinoComponentState> {
   ): void;
 }
 
-export interface CreateCompenentHook<T extends ArduinoComponentState> {
+export interface AfterComponentCreateHook<T extends ArduinoComponentState> {
   (
     state: T,
     componentEl: Element,
     arduinoEl: Element,
     draw: Svg,
     board: MicroController,
-    settings: Settings,
-    area?: BreadBoardArea
+    settings: Settings
   ): void;
 }
 
@@ -190,7 +198,7 @@ const emptyPositionComponent: PositionComponent<ArduinoComponentState> = (
   draw
 ) => {};
 
-const emptyCreateHookComponent: CreateCompenentHook<ArduinoComponentState> = (
+const emptyCreateHookComponent: AfterComponentCreateHook<ArduinoComponentState> = (
   state,
   componentEl,
   arduinoEl,
@@ -241,7 +249,7 @@ const positionComponentHookFunc: {
 };
 
 const createComponentHookFunc: {
-  [key: string]: CreateCompenentHook<ArduinoComponentState>;
+  [key: string]: AfterComponentCreateHook<ArduinoComponentState>;
 } = {
   [ArduinoComponentType.BLUE_TOOTH]: bluetoothCreate,
   [ArduinoComponentType.BUTTON]: createButton,

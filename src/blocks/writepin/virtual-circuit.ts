@@ -5,7 +5,7 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
@@ -32,11 +32,12 @@ export const digitalAnanlogWritePinPosition: PositionComponent<WritePinState> = 
   componentEl,
   arduinoEl,
   draw,
-  board) => {
+  board
+) => {
   positionComponent(componentEl, arduinoEl, draw, state.pin, "POWER", board);
 };
 
-export const digitalAnanlogWritePinCreate: CreateCompenentHook<WritePinState> = (
+export const digitalAnanlogWritePinCreate: AfterComponentCreateHook<WritePinState> = (
   state,
   componentEl,
   arduinoEl,
