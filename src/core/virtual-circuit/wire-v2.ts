@@ -100,6 +100,99 @@ export const createWireBreadboard = (
   line.data("update-wire", false);
 };
 
+const getGroundorPowerWireLetter = (
+  isDown: boolean,
+  type: "ground" | "power"
+) => {
+  if (isDown && type === "power") {
+    return "W";
+  }
+
+  if (isDown && type === "ground") {
+    return "X";
+  }
+
+  if (!isDown && type === "power") {
+    return "Y";
+  }
+
+  return "Z";
+};
+
+export const createGroundOrPowerWire = (
+  hole: number,
+  isDown: boolean,
+  componentEl: Element,
+  draw: Svg,
+  arduino: Element,
+  componentId: string,
+  type: "ground" | "power"
+) => {
+  const groundHole = `pin${hole}${isDown ? "E" : "F"}`;
+  const pinConnectionId = type === "ground" ? "PIN_GND" : "PIN_POWER";
+  const color = type === "ground" ? "#000" : "#AA0000";
+  const breadBoardHoleA = `pin${hole}${isDown ? "A" : "J"}`;
+  const breadBoardHoleB = `pin${hole}${getGroundorPowerWireLetter(
+    isDown,
+    type
+  )}`;
+
+  createWireComponentToBreadboard(
+    groundHole,
+    componentEl,
+    draw,
+    arduino,
+    pinConnectionId,
+    componentId,
+    color
+  );
+
+  createWireBreadboard(
+    breadBoardHoleA,
+    breadBoardHoleB,
+    color,
+    draw,
+    arduino as Svg,
+    componentId
+  );
+};
+
+export const createComponentWire = (
+  hole: number,
+  isDown: boolean,
+  componentEl: Element,
+  pin: ARDUINO_PINS,
+  draw: Svg,
+  arduino: Element,
+  componentId: string,
+  connectionId: string,
+  board: MicroController
+) => {
+  const holeId = `pin${hole}${isDown ? "E" : "F"}`;
+  const breadboardHoleIdToBoard = `pin${hole}${isDown ? "A" : "J"}`;
+  const color = board.pinConnections[pin].color;
+  createWireComponentToBreadboard(
+    holeId,
+    componentEl,
+    draw,
+    arduino,
+    connectionId,
+    componentId,
+    color
+  );
+
+  showPin(draw, pin);
+
+  createWireFromArduinoToBreadBoard(
+    pin,
+    arduino as Svg,
+    draw,
+    breadboardHoleIdToBoard,
+    componentId,
+    board
+  );
+};
+
 export const findBreadboardHoleXY = (
   pinHoleId,
   arduino: Element,

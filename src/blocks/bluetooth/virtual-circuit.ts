@@ -4,7 +4,7 @@ import type {
   CreateWire,
   PositionComponent,
 } from "../../core/virtual-circuit/svg-create";
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
 import type {
   ResetComponent,
   SyncComponent,
@@ -14,6 +14,10 @@ import {
   createPowerWire,
   createWire,
 } from "../../core/virtual-circuit/wire";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire-v2";
 import type { BluetoothState } from "./state";
 
 export const bluetoothReset: ResetComponent = (bluetoothEl: Element) => {
@@ -61,9 +65,13 @@ export const bluetoothPosition: PositionComponent<BluetoothState> = (
   bluetoothEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(bluetoothEl, arduinoEl, draw, state.txPin, "PIN_TX", board);
+  const { holes, isDown } = area;
+  const holeId = `pin${holes[1]}${isDown ? "E" : "F"}`;
+  positionComponent(bluetoothEl, arduinoEl, draw, holeId, "PIN_TX");
+  // positionComponent(bluetoothEl, arduinoEl, draw, state.txPin, "PIN_TX", board);
 };
 
 export const bluetoothCreate: AfterComponentCreateHook<BluetoothState> = (
@@ -80,49 +88,53 @@ export const createBluetoothWires: CreateWire<BluetoothState> = (
   bluetoothEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
   const { rxPin, txPin } = state;
-  createWire(
+  const { holes, isDown } = area;
+  createComponentWire(
+    holes[0],
+    isDown,
     bluetoothEl,
     rxPin,
+    draw,
+    arduinoEl,
+    id,
     "PIN_RX",
-    arduinoEl,
-    draw,
-    "#ac4cf5",
-    "rx",
     board
   );
 
-  createWire(
+  createComponentWire(
+    holes[1],
+    isDown,
     bluetoothEl,
     txPin,
+    draw,
+    arduinoEl,
+    id,
     "PIN_TX",
+    board
+  );
+
+  createGroundOrPowerWire(
+    holes[2],
+    isDown,
+    bluetoothEl,
+    draw,
     arduinoEl,
-    draw,
-    "#0f5873",
-    "tx",
-    board
+    id,
+    "ground"
   );
 
-  createGroundWire(
+  createGroundOrPowerWire(
+    holes[3],
+    isDown,
     bluetoothEl,
-    txPin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "right",
-    board
-  );
-
-  createPowerWire(
-    bluetoothEl,
-    txPin,
-    arduinoEl as Svg,
-    draw,
-    id,
-    "right",
-    board
+    "power"
   );
 };
 

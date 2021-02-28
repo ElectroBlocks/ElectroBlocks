@@ -13,11 +13,17 @@ import {
   createGroundWire,
   createPowerWire,
 } from "../../core/virtual-circuit/wire";
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import _ from "lodash";
 
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { AnalogSensorPicture, AnalogSensorState } from "./state";
+import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+  createWireBreadboard,
+  createWireComponentToBreadboard,
+} from "../../core/virtual-circuit/wire-v2";
 
 export const analogSensorCreate: AfterComponentCreateHook<AnalogSensorState> = (
   state,
@@ -32,19 +38,40 @@ export const analogSensorPosition: PositionComponent<AnalogSensorState> = (
   analogSensorEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(
-    analogSensorEl,
-    arduinoEl,
-    draw,
-    state.pin,
-    "PIN_DATA",
-    board
-  );
-  if (![ARDUINO_PINS.PIN_A1, ARDUINO_PINS.PIN_A0].includes(state.pin)) {
-    analogSensorEl.x(analogSensorEl.x() - 20);
+  const { holes } = area;
+  const sensorPinHole = `pin${holes[3]}E`;
+  if (state.pictureType === AnalogSensorPicture.SENSOR) {
+    positionComponent(
+      analogSensorEl,
+      arduinoEl,
+      draw,
+      sensorPinHole,
+      "PIN_DATA"
+    );
+  } else {
+    positionComponent(
+      analogSensorEl,
+      arduinoEl,
+      draw,
+      sensorPinHole,
+      "PIN_GND"
+    );
   }
+
+  // // positionComponent(
+  // //   analogSensorEl,
+  // //   arduinoEl,
+  // //   draw,
+  // //   state.pin,
+  // //   "PIN_DATA",
+  // //   board
+  // // );
+  // if (![ARDUINO_PINS.PIN_A1, ARDUINO_PINS.PIN_A0].includes(state.pin)) {
+  //   analogSensorEl.x(analogSensorEl.x() - 20);
+  // }
 };
 
 export const analogSensorUpdate: SyncComponent = (
@@ -72,35 +99,41 @@ const createSensorWires: CreateWire<AnalogSensorState> = (
   componentEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+
+  createComponentWire(
+    holes[2],
+    isDown,
     componentEl,
     state.pin,
-    "PIN_DATA",
+    draw,
     arduinoEl,
-    draw,
-    "#228e0c",
-    "data-pin",
+    id,
+    "PIN_DATA",
     board
   );
-  createGroundWire(
+
+  createGroundOrPowerWire(
+    holes[3],
+    isDown,
     componentEl,
-    state.pin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "right",
-    board
+    "ground"
   );
-  createPowerWire(
+
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
     componentEl,
-    state.pin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "left",
-    board
+    "power"
   );
 };
 
@@ -110,36 +143,41 @@ const createSoilSensorWires: CreateWire<AnalogSensorState> = (
   componentEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+
+  createComponentWire(
+    holes[1],
+    isDown,
     componentEl,
     state.pin,
-    "PIN_DATA",
-    arduinoEl,
     draw,
-    "#228e0c",
-    "data-pin",
+    arduinoEl,
+    id,
+    "PIN_DATA",
     board
   );
 
-  createGroundWire(
+  createGroundOrPowerWire(
+    holes[2],
+    isDown,
     componentEl,
-    state.pin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "right",
-    board
+    "ground"
   );
-  createPowerWire(
+
+  createGroundOrPowerWire(
+    holes[3],
+    isDown,
     componentEl,
-    state.pin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "right",
-    board
+    "power"
   );
 };
 
@@ -149,36 +187,41 @@ const createPhotoSensorWires: CreateWire<AnalogSensorState> = (
   componentEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+
+  createComponentWire(
+    holes[3],
+    isDown,
     componentEl,
     state.pin,
-    "PIN_DATA",
-    arduinoEl,
     draw,
-    "#228e0c",
-    "data-pin",
+    arduinoEl,
+    id,
+    "PIN_DATA",
     board
   );
 
-  createGroundWire(
+  createGroundOrPowerWire(
+    holes[2],
+    isDown,
     componentEl,
-    state.pin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "left",
-    board
+    "ground"
   );
-  createPowerWire(
+
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
     componentEl,
-    state.pin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "left",
-    board
+    "power"
   );
 };
 
@@ -188,7 +231,8 @@ export const createWireAnalogSensors: CreateWire<AnalogSensorState> = (
   componentEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
   return createWiresFunc[state.pictureType](
     state,
@@ -196,7 +240,8 @@ export const createWireAnalogSensors: CreateWire<AnalogSensorState> = (
     componentEl,
     arduinoEl,
     id,
-    board
+    board,
+    area
   );
 };
 

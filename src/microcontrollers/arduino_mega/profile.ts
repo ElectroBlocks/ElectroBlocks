@@ -25,16 +25,16 @@ enum WIRE_COLORS {
 
 const breadboard: Breadboard = {
   areas: [
-    { holes: [4, 5, 6, 7], taken: false },
-    { holes: [9, 10, 11, 12, 13], taken: false },
-    { holes: [15, 16, 17, 18, 19], taken: false },
-    { holes: [21, 22, 23, 24, 25], taken: false },
-    { holes: [27, 28, 29, 30, 31], taken: false },
-    { holes: [33, 34, 35, 36, 37], taken: false },
-    { holes: [39, 40, 41, 42, 43], taken: false },
-    { holes: [45, 46, 47, 48, 49], taken: false },
-    { holes: [51, 52, 53, 54, 55], taken: false },
-    { holes: [57, 58, 59, 60], taken: false },
+    { holes: [4, 5, 6, 7], taken: false, isDown: true },
+    { holes: [9, 10, 11, 12, 13], taken: false, isDown: true },
+    { holes: [15, 16, 17, 18, 19], taken: false, isDown: true },
+    { holes: [21, 22, 23, 24, 25], taken: false, isDown: true },
+    { holes: [27, 28, 29, 30, 31], taken: false, isDown: true },
+    { holes: [33, 34, 35, 36, 37], taken: false, isDown: true },
+    { holes: [39, 40, 41, 42, 43], taken: false, isDown: true },
+    { holes: [45, 46, 47, 48, 49], taken: false, isDown: true },
+    { holes: [51, 52, 53, 54, 55], taken: false, isDown: true },
+    { holes: [57, 58, 59, 60], taken: false, isDown: true },
   ],
   order: [5, 7, 3, 4, 6, 2, 8, 1, 9, 0],
 };

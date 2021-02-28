@@ -17,6 +17,8 @@ import { arduinoComponentStateToId } from "../../core/frames/arduino-component-i
 import type { MicroController } from "../../core/microcontroller/microcontroller";
 import type { LedState } from "./state";
 import {
+  createComponentWire,
+  createGroundOrPowerWire,
   createWireBreadboard,
   createWireComponentToBreadboard,
   createWireFromArduinoToBreadBoard,
@@ -128,59 +130,26 @@ export const createWiresLed: CreateWire<LedState> = (
   board,
   area
 ) => {
-  const { holes } = area;
-  const groundHoleLed = `pin${holes[1]}E`;
-  const powerHoleLed = `pin${holes[3]}E`;
-
-  const groundBreadBoardHoleA = `pin${holes[1]}A`;
-  const groundBreadBoardHoleB = `pin${holes[1]}X`;
-
-  const powerBreadboardHole = `pin${holes[3]}A`;
-
-  const resitorHoleId = `pin${holes[3]}D`;
-
-  createWireComponentToBreadboard(
-    groundHoleLed,
+  const { holes, isDown } = area;
+  createGroundOrPowerWire(holes[1], isDown, ledEl, draw, arduino, id, "ground");
+  createComponentWire(
+    holes[3],
+    isDown,
     ledEl,
+    state.pin,
     draw,
     arduino,
-    "PIN_GND",
     id,
-    "#000"
+    "POWER",
+    board
   );
 
-  createWireBreadboard(
-    groundBreadBoardHoleA,
-    groundBreadBoardHoleB,
-    "#000",
-    draw,
-    arduino as Svg,
-    id
-  );
+  const resitorHoleId = `pin${holes[3]}D`;
 
   createResistor(
     arduino,
     draw,
     resitorHoleId,
     arduinoComponentStateToId(state)
-  );
-  createWireComponentToBreadboard(
-    powerHoleLed,
-    ledEl,
-    draw,
-    arduino,
-    "POWER",
-    id,
-    "#AA0000"
-  );
-
-  showPin(draw, state.pin);
-  createWireFromArduinoToBreadBoard(
-    state.pin,
-    arduino as Svg,
-    draw,
-    powerBreadboardHole,
-    id,
-    board
   );
 };

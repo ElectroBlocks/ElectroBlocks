@@ -8,6 +8,7 @@ export enum MicroControllerType {
 export interface BreadBoardArea {
   holes: number[];
   taken: boolean;
+  isDown: boolean;
 }
 
 export interface PinConnection {
