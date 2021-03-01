@@ -37,7 +37,7 @@
     "firebase-functions": "^3.11.0",
     "lodash": "^4.17.19",
     "polka": "^0.5.0",
-    "prismjs": "^1.21.0",
+    "prismjs": "^1.23.0",
     "rollup-plugin-copy": "^3.3.0",
     "sirv": "^0.4.6",
     "sveltestrap": "^3.9.7",
