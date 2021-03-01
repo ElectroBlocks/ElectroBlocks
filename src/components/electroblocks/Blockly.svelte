@@ -117,10 +117,10 @@
   });
 </script>
 
+<section bind:this={blocklyElement} id="blockly" />
+
 <style>
   #blockly {
     height: 100%;
   }
 </style>
-
-<section bind:this={blocklyElement} id="blockly" />

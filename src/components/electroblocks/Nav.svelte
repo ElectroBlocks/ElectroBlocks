@@ -229,9 +229,10 @@
     transition: all 0.3s ease;
     color: white;
     font-size: 3rem;
-    margin-top: 3px;
     cursor: pointer;
     line-height: 1px;
+    margin-bottom: 0;
+    margin-top: 3px;
   }
   nav.small a,
   nav.small span,
