@@ -41,14 +41,14 @@ export const analogSensorPosition: PositionComponent<AnalogSensorState> = (
   board,
   area
 ) => {
-  const { holes } = area;
-  const sensorPinHole = `pin${holes[3]}E`;
+  const { holes, isDown } = area;
   if (state.pictureType === AnalogSensorPicture.SENSOR) {
     positionComponent(
       analogSensorEl,
       arduinoEl,
       draw,
-      sensorPinHole,
+      holes[3],
+      isDown,
       "PIN_DATA"
     );
   } else {
@@ -56,7 +56,8 @@ export const analogSensorPosition: PositionComponent<AnalogSensorState> = (
       analogSensorEl,
       arduinoEl,
       draw,
-      sensorPinHole,
+      holes[3],
+      isDown,
       "PIN_GND"
     );
   }

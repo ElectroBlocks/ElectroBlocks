@@ -69,8 +69,7 @@ export const bluetoothPosition: PositionComponent<BluetoothState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  const holeId = `pin${holes[1]}${isDown ? "E" : "F"}`;
-  positionComponent(bluetoothEl, arduinoEl, draw, holeId, "PIN_TX");
+  positionComponent(bluetoothEl, arduinoEl, draw, holes[1], isDown, "PIN_TX");
   // positionComponent(bluetoothEl, arduinoEl, draw, state.txPin, "PIN_TX", board);
 };
 

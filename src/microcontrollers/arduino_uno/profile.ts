@@ -41,7 +41,7 @@ enum WIRE_COLORS {
   LIGHT_BROWN = "#CC9E37",
   GREEN = "#34CE5F",
   DEEP_PURPLE = "#5533D1",
-  DEEP_RED = "#D33158",
+  YELLOW = "#FFE600",
   ORANGE = "#D15F33",
 }
 
@@ -66,13 +66,13 @@ const pinConnections: { [key: string]: PinConnection } = {
     color: WIRE_COLORS.DEEP_PURPLE,
     id: "ARDUINO_PIN_2",
   },
-  "3": { color: WIRE_COLORS.DEEP_RED, id: "ARDUINO_PIN_3" },
+  "3": { color: WIRE_COLORS.YELLOW, id: "ARDUINO_PIN_3" },
   "4": { color: WIRE_COLORS.GREEN, id: "ARDUINO_PIN_4" },
   "5": { color: WIRE_COLORS.LIGHT_BROWN, id: "ARDUINO_PIN_5" },
   "6": { color: WIRE_COLORS.ORANGE, id: "ARDUINO_PIN_6" },
   "7": { color: WIRE_COLORS.PURPLE, id: "ARDUINO_PIN_7" },
   "8": { color: WIRE_COLORS.DEEP_PURPLE, id: "ARDUINO_PIN_8" },
-  "9": { color: WIRE_COLORS.DEEP_RED, id: "ARDUINO_PIN_9" },
+  "9": { color: WIRE_COLORS.YELLOW, id: "ARDUINO_PIN_9" },
   "10": { color: WIRE_COLORS.GREEN, id: "ARDUINO_PIN_10" },
   "11": {
     color: WIRE_COLORS.LIGHT_BROWN,
@@ -103,7 +103,7 @@ const pinConnections: { [key: string]: PinConnection } = {
     id: "ARDUINO_PIN_A3",
   },
   A4: {
-    color: WIRE_COLORS.DEEP_RED,
+    color: WIRE_COLORS.YELLOW,
     id: "ARDUINO_PIN_A4",
   },
   A5: {

@@ -66,11 +66,9 @@ export const ledPosition: PositionComponent<LedState> = (
   board,
   area
 ) => {
-  const { holes } = area;
+  const { holes, isDown } = area;
 
-  const powerHoleLed = `pin${holes[3]}E`;
-
-  positionComponent(ledEl, arduinoEl, draw, powerHoleLed, "POWER");
+  positionComponent(ledEl, arduinoEl, draw, holes[3], isDown, "POWER");
 };
 
 export const updateLed: SyncComponent = (state: LedState, ledEl, draw) => {

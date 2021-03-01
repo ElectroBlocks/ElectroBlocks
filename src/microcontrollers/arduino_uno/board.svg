@@ -5822,9 +5822,9 @@
       <line id="ARDUINO_PIN_A5" x1="450.15" y1="225.92" x2="450.15" y2="411.02" style="fill: none;stroke: #d15f33;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
     </g>
     <g id="A4">
-      <line x1="417.01" y1="381.6" x2="417.01" y2="415.73" style="fill: none;stroke: #d33158;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-      <line x1="458.19" y1="415.73" x2="417.01" y2="415.73" style="fill: none;stroke: #d33158;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-      <line id="ARDUINO_PIN_A4" x1="458.19" y1="226.02" x2="458.19" y2="415.73" style="fill: none;stroke: #d33158;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="417.01" y1="381.6" x2="417.01" y2="415.73" style="fill: none;stroke: #ffe600;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line x1="458.19" y1="415.73" x2="417.01" y2="415.73" style="fill: none;stroke: #ffe600;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line id="ARDUINO_PIN_A4" x1="458.19" y1="226.02" x2="458.19" y2="415.73" style="fill: none;stroke: #ffe600;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
     </g>
     <g id="A3">
       <line x1="409.77" y1="381.59" x2="409.77" y2="421.97" style="fill: none;stroke: #5533d1;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>

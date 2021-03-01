@@ -72,7 +72,6 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   const zoomWidth = draw.width() / arduino.width();
   const minusAmount = draw.height() - 300 > 200 ? 250 : 150;
   const zoomHeight = (draw.height() - minusAmount) / arduino.height();
-  console.log(zoomWidth, zoomHeight, "zoom");
   (draw as any).zoom(zoomHeight < zoomWidth ? zoomHeight : zoomWidth); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
   arduino.y(draw.viewbox().y2 - arduino.height());
   arduino.x(0);

@@ -62,16 +62,18 @@ export const createWireComponentToBreadboard = (
   componentId: string,
   color: string
 ) => {
+  console.log(holeId, componentConnectionId, "look");
   const hole = findBreadboardHoleXY(holeId, arduinoEl, draw);
   const componentPin = findComponentConnection(
     componentEl,
     componentConnectionId
   );
+  console.log(componentConnectionId, componentPin, "loop");
   const line = draw
     .line()
     .plot(hole.x, hole.y, componentPin.x, componentPin.y)
     .stroke({ width: 2, color, linecap: "round" });
-
+  (window as any).WIRE_TEST = line;
   line.data("connection-id", componentConnectionId);
   line.data("component-id", componentId);
   line.data("type", "wire");

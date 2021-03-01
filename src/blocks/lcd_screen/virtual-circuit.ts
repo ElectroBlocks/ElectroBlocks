@@ -10,13 +10,11 @@ import type {
 
 import type { LCDScreenState } from "./state";
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
 import {
-  createGroundWire,
-  createPowerWire,
-  createWire,
-} from "../../core/virtual-circuit/wire";
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire-v2";
 
 /**
  * Timer for blinking
@@ -43,22 +41,15 @@ export const lcdCreate: AfterComponentCreateHook<LCDScreenState> = (
 };
 
 export const lcdPosition: PositionComponent<LCDScreenState> = (
-  _,
+  state,
   lcdScreenEl,
   arduino,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(
-    lcdScreenEl,
-    arduino,
-    draw,
-    ARDUINO_PINS.PIN_12,
-    "PIN_SCL",
-    board
-  );
-
-  lcdScreenEl.y(lcdScreenEl.y() - 30);
+  const { holes, isDown } = area;
+  positionComponent(lcdScreenEl, arduino, draw, holes[1], isDown, "PIN_SCL");
 };
 
 export const lcdReset: ResetComponent = (lcdScreenEl: Element) => {
@@ -75,14 +66,13 @@ export const lcdReset: ResetComponent = (lcdScreenEl: Element) => {
 
 export const lcdUpdate: SyncComponent = (
   state: LCDScreenState,
-  lcdScreenEl,
-  draw
+  lcdScreenEl
 ) => {
   for (let row = 1; row <= state.rows; row += 1) {
     for (let col = 1; col <= state.columns; col += 1) {
       const letterEl = lcdScreenEl.findOne(`#letter-${col}-${row}`) as Element;
+
       (letterEl as Text).node.innerHTML = state.rowsOfText[row - 1][col - 1];
-      letterEl.cx(state.rows === 4 ? 12 : 22); // 4 by 20 the squares are smaller
     }
   }
   if (!state.blink.blinking) {
@@ -121,10 +111,13 @@ export const lcdUpdate: SyncComponent = (
 };
 
 const centerLetters = (lcdScreenEl: Element, lcdState: LCDScreenState) => {
+  const xStarting = lcdState.rows === 2 ? -5 : 0;
+  const yStarting = lcdState.rows === 2 ? 0 : -4;
   for (let row = 1; row <= lcdState.rows; row += 1) {
     for (let col = 1; col <= lcdState.columns; col += 1) {
       const letterEl = lcdScreenEl.findOne(`#letter-${col}-${row}`) as Element;
-      letterEl.cx(lcdState.rows === 4 ? 12 : 22); // 4 by 20 the squares are smaller
+      letterEl.x(xStarting);
+      letterEl.y(yStarting);
     }
   }
 };
@@ -148,39 +141,34 @@ export const createWiresLcd: CreateWire<LCDScreenState> = (
   lcdEl,
   arduino,
   id,
-  board
+  board,
+  area
 ) => {
-  createGroundWire(
+  const { holes, isDown } = area;
+  createGroundOrPowerWire(holes[1], isDown, lcdEl, draw, arduino, id, "power");
+  createGroundOrPowerWire(holes[0], isDown, lcdEl, draw, arduino, id, "ground");
+
+  createComponentWire(
+    holes[3],
+    isDown,
     lcdEl,
     state.sdaPin,
+    draw,
     arduino as Svg,
-    draw,
     id,
-    "left",
-    board
-  );
-
-  createPowerWire(lcdEl, state.sdaPin, arduino as Svg, draw, id, "left", board);
-
-  createWire(
-    lcdEl,
-    state.sdaPin,
     "PIN_SDA",
-    arduino,
-    draw,
-    "#0071bc",
-    "sda",
     board
   );
 
-  createWire(
+  createComponentWire(
+    holes[2],
+    isDown,
     lcdEl,
     state.sclPin,
-    "PIN_SCL",
-    arduino,
     draw,
-    "#f15a24",
-    "scl",
+    arduino as Svg,
+    id,
+    "PIN_SCL",
     board
   );
 };
