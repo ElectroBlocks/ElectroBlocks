@@ -10,12 +10,12 @@ import type {
 
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 
-import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import { WritePinState, WritePinType } from "./state";
 import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire-v2";
+} from "../../core/virtual-circuit/wire";
 
 export const digitalAnalogWritePinReset: ResetComponent = (
   componentEl: Element

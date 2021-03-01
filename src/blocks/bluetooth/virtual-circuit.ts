@@ -4,20 +4,15 @@ import type {
   CreateWire,
   PositionComponent,
 } from "../../core/virtual-circuit/svg-create";
-import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import type {
   ResetComponent,
   SyncComponent,
 } from "../../core/virtual-circuit/svg-sync";
 import {
-  createGroundWire,
-  createPowerWire,
-  createWire,
-} from "../../core/virtual-circuit/wire";
-import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire-v2";
+} from "../../core/virtual-circuit/wire";
 import type { BluetoothState } from "./state";
 
 export const bluetoothReset: ResetComponent = (bluetoothEl: Element) => {

@@ -5,11 +5,7 @@ import {
   ArduinoFrameContainer,
 } from "../frames/arduino.frame";
 import { ANALOG_PINS, getBoard } from "../microcontroller/selectBoard";
-import { resetBreadBoardHoles } from "./wire";
-import {
-  hideAllAnalogWires,
-  resetBreadBoardHoles as resetBreadBoardHolesV2,
-} from "./wire-v2";
+import { hideAllAnalogWires, resetBreadBoardHoles } from "./wire";
 import { findMicronControllerEl } from "./svg-helpers";
 import createNewComponent from "./svg-create";
 import type { MicroController } from "../microcontroller/microcontroller";
@@ -27,7 +23,6 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
     ? frameContainer.frames[frameContainer.frames.length - 1]
     : undefined;
   resetBreadBoardHoles(board);
-  resetBreadBoardHolesV2(board);
   hideAllAnalogWires(draw);
   // TODO HIDE ANALOG PINS AND CREATE MAP FOR EACH BOARD PROFILE.
 
@@ -73,7 +68,7 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   const minusAmount = draw.height() - 300 > 200 ? 250 : 150;
   const zoomHeight = (draw.height() - minusAmount) / arduino.height();
   (draw as any).zoom(zoomHeight < zoomWidth ? zoomHeight : zoomWidth); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
-  arduino.y(draw.viewbox().y2 - arduino.height());
+  arduino.y(draw.viewbox().y2 - arduino.height() + 30);
   arduino.x(-30);
 
   // Events

@@ -96,7 +96,7 @@ import {
   createWireAnalogSensors,
 } from "../../blocks/analogsensor/virtual-circuit";
 import type { Settings } from "../../firebase/model";
-import { takeBoardArea } from "./wire-v2";
+import { takeBoardArea } from "./wire";
 
 export default (
   state: ArduinoComponentState,

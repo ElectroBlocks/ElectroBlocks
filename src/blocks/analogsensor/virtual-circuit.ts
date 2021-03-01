@@ -8,22 +8,17 @@ import type {
   AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
-import {
-  createWire,
-  createGroundWire,
-  createPowerWire,
-} from "../../core/virtual-circuit/wire";
 import _ from "lodash";
 
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { AnalogSensorPicture, AnalogSensorState } from "./state";
-import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import {
   createComponentWire,
   createGroundOrPowerWire,
   createWireBreadboard,
   createWireComponentToBreadboard,
-} from "../../core/virtual-circuit/wire-v2";
+} from "../../core/virtual-circuit/wire";
 
 export const analogSensorCreate: AfterComponentCreateHook<AnalogSensorState> = (
   state,

@@ -10,17 +10,12 @@ import {
 
 import { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
-import {
-  createWire,
-  createPowerWire,
-  createGroundWire,
-} from "../../core/virtual-circuit/wire";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import { TemperatureState } from "./state";
 import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire-v2";
+} from "../../core/virtual-circuit/wire";
 
 export const createTemp: AfterComponentCreateHook<TemperatureState> = (
   state,

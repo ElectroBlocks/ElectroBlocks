@@ -4,7 +4,7 @@ import type {
   CreateWire,
   PositionComponent,
 } from "../../core/virtual-circuit/svg-create";
-import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import type {
   ResetComponent,
   SyncComponent,
@@ -12,7 +12,7 @@ import type {
 import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire-v2";
+} from "../../core/virtual-circuit/wire";
 import type { IRRemoteState } from "./state";
 
 export const createIrRemote: AfterComponentCreateHook<IRRemoteState> = (

@@ -10,18 +10,13 @@ import type {
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import {
-  createPowerWire,
-  createGroundWire,
-  createWire,
-} from "../../core/virtual-circuit/wire";
 import type { LedMatrixState } from "./state";
 import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire-v2";
+} from "../../core/virtual-circuit/wire";
 
 export const ledMatrixPosition: PositionComponent<LedMatrixState> = (
   _,

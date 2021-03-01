@@ -10,14 +10,14 @@ import type {
 
 import type { Element, Text } from "@svgdotjs/svg.js";
 import _ from "lodash";
-import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
 import type { LedState } from "./state";
 import {
   createComponentWire,
   createGroundOrPowerWire,
   createResistorVertical,
-} from "../../core/virtual-circuit/wire-v2";
+} from "../../core/virtual-circuit/wire";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
 

@@ -9,23 +9,14 @@ import type {
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
-import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import type { LedColorState } from "./state";
-import resistorSmallSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-small.svg";
-import {
-  createGroundWire,
-  createWire,
-  findResistorBreadboardHoleXY,
-} from "../../core/virtual-circuit/wire";
 import { rgbToHex } from "../../core/blockly/helpers/color.helper";
-import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
-import type { MicroController } from "../../core/microcontroller/microcontroller";
 import {
   createComponentWire,
   createGroundOrPowerWire,
   createResistorVertical,
-} from "../../core/virtual-circuit/wire-v2";
+} from "../../core/virtual-circuit/wire";
 
 export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
   state,

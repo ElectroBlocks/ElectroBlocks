@@ -9,20 +9,14 @@ import type {
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
-import {
-  createWire,
-  createPowerWire,
-  createGroundWire,
-} from "../../core/virtual-circuit/wire";
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import _ from "lodash";
 import { rgbToHex } from "../../core/blockly/helpers/color.helper";
-import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import type { NeoPixelState } from "./state";
 import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire-v2";
+} from "../../core/virtual-circuit/wire";
 
 export const neoPixelCreate: AfterComponentCreateHook<NeoPixelState> = (
   state,

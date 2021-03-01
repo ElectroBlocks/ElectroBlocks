@@ -10,17 +10,12 @@ import type {
 
 import { findSvgElement } from "../../core/virtual-circuit/svg-helpers";
 import type { Svg, Text, Element } from "@svgdotjs/svg.js";
-import {
-  createWire,
-  createGroundWire,
-  createPowerWire,
-} from "../../core/virtual-circuit/wire";
-import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
+import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import type { ServoState } from "./state";
 import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire-v2";
+} from "../../core/virtual-circuit/wire";
 
 export const servoReset: ResetComponent = (servoEl) => {
   setDegrees(servoEl, 0);
