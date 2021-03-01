@@ -11,28 +11,33 @@ import type {
 import type { UltraSonicSensorState } from "./state";
 import type { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
 import {
   createWire,
   createPowerWire,
   createGroundWire,
 } from "../../core/virtual-circuit/wire";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire-v2";
 
 export const positionUltraSonicSensor: PositionComponent<UltraSonicSensorState> = (
   state,
   ultraSonicEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  //todo consider labeling pins in picture
+  const { holes, isDown } = area;
   positionComponent(
     ultraSonicEl,
     arduinoEl,
     draw,
-    state.trigPin,
-    "PIN_TRIG",
-    board
+    holes[2],
+    isDown,
+    "PIN_ECHO"
   );
 };
 
@@ -71,44 +76,51 @@ export const createWiresUltraSonicSensor: CreateWire<UltraSonicSensorState> = (
   componentEl,
   arduionEl,
   id,
-  board
+  board,
+  area
 ) => {
-  createPowerWire(
+  const { holes, isDown } = area;
+
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
     componentEl,
-    state.trigPin,
-    arduionEl as Svg,
     draw,
+    arduionEl,
     id,
-    "left",
-    board
+    "power"
   );
-  createWire(
+
+  createComponentWire(
+    holes[1],
+    isDown,
     componentEl,
     state.trigPin,
+    draw,
+    arduionEl,
+    id,
     "PIN_TRIG",
-    arduionEl,
-    draw,
-    "#177a6c",
-    "trig-pin",
     board
   );
-  createWire(
+  createComponentWire(
+    holes[2],
+    isDown,
     componentEl,
     state.echoPin,
-    "PIN_ECHO",
+    draw,
     arduionEl,
-    draw,
-    "#a03368",
-    "echo-pin",
-    board
-  );
-  createGroundWire(
-    componentEl,
-    state.echoPin,
-    arduionEl as Svg,
-    draw,
     id,
-    "right",
+    "PIN_ECHO",
     board
+  );
+
+  createGroundOrPowerWire(
+    holes[3],
+    isDown,
+    componentEl,
+    draw,
+    arduionEl,
+    id,
+    "ground"
   );
 };

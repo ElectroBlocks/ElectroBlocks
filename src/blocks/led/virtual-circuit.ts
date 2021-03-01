@@ -8,22 +8,15 @@ import type {
   AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
-import type { Element, Svg, Text } from "@svgdotjs/svg.js";
+import type { Element, Text } from "@svgdotjs/svg.js";
 import _ from "lodash";
-import resistorSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-small.svg";
-import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
 import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
-import type { MicroController } from "../../core/microcontroller/microcontroller";
 import type { LedState } from "./state";
 import {
   createComponentWire,
   createGroundOrPowerWire,
-  createWireBreadboard,
-  createWireComponentToBreadboard,
-  createWireFromArduinoToBreadBoard,
-  findResistorBreadboardHoleXY,
-  showPin,
+  createResistorVertical,
 } from "../../core/virtual-circuit/wire-v2";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
@@ -105,20 +98,6 @@ export const resetLed: ResetComponent = (componentEl: Element) => {
     .attr("stop-color", "#FFF");
 };
 
-const createResistor = (
-  arduino: Svg | Element,
-  draw: Svg,
-  holeId: string,
-  componentId: string
-) => {
-  const resistorEl = draw.svg(resistorSvg).last();
-  resistorEl.data("component-id", componentId);
-
-  const { x, y } = findResistorBreadboardHoleXY(holeId, arduino, draw);
-  resistorEl.cx(x);
-  resistorEl.y(y);
-};
-
 export const createWiresLed: CreateWire<LedState> = (
   state,
   draw,
@@ -142,12 +121,11 @@ export const createWiresLed: CreateWire<LedState> = (
     board
   );
 
-  const resitorHoleId = `pin${holes[3]}D`;
-
-  createResistor(
+  createResistorVertical(
     arduino,
     draw,
-    resitorHoleId,
+    holes[3],
+    isDown,
     arduinoComponentStateToId(state)
   );
 };

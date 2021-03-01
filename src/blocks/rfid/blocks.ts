@@ -104,7 +104,7 @@ const rfidSetupBlock: any = {
     this.appendDummyInput()
       .appendField("Card #:")
       .appendField(
-        new Blockly.FieldTextInput("card_number", (value) => {
+        new Blockly.FieldTextInput("card#", (value) => {
           if (this.getFieldValue("scanned_card") === "FALSE") {
             return null;
           }

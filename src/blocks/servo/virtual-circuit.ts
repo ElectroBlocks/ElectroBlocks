@@ -15,8 +15,12 @@ import {
   createGroundWire,
   createPowerWire,
 } from "../../core/virtual-circuit/wire";
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
 import type { ServoState } from "./state";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire-v2";
 
 export const servoReset: ResetComponent = (servoEl) => {
   setDegrees(servoEl, 0);
@@ -45,9 +49,11 @@ export const servoPosition: PositionComponent<ServoState> = (
   servoEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(servoEl, arduinoEl, draw, state.pins[0], "PIN_DATA", board);
+  const { holes, isDown } = area;
+  positionComponent(servoEl, arduinoEl, draw, holes[2], isDown, "PIN_POWER");
 };
 
 const setServoPinText = (servoEl: Element, servoState: ServoState) => {
@@ -77,21 +83,40 @@ export const createWiresServo: CreateWire<ServoState> = (
   servoEl,
   arduino,
   id,
-  board
+  board,
+  area
 ) => {
+  const { holes, isDown } = area;
+
   const pin = state.pins[0];
-  createWire(servoEl, pin, "PIN_DATA", arduino, draw, "#FFA502", "data", board);
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
+    servoEl,
+    draw,
+    arduino,
+    id,
+    "ground"
+  );
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
+    servoEl,
+    draw,
+    arduino,
+    id,
+    "power"
+  );
 
-  // if ([ARDUINO_PINS.PIN_13, ARDUINO_PINS.PIN_A2].includes(pin)) {
-  //   // GND then POWER
-  //   createGroundWire(servoEl, pin, arduino as Svg, draw, id, "left");
-
-  //   createPowerWire(servoEl, pin, arduino as Svg, draw, id, "left");
-  // }
-
-  // POWER THEN GND
-
-  createPowerWire(servoEl, pin, arduino as Svg, draw, id, "left", board);
-
-  createGroundWire(servoEl, pin, arduino as Svg, draw, id, "left", board);
+  createComponentWire(
+    holes[3],
+    isDown,
+    servoEl,
+    pin,
+    draw,
+    arduino,
+    id,
+    "PIN_DATA",
+    board
+  );
 };

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="347" height="173" viewBox="0 0 347 173">
+<svg xmlns="http://www.w3.org/2000/svg" width="282" height="173" viewBox="0 0 282 173">
   <g id="RFID_READER" data-name="RFID READER">
     <g>
       <rect x="22.5" y="0.5" width="76" height="157" style="fill: #509364"/>
@@ -71,7 +71,7 @@
     <path d="M90.5,25.5c11.61-17.84,105.57,2.7,112,31" transform="translate(-2 -11)" style="fill: none;stroke: #dda824;stroke-miterlimit: 10;stroke-width: 3px"/>
     <path d="M259.52,120.5" transform="translate(-2 -11)" style="fill: none;stroke: #dda824;stroke-miterlimit: 10;stroke-width: 3px"/>
     <path d="M117,143.69" transform="translate(-2 -11)" style="fill: none;stroke: #dda824;stroke-miterlimit: 10;stroke-width: 3px"/>
-    <rect x="194.44" y="-29.44" width="66.11" height="240" transform="translate(134.94 307.06) rotate(-90)" style="fill: none;stroke: #dda824;stroke-miterlimit: 10;stroke-width: 3px"/>
+    <rect x="162.44" y="3.56" width="66.11" height="174" transform="translate(102.94 275.06) rotate(-90)" style="fill: none;stroke: #dda824;stroke-miterlimit: 10;stroke-width: 3px"/>
   </g>
   <g id="wire_text" data-name="wire text">
     <text transform="translate(33.62 140.56)" style="font-size: 21px;font-family: Biryani-Regular, Biryani">+</text>

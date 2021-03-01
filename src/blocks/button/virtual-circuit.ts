@@ -10,24 +10,23 @@ import type {
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
 import { createWire, createGroundWire } from "../../core/virtual-circuit/wire";
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
 import type { ButtonState } from "./state";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire-v2";
 
 export const positionButton: PositionComponent<ButtonState> = (
   state,
   buttonEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(
-    buttonEl,
-    arduinoEl,
-    draw,
-    state.pins[0],
-    "PIN_DATA",
-    board
-  );
+  const { holes, isDown } = area;
+  positionComponent(buttonEl, arduinoEl, draw, holes[0], isDown, "PIN_GND");
 };
 
 export const createButton: AfterComponentCreateHook<ButtonState> = (
@@ -68,25 +67,30 @@ export const createWiresButton: CreateWire<ButtonState> = (
   buttonEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
     buttonEl,
-    state.pins[0],
-    "PIN_DATA",
+    draw,
     arduinoEl,
-    draw,
-    "#3d8938",
-    "data",
-    board
+    id,
+    "ground"
   );
-  createGroundWire(
+
+  createComponentWire(
+    holes[3],
+    isDown,
     buttonEl,
     state.pins[0],
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "left",
+    "PIN_DATA",
     board
   );
 };

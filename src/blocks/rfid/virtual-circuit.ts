@@ -10,23 +10,28 @@ import type {
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
 
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
 import {
   createWire,
   createPowerWire,
   createGroundWire,
 } from "../../core/virtual-circuit/wire";
 import type { RfidState } from "./state";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire-v2";
 
 export const positionRfid: PositionComponent<RfidState> = (
   state,
   rfidEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(rfidEl, arduinoEl, draw, state.txPin, "PIN_TX", board);
-  rfidEl.x(rfidEl.x() + 100);
+  const { holes, isDown } = area;
+  positionComponent(rfidEl, arduinoEl, draw, holes[0], isDown, "PIN_GND");
 };
 
 export const createRfid: AfterComponentCreateHook<RfidState> = (
@@ -58,34 +63,39 @@ export const createWiresRfid: CreateWire<RfidState> = (
   rfidEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
     rfidEl,
-    state.txPin,
-    "PIN_TX",
+    draw,
     arduinoEl,
-    draw,
-    "#dda824",
-    "tx-pin",
-    board
+    id,
+    "ground"
   );
-  createPowerWire(
+
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
+    rfidEl,
+    draw,
+    arduinoEl,
+    id,
+    "power"
+  );
+
+  createComponentWire(
+    holes[2],
+    isDown,
     rfidEl,
     state.txPin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "left",
-    board
-  );
-  createGroundWire(
-    rfidEl,
-    state.txPin,
-    arduinoEl as Svg,
-    draw,
-    id,
-    "left",
+    "PIN_TX",
     board
   );
 };

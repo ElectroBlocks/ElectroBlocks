@@ -1,5 +1,7 @@
 import { Element, Line, Svg } from "@svgdotjs/svg.js";
 import _ from "lodash";
+import resistorSvg from "../virtual-circuit/commonsvgs/resistors/resistor-small.svg";
+
 import {
   Breadboard,
   BreadBoardArea,
@@ -172,6 +174,7 @@ export const createComponentWire = (
 ) => {
   const holeId = `pin${hole}${isDown ? "E" : "F"}`;
   const breadboardHoleIdToBoard = `pin${hole}${isDown ? "A" : "J"}`;
+  console.log(board.pinConnections, pin, "record");
   const color = board.pinConnections[pin].color;
   createWireComponentToBreadboard(
     holeId,
@@ -218,6 +221,22 @@ export const findResistorBreadboardHoleXY = (
     x: hole.cx() + arduino.x(),
     y: (hole.findOne("circle") as Element).cy() + arduino.y() - 1,
   };
+};
+
+export const createResistorVertical = (
+  arduino: Svg | Element,
+  draw: Svg,
+  hole: number,
+  isDown: boolean,
+  componentId: string
+) => {
+  const resistorEl = draw.svg(resistorSvg).last();
+  resistorEl.data("component-id", componentId);
+  const holeId = `pin${hole}${isDown ? "D" : "I"}`;
+
+  const { x, y } = findResistorBreadboardHoleXY(holeId, arduino, draw);
+  resistorEl.cx(x);
+  resistorEl.y(y);
 };
 
 export const resetBreadBoardHoles = (board: MicroController) => {

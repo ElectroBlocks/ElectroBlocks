@@ -10,13 +10,12 @@ import type {
 
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import {
-  ANALOG_PINS,
-  ARDUINO_PINS,
-} from "../../core/microcontroller/selectBoard";
-import { createGroundWire, createWire } from "../../core/virtual-circuit/wire";
+import { positionComponent } from "../../core/virtual-circuit/svg-position-v2";
 import { WritePinState, WritePinType } from "./state";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire-v2";
 
 export const digitalAnalogWritePinReset: ResetComponent = (
   componentEl: Element
@@ -32,9 +31,11 @@ export const digitalAnanlogWritePinPosition: PositionComponent<WritePinState> = 
   componentEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(componentEl, arduinoEl, draw, state.pin, "POWER", board);
+  const { holes, isDown } = area;
+  positionComponent(componentEl, arduinoEl, draw, holes[2], isDown, "POWER");
 };
 
 export const digitalAnanlogWritePinCreate: AfterComponentCreateHook<WritePinState> = (
@@ -88,24 +89,29 @@ export const createWiresDigitalAnalogWrite: CreateWire<WritePinState> = (
   componentEl,
   arduino,
   id,
-  board
+  board,
+  area
 ) => {
-  createGroundWire(
+  const { holes, isDown } = area;
+
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
     componentEl,
-    state.pin,
-    arduino as Svg,
     draw,
-    id,
-    "left",
-    board
-  );
-  createWire(
-    componentEl,
-    state.pin,
-    "POWER",
     arduino,
+    id,
+    "ground"
+  );
+
+  createComponentWire(
+    holes[2],
+    isDown,
+    componentEl,
+    state.pin,
     draw,
-    "#FF0000",
+    arduino,
+    id,
     "POWER",
     board
   );
