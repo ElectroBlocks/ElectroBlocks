@@ -1,4 +1,6 @@
 <script>
+  import Player from "./Player.svelte";
+
   import SimDebugger from "./SimDebugger.svelte";
   import { SVG } from "@svgdotjs/svg.js";
   import frameStore from "../../../stores/frame.store";
@@ -53,7 +55,6 @@
       frameStore.subscribe((frameContainer) => {
         frames = frameContainer.frames;
         console.log(frames, "new frames");
-        const lastFrame = frames ? frames[frames.length - 1] : undefined;
         const firstFrame = frames ? frames[0] : undefined;
         currentFrame = firstFrame;
         paint(draw, frameContainer);
@@ -87,11 +88,21 @@
   });
 </script>
 
+<div style="background-color: {$settings.backgroundColor}" id="container">
+  <div bind:this={container} id="simulator" />
+  <div id="simulator-controls">
+    <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
+    <i on:click={zoomOut} class="fa fa-search-minus" aria-hidden="true" />
+  </div>
+  <SimDebugger />
+</div>
+<Player />
+
 <style>
   #container,
   #simulator {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 75px);
     position: relative;
     top: 0;
     left: 0;
@@ -100,7 +111,7 @@
     background-color: #d9e4ec;
   }
   #simulator {
-    width: calc(100% - 10px);
+    width: 100%;
     height: calc(100% - 10px);
   }
   #simulator-controls {
@@ -116,12 +127,3 @@
     user-select: none;
   }
 </style>
-
-<div style="background-color: {$settings.backgroundColor}" id="container">
-  <div bind:this={container} id="simulator" />
-  <div id="simulator-controls">
-    <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
-    <i on:click={zoomOut} class="fa fa-search-minus" aria-hidden="true" />
-  </div>
-  <SimDebugger />
-</div>

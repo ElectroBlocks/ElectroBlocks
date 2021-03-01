@@ -5,24 +5,20 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import type { LedColorState } from "./state";
-import resistorSmallSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-small.svg";
-import {
-  createGroundWire,
-  createWire,
-  findResistorBreadboardHoleXY,
-} from "../../core/virtual-circuit/wire";
 import { rgbToHex } from "../../core/blockly/helpers/color.helper";
-import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
-import type { MicroController } from "../../core/microcontroller/microcontroller";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+  createResistorVertical,
+} from "../../core/virtual-circuit/wire";
 
-export const createRgbLed: CreateCompenentHook<LedColorState> = (
+export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
   state,
   rgbLedEl,
   arduinoEl,
@@ -32,13 +28,7 @@ export const createRgbLed: CreateCompenentHook<LedColorState> = (
   //todo consider labeling pin in picture
 
   rgbLedEl.data("picture-type", state.pictureType);
-  createResistors(
-    arduinoEl,
-    draw,
-    state,
-    arduinoComponentStateToId(state),
-    board
-  );
+
   rgbLedEl.findOne("#PIN_RED_TEXT").node.innerHTML = state.redPin;
   rgbLedEl.findOne("#PIN_BLUE_TEXT").node.innerHTML = state.bluePin;
   rgbLedEl.findOne("#PIN_GREEN_TEXT").node.innerHTML = state.greenPin;
@@ -49,9 +39,11 @@ export const positionRgbLed: PositionComponent<LedColorState> = (
   rgbLedEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(rgbLedEl, arduinoEl, draw, state.redPin, "PIN_RED", board);
+  const { holes, isDown } = area;
+  positionComponent(rgbLedEl, arduinoEl, draw, holes[2], isDown, "PIN_GREEN");
 };
 
 export const updateRgbLed: SyncComponent = (state: LedColorState, rgbLedEl) => {
@@ -71,85 +63,67 @@ export const resetRgbLed: ResetComponent = (rgbLedEl) => {
   (rgbLedEl.findOne("#COLOR_LED") as Element).fill("#FFF");
 };
 
-const createResistors = (
-  arduino: Svg | Element,
-  draw: Svg,
-  state: LedColorState,
-  componentId: string,
-  board: MicroController
-) => {
-  if (state.pictureType !== "BREADBOARD") {
-    return;
-  }
-
-  createResistor(arduino, draw, state.greenPin, componentId, board);
-  createResistor(arduino, draw, state.bluePin, componentId, board);
-  createResistor(arduino, draw, state.redPin, componentId, board);
-};
-
-const createResistor = (
-  arduino: Svg | Element,
-  draw: Svg,
-  pin: ARDUINO_PINS,
-  componentId: string,
-  board
-) => {
-  const resistorEl = draw.svg(resistorSmallSvg).last();
-  resistorEl.data("component-id", componentId);
-
-  const { x, y } = findResistorBreadboardHoleXY(pin, arduino, draw, board);
-  resistorEl.cx(x);
-  resistorEl.y(y);
-};
-
 export const createWiresRgbLed: CreateWire<LedColorState> = (
   state,
   draw,
   rgbLedEl,
   arduino,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
-    rgbLedEl,
-    state.bluePin,
-    "PIN_BLUE",
-    arduino,
-    draw,
-    "#4c5dbf",
-    "blue-pin",
-    board
-  );
+  const { holes, isDown } = area;
 
-  createWire(
+  const maxLength = holes.length - 1;
+  createComponentWire(
+    holes[0],
+    isDown,
     rgbLedEl,
     state.redPin,
-    "PIN_RED",
-    arduino,
     draw,
-    "#ef401d",
-    "red-pin",
+    arduino,
+    id,
+    "PIN_RED",
     board
   );
 
-  createWire(
+  createComponentWire(
+    holes[2],
+    isDown,
     rgbLedEl,
     state.greenPin,
-    "PIN_GREEN",
-    arduino,
     draw,
-    "#4dc16e",
-    "green-pin",
+    arduino,
+    id,
+    "PIN_GREEN",
     board
   );
 
-  createGroundWire(
+  createComponentWire(
+    holes[maxLength],
+    isDown,
     rgbLedEl,
-    state.redPin,
-    arduino as Svg,
+    state.bluePin,
     draw,
+    arduino,
     id,
-    "right",
+    "PIN_BLUE",
     board
   );
+
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
+    rgbLedEl,
+    draw,
+    arduino,
+    id,
+    "ground"
+  );
+
+  if (state.pictureType == "BREADBOARD") {
+    createResistorVertical(arduino, draw, holes[0], isDown, id);
+    createResistorVertical(arduino, draw, holes[2], isDown, id);
+    createResistorVertical(arduino, draw, holes[maxLength], isDown, id);
+  }
 };

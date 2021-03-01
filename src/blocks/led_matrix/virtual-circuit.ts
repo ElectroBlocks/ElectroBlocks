@@ -5,37 +5,29 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
 
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import {
-  createPowerWire,
-  createGroundWire,
-  createWire,
-} from "../../core/virtual-circuit/wire";
 import type { LedMatrixState } from "./state";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire";
 
 export const ledMatrixPosition: PositionComponent<LedMatrixState> = (
   _,
   ledMatrixEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  arduinoEl.y(draw.viewbox().y2 - arduinoEl.height() + 100);
-
-  positionComponent(
-    ledMatrixEl,
-    arduinoEl,
-    draw,
-    ARDUINO_PINS.PIN_10,
-    "PIN_DATA",
-    board
-  );
+  const { holes, isDown } = area;
+  positionComponent(ledMatrixEl, arduinoEl, draw, holes[2], isDown, "PIN_DATA");
 };
 
 export const ledMatrixUpdate: SyncComponent = (
@@ -49,7 +41,7 @@ export const ledMatrixUpdate: SyncComponent = (
   });
 };
 
-export const ledMatrixCreate: CreateCompenentHook<LedMatrixState> = (
+export const ledMatrixCreate: AfterComponentCreateHook<LedMatrixState> = (
   state,
   ledMatrixEl
 ) => {
@@ -72,55 +64,120 @@ export const createWiresLedMatrix: CreateWire<LedMatrixState> = (
   ledMatrixEl,
   arduino,
   id,
-  board
+  board,
+  area
 ) => {
-  createGroundWire(
+  const { holes, isDown } = area;
+
+  if (holes.length <= 4) {
+    return;
+  }
+
+  createComponentWire(
+    holes[0],
+    isDown,
     ledMatrixEl,
-    state.dataPin,
-    arduino as Svg,
+    state.clkPin,
     draw,
+    arduino,
     id,
-    "right",
-    board
-  );
-  createPowerWire(
-    ledMatrixEl,
-    state.dataPin,
-    arduino as Svg,
-    draw,
-    id,
-    "right",
+    "PIN_CLK",
+
     board
   );
 
-  createWire(
-    ledMatrixEl,
-    state.dataPin,
-    "PIN_DATA",
-    arduino,
-    draw,
-    "#027a18",
-    "data-pin",
-    board
-  );
-  createWire(
+  createComponentWire(
+    holes[1],
+    isDown,
     ledMatrixEl,
     state.csPin,
+    draw,
+    arduino,
+    id,
     "PIN_CS",
-    arduino,
-    draw,
-    "#7b5fc9",
-    "cs-pin",
+
     board
   );
-  createWire(
+
+  createComponentWire(
+    holes[2],
+    isDown,
     ledMatrixEl,
-    state.clkPin,
-    "PIN_CLK",
-    arduino,
+    state.dataPin,
     draw,
-    "#2130ff",
-    "clk-pin",
+    arduino,
+    id,
+    "PIN_DATA",
+
     board
   );
+
+  createGroundOrPowerWire(
+    holes[3],
+    isDown,
+    ledMatrixEl,
+    draw,
+    arduino,
+    id,
+    "ground"
+  );
+
+  createGroundOrPowerWire(
+    holes[4],
+    isDown,
+    ledMatrixEl,
+    draw,
+    arduino,
+    id,
+    "power"
+  );
+
+  // createGroundWire(
+  //   ledMatrixEl,
+  //   state.dataPin,
+  //   arduino as Svg,
+  //   draw,
+  //   id,
+  //   "right",
+  //   board
+  // );
+  // createPowerWire(
+  //   ledMatrixEl,
+  //   state.dataPin,
+  //   arduino as Svg,
+  //   draw,
+  //   id,
+  //   "right",
+  //   board
+  // );
+  // createWire(
+  //   ledMatrixEl,
+  //   state.dataPin,
+  //   "PIN_DATA",
+  //   arduino,
+  //   draw,
+  //   "#027a18",
+  //   "data-pin",
+  //   board
+  // );
+  // createWire(
+  //   ledMatrixEl,
+  //   state.csPin,
+  //   "PIN_CS",
+  //   arduino,
+  //   draw,
+  //   "#7b5fc9",
+  //   "cs-pin",
+  //   board
+  // );
+  // createWire(
+  //   ledMatrixEl,
+  //   state.clkPin,
+  //   "PIN_CLK",
+  //   arduino,
+  //   draw,
+  //   "#2130ff",
+  //   "clk-pin",
+  //   board
+  // );
 };

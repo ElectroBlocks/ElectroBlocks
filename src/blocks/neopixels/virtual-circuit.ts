@@ -5,27 +5,27 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
-import {
-  createWire,
-  createPowerWire,
-  createGroundWire,
-} from "../../core/virtual-circuit/wire";
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import _ from "lodash";
 import { rgbToHex } from "../../core/blockly/helpers/color.helper";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import type { NeoPixelState } from "./state";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire";
 
-export const neoPixelCreate: CreateCompenentHook<NeoPixelState> = (
+export const neoPixelCreate: AfterComponentCreateHook<NeoPixelState> = (
   state,
   neoPixelEl
 ) => {
   showRGBStripLeds(neoPixelEl, state);
-  neoPixelEl.findOne("#DATA_TEXT").node.innerHTML = state.pins[0];
+  neoPixelEl.findOne(
+    "#DATA_TEXT"
+  ).node.innerHTML = `Data Pin = ${state.pins[0]}`;
 };
 
 export const neoPixelPosition: PositionComponent<NeoPixelState> = (
@@ -33,17 +33,11 @@ export const neoPixelPosition: PositionComponent<NeoPixelState> = (
   neoPixelEl,
   arduino,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(
-    neoPixelEl,
-    arduino,
-    draw,
-    ARDUINO_PINS.PIN_A2,
-    "PIN_DATA",
-    board
-  );
-  neoPixelEl.x(neoPixelEl.x() - 100);
+  const { holes, isDown } = area;
+  positionComponent(neoPixelEl, arduino, draw, holes[1], isDown, "PIN_DATA");
 };
 
 export const neoPixelReset: ResetComponent = (neoPixelEl: Element) => {
@@ -75,37 +69,39 @@ export const createWiresNeoPixels: CreateWire<NeoPixelState> = (
   neoPixelEl,
   arduino,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+  createComponentWire(
+    holes[1],
+    isDown,
     neoPixelEl,
     state.pins[0],
-    "PIN_DATA",
+    draw,
     arduino,
-    draw,
-    "#006837",
-    "data",
+    id,
+    "PIN_DATA",
     board
   );
 
-  createGroundWire(
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
     neoPixelEl,
-    ARDUINO_PINS.PIN_13,
-    arduino as Svg,
     draw,
+    arduino,
     id,
-    "left",
-    board
+    "ground"
   );
-
-  createPowerWire(
+  createGroundOrPowerWire(
+    holes[2],
+    isDown,
     neoPixelEl,
-    ARDUINO_PINS.PIN_13,
-    arduino as Svg,
     draw,
+    arduino,
     id,
-    "left",
-    board
+    "power"
   );
 };
 

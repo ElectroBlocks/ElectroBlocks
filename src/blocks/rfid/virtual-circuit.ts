@@ -5,31 +5,34 @@ import type {
 import type {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import type { Element, Svg } from "@svgdotjs/svg.js";
 
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import {
-  createWire,
-  createPowerWire,
-  createGroundWire,
-} from "../../core/virtual-circuit/wire";
 import type { RfidState } from "./state";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire";
 
 export const positionRfid: PositionComponent<RfidState> = (
   state,
   rfidEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(rfidEl, arduinoEl, draw, state.txPin, "PIN_TX", board);
-  rfidEl.x(rfidEl.x() + 100);
+  const { holes, isDown } = area;
+  positionComponent(rfidEl, arduinoEl, draw, holes[0], isDown, "PIN_GND");
 };
 
-export const createRfid: CreateCompenentHook<RfidState> = (state, rfidEl) => {
+export const createRfid: AfterComponentCreateHook<RfidState> = (
+  state,
+  rfidEl
+) => {
   rfidEl.findOne("#PIN_TEXT_RX").node.innerHTML = state.txPin;
 };
 
@@ -55,34 +58,39 @@ export const createWiresRfid: CreateWire<RfidState> = (
   rfidEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
     rfidEl,
-    state.txPin,
-    "PIN_TX",
+    draw,
     arduinoEl,
-    draw,
-    "#dda824",
-    "tx-pin",
-    board
+    id,
+    "ground"
   );
-  createPowerWire(
+
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
+    rfidEl,
+    draw,
+    arduinoEl,
+    id,
+    "power"
+  );
+
+  createComponentWire(
+    holes[2],
+    isDown,
     rfidEl,
     state.txPin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "left",
-    board
-  );
-  createGroundWire(
-    rfidEl,
-    state.txPin,
-    arduinoEl as Svg,
-    draw,
-    id,
-    "left",
+    "PIN_TX",
     board
   );
 };

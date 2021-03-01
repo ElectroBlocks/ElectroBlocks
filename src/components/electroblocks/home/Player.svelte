@@ -7,8 +7,6 @@
   import settingStore from "../../../stores/settings.store";
   import { onErrorMessage } from "../../../help/alerts";
 
- 
-
   let frames = [];
   let frameNumber = 1;
   let playing = false;
@@ -45,9 +43,9 @@
       frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
       currentFrameStore.set(frames[frameNumber]);
     }),
-    settingStore.subscribe(newSettings => {
+    settingStore.subscribe((newSettings) => {
       maxTimePerStep = newSettings.maxTimePerMove;
-    }),
+    })
   );
 
   function navigateToClosestTimeline(timeLine) {
@@ -81,15 +79,14 @@
       frameNumber = 0;
     }
     if (playing) {
-        try {
-          playing = true;
-          // Because we want to make it look like the first frame has a wait time equal
-          await moveWait();
-          await playFrame();
-        
-        } catch(e) {
-          onErrorMessage("Please refresh your browser and try again.", e);
-        }
+      try {
+        playing = true;
+        // Because we want to make it look like the first frame has a wait time equal
+        await moveWait();
+        await playFrame();
+      } catch (e) {
+        onErrorMessage("Please refresh your browser and try again.", e);
+      }
     }
   }
 
@@ -101,7 +98,6 @@
     if (frames[frameNumber].delay > 0) {
       await wait(frames[frameNumber].delay);
     }
-
 
     currentFrameStore.set(frames[frameNumber]);
     frameNumber += 1;
@@ -119,8 +115,8 @@
       await moveWait();
       currentFrameStore.set(frames[frameIndex]);
       await play();
-    } catch(e) {
-      onErrorMessage("Please refresh your browser and try again.", e)
+    } catch (e) {
+      onErrorMessage("Please refresh your browser and try again.", e);
     }
   }
 
@@ -153,7 +149,9 @@
   }
 
   function moveWait() {
-    return new Promise((resolve) => setTimeout(resolve, maxTimePerStep / speedDivisor));
+    return new Promise((resolve) =>
+      setTimeout(resolve, maxTimePerStep / speedDivisor)
+    );
   }
 
   function wait(msTime) {
@@ -165,70 +163,57 @@
   });
 </script>
 
+<div id="slide-container">
+  <input
+    on:change={moveSlider}
+    type="range"
+    min="0"
+    disabled={frames.length === 0}
+    bind:value={frameNumber}
+    max={frames.length === 0 ? 0 : frames.length - 1}
+    class="slider"
+    id="scrub-bar"
+  />
+</div>
+<div
+  id="video-controls-container"
+  class:disable={disablePlayer}
+  class="icon-bar"
+>
+  <span on:click={prev} class:disable={disablePlayer} id="video-debug-backward">
+    <i class="fa fa-backward" />
+  </span>
+  <span on:click={play} id="video-debug-play" class:disable={disablePlayer}>
+    <i class="fa" class:fa-play={!playing} class:fa-stop={playing} />
+  </span>
+
+  <span on:click={next} id="video-debug-forward" class:disable={disablePlayer}>
+    <i class="fa fa-forward" />
+  </span>
+</div>
+
 <style>
-  #slide-container {
-    width: 100%;
-    height: 35px;
-    z-index: 100;
-  }
-
-  .slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 25px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: 0.2s;
-    transition: opacity 0.2s;
-  }
-
-  .slider[disabled] {
-    cursor: not-allowed;
-  }
-
   .slider:hover {
     opacity: 1;
   }
 
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #505bda;
-    cursor: pointer;
-  }
-
-  .slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    background: #505bda;
-    cursor: pointer;
+  #video-controls-container {
+    display: block;
+    width: 140px;
+    height: 40px;
+    margin: auto;
+    margin-top: 5px;
+    overflow: hidden;
   }
 
   #video-controls-container span {
     padding: 0;
   }
-  #video-controls-container label {
-    font-size: 30px;
-    font-family: "Biryani", Arial, Helvetica, sans-serif;
-    color: #505bda;
-    font-weight: 600;
-    display: inline;
-  }
-  #video-controls-container input {
-    margin-top: 10px;
-    padding: 1px;
-    margin-left: 10px;
-    height: 20px;
-    font-size: 16px;
-    vertical-align: top;
-  }
 
   #video-controls-container span i.fa {
-    color: #505bda;
+    color: #0c0c0c;
     opacity: 1;
+    margin-top: 8px;
   }
 
   #video-controls-container.disable {
@@ -240,7 +225,7 @@
   }
 
   #video-controls-container span.disable i.fa {
-    color: #505bda;
+    color: #0c0c0c;
     opacity: 0.5;
     cursor: not-allowed;
   }
@@ -251,29 +236,41 @@
   }
 
   .icon-bar .fa {
-    color: #505bda;
+    color: #0c0c0c;
     opacity: 0.5;
     cursor: pointer;
   }
 
-  .icon-bar span:first-of-type {
-    margin-left: 15%;
-  }
-
   .icon-bar span {
     float: left;
-    width: 10%;
+    width: 25px;
+    margin: 0 10px;
     text-align: center;
-    padding: 12px 0;
     transition: all 0.3s ease;
     color: white;
-    font-size: 36px;
+    font-size: 20px;
+  }
+
+  #video-debug-play {
+    font-size: 30px;
+  }
+  span#video-debug-play i.fa {
+    margin-top: 0 !important;
+    color: #b063c5 !important;
+  }
+
+  #slide-container {
+    margin-top: 5px;
+    margin-bottom: 4px;
+    width: 100%;
+    /* height: 23px; */
+    z-index: 100;
   }
 
   .slider {
     -webkit-appearance: none;
     width: 100%;
-    height: 25px;
+    height: 10px;
     background: #d3d3d3;
     outline: none;
     opacity: 0.7;
@@ -288,67 +285,20 @@
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #505bda;
+    width: 20px;
+    height: 20px;
+    background: #2c2c2c;
     cursor: pointer;
   }
 
   .slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    background: #505bda;
+    width: 20px;
+    height: 20px;
+    background: #0c0c0c;
     cursor: pointer;
-  }
-
-  .menu-section {
-    display: inline-block;
-    margin-right: 25px;
-  }
-
-  #speed-control {
-    vertical-align: top;
-    text-align: left;
-    width: 30%;
-    margin-top: 10px;
   }
 
   input:invalid {
     box-shadow: none;
   }
 </style>
-
-<div id="slide-container">
-  <input
-    on:change={moveSlider}
-    type="range"
-    min="0"
-    disabled={frames.length === 0}
-    bind:value={frameNumber}
-    max={frames.length === 0 ? 0 : frames.length - 1}
-    class="slider"
-    id="scrub-bar" />
-</div>
-<div
-  id="video-controls-container"
-  class:disable={disablePlayer}
-  class="icon-bar">
-  <span on:click={prev} class:disable={disablePlayer} id="video-debug-backward">
-    <i class="fa fa-backward" />
-  </span>
-  <span on:click={play} id="video-debug-play" class:disable={disablePlayer}>
-    <i class="fa" class:fa-play={!playing} class:fa-stop={playing} />
-  </span>
-
-  <span on:click={next} id="video-debug-forward" class:disable={disablePlayer}>
-    <i class="fa fa-forward" />
-  </span>
-
-  <span class:disable={disablePlayer}>
-    <i on:click={resetPlayer} class="fa fa-repeat" />
-  </span>
-  <div id="speed-control" class="menu-section">
-    <label for="speed">Speed:</label>
-    <input bind:value={speedDivisor} id="speed" type="range" min="1" max="10" />
-  </div>
-</div>

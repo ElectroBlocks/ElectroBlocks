@@ -34,12 +34,27 @@
   }
 </script>
 
+<div bind:this={stepContainer} id="steps">
+  <ol>
+    {#each frames as frame, i}
+      <li
+        data-step={i}
+        on:click={changeFrame}
+        class:current={i === $currentStepStore}
+      >
+        {frame.explanation}
+      </li>
+    {/each}
+  </ol>
+</div>
+
 <style>
   #steps {
     width: 100%;
     min-height: 100%;
     background: #242323;
     color: #eff0f1;
+    box-sizing: border-box;
   }
   ol {
     margin: 0;
@@ -61,23 +76,10 @@
     font-size: 1em;
     color: plum;
   }
-  li.active,
-  li.active::before {
+  li.current,
+  li.current::before {
     background: steelblue;
     border-radius: 4px;
     padding-right: 6px;
   }
 </style>
-
-<div bind:this={stepContainer} id="steps">
-  <ol>
-    {#each frames as frame, i}
-      <li
-        data-step={i}
-        on:click={changeFrame}
-        class:active={i === $currentStepStore}>
-        {frame.explanation}
-      </li>
-    {/each}
-  </ol>
-</div>

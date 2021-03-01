@@ -4,9 +4,9 @@ import { onConfirm } from "../help/alerts";
 
 export async function loadNewProjectFile(file): Promise<boolean> {
   if (
-    !((await onConfirm(
+    !(await onConfirm(
       `Do you want to load ${file.name}, this will erase everything that you have done.`
-    )))
+    ))
   ) {
     return;
   }

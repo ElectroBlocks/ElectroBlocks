@@ -5,20 +5,19 @@ import {
 import {
   PositionComponent,
   CreateWire,
-  CreateCompenentHook,
+  AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
 import { Element, Svg } from "@svgdotjs/svg.js";
 
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import {
-  createWire,
-  createPowerWire,
-  createGroundWire,
-} from "../../core/virtual-circuit/wire";
 import { TemperatureState } from "./state";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+} from "../../core/virtual-circuit/wire";
 
-export const createTemp: CreateCompenentHook<TemperatureState> = (
+export const createTemp: AfterComponentCreateHook<TemperatureState> = (
   state,
   tempEl
 ) => {
@@ -33,9 +32,11 @@ export const positionTemp: PositionComponent<TemperatureState> = (
   tempEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(tempEl, arduinoEl, draw, state.pins[0], "PIN_DATA", board);
+  const { holes, isDown } = area;
+  positionComponent(tempEl, arduinoEl, draw, holes[1], isDown, "PIN_DATA");
 };
 
 export const updateTemp: SyncComponent = (state: TemperatureState, tempEl) => {
@@ -57,34 +58,39 @@ export const createWiresTemp: CreateWire<TemperatureState> = (
   componentEl,
   arduionEl,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
     componentEl,
-    state.pins[0],
-    "PIN_DATA",
+    draw,
     arduionEl,
-    draw,
-    "#2f5ddd",
-    "data",
-    board
+    id,
+    "power"
   );
-  createPowerWire(
+
+  createComponentWire(
+    holes[1],
+    isDown,
     componentEl,
     state.pins[0],
-    arduionEl as Svg,
     draw,
+    arduionEl,
     id,
-    "left",
+    "PIN_DATA",
     board
   );
-  createGroundWire(
+
+  createGroundOrPowerWire(
+    holes[2],
+    isDown,
     componentEl,
-    state.pins[0],
-    arduionEl as Svg,
     draw,
+    arduionEl,
     id,
-    "right",
-    board
+    "ground"
   );
 };

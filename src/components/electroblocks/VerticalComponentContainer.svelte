@@ -44,8 +44,10 @@
       return;
     }
 
-    // subtract 50 because of the height of the menu
-    const clientRelativeToWindow = clientY - 50;
+    // hack not the best way to go
+    const navBarHeight = document.querySelector("nav").clientHeight + 10;
+
+    const clientRelativeToWindow = clientY - navBarHeight;
 
     // Height of the main area where we are dividing
     const mainHeight = mainSection.clientHeight;
@@ -69,11 +71,28 @@
 
   onMount(() => {
     setTimeout(() => {
-      top = mainSection.clientHeight - 220;
-      bottom = 200;
+      top = mainSection.clientHeight - 170;
+      bottom = 150;
     }, 1);
   });
 </script>
+
+<svelte:body on:mouseup={stopResize} />
+
+<main
+  on:mouseleave={stopResize}
+  on:mousemove={onResize}
+  bind:this={mainSection}
+  id="split-container"
+>
+  <section style="height: {top}px" id="top">
+    <slot class="sections" name="top" />
+  </section>
+  <div on:mousedown={startResize} id="grabber" />
+  <section style="height: {bottom}px" id="bottom">
+    <slot name="bottom" />
+  </section>
+</main>
 
 <style>
   main {
@@ -95,20 +114,3 @@
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFCAMAAABl/6zIAAAABlBMVEUAAADMzMzIT8AyAAAAAXRSTlMAQObYZgAAABRJREFUeAFjYGRkwIMJSeMHlBkOABP7AEGzSuPKAAAAAElFTkSuQmCC);
   }
 </style>
-
-<svelte:body on:mouseup={stopResize} />
-
-<main
-  on:mouseleave={stopResize}
-  on:mousemove={onResize}
-  bind:this={mainSection}
-  id="split-container">
-
-  <section style="height: {top}px" id="top">
-    <slot class="sections" name="top" />
-  </section>
-  <div on:mousedown={startResize} id="grabber" />
-  <section style="height: {bottom}px" id="bottom">
-    <slot name="bottom" />
-  </section>
-</main>

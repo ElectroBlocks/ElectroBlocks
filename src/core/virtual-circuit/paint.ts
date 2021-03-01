@@ -4,11 +4,10 @@ import {
   ArduinoComponentType,
   ArduinoFrameContainer,
 } from "../frames/arduino.frame";
-import { getBoard } from "../microcontroller/selectBoard";
-import { resetBreadBoardWholes } from "./wire";
+import { ANALOG_PINS, getBoard } from "../microcontroller/selectBoard";
+import { hideAllAnalogWires, resetBreadBoardHoles } from "./wire";
 import { findMicronControllerEl } from "./svg-helpers";
 import createNewComponent from "./svg-create";
-import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 import type { MicroController } from "../microcontroller/microcontroller";
 import { getBoardSvg } from "./get-board-svg";
 import { registerHighlightEvents } from "./highlightevent";
@@ -17,11 +16,15 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
   const board = getBoard(frameContainer.board);
 
   const arduino = findOrCreateMicroController(draw, board);
+
+  clearComponents(draw, arduino);
+
   const lastFrame = frameContainer.frames
     ? frameContainer.frames[frameContainer.frames.length - 1]
     : undefined;
-  resetBreadBoardWholes(board);
-  hideAllWires(arduino, board);
+  resetBreadBoardHoles(board);
+  hideAllAnalogWires(draw);
+  // TODO HIDE ANALOG PINS AND CREATE MAP FOR EACH BOARD PROFILE.
 
   if (lastFrame) {
     lastFrame.components
@@ -38,8 +41,6 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
         );
       });
   }
-
-  deleteUnusedComponents(draw, arduino, lastFrame);
 };
 
 const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
@@ -56,29 +57,26 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
     draw.children().forEach((c) => c.remove());
   }
 
-  draw.svg(getBoardSvg(board.type));
-  arduino = draw.findOne("#MicroController") as Element;
+  arduino = draw.svg(getBoardSvg(board.type)).last();
+  arduino.attr("id", "MicroController");
   arduino.data("type", board.type);
   arduino.node.id = "microcontroller_main_svg";
   arduino.findOne("#MESSAGE").hide();
   (window as any).arduino = arduino;
   (window as any).draw = draw;
-  (draw as any).zoom((0.5 / 650) * draw.width()); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
-  arduino.y(draw.viewbox().y2 - arduino.height() + 80);
-  arduino.x(0);
+  const zoomWidth = draw.width() / arduino.width();
+  const minusAmount = draw.height() - 300 > 200 ? 250 : 150;
+  const zoomHeight = (draw.height() - minusAmount) / arduino.height();
+  (draw as any).zoom((zoomHeight < zoomWidth ? zoomHeight : zoomWidth) - 0.1); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
+  // Minus .1 is so that lcd screen and other things fit in.
+  arduino.y(draw.viewbox().y2 - arduino.height() + 30);
+  arduino.x(-30);
 
   // Events
 
   registerHighlightEvents(arduino);
 
   return arduino;
-};
-
-const hideAllWires = (arduino: Element, board: MicroController) => {
-  [...board.digitalPins, ...board.analonPins]
-    .map((key) => arduino.findOne("#PIN_" + key))
-    .filter((wire) => wire !== undefined)
-    .forEach((wire) => wire.hide());
 };
 
 const showWire = (arduino: Element, wire: string) => {
@@ -88,39 +86,14 @@ const showWire = (arduino: Element, wire: string) => {
   }
 };
 
-const deleteUnusedComponents = (
-  draw: Svg,
-  arduino: Element,
-  frame: ArduinoFrame | undefined
-) => {
+const clearComponents = (draw: Svg, arduino: Element) => {
   draw.find(".component").forEach((c: Element) => {
     const componentId = c.attr("id");
     // If there are not frames just delete all the components
-    if (!frame) {
-      c.remove();
-      draw
-        .find(`[data-component-id=${componentId}]`)
-        .forEach((c) => c.remove());
-      return;
-    }
-
-    // If the component does exist delete it
-    if (
-      frame.components.filter(
-        (c) => componentId === arduinoComponentStateToId(c)
-      ).length === 0
-    ) {
-      c.remove();
-      draw
-        .find(`[data-component-id=${componentId}]`)
-        .forEach((c) => c.remove());
-    }
+    c.remove();
+    draw.find(`[data-component-id=${componentId}]`).forEach((c) => c.remove());
+    return;
   });
 
-  if (
-    !frame ||
-    !frame.components.find((c) => c.type === ArduinoComponentType.MESSAGE)
-  ) {
-    arduino.findOne("#MESSAGE").hide();
-  }
+  arduino.findOne("#MESSAGE").hide();
 };

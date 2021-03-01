@@ -44,9 +44,6 @@
 </svelte:head>
 
 <style>
-  :global(#right_panel) {
-    overflow-y: scroll;
-  }
   pre {
     margin: 0;
     min-height: 100%;

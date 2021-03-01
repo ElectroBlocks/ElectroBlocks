@@ -1,6 +1,6 @@
 import type { Element, Svg } from "@svgdotjs/svg.js";
 import type {
-  CreateCompenentHook,
+  AfterComponentCreateHook,
   CreateWire,
   PositionComponent,
 } from "../../core/virtual-circuit/svg-create";
@@ -10,13 +10,12 @@ import type {
   SyncComponent,
 } from "../../core/virtual-circuit/svg-sync";
 import {
-  createGroundWire,
-  createPowerWire,
-  createWire,
+  createComponentWire,
+  createGroundOrPowerWire,
 } from "../../core/virtual-circuit/wire";
 import type { IRRemoteState } from "./state";
 
-export const createIrRemote: CreateCompenentHook<IRRemoteState> = (
+export const createIrRemote: AfterComponentCreateHook<IRRemoteState> = (
   state,
   irRemoteEl
 ) => {
@@ -28,16 +27,12 @@ export const positionIrRemote: PositionComponent<IRRemoteState> = (
   irRemoteEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(
-    irRemoteEl,
-    arduinoEl,
-    draw,
-    state.pins[0],
-    "PIN_DATA",
-    board
-  );
+  const { holes, isDown } = area;
+
+  positionComponent(irRemoteEl, arduinoEl, draw, holes[1], isDown, "PIN_POWER");
 };
 
 export const updateIrRemote: SyncComponent = (
@@ -68,36 +63,39 @@ export const createWiresIrRemote: CreateWire<IRRemoteState> = (
   irRemoteEl,
   arduino,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
     irRemoteEl,
-    state.pins[0],
-    "PIN_DATA",
+    draw,
     arduino,
+    id,
+    "ground"
+  );
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
+    irRemoteEl,
     draw,
-    "#3d8938",
-    "data",
-    board
+    arduino,
+    id,
+    "power"
   );
 
-  createPowerWire(
+  createComponentWire(
+    holes[2],
+    isDown,
     irRemoteEl,
-    state.pins[0],
-    arduino as Svg,
+    state.analogPin,
     draw,
+    arduino,
     id,
-    "left",
-    board
-  );
-
-  createGroundWire(
-    irRemoteEl,
-    state.pins[0],
-    arduino as Svg,
-    draw,
-    id,
-    "left",
+    "PIN_DATA",
     board
   );
 };

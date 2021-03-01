@@ -1,6 +1,6 @@
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import type {
-  CreateCompenentHook,
+  AfterComponentCreateHook,
   CreateWire,
   PositionComponent,
 } from "../../core/virtual-circuit/svg-create";
@@ -10,13 +10,12 @@ import type {
   SyncComponent,
 } from "../../core/virtual-circuit/svg-sync";
 import {
-  createGroundWire,
-  createPowerWire,
-  createWire,
+  createComponentWire,
+  createGroundOrPowerWire,
 } from "../../core/virtual-circuit/wire";
 import { DigitalPictureType, DigitalSensorState } from "./state";
 
-export const createDigitalSensor: CreateCompenentHook<DigitalSensorState> = (
+export const createDigitalSensor: AfterComponentCreateHook<DigitalSensorState> = (
   state,
   sensorEl,
   arduinoEl,
@@ -33,7 +32,8 @@ export const createDigitalSensor: CreateCompenentHook<DigitalSensorState> = (
   }
 
   if (state.pictureType === DigitalPictureType.TOUCH_SENSOR) {
-    (sensorEl.findOne("#SKIN_COLOR_CHANGE") as Element).node.style.fill = settings.touchSkinColor;
+    (sensorEl.findOne("#SKIN_COLOR_CHANGE") as Element).node.style.fill =
+      settings.touchSkinColor;
   }
 };
 
@@ -42,9 +42,17 @@ export const positionDigitalSensor: PositionComponent<DigitalSensorState> = (
   sensorEl,
   arduinoEl,
   draw,
-  board
+  board,
+  area
 ) => {
-  positionComponent(sensorEl, arduinoEl, draw, state.pin, "PIN_DATA", board);
+  const { holes, isDown } = area;
+
+  if (state.pictureType === DigitalPictureType.TOUCH_SENSOR) {
+    positionComponent(sensorEl, arduinoEl, draw, holes[2], isDown, "PIN_POWER");
+    return;
+  }
+
+  positionComponent(sensorEl, arduinoEl, draw, holes[2], isDown, "PIN_DATA");
 };
 
 export const resetDigitalSensor: ResetComponent = (componentEl: Element) => {
@@ -86,11 +94,20 @@ export const createWireDigitalSensor: CreateWire<DigitalSensorState> = (
   componentEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
   return state.pictureType === DigitalPictureType.SENSOR
-    ? createSensorWires(state, draw, componentEl, arduinoEl, id, board)
-    : createTouchSensorWires(state, draw, componentEl, arduinoEl, id, board);
+    ? createSensorWires(state, draw, componentEl, arduinoEl, id, board, area)
+    : createTouchSensorWires(
+        state,
+        draw,
+        componentEl,
+        arduinoEl,
+        id,
+        board,
+        area
+      );
 };
 
 const createSensorWires: CreateWire<DigitalSensorState> = (
@@ -99,36 +116,70 @@ const createSensorWires: CreateWire<DigitalSensorState> = (
   componentEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
     componentEl,
-    state.pin,
-    "PIN_DATA",
+    draw,
     arduinoEl,
-    draw,
-    "#228e0c",
-    "data-pin",
-    board
+    id,
+    "power"
   );
-  createGroundWire(
+
+  createComponentWire(
+    holes[1],
+    isDown,
     componentEl,
     state.pin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "right",
+    "PIN_DATA",
     board
   );
-  createPowerWire(
+
+  createGroundOrPowerWire(
+    holes[2],
+    isDown,
     componentEl,
-    state.pin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "left",
-    board
+    "ground"
   );
+
+  // createWire(
+  //   componentEl,
+  //   state.pin,
+  //   "PIN_DATA",
+  //   arduinoEl,
+  //   draw,
+  //   "#228e0c",
+  //   "data-pin",
+  //   board
+  // );
+  // createGroundWire(
+  //   componentEl,
+  //   state.pin,
+  //   arduinoEl as Svg,
+  //   draw,
+  //   id,
+  //   "right",
+  //   board
+  // );
+  // createPowerWire(
+  //   componentEl,
+  //   state.pin,
+  //   arduinoEl as Svg,
+  //   draw,
+  //   id,
+  //   "left",
+  //   board
+  // );
 };
 
 const createTouchSensorWires: CreateWire<DigitalSensorState> = (
@@ -137,36 +188,40 @@ const createTouchSensorWires: CreateWire<DigitalSensorState> = (
   componentEl,
   arduinoEl,
   id,
-  board
+  board,
+  area
 ) => {
-  createWire(
+  const { holes, isDown } = area;
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
+    componentEl,
+    draw,
+    arduinoEl,
+    id,
+    "power"
+  );
+
+  createComponentWire(
+    holes[0],
+    isDown,
     componentEl,
     state.pin,
-    "PIN_DATA",
-    arduinoEl,
     draw,
-    "#228e0c",
-    "data-pin",
+    arduinoEl,
+    id,
+    "PIN_DATA",
     board
   );
 
-  createPowerWire(
+  createGroundOrPowerWire(
+    holes[2],
+    isDown,
     componentEl,
-    state.pin,
-    arduinoEl as Svg,
     draw,
+    arduinoEl,
     id,
-    "right",
-    board
-  );
-  createGroundWire(
-    componentEl,
-    state.pin,
-    arduinoEl as Svg,
-    draw,
-    id,
-    "right",
-    board
+    "ground"
   );
 };
 

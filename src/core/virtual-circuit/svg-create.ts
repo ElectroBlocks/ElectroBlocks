@@ -75,7 +75,10 @@ import {
 } from "../../blocks/ultrasonic_sensor/virtual-circuit";
 import { getSvgString } from "./svg-string";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
-import type { MicroController } from "../microcontroller/microcontroller";
+import type {
+  BreadBoardArea,
+  MicroController,
+} from "../microcontroller/microcontroller";
 import {
   createButton,
   createWiresButton,
@@ -93,6 +96,7 @@ import {
   createWireAnalogSensors,
 } from "../../blocks/analogsensor/virtual-circuit";
 import type { Settings } from "../../firebase/model";
+import { takeBoardArea } from "./wire";
 
 export default (
   state: ArduinoComponentState,
@@ -107,17 +111,33 @@ export default (
   if (componentEl) {
     return;
   }
+
+  // only take an area if the component does
+  // not exist
+  const area = takeBoardArea();
+
   componentEl = createComponentEl(draw, state, getSvgString(state));
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;
-  positionComponentHookFunc[state.type](
-    state,
-    componentEl,
-    arduinoEl,
-    draw,
-    board
-  );
-  createWires[state.type](state, draw, componentEl, arduinoEl, id, board);
+  if (area) {
+    positionComponentHookFunc[state.type](
+      state,
+      componentEl,
+      arduinoEl,
+      draw,
+      board,
+      area
+    );
+    createWires[state.type](
+      state,
+      draw,
+      componentEl,
+      arduinoEl,
+      id,
+      board,
+      area
+    );
+  }
   createComponentHookFunc[state.type](
     state,
     componentEl,
@@ -134,11 +154,12 @@ export interface PositionComponent<T extends ArduinoComponentState> {
     componentEl: Element,
     arduinoEl: Element,
     draw: Svg,
-    board: MicroController
+    board: MicroController,
+    area?: BreadBoardArea
   ): void;
 }
 
-export interface CreateCompenentHook<T extends ArduinoComponentState> {
+export interface AfterComponentCreateHook<T extends ArduinoComponentState> {
   (
     state: T,
     componentEl: Element,
@@ -156,7 +177,8 @@ export interface CreateWire<T extends ArduinoComponentState> {
     component: Element,
     arduinoEl: Element,
     componentId: string,
-    board: MicroController
+    board: MicroController,
+    area?: BreadBoardArea
   ): void;
 }
 
@@ -165,7 +187,8 @@ const createNoWires: CreateWire<ArduinoComponentState> = (
   draw,
   component,
   arduino,
-  id
+  id,
+  area
 ) => {};
 
 const emptyPositionComponent: PositionComponent<ArduinoComponentState> = (
@@ -175,11 +198,12 @@ const emptyPositionComponent: PositionComponent<ArduinoComponentState> = (
   draw
 ) => {};
 
-const emptyCreateHookComponent: CreateCompenentHook<ArduinoComponentState> = (
+const emptyCreateHookComponent: AfterComponentCreateHook<ArduinoComponentState> = (
   state,
   componentEl,
   arduinoEl,
-  draw
+  draw,
+  wire
 ) => {};
 
 const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
@@ -225,7 +249,7 @@ const positionComponentHookFunc: {
 };
 
 const createComponentHookFunc: {
-  [key: string]: CreateCompenentHook<ArduinoComponentState>;
+  [key: string]: AfterComponentCreateHook<ArduinoComponentState>;
 } = {
   [ArduinoComponentType.BLUE_TOOTH]: bluetoothCreate,
   [ArduinoComponentType.BUTTON]: createButton,

@@ -6,7 +6,6 @@
   import { isPathOnHomePage } from "../helpers/is-path-on-homepage";
   import Nav from "../components/electroblocks/Nav.svelte";
   import Blockly from "../components/electroblocks/Blockly.svelte";
-  import Player from "../components/electroblocks/home/Player.svelte";
   import { resizeStore } from "../stores/resize.store";
   import { stores, goto } from "@sapper/app";
   import authStore from "../stores/auth.store";
@@ -23,15 +22,16 @@
   const { page } = stores();
   export let segment = "";
 
-  let isOnHomePage = false;
+  let showScrollOnRightSide = false;
+
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
   let showLoopExecutionTimesArduinoStartBlock;
   $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
 
   let height = "500px";
-  let leftFlex = 49;
-  let rightFlex = 49;
+  let leftFlex = 65;
+  let rightFlex = 33;
   let isResizing = false;
 
   /**
@@ -82,12 +82,15 @@
   onMount(() => {
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
-      isOnHomePage = isPathOnHomePage(path);
+      if (["/code", "/open", "/settings"].includes(path)) {
+        showScrollOnRightSide = true;
+      }
       // Calculates the height of the window
       // We know that if it's  the home page that we want less height
       // for the main window because we want to display the player component
-      const subtractSpace = isOnHomePage ? 140 : 50;
-      height = window.innerHeight - subtractSpace + "px";
+      const navBarHeight = document.querySelector("nav").clientHeight - 10;
+
+      height = window.innerHeight - navBarHeight + "px";
       // Hack to make sure everything update
       setTimeout(() => {
         resizeStore.mainWindow();
@@ -156,17 +159,16 @@
     <Blockly {showLoopExecutionTimesArduinoStartBlock} />
   </div>
   <div on:mousedown={startResize} id="grabber" />
-  <div style="flex: {rightFlex}" id="right_panel">
+  <div
+    style="flex: {rightFlex}"
+    class:scroll={showScrollOnRightSide}
+    id="right_panel"
+  >
     <slot />
   </div>
 </main>
 
 <!-- This means we are on the home page and need to display the player component -->
-
-{#if isOnHomePage}
-  <Player />
-{/if}
-
 <style>
   /** the container of all the elements */
   main {
@@ -185,6 +187,9 @@
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==);
   }
   #right_panel {
+    overflow: hidden;
+  }
+  #right_panel.scroll {
     overflow-y: scroll;
   }
 </style>

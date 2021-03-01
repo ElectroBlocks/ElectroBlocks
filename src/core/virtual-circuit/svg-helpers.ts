@@ -1,5 +1,6 @@
 import type { ArduinoComponentState } from "../frames/arduino.frame";
-import type { Element, Svg, Line } from "@svgdotjs/svg.js";
+import type { Element, Svg } from "@svgdotjs/svg.js";
+import { Line } from "@svgdotjs/svg.js";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 
 export const findComponentConnection = (
@@ -11,6 +12,25 @@ export const findComponentConnection = (
   return {
     x: connection.cx() + element.x(),
     y: connection.y() + connection.height() + element.y(),
+  };
+};
+
+export const findArduinoConnectionCenter = (
+  element: Element,
+  connectionId: string
+) => {
+  const connection = findSvgElement(connectionId, element);
+
+  if (connection instanceof Line) {
+    return {
+      x: connection.cx() + element.x(),
+      y: connection.plot()[0][1] + element.y(),
+    };
+  }
+
+  return {
+    x: connection.cx() + element.x(),
+    y: connection.cy() + element.y(),
   };
 };
 

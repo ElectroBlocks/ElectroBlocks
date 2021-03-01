@@ -2,9 +2,7 @@ import type {
   SyncComponent,
   ResetComponent,
 } from "../../core/virtual-circuit/svg-sync";
-import type {
-  CreateCompenentHook,
-} from "../../core/virtual-circuit/svg-create";
+import type { AfterComponentCreateHook } from "../../core/virtual-circuit/svg-create";
 
 import type { Text, Svg } from "@svgdotjs/svg.js";
 import {
@@ -49,7 +47,7 @@ export const arduinoMessageUpdate: SyncComponent = (state, _, draw, frame) => {
   );
 };
 
-export const arduinoMessageCreate: CreateCompenentHook<ArduinoReceiveMessageState> = (
+export const arduinoMessageCreate: AfterComponentCreateHook<ArduinoReceiveMessageState> = (
   _,
   __,
   arduino
