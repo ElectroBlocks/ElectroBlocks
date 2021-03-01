@@ -49,7 +49,7 @@ export const lcdPosition: PositionComponent<LCDScreenState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(lcdScreenEl, arduino, draw, holes[1], isDown, "PIN_SCL");
+  positionComponent(lcdScreenEl, arduino, draw, holes[1], isDown, "PIN_POWER");
 };
 
 export const lcdReset: ResetComponent = (lcdScreenEl: Element) => {
