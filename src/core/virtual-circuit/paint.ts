@@ -62,8 +62,8 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
     draw.children().forEach((c) => c.remove());
   }
 
-  draw.svg(getBoardSvg(board.type));
-  arduino = draw.findOne("#MicroController") as Element;
+  arduino = draw.svg(getBoardSvg(board.type)).last();
+  arduino.attr("id", "MicroController");
   arduino.data("type", board.type);
   arduino.node.id = "microcontroller_main_svg";
   arduino.findOne("#MESSAGE").hide();
@@ -74,7 +74,7 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   const zoomHeight = (draw.height() - minusAmount) / arduino.height();
   (draw as any).zoom(zoomHeight < zoomWidth ? zoomHeight : zoomWidth); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
   arduino.y(draw.viewbox().y2 - arduino.height());
-  arduino.x(0);
+  arduino.x(-30);
 
   // Events
 

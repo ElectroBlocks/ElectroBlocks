@@ -39,7 +39,6 @@ export interface MicroController {
   sckPins: string[];
   ssPins: string[];
   type: MicroControllerType;
-  pinToBreadboardHole: (pin: ARDUINO_PINS) => string;
   breadboard: Breadboard;
   skipHoles: number[];
   pinConnections: { [key: string]: PinConnection };

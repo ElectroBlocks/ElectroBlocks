@@ -1,40 +1,9 @@
 import {
   Breadboard,
-  BreadBoardArea,
   MicroControllerType,
   PinConnection,
 } from "../../core/microcontroller/microcontroller";
 import type { MicroController } from "../../core/microcontroller/microcontroller";
-
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-
-enum ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS {
-  PIN_13 = "pin2E",
-  PIN_12 = "pin6E",
-  PIN_11 = "pin9E",
-  PIN_10 = "pin13E",
-  PIN_9 = "pin18E",
-  PIN_8 = "pin22E",
-  PIN_7 = "pin27E",
-  PIN_6 = "pin31E",
-  PIN_5 = "pin37E",
-  PIN_4 = "pin41E",
-  PIN_3 = "pin46E",
-  PIN_2 = "pin51E",
-  PIN_A0 = "pin54E",
-  PIN_A1 = "pin58E",
-  PIN_A2 = "pin4F",
-  PIN_A3 = "pin8F",
-  PIN_A4 = "pin12F",
-  PIN_A5 = "pin16F",
-}
-
-const pinToBreadboardHole = (pin: ARDUINO_PINS): string => {
-  return (
-    ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS[`PIN_${pin}`] ||
-    ARDUINO_BREADBOARD_WIRES_CONNECT_POINTS.PIN_2
-  );
-};
 
 enum WIRE_COLORS {
   PURPLE = "#B637CC",
@@ -143,7 +112,6 @@ const unoArduino: MicroController = {
   sdaPins: ["A4"],
   serial_baud_rate: 9600,
   type: MicroControllerType.ARDUINO_UNO,
-  pinToBreadboardHole,
   breadboard,
   skipHoles: [
     6,
