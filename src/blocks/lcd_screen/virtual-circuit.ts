@@ -111,13 +111,12 @@ export const lcdUpdate: SyncComponent = (
 };
 
 const centerLetters = (lcdScreenEl: Element, lcdState: LCDScreenState) => {
-  const xStarting = lcdState.rows === 2 ? -5 : 0;
-  const yStarting = lcdState.rows === 2 ? 0 : -4;
   for (let row = 1; row <= lcdState.rows; row += 1) {
     for (let col = 1; col <= lcdState.columns; col += 1) {
       const letterEl = lcdScreenEl.findOne(`#letter-${col}-${row}`) as Element;
-      letterEl.x(xStarting);
-      letterEl.y(yStarting);
+      const spaceEl = lcdScreenEl.findOne(`#space-${col}-${row}`) as Element;
+      letterEl.cx(spaceEl.width() / 2 - letterEl.width() / 2);
+      letterEl.attr("y", "-2");
     }
   }
 };

@@ -71,8 +71,8 @@
 
   onMount(() => {
     setTimeout(() => {
-      top = mainSection.clientHeight - 170;
-      bottom = 150;
+      top = mainSection.clientHeight - 200;
+      bottom = 180;
     }, 1);
   });
 </script>
