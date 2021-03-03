@@ -42,10 +42,6 @@ const buttonSetupBlock: any = {
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");
-    this.setCommentText(
-      `This block (button setup) tells the Arduino which pin the button is using.${whatIsAPin}${virtualCircuitComment}`
-    );
-    this.comment.setBubbleSize(460, 171);
   },
 };
 
@@ -68,9 +64,6 @@ const isBtnPressedBlock: any = {
         "PIN"
       )
       .appendField("pressed?");
-    this.setCommentText("Returns true if the button is pressed.");
-    this.comment.setBubbleSize(310, 50);
-
     this.setOutput(true, "Boolean");
 
     this.setColour(COLOR_THEME.SENSOR);

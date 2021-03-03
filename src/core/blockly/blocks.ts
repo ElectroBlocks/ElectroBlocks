@@ -26,3 +26,5 @@ import "../../blocks/temperature/blocks";
 import "../../blocks/text/blocks";
 import "../../blocks/time/blocks";
 import "../../blocks/variables/blocks";
+
+import "../../blocks/thermistor/blocks";

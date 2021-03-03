@@ -29,6 +29,7 @@ export enum PinCategory {
   RFID = "RFID",
   SERVO = "SERVO",
   TEMP = "TEMP",
+  THERMISTOR = "THERMISTOR",
 }
 
 // These are block type require being put into a setup, loop or function block
@@ -66,6 +67,7 @@ export const standAloneBlocks = [
   "led_matrix_setup",
   "digital_read_setup",
   "ultra_sonic_sensor_setup",
+  "thermistor_setup",
 ];
 
 export const multipleTopBlocks = [
@@ -86,6 +88,7 @@ export const sensorSetupBlocks = [
   "ultra_sonic_sensor_setup",
   "temp_setup",
   "soil_sensor_setup",
+  "thermistor_read",
 ];
 
 /**
@@ -121,6 +124,7 @@ export const blocksThatRequireSetup = {
   analog_read: "analog_read_setup",
   ultra_sonic_sensor_motion: "ultra_sonic_sensor_setup",
   time_seconds: "time_setup",
+  thermistor_read: "thermistor_setup",
 };
 
 /**
@@ -142,6 +146,7 @@ export const setupBlockTypeToHumanName = {
   ultra_sonic_sensor_setup: "ultra sonic sensor setup block",
   led_matrix_setup: "led matrix setup block",
   time_setup: "time setup block",
+  thermistor_setup: "thermistor setup block",
 };
 
 export const blocksToBlockTypes: {
@@ -424,6 +429,16 @@ export const blocksToBlockTypes: {
   temp_setup: { type: BlockType.SENSOR_SETUP, pinCategory: PinCategory.TEMP },
   temp_get_temp: { type: BlockType.SENSOR_READ, pinCategory: PinCategory.NONE },
   temp_get_humidity: {
+    type: BlockType.SENSOR_READ,
+    pinCategory: PinCategory.NONE,
+  },
+
+  thermistor_setup: {
+    type: BlockType.SENSOR_SETUP,
+    pinCategory: PinCategory.THERMISTOR,
+  },
+
+  thermistor_read: {
     type: BlockType.SENSOR_READ,
     pinCategory: PinCategory.NONE,
   },

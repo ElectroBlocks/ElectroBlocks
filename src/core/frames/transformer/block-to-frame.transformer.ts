@@ -67,6 +67,7 @@ import { setVariable } from "../../../blocks/variables/blocktoframe";
 import { rfidSetup } from "../../../blocks/rfid/blocktoframe";
 import { servoRotate } from "../../../blocks/servo/blocktoframe";
 import { tempSetupSensor } from "../../../blocks/temperature/blocktoframe";
+import { thermistorSetup } from "../../../blocks/thermistor/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (
@@ -140,6 +141,8 @@ const blockToFrameTransformerList: {
 
   rotate_servo: servoRotate,
   move_motor: moveMotor,
+
+  thermistor_setup: thermistorSetup,
 };
 
 export const generateFrame: BlockToFrameTransformer = (

@@ -15,6 +15,8 @@ Blockly.Blocks["board_selector"] = {
     this.setTooltip("");
     this.setHelpUrl("");
     this.setCommentText("Tells Arduino simulator type of Arduino use.");
-    this.comment.setBubbleSize(460, 70);
+    if (typeof this.comment !== "string") {
+      this.comment.setBubbleSize(460, 70);
+    }
   },
 };

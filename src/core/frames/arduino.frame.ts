@@ -76,6 +76,7 @@ export enum ArduinoComponentType {
   IR_REMOTE = "IR_REMOTE_COMPONENT",
   ULTRASONICE_SENSOR = "ULTRASONICE_SENSOR_COMPONENT",
   TEMPERATURE_SENSOR = "TEMPERATURE_SENSOR_COMPONENT",
+  THERMISTOR = "THERMISTOR",
 }
 
 export const SENSOR_COMPONENTS = [
@@ -89,4 +90,5 @@ export const SENSOR_COMPONENTS = [
   ArduinoComponentType.MESSAGE,
   ArduinoComponentType.DIGITAL_SENSOR,
   ArduinoComponentType.ANALOG_SENSOR,
+  ArduinoComponentType.THERMISTOR,
 ];

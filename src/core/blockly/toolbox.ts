@@ -27,6 +27,8 @@ import servoXMLString from "../../blocks/servo/toolbox";
 import temperatureXMLString from "../../blocks/temperature/toolbox";
 import textXMLString from "../../blocks/text/toolbox";
 
+import thermistorXMLString from "../../blocks/thermistor/toolbox";
+
 import { COLOR_THEME } from "./constants/colors";
 
 export interface ToolBoxEntries {
@@ -144,12 +146,12 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Motion Sensor", xml: ultraSonicXMLString },
       { name: "RFID", xml: rfidXMLString },
       { name: "Temperature/Humidity", xml: temperatureXMLString },
+      { name: "Thermistor", xml: thermistorXMLString },
     ],
   },
 ];
 
 export const getToolBoxString = (): string => {
-  
   const toolboxOptions = defaultToolbox; // TODO Make this dynamic
   let toolbox = `<xml
     xmlns="https://developers.google.com/blockly/xml"
@@ -177,6 +179,6 @@ export const getToolBoxString = (): string => {
 
 function getMenuItems(toolBoxEntries: ToolBoxEntry[]) {
   return toolBoxEntries.reduce((acc, next) => {
-      return acc + next.xml;    
+    return acc + next.xml;
   }, "");
 }

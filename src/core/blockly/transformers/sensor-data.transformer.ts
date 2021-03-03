@@ -2,7 +2,10 @@ import _ from "lodash";
 
 import type { Sensor } from "../dto/sensors.type";
 import type { BlockData } from "../dto/block.type";
-import type { Timeline, ArduinoComponentState } from "../../frames/arduino.frame";
+import type {
+  Timeline,
+  ArduinoComponentState,
+} from "../../frames/arduino.frame";
 import { bluetoothSetupBlockToSensorData } from "../../../blocks/bluetooth/setupblocktosensordata";
 import { buttonSetupBlockToSensorData } from "../../../blocks/button/setupblocktosensordata";
 import { bluetoothSetupBlockToComponentState } from "../../../blocks/bluetooth/setupblocktocomponentstate";
@@ -23,6 +26,8 @@ import { rfidSetupBlockToSensorData } from "../../../blocks/rfid/setupblocktosen
 import { rfidSetupBlockToComponentState } from "../../../blocks/rfid/setupblocktocomponentstate";
 import { temperatureSetupBlockToSensorData } from "../../../blocks/temperature/setupblocktosensordata";
 import { temperatureSetupBlockToComponentState } from "../../../blocks/temperature/setupblocktocomponentstate";
+import { thermistorSetupBlockToSensorData } from "../../../blocks/thermistor/setupblocktosensordata";
+import { thermistorSetupBlockToComponentState } from "../../../blocks/thermistor/setupblocktocomponentstate";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -43,6 +48,7 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   time_setup: timeSetupBlockToSensorData,
   ultra_sonic_sensor_setup: ultraSonicSetupBlockToSensorData,
   message_setup: messageSetupBlockToSensorData,
+  thermistor_setup: thermistorSetupBlockToSensorData,
 };
 
 const blockToSensorComponent: {
@@ -58,6 +64,7 @@ const blockToSensorComponent: {
   time_setup: timeSetupBlockToComponentState,
   ultra_sonic_sensor_setup: ultraSonicSetupBlockToComponentState,
   message_setup: messageSetupBlockToComponentState,
+  thermistor_setup: thermistorSetupBlockToComponentState,
 };
 
 export const sensorSetupBlockName = _.keys(blockToSensorComponent);

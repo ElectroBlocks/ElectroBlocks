@@ -26,12 +26,6 @@ Blockly.Blocks["led"] = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
-
-    this.setCommentText(
-      `Turn on or off the led attached to the pin in the dropdown box.${whatIsAPin}`
-    );
-    this.comment.setBubbleSize(460, 117);
-
   },
 };
 
@@ -53,10 +47,5 @@ Blockly.Blocks["led_fade"] = {
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
-    this.setCommentText(
-      `This block controls the amount of electricity going into the led attached to the pin in the dropdown box.  It has a fade effect on the led light.${whatIsAPin}`
-    );
-    this.comment.setBubbleSize(460, 145);
-
   },
 };

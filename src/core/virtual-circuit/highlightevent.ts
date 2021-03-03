@@ -15,7 +15,7 @@ export const registerHighlightEvents = (arduino: Element) => {
         if (BOTTOM_MIDDLE_HOLES.includes(letter)) {
           BOTTOM_MIDDLE_HOLES.forEach((l) => {
             arduino.find(`#pin${number}${l} path`).forEach((path) => {
-              path.fill("#09bd21");
+              path.node.style.fill = "#09bd21";
             });
           });
         }
@@ -23,7 +23,7 @@ export const registerHighlightEvents = (arduino: Element) => {
         if (TOP_MIDDLE_HOLES.includes(letter)) {
           TOP_MIDDLE_HOLES.forEach((l) => {
             arduino.find(`#pin${number}${l} path`).forEach((path) => {
-              path.fill("#09bd21");
+              path.node.style.fill = "#09bd21";
             });
           });
         }
@@ -31,7 +31,7 @@ export const registerHighlightEvents = (arduino: Element) => {
         if (RAILS.includes(letter)) {
           for (let i = 3; i <= 61; i += 1) {
             arduino.find(`#pin${i}${letter} path`).forEach((path) => {
-              path.fill("#09bd21");
+              path.node.style.fill = "#09bd21";
             });
           }
         }
@@ -49,11 +49,11 @@ export const registerHighlightEvents = (arduino: Element) => {
           BOTTOM_MIDDLE_HOLES.forEach((l) => {
             (arduino.findOne(
               `#pin${number}${l} path:first-of-type`
-            ) as Element).fill("#bfbfbf");
+            ) as Element).node.style.fill = "#bfbfbf";
 
             (arduino.findOne(
               `#pin${number}${l} path:last-of-type`
-            ) as Element).fill("#e6e6e6");
+            ) as Element).node.style.fill = "#e6e6e6";
           });
         }
 
@@ -61,11 +61,11 @@ export const registerHighlightEvents = (arduino: Element) => {
           TOP_MIDDLE_HOLES.forEach((l) => {
             (arduino.findOne(
               `#pin${number}${l} path:first-of-type`
-            ) as Element).fill("#bfbfbf");
+            ) as Element).node.style.fill = "#bfbfbf";
 
             (arduino.findOne(
               `#pin${number}${l} path:last-of-type`
-            ) as Element).fill("#e6e6e6");
+            ) as Element).node.style.fill = "#e6e6e6";
           });
         }
 
@@ -79,8 +79,8 @@ export const registerHighlightEvents = (arduino: Element) => {
             );
 
             if (bottomPath && getTopBlocks) {
-              (bottomPath as Element).fill("#e6e6e6");
-              (topPath as Element).fill("#bfbfbf");
+              (bottomPath as Element).node.style.fill = "#e6e6e6";
+              (topPath as Element).node.style.fill = "#bfbfbf";
             }
           }
         }
