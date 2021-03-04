@@ -9,12 +9,14 @@ import type {
 } from "../../core/virtual-circuit/svg-create";
 
 import type { ThermistorState } from "./state";
-import type { Element, Svg } from "@svgdotjs/svg.js";
-import resistorSvg from "../../core/virtual-circuit/commonsvgs/resistors/resistor-tiny.svg";
+import type { Svg, Text, Element } from "@svgdotjs/svg.js";
 
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import { MicroController } from "../../core/microcontroller/microcontroller";
+import {
+  createGroundOrPowerWire,
+  createResistor,
+  createWireFromArduinoToBreadBoard,
+} from "../../core/virtual-circuit/wire";
 
 export const positionThermistorSensor: PositionComponent<ThermistorState> = (
   state,
@@ -25,18 +27,32 @@ export const positionThermistorSensor: PositionComponent<ThermistorState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(thermistorEl, arduinoEl, draw, holes[0], isDown, "PIN_GND");
+  positionComponent(
+    thermistorEl,
+    arduinoEl,
+    draw,
+    holes[0],
+    isDown,
+    "PIN_POWER"
+  );
 };
 
 export const createThermistorSensorHook: AfterComponentCreateHook<ThermistorState> = (
   state,
   thermistorEl
-) => {};
+) => {
+  const textEl = thermistorEl.findOne("#WIRE_TEXT") as Text;
+  textEl.node.textContent = state.pins[0];
+};
 
 export const updateThermistorSensor: SyncComponent = (
   state: ThermistorState,
   thermistorEl
-) => {};
+) => {
+  const textEl = thermistorEl.findOne("#TEMP_TEXT") as Text;
+  textEl.node.textContent = `${state.temp}°`;
+  textEl.cx(21);
+};
 
 export const resetThermistorSensor: ResetComponent = (thermistorEl) => {};
 
@@ -44,7 +60,42 @@ export const createThermistorWires: CreateWire<ThermistorState> = (
   state,
   draw,
   componentEl,
-  arduionEl,
+  arduinoEl,
   id,
-  board
-) => {};
+  board,
+  area
+) => {
+  const { holes, isDown } = area;
+
+  createGroundOrPowerWire(
+    holes[0],
+    isDown,
+    componentEl,
+    draw,
+    arduinoEl,
+    id,
+    "power"
+  );
+
+  createResistor(arduinoEl, draw, holes[1], isDown, id, "horizontal");
+
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
+    componentEl,
+    draw,
+    arduinoEl,
+    id,
+    "ground"
+  );
+
+  const holeId = `pin${holes[3]}${isDown ? "A" : "J"}`;
+  createWireFromArduinoToBreadBoard(
+    state.pins[0],
+    arduinoEl as Svg,
+    draw,
+    holeId,
+    id,
+    board
+  );
+};

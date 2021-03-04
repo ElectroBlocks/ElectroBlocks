@@ -1,6 +1,7 @@
 import { Element, Line, Svg } from "@svgdotjs/svg.js";
 import _ from "lodash";
 import resistorSvg from "../virtual-circuit/commonsvgs/resistors/resistor-small.svg";
+import horizontalResistorSvg from "../virtual-circuit/commonsvgs/resistors/resistor-small-horizontal.svg";
 
 import {
   Breadboard,
@@ -41,6 +42,8 @@ export const createWireFromArduinoToBreadBoard = (
   componentId: string,
   board: MicroController
 ) => {
+  showPin(draw, pin);
+
   const hole = findBreadboardHoleXY(breadBoardHoleId, arduinoEl, draw);
   const pinConnection = board.pinConnections[pin];
   const arduinoPin = findArduinoConnectionCenter(arduinoEl, pinConnection.id);
@@ -64,18 +67,15 @@ export const createWireComponentToBreadboard = (
   componentId: string,
   color: string
 ) => {
-  console.log(holeId, componentConnectionId, "look");
   const hole = findBreadboardHoleXY(holeId, arduinoEl, draw);
   const componentPin = findComponentConnection(
     componentEl,
     componentConnectionId
   );
-  console.log(componentConnectionId, componentPin, "loop");
   const line = draw
     .line()
     .plot(hole.x, hole.y, componentPin.x, componentPin.y)
     .stroke({ width: 2, color, linecap: "round" });
-  (window as any).WIRE_TEST = line;
   line.data("connection-id", componentConnectionId);
   line.data("component-id", componentId);
   line.data("type", "wire");
@@ -174,7 +174,6 @@ export const createComponentWire = (
 ) => {
   const holeId = `pin${hole}${isDown ? "E" : "F"}`;
   const breadboardHoleIdToBoard = `pin${hole}${isDown ? "A" : "J"}`;
-  console.log(board.pinConnections, pin, "record");
   const color = board.pinConnections[pin].color;
   createWireComponentToBreadboard(
     holeId,
@@ -185,8 +184,6 @@ export const createComponentWire = (
     componentId,
     color
   );
-
-  showPin(draw, pin);
 
   createWireFromArduinoToBreadBoard(
     pin,
@@ -223,20 +220,28 @@ export const findResistorBreadboardHoleXY = (
   };
 };
 
-export const createResistorVertical = (
+export const createResistor = (
   arduino: Svg | Element,
   draw: Svg,
   hole: number,
   isDown: boolean,
-  componentId: string
+  componentId: string,
+  direction: "vertical" | "horizontal"
 ) => {
-  const resistorEl = draw.svg(resistorSvg).last();
+  const svgString =
+    direction === "vertical" ? resistorSvg : horizontalResistorSvg;
+  const resistorEl = draw.svg(svgString).last();
   resistorEl.data("component-id", componentId);
   const holeId = `pin${hole}${isDown ? "D" : "I"}`;
 
   const { x, y } = findResistorBreadboardHoleXY(holeId, arduino, draw);
-  resistorEl.cx(x);
-  resistorEl.y(y);
+  if (direction === "vertical") {
+    resistorEl.cx(x);
+    resistorEl.y(y);
+  } else {
+    resistorEl.x(x - 1);
+    resistorEl.y(y - 2);
+  }
 };
 
 export const resetBreadBoardHoles = (board: MicroController) => {

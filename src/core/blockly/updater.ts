@@ -35,7 +35,6 @@ const updateSetupSensorBlockFields = (action: UpdateSetupSensorBlockFields) => {
   action.fields
     .filter((field) => block.getField(field.name))
     .forEach((field) => {
-      console.log("look", field, field.value);
       const blocklyField = block.getField(field.name);
       if (blocklyField instanceof Blockly.FieldCheckbox) {
         block.setFieldValue(

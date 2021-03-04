@@ -21,8 +21,8 @@ Blockly.Blocks["thermistor_setup"] = {
       .appendField("Loop")
       .appendField(new Blockly.FieldDropdown(() => loopTimes()), "LOOP");
     this.appendDummyInput()
-      .appendField("Temperature")
-      .appendField(new Blockly.FieldNumber(0, -500, 500), "TEMP");
+      .appendField("Temperature in °C")
+      .appendField(new Blockly.FieldNumber(23, -500, 500), "TEMP");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

@@ -15,7 +15,7 @@ import { rgbToHex } from "../../core/blockly/helpers/color.helper";
 import {
   createComponentWire,
   createGroundOrPowerWire,
-  createResistorVertical,
+  createResistor,
 } from "../../core/virtual-circuit/wire";
 
 export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
@@ -122,8 +122,8 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
   );
 
   if (state.pictureType == "BREADBOARD") {
-    createResistorVertical(arduino, draw, holes[0], isDown, id);
-    createResistorVertical(arduino, draw, holes[2], isDown, id);
-    createResistorVertical(arduino, draw, holes[maxLength], isDown, id);
+    createResistor(arduino, draw, holes[0], isDown, id, "vertical");
+    createResistor(arduino, draw, holes[2], isDown, id, "vertical");
+    createResistor(arduino, draw, holes[maxLength], isDown, id, "vertical");
   }
 };

@@ -43,7 +43,6 @@ settingStore.subscribe((newSettings) => {
 
 const registerEvents = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(async (blocklyEvent) => {
-    console.log(blocklyEvent, "blockly event");
     if (
       blocklyEvent.element === "disabled" ||
       // Means a modal is opening
@@ -74,7 +73,6 @@ const registerEvents = (workspace: WorkspaceSvg) => {
       ...disableSensorReadBlocksWithWrongPins(event),
       ...disableBlocksThatNeedASetupBlock(event),
     ];
-    console.log(firstActionPass, 'firstActionPass');
     firstActionPass.forEach((a) => updater(a));
     enableBlocks(
       firstActionPass.filter(
@@ -106,7 +104,7 @@ const registerEvents = (workspace: WorkspaceSvg) => {
         (a) => a.type === ActionType.DISABLE_BLOCK
       ) as DisableBlock[]
     );
-    
+
     if (secondActionPass.filter((a) => a.stopCompiling).length >= 1) {
       currentFrameContainter = {
         error: true,
@@ -139,11 +137,9 @@ const registerEvents = (workspace: WorkspaceSvg) => {
     );
 
     const newFrameContainer = eventToFrameFactory(refreshEvent, settings);
-    console.log("new frames", newFrameContainer);
 
     if (!_.isEqual(newFrameContainer, currentFrameContainter)) {
       currentFrameContainter = newFrameContainer;
-      console.log(refreshEvent, "arduinoStateEvent");
       frameStore.set(currentFrameContainter);
     }
     codeStore.set({ code: getArduinoCode(), boardType: microControllerType });

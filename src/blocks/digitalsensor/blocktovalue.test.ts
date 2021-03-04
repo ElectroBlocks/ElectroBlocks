@@ -64,7 +64,6 @@ describe("sensor value blocks", () => {
       createTestEvent(digitalReadSetupBlock.id)
     ).frames;
 
-    console.log(frame1, frame2);
     expect(frame1.variables["isOn"].value).toBeTruthy();
     expect(frame2.variables["isOn"].value).toBeFalsy();
     expect(frame3.variables["isOn"].value).toBeTruthy();
