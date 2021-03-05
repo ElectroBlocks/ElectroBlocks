@@ -3,6 +3,7 @@ import { ArduinoComponentState } from "../../core/frames/arduino.frame";
 
 export interface ThermistorState extends ArduinoComponentState {
   temp: number;
+  thermistorsOhms: number;
 }
 
 export interface ThermistorSensor extends Sensor {

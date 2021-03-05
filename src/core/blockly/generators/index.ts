@@ -29,3 +29,4 @@ import "../../../blocks/temperature/generators";
 import "../../../blocks/text/generators";
 import "../../../blocks/time/generators";
 import "../../../blocks/variables/generators";
+import "../../../blocks/thermistor/generators";
