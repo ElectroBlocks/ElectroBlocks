@@ -18,6 +18,6 @@ export const thermistorSetupBlockToComponentState = (
     type: ArduinoComponentType.THERMISTOR,
     pins: [findFieldValue(block, "PIN") as ARDUINO_PINS],
     temp: sensorData.temp,
-    thermistorsOhms: +findFieldValue(block, "THERMISTOR_RESISTANCE"),
+    externalResistorsOhms: +findFieldValue(block, "NONIMAL_RESISTANCE"),
   };
 };

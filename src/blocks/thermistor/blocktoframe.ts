@@ -18,7 +18,7 @@ export const thermistorSetup: BlockToFrameTransformer = (
     pins: block.pins,
     type: ArduinoComponentType.THERMISTOR,
     temp: sensorData.temp,
-    thermistorsOhms: +findFieldValue(block, "THERMISTOR_RESISTANCE"),
+    externalResistorsOhms: +findFieldValue(block, "NONIMAL_RESISTANCE"),
   };
 
   return [

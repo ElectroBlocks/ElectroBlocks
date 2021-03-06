@@ -84,7 +84,7 @@ export const createThermistorWires: CreateWire<ThermistorState> = (
     isDown,
     id,
     "horizontal",
-    state.thermistorsOhms
+    state.externalResistorsOhms
   );
 
   createGroundOrPowerWire(
