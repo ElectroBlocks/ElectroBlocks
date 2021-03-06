@@ -14,6 +14,7 @@ import {
   findComponentConnection,
   findArduinoConnectionCenter,
 } from "./svg-helpers";
+import { ohmsToBands } from "./resistor-color-calculator";
 
 let breadboard: Breadboard = {
   areas: [],
@@ -226,11 +227,18 @@ export const createResistor = (
   hole: number,
   isDown: boolean,
   componentId: string,
-  direction: "vertical" | "horizontal"
+  direction: "vertical" | "horizontal",
+  ohms: number
 ) => {
   const svgString =
     direction === "vertical" ? resistorSvg : horizontalResistorSvg;
   const resistorEl = draw.svg(svgString).last();
+
+  const [bandColor1, bandColor2, bandColor3] = ohmsToBands(ohms);
+
+  resistorEl.findOne("#BAND_1").node.style.stroke = bandColor1;
+  resistorEl.findOne("#BAND_2").node.style.stroke = bandColor2;
+  resistorEl.findOne("#BAND_3").node.style.stroke = bandColor3;
   resistorEl.data("component-id", componentId);
   const holeId = `pin${hole}${isDown ? "D" : "I"}`;
 

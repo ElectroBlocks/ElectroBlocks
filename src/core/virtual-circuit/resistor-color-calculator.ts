@@ -1,5 +1,3 @@
-import { Color } from "../frames/arduino.frame";
-
 const resistorIndex = [
   "BLACK",
   "BROWN",
@@ -26,7 +24,7 @@ const resistorColor = {
   BLACK: "#000000",
 };
 
-export const ohmsToBand = (ohms: number): [string, string, string] => {
+export const ohmsToBands = (ohms: number): [string, string, string] => {
   console.log(ohms, "ohms origin");
   const firstColor = resistorColor[resistorIndex[+ohms.toString()[0]]];
   const secondColor = resistorColor[resistorIndex[+ohms.toString()[1]]];

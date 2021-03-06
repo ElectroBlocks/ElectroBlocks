@@ -122,8 +122,16 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
   );
 
   if (state.pictureType == "BREADBOARD") {
-    createResistor(arduino, draw, holes[0], isDown, id, "vertical");
-    createResistor(arduino, draw, holes[2], isDown, id, "vertical");
-    createResistor(arduino, draw, holes[maxLength], isDown, id, "vertical");
+    createResistor(arduino, draw, holes[0], isDown, id, "vertical", 1000);
+    createResistor(arduino, draw, holes[2], isDown, id, "vertical", 1000);
+    createResistor(
+      arduino,
+      draw,
+      holes[maxLength],
+      isDown,
+      id,
+      "vertical",
+      1000
+    );
   }
 };

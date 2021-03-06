@@ -8,8 +8,8 @@
   <g id="base">
     <rect x="2.57" width="10" height="6" style="fill: #efd49e"/>
   </g>
-  <line id="BAND_4" x1="4" x2="4" y2="6" style="fill: #c1272d;stroke: #93581c;stroke-miterlimit: 10"/>
+  <line id="BAND_4" x1="11" x2="11" y2="6" style="fill: #c1272d;stroke: #ffff4d;stroke-miterlimit: 10"/>
   <line id="BAND_3" x1="8.52" x2="8.52" y2="6" style="fill: #c1272d;stroke: #93581c;stroke-miterlimit: 10"/>
-  <line id="BAND_2" x1="11" x2="11" y2="6" style="fill: #c1272d;stroke: #ffff4d;stroke-miterlimit: 10"/>
-  <line id="BAND_1" x1="6.26" x2="6.26" y2="6" style="fill: #c1272d;stroke: #1d9135;stroke-miterlimit: 10"/>
+  <line id="BAND_2" x1="6.26" x2="6.26" y2="6" style="fill: #c1272d;stroke: #1d9135;stroke-miterlimit: 10"/>
+  <line id="BAND_1" x1="4" x2="4" y2="6" style="fill: #c1272d;stroke: #93581c;stroke-miterlimit: 10"/>
 </svg>

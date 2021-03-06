@@ -77,7 +77,15 @@ export const createThermistorWires: CreateWire<ThermistorState> = (
     "power"
   );
 
-  createResistor(arduinoEl, draw, holes[1], isDown, id, "horizontal");
+  createResistor(
+    arduinoEl,
+    draw,
+    holes[1],
+    isDown,
+    id,
+    "horizontal",
+    state.thermistorsOhms
+  );
 
   createGroundOrPowerWire(
     holes[1],

@@ -127,6 +127,7 @@ export const createWiresLed: CreateWire<LedState> = (
     holes[3],
     isDown,
     arduinoComponentStateToId(state),
-    "vertical"
+    "vertical",
+    300
   );
 };

@@ -3,22 +3,38 @@ import type { Block } from "blockly";
 
 Blockly["Arduino"]["thermistor_setup"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
-  Blockly["Arduino"].setupCode_["thermistor_setup_" + pin] =
-    "\tpinMode(" + pin + ", INPUT); \n";
+  const thermistorResistance = block.getFieldValue("THERMISTOR_RESISTANCE");
+  const externalResistor = block.getFieldValue("NONIMAL_RESISTANCE");
+  const defaultTemp = block.getFieldValue("DEFAULT_TEMP");
+  const bValue = block.getFieldValue("B_VALUE");
 
-  Blockly["Arduino"].functionNames_[
-    "thermistorCelsius"
-  ] = `double thermistorCelsius() {
-  int tempReading = analogRead(${pin});
-  // This is OK
-  double tempK = log(10000.0 * ((1024.0 / tempReading - 1)));
-  tempK = 1 / (0.001129148 + (0.000234125 + (0.0000000876741 * tempK * tempK )) * tempK );       //  Temp Kelvin
-  return tempK - 273.15;            // Convert Kelvin to Celcius
-}`;
+  Blockly["Arduino"].libraries_["include_motor_library"] = `
+#include <Thermistor.h>
+#include <NTC_Thermistor.h>
 
+#define SENSOR_PIN             ${pin}
+#define REFERENCE_RESISTANCE   ${externalResistor}
+#define NOMINAL_RESISTANCE     ${thermistorResistance}
+#define NOMINAL_TEMPERATURE    ${defaultTemp}
+#define B_VALUE                ${bValue}
+
+Thermistor* thermistor;
+`;
+
+  Blockly["Arduino"].setupCode_[
+    "thermistor_setup_" + pin
+  ] = `\tthermistor = new NTC_Thermistor(
+        SENSOR_PIN,
+        REFERENCE_RESISTANCE,
+        NOMINAL_RESISTANCE,
+        NOMINAL_TEMPERATURE,
+        B_VALUE
+      );
+      
+      `;
   return "";
 };
 
 Blockly["Arduino"]["thermistor_read"] = function (block: Block) {
-  return ["thermistorCelsius()", Blockly["Arduino"].ORDER_ATOMIC];
+  return ["thermistor->readCelsius()", Blockly["Arduino"].ORDER_ATOMIC];
 };
