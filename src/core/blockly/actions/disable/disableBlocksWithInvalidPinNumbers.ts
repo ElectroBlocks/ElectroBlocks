@@ -21,7 +21,6 @@ export const disableBlocksWithInvalidPinNumbers = (
       })
     )
     .map((block) => {
-      console.log("disable bad pins");
       return {
         type: ActionType.DISABLE_BLOCK,
         warningText:

@@ -29,7 +29,9 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       this.setCommentText(
         `This block gets the value that the variable is storing.  This variable store a ${type}.`
       );
-      this.comment.setBubbleSize(460, 80);
+      if (typeof this.comment !== "string") {
+        this.comment.setBubbleSize(460, 80);
+      }
     },
   };
 
@@ -56,7 +58,9 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       this.setCommentText(
         `The value of the variable is what the variable is storing. Variables in Arduino will only store a specific type of data.  This variable will store ${humanType} only.`
       );
-      this.comment.setBubbleSize(460, 90);
+      if (typeof this.comment !== "string") {
+        this.comment.setBubbleSize(460, 90);
+      }
     },
   };
 });

@@ -30,7 +30,9 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       this.setCommentText(
         `This block creates a list of ${humanType}s.  The size determines how many ${humanType}s are in the list.`
       );
-      this.comment.setBubbleSize(460, 80);
+      if (typeof this.comment !== "string") {
+        this.comment.setBubbleSize(460, 80);
+      }
     },
   };
 
@@ -58,7 +60,9 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       this.setCommentText(
         `This block puts a ${humanType} into the list.  The position determines where in the list the ${humanType} will be.  The first ${humanType} in the list starts at position 1.`
       );
-      this.comment.setBubbleSize(460, 120);
+      if (typeof this.comment !== "string") {
+        this.comment.setBubbleSize(460, 120);
+      }
     },
   };
 
@@ -81,7 +85,9 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       this.setCommentText(
         `This block gets a ${humanType} from the list.  The position determines where in the list you are getting the ${humanType}.  The first ${humanType} in the list starts at position 1.`
       );
-      this.comment.setBubbleSize(460, 120);
+      if (typeof this.comment !== "string") {
+        this.comment.setBubbleSize(460, 120);
+      }
     },
   };
 });

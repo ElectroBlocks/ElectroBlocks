@@ -16,7 +16,7 @@ import type { LedState } from "./state";
 import {
   createComponentWire,
   createGroundOrPowerWire,
-  createResistorVertical,
+  createResistor,
 } from "../../core/virtual-circuit/wire";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
@@ -121,11 +121,13 @@ export const createWiresLed: CreateWire<LedState> = (
     board
   );
 
-  createResistorVertical(
+  createResistor(
     arduino,
     draw,
     holes[3],
     isDown,
-    arduinoComponentStateToId(state)
+    arduinoComponentStateToId(state),
+    "vertical",
+    300
   );
 };

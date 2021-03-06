@@ -16,8 +16,6 @@ import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import {
   createComponentWire,
   createGroundOrPowerWire,
-  createWireBreadboard,
-  createWireComponentToBreadboard,
 } from "../../core/virtual-circuit/wire";
 
 export const analogSensorCreate: AfterComponentCreateHook<AnalogSensorState> = (

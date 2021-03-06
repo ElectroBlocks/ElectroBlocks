@@ -8,6 +8,9 @@ import buttonSvgString from "../../blocks/button/button.svg";
 import writePinSvgString from "../../blocks/writepin/writepin.svg";
 import irRemoteSvgString from "../../blocks/ir_remote/ir_remote.svg";
 import ledmatrixSvgString from "../../blocks/led_matrix/ledmatrix.svg";
+
+import thermistorSvgString from "../../blocks/thermistor/thermistor.svg";
+
 import motorSvgString from "../../blocks/motors/motor.svg";
 import neopixelSvgString from "../../blocks/neopixels/neopixel.svg";
 import rfidSvgString from "../../blocks/rfid/rfid.svg";
@@ -49,4 +52,5 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.LED]: getLedSvgString,
   [ArduinoComponentType.WRITE_PIN]: (_) => writePinSvgString,
   [ArduinoComponentType.ANALOG_SENSOR]: getAnalogSensorSvg,
+  [ArduinoComponentType.THERMISTOR]: (_) => thermistorSvgString,
 };

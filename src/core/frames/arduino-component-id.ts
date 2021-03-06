@@ -35,6 +35,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.WRITE_PIN]: writePinId,
   [ArduinoComponentType.DIGITAL_SENSOR]: getDigitalSensorId,
   [ArduinoComponentType.ANALOG_SENSOR]: getAnalogSensorId,
+  [ArduinoComponentType.THERMISTOR]: genericSingleComponentId,
 };
 
 export const arduinoComponentStateToId = (

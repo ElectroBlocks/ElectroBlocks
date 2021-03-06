@@ -12,7 +12,5 @@ Blockly.Blocks["debug_block"] = {
     this.setColour(COLOR_THEME.ARDUINO);
     this.setTooltip("");
     this.setHelpUrl("");
-    this.setCommentText('Pauses the Arduino while it’s running and prints out the variables.');
-    this.comment.setBubbleSize(460, 70);
   },
 };
