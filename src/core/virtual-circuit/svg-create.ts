@@ -102,6 +102,11 @@ import {
   createThermistorWires,
   positionThermistorSensor,
 } from "../../blocks/thermistor/virtual-circuit";
+import {
+  afterCreatePassiveBuzzer,
+  createWiresPassiveBuzzer,
+  positionPassiveBuzzer,
+} from "../../blocks/passivebuzzer/virtual-circuit";
 
 export default (
   state: ArduinoComponentState,
@@ -230,6 +235,7 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.DIGITAL_SENSOR]: createWireDigitalSensor,
   [ArduinoComponentType.ANALOG_SENSOR]: createWireAnalogSensors,
   [ArduinoComponentType.THERMISTOR]: createThermistorWires,
+  [ArduinoComponentType.PASSIVE_BUZZER]: createWiresPassiveBuzzer,
 };
 
 const positionComponentHookFunc: {
@@ -253,6 +259,7 @@ const positionComponentHookFunc: {
   [ArduinoComponentType.DIGITAL_SENSOR]: positionDigitalSensor,
   [ArduinoComponentType.ANALOG_SENSOR]: analogSensorPosition,
   [ArduinoComponentType.THERMISTOR]: positionThermistorSensor,
+  [ArduinoComponentType.PASSIVE_BUZZER]: positionPassiveBuzzer,
 };
 
 const createComponentHookFunc: {
@@ -276,4 +283,5 @@ const createComponentHookFunc: {
   [ArduinoComponentType.DIGITAL_SENSOR]: createDigitalSensor,
   [ArduinoComponentType.ANALOG_SENSOR]: analogSensorCreate,
   [ArduinoComponentType.THERMISTOR]: createThermistorSensorHook,
+  [ArduinoComponentType.PASSIVE_BUZZER]: afterCreatePassiveBuzzer,
 };

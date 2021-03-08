@@ -10,6 +10,7 @@ import irRemoteSvgString from "../../blocks/ir_remote/ir_remote.svg";
 import ledmatrixSvgString from "../../blocks/led_matrix/ledmatrix.svg";
 
 import thermistorSvgString from "../../blocks/thermistor/thermistor.svg";
+import passiveBuzzerSvgString from "../../blocks/passivebuzzer/passivebuzzer.svg";
 
 import motorSvgString from "../../blocks/motors/motor.svg";
 import neopixelSvgString from "../../blocks/neopixels/neopixel.svg";
@@ -53,4 +54,5 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.WRITE_PIN]: (_) => writePinSvgString,
   [ArduinoComponentType.ANALOG_SENSOR]: getAnalogSensorSvg,
   [ArduinoComponentType.THERMISTOR]: (_) => thermistorSvgString,
+  [ArduinoComponentType.PASSIVE_BUZZER]: (_) => passiveBuzzerSvgString,
 };

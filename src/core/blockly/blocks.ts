@@ -28,3 +28,4 @@ import "../../blocks/time/blocks";
 import "../../blocks/variables/blocks";
 
 import "../../blocks/thermistor/blocks";
+import "../../blocks/passivebuzzer/blocks";
