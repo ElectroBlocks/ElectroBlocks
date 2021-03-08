@@ -30,6 +30,7 @@ export enum PinCategory {
   SERVO = "SERVO",
   TEMP = "TEMP",
   THERMISTOR = "THERMISTOR",
+  PASSIVE_BUZZER = "PASSIVE_BUZZER",
 }
 
 // These are block type require being put into a setup, loop or function block
@@ -280,7 +281,14 @@ export const blocksToBlockTypes: {
     type: BlockType.STATE,
     pinCategory: PinCategory.NONE,
   },
-
+  passive_buzzer_note: {
+    type: BlockType.STATE,
+    pinCategory: PinCategory.PASSIVE_BUZZER,
+  },
+  passive_buzzer_tone: {
+    type: BlockType.STATE,
+    pinCategory: PinCategory.PASSIVE_BUZZER,
+  },
   controls_ifelse: { type: BlockType.STATE, pinCategory: PinCategory.NONE },
   control_if: { type: BlockType.STATE, pinCategory: PinCategory.NONE },
   logic_compare: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },

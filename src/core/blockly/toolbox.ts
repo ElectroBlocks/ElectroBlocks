@@ -26,10 +26,12 @@ import rfidXMLString from "../../blocks/rfid/toolbox";
 import servoXMLString from "../../blocks/servo/toolbox";
 import temperatureXMLString from "../../blocks/temperature/toolbox";
 import textXMLString from "../../blocks/text/toolbox";
+import passiveBuzzerXMLString from "../../blocks/passivebuzzer/toolbox";
 
 import thermistorXMLString from "../../blocks/thermistor/toolbox";
 
 import { COLOR_THEME } from "./constants/colors";
+import { passiveBuzzer } from "../../blocks/passivebuzzer/blocktoframe";
 
 export interface ToolBoxEntries {
   category: ToolBoxCategory;
@@ -129,6 +131,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Led Matrix", xml: ledMatrixXMLString },
       { name: "Motor", xml: motorXMLString },
       { name: "Neo Pixel", xml: neoPixelXMLString },
+      { name: "Passive Buzzer", xml: passiveBuzzerXMLString },
       { name: "Pins", xml: writePinXMLString },
       { name: "RBG Led", xml: rgbLedXMLString },
       { name: "Servos", xml: servoXMLString },

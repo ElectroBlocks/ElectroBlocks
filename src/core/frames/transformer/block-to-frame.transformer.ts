@@ -68,6 +68,7 @@ import { rfidSetup } from "../../../blocks/rfid/blocktoframe";
 import { servoRotate } from "../../../blocks/servo/blocktoframe";
 import { tempSetupSensor } from "../../../blocks/temperature/blocktoframe";
 import { thermistorSetup } from "../../../blocks/thermistor/blocktoframe";
+import { passiveBuzzer } from "../../../blocks/passivebuzzer/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (
@@ -143,6 +144,9 @@ const blockToFrameTransformerList: {
   move_motor: moveMotor,
 
   thermistor_setup: thermistorSetup,
+
+  passive_buzzer_note: passiveBuzzer,
+  passive_buzzer_tone: passiveBuzzer,
 };
 
 export const generateFrame: BlockToFrameTransformer = (
