@@ -34,7 +34,7 @@ export const updatePassiveBuzzer: SyncComponent = (
 ) => {
   if (state.tone > 0) {
     componentEl.findOne("#NOTE_TEXT").node.textContent = state.tone.toString();
-    (componentEl.findOne("#NOTE_TEXT") as Element).cx(20);
+    (componentEl.findOne("#NOTE_TEXT") as Element).cx(25);
 
     return;
   }

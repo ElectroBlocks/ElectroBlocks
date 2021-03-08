@@ -1,11 +1,11 @@
-<svg id="PASSIVE_BUZZER" xmlns="http://www.w3.org/2000/svg" width="104" height="124.59" viewBox="0 0 104 124.59">
-  <line id="PIN_DATA" x1="81.5" y1="79.18" x2="81.5" y2="114.5" fill="none" stroke="#b7b7b7" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
-  <line id="PIN_GND" x1="21" y1="79" x2="21.5" y2="114.5" fill="none" stroke="#b7b7b7" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
+<svg id="PASSIVE_BUZZER" xmlns="http://www.w3.org/2000/svg" width="72" height="98.59" viewBox="0 0 72 98.59">
+  <line id="PIN_DATA" x1="52.5" y1="53.18" x2="52.5" y2="88.5" fill="none" stroke="#b7b7b7" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
+  <line id="PIN_GND" x1="18" y1="53" x2="18.5" y2="88.5" fill="none" stroke="#b7b7b7" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
   <g id="Base">
-    <rect x="0.5" y="0.5" width="103" height="78" fill="#2b2b2b"/>
-    <path d="M116,21V98H14V21H116m1-1H13V99H117V20Z" transform="translate(-13 -20)"/>
+    <rect x="0.5" y="0.5" width="71" height="52" fill="#2b2b2b"/>
+    <path d="M84,14V65H14V14H84m1-1H13V66H85V13Z" transform="translate(-13 -13)"/>
   </g>
-  <text id="NOTE_TEXT" transform="translate(31.66 50.47)" font-size="30" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">C#</text>
-  <text id="GND_TEXT" transform="translate(23.93 106.35)" font-size="30" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
-  <text id="PIN_TEXT" transform="translate(88.29 104.11)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
+  <text id="NOTE_TEXT" transform="translate(10.66 36.47)" font-size="30" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">124</text>
+  <text id="GND_TEXT" transform="translate(1.93 80.35)" font-size="30" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+  <text id="PIN_TEXT" transform="translate(59.29 76.11)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
 </svg>
