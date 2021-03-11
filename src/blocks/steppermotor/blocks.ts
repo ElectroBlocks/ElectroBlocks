@@ -35,6 +35,12 @@ Blockly.Blocks["stepper_motor_setup"] = {
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField("Speed")
       .appendField(new Blockly.FieldNumber(30, 0, 1000), "SPEED");
+
+    this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Total Steps")
+      .appendField(new Blockly.FieldNumber(200, 0, 500), "TOTAL_STEPS");
+
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
