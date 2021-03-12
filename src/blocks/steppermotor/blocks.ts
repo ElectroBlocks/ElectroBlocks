@@ -11,17 +11,17 @@ Blockly.Blocks["stepper_motor_setup"] = {
       .appendField("Stepper Motor Setup");
     this.appendDummyInput()
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("PIN 2")
+      .appendField("PIN 1")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN_1"
       )
-      .appendField("PIN 3")
+      .appendField("PIN 2")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN_2"
       )
-      .appendField("PIN 4")
+      .appendField("PIN 3")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN_3"

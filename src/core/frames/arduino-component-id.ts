@@ -37,6 +37,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.ANALOG_SENSOR]: getAnalogSensorId,
   [ArduinoComponentType.THERMISTOR]: genericSingleComponentId,
   [ArduinoComponentType.PASSIVE_BUZZER]: genericSingleComponentId,
+  [ArduinoComponentType.STEPPER_MOTOR]: genericSingleComponentId,
 };
 
 export const arduinoComponentStateToId = (

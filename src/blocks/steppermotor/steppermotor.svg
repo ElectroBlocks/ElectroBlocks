@@ -1,42 +1,44 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="143.5" height="219.32" viewBox="0 0 143.5 219.32">
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="191.14" height="222.97" viewBox="0 0 191.14 222.97">
   <g id="BASE">
-    <rect x="0.5" y="126.82" width="126" height="76" fill="#2f9908"/>
-    <path d="M137,137v75H12V137H137m1-1H11v77H138V136Z" transform="translate(-11 -9.68)"/>
+    <rect x="39.64" y="130.47" width="126" height="76" fill="#2f9908"/>
+    <path d="M169,137v75H44V137H169m1-1H43v77H170V136Z" transform="translate(-3.86 -6.03)"/>
   </g>
   <g id="CHIP">
-    <rect x="11.5" y="149.82" width="78" height="24" fill="#2b2b2b"/>
-    <path d="M100,160v23H23V160h77m1-1H22v25h79V159Z" transform="translate(-11 -9.68)"/>
+    <rect x="50.64" y="153.47" width="78" height="24" fill="#2b2b2b"/>
+    <path d="M132,160v23H55V160h77m1-1H54v25h79V159Z" transform="translate(-3.86 -6.03)"/>
   </g>
   <g id="CONNECTING_CHIP_WIRE">
-    <line x1="47" y1="136.32" x2="54" y2="99.32" fill="none" stroke="#e5bd13" stroke-miterlimit="10" stroke-width="6"/>
+    <line x1="86.14" y1="139.97" x2="93.14" y2="102.97" fill="none" stroke="#e5bd13" stroke-miterlimit="10" stroke-width="6"/>
   </g>
   <g id="BASE_MOTOR">
-    <rect x="22.5" y="46.82" width="72" height="56" rx="25.5" fill="#6d6d6d"/>
-    <path d="M80,57a25,25,0,0,1,25,25v5a25,25,0,0,1-25,25H59A25,25,0,0,1,34,87V82A25,25,0,0,1,59,57H80m0-1H59A26,26,0,0,0,33,82v5a26,26,0,0,0,26,26H80a26,26,0,0,0,26-26V82A26,26,0,0,0,80,56Z" transform="translate(-11 -9.68)"/>
+    <rect x="61.64" y="50.47" width="72" height="56" rx="25.5" fill="#6d6d6d"/>
+    <path d="M112,57a25,25,0,0,1,25,25v5a25,25,0,0,1-25,25H91A25,25,0,0,1,66,87V82A25,25,0,0,1,91,57h21m0-1H91A26,26,0,0,0,65,82v5a26,26,0,0,0,26,26h21a26,26,0,0,0,26-26V82a26,26,0,0,0-26-26Z" transform="translate(-3.86 -6.03)"/>
   </g>
   <g id="ROTATING_PIECE">
-    <path d="M70.75,73.5a6.51,6.51,0,0,1-6.5-6.5V51a6.5,6.5,0,0,1,13,0V67A6.51,6.51,0,0,1,70.75,73.5Z" transform="translate(-11 -9.68)" fill="#f15a24"/>
-    <path d="M70.75,45a6,6,0,0,1,6,6V67a6,6,0,0,1-12,0V51a6,6,0,0,1,6-6m0-1h0a7,7,0,0,0-7,7V67a7,7,0,0,0,7,7h0a7,7,0,0,0,7-7V51a7,7,0,0,0-7-7Z" transform="translate(-11 -9.68)"/>
+    <path d="M102.75,73.5a6.51,6.51,0,0,1-6.5-6.5V51a6.5,6.5,0,0,1,13,0V67A6.51,6.51,0,0,1,102.75,73.5Z" transform="translate(-3.86 -6.03)" fill="#f15a24"/>
+    <path d="M102.75,45a6,6,0,0,1,6,6V67a6,6,0,0,1-12,0V51a6,6,0,0,1,6-6m0-1h0a7,7,0,0,0-7,7V67a7,7,0,0,0,7,7h0a7,7,0,0,0,7-7V51a7,7,0,0,0-7-7Z" transform="translate(-3.86 -6.03)"/>
   </g>
   <g id="CONNECTOR">
-    <rect x="9.5" y="133.82" width="75" height="7" fill="#ecfce6"/>
-    <path d="M95,144v6H21v-6H95m1-1H20v8H96v-8Z" transform="translate(-11 -9.68)"/>
+    <rect x="48.64" y="137.47" width="75" height="7" fill="#ecfce6"/>
+    <path d="M127,144v6H53v-6h74m1-1H52v8h76v-8Z" transform="translate(-3.86 -6.03)"/>
   </g>
-  <text id="PIN_1_TEXT" transform="translate(11.27 193.49)" font-size="21" font-family="MyriadPro-Regular, Myriad Pro">1</text>
-  <text id="PIN_2_TEXT" transform="translate(30.29 193.42)" font-size="21" font-family="MyriadPro-Regular, Myriad Pro">2</text>
-  <text id="PIN_3_TEXT" transform="translate(49.32 193.42)" font-size="21" font-family="MyriadPro-Regular, Myriad Pro">3</text>
-  <text id="PIN_4_TEXT" transform="translate(68.34 193.42)" font-size="21" font-family="MyriadPro-Regular, Myriad Pro">4</text>
-  <line id="PIN_4" x1="17" y1="199.32" x2="17" y2="218.32" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-  <line id="PIN_3" x1="36" y1="199.32" x2="36" y2="218.32" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-  <line id="PIN_2" x1="55" y1="199.32" x2="55" y2="218.32" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-  <line id="PIN_1" x1="74" y1="199.32" x2="74" y2="218.32" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-  <line id="PIN_GND" x1="123.5" y1="170.57" x2="142.5" y2="170.57" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-  <line id="PIN_POWER" x1="123.5" y1="189.82" x2="142.5" y2="189.82" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-  <text id="ROTATE_TEXT" transform="translate(3.04 18.46)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">3 Step Right</text>
-  <text id="POWER_TEST" transform="translate(109.36 197.39)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+  <text id="PIN_1_TEXT" transform="translate(50.4 197.14)" font-size="21" font-family="MyriadPro-Regular, Myriad Pro">1</text>
+  <text id="PIN_2_TEXT" transform="translate(69.43 197.07)" font-size="21" font-family="MyriadPro-Regular, Myriad Pro">2</text>
+  <text id="PIN_3_TEXT" transform="translate(88.46 197.07)" font-size="21" font-family="MyriadPro-Regular, Myriad Pro">3</text>
+  <text id="PIN_4_TEXT" transform="translate(107.48 197.07)" font-size="21" font-family="MyriadPro-Regular, Myriad Pro">4</text>
+  <line id="PIN_1" x1="56.14" y1="202.97" x2="56.14" y2="221.97" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="PIN_2" x1="75.14" y1="202.97" x2="75.14" y2="221.97" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="PIN_3" x1="94.14" y1="202.97" x2="94.14" y2="221.97" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="PIN_4" x1="113.14" y1="202.97" x2="113.14" y2="221.97" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="PIN_GND_PART" x1="162.64" y1="174.22" x2="190.14" y2="174.22" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="PIN_POWER_PART" x1="162.64" y1="193.47" x2="179.14" y2="193.47" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <text id="ROTATE_TEXT" transform="translate(0 18.46)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">Moved 3000 Steps</text>
+  <text id="POWER_TEST" transform="translate(148.5 201.03)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
   <g id="ROTATE">
-    <circle cx="59.75" cy="56.82" r="5" fill="#f15a24"/>
-    <path d="M70.75,62a4.5,4.5,0,1,1-4.5,4.5,4.51,4.51,0,0,1,4.5-4.5m0-1a5.5,5.5,0,1,0,5.5,5.5,5.5,5.5,0,0,0-5.5-5.5Z" transform="translate(-11 -9.68)"/>
+    <circle cx="98.89" cy="60.47" r="5" fill="#f15a24"/>
+    <path d="M102.75,62a4.5,4.5,0,1,1-4.5,4.5,4.51,4.51,0,0,1,4.5-4.5m0-1a5.5,5.5,0,1,0,5.5,5.5,5.5,5.5,0,0,0-5.5-5.5Z" transform="translate(-3.86 -6.03)"/>
   </g>
-  <line x1="113" y1="170.57" x2="119" y2="170.57" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line x1="152.14" y1="174.22" x2="158.14" y2="174.22" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="PIN_POWER" x1="179.14" y1="201.97" x2="179.14" y2="193.97" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  <line id="PIN_GND" x1="190.14" y1="183.97" x2="190.14" y2="174.97" fill="none" stroke="#727271" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
 </svg>

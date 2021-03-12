@@ -23,6 +23,7 @@ import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
 import { getLedSvgString } from "../../blocks/led/svg-string";
 import { getDigitalSensorSvg } from "../../blocks/digitalsensor/svg-string";
 import { getAnalogSensorSvg } from "../../blocks/analogsensor/svg-string";
+import stepperMotorSvg from "../../blocks/steppermotor/steppermotor.svg";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
@@ -55,4 +56,5 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.ANALOG_SENSOR]: getAnalogSensorSvg,
   [ArduinoComponentType.THERMISTOR]: (_) => thermistorSvgString,
   [ArduinoComponentType.PASSIVE_BUZZER]: (_) => passiveBuzzerSvgString,
+  [ArduinoComponentType.STEPPER_MOTOR]: (_) => stepperMotorSvg,
 };

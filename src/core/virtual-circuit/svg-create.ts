@@ -107,6 +107,10 @@ import {
   createWiresPassiveBuzzer,
   positionPassiveBuzzer,
 } from "../../blocks/passivebuzzer/virtual-circuit";
+import {
+  createWireStepperMotor,
+  positionStepperMotor,
+} from "../../blocks/steppermotor/virtual-circuit";
 
 export default (
   state: ArduinoComponentState,
@@ -236,6 +240,7 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.ANALOG_SENSOR]: createWireAnalogSensors,
   [ArduinoComponentType.THERMISTOR]: createThermistorWires,
   [ArduinoComponentType.PASSIVE_BUZZER]: createWiresPassiveBuzzer,
+  [ArduinoComponentType.STEPPER_MOTOR]: createWireStepperMotor,
 };
 
 const positionComponentHookFunc: {
@@ -260,6 +265,7 @@ const positionComponentHookFunc: {
   [ArduinoComponentType.ANALOG_SENSOR]: analogSensorPosition,
   [ArduinoComponentType.THERMISTOR]: positionThermistorSensor,
   [ArduinoComponentType.PASSIVE_BUZZER]: positionPassiveBuzzer,
+  [ArduinoComponentType.STEPPER_MOTOR]: positionStepperMotor,
 };
 
 const createComponentHookFunc: {
@@ -284,4 +290,5 @@ const createComponentHookFunc: {
   [ArduinoComponentType.ANALOG_SENSOR]: analogSensorCreate,
   [ArduinoComponentType.THERMISTOR]: createThermistorSensorHook,
   [ArduinoComponentType.PASSIVE_BUZZER]: afterCreatePassiveBuzzer,
+  [ArduinoComponentType.STEPPER_MOTOR]: emptyCreateHookComponent,
 };

@@ -27,6 +27,7 @@ import servoXMLString from "../../blocks/servo/toolbox";
 import temperatureXMLString from "../../blocks/temperature/toolbox";
 import textXMLString from "../../blocks/text/toolbox";
 import passiveBuzzerXMLString from "../../blocks/passivebuzzer/toolbox";
+import stepperMotorXMLString from "../../blocks/steppermotor/toolbox";
 
 import thermistorXMLString from "../../blocks/thermistor/toolbox";
 
@@ -135,6 +136,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Pins", xml: writePinXMLString },
       { name: "RBG Led", xml: rgbLedXMLString },
       { name: "Servos", xml: servoXMLString },
+      { name: "Stepper Motors", xml: stepperMotorXMLString },
     ],
   },
   {

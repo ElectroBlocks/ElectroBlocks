@@ -90,7 +90,7 @@ function verifyFrameStep(
   totalSteps: number,
   currentRotation: number
 ) {
-  expect(frame.explanation).toBe(`Stepper motor moving ${steps}.`);
+  expect(frame.explanation).toBe(`Stepper motor moving ${steps} steps.`);
   verifyFrame(frame, steps, totalSteps, currentRotation);
 }
 

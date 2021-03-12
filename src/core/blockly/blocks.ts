@@ -29,3 +29,4 @@ import "../../blocks/variables/blocks";
 
 import "../../blocks/thermistor/blocks";
 import "../../blocks/passivebuzzer/blocks";
+import "../../blocks/steppermotor/blocks";
