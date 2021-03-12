@@ -42,7 +42,14 @@ export const updateStepperMotor: SyncComponent = (
 
   rotateTextEl.node.textContent = `Moved ${state.steps} Steps`;
   rotateTextEl.cx(cx);
-  rotatingEl.rotate(degreesPerStep * state.currentRotation, cx, cy);
+
+  const currentElSteps = rotateTextEl.data("steps") || 0;
+
+  const diffSteps = state.currentRotation - currentElSteps;
+
+  rotatingEl.rotate(diffSteps * degreesPerStep, cx, cy);
+
+  rotateTextEl.data("steps", state.currentRotation);
 };
 
 export const createWireStepperMotor: CreateWire<StepperMotorState> = (
@@ -138,4 +145,5 @@ export const resetStepperMotor: ResetComponent = (componentEl) => {
   const cy = rotateAroundEl.cy();
   rotatingEl.rotate(0, cx, cy);
   rotateTextEl.node.textContent = "";
+  rotateTextEl.data("steps", "0");
 };
