@@ -1,6 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
-import type { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";

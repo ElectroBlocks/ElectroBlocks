@@ -31,6 +31,7 @@ export enum PinCategory {
   TEMP = "TEMP",
   THERMISTOR = "THERMISTOR",
   PASSIVE_BUZZER = "PASSIVE_BUZZER",
+  STEPPER_MOTOR = "STEPPER_MOTOR",
 }
 
 // These are block type require being put into a setup, loop or function block
@@ -69,6 +70,7 @@ export const standAloneBlocks = [
   "digital_read_setup",
   "ultra_sonic_sensor_setup",
   "thermistor_setup",
+  "stepper_motor_setup",
 ];
 
 export const multipleTopBlocks = [
@@ -126,6 +128,7 @@ export const blocksThatRequireSetup = {
   ultra_sonic_sensor_motion: "ultra_sonic_sensor_setup",
   time_seconds: "time_setup",
   thermistor_read: "thermistor_setup",
+  stepper_motor_move: "stepper_motor_setup",
 };
 
 /**
@@ -148,6 +151,7 @@ export const setupBlockTypeToHumanName = {
   led_matrix_setup: "led matrix setup block",
   time_setup: "time setup block",
   thermistor_setup: "thermistor setup block",
+  stepper_motor_setup: "stepper motor setup block",
 };
 
 export const blocksToBlockTypes: {
@@ -448,6 +452,15 @@ export const blocksToBlockTypes: {
 
   thermistor_read: {
     type: BlockType.SENSOR_READ,
+    pinCategory: PinCategory.NONE,
+  },
+
+  stepper_motor_setup: {
+    type: BlockType.SETUP,
+    pinCategory: PinCategory.STEPPER_MOTOR,
+  },
+  stepper_motor_move: {
+    type: BlockType.STATE,
     pinCategory: PinCategory.NONE,
   },
 };

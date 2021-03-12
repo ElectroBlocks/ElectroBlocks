@@ -69,6 +69,10 @@ import { servoRotate } from "../../../blocks/servo/blocktoframe";
 import { tempSetupSensor } from "../../../blocks/temperature/blocktoframe";
 import { thermistorSetup } from "../../../blocks/thermistor/blocktoframe";
 import { passiveBuzzer } from "../../../blocks/passivebuzzer/blocktoframe";
+import {
+  moveStepperMotor,
+  stepperMotorSetup,
+} from "../../../blocks/steppermotor/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (
@@ -147,6 +151,9 @@ const blockToFrameTransformerList: {
 
   passive_buzzer_note: passiveBuzzer,
   passive_buzzer_tone: passiveBuzzer,
+
+  stepper_motor_setup: stepperMotorSetup,
+  stepper_motor_move: moveStepperMotor,
 };
 
 export const generateFrame: BlockToFrameTransformer = (

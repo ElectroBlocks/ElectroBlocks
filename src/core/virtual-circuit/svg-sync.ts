@@ -63,6 +63,10 @@ import {
   resetPassiveBuzzer,
   updatePassiveBuzzer,
 } from "../../blocks/passivebuzzer/virtual-circuit";
+import {
+  resetStepperMotor,
+  updateStepperMotor,
+} from "../../blocks/steppermotor/virtual-circuit";
 
 export interface SyncComponent {
   (
@@ -97,6 +101,7 @@ const resetComponent = {
   [ArduinoComponentType.ANALOG_SENSOR]: analogSensorReset,
   [ArduinoComponentType.THERMISTOR]: resetThermistorSensor,
   [ArduinoComponentType.PASSIVE_BUZZER]: resetPassiveBuzzer,
+  [ArduinoComponentType.STEPPER_MOTOR]: resetStepperMotor,
 };
 
 const syncComponent = {
@@ -119,6 +124,7 @@ const syncComponent = {
   [ArduinoComponentType.ANALOG_SENSOR]: analogSensorUpdate,
   [ArduinoComponentType.THERMISTOR]: updateThermistorSensor,
   [ArduinoComponentType.PASSIVE_BUZZER]: updatePassiveBuzzer,
+  [ArduinoComponentType.STEPPER_MOTOR]: updateStepperMotor,
 };
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {
