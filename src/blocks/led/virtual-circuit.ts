@@ -35,6 +35,13 @@ export const ledCreate: AfterComponentCreateHook<LedState> = (
     ledColor = settings.ledColor;
   }
 
+  ledEl.on("dblclick", (e) => {
+    console.log(e);
+    const event = new CustomEvent("led-color-show", {
+      detail: { componentEl: ledEl, pin: state.pin },
+    });
+    document.dispatchEvent(event);
+  });
   ledEl.data("color", ledColor);
   ledEl.data("pin-number", state.pin);
   ledEl
