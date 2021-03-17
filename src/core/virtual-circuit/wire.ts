@@ -27,12 +27,10 @@ export const takeBoardAreaWithExistingComponent = (holes: number[]) => {
     (a) => a.holes.sort().join("-") === holes.sort().join("-")
   );
   breadboard.areas[areaIndex].taken = true;
-  console.log(breadboard, "test breadboard");
 };
 
 export const takeBoardArea = (): BreadBoardArea | null => {
   const areas = breadboard.areas;
-  console.log(breadboard, "breadboard");
   for (let orderIndex in breadboard.order) {
     const areaIndex = breadboard.order[orderIndex];
     const area = areas[areaIndex];
