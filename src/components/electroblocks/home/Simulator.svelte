@@ -2,6 +2,8 @@
   import Player from "./Player.svelte";
 
   import SimDebugger from "./SimDebugger.svelte";
+  import LedColorChanger from "./LedColorChanger.svelte";
+
   import { SVG } from "@svgdotjs/svg.js";
   import frameStore from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
@@ -89,6 +91,7 @@
 </script>
 
 <div style="background-color: {$settings.backgroundColor}" id="container">
+  <LedColorChanger />
   <div bind:this={container} id="simulator" />
   <div id="simulator-controls">
     <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />

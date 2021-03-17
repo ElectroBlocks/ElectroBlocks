@@ -96,7 +96,7 @@ import {
   createWireAnalogSensors,
 } from "../../blocks/analogsensor/virtual-circuit";
 import type { Settings } from "../../firebase/model";
-import { takeBoardArea } from "./wire";
+import { takeBoardArea, takeBoardAreaWithExistingComponent } from "./wire";
 import {
   createThermistorSensorHook,
   createThermistorWires,
@@ -123,6 +123,8 @@ export default (
   let componentEl = draw.findOne("#" + id) as Element;
 
   if (componentEl) {
+    // make sure the area get taken
+    takeBoardAreaWithExistingComponent(componentEl.data("holes").split("-"));
     return;
   }
 
@@ -132,6 +134,7 @@ export default (
 
   componentEl = createComponentEl(draw, state, getSvgString(state));
   addDraggableEvent(componentEl, arduinoEl, draw);
+  componentEl.data("holes", area.holes.join("-"));
   (window as any)[state.type] = componentEl;
   if (area) {
     positionComponentHookFunc[state.type](

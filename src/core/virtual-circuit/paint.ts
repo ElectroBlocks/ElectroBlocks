@@ -11,35 +11,41 @@ import createNewComponent from "./svg-create";
 import type { MicroController } from "../microcontroller/microcontroller";
 import { getBoardSvg } from "./get-board-svg";
 import { registerHighlightEvents } from "./highlightevent";
+import { arduinoComponentStateToId } from "../frames/arduino-component-id";
 
 export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
   const board = getBoard(frameContainer.board);
 
   const arduino = findOrCreateMicroController(draw, board);
 
-  clearComponents(draw, arduino);
-
   const lastFrame = frameContainer.frames
     ? frameContainer.frames[frameContainer.frames.length - 1]
     : undefined;
+
+  clearComponents(draw, arduino, lastFrame);
+
   resetBreadBoardHoles(board);
   hideAllAnalogWires(draw);
   // TODO HIDE ANALOG PINS AND CREATE MAP FOR EACH BOARD PROFILE.
 
   if (lastFrame) {
-    lastFrame.components
+    const components = lastFrame.components
       .filter((c) => c.type !== ArduinoComponentType.MESSAGE)
-      .filter((c) => c.type !== ArduinoComponentType.TIME)
-      .forEach((state) => {
-        state.pins.forEach((pin) => showWire(arduino, pin));
-        createNewComponent(
-          state,
-          draw,
-          arduino,
-          board,
-          frameContainer.settings
-        );
-      });
+      .filter((c) => c.type !== ArduinoComponentType.TIME);
+
+    const existingComponents = components.filter((c) =>
+      draw.findOne(`#${arduinoComponentStateToId(c)}`)
+    );
+
+    const newComponents = components.filter(
+      (c) => !draw.findOne(`#${arduinoComponentStateToId(c)}`)
+    );
+
+    // existing components must go first to take up areas of the breadboard that already exist
+    [...existingComponents, ...newComponents].forEach((state) => {
+      state.pins.forEach((pin) => showWire(arduino, pin));
+      createNewComponent(state, draw, arduino, board, frameContainer.settings);
+    });
   }
 };
 
@@ -86,14 +92,27 @@ const showWire = (arduino: Element, wire: string) => {
   }
 };
 
-const clearComponents = (draw: Svg, arduino: Element) => {
-  draw.find(".component").forEach((c: Element) => {
-    const componentId = c.attr("id");
-    // If there are not frames just delete all the components
-    c.remove();
-    draw.find(`[data-component-id=${componentId}]`).forEach((c) => c.remove());
-    return;
-  });
+const clearComponents = (
+  draw: Svg,
+  arduino: Element,
+  lastFrame: ArduinoFrame
+) => {
+  draw
+    .find(".component")
+    // It does not exist the id
+    .filter(
+      (c) =>
+        !lastFrame.components.map(arduinoComponentStateToId).includes(c.id())
+    )
+    .forEach((c: Element) => {
+      const componentId = c.attr("id");
+      // If there are not frames just delete all the components
+      c.remove();
+      draw
+        .find(`[data-component-id=${componentId}]`)
+        .forEach((c) => c.remove());
+      return;
+    });
 
   arduino.findOne("#MESSAGE").hide();
 };

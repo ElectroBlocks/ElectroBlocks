@@ -25,7 +25,7 @@ enum WIRE_COLORS {
 
 const breadboard: Breadboard = {
   areas: [
-    { holes: [4, 5, 6, 7, 8], taken: false, isDown: true },
+    { holes: [3, 4, 5, 6, 7, 8], taken: false, isDown: true },
     { holes: [9, 10, 11, 12, 13, 14], taken: false, isDown: true },
     { holes: [15, 16, 17, 18, 19, 20], taken: false, isDown: true },
     { holes: [21, 22, 23, 24, 25, 26], taken: false, isDown: true },
@@ -34,9 +34,9 @@ const breadboard: Breadboard = {
     { holes: [39, 40, 41, 42, 43, 44], taken: false, isDown: true },
     { holes: [45, 46, 47, 48, 49, 50], taken: false, isDown: true },
     { holes: [51, 52, 53, 54, 55, 56], taken: false, isDown: true },
-    { holes: [57, 58, 59, 60, 61], taken: false, isDown: true },
+    { holes: [57, 58, 59, 60, 61, 62], taken: false, isDown: true },
   ],
-  order: [5, 7, 3, 4, 6, 2, 8, 1, 9, 0],
+  order: [4, 6, 8, 3, 5, 7, 0, 1, 2, 3, 9, 10],
 };
 
 function createPinConnections() {
