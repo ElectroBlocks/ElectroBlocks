@@ -6,6 +6,7 @@
   import currentStepStore from "../../../stores/currentStep.store";
   import settingStore from "../../../stores/settings.store";
   import { onErrorMessage } from "../../../help/alerts";
+  import { getAllBlocks } from "../../../core/blockly/helpers/block.helper";
 
   let frames = [];
   let frameNumber = 1;
@@ -42,7 +43,10 @@
 
       frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
       currentFrameStore.set(frames[frameNumber]);
-    }),
+    })
+  );
+
+  unsubscribes.push(
     settingStore.subscribe((newSettings) => {
       maxTimePerStep = newSettings.maxTimePerMove;
     })
@@ -112,9 +116,9 @@
     try {
       frameNumber = 0;
       playing = false;
-      await moveWait();
       currentFrameStore.set(frames[frameIndex]);
-      await play();
+      //unselect all the blocks
+      getAllBlocks().forEach((b) => b.unselect());
     } catch (e) {
       onErrorMessage("Please refresh your browser and try again.", e);
     }
@@ -158,8 +162,12 @@
     return new Promise((resolve) => setTimeout(resolve, msTime));
   }
 
-  onDestroy(() => {
-    unsubscribes.forEach((unSubFunc) => unSubFunc());
+  onDestroy(async () => {
+    await resetPlayer();
+    unsubscribes.forEach((unSubFunc) => {
+      unSubFunc();
+      console.log("called unsub", unSubFunc);
+    });
   });
 </script>
 

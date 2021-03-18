@@ -41,109 +41,107 @@ settingStore.subscribe((newSettings) => {
   settings = newSettings;
 });
 
-const registerEvents = (workspace: WorkspaceSvg) => {
-  workspace.addChangeListener(async (blocklyEvent) => {
-    if (
-      blocklyEvent.element === "disabled" ||
-      // Means a modal is opening
-      blocklyEvent.element === "warningOpen" ||
-      // Does not have anything to do with a block
-      blocklyEvent.blockId === null ||
-      blocklyEvent.element === "click" ||
-      blocklyEvent.element === "selected"
-    ) {
-      return;
-    }
-    const microControllerType = getBoardType() as MicroControllerType;
-    const event = transformEvent(
-      getAllBlocks(),
-      getAllVariables(),
-      blocklyEvent,
-      microControllerType
-    );
+export const createFrames = async (blocklyEvent) => {
+  if (
+    blocklyEvent.element === "disabled" ||
+    // Means a modal is opening
+    blocklyEvent.element === "warningOpen" ||
+    // Does not have anything to do with a block
+    blocklyEvent.blockId === null ||
+    blocklyEvent.element === "click" ||
+    blocklyEvent.element === "selected"
+  ) {
+    return;
+  }
+  const microControllerType = getBoardType() as MicroControllerType;
+  const event = transformEvent(
+    getAllBlocks(),
+    getAllVariables(),
+    blocklyEvent,
+    microControllerType
+  );
 
-    const firstActionPass = [
-      ...disableBlocksWithInvalidPinNumbers(event),
-      ...disableSetupBlocksUsingSamePinNumbers(event),
-      ...disableSetupBlockWithMultiplePinOutsSamePins(event),
-      ...disableDuplicateSetupBlocks(event),
-      ...disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(event),
-      ...disableDuplicatePinBlocks(event),
+  const firstActionPass = [
+    ...disableBlocksWithInvalidPinNumbers(event),
+    ...disableSetupBlocksUsingSamePinNumbers(event),
+    ...disableSetupBlockWithMultiplePinOutsSamePins(event),
+    ...disableDuplicateSetupBlocks(event),
+    ...disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(event),
+    ...disableDuplicatePinBlocks(event),
 
-      ...disableSensorReadBlocksWithWrongPins(event),
-      ...disableBlocksThatNeedASetupBlock(event),
-    ];
-    firstActionPass.forEach((a) => updater(a));
-    enableBlocks(
-      firstActionPass.filter(
-        (a) => a.type === ActionType.DISABLE_BLOCK
-      ) as DisableBlock[]
-    );
+    ...disableSensorReadBlocksWithWrongPins(event),
+    ...disableBlocksThatNeedASetupBlock(event),
+  ];
+  firstActionPass.forEach((a) => updater(a));
+  enableBlocks(
+    firstActionPass.filter(
+      (a) => a.type === ActionType.DISABLE_BLOCK
+    ) as DisableBlock[]
+  );
 
-    const event2 = transformEvent(
-      getAllBlocks(),
-      getAllVariables(),
-      blocklyEvent,
-      microControllerType
-    );
-    // We need to run this again incase anything got enable that was disabled.
-    const secondActionPass = [
-      ...disableBlocksWithInvalidPinNumbers(event2),
-      ...disableSetupBlocksUsingSamePinNumbers(event2),
-      ...disableSetupBlockWithMultiplePinOutsSamePins(event2),
-      ...disableDuplicateSetupBlocks(event2),
-      ...disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(event2),
-      ...disableDuplicatePinBlocks(event2),
+  const event2 = transformEvent(
+    getAllBlocks(),
+    getAllVariables(),
+    blocklyEvent,
+    microControllerType
+  );
+  // We need to run this again incase anything got enable that was disabled.
+  const secondActionPass = [
+    ...disableBlocksWithInvalidPinNumbers(event2),
+    ...disableSetupBlocksUsingSamePinNumbers(event2),
+    ...disableSetupBlockWithMultiplePinOutsSamePins(event2),
+    ...disableDuplicateSetupBlocks(event2),
+    ...disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(event2),
+    ...disableDuplicatePinBlocks(event2),
 
-      ...disableSensorReadBlocksWithWrongPins(event2),
-      ...disableBlocksThatNeedASetupBlock(event2),
-    ];
-    secondActionPass.forEach((a) => updater(a));
-    enableBlocks(
-      secondActionPass.filter(
-        (a) => a.type === ActionType.DISABLE_BLOCK
-      ) as DisableBlock[]
-    );
+    ...disableSensorReadBlocksWithWrongPins(event2),
+    ...disableBlocksThatNeedASetupBlock(event2),
+  ];
+  secondActionPass.forEach((a) => updater(a));
+  enableBlocks(
+    secondActionPass.filter(
+      (a) => a.type === ActionType.DISABLE_BLOCK
+    ) as DisableBlock[]
+  );
 
-    if (secondActionPass.filter((a) => a.stopCompiling).length >= 1) {
-      currentFrameContainter = {
-        error: true,
-        frames: [],
-        board: event.microController,
-        settings,
-      };
-      frameStore.set(currentFrameContainter);
-      codeStore.resetCode(microControllerType);
-      return;
-    }
+  if (secondActionPass.filter((a) => a.stopCompiling).length >= 1) {
+    currentFrameContainter = {
+      error: true,
+      frames: [],
+      board: event.microController,
+      settings,
+    };
+    frameStore.set(currentFrameContainter);
+    codeStore.resetCode(microControllerType);
+    return;
+  }
 
-    const thirdActionPass = [
-      ...deleteUnusedVariables(event2),
-      ...saveSensorSetupBlockData(event2),
-      ...updateSensorSetupFields(event2),
-      ...updateForLoopText(event2),
-      ...updateLoopNumberInSensorSetupBlock(event2),
-    ];
+  const thirdActionPass = [
+    ...deleteUnusedVariables(event2),
+    ...saveSensorSetupBlockData(event2),
+    ...updateSensorSetupFields(event2),
+    ...updateForLoopText(event2),
+    ...updateLoopNumberInSensorSetupBlock(event2),
+  ];
 
-    thirdActionPass.forEach((a) => updater(a));
+  thirdActionPass.forEach((a) => updater(a));
 
-    // We need this because we save the sensor setup data to the
-    // block.
-    const refreshEvent = transformEvent(
-      getAllBlocks(),
-      getAllVariables(),
-      blocklyEvent,
-      microControllerType
-    );
+  // We need this because we save the sensor setup data to the
+  // block.
+  const refreshEvent = transformEvent(
+    getAllBlocks(),
+    getAllVariables(),
+    blocklyEvent,
+    microControllerType
+  );
 
-    const newFrameContainer = eventToFrameFactory(refreshEvent, settings);
+  const newFrameContainer = eventToFrameFactory(refreshEvent, settings);
 
-    if (!_.isEqual(newFrameContainer, currentFrameContainter)) {
-      currentFrameContainter = newFrameContainer;
-      frameStore.set(currentFrameContainter);
-    }
-    codeStore.set({ code: getArduinoCode(), boardType: microControllerType });
-  });
+  if (!_.isEqual(newFrameContainer, currentFrameContainter)) {
+    currentFrameContainter = newFrameContainer;
+    frameStore.set(currentFrameContainter);
+  }
+  codeStore.set({ code: getArduinoCode(), boardType: microControllerType });
 };
 
 const enableBlocks = (actions: DisableBlock[]) => {
@@ -163,4 +161,7 @@ const enableBlocks = (actions: DisableBlock[]) => {
 
   enableActions.forEach((a) => updater(a));
 };
-export default _.debounce(registerEvents, 50);
+
+export const addListener = (workspace: WorkspaceSvg) => {
+  workspace.addChangeListener(_.debounce(createFrames, 50));
+};

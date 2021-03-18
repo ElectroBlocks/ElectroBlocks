@@ -80,7 +80,6 @@ const saveLoopData = (temp: number, block: BlockSvg, loop: number) => {
 
 const verifyState = (state: ArduinoFrame, temp: number) => {
   const components = state.components;
-  console.log(components);
   expect(components.length).toBe(1);
   const [component] = state.components as ThermistorState[];
   expect(component.type).toBe(ArduinoComponentType.THERMISTOR);

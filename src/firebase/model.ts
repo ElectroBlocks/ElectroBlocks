@@ -1,10 +1,10 @@
 import firebase from "firebase/app";
 
 export interface User {
-    id: string;
-    email: string;
-    projects: Project[];
-    toolbox: Toolbox[];
+  id: string;
+  email: string;
+  projects: Project[];
+  toolbox: Toolbox[];
 }
 
 export interface Project {
@@ -34,5 +34,5 @@ export const defaultSetting: Settings = {
   touchSkinColor: "#a424d3",
   ledColor: "#AA0000",
   customLedColor: false,
-  maxTimePerMove: 1000,
-}
+  maxTimePerMove: 20,
+};

@@ -25,7 +25,6 @@ const resistorColor = {
 };
 
 export const ohmsToBands = (ohms: number): [string, string, string] => {
-  console.log(ohms, "ohms origin");
   const firstColor = resistorColor[resistorIndex[+ohms.toString()[0]]];
   const secondColor = resistorColor[resistorIndex[+ohms.toString()[1]]];
   let thirdColor = "";

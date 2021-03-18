@@ -102,6 +102,8 @@ const clearComponents = (
     // It does not exist the id
     .filter(
       (c) =>
+        !lastFrame ||
+        lastFrame.components.length === 0 ||
         !lastFrame.components.map(arduinoComponentStateToId).includes(c.id())
     )
     .forEach((c: Element) => {

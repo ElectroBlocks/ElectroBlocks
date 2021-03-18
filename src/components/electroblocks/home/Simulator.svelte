@@ -56,7 +56,6 @@
     unsubscribes.push(
       frameStore.subscribe((frameContainer) => {
         frames = frameContainer.frames;
-        console.log(frames, "new frames");
         const firstFrame = frames ? frames[0] : undefined;
         currentFrame = firstFrame;
         paint(draw, frameContainer);

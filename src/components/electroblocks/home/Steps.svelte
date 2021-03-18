@@ -20,7 +20,7 @@
   });
 
   afterUpdate(() => {
-    const activeStep = stepContainer.querySelector(".active");
+    const activeStep = stepContainer.querySelector(".current");
     if (activeStep) {
       activeStep.scrollIntoView({ block: "center" });
     }
