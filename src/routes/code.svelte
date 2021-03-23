@@ -49,6 +49,7 @@
     min-height: 100%;
     min-width: 100%;
     border-left: none;
+    margin-bottom: 15px;
   }
   code {
     height: 100% !important;

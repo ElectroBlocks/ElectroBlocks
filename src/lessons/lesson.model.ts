@@ -4,6 +4,8 @@ export interface LessonForm<T> {
   mainPicture: T;
   url: string;
   type: LessonTypes;
+  projectFile?: T;
+  metadata?: string;
 }
 
 export interface Lesson<T> {
@@ -18,7 +20,9 @@ export interface Lesson<T> {
   type: LessonTypes;
   created: T;
   updated: T;
+  projectFileUrl?: string;
   author?: Author;
+  metadata?: string;
 }
 
 export interface Author {

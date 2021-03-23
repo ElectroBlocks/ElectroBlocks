@@ -15,6 +15,8 @@ import { getToolBoxString } from "./toolbox";
 
 import { connectToArduinoBlock, createBlock } from "./helpers/block.helper";
 import { ARDUINO_PINS } from "../microcontroller/selectBoard";
+import { DELAY_COMMENT } from "../../blocks/time/toolbox";
+import { LED_COMMENT } from "../../blocks/led/toolbox";
 
 /**
  * This will start up blockly and will add all the event listeners and styles
@@ -57,17 +59,22 @@ const createWorkspace = (blocklyElement: HTMLElement) => {
 };
 
 const createLedWithDelay = (seconds = 1, isOn = true) => {
-  const ledBlock1 = createBlock("led", 0, 0, true);
-  ledBlock1.setFieldValue(ARDUINO_PINS.PIN_13, "PIN");
-  ledBlock1.setFieldValue(isOn ? "ON" : "OFF", "STATE");
-  connectToArduinoBlock(ledBlock1);
-  const delayBlock1 = createBlock("delay_block", 0, 0, false);
+  const ledBlock = createBlock("led", 0, 0, true);
+  ledBlock.setCommentText(LED_COMMENT);
+  ledBlock.comment.setBubbleSize(460, 145);
+  ledBlock.setFieldValue(ARDUINO_PINS.PIN_13, "PIN");
+  ledBlock.setFieldValue(isOn ? "ON" : "OFF", "STATE");
+  connectToArduinoBlock(ledBlock);
+  const delayBlock = createBlock("delay_block", 0, 0, false);
+
+  delayBlock.setCommentText(DELAY_COMMENT);
+  delayBlock.comment.setBubbleSize(460, 90);
   const numberBlock1 = createBlock("math_number", 0, 0);
   numberBlock1.setFieldValue(seconds.toString(), "NUM");
-  delayBlock1
+  delayBlock
     .getInput("DELAY")
     .connection.connect(numberBlock1.outputConnection);
-  ledBlock1.nextConnection.connect(delayBlock1.previousConnection);
+  ledBlock.nextConnection.connect(delayBlock.previousConnection);
 };
 
 /**

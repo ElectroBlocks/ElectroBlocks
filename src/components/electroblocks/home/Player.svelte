@@ -7,6 +7,7 @@
   import settingStore from "../../../stores/settings.store";
   import { onErrorMessage } from "../../../help/alerts";
   import { getAllBlocks } from "../../../core/blockly/helpers/block.helper";
+  import is_browser from "../../../helpers/is_browser";
 
   let frames = [];
   let frameNumber = 1;
@@ -163,10 +164,11 @@
   }
 
   onDestroy(async () => {
-    await resetPlayer();
+    if (is_browser()) {
+      await resetPlayer();
+    }
     unsubscribes.forEach((unSubFunc) => {
       unSubFunc();
-      console.log("called unsub", unSubFunc);
     });
   });
 </script>
