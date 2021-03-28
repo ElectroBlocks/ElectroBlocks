@@ -38,12 +38,16 @@ export default class InAppTutorialFeter {
         `${InAppTutorialFeter.BASE_URL}/organizations/${this.organization}/lessons/${id}/steps`
       );
 
+      let steps = [];
       const stepsJSON = await requestSteps.json();
-      const steps = stepsJSON.documents
-        .map((step: Step) => {
-          return this.parseJSON(step);
-        })
-        .sort((a, b) => a.stepNumber - b.stepNumber);
+      if (stepsJSON.documents) {
+        steps = stepsJSON.documents
+          .map((step: Step) => {
+            return this.parseJSON(step);
+          })
+          .sort((a, b) => a.stepNumber - b.stepNumber);
+      }
+
       const lesson = this.parseJSON(lessonJSON) as Lesson<any>;
       lesson.steps = steps;
       lesson.id = lessonJSON.name.split("/").pop();
@@ -103,13 +107,15 @@ export default class InAppTutorialFeter {
    * This will open the tutorial with the lesson id
    */
   public async open(x: number, y: number, lessonId: string): Promise<void> {
+    const json = await this.getLesson(lessonId, true);
+
     let webcomponentEl = document.querySelector(
       InAppTutorialFeter.WEBCOMPONENT_TAG_NAME
     );
     if (!webcomponentEl) {
       this.createWebComponent(x, y);
     }
-    const json = await this.getLesson(lessonId, true);
+
     const event = new Event(InAppTutorialFeter.CHANGE_LESSON_EVENT);
     (event as any).detail = json;
     document.dispatchEvent(event);

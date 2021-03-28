@@ -67,6 +67,7 @@
             id="Category"
           >
             <option>Lessons</option>
+            <option>Starters</option>
             <option>How Tos</option>
             <option>All</option>
           </Input>
