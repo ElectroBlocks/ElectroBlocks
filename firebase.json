@@ -8,15 +8,13 @@
       "target": "main",
       "predeploy": "npm run build",
       "public": "__sapper__/export",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "site": "electroblocks"
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     },
     {
       "target": "spl",
-      "predeploy": "npm run build",
+      "predeploy": "npm run build-spl",
       "public": "__sapper__/export",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "site": "spl-electroblocks"
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     }
   ],
   "storage": {
