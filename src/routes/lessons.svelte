@@ -6,7 +6,7 @@
   import InAppTutorialFeter from "../lessons/InAppTutorialFetcher";
   import { onMount } from "svelte";
   import type { Lesson } from "../lessons/lesson.model";
-
+  import config from "../env";
   let lessonList: Lesson<any>[] = [];
   let filteredLesson: Array<Array<Lesson<any>>> = [];
   let searchTerm = "";
@@ -35,8 +35,12 @@
   }
 
   onMount(async () => {
-    tutFetcher = new InAppTutorialFeter("electroblocks-org");
-    lessonList = await tutFetcher.getLessonsByPage("Lessons");
+    tutFetcher = new InAppTutorialFeter(config.site);
+
+    lessonList =
+      config.site === "electroblocks-org"
+        ? await tutFetcher.getLessonsByPage("Lessons")
+        : await tutFetcher.getLessonsByPage("Starters");
     console.log(lessonList, "lessonList");
     filteredLesson = _.chunk(lessonList, 2);
   });
@@ -50,29 +54,36 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-7 offset-1 no-padding-left">
-        <FormGroup>
-          <Label for="search">Search</Label>
-          <Input bind:value={searchTerm} type="text" name="text" id="search" />
-        </FormGroup>
-      </div>
-      <div class="col-3 no-padding-right">
-        <FormGroup>
-          <Label for="Category">Category</Label>
-          <Input
-            on:change={changePage}
-            bind:value={pageName}
-            type="select"
-            name="select"
-            id="Category"
-          >
-            <option>Lessons</option>
-            <option>Starters</option>
-            <option>How Tos</option>
-            <option>All</option>
-          </Input>
-        </FormGroup>
-      </div>
+      {#if config.site === 'electroblocks-org'}
+        <div class="col-7 offset-1 no-padding-left">
+          <FormGroup>
+            <Label for="search">Search</Label>
+            <Input
+              bind:value={searchTerm}
+              type="text"
+              name="text"
+              id="search"
+            />
+          </FormGroup>
+        </div>
+        <div class="col-3 no-padding-right">
+          <FormGroup>
+            <Label for="Category">Category</Label>
+            <Input
+              on:change={changePage}
+              bind:value={pageName}
+              type="select"
+              name="select"
+              id="Category"
+            >
+              <option>Lessons</option>
+              <option>Starters</option>
+              <option>How Tos</option>
+              <option>All</option>
+            </Input>
+          </FormGroup>
+        </div>
+      {/if}
     </div>
     {#each filteredLesson as lessons}
       <section class="row mt-5">

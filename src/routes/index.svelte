@@ -8,12 +8,13 @@
   import { onErrorMessage } from "../help/alerts";
   import InAppTutorialFeter from "../lessons/InAppTutorialFetcher";
   import authStore from "../stores/auth.store";
+  import config from "../env";
 
   const { page } = stores();
 
   onMount(async () => {
     // move this to layout view
-    const inAppTutorialFetcher = new InAppTutorialFeter("electroblocks-org");
+    const inAppTutorialFetcher = new InAppTutorialFeter(config.site);
     if ($page.query["lessonId"]) {
       try {
         await inAppTutorialFetcher.open(500, 150, $page.query["lessonId"]);
@@ -30,7 +31,7 @@
         !$page.query["lessonId"]
       ) {
         sessionStorage.setItem("showed_lesson", "yes");
-        await inAppTutorialFetcher.open(500, 150, "F074ph1AOoQALhHV2mKA");
+        await inAppTutorialFetcher.open(500, 150, config.starterLessonId);
       }
     });
   });

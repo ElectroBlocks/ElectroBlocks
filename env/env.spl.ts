@@ -1,7 +1,7 @@
 export default {
   firebase: {
     apiKey: "AIzaSyBwZ_RJDOuWRQLAzgEh7wiL8FwBvnsnoUA",
-    authDomain: "auth.electroblocks.org",
+    authDomain: "electroblocks-test.firebaseapp.com",
     databaseURL: "https://electroblocks-test.firebaseio.com",
     projectId: "electroblocks-test",
     storageBucket: "electroblocks-test.appspot.com",
@@ -12,6 +12,6 @@ export default {
   server_arduino_url: "https://compile.electroblocks.org",
   bucket_name: "electroblocks-lesson-test",
   useEmulator: false,
-  site: "electroblocks-org",
-  starterLessonId: "F074ph1AOoQALhHV2mKA",
+  site: "spl-electroblocks-org",
+  starterLessonId: "wTVRahr2tTOBPrWsrVe0",
 };

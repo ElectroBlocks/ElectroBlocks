@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "electroblocks-test"
+  },
+  "targets": {
+    "electroblocks-test": {
+      "hosting": {
+        "spl": [
+          "spl-electroblocks"
+        ],
+        "main": [
+          "Electroblocks"
+        ]
+      }
+    }
   }
 }

@@ -86,7 +86,7 @@ export default class InAppTutorialFeter {
       );
 
       const jsonOrg = await requestOrg.json();
-
+      console.log(jsonOrg, "jsonOrg");
       const page = jsonOrg.fields.pages.mapValue.fields[pageName];
 
       if (!page) {

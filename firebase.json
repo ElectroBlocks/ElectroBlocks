@@ -3,15 +3,22 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "hosting": {
-    "predeploy": "npm run build",
-    "public": "__sapper__/export",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  },
+  "hosting": [
+    {
+      "target": "main",
+      "predeploy": "npm run build",
+      "public": "__sapper__/export",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "site": "electroblocks"
+    },
+    {
+      "target": "spl",
+      "predeploy": "npm run build",
+      "public": "__sapper__/export",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "site": "spl-electroblocks"
+    }
+  ],
   "storage": {
     "rules": "storage.rules"
   },
