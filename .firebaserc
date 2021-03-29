@@ -9,7 +9,7 @@
           "spl-electroblocks"
         ],
         "main": [
-          "Electroblocks"
+          "electroblocks-test"
         ]
       }
     }
