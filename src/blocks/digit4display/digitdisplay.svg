@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="222" height="138" viewBox="0 0 222 138">
+  <g id="BASE">
+    <g id="BASE_RECT">
+      <rect width="222" height="76" fill="#232625"/>
+    </g>
+  </g>
+  <g id="DIGITS">
+    <text id="BACK_1" transform="translate(3.52 68)" font-size="60" fill="#fff" font-family="DSEG7Classic-Bold, DSEG7 Classic" font-weight="700">8</text>
+    <text id="FRONT_1" transform="translate(3.52 68)" font-size="60" fill="#e81818" font-family="DSEG7Classic-Bold, DSEG7 Classic" font-weight="700">8</text>
+    <text id="BACK_2" transform="translate(54.15 68.27)" font-size="60" fill="#fff" font-family="DSEG7Classic-Bold, DSEG7 Classic" font-weight="700">8</text>
+    <text id="FRONT_2" transform="translate(54.15 68.27)" font-size="60" fill="#e81818" font-family="DSEG7Classic-Bold, DSEG7 Classic" font-weight="700">8</text>
+    <text id="BACK_3" transform="translate(118.15 68.27)" font-size="60" fill="#fff" font-family="DSEG7Classic-Bold, DSEG7 Classic" font-weight="700">8</text>
+    <text id="FRONT_3" transform="translate(118.15 68.27)" font-size="60" fill="#e81818" font-family="DSEG7Classic-Bold, DSEG7 Classic" font-weight="700">8</text>
+    <text id="BACK_4" transform="translate(170.15 68.27)" font-size="60" fill="#fff" font-family="DSEG7Classic-Bold, DSEG7 Classic" font-weight="700">8</text>
+    <text id="FRONT_4" transform="translate(170.15 68.27)" font-size="60" fill="#e81818" font-family="DSEG7Classic-Bold, DSEG7 Classic" font-weight="700">8</text>
+  </g>
+  <g id="PINS">
+    <line id="WIRE_BASE" x1="10" y1="91.5" x2="28" y2="91.5" stroke="#000" stroke-miterlimit="10" stroke-width="5"/>
+    <text id="POSITIVE_TEST" transform="translate(57 102.57)" font-size="36" font-family="Biryani-Bold, Biryani" font-weight="700">+</text>
+    <text id="DIO_TEXT" transform="translate(107.07 98.32)" font-size="18" font-family="Biryani-Bold, Biryani" font-weight="700">DIO</text>
+    <text id="CLK_TEXT" transform="translate(174.07 98.32)" font-size="18" font-family="Biryani-Bold, Biryani" font-weight="700">CLK</text>
+    <line id="PIN_GND" x1="19" y1="117" x2="19" y2="137" fill="none" stroke="#999" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_POWER" x1="67" y1="117" x2="67" y2="137" fill="none" stroke="#999" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_DIO" x1="124" y1="117" x2="124" y2="137" fill="none" stroke="#999" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_CLK" x1="195" y1="117" x2="195" y2="137" fill="none" stroke="#999" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect id="BASE-2" data-name="BASE" y="103" width="222" height="14" fill="#282828"/>
+  </g>
+  <g id="CIRCLES">
+    <circle id="TOP" cx="111" cy="25" r="2.5" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="3"/>
+    <circle id="TOP-2" data-name="TOP" cx="111" cy="50" r="2.5" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="3"/>
+  </g>
+</svg>
