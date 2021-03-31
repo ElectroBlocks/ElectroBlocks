@@ -67,6 +67,10 @@ import {
   resetStepperMotor,
   updateStepperMotor,
 } from "../../blocks/steppermotor/virtual-circuit";
+import {
+  digitalDisplayReset,
+  digitalDisplayUpdate,
+} from "../../blocks/digit4display/virtual-circuit";
 
 export interface SyncComponent {
   (
@@ -102,6 +106,7 @@ const resetComponent = {
   [ArduinoComponentType.THERMISTOR]: resetThermistorSensor,
   [ArduinoComponentType.PASSIVE_BUZZER]: resetPassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: resetStepperMotor,
+  [ArduinoComponentType.DIGITAL_DISPLAY]: digitalDisplayReset,
 };
 
 const syncComponent = {
@@ -125,6 +130,7 @@ const syncComponent = {
   [ArduinoComponentType.THERMISTOR]: updateThermistorSensor,
   [ArduinoComponentType.PASSIVE_BUZZER]: updatePassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: updateStepperMotor,
+  [ArduinoComponentType.DIGITAL_DISPLAY]: digitalDisplayUpdate,
 };
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {

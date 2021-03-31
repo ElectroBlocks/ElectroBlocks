@@ -28,11 +28,11 @@ import temperatureXMLString from "../../blocks/temperature/toolbox";
 import textXMLString from "../../blocks/text/toolbox";
 import passiveBuzzerXMLString from "../../blocks/passivebuzzer/toolbox";
 import stepperMotorXMLString from "../../blocks/steppermotor/toolbox";
+import digitalDisplayXMLString from "../../blocks/digit4display/toolbox";
 
 import thermistorXMLString from "../../blocks/thermistor/toolbox";
 
 import { COLOR_THEME } from "./constants/colors";
-import { passiveBuzzer } from "../../blocks/passivebuzzer/blocktoframe";
 
 export interface ToolBoxEntries {
   category: ToolBoxCategory;
@@ -127,6 +127,7 @@ const defaultToolbox: ToolBoxEntries[] = [
     name: "Components",
     toolBoxEntries: [
       { name: "Bluetooth", xml: bluetoothXMLString },
+      { name: "Digital Display", xml: digitalDisplayXMLString },
       { name: "LCD Screen", xml: lcdScreenXMLString },
       { name: "Led", xml: ledXMLString },
       { name: "Led Matrix", xml: ledMatrixXMLString },
