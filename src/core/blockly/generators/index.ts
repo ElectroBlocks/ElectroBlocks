@@ -32,3 +32,4 @@ import "../../../blocks/variables/generators";
 import "../../../blocks/thermistor/generators";
 import "../../../blocks/passivebuzzer/generators";
 import "../../../blocks/steppermotor/generators";
+import "../../../blocks/digit4display/generators";

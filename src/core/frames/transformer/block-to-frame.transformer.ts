@@ -26,6 +26,11 @@ import {
   setBooleanInList,
 } from "../../../blocks/list/blocktoframe";
 import {
+  digit4DisplaySetup,
+  digitalDisplayDots,
+  digitalDisplayText,
+} from "../../../blocks/digit4display/blocktoframe";
+import {
   findBlockById,
   findInputStatementStartBlock,
 } from "../../blockly/helpers/block-data.helper";
@@ -154,6 +159,9 @@ const blockToFrameTransformerList: {
 
   stepper_motor_setup: stepperMotorSetup,
   stepper_motor_move: moveStepperMotor,
+  digital_display_setup: digit4DisplaySetup,
+  digital_display_set_dots: digitalDisplayDots,
+  digital_display_set_text: digitalDisplayText,
 };
 
 export const generateFrame: BlockToFrameTransformer = (

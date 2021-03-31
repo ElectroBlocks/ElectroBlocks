@@ -38,6 +38,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.THERMISTOR]: genericSingleComponentId,
   [ArduinoComponentType.PASSIVE_BUZZER]: genericSingleComponentId,
   [ArduinoComponentType.STEPPER_MOTOR]: genericSingleComponentId,
+  [ArduinoComponentType.DIGITAL_DISPLAY]: genericSingleComponentId,
 };
 
 export const arduinoComponentStateToId = (
