@@ -25,8 +25,6 @@ const codeStore = writable({
   boardType: MicroControllerType.ARDUINO_UNO,
 });
 
-codeStore.subscribe((code) => console.log(code, "arduino code"));
-
 export default {
   set: codeStore.set,
   subscribe: codeStore.subscribe,

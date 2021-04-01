@@ -111,6 +111,11 @@ import {
   createWireStepperMotor,
   positionStepperMotor,
 } from "../../blocks/steppermotor/virtual-circuit";
+import {
+  createWiresDigitalDisplay,
+  digitalDisplayCreate,
+  digitalDisplayPosition,
+} from "../../blocks/digit4display/virtual-circuit";
 
 export default (
   state: ArduinoComponentState,
@@ -244,6 +249,7 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.THERMISTOR]: createThermistorWires,
   [ArduinoComponentType.PASSIVE_BUZZER]: createWiresPassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: createWireStepperMotor,
+  [ArduinoComponentType.DIGITAL_DISPLAY]: createWiresDigitalDisplay,
 };
 
 const positionComponentHookFunc: {
@@ -269,6 +275,7 @@ const positionComponentHookFunc: {
   [ArduinoComponentType.THERMISTOR]: positionThermistorSensor,
   [ArduinoComponentType.PASSIVE_BUZZER]: positionPassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: positionStepperMotor,
+  [ArduinoComponentType.DIGITAL_DISPLAY]: digitalDisplayPosition,
 };
 
 const createComponentHookFunc: {
@@ -294,4 +301,5 @@ const createComponentHookFunc: {
   [ArduinoComponentType.THERMISTOR]: createThermistorSensorHook,
   [ArduinoComponentType.PASSIVE_BUZZER]: afterCreatePassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: emptyCreateHookComponent,
+  [ArduinoComponentType.DIGITAL_DISPLAY]: digitalDisplayCreate,
 };

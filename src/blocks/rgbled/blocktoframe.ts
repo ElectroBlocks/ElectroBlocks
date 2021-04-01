@@ -21,7 +21,7 @@ export const ledColorSetup: BlockToFrameTransformer = (
   const pictureType = findFieldValue(block, "PICTURE_TYPE");
   const ledColorState: LedColorState = {
     type: ArduinoComponentType.LED_COLOR,
-    pins: block.pins,
+    pins: block.pins.sort(),
     redPin,
     greenPin,
     bluePin,

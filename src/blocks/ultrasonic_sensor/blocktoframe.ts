@@ -16,7 +16,7 @@ export const ultraSonicSensor: BlockToFrameTransformer = (
 
   const ultraSonicState: UltraSonicSensorState = {
     cm: sensorData.cm,
-    pins: block.pins,
+    pins: block.pins.sort(),
     trigPin: findFieldValue(block, "PIN_TRIG"),
     echoPin: findFieldValue(block, "PIN_ECHO"),
     type: ArduinoComponentType.ULTRASONICE_SENSOR,
