@@ -5,6 +5,5 @@ export interface DigitilDisplayState extends ArduinoComponentState {
   dioPin: ARDUINO_PINS;
   clkPin: ARDUINO_PINS;
   chars: string;
-  topDotOn: boolean;
-  bottomDotOn: boolean;
+  colonOn: boolean;
 }

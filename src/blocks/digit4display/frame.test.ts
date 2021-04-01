@@ -37,77 +37,52 @@ describe("test digital display", () => {
     setupBlock.setFieldValue(ARDUINO_PINS.PIN_12, "DIO_PIN");
   });
 
-  test("should be able to update the text", () => {
-    const blockSetText = workspace.newBlock(
-      "digital_display_set_text"
-    ) as BlockSvg;
-
-    const textBlock = createValueBlock(workspace, VariableTypes.STRING, "FiRe");
-
-    blockSetText
-      .getInput("TEXT")
-      .connection.connect(textBlock.outputConnection);
-
-    connectToArduinoBlock(blockSetText);
+  test("should be able to update the text and colon", () => {
+    createSetBlock(workspace, "NoAh", true);
+    createSetBlock(workspace, "1010", false);
 
     const event = createTestEvent(setupBlock.id);
     const frames = eventToFrameFactory(event).frames;
 
-    expect(frames.length).toBe(2);
-
-    expect(frames[1].explanation).toBe(
-      `Setting digital display text to "FiRe"`
-    );
-
-    const component = frames[1].components[0] as DigitilDisplayState;
-
-    expect(component.chars).toBe("FiRe");
-    expect(component.type).toBe(ArduinoComponentType.DIGITAL_DISPLAY);
-  });
-
-  test("should be able to set the text on display and dots", () => {
-    function createDotBlock(top: boolean, bottom: boolean) {
-      const block = workspace.newBlock("digital_display_set_dots");
-      block.setFieldValue("TOP_DOT", top ? "TRUE" : "FALSE");
-      block.setFieldValue("BOTTOM_DOT", bottom ? "TRUE" : "FALSE");
-      connectToArduinoBlock(block as BlockSvg);
-    }
-
-    function verifyDotState(
-      frame: ArduinoFrame,
-      top: boolean,
-      bottom: boolean
-    ) {
-      expect(frame.explanation).toBe(
-        `Digital Display top dot ${top ? "on" : "off"} and bottom dot ${
-          bottom ? "on" : "off"
-        }.`
-      );
-
-      const state = frame.components[0] as DigitilDisplayState;
-      console.log(state, "state");
-      expect(state.bottomDotOn).toBe(bottom);
-      expect(state.topDotOn).toBe(top);
-      expect(state.chars).toBe("");
-      expect(state.clkPin).toBe(ARDUINO_PINS.PIN_11);
-      expect(state.dioPin).toBe(ARDUINO_PINS.PIN_12);
-    }
-    createDotBlock(false, false);
-    createDotBlock(true, true);
-    createDotBlock(false, true);
-    createDotBlock(true, false);
-
-    const event = createTestEvent(setupBlock.id);
-    const frames = eventToFrameFactory(event).frames;
-
-    expect(frames.length).toBe(5);
-
-    const [frame1, frame2, frame3, frame4, frame5] = frames;
-
-    expect(frame1.explanation).toBe("Setting up digital display.");
-    verifyDotState(frame2, true, false);
-    verifyDotState(frame3, false, true);
-    verifyDotState(frame4, true, true);
-    verifyDotState(frame5, false, false);
+    expect(frames.length).toBe(3);
+    verifyFrame(frames[0], false, "", "Setting up digital display.");
+    verifyFrame(frames[1], false, "1010");
+    verifyFrame(frames[2], true, "NoAh");
   });
 });
+
+const createSetBlock = (
+  workspace: Workspace,
+  text: string,
+  colonOn: boolean
+) => {
+  const blockSetText = workspace.newBlock("digital_display_set") as BlockSvg;
+
+  blockSetText.setFieldValue(colonOn ? "TRUE" : "FALSE", "COLON");
+  const textBlock = createValueBlock(workspace, VariableTypes.STRING, text);
+
+  blockSetText.getInput("TEXT").connection.connect(textBlock.outputConnection);
+
+  connectToArduinoBlock(blockSetText);
+};
+
+function verifyFrame(
+  frame: ArduinoFrame,
+  colonOn: boolean,
+  text: string,
+  explanation = ""
+) {
+  expect(frame.explanation).toBe(
+    explanation ||
+      `Setting Digital Display text to "${text}" and colon is ${
+        colonOn ? "on" : "off"
+      }.`
+  );
+
+  const state = frame.components[0] as DigitilDisplayState;
+  console.log(state, "state");
+  expect(state.colonOn).toBe(colonOn);
+  expect(state.chars).toBe(text);
+  expect(state.clkPin).toBe(ARDUINO_PINS.PIN_11);
+  expect(state.dioPin).toBe(ARDUINO_PINS.PIN_12);
+}

@@ -7,16 +7,12 @@ export default `<category name="Digit Display" colour="${COLOR_THEME.COMPONENTS}
     <field name="DIO_PIN">11</field>
 
        </block>
-       <block type="digital_display_set_text">
-            <comment pinned="false" h="70" w="460">Sets the letters and numbers to be displayed on the device.  You can only display 4 characters at a time.</comment>
+       <block type="digital_display_set">
+            <comment pinned="false" h="70" w="460">Sets the text and turns the colons on and off.</comment>
             <value name="TEXT">
                 <block type="text">
                     <field name="TEXT">Noob</field>
                 </block>
             </value>
-       </block>
-
-       <block type="digital_display_set_dots">
-            <comment pinned="false" h="70" w="460">Sets the bottom and top dots on the digital display</comment>
        </block>
    </category>`;

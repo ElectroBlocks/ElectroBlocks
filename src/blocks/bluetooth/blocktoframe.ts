@@ -17,7 +17,7 @@ export const bluetoothSetup: BlockToFrameTransformer = (
   const btSensor = btSensorDatum.find((d) => d.loop === 1);
 
   const bluetoothComponent: BluetoothState = {
-    pins: block.pins,
+    pins: block.pins.sort(),
     type: ArduinoComponentType.BLUE_TOOTH,
     rxPin: findFieldValue(block, "PIN_RX"),
     txPin: findFieldValue(block, "PIN_TX"),

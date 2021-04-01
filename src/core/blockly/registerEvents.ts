@@ -137,7 +137,10 @@ export const createFrames = async (blocklyEvent) => {
 
   const newFrameContainer = eventToFrameFactory(refreshEvent, settings);
 
-  if (!_.isEqual(newFrameContainer, currentFrameContainter)) {
+  if (
+    currentFrameContainter === undefined ||
+    JSON.stringify(newFrameContainer) !== JSON.stringify(currentFrameContainter)
+  ) {
     currentFrameContainter = newFrameContainer;
     frameStore.set(currentFrameContainter);
   }

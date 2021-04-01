@@ -22,7 +22,7 @@ export const lcdScreenSetup: BlockToFrameTransformer = (
   const sdaPin = findFieldValue(block, "PIN_SDA");
   const sclPin = findFieldValue(block, "PIN_SCL");
   const lcdState: LCDScreenState = {
-    pins: block.pins,
+    pins: block.pins.sort(),
     rows,
     columns,
     type: ArduinoComponentType.LCD_SCREEN,

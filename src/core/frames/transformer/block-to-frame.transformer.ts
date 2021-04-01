@@ -27,8 +27,7 @@ import {
 } from "../../../blocks/list/blocktoframe";
 import {
   digit4DisplaySetup,
-  digitalDisplayDots,
-  digitalDisplayText,
+  digitalDisplaySet,
 } from "../../../blocks/digit4display/blocktoframe";
 import {
   findBlockById,
@@ -160,8 +159,7 @@ const blockToFrameTransformerList: {
   stepper_motor_setup: stepperMotorSetup,
   stepper_motor_move: moveStepperMotor,
   digital_display_setup: digit4DisplaySetup,
-  digital_display_set_dots: digitalDisplayDots,
-  digital_display_set_text: digitalDisplayText,
+  digital_display_set: digitalDisplaySet,
 };
 
 export const generateFrame: BlockToFrameTransformer = (

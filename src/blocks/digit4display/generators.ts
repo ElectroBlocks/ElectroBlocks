@@ -1,28 +1,43 @@
 import Blockly, { Block } from "blockly";
 
 Blockly["Arduino"]["digital_display_setup"] = function (block: Block) {
-  var dropdown_dio_pin = block.getFieldValue("DIO_PIN");
-  var dropdown_clk_pin = block.getFieldValue("CLK_PIN");
+  var dioPin = block.getFieldValue("DIO_PIN");
+  var clkPin = block.getFieldValue("CLK_PIN");
+
+  Blockly["Arduino"].libraries_["define_digital_display"] = `
+const byte PIN_CLK = ${dioPin};   // define CLK pin (any digital pin)
+const byte PIN_DIO = ${clkPin};   // define DIO pin (any digital pin)
+SevenSegmentTM1637    digitalDisplay(PIN_CLK, PIN_DIO);
+`;
+
+  Blockly["Arduino"].setupCode_["digital_display_setup"] = `
+
+    digitalDisplay.begin();
+    digitalDisplay.setBacklight(100);
+
+`;
+
   // TODO: Assemble JavaScript into code variable.
-  var code = "...;\n";
+  var code = "";
   return code;
 };
 
-Blockly["Arduino"]["digital_display_set_text"] = function (block) {
-  var value_text = Blockly["Arduino"].valueToCode(
+Blockly["Arduino"]["digital_display_set"] = function (block) {
+  var text = Blockly["Arduino"].valueToCode(
     block,
     "TEXT",
     Blockly["Arduino"].ORDER_ATOMIC
   );
-  // TODO: Assemble JavaScript into code variable.
-  var code = "...;\n";
-  return code;
-};
+  var colonOn = block.getFieldValue("COLON") == "TRUE";
 
-Blockly["Arduino"]["digital_display_set_dots"] = function (block) {
-  var checkbox_top_dot = block.getFieldValue("TOP_DOT") == "TRUE";
-  var checkbox_bottom_dot = block.getFieldValue("BOTTOM_DOT") == "TRUE";
+  // display.clear();
+  // display.setColonOn(true);
+  // display.print("1200");
+
   // TODO: Assemble JavaScript into code variable.
-  var code = "...;\n";
+  var code = `  display.clear();
+  display.setColonOn(${colonOn});
+  display.print(${text});
+`;
   return code;
 };

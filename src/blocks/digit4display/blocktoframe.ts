@@ -18,12 +18,11 @@ export const digit4DisplaySetup: BlockToFrameTransformer = (
 ) => {
   const component: DigitilDisplayState = {
     type: ArduinoComponentType.DIGITAL_DISPLAY,
-    pins: block.pins,
+    pins: block.pins.sort(),
     dioPin: findFieldValue(block, "DIO_PIN"),
     clkPin: findFieldValue(block, "CLK_PIN"),
     chars: "",
-    topDotOn: false,
-    bottomDotOn: false,
+    colonOn: false,
   };
 
   return [
@@ -38,7 +37,7 @@ export const digit4DisplaySetup: BlockToFrameTransformer = (
   ];
 };
 
-export const digitalDisplayDots: BlockToFrameTransformer = (
+export const digitalDisplaySet: BlockToFrameTransformer = (
   blocks,
   block,
   variables,
@@ -51,36 +50,7 @@ export const digitalDisplayDots: BlockToFrameTransformer = (
       ArduinoComponentType.DIGITAL_DISPLAY
     ) as DigitilDisplayState
   );
-  component.topDotOn = findFieldValue(block, "TOP_DOT") === "TRUE";
-  component.bottomDotOn = findFieldValue(block, "BOTTOM_DOT") === "TRUE";
-
-  return [
-    arduinoFrameByComponent(
-      block.id,
-      block.blockName,
-      timeline,
-      component,
-      `Digital Display top dot ${
-        component.topDotOn ? "on" : "off"
-      } and bottom dot ${component.bottomDotOn ? "on" : "off"}.`,
-      previousState
-    ),
-  ];
-};
-
-export const digitalDisplayText: BlockToFrameTransformer = (
-  blocks,
-  block,
-  variables,
-  timeline,
-  previousState
-) => {
-  const component = _.cloneDeep(
-    findComponent(
-      previousState,
-      ArduinoComponentType.DIGITAL_DISPLAY
-    ) as DigitilDisplayState
-  );
+  component.colonOn = findFieldValue(block, "COLON") === "TRUE";
   const chars = getInputValue(
     blocks,
     block,
@@ -98,7 +68,9 @@ export const digitalDisplayText: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       component,
-      `Setting digital display text to "${component.chars}"`,
+      `Setting Digital Display text to "${component.chars}" and colon is ${
+        component.colonOn ? "on" : "off"
+      }.`,
       previousState
     ),
   ];

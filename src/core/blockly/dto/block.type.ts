@@ -131,8 +131,7 @@ export const blocksThatRequireSetup = {
   time_seconds: "time_setup",
   thermistor_read: "thermistor_setup",
   stepper_motor_move: "stepper_motor_setup",
-  digital_display_set_dots: "digital_display_setup",
-  digital_display_set_text: "digital_display_setup",
+  digital_display_set: "digital_display_setup",
 };
 
 /**
@@ -472,11 +471,7 @@ export const blocksToBlockTypes: {
     type: BlockType.SETUP,
     pinCategory: PinCategory.DIGITAL_DISPLAY,
   },
-  digital_display_set_text: {
-    type: BlockType.STATE,
-    pinCategory: PinCategory.NONE,
-  },
-  digital_display_set_dots: {
+  digital_display_set: {
     type: BlockType.STATE,
     pinCategory: PinCategory.NONE,
   },
