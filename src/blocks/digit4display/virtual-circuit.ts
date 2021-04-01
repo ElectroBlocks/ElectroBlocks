@@ -45,7 +45,19 @@ export const digitalDisplayPosition: PositionComponent<DigitilDisplayState> = (
 
 export const digitalDisplayReset: ResetComponent = (
   digitalDisplayEl: Element
-) => {};
+) => {
+  const topDotEL = digitalDisplayEl.findOne("#DOT_TOP") as Element;
+  const bottomDotEL = digitalDisplayEl.findOne("#DOT_BOTTOM") as Element;
+  topDotEL.fill("#FFF");
+  topDotEL.fill("#FFF");
+  bottomDotEL.fill("#FFF");
+  bottomDotEL.stroke("#FFF");
+
+  digitalDisplayEl.findOne(`#FRONT_1`).hide();
+  digitalDisplayEl.findOne(`#FRONT_2`).hide();
+  digitalDisplayEl.findOne(`#FRONT_3`).hide();
+  digitalDisplayEl.findOne(`#FRONT_4`).hide();
+};
 
 export const digitalDisplayUpdate: SyncComponent = (
   state: DigitilDisplayState,
@@ -70,7 +82,13 @@ export const digitalDisplayUpdate: SyncComponent = (
   toggleLetter(char3, 3);
   toggleLetter(char4, 4);
 
-  // TODO add dots toggle and finish reset
+  const redColor = "#E81818";
+  const topDotEL = digitalDisplayEl.findOne("#DOT_TOP") as Element;
+  const bottomDotEL = digitalDisplayEl.findOne("#DOT_BOTTOM") as Element;
+  topDotEL.fill(state.topDotOn ? redColor : "#FFF");
+  bottomDotEL.fill(state.bottomDotOn ? redColor : "#FFF");
+  topDotEL.stroke(state.topDotOn ? redColor : "#FFF");
+  bottomDotEL.stroke(state.bottomDotOn ? redColor : "#FFF");
 };
 
 export const createWiresDigitalDisplay: CreateWire<DigitilDisplayState> = (

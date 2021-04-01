@@ -28,7 +28,7 @@
     <text id="CLK_PIN_TEXT" transform="translate(193.11 135.26)" font-size="21" font-family="MyriadPro-Regular, Myriad Pro">7</text>
   </g>
   <g id="CIRCLES">
-    <circle id="TOP" cx="111" cy="25" r="2.5" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="3"/>
-    <circle id="TOP-2" data-name="TOP" cx="111" cy="50" r="2.5" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="3"/>
+    <circle id="DOT_TOP" cx="111" cy="25" r="2.5" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="3"/>
+    <circle id="DOT_BOTTOM" cx="111" cy="50" r="2.5" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="3"/>
   </g>
 </svg>

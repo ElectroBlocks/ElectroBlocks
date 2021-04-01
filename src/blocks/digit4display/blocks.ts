@@ -30,6 +30,14 @@ Blockly.Blocks["digital_display_setup"] = {
   },
 };
 
+// TODO
+// NEEDS TO BE ONE BLOCK THAT SETS THE COLONS and SETS Text
+// CODE TO CHANGE THINGS
+// NOTE need version 1.1 of https://github.com/bremme/arduino-tm1637
+// display.clear();
+// display.setColonOn(true);
+// display.print("1200");
+
 Blockly.Blocks["digital_display_set_text"] = {
   init: function () {
     this.appendDummyInput()
