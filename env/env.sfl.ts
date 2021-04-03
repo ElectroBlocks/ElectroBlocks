@@ -12,6 +12,6 @@ export default {
   server_arduino_url: "https://compile.electroblocks.org",
   bucket_name: "electroblocks-lesson-test",
   useEmulator: false,
-  site: "spl-electroblocks-org",
-  starterLessonId: "wTVRahr2tTOBPrWsrVe0",
+  site: "sfl-electroblocks-org",
+  starterLessonId: "UxvyOW9K6Ymxhz9yC7UT",
 };

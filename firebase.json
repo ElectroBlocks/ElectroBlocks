@@ -11,8 +11,8 @@
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     },
     {
-      "target": "spl",
-      "predeploy": "npm run build-spl",
+      "target": "sfl",
+      "predeploy": "npm run build-sfl",
       "public": "__sapper__/export",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     }

@@ -5,8 +5,8 @@
   "targets": {
     "electroblocks-test": {
       "hosting": {
-        "spl": [
-          "spl-electroblocks"
+        "sfl": [
+          "sfl-electroblocks"
         ],
         "main": [
           "electroblocks-test"
