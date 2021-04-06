@@ -77,6 +77,7 @@ import {
   moveStepperMotor,
   stepperMotorSetup,
 } from "../../../blocks/steppermotor/blocktoframe";
+import { joystickSetup } from "../../../blocks/joystick/blocktoframe";
 
 export interface BlockToFrameTransformer {
   (
@@ -160,6 +161,8 @@ const blockToFrameTransformerList: {
   stepper_motor_move: moveStepperMotor,
   digital_display_setup: digit4DisplaySetup,
   digital_display_set: digitalDisplaySet,
+
+  joystick_setup: joystickSetup,
 };
 
 export const generateFrame: BlockToFrameTransformer = (

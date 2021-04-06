@@ -59,6 +59,11 @@ import { ultraSonicSensorDistance } from "../../../blocks/ultrasonic_sensor/bloc
 import { getVariable } from "../../../blocks/variables/blocktovalue";
 
 import { thermistorRead } from "../../../blocks/thermistor/blocktovalue";
+import {
+  joystickAngle,
+  joystickButton,
+  joystickEngaged,
+} from "../../../blocks/joystick/blocktovalue";
 
 export interface ValueGenerator {
   (
@@ -139,6 +144,10 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   temp_get_temp: getTemp,
 
   thermistor_read: thermistorRead,
+
+  joystick_angle: joystickAngle,
+  joystick_button: joystickButton,
+  joystick_engaged: joystickEngaged,
 };
 
 export const getInputValue = (

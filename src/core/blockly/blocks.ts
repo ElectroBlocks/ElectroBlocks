@@ -31,3 +31,4 @@ import "../../blocks/thermistor/blocks";
 import "../../blocks/passivebuzzer/blocks";
 import "../../blocks/steppermotor/blocks";
 import "../../blocks/digit4display/blocks";
+import "../../blocks/joystick/blocks";

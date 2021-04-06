@@ -11,7 +11,6 @@ import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { updater } from "../../core/blockly/updater";
 import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import {
-  ArduinoComponentState,
   ArduinoComponentType,
   ArduinoFrame,
 } from "../../core/frames/arduino.frame";
@@ -36,6 +35,7 @@ describe("Tests the joy stick out", () => {
     joystickSetup.setFieldValue(ARDUINO_PINS.PIN_5, "PIN_X");
     joystickSetup.setFieldValue(ARDUINO_PINS.PIN_6, "PIN_Y");
     joystickSetup.setFieldValue(ARDUINO_PINS.PIN_7, "PIN_BUTTON");
+    joystickSetup.setFieldValue("1", "LOOP");
     joystickSetup.setFieldValue("FALSE", "ENGAGED");
     joystickSetup.setFieldValue("0", "DEGREE");
     joystickSetup.setFieldValue("FALSE", "BUTTON_PRESSED");
@@ -44,6 +44,7 @@ describe("Tests the joy stick out", () => {
       updater
     );
 
+    joystickSetup.setFieldValue("2", "LOOP");
     joystickSetup.setFieldValue("TRUE", "ENGAGED");
     joystickSetup.setFieldValue("90", "DEGREE");
     joystickSetup.setFieldValue("TRUE", "BUTTON_PRESSED");
@@ -66,49 +67,20 @@ describe("Tests the joy stick out", () => {
       .getInput("VALUE")
       .connection.connect(degreeJoystickBlock.outputConnection);
 
-    const engagedBlock = workspace.newBlock("joystick_engaged");
-    const engageVarBlock = createSetVariableBlockWithValue(
-      workspace,
-      "engaged",
-      VariableTypes.BOOLEAN,
-      true
-    );
-    engageVarBlock.getInput("VALUE").connection.targetBlock().dispose(true);
-    engageVarBlock
-      .getInput("VALUE")
-      .connection.connect(engagedBlock.outputConnection);
-
-    const buttonBlock = workspace.newBlock("joystick_button");
-    const buttonVarBlock = createSetVariableBlockWithValue(
-      workspace,
-      "buttonPressed",
-      VariableTypes.BOOLEAN,
-      true
-    );
-    buttonVarBlock.getInput("VALUE").connection.targetBlock().dispose(true);
-    buttonVarBlock
-      .getInput("VALUE")
-      .connection.connect(buttonBlock.outputConnection);
-
-    connectToArduinoBlock(buttonVarBlock);
     connectToArduinoBlock(degreeVarBlock);
-    connectToArduinoBlock(engageVarBlock);
 
-    const event = createTestEvent(engageVarBlock.id);
+    const event = createTestEvent(degreeVarBlock.id);
 
     const frameContainer = eventToFrameFactory(event);
     const frames = frameContainer.frames;
-    expect(frames.length).toBe(7);
+    expect(frames.length).toBe(3);
 
-    const [frame1, frame2, frame3, frame4, frame5, frame6, frame7] = frames;
-
+    const [frame1, frame2, frame3] = frames;
+    console.log(joystickSetup.data, "data");
     expect(frame1.explanation).toBe("Setting up joystick.");
     verifyState(frame1, false, false, 0);
     verifyState(frame2, false, false, 0);
-    verifyState(frame3, false, false, 0);
-    verifyState(frame4, true, false, 0);
-    verifyState(frame5, true, false, 90);
-    verifyState(frame1, false, true, 90);
+    verifyState(frame3, true, true, 90);
   });
 
   function verifyState(
@@ -118,7 +90,6 @@ describe("Tests the joy stick out", () => {
     degrees: number
   ) {
     const state = frame.components[0] as JoystickState;
-    const variables = frame.variables;
     expect(state.type).toBe(ArduinoComponentType.JOYSTICK);
     expect(state.xPin).toBe(ARDUINO_PINS.PIN_5);
     expect(state.yPin).toBe(ARDUINO_PINS.PIN_6);
@@ -127,9 +98,5 @@ describe("Tests the joy stick out", () => {
     expect(state.degree).toBe(degrees);
     expect(state.buttonPressed).toBe(pressed);
     expect(state.engaged).toBe(engaged);
-
-    expect(variables["engaged"]).toBe(engaged);
-    expect(variables["degrees"]).toBe(degrees);
-    expect(variables["buttonPressed"]).toBe(pressed);
   }
 });

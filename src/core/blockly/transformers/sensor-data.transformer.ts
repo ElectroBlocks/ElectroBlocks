@@ -28,6 +28,8 @@ import { temperatureSetupBlockToSensorData } from "../../../blocks/temperature/s
 import { temperatureSetupBlockToComponentState } from "../../../blocks/temperature/setupblocktocomponentstate";
 import { thermistorSetupBlockToSensorData } from "../../../blocks/thermistor/setupblocktosensordata";
 import { thermistorSetupBlockToComponentState } from "../../../blocks/thermistor/setupblocktocomponentstate";
+import { joyStickSetupBlocktoSensorData } from "../../../blocks/joystick/setupblocktosensordata";
+import { joystickSetupBlockToComponentState } from "../../../blocks/joystick/setupblocktocomponentstate";
 
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -49,6 +51,7 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   ultra_sonic_sensor_setup: ultraSonicSetupBlockToSensorData,
   message_setup: messageSetupBlockToSensorData,
   thermistor_setup: thermistorSetupBlockToSensorData,
+  joystick_setup: joyStickSetupBlocktoSensorData,
 };
 
 const blockToSensorComponent: {
@@ -65,6 +68,7 @@ const blockToSensorComponent: {
   ultra_sonic_sensor_setup: ultraSonicSetupBlockToComponentState,
   message_setup: messageSetupBlockToComponentState,
   thermistor_setup: thermistorSetupBlockToComponentState,
+  joystick_setup: joystickSetupBlockToComponentState,
 };
 
 export const sensorSetupBlockName = _.keys(blockToSensorComponent);

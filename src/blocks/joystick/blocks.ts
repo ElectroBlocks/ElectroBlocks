@@ -54,7 +54,7 @@ Blockly.Blocks["joystick_angle"] = {
         new Blockly.FieldImage("./blocks/joystick/joystick.png", 15, 15)
       )
       .appendField("Joystick Angle");
-    this.setOutput(true, null);
+    this.setOutput(true, "Number");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");
@@ -68,7 +68,7 @@ Blockly.Blocks["joystick_engaged"] = {
         new Blockly.FieldImage("./blocks/joystick/joystick.png", 15, 15)
       )
       .appendField("Is Joystick Engaged?");
-    this.setOutput(true, null);
+    this.setOutput(true, "Boolean");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");
@@ -82,7 +82,7 @@ Blockly.Blocks["joystick_button"] = {
         new Blockly.FieldImage("./blocks/joystick/joystick.png", 15, 15)
       )
       .appendField("Is joystick button pressed?");
-    this.setOutput(true, null);
+    this.setOutput(true, "Boolean");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

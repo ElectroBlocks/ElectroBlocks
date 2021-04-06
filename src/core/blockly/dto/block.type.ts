@@ -488,15 +488,15 @@ export const blocksToBlockTypes: {
     pinCategory: PinCategory.JOYSTICK,
   },
   joystick_angle: {
-    type: BlockType.SENSOR_SETUP,
+    type: BlockType.SENSOR_READ,
     pinCategory: PinCategory.NONE,
   },
   joystick_engaged: {
-    type: BlockType.SENSOR_SETUP,
+    type: BlockType.SENSOR_READ,
     pinCategory: PinCategory.NONE,
   },
   joystick_button: {
-    type: BlockType.SENSOR_SETUP,
+    type: BlockType.SENSOR_READ,
     pinCategory: PinCategory.NONE,
   },
 };
