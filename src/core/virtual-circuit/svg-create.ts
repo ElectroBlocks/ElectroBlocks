@@ -116,6 +116,11 @@ import {
   digitalDisplayCreate,
   digitalDisplayPosition,
 } from "../../blocks/digit4display/virtual-circuit";
+import {
+  afterComponentHookJoyStick,
+  createWireJoyStick,
+  positionJoyStick,
+} from "../../blocks/joystick/virtual-circuit";
 
 export default (
   state: ArduinoComponentState,
@@ -250,6 +255,7 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.PASSIVE_BUZZER]: createWiresPassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: createWireStepperMotor,
   [ArduinoComponentType.DIGITAL_DISPLAY]: createWiresDigitalDisplay,
+  [ArduinoComponentType.JOYSTICK]: createWireJoyStick,
 };
 
 const positionComponentHookFunc: {
@@ -276,6 +282,7 @@ const positionComponentHookFunc: {
   [ArduinoComponentType.PASSIVE_BUZZER]: positionPassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: positionStepperMotor,
   [ArduinoComponentType.DIGITAL_DISPLAY]: digitalDisplayPosition,
+  [ArduinoComponentType.JOYSTICK]: positionJoyStick,
 };
 
 const createComponentHookFunc: {
@@ -302,4 +309,5 @@ const createComponentHookFunc: {
   [ArduinoComponentType.PASSIVE_BUZZER]: afterCreatePassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: emptyCreateHookComponent,
   [ArduinoComponentType.DIGITAL_DISPLAY]: digitalDisplayCreate,
+  [ArduinoComponentType.JOYSTICK]: afterComponentHookJoyStick,
 };

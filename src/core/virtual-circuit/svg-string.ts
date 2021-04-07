@@ -25,6 +25,7 @@ import { getDigitalSensorSvg } from "../../blocks/digitalsensor/svg-string";
 import { getAnalogSensorSvg } from "../../blocks/analogsensor/svg-string";
 import stepperMotorSvg from "../../blocks/steppermotor/steppermotor.svg";
 import digitalDisplaySvg from "../../blocks/digit4display/digitdisplay.svg";
+import joyStickSvg from "../../blocks/joystick/joystick.svg";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
@@ -59,4 +60,5 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.PASSIVE_BUZZER]: (_) => passiveBuzzerSvgString,
   [ArduinoComponentType.STEPPER_MOTOR]: (_) => stepperMotorSvg,
   [ArduinoComponentType.DIGITAL_DISPLAY]: (_) => digitalDisplaySvg,
+  [ArduinoComponentType.JOYSTICK]: (_) => joyStickSvg,
 };

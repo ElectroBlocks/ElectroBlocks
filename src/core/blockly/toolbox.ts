@@ -29,6 +29,7 @@ import textXMLString from "../../blocks/text/toolbox";
 import passiveBuzzerXMLString from "../../blocks/passivebuzzer/toolbox";
 import stepperMotorXMLString from "../../blocks/steppermotor/toolbox";
 import digitalDisplayXMLString from "../../blocks/digit4display/toolbox";
+import joystickXMLString from "../../blocks/joystick/toolbox";
 
 import thermistorXMLString from "../../blocks/thermistor/toolbox";
 
@@ -149,6 +150,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Button", xml: buttonXMLString },
       { name: "Digital Sensor", xml: digitalSensorXMLString },
       { name: "IR Remote", xml: irRmoteXMLString },
+      { name: "JoyStick", xml: joystickXMLString },
       { name: "Motion Sensor", xml: ultraSonicXMLString },
       { name: "RFID", xml: rfidXMLString },
       { name: "Temperature/Humidity", xml: temperatureXMLString },
