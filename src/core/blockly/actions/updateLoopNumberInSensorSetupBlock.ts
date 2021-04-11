@@ -19,7 +19,7 @@ export const updateLoopNumberInSensorSetupBlock = (
     return [];
   }
 
-  const newLoopNumber = +newValue;
+  const newLoopNumber = +newValue > 0 ? +newValue : 1;
 
   return blocks
     .filter((block) => block.type === BlockType.SENSOR_SETUP)

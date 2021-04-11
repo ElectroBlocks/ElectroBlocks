@@ -81,7 +81,16 @@ export const convertToState = (
     throw new Error("No Sensor Data function found for " + block.blockName);
   }
 
-  return blockToSensorComponent[block.blockName](block, timeline);
+  try {
+    // if the sensor data does not have state for the loop
+    // it will error most of the time
+    return blockToSensorComponent[block.blockName](block, timeline);
+  } catch (e) {
+    return blockToSensorComponent[block.blockName](block, {
+      iteration: 0,
+      function: "pre-setup",
+    });
+  }
 };
 
 export const convertToSensorData = (block: BlockData): Sensor => {
