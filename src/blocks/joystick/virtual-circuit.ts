@@ -122,7 +122,7 @@ export const updateJoyStick: SyncComponent = (
 
   if (state.engaged) {
     const moveBy = 20;
-    const adjustedDegree = state.degree + 90;
+    const adjustedDegree = state.degree * -1 + 180;
     const radRatio = Math.PI / 180;
     movingPart.cx(
       containingPart.cx() + Math.cos(adjustedDegree * radRatio) * moveBy
