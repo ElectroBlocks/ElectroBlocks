@@ -33,6 +33,7 @@ export enum PinCategory {
   PASSIVE_BUZZER = "PASSIVE_BUZZER",
   STEPPER_MOTOR = "STEPPER_MOTOR",
   DIGITAL_DISPLAY = "DIGITAL_DISPLAY",
+  JOYSTICK = "JOYSTICK",
 }
 
 // These are block type require being put into a setup, loop or function block
@@ -73,6 +74,7 @@ export const standAloneBlocks = [
   "thermistor_setup",
   "stepper_motor_setup",
   "digital_display_setup",
+  "sensorSetupBlocks",
 ];
 
 export const multipleTopBlocks = [
@@ -94,6 +96,7 @@ export const sensorSetupBlocks = [
   "temp_setup",
   "soil_sensor_setup",
   "thermistor_read",
+  "joystick_setup",
 ];
 
 /**
@@ -132,6 +135,9 @@ export const blocksThatRequireSetup = {
   thermistor_read: "thermistor_setup",
   stepper_motor_move: "stepper_motor_setup",
   digital_display_set: "digital_display_setup",
+  joystick_button: "joystick_setup",
+  joystick_angle: "joystick_setup",
+  joystick_engaged: "joystick_setup",
 };
 
 /**
@@ -156,6 +162,7 @@ export const setupBlockTypeToHumanName = {
   thermistor_setup: "thermistor setup block",
   stepper_motor_setup: "stepper motor setup block",
   digital_display_setup: "digital display setup block",
+  joystick_setup: "joystick setup block",
 };
 
 export const blocksToBlockTypes: {
@@ -473,6 +480,23 @@ export const blocksToBlockTypes: {
   },
   digital_display_set: {
     type: BlockType.STATE,
+    pinCategory: PinCategory.NONE,
+  },
+
+  joystick_setup: {
+    type: BlockType.SENSOR_SETUP,
+    pinCategory: PinCategory.JOYSTICK,
+  },
+  joystick_angle: {
+    type: BlockType.SENSOR_READ,
+    pinCategory: PinCategory.NONE,
+  },
+  joystick_engaged: {
+    type: BlockType.SENSOR_READ,
+    pinCategory: PinCategory.NONE,
+  },
+  joystick_button: {
+    type: BlockType.SENSOR_READ,
     pinCategory: PinCategory.NONE,
   },
 };

@@ -39,6 +39,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.PASSIVE_BUZZER]: genericSingleComponentId,
   [ArduinoComponentType.STEPPER_MOTOR]: genericSingleComponentId,
   [ArduinoComponentType.DIGITAL_DISPLAY]: genericSingleComponentId,
+  [ArduinoComponentType.JOYSTICK]: genericSingleComponentId,
 };
 
 export const arduinoComponentStateToId = (

@@ -96,7 +96,11 @@ import {
   createWireAnalogSensors,
 } from "../../blocks/analogsensor/virtual-circuit";
 import type { Settings } from "../../firebase/model";
-import { takeBoardArea, takeBoardAreaWithExistingComponent } from "./wire";
+import {
+  showPin,
+  takeBoardArea,
+  takeBoardAreaWithExistingComponent,
+} from "./wire";
 import {
   createThermistorSensorHook,
   createThermistorWires,
@@ -116,6 +120,12 @@ import {
   digitalDisplayCreate,
   digitalDisplayPosition,
 } from "../../blocks/digit4display/virtual-circuit";
+import {
+  afterComponentHookJoyStick,
+  createWireJoyStick,
+  positionJoyStick,
+} from "../../blocks/joystick/virtual-circuit";
+import { ANALOG_PINS } from "../microcontroller/selectBoard";
 
 export default (
   state: ArduinoComponentState,
@@ -130,6 +140,12 @@ export default (
   if (componentEl) {
     // make sure the area get taken
     takeBoardAreaWithExistingComponent(componentEl.data("holes").split("-"));
+    // Show all the analog pins because they will turn off no matter what
+    // in paint.
+    state.pins
+      .filter((p) => ANALOG_PINS.includes(p))
+      .forEach((p) => showPin(draw, p));
+
     return;
   }
 
@@ -250,6 +266,7 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.PASSIVE_BUZZER]: createWiresPassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: createWireStepperMotor,
   [ArduinoComponentType.DIGITAL_DISPLAY]: createWiresDigitalDisplay,
+  [ArduinoComponentType.JOYSTICK]: createWireJoyStick,
 };
 
 const positionComponentHookFunc: {
@@ -276,6 +293,7 @@ const positionComponentHookFunc: {
   [ArduinoComponentType.PASSIVE_BUZZER]: positionPassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: positionStepperMotor,
   [ArduinoComponentType.DIGITAL_DISPLAY]: digitalDisplayPosition,
+  [ArduinoComponentType.JOYSTICK]: positionJoyStick,
 };
 
 const createComponentHookFunc: {
@@ -302,4 +320,5 @@ const createComponentHookFunc: {
   [ArduinoComponentType.PASSIVE_BUZZER]: afterCreatePassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: emptyCreateHookComponent,
   [ArduinoComponentType.DIGITAL_DISPLAY]: digitalDisplayCreate,
+  [ArduinoComponentType.JOYSTICK]: afterComponentHookJoyStick,
 };

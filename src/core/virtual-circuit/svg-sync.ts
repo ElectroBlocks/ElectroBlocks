@@ -71,6 +71,10 @@ import {
   digitalDisplayReset,
   digitalDisplayUpdate,
 } from "../../blocks/digit4display/virtual-circuit";
+import {
+  resetJoyStick,
+  updateJoyStick,
+} from "../../blocks/joystick/virtual-circuit";
 
 export interface SyncComponent {
   (
@@ -107,6 +111,7 @@ const resetComponent = {
   [ArduinoComponentType.PASSIVE_BUZZER]: resetPassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: resetStepperMotor,
   [ArduinoComponentType.DIGITAL_DISPLAY]: digitalDisplayReset,
+  [ArduinoComponentType.JOYSTICK]: resetJoyStick,
 };
 
 const syncComponent = {
@@ -131,6 +136,7 @@ const syncComponent = {
   [ArduinoComponentType.PASSIVE_BUZZER]: updatePassiveBuzzer,
   [ArduinoComponentType.STEPPER_MOTOR]: updateStepperMotor,
   [ArduinoComponentType.DIGITAL_DISPLAY]: digitalDisplayUpdate,
+  [ArduinoComponentType.JOYSTICK]: updateJoyStick,
 };
 
 export const syncComponents = (frame: ArduinoFrame, draw: Svg) => {

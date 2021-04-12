@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="247.99" viewBox="0 0 200 247.99">
+  <g id="COMPONENT">
+    <g id="Base">
+      <rect x="56.3" y="78.26" width="91" height="91" fill="#0c0c0c"/>
+      <path d="M151.8,97v90h-90V97h90m1-1h-92v92h92V96Z" transform="translate(-5 -18.24)"/>
+    </g>
+    <g id="Background">
+      <circle cx="101.8" cy="123.41" r="42.32" fill="#b7a9a9"/>
+      <path d="M106.8,99.83A41.82,41.82,0,1,1,65,141.65,41.87,41.87,0,0,1,106.8,99.83m0-1a42.82,42.82,0,1,0,42.82,42.82A42.82,42.82,0,0,0,106.8,98.83Z" transform="translate(-5 -18.24)"/>
+    </g>
+    <g id="MOVING_PIECE">
+      <path d="M108.05,154.85A13.45,13.45,0,1,1,121.5,141.4,13.46,13.46,0,0,1,108.05,154.85Z" transform="translate(-5 -18.24)" fill="#0c0c0c"/>
+      <path d="M108.05,128.45a12.95,12.95,0,1,1-13,13,13,13,0,0,1,13-13m0-1a14,14,0,1,0,14,14,13.95,13.95,0,0,0-14-14Z" transform="translate(-5 -18.24)"/>
+    </g>
+  </g>
+  <g id="WIRES">
+    <g id="PIN_GND">
+      <line x1="8.24" y1="219.26" x2="8.24" y2="238.51" fill="none" stroke="#ada8a8" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+    <g id="PIN_POWER">
+      <line x1="45" y1="219.51" x2="45" y2="238.76" fill="none" stroke="#ada8a8" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+    <g id="PIN_X">
+      <line x1="84" y1="219.51" x2="84" y2="238.76" fill="none" stroke="#ada8a8" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+    <g id="PIN_Y">
+      <line x1="126" y1="219.51" x2="126" y2="238.76" fill="none" stroke="#ada8a8" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+    <g id="PIN_SW">
+      <line x1="175" y1="219.51" x2="175" y2="238.76" fill="none" stroke="#ada8a8" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+    <g id="WIRE_BASE">
+      <rect x="0.5" y="189.26" width="199" height="30" fill="#f7f0f0"/>
+      <path d="M204,208v29H6V208H204m1-1H5v31H205V207Z" transform="translate(-5 -18.24)"/>
+    </g>
+  </g>
+  <g id="TEXT">
+    <text id="BUTTON_TEXT" transform="translate(26.36 59.87)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">Button: OFF</text>
+    <text id="DEGREES_TEXT" transform="translate(9.31 21.1)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">Joystick @ 350°</text>
+  </g>
+  <g id="WIRE_TEXT">
+    <text id="PIN_TEXT_MINUS" transform="translate(2.79 214.47)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+    <text id="PIN_TEXT_PLUS" transform="translate(38.79 214.47)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+    <text id="PIN_TEXT_X" transform="translate(74.79 214.47)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">X</text>
+    <text id="PIN_TEXT_Y" transform="translate(116.79 214.47)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">Y</text>
+    <text id="PIN_TEXT_SW" transform="translate(152.79 214.47)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">SW</text>
+    <text id="PIN_X_NUMBER" transform="translate(89.4 237.05)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
+    <text id="PIN_Y_NUMBER" transform="translate(129.4 237.05)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">8</text>
+    <text id="PIN_SW_NUMBER" transform="translate(178.4 236.05)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">9</text>
+  </g>
+</svg>
