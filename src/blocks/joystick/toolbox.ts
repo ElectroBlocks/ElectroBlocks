@@ -3,8 +3,8 @@ import { virtualCircuitComment, whatIsAPin } from "../comment-text";
 
 export default `<category name="JoyStick" colour="${COLOR_THEME.SENSOR}">
    <block type="joystick_setup">
-    <field name="PIN_X">11</field>
-    <field name="PIN_Y">10</field>
+    <field name="PIN_X">A1</field>
+    <field name="PIN_Y">A3</field>
     <field name="PIN_BUTTON">9</field>
 
     <comment pinned="false" h="400" w="460" >Pin X and Pin Y are used to sense the where the joy stick is position.  Button pin is used sense whether joystick is being pressed.

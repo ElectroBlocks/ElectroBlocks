@@ -96,7 +96,11 @@ import {
   createWireAnalogSensors,
 } from "../../blocks/analogsensor/virtual-circuit";
 import type { Settings } from "../../firebase/model";
-import { takeBoardArea, takeBoardAreaWithExistingComponent } from "./wire";
+import {
+  showPin,
+  takeBoardArea,
+  takeBoardAreaWithExistingComponent,
+} from "./wire";
 import {
   createThermistorSensorHook,
   createThermistorWires,
@@ -121,6 +125,7 @@ import {
   createWireJoyStick,
   positionJoyStick,
 } from "../../blocks/joystick/virtual-circuit";
+import { ANALOG_PINS } from "../microcontroller/selectBoard";
 
 export default (
   state: ArduinoComponentState,
@@ -135,6 +140,12 @@ export default (
   if (componentEl) {
     // make sure the area get taken
     takeBoardAreaWithExistingComponent(componentEl.data("holes").split("-"));
+    // Show all the analog pins because they will turn off no matter what
+    // in paint.
+    state.pins
+      .filter((p) => ANALOG_PINS.includes(p))
+      .forEach((p) => showPin(draw, p));
+
     return;
   }
 

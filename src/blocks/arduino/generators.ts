@@ -20,10 +20,15 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   let resetMessageVariable = "";
   let resetIrRemoteCode = "";
   let getNewTempReading = "";
+  let setJoyStickValues = "";
   let setSerialMessageDEV = "";
 
   if (!_.isEmpty(Blockly["Arduino"].setupCode_["bluetooth_setup"])) {
     resetBluetoothVariable = '\tbluetoothMessageDEV = ""; \n';
+  }
+
+  if (!_.isEmpty(Blockly["Arduino"].setupCode_["joystick"])) {
+    setJoyStickValues = "\tsetJoyStickValues(); \n";
   }
 
   if (!_.isEmpty(Blockly["Arduino"].setupCode_["serial_begin"])) {
@@ -47,6 +52,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
     resetMessageVariable +
     resetIrRemoteCode +
     getNewTempReading +
+    setJoyStickValues +
     "}"
   );
 };

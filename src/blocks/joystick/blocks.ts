@@ -3,6 +3,8 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import loopTimes from "../../core/blockly/helpers/looptimes";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 
+Blockly.FieldAngle.OFFSET = 180;
+Blockly.FieldAngle.CLOCKWISE = false;
 Blockly.Blocks["joystick_setup"] = {
   init: function () {
     this.appendDummyInput()
@@ -13,13 +15,13 @@ Blockly.Blocks["joystick_setup"] = {
     this.appendDummyInput()
       .appendField("X Pin: ")
       .appendField(
-        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
+        new Blockly.FieldDropdown(() => selectBoardBlockly().analogPins),
         "PIN_X"
       );
     this.appendDummyInput()
       .appendField("Y Pin: ")
       .appendField(
-        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
+        new Blockly.FieldDropdown(() => selectBoardBlockly().analogPins),
         "PIN_Y"
       );
     this.appendDummyInput()
