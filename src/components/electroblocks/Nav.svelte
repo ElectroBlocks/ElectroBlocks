@@ -203,6 +203,7 @@
     width: 100%;
     overflow: auto;
     border-bottom: 1px solid gray;
+    height: 56px;
   }
 
   nav .fa {

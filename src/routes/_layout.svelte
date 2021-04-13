@@ -88,7 +88,7 @@
       // Calculates the height of the window
       // We know that if it's  the home page that we want less height
       // for the main window because we want to display the player component
-      const navBarHeight = document.querySelector("nav").clientHeight - 10;
+      const navBarHeight = 56;
 
       height = window.innerHeight - navBarHeight + "px";
       // Hack to make sure everything update
