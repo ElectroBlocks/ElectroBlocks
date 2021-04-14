@@ -32,8 +32,8 @@ describe("Tests the joy stick out", () => {
     [workspace, arduinoSetupBlock] = createArduinoAndWorkSpace();
     arduinoSetupBlock.setFieldValue("2", "LOOP_TIMES");
     joystickSetup = workspace.newBlock("joystick_setup") as BlockSvg;
-    joystickSetup.setFieldValue(ARDUINO_PINS.PIN_5, "PIN_X");
-    joystickSetup.setFieldValue(ARDUINO_PINS.PIN_6, "PIN_Y");
+    joystickSetup.setFieldValue(ARDUINO_PINS.PIN_A2, "PIN_X");
+    joystickSetup.setFieldValue(ARDUINO_PINS.PIN_A4, "PIN_Y");
     joystickSetup.setFieldValue(ARDUINO_PINS.PIN_7, "PIN_BUTTON");
     joystickSetup.setFieldValue("1", "LOOP");
     joystickSetup.setFieldValue("FALSE", "ENGAGED");
@@ -91,8 +91,8 @@ describe("Tests the joy stick out", () => {
   ) {
     const state = frame.components[0] as JoystickState;
     expect(state.type).toBe(ArduinoComponentType.JOYSTICK);
-    expect(state.xPin).toBe(ARDUINO_PINS.PIN_5);
-    expect(state.yPin).toBe(ARDUINO_PINS.PIN_6);
+    expect(state.xPin).toBe(ARDUINO_PINS.PIN_A2);
+    expect(state.yPin).toBe(ARDUINO_PINS.PIN_A4);
     expect(state.buttonPin).toBe(ARDUINO_PINS.PIN_7);
 
     expect(state.degree).toBe(degrees);

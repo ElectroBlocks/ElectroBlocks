@@ -3,6 +3,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 Blockly.defineBlocksWithJsonArray([
   {
+    lastDummyAlign0: "RIGHT",
     type: "controls_for",
     message0: "count with %1 from %2 to %3 by adding %4",
     args0: [
@@ -28,10 +29,11 @@ Blockly.defineBlocksWithJsonArray([
         align: "RIGHT",
       },
       {
-        type: "input_value",
+        type: "field_number",
         name: "BY",
-        check: "Number",
-        align: "RIGHT",
+        value: "1",
+        min: 1,
+        max: 200000,
       },
     ],
     message1: "%{BKY_CONTROLS_REPEAT_INPUT_DO} %1",

@@ -2,9 +2,7 @@ import "../../core/blockly/blocks";
 import "../../tests/fake-block";
 
 import type { Workspace, BlockSvg } from "blockly";
-import {
-  connectToArduinoBlock,
-} from "../../core/blockly/helpers/block.helper";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
@@ -41,7 +39,7 @@ describe("lcd  factories", () => {
     const event = createTestEvent(ledColorSetup.id);
 
     const ledColorState: LedColorState = {
-      pins: [ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_9],
+      pins: [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_9],
       redPin: ARDUINO_PINS.PIN_11,
       greenPin: ARDUINO_PINS.PIN_10,
       bluePin: ARDUINO_PINS.PIN_9,

@@ -53,7 +53,7 @@ describe("bluetooth state factories", () => {
     const event = createTestEvent(bluethoothsetupblock.id);
 
     const btComponent: BluetoothState = {
-      pins: [ARDUINO_PINS.PIN_7, ARDUINO_PINS.PIN_6],
+      pins: [ARDUINO_PINS.PIN_6, ARDUINO_PINS.PIN_7],
       rxPin: ARDUINO_PINS.PIN_7,
       txPin: ARDUINO_PINS.PIN_6,
       hasMessage: true,

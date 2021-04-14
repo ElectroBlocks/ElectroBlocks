@@ -76,9 +76,7 @@ export const forLoop: BlockToFrameTransformer = (
     previousState
   );
 
-  const by = Math.abs(
-    getInputValue(blocks, block, variables, timeline, "BY", 1, previousState)
-  );
+  const by = Math.abs(+findFieldValue(block, "BY"));
 
   const multiplyBy = from > to ? -1 : 1;
 
@@ -119,5 +117,6 @@ export const forLoop: BlockToFrameTransformer = (
       prevState = _.cloneDeep(states[states.length - 1]);
 
       return states;
-    }).flat(2);
+    })
+    .flat(2);
 };

@@ -1,22 +1,15 @@
 import "jest";
 import "../../core/blockly/blocks";
-import  type { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
   createTestEvent,
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import {
-  connectToArduinoBlock,
-  getAllBlocks,
-} from "../../core/blockly/helpers/block.helper";
-import type { BlockEvent } from "../../core/blockly/dto/event.type";
-import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
-import { transformBlock } from "../../core/blockly/transformers/block.transformer";
-import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
+
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import { MicroControllerType } from "../../core/microcontroller/microcontroller";
 
 describe("generate states controls_for block", () => {
   let workspace: Workspace;
@@ -129,11 +122,7 @@ const generateFrameForLoop = (
   }
 
   if (by) {
-    const byNumberBlock = createValueBlock(workspace, VariableTypes.NUMBER, by);
-
-    forLoopNumber
-      .getInput("BY")
-      .connection.connect(byNumberBlock.outputConnection);
+    forLoopNumber.setFieldValue(by.toString(), "BY");
   }
 
   if (!nothingInLoop) {
