@@ -11,3 +11,4 @@ yarn-error.log
 /functions/package.json
 /functions/package-lock.json
 *.log
+/coverage*
