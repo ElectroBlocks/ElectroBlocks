@@ -14,7 +14,7 @@
     "export-staging": "cp env/env.staging.ts src/env.ts && npm run build",
     "export-prod": "cp env/env.prod.ts src/env.ts && npm run build",
     "test": "jest",
-    "test-coverage": "jest --coverage",
+    "test-coverage": "jest -- --coverage",
     "validate": "svelte-check --ignore src/node_modules/@sapper"
   },
   "dependencies": {
