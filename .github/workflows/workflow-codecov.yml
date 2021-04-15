@@ -20,3 +20,5 @@ jobs:
           CI: true
       - name: Codecov
         uses: codecov/codecov-action@v1.3.2
+        with:
+          directory: coverage
