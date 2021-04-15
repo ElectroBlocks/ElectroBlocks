@@ -12,12 +12,12 @@ jobs:
         uses: actions/setup-node@v2.1.5
         with:
           node-version: 14
-      - name: npm install and test
-        run: |
-          npm install
-          npm test --coverage
+      - name: Install
+        run: npm install
         env:
           CI: true
+      - name: Run Tests
+        run: npm run test-coverage
       - name: Codecov
         uses: codecov/codecov-action@v1.3.2
         with:
