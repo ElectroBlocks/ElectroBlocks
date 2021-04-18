@@ -3,6 +3,7 @@ import type { ARDUINO_PINS } from "./selectBoard";
 export enum MicroControllerType {
   ARDUINO_UNO = "uno",
   ARDUINO_MEGA = "mega",
+  MICROBIT = "microbit",
 }
 
 export interface BreadBoardArea {
@@ -27,6 +28,11 @@ export interface Breadboard {
   order: number[];
 }
 
+export enum BoardFamily {
+  ARDUINO_STANDARD = "ARDUINO_STANDARD",
+  MICROBIT = "MICROBIT",
+}
+
 export interface MicroController {
   digitalPins: string[];
   analonPins: string[];
@@ -40,7 +46,7 @@ export interface MicroController {
   ssPins: string[];
   type: MicroControllerType;
   breadboard: Breadboard;
-  skipHoles: number[];
+  boardFamily: BoardFamily;
   pinConnections: { [key: string]: PinConnection };
 }
 
