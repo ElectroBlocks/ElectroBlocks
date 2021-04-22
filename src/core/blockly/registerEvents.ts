@@ -46,13 +46,13 @@ export const createFrames = async (blocklyEvent) => {
     blocklyEvent.element === "disabled" ||
     // Means a modal is opening
     blocklyEvent.element === "warningOpen" ||
-    // Does not have anything to do with a block
-    blocklyEvent.blockId === null ||
     blocklyEvent.element === "click" ||
-    blocklyEvent.element === "selected"
+    // If old value equals null that means it's probably not a copy event
+    (blocklyEvent.element === "selected" && !blocklyEvent.oldValue)
   ) {
     return;
   }
+
   const microControllerType = getBoardType() as MicroControllerType;
   const event = transformEvent(
     getAllBlocks(),

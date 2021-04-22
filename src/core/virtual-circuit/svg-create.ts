@@ -155,9 +155,9 @@ export default (
 
   componentEl = createComponentEl(draw, state, getSvgString(state));
   addDraggableEvent(componentEl, arduinoEl, draw);
-  componentEl.data("holes", area.holes.join("-"));
   (window as any)[state.type] = componentEl;
   if (area) {
+    componentEl.data("holes", area.holes.join("-"));
     positionComponentHookFunc[state.type](
       state,
       componentEl,

@@ -8,15 +8,16 @@ import type {
   AfterComponentCreateHook,
 } from "../../core/virtual-circuit/svg-create";
 
-import type { Element, Text } from "@svgdotjs/svg.js";
+import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import _ from "lodash";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
 import type { LedState } from "./state";
 import {
-  createComponentWire,
+  createWireComponentToBreadboard,
   createGroundOrPowerWire,
   createResistor,
+  createWireFromArduinoToBreadBoard,
 } from "../../core/virtual-circuit/wire";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
@@ -115,25 +116,35 @@ export const createWiresLed: CreateWire<LedState> = (
 ) => {
   const { holes, isDown } = area;
   createGroundOrPowerWire(holes[1], isDown, ledEl, draw, arduino, id, "ground");
-  createComponentWire(
-    holes[3],
-    isDown,
+
+  const color = board.pinConnections[state.pin].color;
+  createWireComponentToBreadboard(
+    `pin${holes[2]}${isDown ? "E" : "F"}`,
     ledEl,
-    state.pin,
     draw,
     arduino,
-    id,
     "POWER",
-    board
+    id,
+    color
   );
 
   createResistor(
     arduino,
     draw,
-    holes[3],
+    holes[2],
     isDown,
     arduinoComponentStateToId(state),
-    "vertical",
+    "horizontal",
     300
+  );
+
+  const holeId = `pin${holes[4]}${isDown ? "A" : "J"}`;
+  createWireFromArduinoToBreadBoard(
+    state.pins[0],
+    arduino as Svg,
+    draw,
+    holeId,
+    id,
+    board
   );
 };

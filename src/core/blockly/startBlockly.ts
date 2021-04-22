@@ -65,11 +65,11 @@ const createLedWithDelay = (seconds = 1, isOn = true) => {
   ledBlock.setFieldValue(ARDUINO_PINS.PIN_13, "PIN");
   ledBlock.setFieldValue(isOn ? "ON" : "OFF", "STATE");
   connectToArduinoBlock(ledBlock);
-  const delayBlock = createBlock("delay_block", 0, 0, false);
+  const delayBlock = createBlock("delay_block", 0, 0, true);
 
   delayBlock.setCommentText(DELAY_COMMENT);
   delayBlock.comment.setBubbleSize(460, 90);
-  const numberBlock1 = createBlock("math_number", 0, 0);
+  const numberBlock1 = createBlock("math_number", 0, 0, true);
   numberBlock1.setFieldValue(seconds.toString(), "NUM");
   delayBlock
     .getInput("DELAY")
