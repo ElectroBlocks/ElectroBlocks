@@ -12,7 +12,7 @@ Blockly.Blocks["rgb_led_setup"] = {
       .appendField(
         new Blockly.FieldDropdown([
           ["Breadboard", "BREADBOARD"],
-          ["Built In", "BUILT_IN"],
+          ["Built in resistors", "BUILT_IN"],
         ]),
         "PICTURE_TYPE"
       );

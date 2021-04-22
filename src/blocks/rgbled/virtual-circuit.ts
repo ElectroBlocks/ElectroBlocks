@@ -16,7 +16,15 @@ import {
   createComponentWire,
   createGroundOrPowerWire,
   createResistor,
+  createWireBreadboard,
+  createWireComponentToBreadboard,
+  createWireFromArduinoToBreadBoard,
 } from "../../core/virtual-circuit/wire";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import {
+  Breadboard,
+  MicroController,
+} from "../../core/microcontroller/microcontroller";
 
 export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
   state,
@@ -43,7 +51,7 @@ export const positionRgbLed: PositionComponent<LedColorState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(rgbLedEl, arduinoEl, draw, holes[2], isDown, "PIN_GREEN");
+  positionComponent(rgbLedEl, arduinoEl, draw, holes[2], isDown, "PIN_GND");
 };
 
 export const updateRgbLed: SyncComponent = (state: LedColorState, rgbLedEl) => {
@@ -74,7 +82,59 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
 ) => {
   const { holes, isDown } = area;
 
-  const maxLength = holes.length - 1;
+  if (state.pictureType == "BREADBOARD") {
+    createResistorRequiredWire(
+      board.pinConnections[state.redPin].color,
+      state.redPin,
+      holes[0],
+      "PIN_RED",
+      arduino as Svg,
+      draw,
+      rgbLedEl,
+      id,
+      board
+    );
+
+    createResistorRequiredWire(
+      board.pinConnections[state.greenPin].color,
+      state.greenPin,
+      holes[2],
+      "PIN_GREEN",
+      arduino as Svg,
+      draw,
+      rgbLedEl,
+      id,
+      board
+    );
+
+    createResistorRequiredWire(
+      board.pinConnections[state.bluePin].color,
+      state.bluePin,
+      holes[3],
+      "PIN_BLUE",
+      arduino as Svg,
+      draw,
+      rgbLedEl,
+      id,
+      board
+    );
+
+    createGroundOrPowerWire(
+      holes[1],
+      isDown,
+      rgbLedEl,
+      draw,
+      arduino,
+      id,
+      "ground"
+    );
+    createResistor(arduino, draw, holes[0], isDown, id, "vertical", 1000);
+    createResistor(arduino, draw, holes[2], isDown, id, "vertical", 1000);
+    createResistor(arduino, draw, holes[3], isDown, id, "vertical", 1000);
+
+    return;
+  }
+
   createComponentWire(
     holes[0],
     isDown,
@@ -86,7 +146,6 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
     "PIN_RED",
     board
   );
-
   createComponentWire(
     holes[2],
     isDown,
@@ -100,7 +159,7 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
   );
 
   createComponentWire(
-    holes[maxLength],
+    holes[3],
     isDown,
     rgbLedEl,
     state.bluePin,
@@ -110,7 +169,6 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
     "PIN_BLUE",
     board
   );
-
   createGroundOrPowerWire(
     holes[1],
     isDown,
@@ -120,18 +178,44 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
     id,
     "ground"
   );
+};
 
-  if (state.pictureType == "BREADBOARD") {
-    createResistor(arduino, draw, holes[0], isDown, id, "vertical", 1000);
-    createResistor(arduino, draw, holes[2], isDown, id, "vertical", 1000);
-    createResistor(
-      arduino,
-      draw,
-      holes[maxLength],
-      isDown,
-      id,
-      "vertical",
-      1000
-    );
-  }
+const createResistorRequiredWire = (
+  color: string,
+  pin: ARDUINO_PINS,
+  hole: number,
+  connectionId: string,
+  arduino: Svg,
+  draw: Svg,
+  rgbLedEl: Element,
+  componentId: string,
+  board: MicroController
+) => {
+  createWireComponentToBreadboard(
+    `pin${hole}H`,
+    rgbLedEl,
+    draw,
+    arduino,
+    connectionId,
+    componentId,
+    color
+  );
+
+  createWireBreadboard(
+    `pin${hole}F`,
+    `pin${hole}E`,
+    color,
+    draw,
+    arduino as Svg,
+    componentId
+  );
+
+  createWireFromArduinoToBreadBoard(
+    pin,
+    arduino as Svg,
+    draw,
+    `pin${hole}A`,
+    componentId,
+    board
+  );
 };
