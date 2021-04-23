@@ -12,6 +12,7 @@ import type { MicroController } from "../microcontroller/microcontroller";
 import { getBoardSvg } from "./get-board-svg";
 import { registerHighlightEvents } from "./highlightevent";
 import { arduinoComponentStateToId } from "../frames/arduino-component-id";
+import { microControllerAfterCreateHook } from "../microcontroller/microcontroller.vircuit-circuit";
 
 export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
   const board = getBoard(frameContainer.board);
@@ -67,7 +68,7 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   arduino.attr("id", "MicroController");
   arduino.data("type", board.type);
   arduino.node.id = "microcontroller_main_svg";
-  arduino.findOne("#MESSAGE").hide();
+  //arduino.findOne("#MESSAGE").hide();
   (window as any).arduino = arduino;
   (window as any).draw = draw;
   const zoomWidth = draw.width() / arduino.width();
@@ -81,6 +82,8 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   // Events
 
   registerHighlightEvents(arduino);
+
+  microControllerAfterCreateHook[board.type](arduino);
 
   return arduino;
 };

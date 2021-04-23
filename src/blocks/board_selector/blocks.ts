@@ -8,6 +8,7 @@ Blockly.Blocks["board_selector"] = {
       new Blockly.FieldDropdown([
         ["Arduino Uno", "uno"],
         ["Arduino Mega", "mega"],
+        ["MicroBit", "microbit"],
       ]),
       "boardtype"
     );

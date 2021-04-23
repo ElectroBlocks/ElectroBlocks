@@ -1,0 +1,8 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="238.53" height="154.81" viewBox="0 0 238.53 154.81">
+  <g id="MESSAGE">
+    <path id="MESSAGE_BUBBLE_ARDUINO" data-name="MESSAGE BUBBLE ARDUINO" d="M194,113.7l1.52-68c0-6.47-7.26-11.77-16.12-11.77H18.8c-8.86,0-16.12,5.3-16.12,11.77v74.71c0,6.48,7.26,11.77,16.12,11.77H156.87l78.27,50.34Z" transform="translate(-1.18 -32.43)" fill="#fff" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>
+    <text id="MESSAGE_ARDUINO_TITLE" data-name="MESSAGE ARDUINO TITLE" transform="translate(9.06 28.6)" font-size="16" font-family="Biryani-ExtraBold, Biryani" font-weight="800" style="isolation: isolate">Sending Message:</text>
+    <text id="MESSAGE_LINE_3" transform="matrix(0.98, 0, -0.17, 0.98, 7.38, 81.76)" font-size="16" fill="#156cff" font-family="Biryani-ExtraBold, Biryani" font-weight="800" style="isolation: isolate">THIS IS LINE OF MESS</text>
+    <text id="MESSAGE_LINE_2" transform="matrix(0.98, 0, -0.17, 0.98, 7.38, 61.76)" font-size="16" fill="#156cff" font-family="Biryani-ExtraBold, Biryani" font-weight="800" style="isolation: isolate">THIS IS LINE OF MESS</text>
+  </g>
+</svg>
