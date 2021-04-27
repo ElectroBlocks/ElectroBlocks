@@ -50,7 +50,7 @@
     draw = SVG()
       .addTo(container)
       .size(container.clientWidth - 10, container.clientHeight - 10)
-      .viewbox(0, 0, container.clientWidth - 10, container.clientWidth - 10)
+      .viewbox(0, 0, container.clientWidth - 10, container.clientHeight - 10)
       .panZoom();
 
     unsubscribes.push(

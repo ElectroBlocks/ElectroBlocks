@@ -8,7 +8,7 @@
   // flex size of top window
   let top = 0;
   // flex size of bottom window
-  let bottom = 200;
+  let bottom = 160;
   // true if resizing windows
   let isResizing = false;
   // container element
@@ -71,8 +71,8 @@
 
   onMount(() => {
     setTimeout(() => {
-      top = mainSection.clientHeight - 200;
-      bottom = 180;
+      top = mainSection.clientHeight - 180;
+      bottom = 160;
     }, 1);
   });
 </script>

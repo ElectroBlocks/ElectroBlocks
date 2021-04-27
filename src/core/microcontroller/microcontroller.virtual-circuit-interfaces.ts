@@ -1,9 +1,9 @@
-import { Element } from "@svgdotjs/svg.js";
+import { Element, Svg } from "@svgdotjs/svg.js";
 
 export interface AfterCreateBoard {
-  (microcontrollerEl: Element): void;
+  (microcontrollerEl: Element | Svg, draw: Svg): void;
 }
 
 export interface AfterBoardReset {
-  (microcontroller: Element): void;
+  (microcontroller: Element, draw: Svg): void;
 }

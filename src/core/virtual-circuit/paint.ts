@@ -52,7 +52,7 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
 
 const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   let arduino = findMicronControllerEl(draw);
-
+  console.log(arduino, "arduino found");
   if (arduino && arduino.data("type") === board.type) {
     // Have to reset this because it's part of the arduino
     arduino.findOne("#MESSAGE").hide();
@@ -68,22 +68,15 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   arduino.attr("id", "MicroController");
   arduino.data("type", board.type);
   arduino.node.id = "microcontroller_main_svg";
-  //arduino.findOne("#MESSAGE").hide();
+  arduino.findOne("#MESSAGE").hide();
   (window as any).arduino = arduino;
   (window as any).draw = draw;
-  const zoomWidth = draw.width() / arduino.width();
-  const minusAmount = draw.height() - 300 > 200 ? 250 : 150;
-  const zoomHeight = (draw.height() - minusAmount) / arduino.height();
-  (draw as any).zoom((zoomHeight < zoomWidth ? zoomHeight : zoomWidth) - 0.1); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
-  // Minus .1 is so that lcd screen and other things fit in.
-  arduino.y(draw.viewbox().y2 - arduino.height() + 30);
-  arduino.x(-30);
 
+  // Each microcontroller will have it's own adjustment and setting so we created another set of hooks
+  microControllerAfterCreateHook[board.type](arduino, draw);
   // Events
 
   registerHighlightEvents(arduino);
-
-  microControllerAfterCreateHook[board.type](arduino);
 
   return arduino;
 };

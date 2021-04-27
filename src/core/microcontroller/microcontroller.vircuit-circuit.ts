@@ -1,4 +1,6 @@
 import { Element } from "@svgdotjs/svg.js";
+import { afterCreateMega } from "../../microcontrollers/arduino_mega/virtual-circuit";
+import { afterCreateUno } from "../../microcontrollers/arduino_uno/virtual-circuit";
 import {
   afterCreateMicrobit,
   afterResetMicrobit,
@@ -14,8 +16,8 @@ const empty = (el: Element) => {};
 export const microControllerAfterCreateHook: {
   [key: string]: AfterCreateBoard;
 } = {
-  [MicroControllerType.ARDUINO_MEGA]: empty,
-  [MicroControllerType.ARDUINO_UNO]: empty,
+  [MicroControllerType.ARDUINO_MEGA]: afterCreateMega,
+  [MicroControllerType.ARDUINO_UNO]: afterCreateUno,
   [MicroControllerType.MICROBIT]: afterCreateMicrobit,
 };
 
