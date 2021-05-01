@@ -46,6 +46,7 @@ export interface MicroController {
   breadboard: Breadboard;
   boardFamily: BoardFamily;
   pinConnections: { [key: string]: PinConnection };
+  hasBreadboardArea: boolean;
 }
 
 export interface MicroControllerBlocks {

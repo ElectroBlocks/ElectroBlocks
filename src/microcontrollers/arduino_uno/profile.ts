@@ -117,6 +117,7 @@ const unoArduino: MicroController = {
   boardFamily: BoardFamily.ARDUINO_STANDARD,
   breadboard,
   pinConnections,
+  hasBreadboardArea: true,
 };
 
 export default unoArduino;

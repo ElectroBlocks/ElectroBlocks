@@ -195,6 +195,7 @@ const arduinoMega: MicroController = {
   breadboard,
   boardFamily: BoardFamily.ARDUINO_STANDARD,
   pinConnections: createPinConnections(),
+  hasBreadboardArea: true,
 };
 
 export default arduinoMega;

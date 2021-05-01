@@ -18,7 +18,9 @@ import {
   createGroundOrPowerWire,
   createResistor,
   createWireFromArduinoToBreadBoard,
+  findBreadboardHoleXY,
 } from "../../core/virtual-circuit/wire";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
 
@@ -147,4 +149,19 @@ export const createWiresLed: CreateWire<LedState> = (
     id,
     board
   );
+};
+
+export const createNonBreadboardWire = (
+  componenetEl: Element,
+  draw: Svg,
+  arduino: Svg,
+  pin: ARDUINO_PINS
+) => {
+  const boardPoint = draw.findOne("#path10804") as Element;
+  const ledPoint = draw.findOne("#POWER") as Element;
+  const line = draw
+    .line()
+    .plot(ledPoint.cx(), ledPoint.cy(), boardPoint.cx(), boardPoint.cy())
+    .stroke("#AA0000");
+  console.log(line, "line");
 };

@@ -25,12 +25,8 @@ const pinConnections: { [key: string]: PinConnection } = {
 };
 
 const breadboard: Breadboard = {
-  areas: [
-    { holes: [27, 28, 29, 30, 31, 32], taken: false, isDown: true },
-    { holes: [39, 40, 41, 42, 43, 44], taken: false, isDown: true },
-    { holes: [45, 46, 47, 48, 49, 50], taken: false, isDown: true },
-  ],
-  order: [4, 6, 8],
+  areas: [],
+  order: [],
 };
 
 const microBit: MicroController = {
@@ -48,6 +44,7 @@ const microBit: MicroController = {
   boardFamily: BoardFamily.MICROBIT,
   breadboard,
   pinConnections,
+  hasBreadboardArea: false,
 };
 
 export default microBit;

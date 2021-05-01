@@ -35,6 +35,7 @@ import {
   ledCreate,
   createWiresLed,
   ledPosition,
+  createNonBreadboardWire,
 } from "../../blocks/led/virtual-circuit";
 
 import { arduinoMessageCreate } from "../../blocks/message/virtual-circuit";
@@ -151,12 +152,17 @@ export default (
 
   // only take an area if the component does
   // not exist
-  const area = takeBoardArea();
 
   componentEl = createComponentEl(draw, state, getSvgString(state));
   addDraggableEvent(componentEl, arduinoEl, draw);
   (window as any)[state.type] = componentEl;
-  if (area) {
+  let area = null;
+
+  if (board.hasBreadboardArea) {
+    area = takeBoardArea();
+  }
+
+  if (board.hasBreadboardArea && area) {
     componentEl.data("holes", area.holes.join("-"));
     positionComponentHookFunc[state.type](
       state,
@@ -175,6 +181,10 @@ export default (
       board,
       area
     );
+  }
+
+  if (!board.hasBreadboardArea && state.type === ArduinoComponentType.LED) {
+    createNonBreadboardWire(componentEl, draw, arduinoEl as Svg, state.pins[0]);
   }
   createComponentHookFunc[state.type](
     state,
