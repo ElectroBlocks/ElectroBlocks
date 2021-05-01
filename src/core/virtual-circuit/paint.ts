@@ -70,13 +70,11 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   arduino.findOne("#MESSAGE").hide();
   (window as any).arduino = arduino;
   (window as any).draw = draw;
-  const zoomWidth = draw.width() / arduino.width();
-  const minusAmount = draw.height() - 300 > 200 ? 250 : 150;
-  const zoomHeight = (draw.height() - minusAmount) / arduino.height();
-  (draw as any).zoom((zoomHeight < zoomWidth ? zoomHeight : zoomWidth) - 0.1); // ZOOM MUST GO FIRST TO GET THE RIGHT X Y VALUES IN POSITIONING.
-  // Minus .1 is so that lcd screen and other things fit in.
-  arduino.y(draw.viewbox().y2 - arduino.height() + 30);
-  arduino.x(-30);
+
+  draw.viewbox(arduino.bbox());
+  (draw as any).zoom((draw as any).zoom() - 0.22);
+  // move it down 150 px
+  arduino.dy(160);
 
   // Events
 
