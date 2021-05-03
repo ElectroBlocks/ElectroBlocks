@@ -32,6 +32,8 @@ describe("sensor value blocks", () => {
       "analog_read_setup"
     ) as BlockSvg;
 
+    analogReadSetupBlock.setFieldValue("1", "state");
+
     analogReadSetupBlock.setFieldValue("A3", "PIN");
 
     const analogReadBlock = workspace.newBlock("analog_read");

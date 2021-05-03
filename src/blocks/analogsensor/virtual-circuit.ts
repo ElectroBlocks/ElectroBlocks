@@ -70,14 +70,14 @@ export const analogSensorPosition: PositionComponent<AnalogSensorState> = (
 
 export const analogSensorUpdate: SyncComponent = (
   state: AnalogSensorState,
-  analogSensorEl,
-  draw
+  analogSensorEl
 ) => {
   const textEl = analogSensorEl.findOne("#READING_VALUE") as Text;
   textEl.show();
 
   textEl.node.innerHTML = state.state.toString();
-  textEl.cx(centerReadingText[state.pictureType]);
+
+  updateSensorList[state.pictureType](state, analogSensorEl);
 };
 
 export const analogSensorReset: ResetComponent = (componentEl: Element) => {
@@ -239,14 +239,34 @@ export const createWireAnalogSensors: CreateWire<AnalogSensorState> = (
   );
 };
 
+const updatePhotoSensor = (
+  state: AnalogSensorState,
+  analogSensorEl: Element
+) => {
+  const percent = state.state / 1024;
+  const sunColor = analogSensorEl.findOne("#SUN_COLOR") as Element;
+  sunColor.children().forEach((c) => c.opacity(percent));
+
+  const textEl = analogSensorEl.findOne("#READING_VALUE") as Text;
+  textEl.cx(25);
+};
+
+const updateSoilSensor = (
+  state: AnalogSensorState,
+  analogSensorEl: Element
+) => {
+  const textEl = analogSensorEl.findOne("#READING_VALUE") as Text;
+  textEl.cx(12);
+};
+
 const createWiresFunc = {
   [AnalogSensorPicture.SOIL_SENSOR]: createSoilSensorWires,
   [AnalogSensorPicture.SENSOR]: createSensorWires,
   [AnalogSensorPicture.PHOTO_SENSOR]: createPhotoSensorWires,
 };
 
-const centerReadingText = {
-  [AnalogSensorPicture.SOIL_SENSOR]: 10,
-  [AnalogSensorPicture.SENSOR]: 18,
-  [AnalogSensorPicture.PHOTO_SENSOR]: 18,
+const updateSensorList = {
+  [AnalogSensorPicture.SOIL_SENSOR]: updateSoilSensor,
+  [AnalogSensorPicture.SENSOR]: () => {},
+  [AnalogSensorPicture.PHOTO_SENSOR]: updatePhotoSensor,
 };

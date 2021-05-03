@@ -53,7 +53,7 @@ const analogReadSetupBlock: any = {
         }),
         "PIN"
       );
-    this.appendDummyInput("SHOW_CODE_VIEW")
+    const info = this.appendDummyInput("SHOW_CODE_VIEW")
       .appendField("Type")
       .appendField(
         new Blockly.FieldDropdown([
@@ -75,9 +75,9 @@ const analogReadSetupBlock: any = {
         "LOOP"
       );
 
-    this.appendDummyInput()
-      .appendField("Power Level")
-      .appendField(new Blockly.FieldNumber(1, 0, 1024, 0.000001), "state");
+    this.appendDummyInput("LEVEL")
+      .appendField("Sensor's reading: ")
+      .appendField(new Blockly.FieldNumber(512, 0, 1024, 0.000001), "state");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

@@ -1,24 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="92.36" height="198.57" viewBox="0 0 92.36 198.57">
+<svg xmlns="http://www.w3.org/2000/svg" width="93.36" height="269.72" viewBox="0 0 93.36 269.72">
   <g id="wire">
-    <path id="PIN_POWER" d="M12.17,174.68h1.25a.37.37,0,0,1,.37.37v22.52a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V175.06A.37.37,0,0,1,12.17,174.68Z" fill="#898883"/>
-    <path id="PIN_GND" d="M37.82,174.68h1.25a.37.37,0,0,1,.37.37v22.52a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V175.06A.37.37,0,0,1,37.82,174.68Z" fill="#898883"/>
-    <path id="PIN_DATA" d="M70.71,174.68H72a.37.37,0,0,1,.37.37v22.52a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V175.06A.37.37,0,0,1,70.71,174.68Z" fill="#898883"/>
-    <text id="READING_VALUE" transform="translate(25.26 18.46)" font-size="21" font-family="Biryani-Bold, Biryani" font-weight="700">332</text>
+    <path id="PIN_POWER" d="M12.17,247.83h1.25a.37.37,0,0,1,.37.37v20.52a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V248.2a.37.37,0,0,1,.37-.37Z" fill="#898883"/>
+    <path id="PIN_DATA" d="M77.71,247.83H79a.37.37,0,0,1,.37.37v20.52a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V248.2a.37.37,0,0,1,.37-.37Z" fill="#898883"/>
+    <path id="PIN_GND" d="M43.89,247.83h1.25a.37.37,0,0,1,.37.37v20.52a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V248.2a.37.37,0,0,1,.37-.37Z" fill="#898883"/>
   </g>
   <g id="sensor">
     <g>
-      <rect x="0.86" y="21.92" width="91" height="156.56" fill="#d9f4e0"/>
-      <path d="M5,39.84H95V195.4H5V39.84m-1-1V196.4H96V38.84Z" transform="translate(-3.64 -17.43)"/>
+      <rect x="1.86" y="95.42" width="91" height="156.56" rx="4.74" fill="#2fa2f7"/>
+      <path d="M9.24,104.84v1H90.76A4.24,4.24,0,0,1,95,110.08V257.16a4.24,4.24,0,0,1-4.24,4.24H9.24A4.24,4.24,0,0,1,5,257.16V110.08a4.24,4.24,0,0,1,4.24-4.24v-1m0,0A5.25,5.25,0,0,0,4,110.08V257.16a5.25,5.25,0,0,0,5.24,5.24H90.76A5.24,5.24,0,0,0,96,257.16V110.08a5.25,5.25,0,0,0-5.24-5.24Z" transform="translate(-2.64 -9.92)"/>
     </g>
-    <g>
-      <path d="M48.94,82.34a16.58,16.58,0,0,1-11.75-28,16.09,16.09,0,0,1,11.45-5.05h.3a16.59,16.59,0,0,1,11.76,28,16.15,16.15,0,0,1-11.45,5Z" transform="translate(-3.64 -17.43)" fill="#f4bd87"/>
-      <path d="M48.94,49.78a16,16,0,0,1,.3,32.06H49a16,16,0,0,1-.31-32.06h.3m0-1h-.31A17,17,0,0,0,49,82.84h.31a17,17,0,0,0-.32-34.06Z" transform="translate(-3.64 -17.43)"/>
+    <g id="RESISTOR_BASE">
+      <path d="M50.07,163.79a24.76,24.76,0,0,1-.47-49.5h.46a24.82,24.82,0,0,1,17.6,41.93,24.09,24.09,0,0,1-17.13,7.57Z" transform="translate(-2.64 -9.92)" fill="#f4bd87"/>
+      <path d="M50.06,114.78a24.26,24.26,0,0,1,.46,48.5h-.45a24.26,24.26,0,0,1-.46-48.5h.45m0-1h-.47a25.26,25.26,0,0,0,.48,50.5h.46a25.26,25.26,0,0,0-.47-50.5Z" transform="translate(-2.64 -9.92)"/>
     </g>
-    <line x1="35.65" y1="40.18" x2="55.04" y2="40.18" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>
-    <line x1="32.21" y1="47.38" x2="58.49" y2="47.38" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>
-    <line x1="35.65" y1="55.51" x2="55.04" y2="55.51" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>
-    <text id="PIN_VCC" transform="translate(21.1 173.78) rotate(-90)" font-size="24" font-family="Biryani-Regular, Biryani">+</text>
-    <text id="PIN_GND-2" data-name="PIN_GND" transform="translate(33.33 174.49)" font-size="24" font-family="Biryani-Regular, Biryani">-</text>
-    <text id="PIN_TEXT" transform="translate(57.1 176.4)" font-size="18" font-family="Biryani-Regular, Biryani">A15</text>
+    <line x1="33.11" y1="116.95" x2="61.86" y2="116.95" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+    <line x1="28.01" y1="129.1" x2="66.97" y2="129.1" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+    <line x1="33.11" y1="142.64" x2="61.86" y2="142.64" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+    <text id="PIN_VCC" transform="translate(21.1 247.28) rotate(-90)" font-size="24" fill="#fff" font-family="Biryani-Regular, Biryani">+</text>
+    <text id="PIN_GND-2" data-name="PIN_GND" transform="translate(39.33 248)" font-size="24" fill="#fff" font-family="Biryani-Regular, Biryani">-</text>
+    <text id="PIN_TEXT" transform="translate(64.1 246.91)" font-size="14" fill="#fff" font-family="Biryani-Regular, Biryani">A15</text>
+    <text transform="translate(22.77 198.45)" font-size="18" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">Light<tspan x="-8.68" y="21.6">Sensor</tspan></text>
+  </g>
+  <g id="SUN_READING">
+    <g id="SUN_OUTLINE">
+      <circle cx="48.59" cy="31.03" r="14.86" fill="#efefed" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M51.22,10.17h0a3.19,3.19,0,0,1,3.19,3.18v5.31a3.18,3.18,0,0,1-3.19,3.18h0A3.18,3.18,0,0,1,48,18.66V13.35A3.19,3.19,0,0,1,51.22,10.17Z" transform="translate(-2.64 -9.92)" fill="#efefed" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M51.22,60.05h0a3.18,3.18,0,0,1,3.19,3.18v5.31a3.18,3.18,0,0,1-3.19,3.18h0A3.18,3.18,0,0,1,48,68.54V63.23A3.18,3.18,0,0,1,51.22,60.05Z" transform="translate(-2.64 -9.92)" fill="#efefed" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M28.81,18.53h0a3.19,3.19,0,0,1,4.5,0l3.76,3.75a3.2,3.2,0,0,1,0,4.51h0a3.2,3.2,0,0,1-4.51,0L28.81,23A3.19,3.19,0,0,1,28.81,18.53Z" transform="translate(-2.64 -9.92)" fill="#efefed" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M20.45,41h0a3.19,3.19,0,0,1,3.18-3.19h5.31A3.18,3.18,0,0,1,32.12,41h0a3.18,3.18,0,0,1-3.18,3.18H23.63A3.19,3.19,0,0,1,20.45,41Z" transform="translate(-2.64 -9.92)" fill="#efefed" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M28.81,63.36h0a3.2,3.2,0,0,1,0-4.51l3.75-3.75a3.19,3.19,0,0,1,4.5,0h0a3.17,3.17,0,0,1,0,4.5l-3.75,3.76A3.19,3.19,0,0,1,28.81,63.36Z" transform="translate(-2.64 -9.92)" fill="#efefed" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M73.64,63.36h0a3.2,3.2,0,0,1-4.51,0L65.38,59.6a3.19,3.19,0,0,1,0-4.5h0a3.19,3.19,0,0,1,4.5,0l3.76,3.75A3.2,3.2,0,0,1,73.64,63.36Z" transform="translate(-2.64 -9.92)" fill="#efefed" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M82,41h0a3.19,3.19,0,0,1-3.18,3.18H73.51A3.18,3.18,0,0,1,70.33,41h0a3.18,3.18,0,0,1,3.18-3.19h5.31A3.19,3.19,0,0,1,82,41Z" transform="translate(-2.64 -9.92)" fill="#efefed" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M73.64,18.54h0a3.19,3.19,0,0,1,0,4.5l-3.75,3.75a3.2,3.2,0,0,1-4.51,0h0a3.19,3.19,0,0,1,0-4.5l3.75-3.75A3.18,3.18,0,0,1,73.64,18.54Z" transform="translate(-2.64 -9.92)" fill="#efefed" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+    </g>
+    <g id="SUN_COLOR">
+      <circle cx="48.59" cy="31.03" r="14.86" fill="#fff98d" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M51.22,10.17h0a3.19,3.19,0,0,1,3.19,3.18v5.31a3.18,3.18,0,0,1-3.19,3.18h0A3.18,3.18,0,0,1,48,18.66V13.35A3.19,3.19,0,0,1,51.22,10.17Z" transform="translate(-2.64 -9.92)" fill="#fff98d" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M51.22,60.05h0a3.18,3.18,0,0,1,3.19,3.18v5.31a3.18,3.18,0,0,1-3.19,3.18h0A3.18,3.18,0,0,1,48,68.54V63.23A3.18,3.18,0,0,1,51.22,60.05Z" transform="translate(-2.64 -9.92)" fill="#fff98d" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M28.81,18.53h0a3.19,3.19,0,0,1,4.5,0l3.76,3.75a3.2,3.2,0,0,1,0,4.51h0a3.2,3.2,0,0,1-4.51,0L28.81,23A3.19,3.19,0,0,1,28.81,18.53Z" transform="translate(-2.64 -9.92)" fill="#fff98d" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M20.45,41h0a3.19,3.19,0,0,1,3.18-3.19h5.31A3.18,3.18,0,0,1,32.12,41h0a3.18,3.18,0,0,1-3.18,3.18H23.63A3.19,3.19,0,0,1,20.45,41Z" transform="translate(-2.64 -9.92)" fill="#fff98d" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M28.81,63.36h0a3.2,3.2,0,0,1,0-4.51l3.75-3.75a3.19,3.19,0,0,1,4.5,0h0a3.17,3.17,0,0,1,0,4.5l-3.75,3.76A3.19,3.19,0,0,1,28.81,63.36Z" transform="translate(-2.64 -9.92)" fill="#fff98d" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M73.64,63.36h0a3.2,3.2,0,0,1-4.51,0L65.38,59.6a3.19,3.19,0,0,1,0-4.5h0a3.19,3.19,0,0,1,4.5,0l3.76,3.75A3.2,3.2,0,0,1,73.64,63.36Z" transform="translate(-2.64 -9.92)" fill="#fff98d" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M82,41h0a3.19,3.19,0,0,1-3.18,3.18H73.51A3.18,3.18,0,0,1,70.33,41h0a3.18,3.18,0,0,1,3.18-3.19h5.31A3.19,3.19,0,0,1,82,41Z" transform="translate(-2.64 -9.92)" fill="#fff98d" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+      <path d="M73.64,18.54h0a3.19,3.19,0,0,1,0,4.5l-3.75,3.75a3.2,3.2,0,0,1-4.51,0h0a3.19,3.19,0,0,1,0-4.5l3.75-3.75A3.18,3.18,0,0,1,73.64,18.54Z" transform="translate(-2.64 -9.92)" fill="#fff98d" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+    </g>
+    <text id="READING_VALUE" transform="translate(24.05 89.96)" font-size="21" font-family="Biryani-Bold, Biryani" font-weight="700">1024 </text>
   </g>
 </svg>
