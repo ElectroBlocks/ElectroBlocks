@@ -10,13 +10,13 @@ import type {
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import _ from "lodash";
 
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { AnalogSensorPicture, AnalogSensorState } from "./state";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import {
   createComponentWire,
   createGroundOrPowerWire,
 } from "../../core/virtual-circuit/wire";
+import { colorBrightnessAdjuster } from "../../core/virtual-circuit/svg-helpers";
 
 export const analogSensorCreate: AfterComponentCreateHook<AnalogSensorState> = (
   state,
@@ -256,7 +256,19 @@ const updateSoilSensor = (
   analogSensorEl: Element
 ) => {
   const textEl = analogSensorEl.findOne("#READING_VALUE") as Text;
-  textEl.cx(12);
+  textEl.cx(27);
+  const percentToLighten = (1024 - state.state) / 1024;
+  const color = colorBrightnessAdjuster("#684404", percentToLighten);
+  (analogSensorEl.findOne("#POT") as Element).fill(color);
+};
+
+const updateGenericSensor = (
+  state: AnalogSensorState,
+  analogSensorEl: Element
+) => {
+  const textEl = analogSensorEl.findOne("#READING_VALUE") as Text;
+
+  textEl.cx(40);
 };
 
 const createWiresFunc = {
@@ -267,6 +279,6 @@ const createWiresFunc = {
 
 const updateSensorList = {
   [AnalogSensorPicture.SOIL_SENSOR]: updateSoilSensor,
-  [AnalogSensorPicture.SENSOR]: () => {},
+  [AnalogSensorPicture.SENSOR]: updateGenericSensor,
   [AnalogSensorPicture.PHOTO_SENSOR]: updatePhotoSensor,
 };

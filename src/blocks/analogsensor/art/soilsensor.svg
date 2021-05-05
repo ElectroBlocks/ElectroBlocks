@@ -1,13 +1,25 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="93.2" height="179.34" viewBox="0 0 93.2 179.34">
-  <rect id="PIN_DATA" x="16.76" y="157.24" width="2" height="22.11" rx="1" fill="#777776"/>
-  <rect id="PIN_GND" x="50.84" y="157.24" width="2" height="22.11" rx="1" fill="#777776"/>
-  <rect id="PIN_POWER" x="78.56" y="157.24" width="2" height="22.11" rx="1" fill="#777776"/>
-  <rect id="base" x="0.5" y="24" width="92.2" height="139.01" rx="2" fill="#e1e5be" stroke="#000" stroke-miterlimit="10"/>
-  <rect x="17.93" y="34.42" width="55.66" height="20.5" fill="#58af60" stroke="#000" stroke-miterlimit="10"/>
-  <text id="READING_VALUE" transform="translate(34.17 21.1)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">80</text>
-  <text transform="translate(72.96 161.81)" font-size="24" font-family="Biryani-Light, Biryani" font-weight="300">+</text>
-  <text transform="translate(46.39 160.45)" font-size="24" font-family="Biryani-Light, Biryani" font-weight="300">-</text>
-  <text id="PIN_TEXT" transform="translate(3.43 160.2)" font-size="18" font-family="Biryani-Light, Biryani" font-weight="300">A0 </text>
-  <circle cx="26.31" cy="44.42" r="3.87" stroke="#000" stroke-miterlimit="10"/>
-  <circle cx="65.32" cy="44.42" r="3.87" stroke="#000" stroke-miterlimit="10"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="93.2" height="213.14" viewBox="0 0 93.2 213.14">
+  <g id="PINS">
+    <rect id="PIN_DATA" x="16.76" y="194.75" width="2" height="12.96" rx="1" fill="#777776"/>
+    <rect id="PIN_GND" x="50.84" y="194.75" width="2" height="12.96" rx="1" fill="#777776"/>
+    <rect id="PIN_POWER" x="78.56" y="194.75" width="2" height="12.96" rx="1" fill="#777776"/>
+  </g>
+  <g id="Sensor">
+    <rect id="base" x="0.5" y="61.51" width="92.2" height="139.01" rx="2" fill="#3d3d3d" stroke="#000" stroke-miterlimit="10"/>
+    <rect x="17.93" y="71.93" width="55.66" height="20.5" fill="#58af60" stroke="#000" stroke-miterlimit="10"/>
+    <text id="READING_VALUE" transform="translate(17.93 57.58)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">1024</text>
+    <circle cx="26.31" cy="81.93" r="3.87" stroke="#000" stroke-miterlimit="10"/>
+    <circle cx="65.32" cy="81.93" r="3.87" stroke="#000" stroke-miterlimit="10"/>
+  </g>
+  <g id="TEXT">
+    <text transform="translate(72.96 199.32)" font-size="24" fill="#f9f9f7" font-family="Biryani-Light, Biryani" font-weight="300">+</text>
+    <text transform="translate(46.39 197.96)" font-size="24" fill="#f9f9f7" font-family="Biryani-Light, Biryani" font-weight="300">-</text>
+    <text id="PIN_TEXT" transform="translate(3.43 197.71)" font-size="18" fill="#f9f9f7" font-family="Biryani-Light, Biryani" font-weight="300">A0 </text>
+    <text transform="translate(30.15 113.44)" font-size="21" fill="#f9f9f7" font-family="MyriadPro-Regular, Myriad Pro"><tspan letter-spacing="0.01em">S</tspan><tspan x="10.48" y="0">oil </tspan><tspan x="-22.57" y="25.2">Humidi</tspan><tspan x="41.87" y="25.2" letter-spacing="0.01em">t</tspan><tspan x="49.01" y="25.2" letter-spacing="0em">y</tspan><tspan letter-spacing="0.01em"><tspan x="-11.52" y="50.4">S</tspan><tspan x="-1.04" y="50.4" letter-spacing="0em">ensor</tspan></tspan></text>
+  </g>
+  <g id="Soil">
+    <path d="M30.54,93.84,8.77,70.52a17,17,0,0,1,.71-17.19L30.54,38.47" transform="translate(-4.23 -11.91)" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    <path d="M69.55,93.19,91.39,68.93A9.75,9.75,0,0,0,90.64,56L69.55,37.82" transform="translate(-4.23 -11.91)" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    <path id="POT" d="M8,.5H83.53a1,1,0,0,1,1,1v19a11,11,0,0,1-11,11H18a11,11,0,0,1-11-11V1.5a1,1,0,0,1,1-1Z" fill="#684404" stroke="#000" stroke-miterlimit="10"/>
+  </g>
 </svg>

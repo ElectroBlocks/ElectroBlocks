@@ -1,15 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="92.52" height="120.15" viewBox="0 0 92.52 120.15">
+<svg xmlns="http://www.w3.org/2000/svg" width="92.52" height="173.22" viewBox="0 0 92.52 173.22">
   <g id="WIRES">
-    <line id="PIN_POWER" x1="8.37" y1="88.09" x2="8.37" y2="116.87" style="fill: none;stroke: #f73939;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-    <line id="PIN_GND" x1="85.37" y1="90.38" x2="85.37" y2="119.15" style="fill: none;stroke: #000;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-    <line id="PIN_DATA" x1="46.33" y1="91.07" x2="46.33" y2="116.87" style="fill: none;stroke: #228e0c;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    <line id="PIN_POWER" x1="8.37" y1="153.82" x2="8.37" y2="170.87" fill="none" stroke="#727272" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_GND" x1="85.37" y1="155.17" x2="85.37" y2="172.22" fill="none" stroke="#727272" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_DATA" x1="46.33" y1="155.58" x2="46.33" y2="170.87" fill="none" stroke="#727272" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
   </g>
   <g id="LIGHT">
-    <path id="BASE" d="M3.63,50H96.16v50H3.63Z" transform="translate(-3.63 -7.6)" style="fill: #73ddd3"/>
-    <circle cx="46.37" cy="42.4" r="17.5"/>
-    <text id="PIN_TEXT" transform="matrix(1, 0, 0, 1, 29.11, 86.58)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">A5</text>
-    <text id="VCC_TEXT" transform="translate(1.9 86.69)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">+</text>
-    <text id="GND_TEXT" transform="translate(79.49 87.69)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">-</text>
-    <text id="READING_VALUE" transform="translate(26.75 21.1)" style="font-size: 24px;font-family: Biryani-ExtraBold, Biryani;font-weight: 800">120</text>
+    <path id="BASE" d="M3.63,74.06H96.16v93.55H3.63Z" transform="translate(-3.63 -6.79)" fill="#73ddd3"/>
+    <text id="PIN_TEXT" transform="matrix(1, 0, 0, 1, 29.11, 155.58)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
+    <text id="VCC_TEXT" transform="translate(1.9 155.69)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+    <text id="GND_TEXT" transform="translate(79.49 156.69)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+    <text id="READING_VALUE" transform="translate(4.51 31.64)" font-size="36" font-family="Biryani-ExtraBold, Biryani" font-weight="800">1024</text>
+    <text id="SENSOR_LABEL" transform="translate(9.09 112.14)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">Sensor</text>
+    <g id="SENSOR_ICON">
+      <circle cx="46.38" cy="66.18" r="7.46"/>
+      <path d="M59.38,61.59a1.7,1.7,0,0,0-2.17,2.62,11.34,11.34,0,0,1,0,17.51,1.7,1.7,0,0,0,2.17,2.61,14.74,14.74,0,0,0,0-22.74Z" transform="translate(-3.63 -6.79)"/>
+      <path d="M43.05,81.81a11.36,11.36,0,0,1-.26-17.73,1.7,1.7,0,0,0-2.17-2.62,14.75,14.75,0,0,0,.35,23,1.71,1.71,0,0,0,1,.36,1.7,1.7,0,0,0,1-3Z" transform="translate(-3.63 -6.79)"/>
+      <path d="M70.06,64a21.79,21.79,0,0,0-5-7.11,1.7,1.7,0,1,0-2.33,2.47,18.33,18.33,0,0,1,5.8,13.45,18.57,18.57,0,0,1-6.05,13.69,1.7,1.7,0,0,0,1.14,3A1.66,1.66,0,0,0,64.74,89a21.89,21.89,0,0,0,5.32-25Z" transform="translate(-3.63 -6.79)"/>
+      <path d="M37.88,86.93a18.5,18.5,0,0,1,0-27.94,1.7,1.7,0,1,0-2.23-2.56,21.89,21.89,0,0,0,0,33.07,1.7,1.7,0,0,0,2.39-.17A1.7,1.7,0,0,0,37.88,86.93Z" transform="translate(-3.63 -6.79)"/>
+      <path d="M76.37,61.25a28.74,28.74,0,0,0-6.64-9.37,1.7,1.7,0,0,0-2.33,2.47,25.41,25.41,0,0,1-.15,37.21A1.7,1.7,0,0,0,68.4,94.5a1.71,1.71,0,0,0,1.16-.45,28.83,28.83,0,0,0,6.81-32.8Z" transform="translate(-3.63 -6.79)"/>
+      <path d="M33.05,91.9a25.41,25.41,0,0,1,0-37.88,1.71,1.71,0,0,0,.13-2.4,1.7,1.7,0,0,0-2.4-.13,28.81,28.81,0,0,0,0,42.94,1.69,1.69,0,0,0,2.4-.13,1.71,1.71,0,0,0-.13-2.4Z" transform="translate(-3.63 -6.79)"/>
+    </g>
   </g>
 </svg>
