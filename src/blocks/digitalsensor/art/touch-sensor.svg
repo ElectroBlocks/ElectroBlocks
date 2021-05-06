@@ -1,34 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="136.5" height="203.76" viewBox="0 0 136.5 203.76">
-  <g id="text">
-    <text id="READING_VALUE" transform="translate(9 18.46)" style="font-size: 21px;font-family: Biryani-ExtraBold, Biryani;font-weight: 800">Touching</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="135.5" height="214" viewBox="0 0 135.5 214">
   <g id="touch">
     <g id="base">
-      <rect x="0.5" y="26.73" width="120.83" height="148.33" style="fill: #235577"/>
-      <path d="M132.83,44V191.31H13V44H132.83m1-1H12V192.31H133.83V43Z" transform="translate(-12 -16.74)"/>
+      <rect x="0.5" y="0.5" width="120.83" height="199" fill="#235577"/>
+      <path d="M132.83,9.5v198H13V9.5H132.83m1-1H12v200H133.83V8.5Z" transform="translate(-12 -8.5)"/>
     </g>
     <g id="_1-circle" data-name="1-circle">
-      <path d="M70.43,52.85A35.2,35.2,0,1,1,35.24,88,35.24,35.24,0,0,1,70.43,52.85m0-3A38.2,38.2,0,1,0,108.63,88a38.19,38.19,0,0,0-38.2-38.19Z" transform="translate(-12 -16.74)" style="fill: #fff"/>
+      <path d="M70.43,17.85A35.2,35.2,0,1,1,35.24,53,35.24,35.24,0,0,1,70.43,17.85m0-3A38.2,38.2,0,1,0,108.63,53a38.19,38.19,0,0,0-38.2-38.19Z" transform="translate(-12 -8.5)" fill="#fff"/>
     </g>
     <g id="_2-circle" data-name="2-circle">
-      <path d="M70.05,61.13A25.64,25.64,0,1,1,44.41,86.77,25.67,25.67,0,0,1,70.05,61.13m0-3A28.64,28.64,0,1,0,98.7,86.77,28.64,28.64,0,0,0,70.05,58.13Z" transform="translate(-12 -16.74)" style="fill: #fff"/>
+      <path d="M70.05,26.13A25.64,25.64,0,1,1,44.41,51.77,25.67,25.67,0,0,1,70.05,26.13m0-3A28.64,28.64,0,1,0,98.7,51.77,28.64,28.64,0,0,0,70.05,23.13Z" transform="translate(-12 -8.5)" fill="#fff"/>
     </g>
     <g id="_3-circle" data-name="3-circle">
-      <path d="M70.05,70.67A16.1,16.1,0,1,1,54,86.77a16.12,16.12,0,0,1,16.09-16.1m0-3a19.1,19.1,0,1,0,19.1,19.1,19.1,19.1,0,0,0-19.1-19.1Z" transform="translate(-12 -16.74)" style="fill: #fff"/>
+      <path d="M70.05,35.67A16.1,16.1,0,1,1,54,51.77a16.12,16.12,0,0,1,16.09-16.1m0-3a19.1,19.1,0,1,0,19.1,19.1,19.1,19.1,0,0,0-19.1-19.1Z" transform="translate(-12 -8.5)" fill="#fff"/>
     </g>
     <g id="_4-circle" data-name="4-circle">
-      <path d="M70.05,80.22a6.55,6.55,0,1,1-6.55,6.55,6.56,6.56,0,0,1,6.55-6.55m0-3a9.55,9.55,0,1,0,9.55,9.55,9.56,9.56,0,0,0-9.55-9.55Z" transform="translate(-12 -16.74)" style="fill: #fff"/>
+      <path d="M70.05,45.22a6.55,6.55,0,1,1-6.55,6.55,6.56,6.56,0,0,1,6.55-6.55m0-3a9.55,9.55,0,1,0,9.55,9.55,9.56,9.56,0,0,0-9.55-9.55Z" transform="translate(-12 -8.5)" fill="#fff"/>
     </g>
   </g>
   <g id="wires">
-    <path id="PIN_DATA" d="M18.18,175.57H22a0,0,0,0,1,0,0v26.28a1.91,1.91,0,0,1-1.91,1.91h0a1.91,1.91,0,0,1-1.91-1.91V175.57A0,0,0,0,1,18.18,175.57Z" style="fill: #bdccd4"/>
-    <path id="PIN_POWER" d="M59.6,175.57h3.82a0,0,0,0,1,0,0v26.28a1.91,1.91,0,0,1-1.91,1.91h0a1.91,1.91,0,0,1-1.91-1.91V175.57A0,0,0,0,1,59.6,175.57Z" style="fill: #bdccd4"/>
-    <path id="PIN_GND" d="M104.46,175.57h3.82a0,0,0,0,1,0,0v26.28a1.91,1.91,0,0,1-1.91,1.91h0a1.91,1.91,0,0,1-1.91-1.91V175.57A0,0,0,0,1,104.46,175.57Z" style="fill: #bdccd4"/>
-    <text id="PIN_TEXT" transform="translate(9.23 170.91)" style="font-size: 21px;fill: #fff;font-family: Biryani-SemiBold, Biryani;font-weight: 600">A5</text>
-    <text id="VCC_TEXT" transform="translate(54.88 170.85) rotate(0.24)" style="font-size: 24px;fill: #fff;font-family: Biryani-SemiBold, Biryani;font-weight: 600">+</text>
-    <text id="GND_TEXT" transform="translate(100.9 170.92)" style="font-size: 24px;fill: #fff;font-family: Biryani-SemiBold, Biryani;font-weight: 600">-</text>
+    <path id="PIN_DATA" d="M18.18,199.81H22a0,0,0,0,1,0,0v12.28A1.91,1.91,0,0,1,20.09,214h0a1.91,1.91,0,0,1-1.91-1.91V199.81A0,0,0,0,1,18.18,199.81Z" fill="#bdccd4"/>
+    <path id="PIN_POWER" d="M59.6,199.81h3.82a0,0,0,0,1,0,0v12.28A1.91,1.91,0,0,1,61.51,214h0a1.91,1.91,0,0,1-1.91-1.91V199.81A0,0,0,0,1,59.6,199.81Z" fill="#bdccd4"/>
+    <path id="PIN_GND" d="M104.46,199.81h3.82a0,0,0,0,1,0,0v12.28a1.91,1.91,0,0,1-1.91,1.91h0a1.91,1.91,0,0,1-1.91-1.91V199.81a0,0,0,0,1,0,0Z" fill="#bdccd4"/>
+    <text id="PIN_TEXT" transform="translate(9.23 195.15)" font-size="21" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
+    <text id="VCC_TEXT" transform="translate(54.88 195.1) rotate(0.24)" font-size="24" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+    <text id="GND_TEXT" transform="translate(100.9 195.16)" font-size="24" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+    <text transform="translate(22.21 115.72)" font-size="24" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">Touch<tspan x="-6.74" y="28.8" xml:space="preserve"> Sensor</tspan></text>
   </g>
   <g id="finger">
-    <path id="SKIN_COLOR_CHANGE" d="M97.61,58.62H93.18a5.53,5.53,0,0,0,0,11.06H88.75A5.54,5.54,0,0,0,87.56,80.6H71.83a5.53,5.53,0,0,0,0,11.06H111.6l-11.54,10.63a6.19,6.19,0,0,0-.44,8.64,5.93,5.93,0,0,0,8,.83L139.06,88.1a22.76,22.76,0,0,0,4.63-31.42A21.89,21.89,0,0,0,126,47.56H97.61a5.53,5.53,0,0,0,0,11.06Z" transform="translate(-12 -16.74)" style="fill: #a424d3;stroke: #000;stroke-miterlimit: 10"/>
+    <path id="SKIN_COLOR_CHANGE" d="M96.61,24.62H92.18a5.53,5.53,0,0,0,0,11.06H87.75A5.54,5.54,0,0,0,86.56,46.6H70.83a5.53,5.53,0,0,0,0,11.06H110.6L99.06,68.29a6.19,6.19,0,0,0-.44,8.64,5.93,5.93,0,0,0,8,.83L138.06,54.1a22.76,22.76,0,0,0,4.63-31.42A21.89,21.89,0,0,0,125,13.56H96.61a5.53,5.53,0,0,0,0,11.06Z" transform="translate(-12 -8.5)" fill="#a424d3" stroke="#000" stroke-miterlimit="10"/>
   </g>
 </svg>

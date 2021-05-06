@@ -1,15 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="92.52" height="120.15" viewBox="0 0 92.52 120.15">
+<svg xmlns="http://www.w3.org/2000/svg" width="92.52" height="193.78" viewBox="0 0 92.52 193.78">
   <g id="WIRES">
-    <line id="PIN_POWER" x1="8.37" y1="88.09" x2="8.37" y2="116.87" style="fill: none;stroke: #f73939;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-    <line id="PIN_GND" x1="85.37" y1="90.38" x2="85.37" y2="119.15" style="fill: none;stroke: #000;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-    <line id="PIN_DATA" x1="46.33" y1="91.07" x2="46.33" y2="116.87" style="fill: none;stroke: #228e0c;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    <line id="PIN_POWER" x1="8.37" y1="179.91" x2="8.37" y2="191.83" fill="none" stroke="#939393" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_GND" x1="85.37" y1="180.86" x2="85.37" y2="192.78" fill="none" stroke="#939393" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_DATA" x1="46.33" y1="181.15" x2="46.33" y2="191.83" fill="none" stroke="#939393" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
   </g>
   <g id="LIGHT">
-    <path id="BASE" d="M3.63,50H96.16v50H3.63Z" transform="translate(-3.63 -7.6)" style="fill: #73ddd3"/>
-    <circle cx="46.37" cy="42.4" r="17.5"/>
-    <text id="PIN_TEXT" transform="matrix(1, 0, 0, 1, 29.11, 86.58)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">A5</text>
-    <text id="VCC_TEXT" transform="translate(1.9 86.69)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">+</text>
-    <text id="GND_TEXT" transform="translate(79.49 87.69)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">-</text>
-    <text id="READING_VALUE" transform="translate(26.75 21.1)" style="font-size: 24px;font-family: Biryani-ExtraBold, Biryani;font-weight: 800">120</text>
+    <path id="BASE" d="M3.63,64.72H96.16V184H3.63Z" transform="translate(-3.63 -0.78)" fill="#73ddd3"/>
+    <text id="PIN_TEXT" transform="matrix(1, 0, 0, 1, 29.11, 174.4)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
+    <text id="VCC_TEXT" transform="translate(1.9 174.51)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+    <text id="GND_TEXT" transform="translate(79.49 175.51)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+    <g id="SENSOR_ICON">
+      <circle cx="47.36" cy="65.71" r="22.06"/>
+    </g>
+    <g id="SENSING">
+      <path d="M71.22,5.93a3,3,0,1,0-4.64-3.87A20.15,20.15,0,0,1,51,9.33,20.14,20.14,0,0,1,35.42,1.89a3,3,0,0,0-4.68,3.83,26.15,26.15,0,0,0,20.19,9.65A26.15,26.15,0,0,0,71.22,5.93Z" transform="translate(-3.63 -0.78)" fill="#4221aa"/>
+      <path d="M66.8,24.92a38.82,38.82,0,0,0,12.7-8.86,3,3,0,0,0-4.37-4.18,32.63,32.63,0,0,1-24,10.2,33,33,0,0,1-24.31-10.9,3,3,0,1,0-4.49,4.05,39.09,39.09,0,0,0,28.77,12.9A38.58,38.58,0,0,0,66.8,24.92Z" transform="translate(-3.63 -0.78)" fill="#4221aa"/>
+      <path d="M71.67,36.18A51.19,51.19,0,0,0,88.41,24.45,3,3,0,0,0,84,20.29,45.29,45.29,0,0,1,69.26,30.64,45,45,0,0,1,51,34.39a45,45,0,0,1-18.43-4A45.25,45.25,0,0,1,17.8,19.67a3,3,0,0,0-5.25,2,3.06,3.06,0,0,0,.79,2.06A51.23,51.23,0,0,0,30.05,35.88a51,51,0,0,0,20.88,4.55,50.8,50.8,0,0,0,20.74-4.25Z" transform="translate(-3.63 -0.78)" fill="#4221aa"/>
+    </g>
+    <text id="SENSOR_LABEL" transform="translate(12.73 113.33)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">Digital<tspan x="-2.19" y="25.2">Sensor</tspan></text>
   </g>
 </svg>

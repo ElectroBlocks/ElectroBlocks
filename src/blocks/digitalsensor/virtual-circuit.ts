@@ -67,20 +67,20 @@ export const updateDigitalSensor: SyncComponent = (
   analogSensorEl,
   draw
 ) => {
-  const textEl = analogSensorEl.findOne("#READING_VALUE") as Text;
-  textEl.show();
   if (state.pictureType === DigitalPictureType.SENSOR) {
-    textEl.node.innerHTML = state.isOn ? "ON" : "OFF";
-    textEl.cx(18);
+    const sensingWave = analogSensorEl.findOne("#SENSING");
+    if (state.isOn) {
+      sensingWave.show();
+    } else {
+      sensingWave.hide();
+    }
     return;
   }
 
   if (state.pictureType === DigitalPictureType.TOUCH_SENSOR) {
     if (state.isOn) {
-      textEl.show();
       analogSensorEl.findOne("#finger").show();
     } else {
-      textEl.hide();
       analogSensorEl.findOne("#finger").hide();
     }
 
