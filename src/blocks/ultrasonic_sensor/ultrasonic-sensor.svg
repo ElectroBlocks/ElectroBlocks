@@ -1,38 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="177" height="403.84" viewBox="0 0 177 403.84">
   <g id="WIRES">
-    <line id="PIN_GND" x1="162.56" y1="377.32" x2="162.56" y2="394.5" style="fill: none;stroke: #000;stroke-linecap: round;stroke-linejoin: round;stroke-width: 2px"/>
-    <line id="PIN_ECHO" x1="114.93" y1="377.32" x2="114.93" y2="394.5" style="fill: none;stroke: #919080;stroke-linecap: round;stroke-linejoin: round;stroke-width: 2px"/>
-    <line id="PIN_POWER" x1="15.07" y1="377.32" x2="15.07" y2="394.5" style="fill: none;stroke: #e51313;stroke-linecap: round;stroke-linejoin: round;stroke-width: 2px"/>
-    <line id="PIN_TRIG" x1="58.47" y1="377.32" x2="58.47" y2="394.5" style="fill: none;stroke: #919080;stroke-linecap: round;stroke-linejoin: round;stroke-width: 2px"/>
+    <line id="PIN_GND" x1="162.56" y1="377.32" x2="162.56" y2="394.5" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line id="PIN_ECHO" x1="114.93" y1="377.32" x2="114.93" y2="394.5" fill="none" stroke="#919080" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line id="PIN_POWER" x1="15.07" y1="377.32" x2="15.07" y2="394.5" fill="none" stroke="#e51313" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line id="PIN_TRIG" x1="58.47" y1="377.32" x2="58.47" y2="394.5" fill="none" stroke="#919080" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
   </g>
   <g id="Sensor">
     <g id="BASE">
-      <rect x="2" y="305.17" width="173" height="70.15" style="fill: #7ac7ed"/>
+      <rect x="2" y="305.17" width="173" height="70.15" fill="#7ac7ed"/>
       <path d="M183,309.67v66.15H14V309.67H183m4-4H10v74.15H187V305.67Z" transform="translate(-10 -2.5)"/>
     </g>
     <g id="RIGHT_EYE">
-      <rect x="11.3" y="276.57" width="34.76" height="27.44" style="fill: #bbc2c4"/>
+      <rect x="11.3" y="276.57" width="34.76" height="27.44" fill="#bbc2c4"/>
       <path d="M54.56,280.57V305H22.8V280.57H54.56m3-3H19.8V308H57.56V277.57Z" transform="translate(-10 -2.5)"/>
     </g>
     <g id="LEFT_EYE">
-      <rect x="131.57" y="276.57" width="34.76" height="27.44" style="fill: #bbc2c4"/>
+      <rect x="131.57" y="276.57" width="34.76" height="27.44" fill="#bbc2c4"/>
       <path d="M174.83,280.57V305H143.07V280.57h31.76m3-3H140.07V308h37.76V277.57Z" transform="translate(-10 -2.5)"/>
     </g>
   </g>
   <g id="DISTANCE">
-    <text id="DISTANCE_TEXT" transform="translate(66.95 248.51) scale(0.81 1)" style="font-size: 21px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">1 cm </text>
+    <text id="DISTANCE_TEXT" transform="translate(66.95 248.51) scale(0.81 1)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">1 cm </text>
     <g id="OBJECT">
-      <rect x="0.5" y="251.4" width="176" height="12.27" style="fill: #d61632"/>
+      <rect x="0.5" y="251.4" width="176" height="12.27" fill="#d61632"/>
       <path d="M186,254.4v11.27H11V254.4H186m1-1H10v13.27H187V253.4Z" transform="translate(-10 -2.5)"/>
     </g>
   </g>
   <g id="WIRE_TEXT">
-    <text id="VCC_TEXT" transform="translate(6.83 373.11) scale(0.81 1)" style="font-size: 36px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">+</text>
-    <text id="TRIG_TEXT" transform="translate(40.65 369.11) scale(0.81 1)" style="font-size: 18px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">TRIG</text>
-    <text id="ECHO_TEXT" transform="translate(93.22 369.11) scale(0.81 1)" style="font-size: 18px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">ECHO</text>
-    <text id="GND_TEXT" transform="translate(155.62 373.11) scale(0.81 1)" style="font-size: 36px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">-</text>
-    <rect x="71.5" width="25" height="14" style="fill: none"/>
-    <text id="TRIG_PIN_TEXT" transform="translate(61.53 392.89)" style="font-size: 18px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">A5</text>
-    <text id="ECHO_PIN_TEXT" transform="translate(117.53 392.89)" style="font-size: 18px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">A5</text>
+    <text id="VCC_TEXT" transform="translate(6.83 373.11) scale(0.81 1)" font-size="36" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+    <text id="TRIG_TEXT" transform="translate(40.65 369.11) scale(0.81 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">TRIG</text>
+    <text id="ECHO_TEXT" transform="translate(93.22 369.11) scale(0.81 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">ECHO</text>
+    <text id="GND_TEXT" transform="translate(155.62 373.11) scale(0.81 1)" font-size="36" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+    <rect x="71.5" width="25" height="14" fill="none"/>
+    <text id="TRIG_PIN_TEXT" transform="translate(61.53 392.89)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
+    <text id="ECHO_PIN_TEXT" transform="translate(117.53 392.89)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
+    <text transform="translate(8.89 331.68)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">Ultrasonic Sensor</text>
   </g>
 </svg>
