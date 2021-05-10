@@ -40,16 +40,20 @@ export const positionTemp: PositionComponent<TemperatureState> = (
 };
 
 export const updateTemp: SyncComponent = (state: TemperatureState, tempEl) => {
-  const textEl = tempEl.findOne("#TEMP_TEXT") as Element;
-  textEl.show();
-  const cx = textEl.cx();
-  textEl.node.innerHTML = `${state.humidity}% - ${state.temperature}°F`;
-  textEl.cx(cx);
+  const tempTextEl = tempEl.findOne("#TEMP_TEXT") as Element;
+  const humidText = tempEl.findOne("#HUMID_TEXT") as Element;
+  tempTextEl.show();
+  humidText.show();
+  const cx = tempTextEl.cx();
+  tempTextEl.node.innerHTML = `Temperature ${state.temperature}°F`;
+  tempTextEl.cx(cx);
+  humidText.node.innerHTML = `Humitity: ${state.humidity}%`;
+  humidText.cx(cx);
 };
 
 export const resetTemp: ResetComponent = (tempEl) => {
-  const textEl = tempEl.findOne("#TEMP_TEXT") as Element;
-  textEl.hide();
+  const tempText = tempEl.findOne("#TEMP_TEXT") as Element;
+  tempText.hide();
 };
 
 export const createWiresTemp: CreateWire<TemperatureState> = (

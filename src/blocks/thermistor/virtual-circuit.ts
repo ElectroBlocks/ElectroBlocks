@@ -50,8 +50,7 @@ export const updateThermistorSensor: SyncComponent = (
   thermistorEl
 ) => {
   const textEl = thermistorEl.findOne("#TEMP_TEXT") as Text;
-  textEl.node.textContent = `${state.temp}°`;
-  textEl.cx(21);
+  textEl.node.textContent = `${state.temp}°C`;
 };
 
 export const resetThermistorSensor: ResetComponent = (thermistorEl) => {};

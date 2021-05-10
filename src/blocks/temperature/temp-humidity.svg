@@ -1,144 +1,127 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="150" height="222.37" viewBox="0 0 150 222.37">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="189" height="241.28" viewBox="0 0 189 241.28">
+  <defs>
+    <clipPath id="clip-path" transform="translate(-6 -31.22)">
+      <rect x="32" y="100.5" width="139.59" height="54.46" fill="none"/>
+    </clipPath>
+  </defs>
   <g id="WIRE">
     <g id="PIN_POWER">
-      <line x1="9.69" y1="204.87" x2="9.69" y2="221.2" style="fill: none;stroke: #33322f;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-      <line x1="9.69" y1="204.87" x2="9.69" y2="221.2" style="fill: #2d2d2c"/>
+      <line x1="28.57" y1="230.78" x2="28.57" y2="240.18" fill="none" stroke="#b2b2b2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="28.57" y1="230.78" x2="28.57" y2="240.18" fill="#f7f7f7"/>
     </g>
     <g id="PIN_DATA">
-      <line x1="71.38" y1="205.03" x2="71.38" y2="221.37" style="fill: none;stroke: #33322f;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-      <line x1="71.38" y1="205.03" x2="71.38" y2="221.37" style="fill: #2d2d2c"/>
+      <line x1="90.26" y1="230.87" x2="90.26" y2="240.28" fill="none" stroke="#b2b2b2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="90.26" y1="230.87" x2="90.26" y2="240.28" fill="#f7f7f7"/>
     </g>
     <g id="PIN_GND">
-      <line x1="137.22" y1="205.03" x2="137.22" y2="221.37" style="fill: none;stroke: #33322f;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-      <line x1="137.22" y1="205.03" x2="137.22" y2="221.37" style="fill: #2d2d2c"/>
+      <line x1="156.1" y1="230.87" x2="156.1" y2="240.28" fill="none" stroke="#b2b2b2" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line x1="156.1" y1="230.87" x2="156.1" y2="240.28" fill="#f7f7f7"/>
     </g>
   </g>
   <g id="BASE">
     <g>
-      <rect x="0.5" y="27.87" width="149" height="177" style="fill: #81a4c1"/>
-      <path d="M173.88,40V216h-148V40h148m1-1h-150V217h150V39Z" transform="translate(-24.88 -11.63)"/>
+      <rect x="0.5" y="53.78" width="188" height="177" fill="#81a4c1"/>
+      <path d="M194,85.5v176H7V85.5H194m1-1H6v178H195V84.5Z" transform="translate(-6 -31.22)"/>
     </g>
     <g>
-      <rect x="15.38" y="37.87" width="119" height="113" style="fill: #5da8f4"/>
-      <path d="M158.75,50V162h-118V50h118m1-1h-120V163h120V49Z" transform="translate(-24.88 -11.63)"/>
+      <rect x="16.5" y="60.78" width="158" height="69" fill="#5da8f4"/>
+      <path d="M180,92.5v68H23v-68H180m1-1H22v70H181v-70Z" transform="translate(-6 -31.22)"/>
     </g>
-    <g>
+    <g clip-path="url(#clip-path)">
       <g>
         <g>
-          <rect x="108.63" y="128.87" width="16" height="16"/>
-          <path d="M149,141v15H134V141h15m1-1H133v17h17V140Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="26.5" y="69.78" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M42,101.5v9H33v-9h9m1-1H32v11H43v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="87.63" y="128.87" width="16" height="16"/>
-          <path d="M128,141v15H113V141h15m1-1H112v17h17V140Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="47.5" y="69.78" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M63,101.5v9H54v-9h9m1-1H53v11H64v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="66.63" y="128.87" width="16" height="16"/>
-          <path d="M107,141v15H92V141h15m1-1H91v17h17V140Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="68.5" y="69.78" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M84,101.5v9H75v-9h9m1-1H74v11H85v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="45.63" y="128.87" width="16" height="16"/>
-          <path d="M86,141v15H71V141H86m1-1H70v17H87V140Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="89.5" y="69.78" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M105,101.5v9H96v-9h9m1-1H95v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="24.63" y="128.87" width="16" height="16"/>
-          <path d="M65,141v15H50V141H65m1-1H49v17H66V140Z" transform="translate(-24.88 -11.63)"/>
-        </g>
-      </g>
-      <g>
-        <g>
-          <rect x="108.63" y="107.87" width="16" height="16"/>
-          <path d="M149,120v15H134V120h15m1-1H133v17h17V119Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="110.5" y="69.78" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M126,101.5v9h-9v-9h9m1-1H116v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="87.63" y="107.87" width="16" height="16"/>
-          <path d="M128,120v15H113V120h15m1-1H112v17h17V119Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="131.5" y="69.78" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M147,101.5v9h-9v-9h9m1-1H137v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="66.63" y="107.87" width="16" height="16"/>
-          <path d="M107,120v15H92V120h15m1-1H91v17h17V119Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="152.5" y="69.78" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M168,101.5v9h-9v-9h9m1-1H158v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="45.63" y="107.87" width="16" height="16"/>
-          <path d="M86,120v15H71V120H86m1-1H70v17H87V119Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="26.5" y="90.69" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M42,122.42v9H33v-9h9m1-1H32v11H43v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="24.63" y="107.87" width="16" height="16"/>
-          <path d="M65,120v15H50V120H65m1-1H49v17H66V119Z" transform="translate(-24.88 -11.63)"/>
-        </g>
-      </g>
-      <g>
-        <g>
-          <rect x="108.63" y="86.87" width="16" height="16"/>
-          <path d="M149,99v15H134V99h15m1-1H133v17h17V98Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="47.5" y="90.69" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M63,122.42v9H54v-9h9m1-1H53v11H64v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="87.63" y="86.87" width="16" height="16"/>
-          <path d="M128,99v15H113V99h15m1-1H112v17h17V98Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="68.5" y="90.69" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M84,122.42v9H75v-9h9m1-1H74v11H85v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="66.63" y="86.87" width="16" height="16"/>
-          <path d="M107,99v15H92V99h15m1-1H91v17h17V98Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="89.5" y="90.69" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M105,122.42v9H96v-9h9m1-1H95v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="45.63" y="86.87" width="16" height="16"/>
-          <path d="M86,99v15H71V99H86m1-1H70v17H87V98Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="110.5" y="90.69" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M126,122.42v9h-9v-9h9m1-1H116v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="24.63" y="86.87" width="16" height="16"/>
-          <path d="M65,99v15H50V99H65m1-1H49v17H66V98Z" transform="translate(-24.88 -11.63)"/>
-        </g>
-      </g>
-      <g>
-        <g>
-          <rect x="108.63" y="65.87" width="16" height="16"/>
-          <path d="M149,78V93H134V78h15m1-1H133V94h17V77Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="131.5" y="90.69" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M147,122.42v9h-9v-9h9m1-1H137v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="87.63" y="65.87" width="16" height="16"/>
-          <path d="M128,78V93H113V78h15m1-1H112V94h17V77Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="152.5" y="90.69" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M168,122.42v9h-9v-9h9m1-1H158v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="66.63" y="65.87" width="16" height="16"/>
-          <path d="M107,78V93H92V78h15m1-1H91V94h17V77Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="26.5" y="111.61" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M42,143.33v9H33v-9h9m1-1H32v11H43v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="45.63" y="65.87" width="16" height="16"/>
-          <path d="M86,78V93H71V78H86m1-1H70V94H87V77Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="47.5" y="111.61" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M63,143.33v9H54v-9h9m1-1H53v11H64v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="24.63" y="65.87" width="16" height="16"/>
-          <path d="M65,78V93H50V78H65m1-1H49V94H66V77Z" transform="translate(-24.88 -11.63)"/>
-        </g>
-      </g>
-      <g>
-        <g>
-          <rect x="108.63" y="44.87" width="16" height="16"/>
-          <path d="M149,57V72H134V57h15m1-1H133V73h17V56Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="68.5" y="111.61" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M84,143.33v9H75v-9h9m1-1H74v11H85v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="87.63" y="44.87" width="16" height="16"/>
-          <path d="M128,57V72H113V57h15m1-1H112V73h17V56Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="89.5" y="111.61" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M105,143.33v9H96v-9h9m1-1H95v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="66.63" y="44.87" width="16" height="16"/>
-          <path d="M107,57V72H92V57h15m1-1H91V73h17V56Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="110.5" y="111.61" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M126,143.33v9h-9v-9h9m1-1H116v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="45.63" y="44.87" width="16" height="16"/>
-          <path d="M86,57V72H71V57H86m1-1H70V73H87V56Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="131.5" y="111.61" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M147,143.33v9h-9v-9h9m1-1H137v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
         <g>
-          <rect x="24.63" y="44.87" width="16" height="16"/>
-          <path d="M65,57V72H50V57H65m1-1H49V73H66V56Z" transform="translate(-24.88 -11.63)"/>
+          <rect x="152.5" y="111.61" width="10" height="10" fill="#1a1b1c"/>
+          <path d="M168,143.33v9h-9v-9h9m1-1H158v11h11v-11Z" transform="translate(-6 -31.22)"/>
         </g>
       </g>
     </g>
+    <text transform="translate(14.67 158.9)" font-size="21" font-family="Biryani-Bold, Biryani" font-weight="700">Temperature &amp;<tspan x="-8.69" y="25.2">Humidity Sensor</tspan></text>
   </g>
   <g id="TEXT">
-    <text id="TEMP_TEXT" transform="translate(14.89 21.1)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">50% - 90°F</text>
-    <text transform="translate(3.09 199.46)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">+</text>
-    <text transform="translate(131.77 198.46)" style="font-size: 24px;font-family: Biryani-SemiBold, Biryani;font-weight: 600">-</text>
-    <text id="PIN_TEXT" transform="translate(58.18 200.28)" style="font-size: 24px;fill: #2d2d2c;font-family: Biryani-SemiBold, Biryani;font-weight: 600">A5</text>
+    <text id="HUMID_TEXT" transform="translate(16.64 45)" font-size="21" font-family="Biryani-Bold, Biryani" font-weight="700">Humidity: 50%</text>
+    <text transform="translate(21.97 225.37)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+    <text transform="translate(150.65 224.37)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+    <text id="PIN_TEXT" transform="translate(77.06 226.19)" font-size="24" fill="#2d2d2c" font-family="Biryani-SemiBold, Biryani" font-weight="600">A5</text>
+    <text id="TEMP_TEXT" transform="translate(3.92 18.46)" font-size="21" font-family="Biryani-Bold, Biryani" font-weight="700">Temperature: 90°</text>
   </g>
 </svg>
