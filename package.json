@@ -38,7 +38,7 @@
     "firebase": "^8.0.1",
     "firebase-admin": "^9.4.1",
     "firebase-functions": "^3.11.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "polka": "^0.5.0",
     "prismjs": "^1.23.0",
     "rollup-plugin-copy": "^3.3.0",
