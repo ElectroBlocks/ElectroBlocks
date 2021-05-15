@@ -10,6 +10,8 @@
   import { onConfirm, onErrorMessage, onSuccess } from "../../../help/alerts";
   import { workspaceToXML } from "../../../core/blockly/helpers/workspace.helper";
 
+  const navigatorSerialNotAvailableMessaeg = `To upload code you must use chrome or a chromium based browser like edge, or brave.  This will work with chrome version 89 or higher. `;
+
   // controls whether the messages should autoscroll
   let autoScroll = false;
 
@@ -74,9 +76,7 @@
 
   async function connectOrDisconnectArduino() {
     if (!navigator["serial"]) {
-      onErrorMessage(
-        `You must be on chrome browser and have Experimental Web Platform features turned on to talk to the arduino. Go to our tutorial section under setup.`
-      );
+      onErrorMessage(navigatorSerialNotAvailableMessaeg);
       return;
     }
 
@@ -124,9 +124,7 @@
 
   async function uploadCode() {
     if (!navigator["serial"]) {
-      onErrorMessage(
-        `You must be on chrome browser and have Experimental Web Platform features turned on to talk to the arduino. Go to our tutorial section under setup.`
-      );
+      onErrorMessage(navigatorSerialNotAvailableMessaeg);
       return;
     }
 
