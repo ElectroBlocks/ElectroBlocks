@@ -1,11 +1,13 @@
-<svg id="PASSIVE_BUZZER" xmlns="http://www.w3.org/2000/svg" width="72" height="98.59" viewBox="0 0 72 98.59">
-  <line id="PIN_DATA" x1="52.5" y1="53.18" x2="52.5" y2="88.5" fill="none" stroke="#b7b7b7" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
-  <line id="PIN_GND" x1="18" y1="53" x2="18.5" y2="88.5" fill="none" stroke="#b7b7b7" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
+<svg id="PASSIVE_BUZZER" xmlns="http://www.w3.org/2000/svg" width="89.74" height="146.58" viewBox="0 0 89.74 146.58">
+  <line id="PIN_DATA" x1="61.24" y1="109.1" x2="61.24" y2="131.99" fill="none" stroke="#b7b7b7" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
+  <line id="PIN_GND" x1="26.74" y1="108.99" x2="27.24" y2="131.99" fill="none" stroke="#b7b7b7" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
   <g id="Base">
-    <rect x="0.5" y="0.5" width="71" height="52" fill="#2b2b2b"/>
-    <path d="M84,14V65H14V14H84m1-1H13V66H85V13Z" transform="translate(-13 -13)"/>
+    <rect x="9.24" y="56.49" width="71" height="52" fill="#2b2b2b"/>
+    <path d="M84,61v51H14V61H84m1-1H13v53H85V60Z" transform="translate(-4.26 -4.01)"/>
   </g>
-  <text id="NOTE_TEXT" transform="translate(10.66 36.47)" font-size="30" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">124</text>
-  <text id="GND_TEXT" transform="translate(1.93 80.35)" font-size="30" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
-  <text id="PIN_TEXT" transform="translate(59.29 76.11)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
+  <text id="NOTE_TEXT" transform="translate(28.41 103.46)" font-size="21" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">147</text>
+  <text id="GND_TEXT" transform="translate(10.67 128.34)" font-size="30" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+  <text id="PIN_TEXT" transform="translate(68.03 129.09)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
+  <text transform="translate(0 21.1)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">Passive<tspan x="3.24" y="28.8">Buzzer</tspan></text>
+  <text transform="translate(18.97 76.47)" font-size="21" fill="#fff" font-family="Biryani-SemiBold, Biryani" font-weight="600">Tone</text>
 </svg>
