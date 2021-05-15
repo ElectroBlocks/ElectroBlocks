@@ -15,6 +15,7 @@
     <text id="degrees" transform="translate(30.34 30.43)" font-size="34.62" font-family="Biryani-ExtraLight, Biryani" font-weight="200">180°</text>
     <text transform="translate(55.74 147.19)" font-size="21" font-family="Biryani-ExtraBold, Biryani" font-weight="800">+</text>
     <text transform="translate(40.07 146.19)" font-size="21" font-family="Biryani-ExtraBold, Biryani" font-weight="800">-</text>
+    <text transform="translate(35.85 125.66)" font-size="18" fill="#fff" font-family="Biryani-Regular, Biryani">Servo</text>
   </g>
   <g id="spinning_part" data-name="spinning part">
     <rect id="black_fill" data-name="black fill" x="56.72" y="85.69" width="14.33" height="17.02" stroke="#000" stroke-miterlimit="10"/>

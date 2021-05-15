@@ -22,6 +22,8 @@ export const digitalAnalogWritePinReset: ResetComponent = (
 ) => {
   const pinText = componentEl.findOne("#STATE_TEXT") as Text;
   pinText.node.innerHTML = "OFF";
+  const pinTypeText = componentEl.findOne("#PIN_TYPE") as Text;
+  pinTypeText.node.innerHTML = "";
   componentEl.findOne("#RAYS").hide();
   (componentEl.findOne("#LIGHT_BULB") as Element).opacity(0);
 };
@@ -48,6 +50,10 @@ export const digitalAnanlogWritePinCreate: AfterComponentCreateHook<WritePinStat
 
   const pinText = componentEl.findOne("#PIN_TEXT") as Text;
   pinText.node.innerHTML = state.pin;
+
+  const pinTypeText = componentEl.findOne("#PIN_TYPE") as Text;
+  pinTypeText.node.innerHTML =
+    state.pinType == WritePinType.ANALOG_OUTPUT ? "Analog Pin" : "Digital Pin";
 };
 
 export const digitalAnalogWritePinSync: SyncComponent = (

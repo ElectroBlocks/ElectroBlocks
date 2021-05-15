@@ -41,7 +41,7 @@ export const updateStepperMotor: SyncComponent = (
   const cy = rotateAroundEl.cy();
 
   rotateTextEl.node.textContent = `Moved ${state.steps} Steps`;
-  rotateTextEl.cx(cx);
+  rotateTextEl.cx(cx + 13);
 
   const currentElSteps = rotateTextEl.data("steps") || 0;
 

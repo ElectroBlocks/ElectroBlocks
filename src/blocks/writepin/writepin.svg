@@ -1,26 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="83.79" height="107.28" viewBox="0 0 83.79 107.28">
+<svg xmlns="http://www.w3.org/2000/svg" width="97.67" height="125.35" viewBox="0 0 97.67 125.35">
   <g id="WIRES">
-    <line id="POWER" x1="49.43" y1="81.89" x2="49.43" y2="106.28" fill="none" stroke="#f73939" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-    <line id="PIN_GND" x1="34.31" y1="81.89" x2="34.31" y2="106.28" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
-    <text id="STATE_TEXT" transform="translate(26.44 15.55)" font-size="18" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">150</text>
-    <text id="PIN_TEXT" transform="translate(53.27 102.21)" font-size="16" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">A15</text>
-    <text id="GND_TEXT" transform="translate(22.24 102.21)" font-size="24" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">-</text>
-    <rect y="95.86" width="3.41" height="2.33" fill="none"/>
-    <rect x="2.64" y="102.21" width="3.41" height="2.33" fill="none"/>
+    <line id="POWER" x1="54.84" y1="99.96" x2="54.84" y2="124.35" fill="none" stroke="#f73939" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_GND" x1="39.71" y1="99.96" x2="39.71" y2="124.35" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <text id="STATE_TEXT" transform="translate(31.85 36.62)" font-size="18" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">150</text>
+    <text id="PIN_TEXT" transform="translate(58.67 120.28)" font-size="16" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">A15</text>
+    <text id="GND_TEXT" transform="translate(27.64 120.28)" font-size="24" font-family="ArialRoundedMTBold, Arial Rounded MT Bold">-</text>
+    <rect x="5.4" y="113.93" width="3.41" height="2.33" fill="none"/>
+    <rect x="8.04" y="120.28" width="3.41" height="2.33" fill="none"/>
+    <text id="PIN_TYPE" transform="translate(0 15.82)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">Analog Pin</text>
   </g>
   <g id="LIGHT">
-    <path id="LIGHT_BULB" d="M48.14,40.73A17.41,17.41,0,0,0,30.73,58.14c0,7.53,4.79,14,13.66,16.37v5.38h7.5V74.51c8.86-2.42,13.66-8.84,13.66-16.37A17.42,17.42,0,0,0,48.14,40.73Z" transform="translate(-6.22 -3.53)" fill="#fff2a0"/>
-    <path id="LIGHT_BULB_OUTLINE" d="M48.14,40.73A17.41,17.41,0,0,0,30.73,58.14c0,7.53,4.79,14,13.66,16.37v5.38h7.5V74.51c8.86-2.42,13.66-8.84,13.66-16.37A17.42,17.42,0,0,0,48.14,40.73Z" transform="translate(-6.22 -3.53)" fill="none" stroke="#0c0c0c" stroke-miterlimit="10"/>
-    <path id="BASE" d="M36.78,78.6H59.5v6.82H36.78Z" transform="translate(-6.22 -3.53)" fill="#73ddd3"/>
+    <path id="LIGHT_BULB" d="M48.14,57.5A17.4,17.4,0,0,0,30.73,74.91c0,7.53,4.79,14,13.66,16.37v5.37h7.5V91.28c8.86-2.42,13.66-8.84,13.66-16.37A17.41,17.41,0,0,0,48.14,57.5Z" transform="translate(-0.82 -2.23)" fill="#fff2a0"/>
+    <path id="LIGHT_BULB_OUTLINE" d="M48.14,57.5A17.4,17.4,0,0,0,30.73,74.91c0,7.53,4.79,14,13.66,16.37v5.37h7.5V91.28c8.86-2.42,13.66-8.84,13.66-16.37A17.41,17.41,0,0,0,48.14,57.5Z" transform="translate(-0.82 -2.23)" fill="none" stroke="#0c0c0c" stroke-miterlimit="10"/>
+    <path id="BASE" d="M36.78,95.37H59.5v6.82H36.78Z" transform="translate(-0.82 -2.23)" fill="#73ddd3"/>
   </g>
   <g id="RAYS">
-    <path id="RAY_7" d="M48.52,36.62a1.14,1.14,0,0,1-1.14-1.14v-2.3a1.14,1.14,0,1,1,2.28,0v2.3A1.14,1.14,0,0,1,48.52,36.62Z" transform="translate(-6.22 -3.53)" fill="#fff2a0"/>
-    <path id="RAY_7-2" data-name="RAY_7" d="M48.52,35.85a2.74,2.74,0,0,1-2.74-2.73V27.61a2.74,2.74,0,1,1,5.47,0v5.51A2.73,2.73,0,0,1,48.52,35.85Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_6" d="M79.64,61.45H74.13a2.74,2.74,0,1,1,0-5.47h5.51a2.74,2.74,0,0,1,0,5.47Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_5" d="M22.91,61.45H17.4a2.74,2.74,0,1,1,0-5.47h5.51a2.74,2.74,0,0,1,0,5.47Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_4" d="M66.62,43.35a2.74,2.74,0,0,1-1.93-4.67l3.9-3.89a2.73,2.73,0,1,1,3.87,3.86l-3.9,3.9a2.77,2.77,0,0,1-1.94.8Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#000" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_3" d="M26.51,83.45a2.74,2.74,0,0,1-1.93-4.67l3.9-3.9a2.73,2.73,0,0,1,3.86,3.87l-3.9,3.9A2.73,2.73,0,0,1,26.51,83.45Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_2" d="M70.52,83.45a2.73,2.73,0,0,1-1.93-.8l-3.9-3.9a2.74,2.74,0,0,1,3.87-3.87l3.9,3.9a2.74,2.74,0,0,1-1.94,4.67Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
-    <path id="RAY_1" d="M30.41,43.35a2.73,2.73,0,0,1-1.93-.8l-3.9-3.9a2.73,2.73,0,1,1,3.86-3.86l3.9,3.89a2.74,2.74,0,0,1-1.93,4.67Z" transform="translate(-6.22 -3.53)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
+    <path id="RAY_7" d="M48.52,53.39a1.14,1.14,0,0,1-1.14-1.14V50a1.14,1.14,0,1,1,2.28,0v2.3A1.14,1.14,0,0,1,48.52,53.39Z" transform="translate(-0.82 -2.23)" fill="#fff2a0"/>
+    <path id="RAY_7-2" data-name="RAY_7" d="M48.52,52.62a2.74,2.74,0,0,1-2.74-2.73V44.38a2.74,2.74,0,1,1,5.47,0v5.51A2.73,2.73,0,0,1,48.52,52.62Z" transform="translate(-0.82 -2.23)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
+    <path id="RAY_6" d="M79.64,78.22H74.13a2.74,2.74,0,1,1,0-5.47h5.51a2.74,2.74,0,0,1,0,5.47Z" transform="translate(-0.82 -2.23)" fill="#fff2a0" stroke="#050505" stroke-miterlimit="10" stroke-width="0.5"/>
+    <path id="RAY_5" d="M22.91,78.22H17.4a2.74,2.74,0,1,1,0-5.47h5.51a2.74,2.74,0,0,1,0,5.47Z" transform="translate(-0.82 -2.23)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
+    <path id="RAY_4" d="M66.62,60.12a2.74,2.74,0,0,1-1.93-4.67l3.9-3.9a2.74,2.74,0,0,1,3.87,3.87l-3.9,3.9a2.77,2.77,0,0,1-1.94.8Z" transform="translate(-0.82 -2.23)" fill="#fff2a0" stroke="#000" stroke-miterlimit="10" stroke-width="0.5"/>
+    <path id="RAY_3" d="M26.51,100.22a2.74,2.74,0,0,1-1.93-4.67l3.9-3.9a2.73,2.73,0,0,1,3.86,3.87l-3.9,3.9A2.73,2.73,0,0,1,26.51,100.22Z" transform="translate(-0.82 -2.23)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
+    <path id="RAY_2" d="M70.52,100.22a2.73,2.73,0,0,1-1.93-.8l-3.9-3.9a2.74,2.74,0,0,1,3.87-3.87l3.9,3.9a2.74,2.74,0,0,1-1.94,4.67Z" transform="translate(-0.82 -2.23)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
+    <path id="RAY_1" d="M30.41,60.12a2.73,2.73,0,0,1-1.93-.8l-3.9-3.9a2.73,2.73,0,0,1,3.86-3.87l3.9,3.9a2.74,2.74,0,0,1-1.93,4.67Z" transform="translate(-0.82 -2.23)" fill="#fff2a0" stroke="#020202" stroke-miterlimit="10" stroke-width="0.5"/>
   </g>
 </svg>
