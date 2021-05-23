@@ -91,7 +91,7 @@ export const updateLed: SyncComponent = (state: LedState, ledEl, draw) => {
     (ledEl.findOne("#LED_LIGHT") as Element).opacity(state.state / 255);
   }
 
-  ledText.cx(20);
+  ledText.cx(21);
 };
 
 export const resetLed: ResetComponent = (componentEl: Element) => {

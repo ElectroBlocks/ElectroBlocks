@@ -13,7 +13,7 @@ export default `<category colour="${COLOR_THEME.ARDUINO}" name="Time">
    <value name="DELAY">
 
        <block type="math_number">
-           <field name="NUM">1</field>
+           <field name="NUM">0.2</field>
        </block>
    </value>
    </block>

@@ -41,8 +41,8 @@ const startBlockly = (blocklyElement: HTMLElement) => {
   const arduinoBlock = createBlock("arduino_loop", 50, 151, false);
 
   // Creating Blink
-  createLedWithDelay(1, false);
-  createLedWithDelay(1, true);
+  createLedWithDelay(0.2, false);
+  createLedWithDelay(0.2, true);
 
   createFrames({
     type: Blockly.Events.MOVE,
