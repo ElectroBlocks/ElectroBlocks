@@ -82,13 +82,6 @@ const defaultToolbox: ToolBoxEntries[] = [
         name: "List",
         xml: listXMLString,
       },
-    ],
-  },
-  {
-    color: COLOR_THEME.VALUES,
-    category: ToolBoxCategory.DATA,
-    name: "Data",
-    toolBoxEntries: [
       {
         name: "Color",
         xml: colorXMLString,
@@ -101,15 +94,8 @@ const defaultToolbox: ToolBoxEntries[] = [
         name: "Text",
         xml: textXMLString,
       },
-    ],
-  },
-  {
-    color: COLOR_THEME.ARDUINO,
-    category: ToolBoxCategory.ARDUINO,
-    name: "Arduino",
-    toolBoxEntries: [
       {
-        name: "Arduino",
+        name: "Code",
         xml: arduinoXMLString,
       },
       {
