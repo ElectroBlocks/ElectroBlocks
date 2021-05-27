@@ -2,10 +2,9 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to SFL Firebase Hosting on merge
-"on":
-  push:
-    branches:
-      - master
+on:
+  workflow_dispatch:
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
