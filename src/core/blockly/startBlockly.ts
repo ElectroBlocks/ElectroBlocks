@@ -18,6 +18,8 @@ import { ARDUINO_PINS } from "../microcontroller/selectBoard";
 import { DELAY_COMMENT } from "../../blocks/time/toolbox";
 import { LED_COMMENT } from "../../blocks/led/toolbox";
 
+import "@blockly/block-plus-minus";
+
 /**
  * This will start up blockly and will add all the event listeners and styles
  */
