@@ -111,7 +111,7 @@ const defaultToolbox: ToolBoxEntries[] = [
   {
     color: COLOR_THEME.COMPONENTS,
     category: ToolBoxCategory.COMPONENT,
-    name: "Components",
+    name: "Add-ons",
     toolBoxEntries: [
       { name: "Bluetooth", xml: bluetoothXMLString },
       { name: "Digital Display", xml: digitalDisplayXMLString },
