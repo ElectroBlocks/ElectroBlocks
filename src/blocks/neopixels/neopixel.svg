@@ -23,7 +23,7 @@
       <rect x="8.23" y="234.91" width="44" height="23" fill="#f2d4b6"/>
       <rect x="8.23" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
     </g>
-    <g id="LED">
+    <g id="LED-1">
       <circle cx="30.23" cy="246.41" r="8.5"/>
       <circle cx="30.23" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
     </g>

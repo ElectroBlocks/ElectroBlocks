@@ -42,13 +42,15 @@ settingStore.subscribe((newSettings) => {
 });
 
 export const createFrames = async (blocklyEvent) => {
+  console.log(blocklyEvent, "look");
   if (
     blocklyEvent.element === "disabled" ||
     // Means a modal is opening
     blocklyEvent.element === "warningOpen" ||
     blocklyEvent.element === "click" ||
+    blocklyEvent.recordUndo === false ||
     // If old value equals null that means it's probably not a copy event
-    (blocklyEvent.element === "selected" && !blocklyEvent.oldValue)
+    (blocklyEvent.element === "selected" && !blocklyEvent.oldElementId)
   ) {
     return;
   }
