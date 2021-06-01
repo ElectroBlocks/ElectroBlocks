@@ -82,7 +82,11 @@
   onMount(() => {
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
-      if (["/code", "/open", "/settings", "/lessons"].includes(path)) {
+      if (
+        ["code", "open", "settings", "lessons"].reduce((found, value) => {
+          return found || value.indexOf(value) >= 0;
+        }, false)
+      ) {
         showScrollOnRightSide = true;
       }
       // Calculates the height of the window
