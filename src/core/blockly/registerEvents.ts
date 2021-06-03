@@ -42,7 +42,6 @@ settingStore.subscribe((newSettings) => {
 });
 
 export const createFrames = async (blocklyEvent) => {
-  console.log(blocklyEvent, "look");
   if (
     blocklyEvent.element === "disabled" ||
     // Means a modal is opening
