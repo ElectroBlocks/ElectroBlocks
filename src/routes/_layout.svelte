@@ -84,7 +84,7 @@
     page.subscribe(({ path, params, query }) => {
       if (
         ["code", "open", "settings", "lessons"].reduce((found, value) => {
-          return found || value.indexOf(value) >= 0;
+          return found || path.indexOf(value) >= 0;
         }, false)
       ) {
         showScrollOnRightSide = true;
