@@ -119,14 +119,13 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
       board
     );
 
-    createGroundOrPowerWire(
+    createGroundWireForBreadboard(
       holes[1],
-      isDown,
-      rgbLedEl,
+      "PIN_GND",
+      arduino as Svg,
       draw,
-      arduino,
-      id,
-      "ground"
+      rgbLedEl,
+      id
     );
     createResistor(arduino, draw, holes[0], isDown, id, "vertical", 1000);
     createResistor(arduino, draw, holes[2], isDown, id, "vertical", 1000);
@@ -219,3 +218,39 @@ const createResistorRequiredWire = (
     board
   );
 };
+
+const createGroundWireForBreadboard = (
+  hole: number,
+  connectionId: string,
+  arduino: Svg,
+  draw: Svg,
+  rgbLedEl: Element,
+  componentId: string)=> {
+  createWireComponentToBreadboard(
+    `pin${hole}H`,
+    rgbLedEl,
+    draw,
+    arduino,
+    connectionId,
+    componentId,
+    "#000"
+  );
+
+  createWireBreadboard(
+    `pin${hole}F`,
+    `pin${hole}E`,
+    "#000",
+    draw,
+    arduino as Svg,
+    componentId
+  );
+
+  createWireBreadboard(
+    `pin${hole}A`,
+    `pin${hole}X`,
+    "#000",
+    draw,
+    arduino as Svg,
+    componentId
+  );
+}
