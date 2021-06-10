@@ -5,9 +5,9 @@ export default `<category name="RGB LED" colour="${COLOR_THEME.COMPONENTS}">
    <block type="rgb_led_setup">
     <comment pinned="false" h="100" w="460">This block tells the Arduino which pin to use for each color.   RGB stands for red, green, and blue.  By combining colors, you can make other colors.</comment>
 
-                           <field name="PIN_RED">6</field>
-                         <field name="PIN_GREEN">5</field>
-                         <field name="PIN_BLUE">3</field>
+                           <field name="PIN_RED">11</field>
+                         <field name="PIN_GREEN">10</field>
+                         <field name="PIN_BLUE">9</field>
  </block>
 
    <block type="set_color_led">
