@@ -51,7 +51,7 @@ Blockly.Variables.flyoutCategory = function (workspace: Blockly.Workspace) {
   btnBoolVariable.setAttribute("text", "Create Boolean Variable");
   btnBoolVariable.setAttribute("callbackKey", "CREATE_BOOLEAN_VARIABLE");
 
-  // variables_set_colour colour_picker
+  // variables_set_colour color_picker_custom
   // createVariableBtnHanlder
 
   castedWorkspace.registerButtonCallback("CREATE_BOOLEAN_VARIABLE", function (
@@ -76,7 +76,7 @@ Blockly.Variables.flyoutCategory = function (workspace: Blockly.Workspace) {
   ) {
     Blockly.Variables.createVariableButtonHandler(
       button.getTargetWorkspace(),
-      createVariableBtnHanlder("variables_set_colour", "colour_picker"),
+      createVariableBtnHanlder("variables_set_colour", "color_picker_custom"),
       "Colour"
     );
   });
@@ -185,7 +185,7 @@ Blockly.Variables.flyoutCategoryBlocks = function (workspace) {
       xmlSerializer.serializeToString(
         Blockly.Variables.generateVariableFieldDom(colourVariables[0])
       ) +
-      '<value name="VALUE"> <block type="colour_picker"> </block> </value>' +
+      '<value name="VALUE"> <block type="color_picker_custom"> </block> </value>' +
       "</block>" +
       "</xml>";
     const blockSetColour = Blockly.Xml.textToDom(blockTextSetColour)

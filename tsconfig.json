@@ -1,13 +1,13 @@
 {
-	"extends": "@tsconfig/svelte/tsconfig.json",
-	"compilerOptions": {
-		"importsNotUsedAsValues": "remove",
-		"resolveJsonModule": true,
-		"lib": ["DOM", "ES2017", "ES2019", "WebWorker"],
-		"typeRoots": ["typings"],
-		"types": ["svelte", "@sapper", "@types/jest"
-, "node"],
-	},
-	"include": ["custom.d.ts","src/**/*", "src/node_modules/**/*"],
-	"exclude": ["node_modules/*", "__sapper__/*", "static/*"]
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "importsNotUsedAsValues": "remove",
+    "resolveJsonModule": true,
+    "lib": ["DOM", "ES2017", "ES2019", "WebWorker"],
+    "typeRoots": ["typings"],
+    "types": ["svelte", "@sapper", "@types/jest", "node"]
+  },
+  "include": ["custom.d.ts", "src/**/*", "src/node_modules/**/*"],
+  "exclude": ["node_modules/*", "__sapper__/*", "static/*"]
 }

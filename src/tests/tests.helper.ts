@@ -3,7 +3,7 @@ import { Workspace, BlockSvg, WorkspaceSvg } from "blockly";
 import * as helpers from "../core/blockly/helpers/workspace.helper";
 import { VariableTypes } from "../core/blockly/dto/variable.type";
 import type { Variable, Color } from "../core/frames/arduino.frame";
-import {  rgbToHex } from "../core/blockly/helpers/color.helper";
+import { rgbToHex } from "../core/blockly/helpers/color.helper";
 import type { BlockEvent } from "../core/blockly/dto/event.type";
 import { MicroControllerType } from "../core/microcontroller/microcontroller";
 import { getAllBlocks } from "../core/blockly/helpers/block.helper";
@@ -75,8 +75,8 @@ export const createSetVariableBlockWithValue = (
 
   if (type === VariableTypes.COLOUR) {
     const block = workspace.newBlock("variables_set_colour");
-    const valueBlock = workspace.newBlock("colour_picker");
-    valueBlock.setFieldValue(rgbToHex(value as Color), "COLOUR");
+    const valueBlock = workspace.newBlock("color_picker_custom");
+    valueBlock.setFieldValue(rgbToHex(value as Color), "COLOR");
     block.getInput("VALUE").connection.connect(valueBlock.outputConnection);
     block.setFieldValue(variableModel.getId(), "VAR");
     return block as BlockSvg;
@@ -172,8 +172,8 @@ export const createValueBlock = (
   }
 
   if (type === VariableTypes.COLOUR) {
-    const block = workspace.newBlock("colour_picker");
-    block.setFieldValue(rgbToHex(value as Color), "COLOUR");
+    const block = workspace.newBlock("color_picker_custom");
+    block.setFieldValue(rgbToHex(value as Color), "COLOR");
 
     return block as BlockSvg;
   }

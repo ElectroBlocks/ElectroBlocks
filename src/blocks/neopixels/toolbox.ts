@@ -15,7 +15,7 @@ export default `<category name="NeoPixels" colour="${COLOR_THEME.COMPONENTS}">
            </block>
          </value>
          <value name="COLOR">
-           <block type="colour_picker"> </block>
+           <block type="color_picker_custom"> </block>
          </value>
        </block>
    </category>`;

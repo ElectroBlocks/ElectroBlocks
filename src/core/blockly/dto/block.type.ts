@@ -268,7 +268,7 @@ export const blocksToBlockTypes: {
 
   colour_random: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },
   colour_rgb: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },
-  colour_picker: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },
+  color_picker_custom: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },
 
   math_number: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },
   math_arithmetic: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },

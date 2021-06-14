@@ -18,7 +18,7 @@ import {
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 
-describe("lcd  factories", () => {
+describe("rgb led frame", () => {
   let workspace: Workspace;
   let ledColorSetup: BlockSvg;
 

@@ -136,3 +136,5 @@ Blockly.FieldColorPicker.prototype.isDirty_ = false;
  * @type {boolean}
  */
 Blockly.FieldColorPicker.prototype.SERIALIZABLE = true;
+
+console.log("this ran");
