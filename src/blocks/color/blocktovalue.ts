@@ -13,7 +13,7 @@ export const colorPicker: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  const color = findFieldValue(block, "COLOUR");
+  const color = findFieldValue(block, "COLOR");
 
   return hexToRgb(color);
 };

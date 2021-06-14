@@ -114,7 +114,7 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   number_to_string: numberToText,
   text_changeCase: changeCase,
 
-  colour_picker: colorPicker,
+  color_picker_custom: colorPicker,
   colour_random: randomColor,
   colour_rgb: rgbColor,
 

@@ -3,4 +3,7 @@ module.exports = {
   testEnvironment: "node",
   bail: 1,
   verbose: true,
+  transform: {
+    "^.+\\.[jt]s$": "ts-jest",
+  },
 };

@@ -1,5 +1,6 @@
 import "jest";
 import "../../core/blockly/blocks";
+import "../../tests/fake-block";
 
 import type { BlockSvg, Workspace } from "blockly";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";

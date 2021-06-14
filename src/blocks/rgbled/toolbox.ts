@@ -15,7 +15,7 @@ export default `<category name="RGB LED" colour="${COLOR_THEME.COMPONENTS}">
 
    <value name="COLOUR">
 
-                   <block type="colour_picker">
+                   <block type="color_picker_custom">
                    </block>
    </value>
    </block>

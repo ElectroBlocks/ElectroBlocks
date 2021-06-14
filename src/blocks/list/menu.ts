@@ -1,5 +1,5 @@
 import type { WorkspaceSvg } from "blockly";
-import Blockly from 'blockly';
+import Blockly from "blockly";
 import { getVariableByName } from "../../core/blockly/helpers/variable.helper";
 import { createBlock } from "../../core/blockly/helpers/block.helper";
 /**
@@ -162,7 +162,7 @@ const registerListMenu = (workspace: WorkspaceSvg) => {
         xmlSerializer.serializeToString(
           Blockly.Variables.generateVariableFieldDom(colourListVariables[0])
         ) +
-        '<value name="VALUE"><block type="colour_picker"></block></value>' +
+        '<value name="VALUE"><block type="color_picker_custom"></block></value>' +
         '<value name="POSITION"> <block type="math_number"> <field name="NUM">1</field></block> </value>' +
         "</block>" +
         "</xml>";

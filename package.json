@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@blockly/block-plus-minus": "^2.0.27",
+    "@jaames/iro": "^5.5.1",
     "@rollup/plugin-json": "^4.1.0",
     "@svgdotjs/svg.draggable.js": "^3.0.2",
     "@svgdotjs/svg.js": "^3.0.16",
@@ -43,6 +44,7 @@
     "polka": "^0.5.0",
     "prismjs": "^1.23.0",
     "rollup-plugin-copy": "^3.3.0",
+    "simple-color-picker": "^1.0.5",
     "sirv": "^0.4.6",
     "sveltestrap": "^3.9.7",
     "sweetalert": "^2.1.2",

@@ -4,3 +4,10 @@ import Blockly from "blockly";
 Blockly.FieldColour.prototype.doValueUpdate_ = function (newValue) {
   this.value_ = newValue;
 };
+
+class FieldColorPicker {
+  constructor(color: string) {}
+  public doValueUpdate_(newValue: string) {}
+}
+
+(Blockly as any).FieldColorPicker = FieldColorPicker;

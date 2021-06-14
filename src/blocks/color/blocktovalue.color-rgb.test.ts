@@ -8,9 +8,7 @@ import {
 import "../../tests/fake-block";
 import type { Workspace, BlockSvg } from "blockly";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import {
-  connectToArduinoBlock,
-} from "../../core/blockly/helpers/block.helper";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import _ from "lodash";
 
