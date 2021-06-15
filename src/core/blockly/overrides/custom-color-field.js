@@ -1,34 +1,22 @@
 import Blockly from "blockly";
 import iro from "@jaames/iro";
 
-Blockly.FieldColorPicker = function (
-  opt_value,
-  opt_validator,
-  opt_textEdit = false
-) {
+Blockly.FieldColorPicker = function (opt_value, opt_validator) {
   /**
-   * The default value for this field (current date).
+   * This is fields default value
    * @type {*}
    * @protected
    */
-  Blockly.FieldColorPicker.prototype.DEFAULT_VALUE = "#FF00FF";
+  Blockly.FieldColorPicker.prototype.DEFAULT_VALUE = "#FF0000";
 
   Blockly.FieldColorPicker.superClass_.constructor.call(
     this,
     opt_value,
     opt_validator
   );
-
-  /**
-   * Whether text editing is enabled on this field.
-   * @type {boolean}
-   * @private
-   */
-  this.textEditEnabled_ = false;
 };
 Blockly.FieldColorPicker.fromJson = function (options) {
-  var text = Blockly.utils.replaceMessageReferences(options["text"]);
-  return new Blockly.FieldColorPicker(text, undefined, options);
+  return new Blockly.FieldColorPicker(options["color"], undefined, options);
 };
 
 Blockly.utils.object.inherits(Blockly.FieldColorPicker, Blockly.FieldTextInput);
@@ -36,6 +24,8 @@ Blockly.fieldRegistry.register("field_color_picker", Blockly.FieldColorPicker);
 
 /**
  * Copied form the color field
+ * This will over ride putting the text into the color field
+ * Notice we don't call the parent class function
  */
 Blockly.FieldColorPicker.prototype.initView = function () {
   this.size_ = new Blockly.utils.Size(
@@ -51,14 +41,10 @@ Blockly.FieldColorPicker.prototype.initView = function () {
 };
 
 /**
- * Show the inline free-text editor on top of the text.
- * @param {Event=} _opt_e Optional mouse event that triggered the field to open,
- *     or undefined if triggered programmatically.
- * @param {boolean=} opt_quietInput True if editor should be created without
- *     focus.  Defaults to false.
- * @protected
+ * Creates the drop down to show the color wheel
+ * This happens when some "edits" the color
  */
-Blockly.FieldColorPicker.prototype.showEditor_ = function (opt_e) {
+Blockly.FieldColorPicker.prototype.showEditor_ = function () {
   const editor = document.createElement("div");
   editor.id = "color-picker";
   Blockly.DropDownDiv.getContentDiv().appendChild(editor);
