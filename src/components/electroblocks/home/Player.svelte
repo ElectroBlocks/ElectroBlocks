@@ -8,8 +8,9 @@
   import { onErrorMessage } from "../../../help/alerts";
   import { getAllBlocks } from "../../../core/blockly/helpers/block.helper";
   import is_browser from "../../../helpers/is_browser";
+  import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
 
-  let frames = [];
+  let frames: ArduinoFrame[] = [];
   let frameNumber = 1;
   let playing = false;
   let speedDivisor = 1;
@@ -33,9 +34,13 @@
       const currentFrame = frames[frameNumber];
       frames = frameContainer.frames;
 
-      // If we are starting out with set to first frame.
+      // If we are starting out with set to first frame in the loop
+      // We want to skip all the library and setup blocks
       if (frames.length === 0 || !currentFrame) {
-        frameNumber = 0;
+        frameNumber = frames.findIndex(
+          (f) => f.timeLine.function == "loop" && f.timeLine.iteration == 1
+        );
+        frameNumber = frameNumber < 0 ? 0 : frameNumber;
         if (frames.length > 0) {
           currentFrameStore.set(frames[frameNumber]);
         }
@@ -54,9 +59,14 @@
   );
 
   function navigateToClosestTimeline(timeLine) {
-    // If the loop times = 1 then just set it back to the beginning
+    // This means we have not left the first iteration
+    // If we are starting out with set to first frame in the loop
+    // We want to skip all the library and setup blocks
     if (timeLine.function !== "loop" || timeLine.iteration <= 1) {
-      return 0;
+      frameNumber = frames.findIndex(
+        (f) => f.timeLine.function == "loop" && f.timeLine.iteration == 1
+      );
+      return frameNumber < 0 ? 0 : frameNumber;
     }
 
     const lastFrameTimeLine = frames[frames.length - 1].timeLine;

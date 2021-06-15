@@ -167,5 +167,5 @@ const enableBlocks = (actions: DisableBlock[]) => {
 };
 
 export const addListener = (workspace: WorkspaceSvg) => {
-  workspace.addChangeListener(_.debounce(createFrames, 50));
+  workspace.addChangeListener(_.debounce(createFrames, 5));
 };
