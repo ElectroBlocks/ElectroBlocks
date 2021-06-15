@@ -71,6 +71,8 @@
 
     const lastFrameTimeLine = frames[frames.length - 1].timeLine;
 
+    // This means that there are more frames the previous version than there is now
+    // So go to the last iteration in the loop
     if (timeLine.iteration > lastFrameTimeLine.iteration) {
       const loopNumber = lastFrameTimeLine.iteration;
       return frames.findIndex((f) => f.timeLine.iteration === loopNumber);
