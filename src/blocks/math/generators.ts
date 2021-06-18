@@ -115,7 +115,7 @@ Blockly["Arduino"]["math_number_property"] = function (block: Block) {
         "DIVISOR",
         Blockly["Arduino"].ORDER_MODULUS
       ) || 1;
-    const code = "(double)((int)" + number + " % (int)" + divisor + " == 0)";
+    const code = "((int)" + number + " % (int)" + divisor + " == 0)";
     return [code, Blockly["Arduino"].ORDER_MODULUS];
   }
 
