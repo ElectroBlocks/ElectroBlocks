@@ -89,12 +89,12 @@ Blockly["Arduino"]["math_number_property"] = function (block: Block) {
   const checkBy = block.getFieldValue("PROPERTY");
 
   if (checkBy === "EVEN") {
-    const code = "(" + number + " % 2 == 0)";
+    const code = "((int)" + number + " % 2 == 0)";
     return [code, Blockly["Arduino"].ORDER_MODULUS];
   }
 
   if (checkBy === "ODD") {
-    const code = "(" + number + " % 2 == 1)";
+    const code = "((int)" + number + " % 2 == 1)";
     return [code, Blockly["Arduino"].ORDER_MODULUS];
   }
 
@@ -115,7 +115,7 @@ Blockly["Arduino"]["math_number_property"] = function (block: Block) {
         "DIVISOR",
         Blockly["Arduino"].ORDER_MODULUS
       ) || 1;
-    const code = "(double)(" + number + " % " + divisor + " == 0)";
+    const code = "(double)((int)" + number + " % (int)" + divisor + " == 0)";
     return [code, Blockly["Arduino"].ORDER_MODULUS];
   }
 
