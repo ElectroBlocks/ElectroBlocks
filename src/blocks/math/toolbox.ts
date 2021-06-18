@@ -5,6 +5,13 @@ export default `
      <block type="math_number">
        <field name="NUM">123</field>
      </block>
+     <block type="math_number_property">
+     <value name="NUMBER_TO_CHECK">
+         <block type="math_number">
+           <field name="NUM">3</field>
+         </block>
+       </value>
+    </block>
      <block type="math_arithmetic">
        <value name="A">
          <block type="math_number">

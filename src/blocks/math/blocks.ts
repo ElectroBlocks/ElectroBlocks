@@ -17,4 +17,31 @@ Blockly.defineBlocksWithJsonArray([
     tooltip: "",
     helpUrl: "",
   },
+  {
+    type: "math_number_property",
+    message0: "%1 %2",
+    args0: [
+      {
+        type: "input_value",
+        name: "NUMBER_TO_CHECK",
+        check: "Number",
+      },
+      {
+        type: "field_dropdown",
+        name: "PROPERTY",
+        options: [
+          ["%{BKY_MATH_IS_EVEN}", "EVEN"],
+          ["%{BKY_MATH_IS_ODD}", "ODD"],
+          ["%{BKY_MATH_IS_POSITIVE}", "POSITIVE"],
+          ["%{BKY_MATH_IS_NEGATIVE}", "NEGATIVE"],
+          ["%{BKY_MATH_IS_DIVISIBLE_BY}", "DIVISIBLE_BY"],
+        ],
+      },
+    ],
+    inputsInline: true,
+    output: "Boolean",
+    style: "math_blocks",
+    tooltip: "%{BKY_MATH_IS_TOOLTIP}",
+    mutator: "math_is_divisibleby_mutator",
+  },
 ]);
