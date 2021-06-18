@@ -1,9 +1,6 @@
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import type {
-  ValueGenerator
-} from "../../core/frames/transformer/block-to-value.factories";
-import {  getInputValue } from "../../core/frames/transformer/block-to-value.factories"
-
+import type { ValueGenerator } from "../../core/frames/transformer/block-to-value.factories";
+import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 
 export const mathNumber: ValueGenerator = (
   blocks,
@@ -163,6 +160,58 @@ export const numberToString: ValueGenerator = (
     1,
     previousState
   );
+};
+
+export const mathNumberProperty: ValueGenerator = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const number = +getInputValue(
+    blocks,
+    block,
+    variables,
+    timeline,
+    "NUMBER_TO_CHECK",
+    1,
+    previousState
+  );
+
+  const checkBy = findFieldValue(block, "PROPERTY");
+
+  if (checkBy === "EVEN") {
+    return number % 2 === 0;
+  }
+
+  if (checkBy === "ODD") {
+    return number % 2 === 1;
+  }
+
+  if (checkBy === "POSITIVE") {
+    return number > 0;
+  }
+
+  if (checkBy === "NEGATIVE") {
+    return number < 0;
+  }
+
+  if (checkBy === "DIVISIBLE_BY") {
+    const divisor = +getInputValue(
+      blocks,
+      block,
+      variables,
+      timeline,
+      "DIVISOR",
+      1,
+      previousState
+    );
+
+    return number % divisor === 0;
+  }
+
+  throw new Error(`No checkby found for this check: ${checkBy}.`);
 };
 
 function mathRandomInt(a: number, b: number) {

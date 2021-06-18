@@ -8,6 +8,7 @@ import {
   mathModulus,
   mathRandom,
   numberToString,
+  mathNumberProperty,
 } from "../../../blocks/math/blocktovalue";
 import {
   logicBoolean,
@@ -89,6 +90,7 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   math_modulo: mathModulus,
   math_round: mathRound,
   math_random_int: mathRandom,
+  math_number_property: mathNumberProperty,
 
   logic_boolean: logicBoolean,
   logic_compare: logicCompare,

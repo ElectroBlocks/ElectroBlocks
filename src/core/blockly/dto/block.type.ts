@@ -276,6 +276,10 @@ export const blocksToBlockTypes: {
   math_round: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },
   math_modulo: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },
   math_random_int: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },
+  math_number_property: {
+    type: BlockType.VALUE,
+    pinCategory: PinCategory.NONE,
+  },
 
   text_join: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },
   text: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },
