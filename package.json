@@ -32,6 +32,7 @@
     "avrgirl-arduino": "git+https://github.com/noopkat/avrgirl-arduino.git",
     "axios": "^0.21.1",
     "blockly": "^5.20210325.1",
+    "blockly-field-color-wheel": "^1.0.1",
     "compression": "^1.7.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
