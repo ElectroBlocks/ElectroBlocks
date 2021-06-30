@@ -70,3 +70,8 @@ button:active {
 body {
   overflow: hidden;
 }
+
+/** This prevents the popup when a block is click on from showing the scroll bar. **/
+.blocklyWidgetDiv .blocklyMenu {
+    overflow-y: hidden; 
+}
