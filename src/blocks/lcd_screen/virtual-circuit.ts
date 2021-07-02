@@ -108,6 +108,7 @@ export const lcdUpdate: SyncComponent = (
   }
 
   toggleDarkLightScreen(lcdScreenEl, state);
+  centerLetters(lcdScreenEl, state);
 };
 
 const centerLetters = (lcdScreenEl: Element, lcdState: LCDScreenState) => {
@@ -115,7 +116,7 @@ const centerLetters = (lcdScreenEl: Element, lcdState: LCDScreenState) => {
     for (let col = 1; col <= lcdState.columns; col += 1) {
       const letterEl = lcdScreenEl.findOne(`#letter-${col}-${row}`) as Element;
       const spaceEl = lcdScreenEl.findOne(`#space-${col}-${row}`) as Element;
-      letterEl.cx(spaceEl.width() / 2 - letterEl.width() / 2);
+      letterEl.cx(lcdState.rows === 2 ? 5 : 12);
       letterEl.attr("y", "-2");
     }
   }
