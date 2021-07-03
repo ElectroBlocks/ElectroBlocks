@@ -1,4 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Biryani:wght@200;300;400;600;700;800;900&display=swap");
+
+@font-face {
+    font-family: DSEG7Classic-Bold;
+    src: url(/fonts/DSEG7Classic-Bold.woff);
+}
+@font-face {
+    font-family: DSEG7 Classic;
+    src: url(/fonts/DSEG7Classic-Regular.woff);
+}
+
 body {
   margin: 0;
   font-family: "Biryani", "Helvetica Neue", sans-serif;
