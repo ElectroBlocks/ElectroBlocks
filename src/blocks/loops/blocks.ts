@@ -5,6 +5,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     lastDummyAlign0: "RIGHT",
     type: "controls_for",
+    inputsInline: true,
     message0: "count with %1 from %2 to %3 by adding %4",
     args0: [
       {
@@ -43,7 +44,6 @@ Blockly.defineBlocksWithJsonArray([
         name: "DO",
       },
     ],
-    inputsInline: false,
     previousStatement: null,
     nextStatement: null,
     colour: COLOR_THEME.CONTROL,

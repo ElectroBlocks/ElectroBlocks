@@ -3,11 +3,11 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 Blockly.Blocks["arduino_loop"] = {
   init: function () {
-    this.appendDummyInput().appendField("Loop (runs forever)");
+    this.appendDummyInput().appendField("Loop runs forever");
     this.appendDummyInput()
-      .appendField("Loop (runs ")
+      .appendField("Loop runs ")
       .appendField(new Blockly.FieldNumber(3, 0, 1000), "LOOP_TIMES")
-      .appendField("times)");
+      .appendField("times in virtual circuit");
     this.appendStatementInput("loop").setCheck(null);
     this.setColour(COLOR_THEME.ARDUINO_START_BLOCK);
     this.setTooltip("");
