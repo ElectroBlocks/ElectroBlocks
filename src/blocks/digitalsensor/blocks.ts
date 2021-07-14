@@ -13,7 +13,7 @@ const digitalReadBlock: any = {
       .appendField(
         new Blockly.FieldImage("./blocks/arduino/digital_read.png", 15, 15)
       )
-      .appendField("digital pin#")
+      .appendField("digital sensor pin#")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return configuredPins(
