@@ -53,7 +53,7 @@ const isBtnPressedBlock: any = {
       .appendField(
         new Blockly.FieldImage("./blocks/button/button.png", 15, 15, "*")
       )
-      .appendField("Is button")
+      .appendField("button")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return configuredPins(
@@ -63,7 +63,7 @@ const isBtnPressedBlock: any = {
         }),
         "PIN"
       )
-      .appendField("pressed?");
+      .appendField("pressed");
     this.setOutput(true, "Boolean");
 
     this.setColour(COLOR_THEME.SENSOR);

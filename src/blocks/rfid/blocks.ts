@@ -6,7 +6,7 @@ import loopTimes from "../../core/blockly/helpers/looptimes";
 Blockly.defineBlocksWithJsonArray([
   {
     type: "rfid_scan",
-    message0: "%1 find a new card?",
+    message0: "%1 found a new card",
     args0: [
       {
         type: "field_image",

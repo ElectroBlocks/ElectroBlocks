@@ -23,7 +23,7 @@ const digitalReadBlock: any = {
         }),
         "PIN"
       )
-      .appendField(" deteched something?");
+      .appendField(" deteched something");
     this.setOutput(true, "Boolean");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
