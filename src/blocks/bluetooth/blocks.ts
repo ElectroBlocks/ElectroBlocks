@@ -24,7 +24,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "bluetooth_has_message",
-    message0: "%1 Is receiving message?",
+    message0: "%1 Is receiving message",
     args0: [
       {
         type: "field_image",

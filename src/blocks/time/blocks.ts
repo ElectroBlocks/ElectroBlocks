@@ -4,7 +4,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 Blockly.defineBlocksWithJsonArray([
   {
     type: "time_seconds",
-    message0: "%1 seconds arduino been on?",
+    message0: "%1 seconds arduino been on",
     args0: [
       {
         type: "field_image",

@@ -5,7 +5,7 @@ Blockly.defineBlocksWithJsonArray([
   // If/else block that does not use a mutator.
   {
     type: "control_if",
-    message0: "if %1 is true",
+    message0: "if %1 ?",
     args0: [
       {
         type: "input_value",
@@ -29,7 +29,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "controls_ifelse",
-    message0: "if %1 is true",
+    message0: "if %1 ?",
     args0: [
       {
         type: "input_value",
