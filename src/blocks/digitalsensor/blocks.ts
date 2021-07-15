@@ -13,7 +13,7 @@ const digitalReadBlock: any = {
       .appendField(
         new Blockly.FieldImage("./blocks/arduino/digital_read.png", 15, 15)
       )
-      .appendField("digital sensor pin#")
+      .appendField("digital sensor ")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return configuredPins(
@@ -23,7 +23,7 @@ const digitalReadBlock: any = {
         }),
         "PIN"
       )
-      .appendField(" deteched something");
+      .appendField(" deteched something?");
     this.setOutput(true, "Boolean");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
