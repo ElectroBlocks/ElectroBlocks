@@ -40,7 +40,7 @@ Blockly.Blocks["digital_display_set"] = {
           20
         )
       )
-      .appendField("Set Display");
+      .appendField("Set Digital Display");
     this.appendDummyInput()
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField("Colon: ")

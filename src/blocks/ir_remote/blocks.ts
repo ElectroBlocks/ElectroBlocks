@@ -6,7 +6,7 @@ import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 Blockly.defineBlocksWithJsonArray([
   {
     type: "ir_remote_has_code_receive",
-    message0: "%1 ir remote received a code",
+    message0: "%1 ir remote received a code?",
     args0: [
       {
         type: "field_image",
@@ -24,7 +24,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "ir_remote_get_code",
-    message0: "%1 get code",
+    message0: "%1 ir remote get code",
     args0: [
       {
         type: "field_image",

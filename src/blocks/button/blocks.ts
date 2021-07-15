@@ -63,7 +63,7 @@ const isBtnPressedBlock: any = {
         }),
         "PIN"
       )
-      .appendField("pressed");
+      .appendField("is pressed?");
     this.setOutput(true, "Boolean");
 
     this.setColour(COLOR_THEME.SENSOR);
