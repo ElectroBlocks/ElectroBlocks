@@ -6,7 +6,7 @@ Blockly.defineBlocksWithJsonArray([
     lastDummyAlign0: "RIGHT",
     type: "controls_for",
     inputsInline: true,
-    message0: "count with %1 from %2 to %3 by adding %4",
+    message0: "loop with %1 from %2 to %3 by adding %4",
     args0: [
       {
         type: "field_variable",
