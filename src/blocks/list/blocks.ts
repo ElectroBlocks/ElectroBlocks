@@ -20,10 +20,12 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       (varField as any).showOnlyVariableAssigned = true;
       (varField as any).createNewVariable = false;
       this.appendDummyInput()
-        .appendField("Create a list named")
+        .appendField(`List`)
         .appendField(varField, "VAR")
-        .appendField(" that stores ")
-        .appendField(new Blockly.FieldNumber(1, 1, 20000), "SIZE");
+        .appendField(" stores ")
+        .appendField(new Blockly.FieldNumber(2, 2, 1000), "SIZE")
+        .appendField(` ${humanType}s`);
+
       this.setColour(COLOR_THEME.DATA);
       this.setTooltip("");
       this.setHelpUrl("");

@@ -20,14 +20,14 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       (fieldVar as any).createNewVariable = false;
       (fieldVar as any).showOnlyVariableAssigned = false;
       this.appendDummyInput()
-        .appendField(`= ${humanType} variable`)
+        // .appendField(`= ${humanType} variable`)
         .appendField(fieldVar, "VAR");
       this.setOutput(true, variable_type);
       this.setColour(COLOR_THEME.DATA);
       this.setTooltip("");
       this.setHelpUrl("");
       this.setCommentText(
-        `This block gets the value that the variable is storing.  This variable store a ${type}.`
+        `This block gets the value that the variable is storing.  This variable store a ${humanType}.`
       );
       if (typeof this.comment !== "string") {
         this.comment.setBubbleSize(460, 80);
@@ -47,7 +47,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       (fieldVar as any).showOnlyVariableAssigned = false;
       this.appendValueInput("VALUE")
         .setCheck(variable_type)
-        .appendField(`${humanType} variable`)
+        .appendField(`${humanType}`)
         .appendField(fieldVar, "VAR")
         .appendField(" = ");
       this.setPreviousStatement(true, null);
@@ -56,7 +56,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       this.setTooltip("");
       this.setHelpUrl("");
       this.setCommentText(
-        `The value of the variable is what the variable is storing. Variables in Arduino will only store a specific type of data.  This variable will store ${humanType} only.`
+        `This block sets the value the variable is storing.  This variable will store ${humanType} only.`
       );
       if (typeof this.comment !== "string") {
         this.comment.setBubbleSize(460, 90);
