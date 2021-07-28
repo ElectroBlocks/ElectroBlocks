@@ -14,6 +14,8 @@
   // container element
   let mainSection;
 
+  let previousMainHeight = 0;
+
   /**
    * Event is on grabber on is trigger by a mouse down event
    */
@@ -33,6 +35,25 @@
   const onResize = (e) => {
     resize(e.clientY);
   };
+
+  function onResizeWindow(e) {
+    setTimeout(() => {
+      console.log(
+        Math.abs(previousMainHeight - mainSection.clientHeight),
+        "resize dif"
+      );
+      if (Math.abs(previousMainHeight - mainSection.clientHeight) < 100) {
+        return;
+      }
+
+      previousMainHeight = mainSection.clientHeight;
+
+      top = mainSection.clientHeight - 200;
+      bottom = 180;
+      // Trigger an side windows that need to be resized
+      resizeStore.sideWindow();
+    }, 5);
+  }
 
   /**
    * This is a mouse move event on the main section of the html
@@ -73,6 +94,7 @@
     setTimeout(() => {
       top = mainSection.clientHeight - 200;
       bottom = 180;
+      previousMainHeight = top;
     }, 1);
   });
 </script>
@@ -93,6 +115,7 @@
     <slot name="bottom" />
   </section>
 </main>
+<svelte:window on:resize={onResizeWindow} />
 
 <style>
   main {
