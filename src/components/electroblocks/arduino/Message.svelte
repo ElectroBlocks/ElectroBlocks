@@ -1,14 +1,14 @@
 <script>
-  import arduionMessageStore from "../../../stores/arduino-message.store";
-  import codeStore from "../../../stores/code.store";
-  import arduinoStore, { PortState } from "../../../stores/arduino.store";
+  import arduionMessageStore from '../../../stores/arduino-message.store';
+  import codeStore from '../../../stores/code.store';
+  import arduinoStore, { PortState } from '../../../stores/arduino.store';
 
-  import { upload } from "../../../core/serial/upload";
+  import { upload } from '../../../core/serial/upload';
 
-  import { afterUpdate } from "svelte";
-  import { getBoard } from "../../../core/microcontroller/selectBoard";
-  import { onConfirm, onErrorMessage, onSuccess } from "../../../help/alerts";
-  import { workspaceToXML } from "../../../core/blockly/helpers/workspace.helper";
+  import { afterUpdate } from 'svelte';
+  import { getBoard } from '../../../core/microcontroller/selectBoard';
+  import { onConfirm, onErrorMessage, onSuccess } from '../../../help/alerts';
+  import { workspaceToXML } from '../../../core/blockly/helpers/workspace.helper';
 
   const navigatorSerialNotAvailableMessaeg = `To upload code you must use chrome or a chromium based browser like edge, or brave.  This will work with chrome version 89 or higher. `;
 
@@ -22,7 +22,7 @@
   let arduinoStatus = PortState.CLOSE;
 
   // This is the value in the input text used to send messages to the Arduino
-  let messageToSend = "";
+  let messageToSend = '';
 
   // This is the variable storing the arduino code
   let code;
@@ -38,8 +38,8 @@
 
   $: uploadingClass =
     arduinoStatus === PortState.UPLOADING
-      ? "fa-spinner fa-spin fa-6x fa-fw"
-      : "fa-upload";
+      ? 'fa-spinner fa-spin fa-6x fa-fw'
+      : 'fa-upload';
 
   codeStore.subscribe((codeInfo) => {
     code = codeInfo.code;
@@ -55,17 +55,17 @@
       return;
     }
 
-    if (newMessage.message.includes("C_D_B_C_D")) {
-      arduionMessageStore.sendMessage("START_DEBUG");
+    if (newMessage.message.includes('C_D_B_C_D')) {
+      arduionMessageStore.sendMessage('START_DEBUG');
     }
 
     if (
-      newMessage.message.includes("**(|)") ||
-      newMessage.message.includes("DEBUG_BLOCK_") ||
-      newMessage.message.includes("stop_debug") ||
-      newMessage.message.includes("continue_debug") ||
-      newMessage.message.includes("START_DEBUG") ||
-      newMessage.message.includes("C_D_B_C_D")
+      newMessage.message.includes('**(|)') ||
+      newMessage.message.includes('DEBUG_BLOCK_') ||
+      newMessage.message.includes('stop_debug') ||
+      newMessage.message.includes('continue_debug') ||
+      newMessage.message.includes('START_DEBUG') ||
+      newMessage.message.includes('C_D_B_C_D')
     ) {
       return;
     }
@@ -75,7 +75,7 @@
   });
 
   async function connectOrDisconnectArduino() {
-    if (!navigator["serial"]) {
+    if (!navigator['serial']) {
       onErrorMessage(navigatorSerialNotAvailableMessaeg);
       return;
     }
@@ -86,7 +86,7 @@
         await arduionMessageStore.closePort();
       } catch (e) {
         onErrorMessage(
-          "Sorry, error with the arduino.  Please refresh your browser to disconnect.",
+          'Sorry, error with the arduino.  Please refresh your browser to disconnect.',
           e
         );
       }
@@ -101,12 +101,12 @@
         arduinoStore.set(PortState.OPEN);
       })
       .catch((e) => {
-        if (e.message.toLowerCase() === "no port selected by the user.") {
+        if (e.message.toLowerCase() === 'no port selected by the user.') {
           arduinoStore.set(PortState.CLOSE);
           return;
         }
         arduinoStore.set(PortState.CLOSE);
-        onErrorMessage("Sorry, please refresh your browser and try again.", e);
+        onErrorMessage('Sorry, please refresh your browser and try again.', e);
       });
   }
 
@@ -116,14 +116,14 @@
     }
     try {
       arduionMessageStore.sendMessage(messageToSend);
-      messageToSend = "";
+      messageToSend = '';
     } catch (e) {
-      console.log(e, "sendMessage error");
+      console.log(e, 'sendMessage error');
     }
   }
 
   async function uploadCode() {
-    if (!navigator["serial"]) {
+    if (!navigator['serial']) {
       onErrorMessage(navigatorSerialNotAvailableMessaeg);
       return;
     }
@@ -139,27 +139,27 @@
       });
 
       await upload(code, avrgirl, boardType);
-      onSuccess("Your code is uploaded!! :)");
+      onSuccess('Your code is uploaded!! :)');
     } catch (e) {
-      if (e.message.toLowerCase() === "no port selected by the user.") {
+      if (e.message.toLowerCase() === 'no port selected by the user.') {
         arduinoStore.set(PortState.CLOSE);
         return;
       }
-      if (e.message.includes("receiveData timeout after 400ms")) {
+      if (e.message.includes('receiveData timeout after 400ms')) {
         const reloadBrowser = await onConfirm(
-          "Something timed out but we think your code upload. In order to connect we need to refresh your browser.  You will not lose anything you wrote.  Click ok to agree.",
+          'Something timed out but we think your code upload. In order to connect we need to refresh your browser.  You will not lose anything you wrote.  Click ok to agree.',
           e
         );
 
         if (reloadBrowser) {
           const reloadedWorkspaceText = workspaceToXML();
-          localStorage.setItem("reload_once_workspace", reloadedWorkspaceText);
+          localStorage.setItem('reload_once_workspace', reloadedWorkspaceText);
           location.reload();
         }
 
         return;
       }
-      onErrorMessage("Sorry, please try again in 5 minutes. :)", e);
+      onErrorMessage('Sorry, please try again in 5 minutes. :)', e);
     }
     arduinoStore.set(PortState.CLOSE);
   }
@@ -289,6 +289,7 @@
   button:disabled {
     cursor: not-allowed;
     background-color: rgb(255, 255, 255);
+    color: #dce6de;
   }
   button:disabled i {
     font-size: 20px;
