@@ -1,6 +1,6 @@
-import { createBlock } from "../core/blockly/helpers/block.helper";
-import { loadProject } from "../core/blockly/helpers/workspace.helper";
-import { onConfirm } from "../help/alerts";
+import { createBlock } from '../core/blockly/helpers/block.helper';
+import { loadProject } from '../core/blockly/helpers/workspace.helper';
+import { onConfirm } from '../help/alerts';
 
 export async function loadNewProjectFile(file): Promise<boolean> {
   if (
@@ -25,12 +25,10 @@ export async function loadNewProjectFile(file): Promise<boolean> {
         loadProject(evt.target.result as string);
         res(true);
       } catch (e) {
-        console.log(e, "error loading project");
-        // Create the blocks for selecting the board
-        createBlock("board_selector", 50, 50, false);
+        console.log(e, 'error loading project');
 
         // creates the arduino loop block
-        createBlock("arduino_loop", 50, 150, false);
+        createBlock('arduino_loop', 50, 150, false);
 
         rej(false);
       }

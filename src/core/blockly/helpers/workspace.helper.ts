@@ -1,8 +1,8 @@
-import type { WorkspaceSvg } from "blockly";
-import Blockly from "blockly";
-import { arduinoLoopBlockShowLoopForeverText } from "./arduino_loop_block.helper";
-import { getAllBlocks } from "./block.helper";
-import { deleteVariable, getAllVariables } from "./variable.helper";
+import type { WorkspaceSvg } from 'blockly';
+import Blockly from 'blockly';
+import { arduinoLoopBlockShowLoopForeverText } from './arduino_loop_block.helper';
+import { getAllBlocks } from './block.helper';
+import { deleteVariable, getAllVariables } from './variable.helper';
 
 export const getWorkspace = () => {
   return Blockly.getMainWorkspace() as WorkspaceSvg;
@@ -19,7 +19,7 @@ export const updateToolbox = (toolbox: string) => {
 };
 
 export const getArduinoCode = () => {
-  return Blockly["Arduino"].workspaceToCode(getWorkspace()) as string;
+  return Blockly['Arduino'].workspaceToCode(getWorkspace()) as string;
 };
 
 export const workspaceToXML = () => {
@@ -35,23 +35,23 @@ export const loadProjectFromUrl = async (url: string) => {
 };
 
 export const loadProject = (xmlString: string) => {
-  localStorage.setItem("no_alert", "yes");
+  localStorage.setItem('no_alert', 'yes');
   getAllVariables().forEach((v) => deleteVariable(v.getId()));
   const blocksToDelete = getAllBlocks(); // get a list of all the old blocks
   const xml = Blockly.Xml.textToDom(xmlString);
   Blockly.Xml.domToWorkspace(xml, getWorkspace()); // load new blocks
   blocksToDelete.forEach((b) => b.dispose(true)); // delete the old blocks
-  localStorage.removeItem("no_alert");
+  localStorage.removeItem('no_alert');
 };
 
 export const resetWorkspace = () => {
   const workspace = getWorkspace();
   workspace.getAllBlocks(true).forEach((b) => {
-    if (b.type !== "arduino_loop" && b.type !== "board_selector") {
+    if (b.type !== 'arduino_loop') {
       b.dispose(true);
     }
-    if (b.type === "arduino_loop") {
-      b.setFieldValue(3, "LOOP_TIMES");
+    if (b.type === 'arduino_loop') {
+      b.setFieldValue(3, 'LOOP_TIMES');
     }
   });
 };
