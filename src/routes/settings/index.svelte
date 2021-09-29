@@ -59,10 +59,35 @@
 {#if settings}
   <div class="row">
     <div class="col">
+      <FormGroup>
+        <Label for="boardType">MicroController</Label>
+        <Input bind:value={settings.boardType} type="select" id="boardType">
+          <option value={MicroControllerType.ARDUINO_UNO}>Arduino Uno</option>
+          <option value={MicroControllerType.ARDUINO_MEGA}>Arduino Mega</option>
+        </Input>
+      </FormGroup>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <FormGroup>
+        <Label for="max-time-per-move">Milliseconds Per Move</Label>
+        <Input
+          bind:value={settings.maxTimePerMove}
+          type="number"
+          id="max-time-per-move"
+        />
+      </FormGroup>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
       <FormGroup check>
         <Label check>
           <Input type="checkbox" bind:checked={settings.customLedColor} />
-          Use Led Color
+          Custom Led Color
         </Label>
       </FormGroup>
     </div>
@@ -78,6 +103,7 @@
       {/if}
     </div>
   </div>
+
   <div class="row">
     <div class="col">
       <FormGroup>
@@ -104,18 +130,6 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <FormGroup>
-        <Label for="max-time-per-move">Max time per move</Label>
-        <Input
-          bind:value={settings.maxTimePerMove}
-          type="number"
-          id="max-time-per-move"
-        />
-      </FormGroup>
-    </div>
-  </div>
   <div class="row">
     <div class="col">
       <Button type="button" color="success" on:click={onSaveSettings}>
