@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { FormGroup, Input, Label, Button } from "sveltestrap/src";
+  import { FormGroup, Input, Label, Button } from 'sveltestrap/src';
 
-  import { defaultSetting } from "../../firebase/model";
-  import type { Settings } from "../../firebase/model";
-  import { fbSaveSettings } from "../../firebase/db";
-  import authStore from "../../stores/auth.store";
-  import settingsStore from "../../stores/settings.store";
-  import FlashMessage from "../../components/electroblocks/ui/FlashMessage.svelte";
-  import _ from "lodash";
-  import { onErrorMessage } from "../../help/alerts";
+  import { defaultSetting } from '../../firebase/model';
+  import type { Settings } from '../../firebase/model';
+  import { fbSaveSettings } from '../../firebase/db';
+  import authStore from '../../stores/auth.store';
+  import settingsStore from '../../stores/settings.store';
+  import FlashMessage from '../../components/electroblocks/ui/FlashMessage.svelte';
+  import _ from 'lodash';
+  import { onErrorMessage } from '../../help/alerts';
+  import { MicroControllerType } from '../../core/microcontroller/microcontroller';
   let uid: string;
 
   let settings: Settings;
@@ -32,16 +33,16 @@
   async function saveSettings(settings: Settings) {
     if (_.isEqual(previousSettings, settings)) {
       showMessage = true;
-      console.log("blocked saved", previousSettings, settings);
+      console.log('blocked saved', previousSettings, settings);
       return;
     }
 
     if (uid) {
       try {
         await fbSaveSettings(uid, settings);
-        console.log("saved settings", settings);
+        console.log('saved settings', settings);
       } catch (e) {
-        onErrorMessage("Please try again in 5 minutes.", e);
+        onErrorMessage('Please try again in 5 minutes.', e);
       }
     }
 
@@ -58,10 +59,35 @@
 {#if settings}
   <div class="row">
     <div class="col">
+      <FormGroup>
+        <Label for="boardType">MicroController</Label>
+        <Input bind:value={settings.boardType} type="select" id="boardType">
+          <option value={MicroControllerType.ARDUINO_UNO}>Arduino Uno</option>
+          <option value={MicroControllerType.ARDUINO_MEGA}>Arduino Mega</option>
+        </Input>
+      </FormGroup>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <FormGroup>
+        <Label for="max-time-per-move">Milliseconds Per Move</Label>
+        <Input
+          bind:value={settings.maxTimePerMove}
+          type="number"
+          id="max-time-per-move"
+        />
+      </FormGroup>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
       <FormGroup check>
         <Label check>
           <Input type="checkbox" bind:checked={settings.customLedColor} />
-          Use Led Color
+          Custom Led Color
         </Label>
       </FormGroup>
     </div>
@@ -77,6 +103,7 @@
       {/if}
     </div>
   </div>
+
   <div class="row">
     <div class="col">
       <FormGroup>
@@ -103,18 +130,6 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <FormGroup>
-        <Label for="max-time-per-move">Max time per move</Label>
-        <Input
-          bind:value={settings.maxTimePerMove}
-          type="number"
-          id="max-time-per-move"
-        />
-      </FormGroup>
-    </div>
-  </div>
   <div class="row">
     <div class="col">
       <Button type="button" color="success" on:click={onSaveSettings}>

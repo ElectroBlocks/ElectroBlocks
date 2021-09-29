@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { FormGroup, Input, Label } from "sveltestrap/src";
+  import { FormGroup, Input, Label } from 'sveltestrap/src';
 
   export let segment;
-  import { goto } from "@sapper/app";
-  import { onMount } from "svelte";
+  import { goto } from '@sapper/app';
+  import { onMount } from 'svelte';
   let value;
   async function navigate(e) {
     await goto(e.target.value);
@@ -11,12 +11,12 @@
 
   onMount(() => {
     // This is to fix the drop down box
-    value = segment ? "/settings/" + segment : "/settings";
+    value = segment ? '/settings/' + segment : '/settings';
     //selectBox.value = value;
   });
 
   $: if (segment) {
-    value = segment ? "/settings/" + segment : "/settings";
+    value = segment ? '/settings/' + segment : '/settings';
   }
 </script>
 
@@ -37,7 +37,7 @@
           on:change={navigate}
           id="exampleSelect"
         >
-          <option value="/settings">Virtual Circuit</option>
+          <option value="/settings">Circuit</option>
           <option value="/settings/myprofile">My Profile</option>
           <option value="/settings/about">About</option>
           <option value="/settings/support">Support</option>
@@ -49,6 +49,8 @@
       </FormGroup>
     </div>
   </div>
+  <hr />
+
   <slot />
 </main>
 

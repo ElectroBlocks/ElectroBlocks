@@ -1,13 +1,7 @@
-import Blockly from "blockly";
-import type { MicroControllerType } from "../../microcontroller/microcontroller";
-import { getBlockByType } from "./block.helper";
+import settingsStore from '../../../stores/settings.store';
+import { MicroControllerType } from '../../microcontroller/microcontroller';
+import { get } from 'svelte/store';
 
 export const getBoardType = (): MicroControllerType => {
-  // This is done for server side rendering and when blockly may
-  // not be itiliazed
-  const block = getBlockByType("board_selector");
-
-  // Sometimes that block won't be there
-  // because of server side rendering
-  return block ? block.getFieldValue("boardtype") : "uno";
+  return get(settingsStore)['boardType'] || MicroControllerType.ARDUINO_UNO;
 };
