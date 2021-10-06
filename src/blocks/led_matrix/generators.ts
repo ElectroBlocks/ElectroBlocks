@@ -28,9 +28,9 @@ Blockly['Arduino']['led_matrix_make_draw'] = function (block) {
       // when you hook it up you have to reverse the x and y and minus to because it starts at zero.
       code +=
         '\tlc.setLed(0, ' +
-        (8 - j) +
+        (j - 1) +
         ', ' +
-        (i - 1) +
+        (7 - (i - 1)) +
         ', ' +
         lightState +
         ');\n';
@@ -44,7 +44,7 @@ Blockly['Arduino']['led_matrix_make_draw'] = function (block) {
 
 Blockly['Arduino']['led_matrix_turn_one_on_off'] = function (block) {
   // todo fix code with variables
-  let row = Blockly['Arduino'].valueToCode(
+  const row = Blockly['Arduino'].valueToCode(
     block,
     'ROW',
     Blockly['Arduino'].ORDER_ATOMIC
@@ -61,11 +61,12 @@ Blockly['Arduino']['led_matrix_turn_one_on_off'] = function (block) {
     '\tlc.setLed(0, ' +
     // This has to be 9 even though it's an 8 by 8 matrix
     // Because we are already substracting one
-    '(9 - ' +
-    numberToCode(column) +
-    '),' +
+    // part still needs work
     numberToCode(row) +
-    ', ' +
+    ',' +
+    '(7 - ' +
+    numberToCode(column) +
+    ' ), ' +
     state +
     ');\n'
   );
