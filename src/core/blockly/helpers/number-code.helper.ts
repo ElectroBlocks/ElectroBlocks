@@ -5,5 +5,5 @@ export const numberToCode = (num: string) => {
     return +num > 0 ? +num - 1 : 0;
   }
 
-  return `${num} - 1`;
+  return `(${num} - 1)`;
 };
