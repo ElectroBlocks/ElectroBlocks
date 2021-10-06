@@ -61,7 +61,7 @@ Blockly["Arduino"]["led_matrix_turn_one_on_off"] = function (block) {
     "\tlc.setLed(0, " +
     // This has to be 9 even though it's an 8 by 8 matrix
     // Because we are already substracting one
-
+    // part still needs work
     numberToCode(row) +
     "," +
     "(7 - " +
