@@ -1,19 +1,23 @@
-import type { Svg, Element } from "@svgdotjs/svg.js";
+import type { Svg, Element } from '@svgdotjs/svg.js';
 import {
   ArduinoFrame,
   ArduinoComponentType,
   ArduinoFrameContainer,
-} from "../frames/arduino.frame";
-import { ANALOG_PINS, getBoard } from "../microcontroller/selectBoard";
-import { hideAllAnalogWires, resetBreadBoardHoles } from "./wire";
-import { findMicronControllerEl } from "./svg-helpers";
-import createNewComponent from "./svg-create";
-import type { MicroController } from "../microcontroller/microcontroller";
-import { getBoardSvg } from "./get-board-svg";
-import { registerHighlightEvents } from "./highlightevent";
-import { arduinoComponentStateToId } from "../frames/arduino-component-id";
+} from '../frames/arduino.frame';
+import { ANALOG_PINS, getBoard } from '../microcontroller/selectBoard';
+import { hideAllAnalogWires, resetBreadBoardHoles } from './wire';
+import { findMicronControllerEl } from './svg-helpers';
+import createNewComponent from './svg-create';
+import type { MicroController } from '../microcontroller/microcontroller';
+import { getBoardSvg } from './get-board-svg';
+import { registerHighlightEvents } from './highlightevent';
+import { arduinoComponentStateToId } from '../frames/arduino-component-id';
 
-export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
+export default (
+  container: Svg,
+  draw: Svg,
+  frameContainer: ArduinoFrameContainer
+) => {
   const board = getBoard(frameContainer.board);
 
   const arduino = findOrCreateMicroController(draw, board);
@@ -52,9 +56,9 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
 const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   let arduino = findMicronControllerEl(draw);
 
-  if (arduino && arduino.data("type") === board.type) {
+  if (arduino && arduino.data('type') === board.type) {
     // Have to reset this because it's part of the arduino
-    arduino.findOne("#MESSAGE").hide();
+    arduino.findOne('#MESSAGE').hide();
     return arduino;
   }
 
@@ -64,17 +68,16 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   }
 
   arduino = draw.svg(getBoardSvg(board.type)).last();
-  arduino.attr("id", "MicroController");
-  arduino.data("type", board.type);
-  arduino.node.id = "microcontroller_main_svg";
-  arduino.findOne("#MESSAGE").hide();
+  arduino.attr('id', 'MicroController');
+  arduino.data('type', board.type);
+  arduino.node.id = 'microcontroller_main_svg';
+  arduino.findOne('#MESSAGE').hide();
   (window as any).arduino = arduino;
   (window as any).draw = draw;
 
   draw.viewbox(arduino.bbox());
-  (draw as any).zoom((draw as any).zoom() - 0.22);
-  // move it down 150 px
-  arduino.dy(160);
+  (draw as any).zoom(1);
+  arduino.y((arduino.height() - 20) / 2);
 
   // Events
 
@@ -84,7 +87,7 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
 };
 
 const showWire = (arduino: Element, wire: string) => {
-  const wireSvg = arduino.findOne("#PIN_" + wire);
+  const wireSvg = arduino.findOne('#PIN_' + wire);
   if (wireSvg) {
     wireSvg.show();
   }
@@ -96,7 +99,7 @@ const clearComponents = (
   lastFrame: ArduinoFrame
 ) => {
   draw
-    .find(".component")
+    .find('.component')
     // It does not exist the id
     .filter(
       (c) =>
@@ -105,7 +108,7 @@ const clearComponents = (
         !lastFrame.components.map(arduinoComponentStateToId).includes(c.id())
     )
     .forEach((c: Element) => {
-      const componentId = c.attr("id");
+      const componentId = c.attr('id');
       // If there are not frames just delete all the components
       c.remove();
       draw
@@ -114,5 +117,5 @@ const clearComponents = (
       return;
     });
 
-  arduino.findOne("#MESSAGE").hide();
+  arduino.findOne('#MESSAGE').hide();
 };

@@ -1,26 +1,26 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import _ from "lodash";
-  import firebase from "firebase/app";
+  import { onMount } from 'svelte';
+  import _ from 'lodash';
+  import firebase from 'firebase/app';
 
-  import { isPathOnHomePage } from "../helpers/is-path-on-homepage";
-  import Nav from "../components/electroblocks/Nav.svelte";
-  import Blockly from "../components/electroblocks/Blockly.svelte";
-  import { resizeStore } from "../stores/resize.store";
-  import { stores, goto } from "@sapper/app";
-  import authStore from "../stores/auth.store";
-  import projectStore from "../stores/project.store";
-  import { onErrorMessage } from "../help/alerts";
-  import { getFile, getProject } from "../firebase/db";
-  import { loadProject } from "../core/blockly/helpers/workspace.helper";
+  import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
+  import Nav from '../components/electroblocks/Nav.svelte';
+  import Blockly from '../components/electroblocks/Blockly.svelte';
+  import { resizeStore } from '../stores/resize.store';
+  import { stores, goto } from '@sapper/app';
+  import authStore from '../stores/auth.store';
+  import projectStore from '../stores/project.store';
+  import { onErrorMessage } from '../help/alerts';
+  import { getFile, getProject } from '../firebase/db';
+  import { loadProject } from '../core/blockly/helpers/workspace.helper';
   import {
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop,
-  } from "../core/blockly/helpers/arduino_loop_block.helper";
-  import swal from "sweetalert";
+  } from '../core/blockly/helpers/arduino_loop_block.helper';
+  import swal from 'sweetalert';
 
   const { page } = stores();
-  export let segment = "";
+  export let segment = '';
 
   let showScrollOnRightSide = false;
 
@@ -29,9 +29,9 @@
   let showLoopExecutionTimesArduinoStartBlock;
   $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
 
-  let height = "500px";
-  let leftFlex = 65;
-  let rightFlex = 33;
+  let height = '500px';
+  let leftFlex = 44;
+  let rightFlex = 44;
   let isResizing = false;
 
   /**
@@ -85,7 +85,7 @@
     // for the main window because we want to display the player component
     const navBarHeight = 56;
 
-    height = window.innerHeight - navBarHeight + "px";
+    height = window.innerHeight - navBarHeight + 'px';
     // Hack to make sure everything update
     setTimeout(() => {
       resizeStore.mainWindow();
@@ -96,7 +96,7 @@
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
       if (
-        ["open", "settings", "lessons"].reduce((found, value) => {
+        ['open', 'settings', 'lessons'].reduce((found, value) => {
           return found || path.indexOf(value) >= 0;
         }, false)
       ) {
@@ -108,9 +108,9 @@
     });
 
     let loadedProject = false;
-    if (localStorage.getItem("reload_once_workspace")) {
-      const xmlText = localStorage.getItem("reload_once_workspace");
-      localStorage.removeItem("reload_once_workspace");
+    if (localStorage.getItem('reload_once_workspace')) {
+      const xmlText = localStorage.getItem('reload_once_workspace');
+      localStorage.removeItem('reload_once_workspace');
       loadProject(xmlText);
       loadedProject = true;
     }
@@ -132,15 +132,15 @@
       });
 
       if (
-        $projectStore.projectId === $page.query["projectid"] ||
-        !$page.query["projectid"] ||
+        $projectStore.projectId === $page.query['projectid'] ||
+        !$page.query['projectid'] ||
         loadedProject
       ) {
         return;
       }
 
       swal({
-        title: "Loading your project",
+        title: 'Loading your project',
         allowEscapeKey: false,
         allowOutsideClick: false,
         onOpen: () => {
@@ -148,10 +148,10 @@
         },
       } as any);
 
-      const project = await getProject($page.query["projectid"]);
-      const file = await getFile($page.query["projectid"], $authStore.uid);
+      const project = await getProject($page.query['projectid']);
+      const file = await getFile($page.query['projectid'], $authStore.uid);
       loadProject(file);
-      projectStore.set({ project, projectId: $page.query["projectid"] });
+      projectStore.set({ project, projectId: $page.query['projectid'] });
       if (isPathOnHomePage($page.path)) {
         arduinoLoopBlockShowNumberOfTimesThroughLoop();
       } else {

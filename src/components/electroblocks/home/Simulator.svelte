@@ -1,45 +1,46 @@
 <script>
-  import Player from "./Player.svelte";
+  import Player from './Player.svelte';
 
-  import SimDebugger from "./SimDebugger.svelte";
-  import LedColorChanger from "./LedColorChanger.svelte";
+  import SimDebugger from './SimDebugger.svelte';
+  import LedColorChanger from './LedColorChanger.svelte';
 
-  import { SVG } from "@svgdotjs/svg.js";
-  import frameStore from "../../../stores/frame.store";
-  import currentFrameStore from "../../../stores/currentFrame.store";
-  import settings from "../../../stores/settings.store";
-  import { resizeStore } from "../../../stores/resize.store";
-  import paint from "../../../core/virtual-circuit/paint.ts";
-  import update from "../../../core/virtual-circuit/update.ts";
+  import { SVG } from '@svgdotjs/svg.js';
+  import frameStore from '../../../stores/frame.store';
+  import currentFrameStore from '../../../stores/currentFrame.store';
+  import settings from '../../../stores/settings.store';
+  import { resizeStore } from '../../../stores/resize.store';
+  import paint from '../../../core/virtual-circuit/paint.ts';
+  import update from '../../../core/virtual-circuit/update.ts';
   // What if we made everything a series of components.
-  import { onMount, onDestroy } from "svelte";
-  import { onErrorMessage } from "../../../help/alerts";
-  import { wait } from "../../../helpers/wait";
+  import { onMount, onDestroy } from 'svelte';
+  import { onErrorMessage } from '../../../help/alerts';
+  import { wait } from '../../../helpers/wait';
   let container;
   let frames = [];
   let currentFrame = undefined;
+  let svgContainer;
   let draw;
   let unsubscribes = [];
   onMount(async () => {
     try {
-      await import("@svgdotjs/svg.draggable.js");
+      await import('@svgdotjs/svg.draggable.js');
 
-      await import("@svgdotjs/svg.panzoom.js");
+      await import('@svgdotjs/svg.panzoom.js');
     } catch (e) {
-      onErrorMessage("Please refresh your browser and try again.", e);
+      onErrorMessage('Please refresh your browser and try again.', e);
     }
 
     let width = container.clientWidth - 10;
     let height = container.clientHeight - 10;
     let count = 0;
     while (width < 0 || height < 0) {
-      console.log("waiting to load");
+      console.log('waiting to load');
       width = container.clientWidth - 10;
       height = container.clientHeight - 10;
       await wait(5);
       count += 1;
       if (count > 1000) {
-        onErrorMessage("There is not enough room to render the Arduino", {});
+        onErrorMessage('There is not enough room to render the Arduino', {});
         return;
       }
     }
@@ -53,12 +54,18 @@
       .viewbox(0, 0, container.clientWidth - 10, container.clientWidth - 10)
       .panZoom();
 
+    // What we need to do is create an SVG container to put the Arduino
+    // and components into.  This way we can center everything as one svg
+    // refer to this link: https://github.com/svgdotjs/svg.panzoom.js/issues/78
+    // refer to this link: https://svgjs.dev/docs/3.0/container-elements/#nested-constructor
+    svgContainer = draw.nested();
+
     unsubscribes.push(
       frameStore.subscribe((frameContainer) => {
         frames = frameContainer.frames;
         const firstFrame = frames ? frames[0] : undefined;
         currentFrame = firstFrame;
-        paint(draw, frameContainer);
+        paint(draw, svgContainer, frameContainer);
         update(draw, firstFrame);
       })
     );
