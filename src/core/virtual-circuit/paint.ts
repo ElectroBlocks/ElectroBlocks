@@ -13,11 +13,7 @@ import { getBoardSvg } from './get-board-svg';
 import { registerHighlightEvents } from './highlightevent';
 import { arduinoComponentStateToId } from '../frames/arduino-component-id';
 
-export default (
-  container: Svg,
-  draw: Svg,
-  frameContainer: ArduinoFrameContainer
-) => {
+export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
   const board = getBoard(frameContainer.board);
 
   const arduino = findOrCreateMicroController(draw, board);
@@ -51,6 +47,31 @@ export default (
       createNewComponent(state, draw, arduino, board, frameContainer.settings);
     });
   }
+
+  // This gets the tallest component
+  const tallestComponentHeight = lastFrame
+    ? lastFrame.components
+        .map((c) => draw.findOne(`#${arduinoComponentStateToId(c)}`) as Element)
+        .reduce((acc, next) => {
+          return acc > next.height() ? acc : next.height();
+        }, 0)
+    : 0;
+
+  const zoomWidth = draw.width() / (arduino.x() + arduino.width());
+  const zoomHeight =
+    draw.height() / (arduino.y() + arduino.height() + tallestComponentHeight);
+
+  (draw as any).zoom(zoomHeight > zoomWidth ? zoomWidth : zoomHeight);
+
+  // TODO Figure out the math to get it in the right position for x and y
+  draw.viewbox(
+    draw.viewbox().x,
+    draw.viewbox().y,
+    draw.viewbox().width,
+    draw.viewbox().height
+  );
+
+  // I need to find a way to bottom center the arduino
 };
 
 const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
@@ -75,14 +96,9 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   (window as any).arduino = arduino;
   (window as any).draw = draw;
 
-  draw.viewbox(arduino.bbox());
-  (draw as any).zoom(1);
-  arduino.y((arduino.height() - 20) / 2);
-
   // Events
 
   registerHighlightEvents(arduino);
-
   return arduino;
 };
 

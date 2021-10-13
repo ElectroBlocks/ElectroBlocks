@@ -18,7 +18,6 @@
   let container;
   let frames = [];
   let currentFrame = undefined;
-  let svgContainer;
   let draw;
   let unsubscribes = [];
   onMount(async () => {
@@ -54,18 +53,12 @@
       .viewbox(0, 0, container.clientWidth - 10, container.clientWidth - 10)
       .panZoom();
 
-    // What we need to do is create an SVG container to put the Arduino
-    // and components into.  This way we can center everything as one svg
-    // refer to this link: https://github.com/svgdotjs/svg.panzoom.js/issues/78
-    // refer to this link: https://svgjs.dev/docs/3.0/container-elements/#nested-constructor
-    svgContainer = draw.nested();
-
     unsubscribes.push(
       frameStore.subscribe((frameContainer) => {
         frames = frameContainer.frames;
         const firstFrame = frames ? frames[0] : undefined;
         currentFrame = firstFrame;
-        paint(draw, svgContainer, frameContainer);
+        paint(draw, frameContainer);
         update(draw, firstFrame);
       })
     );
