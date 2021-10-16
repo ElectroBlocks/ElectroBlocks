@@ -63,13 +63,40 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
 
   (draw as any).zoom(zoomHeight > zoomWidth ? zoomWidth : zoomHeight);
 
-  // TODO Figure out the math to get it in the right position for x and y
+  const tallestYValue = lastFrame
+    ? lastFrame.components
+        .map((c) => draw.findOne(`#${arduinoComponentStateToId(c)}`) as Element)
+        .reduce((acc, next) => {
+          // we are going for the least for the tallest
+          return acc > next.y() ? next.y() : acc;
+        }, 0)
+    : arduino.y();
+
+  const widestComponentWidth = lastFrame
+    ? lastFrame.components
+        .map((c) => draw.findOne(`#${arduinoComponentStateToId(c)}`) as Element)
+        .reduce((acc, next) => {
+          return acc > next.width() ? acc : next.width();
+        }, 0)
+    : 0;
+  const widestWidth =
+    arduino.width() > widestComponentWidth
+      ? arduino.width()
+      : widestComponentWidth;
+  //(draw.width() - (widestWidth * draw.zoom())) / 2
+
+  // Y value is perfect we just need figure out the x value
+  // and get it to stop zooming when it's not needed
+  console.log(widestWidth, 'widest');
   draw.viewbox(
-    draw.viewbox().x,
-    draw.viewbox().y,
-    draw.viewbox().width,
-    draw.viewbox().height
+    draw.width() -
+      widestWidth * draw.zoom() -
+      (draw.width() - widestWidth * draw.zoom()) / 2,
+    tallestYValue - 20,
+    draw.viewbox().w,
+    draw.viewbox().h
   );
+  // TODO Figure out the math to get it in the right position for x and y
 
   // I need to find a way to bottom center the arduino
 };
@@ -89,13 +116,13 @@ const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
   }
 
   arduino = draw.svg(getBoardSvg(board.type)).last();
+
   arduino.attr('id', 'MicroController');
   arduino.data('type', board.type);
   arduino.node.id = 'microcontroller_main_svg';
   arduino.findOne('#MESSAGE').hide();
   (window as any).arduino = arduino;
   (window as any).draw = draw;
-
   // Events
 
   registerHighlightEvents(arduino);
