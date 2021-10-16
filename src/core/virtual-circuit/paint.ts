@@ -48,57 +48,21 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
     });
   }
 
-  // This gets the tallest component
-  const tallestComponentHeight = lastFrame
-    ? lastFrame.components
-        .map((c) => draw.findOne(`#${arduinoComponentStateToId(c)}`) as Element)
-        .reduce((acc, next) => {
-          return acc > next.height() ? acc : next.height();
-        }, 0)
-    : 0;
-
-  const zoomWidth = draw.width() / (arduino.x() + arduino.width());
-  const zoomHeight =
-    draw.height() / (arduino.y() + arduino.height() + tallestComponentHeight);
-
-  (draw as any).zoom(zoomHeight > zoomWidth ? zoomWidth : zoomHeight);
-
   const tallestYValue = lastFrame
     ? lastFrame.components
         .map((c) => draw.findOne(`#${arduinoComponentStateToId(c)}`) as Element)
         .reduce((acc, next) => {
           // we are going for the least for the tallest
-          return acc > next.y() ? next.y() : acc;
+          return next && acc > next.y() ? next.y() : acc;
         }, 0)
     : arduino.y();
 
-  const widestComponentWidth = lastFrame
-    ? lastFrame.components
-        .map((c) => draw.findOne(`#${arduinoComponentStateToId(c)}`) as Element)
-        .reduce((acc, next) => {
-          return acc > next.width() ? acc : next.width();
-        }, 0)
-    : 0;
-  const widestWidth =
-    arduino.width() > widestComponentWidth
-      ? arduino.width()
-      : widestComponentWidth;
-  //(draw.width() - (widestWidth * draw.zoom())) / 2
-
-  // Y value is perfect we just need figure out the x value
-  // and get it to stop zooming when it's not needed
-  console.log(widestWidth, 'widest');
   draw.viewbox(
-    draw.width() -
-      widestWidth * draw.zoom() -
-      (draw.width() - widestWidth * draw.zoom()) / 2,
-    tallestYValue - 20,
-    draw.viewbox().w,
-    draw.viewbox().h
+    arduino.x(), // This should start where the x begin
+    tallestYValue - 10, // minus 10 for the padding
+    arduino.width(), // I can get away with because the widest component for now will be the arduino
+    Math.abs(tallestYValue) + arduino.height()
   );
-  // TODO Figure out the math to get it in the right position for x and y
-
-  // I need to find a way to bottom center the arduino
 };
 
 const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
