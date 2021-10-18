@@ -68,13 +68,25 @@
 
         const oldListOfComponentIds = oldLastFrame
           ? oldLastFrame.components
-              .map((f) => arduinoComponentStateToId(f))
+              .map((f) => {
+                try {
+                  return arduinoComponentStateToId(f);
+                } catch {
+                  return '';
+                }
+              })
               .join('')
           : '';
 
         const newListOfComponentIds = lastFrame
           ? lastFrame.components
-              .map((f) => arduinoComponentStateToId(f))
+              .map((f) => {
+                try {
+                  return arduinoComponentStateToId(f);
+                } catch {
+                  return '';
+                }
+              })
               .join('')
           : '';
 

@@ -10,8 +10,9 @@ export const centerCircuit = (draw: Svg, frame?: ArduinoFrame) => {
           // This is done for the time component and message componet which may error out or
           // produce null values
           try {
-            return draw.findOne(`#${arduinoComponentStateToId(c)}`) as Element;
-          } catch (e) {
+            const id = arduinoComponentStateToId(c);
+            return draw.findOne(`#${id}`) as Element;
+          } catch {
             return null;
           }
         }),
