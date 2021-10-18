@@ -1,21 +1,21 @@
 import type {
   SyncComponent,
   ResetComponent,
-} from "../../core/virtual-circuit/svg-sync";
+} from '../../core/virtual-circuit/svg-sync';
 import type {
   PositionComponent,
   CreateWire,
   AfterComponentCreateHook,
-} from "../../core/virtual-circuit/svg-create";
+} from '../../core/virtual-circuit/svg-create';
 
-import type { UltraSonicSensorState } from "./state";
-import type { Element, Svg } from "@svgdotjs/svg.js";
+import type { UltraSonicSensorState } from './state';
+import type { Element, Svg } from '@svgdotjs/svg.js';
 
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
+import { positionComponent } from '../../core/virtual-circuit/svg-position';
 import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire";
+} from '../../core/virtual-circuit/wire';
 
 export const positionUltraSonicSensor: PositionComponent<UltraSonicSensorState> = (
   state,
@@ -32,7 +32,7 @@ export const positionUltraSonicSensor: PositionComponent<UltraSonicSensorState> 
     draw,
     holes[2],
     isDown,
-    "PIN_ECHO"
+    'PIN_ECHO'
   );
 };
 
@@ -40,28 +40,27 @@ export const createUltraSonicSensor: AfterComponentCreateHook<UltraSonicSensorSt
   state,
   ultraSonicEl
 ) => {
-  ultraSonicEl.findOne("#ECHO_PIN_TEXT").node.innerHTML = state.echoPin;
-  ultraSonicEl.findOne("#TRIG_PIN_TEXT").node.innerHTML = state.trigPin;
+  ultraSonicEl.findOne('#ECHO_PIN_TEXT').node.innerHTML = state.echoPin;
+  ultraSonicEl.findOne('#TRIG_PIN_TEXT').node.innerHTML = state.trigPin;
 };
 
 export const updateUltraSonicSensor: SyncComponent = (
   state: UltraSonicSensorState,
   ultraSonicEl
 ) => {
-  const firstDistance = 224;
-  const distanceTextEl = ultraSonicEl.findOne("#DISTANCE_TEXT") as Element;
+  const distanceTextEl = ultraSonicEl.findOne('#DISTANCE_TEXT') as Element;
   distanceTextEl.show();
   const cxTextDistance = distanceTextEl.cx();
-  const distanceEl = ultraSonicEl.findOne("#DISTANCE") as Element;
-  const distanceNumber =
-    firstDistance - state.cm > 100 ? firstDistance - state.cm : 100;
+  const distanceEl = ultraSonicEl.findOne('#DISTANCE') as Element;
+  // y = 0 is the maximun height and 100 is the lowest height
+  const distanceNumber = state.cm > 100 ? 0 : 100 - state.cm;
   distanceEl.y(distanceNumber);
   distanceTextEl.node.innerHTML = `${state.cm} cm`;
   distanceTextEl.cx(cxTextDistance);
 };
 
 export const resetUltraSonicSensor: ResetComponent = (ultraSonicEl) => {
-  const distanceTextEl = ultraSonicEl.findOne("#DISTANCE_TEXT") as Element;
+  const distanceTextEl = ultraSonicEl.findOne('#DISTANCE_TEXT') as Element;
   distanceTextEl.hide();
 };
 
@@ -83,7 +82,7 @@ export const createWiresUltraSonicSensor: CreateWire<UltraSonicSensorState> = (
     draw,
     arduionEl,
     id,
-    "power"
+    'power'
   );
 
   createComponentWire(
@@ -94,7 +93,7 @@ export const createWiresUltraSonicSensor: CreateWire<UltraSonicSensorState> = (
     draw,
     arduionEl,
     id,
-    "PIN_TRIG",
+    'PIN_TRIG',
     board
   );
   createComponentWire(
@@ -105,7 +104,7 @@ export const createWiresUltraSonicSensor: CreateWire<UltraSonicSensorState> = (
     draw,
     arduionEl,
     id,
-    "PIN_ECHO",
+    'PIN_ECHO',
     board
   );
 
@@ -116,6 +115,6 @@ export const createWiresUltraSonicSensor: CreateWire<UltraSonicSensorState> = (
     draw,
     arduionEl,
     id,
-    "ground"
+    'ground'
   );
 };
