@@ -1,20 +1,20 @@
-import { ArduinoComponentState, ArduinoComponentType } from "./arduino.frame";
+import { ArduinoComponentState, ArduinoComponentType } from './arduino.frame';
 
-import _ from "lodash";
-import { lcdStateId } from "../../blocks/lcd_screen/component-state-to-id";
-import { neoPixelId } from "../../blocks/neopixels/component-state-to-id";
-import { getLedColorId } from "../../blocks/rgbled/component-state-to-id";
-import { writePinId } from "../../blocks/writepin/component-state-to-id";
-import { getDigitalSensorId } from "../../blocks/digitalsensor/component-state-to-id";
-import { getAnalogSensorId } from "../../blocks/analogsensor/component-state-to-id";
-import { getMotorStateId } from "../../blocks/motors/component-to-state-id";
+import _ from 'lodash';
+import { lcdStateId } from '../../blocks/lcd_screen/component-state-to-id';
+import { neoPixelId } from '../../blocks/neopixels/component-state-to-id';
+import { getLedColorId } from '../../blocks/rgbled/component-state-to-id';
+import { writePinId } from '../../blocks/writepin/component-state-to-id';
+import { getDigitalSensorId } from '../../blocks/digitalsensor/component-state-to-id';
+import { getAnalogSensorId } from '../../blocks/analogsensor/component-state-to-id';
+import { getMotorStateId } from '../../blocks/motors/component-to-state-id';
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;
 }
 
 const genericSingleComponentId = (state: ArduinoComponentState) => {
-  return state.type + "_" + state.pins.sort().join("-");
+  return state.type + '_' + state.pins.sort().join('-');
 };
 
 const componentStateFuncs: { [key: string]: ComponentStateToId } = {
@@ -40,6 +40,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.STEPPER_MOTOR]: genericSingleComponentId,
   [ArduinoComponentType.DIGITAL_DISPLAY]: genericSingleComponentId,
   [ArduinoComponentType.JOYSTICK]: genericSingleComponentId,
+  [ArduinoComponentType.TIME]: genericSingleComponentId,
 };
 
 export const arduinoComponentStateToId = (
@@ -49,5 +50,5 @@ export const arduinoComponentStateToId = (
     return componentStateFuncs[state.type](state);
   }
 
-  throw new Error("No Id generator found for state type " + state.type);
+  throw new Error('No Id generator found for state type ' + state.type);
 };

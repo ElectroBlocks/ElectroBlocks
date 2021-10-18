@@ -1,9 +1,9 @@
 <script>
-  import { onMount } from "svelte";
-  import Nav from "../../components/electroblocks/Nav.svelte";
-  import Blockly from "../../components/electroblocks/Blockly.svelte";
-  import Player from "../../components/electroblocks/home/Player.svelte";
-  import { resizeStore } from "../../stores/resize.store";
+  import { onMount } from 'svelte';
+  import Nav from '../../components/electroblocks/Nav.svelte';
+  import Blockly from '../../components/electroblocks/Blockly.svelte';
+  import Player from '../../components/electroblocks/home/Player.svelte';
+  import { resizeStore } from '../../stores/resize.store';
 
   // flex size of top window
   let top = 0;
@@ -40,7 +40,7 @@
     setTimeout(() => {
       console.log(
         Math.abs(previousMainHeight - mainSection.clientHeight),
-        "resize dif"
+        'resize dif'
       );
       if (Math.abs(previousMainHeight - mainSection.clientHeight) < 100) {
         return;
@@ -48,8 +48,8 @@
 
       previousMainHeight = mainSection.clientHeight;
 
-      top = mainSection.clientHeight - 200;
-      bottom = 180;
+      top = mainSection.clientHeight - 180;
+      bottom = 160;
       // Trigger an side windows that need to be resized
       resizeStore.sideWindow();
     }, 5);
@@ -66,7 +66,7 @@
     }
 
     // hack not the best way to go
-    const navBarHeight = document.querySelector("nav").clientHeight + 10;
+    const navBarHeight = document.querySelector('nav').clientHeight + 10;
 
     const clientRelativeToWindow = clientY - navBarHeight;
 
@@ -92,8 +92,8 @@
 
   onMount(() => {
     setTimeout(() => {
-      top = mainSection.clientHeight - 200;
-      bottom = 180;
+      top = mainSection.clientHeight - 180;
+      bottom = 160;
       previousMainHeight = top;
     }, 1);
   });
