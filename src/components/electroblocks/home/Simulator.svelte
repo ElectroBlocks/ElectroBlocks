@@ -15,6 +15,8 @@
   import { onMount, onDestroy } from 'svelte';
   import { onErrorMessage } from '../../../help/alerts';
   import { wait } from '../../../helpers/wait';
+  import { arduinoComponentStateToId } from '../../../core/frames/arduino-component-id';
+  import { centerCircuit } from '../../../core/virtual-circuit/centerCircuit';
   let container;
   let frames = [];
   let currentFrame = undefined;
@@ -55,11 +57,30 @@
 
     unsubscribes.push(
       frameStore.subscribe((frameContainer) => {
+        let oldLastFrame =
+          frames.length > 0 ? frames[frames.length - 1] : undefined;
         frames = frameContainer.frames;
         const firstFrame = frames ? frames[0] : undefined;
+        const lastFrame = frames ? frames[frames.length - 1] : undefined;
         currentFrame = firstFrame;
         paint(draw, frameContainer);
         update(draw, firstFrame);
+
+        const oldListOfComponentIds = oldLastFrame
+          ? oldLastFrame.components
+              .map((f) => arduinoComponentStateToId(f))
+              .join('')
+          : '';
+
+        const newListOfComponentIds = lastFrame
+          ? lastFrame.components
+              .map((f) => arduinoComponentStateToId(f))
+              .join('')
+          : '';
+
+        if (newListOfComponentIds != oldListOfComponentIds) {
+          centerCircuit(draw, lastFrame);
+        }
       })
     );
 
@@ -84,6 +105,16 @@
   function zoomOut() {
     draw.zoom(draw.zoom() - 0.05);
   }
+
+  function reCenter() {
+    if (draw) {
+      centerCircuit(
+        draw,
+        frames.length > 0 ? frames[frames.length - 1] : undefined
+      );
+    }
+  }
+
   onDestroy(() => {
     unsubscribes.forEach((unSubFunc) => unSubFunc());
   });
@@ -93,6 +124,7 @@
   <LedColorChanger />
   <div bind:this={container} id="simulator" />
   <div id="simulator-controls">
+    <i on:click={reCenter} class="fa" id="recenter-icon" aria-hidden="true" />
     <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
     <i on:click={zoomOut} class="fa fa-search-minus" aria-hidden="true" />
   </div>
@@ -127,5 +159,13 @@
     cursor: pointer;
     margin-left: 10px;
     user-select: none;
+  }
+  #recenter-icon {
+    background-image: url(/target.svg);
+    width: 25px;
+    height: 25px;
+    background-size: contain;
+    vertical-align: middle;
+    background-repeat: no-repeat;
   }
 </style>

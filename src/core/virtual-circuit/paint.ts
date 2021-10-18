@@ -47,44 +47,6 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
       createNewComponent(state, draw, arduino, board, frameContainer.settings);
     });
   }
-
-  const components = lastFrame
-    ? [
-        ...lastFrame.components.map(
-          (c) => draw.findOne(`#${arduinoComponentStateToId(c)}`) as Element
-        ),
-        arduino,
-      ]
-    : [arduino];
-
-  // TODOs
-  // Should only fire when a new component is added or deleted from the circuit
-  // We need to add an auto centering button so that it can triggered by the user
-
-  const tallestYValue = components.reduce((acc, next) => {
-    // we are going for the least for the tallest
-    return next && acc > next.y() ? next.y() : acc;
-  }, 0);
-
-  const mostNegativeX = components.reduce((acc, next) => {
-    // We are going for the most negative x
-    return next && acc > next.x() ? next.x() : acc;
-  }, 0);
-
-  const longestWidth = components.reduce((acc, next) => {
-    const x2 = next.width() + Math.abs(next.x());
-
-    return x2 > acc ? x2 : acc;
-  }, 0);
-
-  draw.viewbox(
-    mostNegativeX, // This should start where the x begin
-    tallestYValue - 10, // minus 10 for the padding
-    longestWidth, // Longest width that it can be
-    Math.abs(tallestYValue) + arduino.height() + 10 // This is total height.
-    // tallest y will sometime be negative so we absolute value + the height of the arduino
-    // We then add 10 for padding
-  );
 };
 
 const findOrCreateMicroController = (draw: Svg, board: MicroController) => {
