@@ -6,9 +6,15 @@ export const centerCircuit = (draw: Svg, frame?: ArduinoFrame) => {
   const arduino = draw.findOne('#microcontroller_main_svg') as Element;
   let components = frame
     ? [
-        ...frame.components.map(
-          (c) => draw.findOne(`#${arduinoComponentStateToId(c)}`) as Element
-        ),
+        ...frame.components.map((c) => {
+          // This is done for the time component and message componet which may error out or
+          // produce null values
+          try {
+            return draw.findOne(`#${arduinoComponentStateToId(c)}`) as Element;
+          } catch (e) {
+            return null;
+          }
+        }),
         arduino,
       ]
     : [arduino];
@@ -27,7 +33,6 @@ export const centerCircuit = (draw: Svg, frame?: ArduinoFrame) => {
   }, 0);
 
   const longestWidth = components.reduce((acc, next) => {
-    console.log(next, 'look');
     const x2 = next.width() + Math.abs(next.x());
 
     return x2 > acc ? x2 : acc;
