@@ -22,6 +22,8 @@
   let currentFrame = undefined;
   let draw;
   let unsubscribes = [];
+  let loopText = '';
+
   onMount(async () => {
     try {
       await import('@svgdotjs/svg.draggable.js');
@@ -108,6 +110,24 @@
         draw.size(container.clientWidth - 10, container.clientHeight - 10);
       })
     );
+
+    unsubscribes.push(
+      currentFrameStore.subscribe((frame) => {
+        if (!frame) return;
+
+        if (frame.timeLine.function === 'pre-setup') {
+          loopText = 'Setup Code';
+          return;
+        }
+
+        if (frame.timeLine.function === 'setup') {
+          loopText = 'Setup Block';
+          return;
+        }
+        console.log(frame, 'frame');
+        loopText = `Loop: ${frame.timeLine.iteration}`;
+      })
+    );
   });
 
   function zoomIn() {
@@ -136,6 +156,7 @@
   <LedColorChanger />
   <div bind:this={container} id="simulator" />
   <div id="simulator-controls">
+    <h3>{loopText}</h3>
     <i on:click={reCenter} class="fa" id="recenter-icon" aria-hidden="true" />
     <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
     <i on:click={zoomOut} class="fa fa-search-minus" aria-hidden="true" />
@@ -165,7 +186,7 @@
     position: absolute;
     right: 10px;
     bottom: 5px;
-    user-select: none;
+    width: 100%;
   }
   #simulator-controls i {
     cursor: pointer;
@@ -179,5 +200,12 @@
     background-size: contain;
     vertical-align: middle;
     background-repeat: no-repeat;
+  }
+
+  h3 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -5px;
   }
 </style>
