@@ -87,6 +87,7 @@ describe("arduino message state factories", () => {
       sendMessage: "", // message arduino is sending
       delay: 0, // Number of milliseconds to delay
       powerLedOn: true,
+      frameNumber: 1,
     };
 
     expect(eventToFrameFactory(event).frames).toEqual([state]);

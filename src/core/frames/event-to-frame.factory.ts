@@ -19,12 +19,13 @@ import {
   convertToState,
 } from "../blockly/transformers/sensor-data.transformer";
 import { generateInputFrame } from "./transformer/block-to-frame.transformer";
-import type {  Settings } from "../../firebase/model";
-import { defaultSetting } from '../../firebase/model';
+import type { Settings } from "../../firebase/model";
+import { defaultSetting } from "../../firebase/model";
 
 export const eventToFrameFactory = (
   event: BlockEvent,
-  settings: Settings = defaultSetting): ArduinoFrameContainer => {
+  settings: Settings = defaultSetting
+): ArduinoFrameContainer => {
   const { blocks } = event;
 
   const preSetupBlockType = [
@@ -80,24 +81,33 @@ export const eventToFrameFactory = (
 
   const arduinoLoopBlock = findArduinoLoopBlock(blocks);
   const loopTimes = getLoopTimeFromBlockData(blocks);
+  let stopAllFrames = false;
   const framesWithLoop = _.range(1, loopTimes + 1).reduce(
     (prevFrames, loopTime) => {
+      if (stopAllFrames) {
+        return prevFrames;
+      }
       const timeLine: Timeline = { iteration: loopTime, function: "loop" };
       const previousFrame = _.isEmpty(prevFrames)
         ? undefined
         : prevFrames[prevFrames.length - 1];
 
-      return [
-        ...prevFrames,
-        ...generateInputFrame(
-          arduinoLoopBlock,
-          blocks,
-          event.variables,
-          timeLine,
-          "loop",
-          getPreviousState(blocks, timeLine, _.cloneDeep(previousFrame)) // Deep clone to prevent object memory sharing
-        ),
-      ];
+      const frames = generateInputFrame(
+        arduinoLoopBlock,
+        blocks,
+        event.variables,
+        timeLine,
+        "loop",
+        getPreviousState(blocks, timeLine, _.cloneDeep(previousFrame)) // Deep clone to prevent object memory sharing
+      );
+
+      if (frames.length > 0 && frames[frames.length - 1].frameNumber > 5000) {
+        stopAllFrames = true;
+        alert(`Reached maximun steps for simulation.`);
+        return prevFrames;
+      }
+
+      return [...prevFrames, ...frames];
     },
     frames
   );
