@@ -74,6 +74,7 @@ export const arduinoSendMessage: BlockToFrameTransformer = (
       explanation: `Arduino sending message: "${message}".`,
       delay: 0,
       powerLedOn: true,
+      frameNumber: previousState ? previousState.frameNumber + 1 : 1,
     },
   ];
 };
