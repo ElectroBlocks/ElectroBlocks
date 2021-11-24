@@ -43,7 +43,7 @@ export const delayBlock: BlockToFrameTransformer = (
       explanation,
       delay,
       powerLedOn: true,
-      frameNumber: 1,
+      frameNumber: previousState ? previousState.frameNumber + 1 : 1,
     },
   ];
 };
