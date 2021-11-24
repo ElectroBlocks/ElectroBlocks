@@ -22,6 +22,7 @@ export interface ArduinoFrame {
   sendMessage: string; // message arduino is sending
   delay: number; // Number of milliseconds to delay
   powerLedOn: boolean;
+  frameNumber: number;
 }
 
 export interface Variable {
