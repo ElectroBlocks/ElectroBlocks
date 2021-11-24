@@ -104,7 +104,10 @@ export const eventToFrameFactory = (
       if (frames.length > 0 && frames[frames.length - 1].frameNumber > 5000) {
         stopAllFrames = true;
         alert(`Reached maximun steps for simulation.`);
-        return prevFrames;
+        const count = prevFrames.length;
+        const leftTo5000 = 5000 - count;
+        // minus 1 because we are starting from 0 index
+        return [...prevFrames, ...frames.slice(0, leftTo5000)];
       }
 
       return [...prevFrames, ...frames];
