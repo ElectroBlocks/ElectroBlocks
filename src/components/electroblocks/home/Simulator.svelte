@@ -17,6 +17,9 @@
   import { wait } from '../../../helpers/wait';
   import { arduinoComponentStateToId } from '../../../core/frames/arduino-component-id';
   import { centerCircuit } from '../../../core/virtual-circuit/centerCircuit';
+  import { stores } from '@sapper/app';
+  const { page } = stores();
+
   let container;
   let frames = [];
   let currentFrame = undefined;
@@ -112,6 +115,15 @@
     );
 
     unsubscribes.push(
+      page.subscribe(() => {
+        if (draw) {
+          const lastFrame = frames ? frames[frames.length - 1] : undefined;
+          centerCircuit(draw, lastFrame);
+        }
+      })
+    );
+
+    unsubscribes.push(
       currentFrameStore.subscribe((frame) => {
         if (!frame) return;
 
@@ -124,7 +136,6 @@
           loopText = 'Setup Block';
           return;
         }
-        console.log(frame, 'frame');
         loopText = `Loop: ${frame.timeLine.iteration}`;
       })
     );
