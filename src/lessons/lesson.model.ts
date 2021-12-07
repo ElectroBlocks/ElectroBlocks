@@ -23,6 +23,9 @@ export interface Lesson<T> {
   projectFileUrl?: string;
   author?: Author;
   metadata?: string;
+  width: number;
+  height: number;
+  youtubeHeight?: number;
 }
 
 export interface Author {
@@ -33,19 +36,19 @@ export interface Author {
 }
 
 export enum ContentTypes {
-  YOUTUBE = "YOUTUBE",
-  YOUTUBE_PLAYLIST = "YOUTUBE_PLAYLIST",
-  PICTURE = "PICTURE",
-  PDF = "PDF",
-  AUDIO = "AUDIO",
-  CODE = "CODE",
-  MARKDOWN = "MARKDOWN",
-  VIDEO = "VIDEO",
+  YOUTUBE = 'YOUTUBE',
+  YOUTUBE_PLAYLIST = 'YOUTUBE_PLAYLIST',
+  PICTURE = 'PICTURE',
+  PDF = 'PDF',
+  AUDIO = 'AUDIO',
+  CODE = 'CODE',
+  MARKDOWN = 'MARKDOWN',
+  VIDEO = 'VIDEO',
 }
 
 export enum LessonTypes {
-  YOUTUBE_ONLY = "YOUTUBE_ONLY",
-  TUTORIALS = "TUTORIALS",
+  YOUTUBE_ONLY = 'YOUTUBE_ONLY',
+  TUTORIALS = 'TUTORIALS',
 }
 
 export interface Step {
@@ -62,24 +65,24 @@ export interface Step {
 }
 
 export enum Languages {
-  css = "css",
-  js = "js",
-  html = "html",
-  python = "python",
-  go = "go",
-  java = "java",
-  kotlin = "kotlin",
-  sql = "sql",
-  rust = "rust",
-  csharp = "csharp",
-  typescript = "typescript",
-  c = "c",
-  dart = "dart",
-  ruby = "ruby",
-  lua = "lua",
-  swift = "swift",
-  r = "r",
-  cpp = "cpp",
+  css = 'css',
+  js = 'js',
+  html = 'html',
+  python = 'python',
+  go = 'go',
+  java = 'java',
+  kotlin = 'kotlin',
+  sql = 'sql',
+  rust = 'rust',
+  csharp = 'csharp',
+  typescript = 'typescript',
+  c = 'c',
+  dart = 'dart',
+  ruby = 'ruby',
+  lua = 'lua',
+  swift = 'swift',
+  r = 'r',
+  cpp = 'cpp',
 }
 
 export interface Page {
