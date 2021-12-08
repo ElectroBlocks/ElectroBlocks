@@ -10,6 +10,7 @@ import '../../blocks/led_matrix/blocks';
 import '../../blocks/rgbled/blocks';
 import '../../blocks/led/blocks';
 import '../../blocks/neopixels/blocks';
+import '../../blocks/fastled/blocks';
 import '../../blocks/writepin/blocks';
 import '../../blocks/digitalsensor/blocks';
 import '../../blocks/list/blocks';

@@ -1,0 +1,687 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="543.05" height="358.43" viewBox="0 0 543.05 358.43">
+  <g id="simple_wires">
+    <g id="GND">
+      <line id="PIN_GND" x1="280.5" y1="345.41" x2="280.5" y2="320.41" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <path d="M131,254" transform="translate(-95.5 -17.59)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+    <g id="POWER">
+      <path d="M103,273" transform="translate(-95.5 -17.59)" fill="none" stroke="red" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <line id="PIN_POWER" x1="297.5" y1="320.41" x2="297.5" y2="345.41" fill="none" stroke="red" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+    <g id="DATA">
+      <path d="M119,263" transform="translate(-95.5 -17.59)" fill="none" stroke="#006837" stroke-miterlimit="10" stroke-width="2"/>
+      <line id="PIN_DATA" x1="289" y1="345.41" x2="289" y2="320.41" fill="none" stroke="#006837" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <rect x="277.5" y="312.41" width="23" height="13" fill="#f2d4b6"/>
+    </g>
+    <text id="GND_TEXT" transform="translate(266.05 345.66) scale(1.14 1)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+    <text id="DATA_TEXT" transform="translate(208.29 309.66) scale(1.21 1)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">data pin = A15</text>
+    <text id="POWER_TEXT" transform="translate(300.11 345.66)" font-size="21" font-family="Biryani-SemiBold, Biryani" font-weight="600">+</text>
+    <text transform="translate(26.64 325.72)" font-size="24" font-family="Biryani-Bold, Biryani" font-weight="700">FastLEDs</text>
+  </g>
+  <g id="LED_1">
+    <g id="BASE">
+      <rect x="8.23" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="8.23" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-1">
+      <circle cx="30.23" cy="246.41" r="8.5"/>
+      <circle cx="30.23" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(25.28 273.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">1</text>
+  </g>
+  <g id="LED_2">
+    <g id="BASE-2" data-name="BASE">
+      <rect x="52.23" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="52.23" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-2" data-name="LED">
+      <circle cx="74.23" cy="246.41" r="8.5"/>
+      <circle cx="74.23" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(69.28 273.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">2</text>
+  </g>
+  <g id="LED_3">
+    <g id="BASE-3" data-name="BASE">
+      <rect x="96.23" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="96.23" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-3" data-name="LED">
+      <circle cx="118.23" cy="246.41" r="8.5"/>
+      <circle cx="118.23" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(113.28 273.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">3</text>
+  </g>
+  <g id="LED_4">
+    <g id="BASE-4" data-name="BASE">
+      <rect x="140.03" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="140.03" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-4" data-name="LED">
+      <circle cx="162.03" cy="246.41" r="8.5"/>
+      <circle cx="162.03" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(157.08 273.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">4</text>
+  </g>
+  <g id="LED_5">
+    <g id="BASE-5" data-name="BASE">
+      <rect x="184.09" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="184.09" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-5" data-name="LED">
+      <circle cx="206.09" cy="246.41" r="8.5"/>
+      <circle cx="206.09" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(201.14 273.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">5</text>
+  </g>
+  <g id="LED_6">
+    <g id="BASE-6" data-name="BASE">
+      <rect x="227.85" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="227.85" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-6" data-name="LED">
+      <circle cx="249.85" cy="246.41" r="8.5"/>
+      <circle cx="249.85" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(244.9 275.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">6</text>
+  </g>
+  <g id="LED_7">
+    <g id="BASE-7" data-name="BASE">
+      <rect x="271.63" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="271.63" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-7" data-name="LED">
+      <circle cx="293.63" cy="246.41" r="8.5"/>
+      <circle cx="293.63" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(288.68 275.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">7</text>
+  </g>
+  <g id="LED_8">
+    <g id="BASE-8" data-name="BASE">
+      <rect x="315.03" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="315.03" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-8" data-name="LED">
+      <circle cx="337.03" cy="246.41" r="8.5"/>
+      <circle cx="337.03" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(332.08 275.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">8</text>
+  </g>
+  <g id="LED_9">
+    <g id="BASE-9" data-name="BASE">
+      <rect x="359.03" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="359.03" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-9" data-name="LED">
+      <circle cx="381.03" cy="246.41" r="8.5"/>
+      <circle cx="381.03" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(376.08 273.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">9</text>
+  </g>
+  <g id="LED_10">
+    <g id="BASE-10" data-name="BASE">
+      <rect x="403.22" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="403.22" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-10" data-name="LED">
+      <circle cx="425.22" cy="246.41" r="8.5"/>
+      <circle cx="425.22" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(415.32 273.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">10</text>
+  </g>
+  <g id="LED_11">
+    <g id="BASE-11" data-name="BASE">
+      <rect x="447.14" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="447.14" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-11" data-name="LED">
+      <circle cx="469.14" cy="246.41" r="8.5"/>
+      <circle cx="469.14" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(459.24 273.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">11</text>
+  </g>
+  <g id="LED_12">
+    <g id="BASE-12" data-name="BASE">
+      <rect x="490.96" y="234.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="490.96" y="234.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-12" data-name="LED">
+      <circle cx="512.96" cy="246.41" r="8.5"/>
+      <circle cx="512.96" cy="246.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(503.06 273.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">12</text>
+  </g>
+  <g id="LED_13">
+    <g id="BASE-13" data-name="BASE">
+      <rect x="490.96" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="490.96" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-13" data-name="LED">
+      <circle cx="512.96" cy="187.41" r="8.5"/>
+      <circle cx="512.96" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(503.06 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">13</text>
+  </g>
+  <g id="ENDS">
+    <path id="LEVEL1" d="M534.5,175.91H536a6,6,0,0,1,6,6v70a6,6,0,0,1-6,6h-1.5a0,0,0,0,1,0,0v-82A0,0,0,0,1,534.5,175.91Z" fill="#f2d4b6" stroke="#000" stroke-miterlimit="10"/>
+    <path id="LEVEL2" d="M96,135.1H97.5a6,6,0,0,1,6,6v69.4a6,6,0,0,1-6,6H96a0,0,0,0,1,0,0V135.1a0,0,0,0,1,0,0Z" transform="translate(104 334.01) rotate(180)" fill="#f2d4b6" stroke="#000" stroke-miterlimit="10"/>
+    <path id="LEVEL4" d="M96.5,18.1h1a6,6,0,0,1,6,6v69a6,6,0,0,1-6,6h-1a0,0,0,0,1,0,0v-81A0,0,0,0,1,96.5,18.1Z" transform="translate(104.5 99.61) rotate(180)" fill="#f2d4b6" stroke="#000" stroke-miterlimit="10"/>
+    <path id="LEVEL3" d="M535,58.51h1.5a6,6,0,0,1,6,6v70a6,6,0,0,1-6,6H535a0,0,0,0,1,0,0v-82A0,0,0,0,1,535,58.51Z" fill="#f2d4b6" stroke="#000" stroke-miterlimit="10"/>
+  </g>
+  <g id="LED_14">
+    <text transform="translate(459.24 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">14</text>
+    <g id="BASE-14" data-name="BASE">
+      <rect x="447.14" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="447.14" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-14" data-name="LED">
+      <circle cx="469.14" cy="187.41" r="8.5"/>
+      <circle cx="469.14" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+  </g>
+  <g id="LED_15">
+    <text transform="translate(415.32 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">15</text>
+    <g id="BASE-15" data-name="BASE">
+      <rect x="403.22" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="403.22" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-15" data-name="LED">
+      <circle cx="425.22" cy="187.41" r="8.5"/>
+      <circle cx="425.22" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+  </g>
+  <g id="LED_16">
+    <text transform="translate(371.13 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">16</text>
+    <g id="BASE-16" data-name="BASE">
+      <rect x="359.03" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="359.03" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-16" data-name="LED">
+      <circle cx="381.03" cy="187.41" r="8.5"/>
+      <circle cx="381.03" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+  </g>
+  <g id="LED_17">
+    <text transform="translate(327.13 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">17</text>
+    <g id="BASE-17" data-name="BASE">
+      <rect x="315.03" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="315.03" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-17" data-name="LED">
+      <circle cx="337.03" cy="187.41" r="8.5"/>
+      <circle cx="337.03" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+  </g>
+  <g id="LED_18">
+    <text transform="translate(283.73 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">18</text>
+    <g id="BASE-18" data-name="BASE">
+      <rect x="271.63" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="271.63" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-18" data-name="LED">
+      <circle cx="293.63" cy="187.41" r="8.5"/>
+      <circle cx="293.63" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+  </g>
+  <g id="LED_19">
+    <text transform="translate(239.96 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">19</text>
+    <g id="BASE-19" data-name="BASE">
+      <rect x="227.85" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="227.85" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-19" data-name="LED">
+      <circle cx="249.85" cy="187.41" r="8.5"/>
+      <circle cx="249.85" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+  </g>
+  <g id="LED_20">
+    <text transform="translate(196.19 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">20</text>
+    <g id="BASE-20" data-name="BASE">
+      <rect x="184.09" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="184.09" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-20" data-name="LED">
+      <circle cx="206.09" cy="187.41" r="8.5"/>
+      <circle cx="206.09" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+  </g>
+  <g id="LED_21">
+    <g id="BASE-21" data-name="BASE">
+      <rect x="140.03" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="140.03" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-21" data-name="LED">
+      <circle cx="162.03" cy="187.41" r="8.5"/>
+      <circle cx="162.03" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(152.13 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">21</text>
+  </g>
+  <g id="LED_22">
+    <g id="BASE-22" data-name="BASE">
+      <rect x="96.23" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="96.23" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-22" data-name="LED">
+      <circle cx="118.23" cy="187.41" r="8.5"/>
+      <circle cx="118.23" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(108.33 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">22</text>
+  </g>
+  <g id="LED_23">
+    <g id="BASE-23" data-name="BASE">
+      <rect x="52.23" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="52.23" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-23" data-name="LED">
+      <circle cx="74.23" cy="187.41" r="8.5"/>
+      <circle cx="74.23" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(64.33 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">23</text>
+  </g>
+  <g id="LED_24">
+    <g id="BASE-24" data-name="BASE">
+      <rect x="8.23" y="175.91" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="8.23" y="175.91" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-24" data-name="LED">
+      <circle cx="30.23" cy="187.41" r="8.5"/>
+      <circle cx="30.23" cy="187.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(20.33 214.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">24</text>
+  </g>
+  <g id="LED_25">
+    <g id="BASE-25" data-name="BASE">
+      <rect x="8.23" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="8.23" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-25" data-name="LED">
+      <circle cx="30.23" cy="129.41" r="8.5"/>
+      <circle cx="30.23" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(20.33 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">25</text>
+  </g>
+  <g id="LED_26">
+    <g id="BASE-26" data-name="BASE">
+      <rect x="52.23" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="52.23" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-26" data-name="LED">
+      <circle cx="74.23" cy="129.41" r="8.5"/>
+      <circle cx="74.23" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(64.33 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">26</text>
+  </g>
+  <g id="LED_27">
+    <g id="BASE-27" data-name="BASE">
+      <rect x="96.23" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="96.23" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-27" data-name="LED">
+      <circle cx="118.23" cy="129.41" r="8.5"/>
+      <circle cx="118.23" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(108.33 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">27</text>
+  </g>
+  <g id="LED_28">
+    <g id="BASE-28" data-name="BASE">
+      <rect x="140.03" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="140.03" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-28" data-name="LED">
+      <circle cx="162.03" cy="129.41" r="8.5"/>
+      <circle cx="162.03" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(152.13 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">28</text>
+  </g>
+  <g id="LED_29">
+    <g id="BASE-29" data-name="BASE">
+      <rect x="184.09" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="184.09" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-29" data-name="LED">
+      <circle cx="206.09" cy="129.41" r="8.5"/>
+      <circle cx="206.09" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(196.19 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">29</text>
+  </g>
+  <g id="LED_30">
+    <g id="BASE-30" data-name="BASE">
+      <rect x="227.85" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="227.85" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-30" data-name="LED">
+      <circle cx="249.85" cy="129.41" r="8.5"/>
+      <circle cx="249.85" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(239.96 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">30</text>
+  </g>
+  <g id="LED_31">
+    <g id="BASE-31" data-name="BASE">
+      <rect x="271.63" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="271.63" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-31" data-name="LED">
+      <circle cx="293.63" cy="129.41" r="8.5"/>
+      <circle cx="293.63" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(283.73 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">31</text>
+  </g>
+  <g id="LED_32">
+    <g id="BASE-32" data-name="BASE">
+      <rect x="315.03" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="315.03" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-32" data-name="LED">
+      <circle cx="337.03" cy="129.41" r="8.5"/>
+      <circle cx="337.03" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(327.13 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">32</text>
+  </g>
+  <g id="LED_33">
+    <g id="BASE-33" data-name="BASE">
+      <rect x="359.03" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="359.03" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-33" data-name="LED">
+      <circle cx="381.03" cy="129.41" r="8.5"/>
+      <circle cx="381.03" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(371.13 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">33</text>
+  </g>
+  <g id="LED_34">
+    <g id="BASE-34" data-name="BASE">
+      <rect x="403.22" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="403.22" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-34" data-name="LED">
+      <circle cx="425.22" cy="129.41" r="8.5"/>
+      <circle cx="425.22" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(415.32 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">34</text>
+  </g>
+  <g id="LED_35">
+    <g id="BASE-35" data-name="BASE">
+      <rect x="447.14" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="447.14" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-35" data-name="LED">
+      <circle cx="469.42" cy="129.41" r="8.5"/>
+      <circle cx="469.42" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(459.24 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">35</text>
+  </g>
+  <g id="LED_36">
+    <g id="BASE-36" data-name="BASE">
+      <rect x="490.96" y="117.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="490.96" y="117.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-36" data-name="LED">
+      <circle cx="512.96" cy="129.41" r="8.5"/>
+      <circle cx="512.96" cy="129.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(503.06 156.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">36</text>
+  </g>
+  <g id="LED_37">
+    <g id="BASE-37" data-name="BASE">
+      <rect x="490.96" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="490.96" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-37" data-name="LED">
+      <circle cx="512.96" cy="70.41" r="8.5"/>
+      <circle cx="512.96" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(503.06 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">37</text>
+  </g>
+  <g id="LED_38">
+    <g id="BASE-38" data-name="BASE">
+      <rect x="447.14" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="447.14" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-38" data-name="LED">
+      <circle cx="469.14" cy="70.41" r="8.5"/>
+      <circle cx="469.14" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(459.24 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">38</text>
+  </g>
+  <g id="LED_39">
+    <g id="BASE-39" data-name="BASE">
+      <rect x="403.22" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="403.22" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-39" data-name="LED">
+      <circle cx="425.22" cy="70.41" r="8.5"/>
+      <circle cx="425.22" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(415.32 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">39</text>
+  </g>
+  <g id="LED_40">
+    <g id="BASE-40" data-name="BASE">
+      <rect x="359.03" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="359.03" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-40" data-name="LED">
+      <circle cx="381.03" cy="70.41" r="8.5"/>
+      <circle cx="381.03" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(371.13 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">40</text>
+  </g>
+  <g id="LED_41">
+    <g id="BASE-41" data-name="BASE">
+      <rect x="315.03" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="315.03" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-41" data-name="LED">
+      <circle cx="337.03" cy="70.41" r="8.5"/>
+      <circle cx="337.03" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(327.13 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">41</text>
+  </g>
+  <g id="LED_42">
+    <g id="BASE-42" data-name="BASE">
+      <rect x="271.63" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="271.63" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-42" data-name="LED">
+      <circle cx="293.63" cy="70.41" r="8.5"/>
+      <circle cx="293.63" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(283.73 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">42</text>
+  </g>
+  <g id="LED_43">
+    <g id="BASE-43" data-name="BASE">
+      <rect x="227.85" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="227.85" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-43" data-name="LED">
+      <circle cx="249.42" cy="70.41" r="8.5"/>
+      <circle cx="249.42" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(239.96 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">43</text>
+  </g>
+  <g id="LED_44">
+    <g id="BASE-44" data-name="BASE">
+      <rect x="184.09" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="184.09" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(196.19 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">44</text>
+    <g id="LED-44" data-name="LED">
+      <circle cx="206.5" cy="70.41" r="8.5"/>
+      <circle cx="206.5" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+  </g>
+  <g id="LED_45">
+    <g id="BASE-45" data-name="BASE">
+      <rect x="140.03" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="140.03" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-45" data-name="LED">
+      <circle cx="162.03" cy="70.41" r="8.5"/>
+      <circle cx="162.03" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(152.13 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">45</text>
+  </g>
+  <g id="LED_46">
+    <g id="BASE-46" data-name="BASE">
+      <rect x="96.23" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="96.23" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-46" data-name="LED">
+      <circle cx="118.23" cy="70.41" r="8.5"/>
+      <circle cx="118.23" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(108.33 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">46</text>
+  </g>
+  <g id="LED_47">
+    <g id="BASE-47" data-name="BASE">
+      <rect x="52.23" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="52.23" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-47" data-name="LED">
+      <circle cx="74.23" cy="70.41" r="8.5"/>
+      <circle cx="74.23" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(64.33 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">47</text>
+  </g>
+  <g id="LED_48">
+    <g id="BASE-48" data-name="BASE">
+      <rect x="8.23" y="58.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="8.23" y="58.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-48" data-name="LED">
+      <circle cx="30.23" cy="70.41" r="8.5"/>
+      <circle cx="30.23" cy="70.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(20.33 97.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">48</text>
+  </g>
+  <g id="LED_49">
+    <g id="BASE-49" data-name="BASE">
+      <rect x="8.23" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="8.23" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-49" data-name="LED">
+      <circle cx="30.23" cy="12.41" r="8.5"/>
+      <circle cx="30.23" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(20.33 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">49</text>
+  </g>
+  <g id="LED_50">
+    <g id="BASE-50" data-name="BASE">
+      <rect x="52.23" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="52.23" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-50" data-name="LED">
+      <circle cx="74.23" cy="12.41" r="8.5"/>
+      <circle cx="74.23" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(64.33 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">50</text>
+  </g>
+  <g id="LED_51">
+    <g id="BASE-51" data-name="BASE">
+      <rect x="96.23" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="96.23" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-51" data-name="LED">
+      <circle cx="118.23" cy="12.41" r="8.5"/>
+      <circle cx="118.23" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(108.33 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">51</text>
+  </g>
+  <g id="LED_52">
+    <g id="BASE-52" data-name="BASE">
+      <rect x="140.03" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="140.03" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-52" data-name="LED">
+      <circle cx="162.03" cy="12.41" r="8.5"/>
+      <circle cx="162.03" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(152.13 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">52</text>
+  </g>
+  <g id="LED_53">
+    <g id="BASE-53" data-name="BASE">
+      <rect x="184.09" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="184.09" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-53" data-name="LED">
+      <circle cx="206.09" cy="12.41" r="8.5"/>
+      <circle cx="206.09" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(196.19 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">53</text>
+  </g>
+  <g id="LED_54">
+    <g id="BASE-54" data-name="BASE">
+      <rect x="227.85" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="227.85" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-54" data-name="LED">
+      <circle cx="249.85" cy="12.41" r="8.5"/>
+      <circle cx="249.85" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(239.96 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">54</text>
+  </g>
+  <g id="LED_55">
+    <g id="BASE-55" data-name="BASE">
+      <rect x="271.63" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="271.63" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-55" data-name="LED">
+      <circle cx="293.63" cy="12.41" r="8.5"/>
+      <circle cx="293.63" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(283.73 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">55</text>
+  </g>
+  <g id="LED_56">
+    <g id="BASE-56" data-name="BASE">
+      <rect x="315.03" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="315.03" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-56" data-name="LED">
+      <circle cx="337.03" cy="12.41" r="8.5"/>
+      <circle cx="337.03" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(327.13 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">56</text>
+  </g>
+  <g id="LED_57">
+    <g id="BASE-57" data-name="BASE">
+      <rect x="359.03" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="359.03" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-57" data-name="LED">
+      <circle cx="381.03" cy="12.41" r="8.5"/>
+      <circle cx="381.03" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(371.13 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">57</text>
+  </g>
+  <g id="LED_58">
+    <g id="BASE-58" data-name="BASE">
+      <rect x="403.22" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="403.22" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-58" data-name="LED">
+      <circle cx="425.22" cy="12.41" r="8.5"/>
+      <circle cx="425.22" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(415.32 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">58</text>
+  </g>
+  <g id="LED_59">
+    <g id="BASE-59" data-name="BASE">
+      <rect x="447.14" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="447.14" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-59" data-name="LED">
+      <circle cx="469.14" cy="12.41" r="8.5"/>
+      <circle cx="469.14" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(459.24 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">59</text>
+  </g>
+  <g id="LED_60">
+    <g id="BASE-60" data-name="BASE">
+      <rect x="490.96" y="0.5" width="44" height="23" fill="#f2d4b6"/>
+      <rect x="490.96" y="0.5" width="44" height="23" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <g id="LED-60" data-name="LED">
+      <circle cx="512.96" cy="12.41" r="8.5"/>
+      <circle cx="512.96" cy="12.41" r="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    </g>
+    <text transform="translate(503.06 39.65)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">60</text>
+  </g>
+</svg>

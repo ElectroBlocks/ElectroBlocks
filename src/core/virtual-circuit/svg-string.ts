@@ -14,6 +14,7 @@ import passiveBuzzerSvgString from "../../blocks/passivebuzzer/passivebuzzer.svg
 
 import motorSvgString from "../../blocks/motors/motor.svg";
 import neopixelSvgString from "../../blocks/neopixels/neopixel.svg";
+import fastledSvgString from "../../blocks/fastled/fastled.svg"
 import rfidSvgString from "../../blocks/rfid/rfid.svg";
 import servoSVGText from "../../blocks/servo/servo.svg";
 import tempSvgString from "../../blocks/temperature/temp-humidity.svg";
@@ -46,6 +47,7 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.LED_MATRIX]: (_) => ledmatrixSvgString,
   [ArduinoComponentType.MOTOR]: (_) => motorSvgString,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: (_) => neopixelSvgString,
+  [ArduinoComponentType.FASTLED_STRIP]: ( ) => fastledSvgString,
   [ArduinoComponentType.RFID]: (_) => rfidSvgString,
   [ArduinoComponentType.SERVO]: (_) => servoSVGText,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: (_) => tempSvgString,

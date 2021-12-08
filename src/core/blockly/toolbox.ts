@@ -3,6 +3,7 @@ import bluetoothXMLString from "../../blocks/bluetooth/toolbox";
 import buttonXMLString from "../../blocks/button/toolbox";
 import irRmoteXMLString from "../../blocks/ir_remote/toolbox";
 import neoPixelXMLString from "../../blocks/neopixels/toolbox";
+import fastLEDXMLString from "../../blocks/fastled/toolbox";
 import ledMatrixXMLString from "../../blocks/led_matrix/toolbox";
 import arduinoXMLString from "../../blocks/arduino/toolbox";
 import listXMLString from "../../blocks/list/toolbox";
@@ -120,6 +121,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Led Matrix", xml: ledMatrixXMLString },
       { name: "Motor", xml: motorXMLString },
       { name: "Neo Pixel", xml: neoPixelXMLString },
+      { name: "FastLED", xml: fastLEDXMLString},
       { name: "Passive Buzzer", xml: passiveBuzzerXMLString },
       { name: "Pins", xml: writePinXMLString },
       { name: "RBG Led", xml: rgbLedXMLString },

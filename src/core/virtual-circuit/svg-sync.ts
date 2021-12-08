@@ -18,6 +18,10 @@ import {
   neoPixelReset,
 } from "../../blocks/neopixels/virtual-circuit";
 import {
+  fastLEDUpdate,
+  fastLEDReset,
+} from "../../blocks/fastled/virtual-circuit";
+import {
   ledMatrixUpdate,
   ledMatrixReset,
 } from "../../blocks/led_matrix/virtual-circuit";
@@ -100,6 +104,7 @@ const resetComponent = {
   [ArduinoComponentType.MOTOR]: motorReset,
   [ArduinoComponentType.LED]: resetLed,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelReset,
+  [ArduinoComponentType.FASTLED_STRIP]: fastLEDReset,
   [ArduinoComponentType.RFID]: resetRfid,
   [ArduinoComponentType.SERVO]: servoReset,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: resetTemp,
@@ -125,6 +130,7 @@ const syncComponent = {
   [ArduinoComponentType.MOTOR]: motorUpdate,
   [ArduinoComponentType.MESSAGE]: arduinoMessageUpdate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelUpdate,
+  [ArduinoComponentType.FASTLED_STRIP]: fastLEDUpdate,
   [ArduinoComponentType.RFID]: updateRfid,
   [ArduinoComponentType.SERVO]: servoUpdate,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: updateTemp,

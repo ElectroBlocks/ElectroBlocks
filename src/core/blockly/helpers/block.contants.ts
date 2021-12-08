@@ -9,6 +9,7 @@ export const standAloneBlocks = [
   "procedures_defnoreturn",
   "lcd_setup",
   "neo_pixel_setup",
+  "fastled_setup",
   "soil_sensor_setup",
   "ir_remote_setup",
   "temp_setup",

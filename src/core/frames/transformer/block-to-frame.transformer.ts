@@ -46,6 +46,10 @@ import {
   setNeoPixelColor,
 } from "../../../blocks/neopixels/blocktoframe";
 import {
+  fastLEDSetup,
+  setFastLEDColor,
+} from "../../../blocks/fastled/blocktoframe";
+import {
   ledMatrixDraw,
   ledMatrixOnLed,
   ledMatrixSetup,
@@ -98,6 +102,7 @@ const blockToFrameTransformerList: {
   time_setup: timeSetup,
   lcd_setup: lcdScreenSetup,
   neo_pixel_setup: neoPixelSetup,
+  fastled_setup: fastLEDSetup,
   rgb_led_setup: ledColorSetup,
   analog_read_setup: analogReadSetup,
   digital_read_setup: digitalReadSetup,
@@ -144,6 +149,7 @@ const blockToFrameTransformerList: {
   led_fade: ledFade,
   set_color_led: setLedColor,
   neo_pixel_set_color: setNeoPixelColor,
+  fastled_set_color: setFastLEDColor,
 
   led_matrix_make_draw: ledMatrixDraw,
   led_matrix_turn_one_on_off: ledMatrixOnLed,

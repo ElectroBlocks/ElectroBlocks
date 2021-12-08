@@ -3,6 +3,7 @@ import { ArduinoComponentState, ArduinoComponentType } from './arduino.frame';
 import _ from 'lodash';
 import { lcdStateId } from '../../blocks/lcd_screen/component-state-to-id';
 import { neoPixelId } from '../../blocks/neopixels/component-state-to-id';
+import { fastLEDId } from '../../blocks/fastled/component-state-to-id';
 import { getLedColorId } from '../../blocks/rgbled/component-state-to-id';
 import { writePinId } from '../../blocks/writepin/component-state-to-id';
 import { getDigitalSensorId } from '../../blocks/digitalsensor/component-state-to-id';
@@ -25,6 +26,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.MOTOR]: getMotorStateId,
   [ArduinoComponentType.MESSAGE]: () => ArduinoComponentType.MESSAGE.toString(),
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelId,
+  [ArduinoComponentType.FASTLED_STRIP]: fastLEDId,
   [ArduinoComponentType.RFID]: genericSingleComponentId,
   [ArduinoComponentType.SERVO]: genericSingleComponentId,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: genericSingleComponentId,
