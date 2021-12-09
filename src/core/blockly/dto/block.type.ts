@@ -17,7 +17,8 @@ export enum PinCategory {
   BUTTON = 'BUTTON',
   IR_REMOTE = 'IR_REMOTE',
   LCD_SCREEN = 'LCD_SCREEN',
-  LED_STRIP = 'LED_STRIP',
+  NEO_PIXEL = 'NEO_PIXEL',
+  FAST_LED = 'FAST_LED',
   LED_MATRIX = 'LED_MATRIX',
   LED_COLOR = 'LED_COLOR',
   ULTRA_SONIC = 'ULTRA_SONIC',
@@ -380,7 +381,7 @@ export const blocksToBlockTypes: {
 
   neo_pixel_setup: {
     type: BlockType.SETUP,
-    pinCategory: PinCategory.LED_STRIP,
+    pinCategory: PinCategory.NEO_PIXEL,
   },
 
   neo_pixel_set_color: {
@@ -389,7 +390,7 @@ export const blocksToBlockTypes: {
   },
   fastled_setup: {
     type: BlockType.SETUP,
-    pinCategory: PinCategory.LED_STRIP,
+    pinCategory: PinCategory.FAST_LED,
   },
   fastled_set_color: {
     type: BlockType.STATE,
