@@ -48,6 +48,11 @@ import {
   neoPixelPosition,
 } from "../../blocks/neopixels/virtual-circuit";
 import {
+  fastLEDCreate,
+  createWiresFastLEDs,
+  fastLEDPosition,
+} from "../../blocks/fastled/virtual-circuit";
+import {
   digitalAnanlogWritePinCreate,
   createWiresDigitalAnalogWrite,
   digitalAnanlogWritePinPosition,
@@ -255,6 +260,7 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.MESSAGE]: createNoWires,
   [ArduinoComponentType.MOTOR]: createNoWires,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: createWiresNeoPixels,
+  [ArduinoComponentType.FASTLED_STRIP]: createWiresFastLEDs,
   [ArduinoComponentType.RFID]: createWiresRfid,
   [ArduinoComponentType.SERVO]: createWiresServo,
   [ArduinoComponentType.WRITE_PIN]: createWiresDigitalAnalogWrite,
@@ -282,6 +288,7 @@ const positionComponentHookFunc: {
   [ArduinoComponentType.MESSAGE]: emptyPositionComponent,
   [ArduinoComponentType.MOTOR]: motorPosition,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelPosition,
+  [ArduinoComponentType.FASTLED_STRIP]: fastLEDPosition,
   [ArduinoComponentType.WRITE_PIN]: digitalAnanlogWritePinPosition,
   [ArduinoComponentType.RFID]: positionRfid,
   [ArduinoComponentType.SERVO]: servoPosition,
@@ -308,6 +315,7 @@ const createComponentHookFunc: {
   [ArduinoComponentType.MESSAGE]: arduinoMessageCreate,
   [ArduinoComponentType.MOTOR]: motorCreate,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelCreate,
+  [ArduinoComponentType.FASTLED_STRIP]: fastLEDCreate,
   [ArduinoComponentType.WRITE_PIN]: digitalAnanlogWritePinCreate,
   [ArduinoComponentType.LED]: ledCreate,
   [ArduinoComponentType.RFID]: createRfid,

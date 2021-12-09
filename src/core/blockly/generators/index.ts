@@ -20,6 +20,7 @@ import '../../../blocks/math/generators';
 import '../../../blocks/ultrasonic_sensor/generators';
 import '../../../blocks/motors/generators';
 import '../../../blocks/neopixels/generators';
+import '../../../blocks/fastled/generators';
 import '../../../blocks/analogsensor/genertors';
 import '../../../blocks/functions/generators';
 import '../../../blocks/rfid/generators';
