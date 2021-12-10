@@ -5,17 +5,18 @@ Blockly['Arduino']['fastled_setup'] = function (block) {
   const numberOfLeds = block.getFieldValue('NUMBER_LEDS');
   const pin = block.getFieldValue('PIN');
   const brightness = block.getFieldValue('BRIGHTNESS');
+  const colorOrder = block.getFieldValue('COLOR_ORDER');
+  const chipSet = block.getFieldValue('CHIP_SET');
   Blockly['Arduino'].libraries_['define_fastled'] = `
 #include <FastLED.h>
 #define NUM_LEDS ${numberOfLeds}
 #define DATA_PIN ${pin} 
-#define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
 
 `;
 
   Blockly['Arduino'].setupCode_['fastled'] = `
-    FastLED.addLeds<WS2811, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS);
+    FastLED.addLeds<${chipSet}, DATA_PIN, ${colorOrder}>(leds, NUM_LEDS);
     FastLED.setBrightness(${brightness});    
 `;
   return '';
