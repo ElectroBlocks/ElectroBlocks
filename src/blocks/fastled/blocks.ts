@@ -54,6 +54,64 @@ Blockly.Blocks['fastled_setup'] = {
         'PIN'
       );
     this.appendDummyInput()
+      .appendField('Type')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['WS2811', 'WS2811'],
+          ['WS2801', 'WS2801'],
+          ['WS2803', 'WS2803'],
+          ['APA102', 'APA102'],
+          ['APA104', 'APA104'],
+          ['APA106', 'APA106'],
+          ['DOTSTAR', 'DOTSTAR'],
+          ['GE8822', 'GE8822'],
+          ['GS1903', 'GS1903'],
+          ['GW6205', 'GW6205'],
+          ['GW6205_400', 'GW6205_400'],
+          ['LPD1886', 'LPD1886'],
+          ['LPD1886_8BIT', 'LPD1886_8BIT'],
+          ['LPD6803', 'LPD6803'],
+          ['LPD8806', 'LPD8806'],
+          ['P9813', 'P9813'],
+          ['PL9823', 'PL9823'],
+          ['SK6812', 'SK6812'],
+          ['SK6822', 'SK6822'],
+          ['SK9822', 'SK9822'],
+          ['SM16703', 'SM16703'],
+          ['SM16716', 'SM16716'],
+          ['TM1803', 'TM1803'],
+          ['TM1804', 'TM1804'],
+          ['TM1809', 'TM1809'],
+          ['TM1812', 'TM1812'],
+          ['TM1829', 'TM1829'],
+          ['UCS1903', 'UCS1903'],
+          ['UCS1903B', 'UCS1903B'],
+          ['UCS1904', 'UCS1904'],
+          ['UCS2903', 'UCS2903'],
+          ['WS2811_400', 'WS2811_400'],
+          ['WS2812', 'WS2812'],
+          ['WS2812B', 'WS2812B'],
+          ['WS2813', 'WS2813'],
+          ['WS2852', 'WS2852'],
+        ]),
+        'CHIP_SET'
+      );
+
+    this.appendDummyInput()
+      .appendField('Color Order')
+      .appendField(
+        new Blockly.FieldDropdown([
+          ['RGB', 'RGB'],
+          ['GRB', 'GRB'],
+          ['RBG', 'RBG'],
+          ['GBR', 'GBR'],
+          ['BRG', 'BRG'],
+          ['BGR', 'BGR'],
+        ]),
+        'COLOR_ORDER'
+      );
+
+    this.appendDummyInput()
       .appendField('Number of leds')
       .appendField(new Blockly.FieldNumber(30, 1, 150), 'NUMBER_LEDS');
     this.appendDummyInput()
