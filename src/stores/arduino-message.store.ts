@@ -53,6 +53,12 @@ const sendMessage = async (message: string) => {
     if (err) {
       console.log(err, "sendmessage");
     }
+    arduinoMessageStore.set({
+      message,
+      type: "Computer",
+      id: new Date().getTime() + "_" + Math.random().toString(),
+      time: new Date().toLocaleTimeString(),
+    });
   });
 };
 
