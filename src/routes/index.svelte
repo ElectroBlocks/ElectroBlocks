@@ -17,7 +17,7 @@
     const inAppTutorialFetcher = new InAppTutorialFeter(config.site);
     if ($page.query['lessonId']) {
       try {
-        await inAppTutorialFetcher.open(500, 150, $page.query['lessonId']);
+        await inAppTutorialFetcher.open(500, 30, $page.query['lessonId']);
       } catch (e) {
         onErrorMessage('Error loading the lesson', e);
       }
