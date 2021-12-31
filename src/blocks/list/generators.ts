@@ -9,14 +9,17 @@ export const setZeroIndexAdjustFunc = () => {
     '}\n';
 };
 
-const initListVariable = function(block: Block, type: string) {
+const initListVariable = function (block: Block, type: string) {
   setZeroIndexAdjustFunc();
+
+  const preStructBeforeVar = ['RGB'].includes(type) ? 'struct ' : '';
 
   const size = block.getFieldValue('SIZE');
 
   const variableId = block.getFieldValue('VAR');
 
   Blockly['Arduino'].variablesInitCode_ +=
+    preStructBeforeVar +
     type.replace(' list', '') +
     ' ' +
     Blockly['Arduino'].variableDB_.getName(
@@ -30,7 +33,7 @@ const initListVariable = function(block: Block, type: string) {
   return '';
 };
 
-const setListVariable = function(block: Block) {
+const setListVariable = function (block: Block) {
   const position = Blockly['Arduino'].valueToCode(
     block,
     'POSITION',
@@ -58,7 +61,7 @@ const setListVariable = function(block: Block) {
   );
 };
 
-const getListVariable = function(block: Block) {
+const getListVariable = function (block: Block) {
   const variableId = block.getFieldValue('VAR');
 
   const position = Blockly['Arduino'].valueToCode(
@@ -75,23 +78,23 @@ const getListVariable = function(block: Block) {
       '[zeroIndexAdjustNumber(' +
       position +
       ')]',
-    Blockly['Arduino'].ORDER_ATOMIC
+    Blockly['Arduino'].ORDER_ATOMIC,
   ];
 };
 
-Blockly['Arduino']['create_list_number_block'] = function(block: Block) {
+Blockly['Arduino']['create_list_number_block'] = function (block: Block) {
   return initListVariable(block, 'double');
 };
 
-Blockly['Arduino']['create_list_string_block'] = function(block: Block) {
+Blockly['Arduino']['create_list_string_block'] = function (block: Block) {
   return initListVariable(block, 'String');
 };
 
-Blockly['Arduino']['create_list_boolean_block'] = function(block: Block) {
+Blockly['Arduino']['create_list_boolean_block'] = function (block: Block) {
   return initListVariable(block, 'boolean');
 };
 
-Blockly['Arduino']['create_list_colour_block'] = function(block: Block) {
+Blockly['Arduino']['create_list_colour_block'] = function (block: Block) {
   return initListVariable(block, 'RGB');
 };
 
