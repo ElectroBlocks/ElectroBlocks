@@ -3,6 +3,8 @@
   import _ from 'lodash';
   import firebase from 'firebase/app';
 
+  import { FormGroup, Input, Label, Button } from 'sveltestrap/src';
+
   import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
   import Nav from '../components/electroblocks/Nav.svelte';
   import Blockly from '../components/electroblocks/Blockly.svelte';
@@ -30,54 +32,75 @@
   $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
 
   let height = '500px';
-  let leftFlex = 44;
-  let rightFlex = 44;
-  let isResizing = false;
+  let middleFlex = 39;
+  let rightFlex = 29;
+  let leftFlex = 31;
+  let isResizingLeft = false;
+  let isResizingRight = false;
 
   /**
    * Event is on grabber on is trigger by a mouse down event
    */
-  function startResize() {
-    isResizing = true;
+  function startResize(side) {
+    if (side == 'right') {
+      isResizingRight = true;
+    } else {
+      isResizingLeft = true;
+    }
   }
 
   /**
    * Event is on the body so that all mouse up events stop resizing
    */
   function stopResize() {
-    isResizing = false;
+    isResizingRight = false;
+    isResizingLeft = false;
   }
+
+  const resize = (side) => {
+    return (e) => {
+      if (!isResizingLeft && side == 'left') {
+        return;
+      }
+
+      if (!isResizingRight && side == 'right') {
+        return;
+      }
+
+      // Width of the window
+      const windowWidth = window.innerWidth;
+
+      // If the either window size is less than 200 px don't resize window
+      if (e.clientX < 20 || windowWidth - e.clientX < 20) {
+        return;
+      }
+
+      // Because e.clientX represents the number of pixels the mouse is to the left
+      // Subtract that from the total window size to get the width of the right side
+      // Then divide that by total width and multiply by 100 to get the flex size
+      // Subtract .5 for the size of the grabber which is 1 flex
+      if (side == 'right') {
+        rightFlex = ((windowWidth - e.clientX) / windowWidth) * 100;
+      } else {
+        console.log('firing left');
+        leftFlex = (e.clientX / windowWidth) * 100;
+      }
+
+      // Derive the from right flex calculation
+      middleFlex = 100 - rightFlex - leftFlex - 1;
+
+      // Trigger an main windows that need to be resized
+      resizeStore.mainWindow();
+    };
+  };
 
   /**
    * This is a mouse move event on the main section of the html
    * It will resize the 2 windows,
    * Slight Trottling with debounce
    */
-  const resize = _.debounce((e) => {
-    if (!isResizing) {
-      return;
-    }
-
-    // Width of the window
-    const windowWidth = window.innerWidth;
-
-    // If the either window size is less than 200 px don't resize window
-    if (e.clientX < 200 || windowWidth - e.clientX < 200) {
-      return;
-    }
-
-    // Because e.clientX represents the number of pixels the mouse is to the left
-    // Subtract that from the total window size to get the width of the right side
-    // Then divide that by total width and multiply by 100 to get the flex size
-    // Subtract .5 for the size of the grabber which is 1 flex
-    rightFlex = ((windowWidth - e.clientX) / windowWidth) * 100 - 0.5;
-
-    // Derive the from right flex calculation
-    leftFlex = 100 - rightFlex - 0.5;
-
-    // Trigger an main windows that need to be resized
-    resizeStore.mainWindow();
-  }, 2);
+  const resizeRightSide = _.debounce(resize('right'), 2);
+  const resizeLeftSide = _.debounce(resize('left'), 2);
 
   function resizeHeight() {
     // Calculates the height of the window
@@ -165,14 +188,54 @@
 
 <Nav {segment} />
 <svelte:body on:mouseup={stopResize} />
-<main style="height: {height}" on:mousemove={resize}>
-  <div style="flex: {leftFlex}" id="left_panel">
+<main
+  style="height: {height}"
+  on:mousemove={resizeLeftSide}
+  on:mousemove={resizeRightSide}
+>
+  <div style="flex: {leftFlex}; overflow-y: scroll;">
+    <div class="lessons-container">
+      <div id="close">X</div>
+
+      <FormGroup>
+        <Label for="search">Search</Label>
+        <Input type="text" name="text" id="search" />
+      </FormGroup>
+      <FormGroup>
+        <Label for="Category">Category</Label>
+        <Input type="select" name="select" id="Category">
+          <option>Lessons</option>
+          <option>Starters</option>
+          <option>How Tos</option>
+          <option>All</option>
+        </Input>
+      </FormGroup>
+      <h2>High Five Lesson</h2>
+      <video controls>
+        <source
+          src="https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FGcym9zmref566fEFWgYy%2Fstep_Vs5B6xqmI07XAXGNCs4n.mp4?alt=media&token=91ccea63-4d80-4b5d-a243-597eaf92ecea"
+        />
+      </video>
+      <a href="http://www.google.com">High Five Wiring Instructions</a>
+
+      <h2>Blink Lesson</h2>
+      <video controls>
+        <source
+          src="https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FGcym9zmref566fEFWgYy%2Fstep_Vs5B6xqmI07XAXGNCs4n.mp4?alt=media&token=91ccea63-4d80-4b5d-a243-597eaf92ecea"
+        />
+      </video>
+      <a href="http://www.google.com">Blink Wiring Instructions</a>
+    </div>
+  </div>
+  <div class="grabber" on:mousedown={() => startResize('left')} />
+  <div style="flex: {middleFlex}" id="middle_panel">
     <Blockly {showLoopExecutionTimesArduinoStartBlock} />
   </div>
-  <div on:mousedown={startResize} id="grabber" />
+  <div on:mousedown={() => startResize('right')} class="grabber" />
   <div
     style="flex: {rightFlex}"
     class:scroll={showScrollOnRightSide}
+    class:hide={rightFlex < 15}
     id="right_panel"
   >
     <slot />
@@ -190,8 +253,19 @@
     box-sizing: border-box; /** */
   }
 
+  .lessons-container {
+    padding: 15px;
+    position: relative;
+  }
+
+  .lessons-container > video {
+    width: calc(100% - 12px);
+
+    display: block;
+  }
+
   /** div used to resize both items */
-  #grabber {
+  .grabber {
     flex: 1;
     cursor: col-resize;
     background-color: #eff0f1;
@@ -204,5 +278,20 @@
   }
   #right_panel.scroll {
     overflow-y: scroll;
+  }
+  .hide {
+    opacity: 0.01;
+  }
+  #close {
+    width: 20px;
+    height: 20px;
+    background-color: #aa0000;
+    color: white;
+    text-align: center;
+    right: 0;
+    top: 0;
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
   }
 </style>
