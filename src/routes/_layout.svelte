@@ -3,8 +3,6 @@
   import _ from 'lodash';
   import firebase from 'firebase/app';
 
-  import { FormGroup, Input, Label, Button } from 'sveltestrap/src';
-
   import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
   import Nav from '../components/electroblocks/Nav.svelte';
   import Blockly from '../components/electroblocks/Blockly.svelte';
@@ -20,6 +18,7 @@
     arduinoLoopBlockShowNumberOfTimesThroughLoop,
   } from '../core/blockly/helpers/arduino_loop_block.helper';
   import swal from 'sweetalert';
+  import Lessons from '../components/electroblocks/home/Lessons.svelte';
 
   const { page } = stores();
   export let segment = '';
@@ -194,38 +193,7 @@
   on:mousemove={resizeRightSide}
 >
   <div style="flex: {leftFlex}; overflow-y: scroll;">
-    <div class="lessons-container">
-      <div id="close">X</div>
-
-      <FormGroup>
-        <Label for="search">Search</Label>
-        <Input type="text" name="text" id="search" />
-      </FormGroup>
-      <FormGroup>
-        <Label for="Category">Category</Label>
-        <Input type="select" name="select" id="Category">
-          <option>Lessons</option>
-          <option>Starters</option>
-          <option>How Tos</option>
-          <option>All</option>
-        </Input>
-      </FormGroup>
-      <h2>High Five Lesson</h2>
-      <video controls>
-        <source
-          src="https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FGcym9zmref566fEFWgYy%2Fstep_Vs5B6xqmI07XAXGNCs4n.mp4?alt=media&token=91ccea63-4d80-4b5d-a243-597eaf92ecea"
-        />
-      </video>
-      <a href="http://www.google.com">High Five Wiring Instructions</a>
-
-      <h2>Blink Lesson</h2>
-      <video controls>
-        <source
-          src="https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FGcym9zmref566fEFWgYy%2Fstep_Vs5B6xqmI07XAXGNCs4n.mp4?alt=media&token=91ccea63-4d80-4b5d-a243-597eaf92ecea"
-        />
-      </video>
-      <a href="http://www.google.com">Blink Wiring Instructions</a>
-    </div>
+    <Lessons />
   </div>
   <div class="grabber" on:mousedown={() => startResize('left')} />
   <div style="flex: {middleFlex}" id="middle_panel">
@@ -253,17 +221,6 @@
     box-sizing: border-box; /** */
   }
 
-  .lessons-container {
-    padding: 15px;
-    position: relative;
-  }
-
-  .lessons-container > video {
-    width: calc(100% - 12px);
-
-    display: block;
-  }
-
   /** div used to resize both items */
   .grabber {
     flex: 1;
@@ -281,17 +238,5 @@
   }
   .hide {
     opacity: 0.01;
-  }
-  #close {
-    width: 20px;
-    height: 20px;
-    background-color: #aa0000;
-    color: white;
-    text-align: center;
-    right: 0;
-    top: 0;
-    position: absolute;
-    cursor: pointer;
-    user-select: none;
   }
 </style>
