@@ -81,8 +81,11 @@
       if (side == 'right') {
         rightFlex = ((windowWidth - e.clientX) / windowWidth) * 100;
       } else {
-        console.log('firing left');
         leftFlex = (e.clientX / windowWidth) * 100;
+      }
+
+      if ($page.query['show_lessons'] === undefined) {
+        leftFlex = 0;
       }
 
       // Derive the from right flex calculation
@@ -192,10 +195,12 @@
   on:mousemove={resizeLeftSide}
   on:mousemove={resizeRightSide}
 >
-  <div style="flex: {leftFlex}; overflow-y: scroll;">
-    <Lessons />
-  </div>
-  <div class="grabber" on:mousedown={() => startResize('left')} />
+  {#if $page.query['show_lessons'] !== undefined}
+    <div style="flex: {leftFlex}; overflow-y: scroll;">
+      <Lessons />
+    </div>
+    <div class="grabber" on:mousedown={() => startResize('left')} />
+  {/if}
   <div style="flex: {middleFlex}" id="middle_panel">
     <Blockly {showLoopExecutionTimesArduinoStartBlock} />
   </div>

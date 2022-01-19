@@ -56,4 +56,81 @@ export const videoLessons: Array<VideoLesson> = [
   },
 ];
 
-export const starterLessons: Array<StarterLesson> = [];
+export const starterLessons: Array<StarterLesson> = [
+  {
+    id: 'blink',
+    title: 'Blink',
+    pictureUrl:
+      'https://storage.googleapis.com/electroblocks/starters/blink/picture.png',
+    projectUrl:
+      'https://storage.googleapis.com/electroblocks/starters/blink/project.xml',
+  },
+];
+
+/**
+ * {
+    "url": "/",
+    "type": "TUTORIALS",
+    "mainPicture": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FzZCRQIEaHZTDEFGiRjX5%2FmainPicture.png?alt=media&token=1e4c5c54-6180-4c93-b6ff-814ebee456f9",
+    "description": "Make an led blink.",
+    "created": "2021-11-18T07:54:00.350Z",
+    "updated": "2021-11-18T07:54:00.350Z",
+    "title": "Blink Starter",
+    "published": true,
+    "projectFilePath": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FzZCRQIEaHZTDEFGiRjX5%2FprojectFile.xml?alt=media&token=1f298fbb-5f90-4b8e-adc7-6d0b89736a1b",
+    "projectFileUrl": "",
+    "metadata": "{\"TYPE\": \"STARTER\"}",
+    "userId": "mgMqiXuPbEdHtr6UoPVbQozFQwD2",
+    "id": "zZCRQIEaHZTDEFGiRjX5"
+}
+
+{
+    "updated": "2021-11-18T07:55:19.506Z",
+    "projectFilePath": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FCL8CFfEcsKIod58n70PM%2FprojectFile.xml?alt=media&token=f401b007-927e-4ccf-8d57-28a70bc7040b",
+    "projectFileUrl": "",
+    "metadata": "{\"TYPE\": \"STARTER\"}",
+    "published": true,
+    "mainPicture": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FCL8CFfEcsKIod58n70PM%2FmainPicture.png?alt=media&token=277c2208-8881-49ae-aa6a-055c6340ad8a",
+    "type": "TUTORIALS",
+    "url": "/",
+    "description": "Make two LEDs blink.",
+    "title": "Double Blink Starter",
+    "created": "2021-11-18T07:55:19.506Z",
+    "userId": "mgMqiXuPbEdHtr6UoPVbQozFQwD2",
+    "id": "CL8CFfEcsKIod58n70PM"
+}
+
+{
+    "url": "/",
+    "updated": "2021-11-18T07:58:26.424Z",
+    "mainPicture": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FhPveoHbFdDJAVlYoXSYw%2FmainPicture.png?alt=media&token=e8d04f8d-88c4-4c85-9a4e-6211e0a91fa2",
+    "projectFilePath": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FhPveoHbFdDJAVlYoXSYw%2FprojectFile.xml?alt=media&token=b2c9246b-f782-41a8-8fc0-bd3ed50cfe8f",
+    "metadata": "{\"TYPE\": \"STARTER\"}",
+    "title": "Alternating Blink Starter",
+    "userId": "mgMqiXuPbEdHtr6UoPVbQozFQwD2",
+    "created": "2021-11-18T07:58:26.424Z",
+    "description": "Make alternating LED Blink pattern. ",
+    "published": true,
+    "type": "TUTORIALS",
+    "projectFileUrl": "",
+    "id": "hPveoHbFdDJAVlYoXSYw"
+}
+ * 
+ * 
+ * {
+    "updated": "2021-03-28T05:21:54.820Z",
+    "projectFile": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FM7YjDVswT4QU8CVURJVJ%2FprojectFile.xml?alt=media&token=d4a6dced-c21a-4943-8dc3-4679d913432b",
+    "published": true,
+    "title": "High Five Starter",
+    "projectFilePath": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FM7YjDVswT4QU8CVURJVJ%2FprojectFile.xml?alt=media&token=a14a92f3-9e2a-46e8-9c68-f838e6ab8903",
+    "mainPicture": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FM7YjDVswT4QU8CVURJVJ%2FmainPicture.png?alt=media&token=aa081b40-713a-480f-a77c-b961fac6da3b",
+    "description": "When you press the button the servo will give you a high five.",
+    "type": "TUTORIALS",
+    "url": "/",
+    "projectFileUrl": "",
+    "created": "2021-03-28T05:21:54.820Z",
+    "userId": "mgMqiXuPbEdHtr6UoPVbQozFQwD2",
+    "metadata": "{\"TYPE\": \"STARTER\"}",
+    "id": "M7YjDVswT4QU8CVURJVJ"
+}
+ */

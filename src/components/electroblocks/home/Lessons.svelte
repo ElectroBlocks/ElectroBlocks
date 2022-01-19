@@ -1,19 +1,31 @@
 <script lang="ts">
-  import { FormGroup, Input, Label } from 'sveltestrap/src';
+  import { FormGroup, Input } from 'sveltestrap/src';
   import { starterLessons, videoLessons } from '../../../lessons/lessons';
   import StarterLesson from '../lessons/StarterLesson.svelte';
   import VideoLesson from '../lessons/VideoLesson.svelte';
+  import { goto } from '@sapper/app';
+  import projectStore from '../../../stores/project.store';
+
   let category = 'video';
 
   let videoLessonFiltered = videoLessons;
   let starterLessonsFiltered = starterLessons;
+
+  async function close() {
+    if ($projectStore.projectId) {
+      let projectId = $projectStore.projectId;
+      await goto(`/?project_id=${projectId}`);
+      return;
+    }
+
+    await goto('/');
+  }
 </script>
 
 <div class="lessons-container">
-  <div id="close">X</div>
+  <div on:click={close} id="close">X</div>
   <h2>Lessons</h2>
   <FormGroup>
-    <Label for="Category">Category</Label>
     <Input type="select" bind:value={category} name="select" id="Category">
       <option value="video">Videos</option>
       <option value="starter">Starters</option>
