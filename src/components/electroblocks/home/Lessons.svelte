@@ -3,22 +3,19 @@
   import { starterLessons, videoLessons } from '../../../lessons/lessons';
   import StarterLesson from '../lessons/StarterLesson.svelte';
   import VideoLesson from '../lessons/VideoLesson.svelte';
-  import { goto } from '@sapper/app';
-  import projectStore from '../../../stores/project.store';
-
+  import showLessonStore from '../../../stores/showLessons.store';
+  import { resizeStore } from '../../../stores/resize.store';
+  import { tick } from 'svelte';
   let category = 'video';
 
   let videoLessonFiltered = videoLessons;
   let starterLessonsFiltered = starterLessons;
 
   async function close() {
-    if ($projectStore.projectId) {
-      let projectId = $projectStore.projectId;
-      await goto(`/?project_id=${projectId}`);
-      return;
-    }
-
-    await goto('/');
+    showLessonStore.set(false);
+    await tick();
+    await tick();
+    resizeStore.mainWindow();
   }
 </script>
 

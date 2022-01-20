@@ -15,6 +15,7 @@
   import { saveProject } from '../../firebase/db';
   import { wait } from '../../helpers/wait';
   import { onConfirm, onErrorMessage } from '../../help/alerts';
+  import showLessonStore from '../../stores/showLessons.store';
 
   let isOpeningFile = false;
   let fileUpload;
@@ -24,6 +25,11 @@
   const { page } = stores();
 
   let params = '';
+
+  async function onOpenLesson() {
+    showLessonStore.set(true);
+  }
+
   projectStore.subscribe((p) => {
     if (p.projectId) {
       params = `?projectid=${p.projectId}`;
@@ -116,10 +122,7 @@
 
 <nav class:small={!$authStore.isLoggedIn}>
   {#if $authStore.isLoggedIn}
-    <a
-      href="/{params}"
-      class:active={isPathOnHomePage($page.path) && !$page.query['show_lessons']}
-    >
+    <a href="/{params}" class:active={isPathOnHomePage($page.path)}>
       <i class="fa fa-home" />
     </a>
 
@@ -129,12 +132,12 @@
     <a href="/arduino{params}" class:active={$page.path.includes('arduino')}>
       <i class="fa fa-microchip" />
     </a>
-    <a
-      href="/?show_lessons=1{params.replace('?', '&')}"
-      class:active={$page.query['show_lessons']}
+    <span
+      on:click={onOpenLesson}
+      class:active={isPathOnHomePage($page.path) && $showLessonStore}
     >
       <i class="fa fa-book" />
-    </a>
+    </span>
     <a href="/open" class:active={segment === 'open'}>
       <i
         class="fa "
@@ -169,9 +172,7 @@
     <a href="/arduino" class:active={$page.path.includes('arduino')}>
       <i class="fa fa-microchip" />
     </a>
-    <a href="/lessons" class:active={segment === 'lessons'}>
-      <i class="fa fa-book" />
-    </a>
+    <span on:click={onOpenLesson}> <i class="fa fa-book" /> </span>
     <label class:active={segment === 'open'}>
       <i
         class="fa "

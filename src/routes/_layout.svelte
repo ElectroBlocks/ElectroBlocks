@@ -10,9 +10,9 @@
   import { stores, goto } from '@sapper/app';
   import authStore from '../stores/auth.store';
   import projectStore from '../stores/project.store';
-  import { onErrorMessage } from '../help/alerts';
   import { getFile, getProject } from '../firebase/db';
   import { loadProject } from '../core/blockly/helpers/workspace.helper';
+  import showLessonStore from '../stores/showLessons.store';
   import {
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop,
@@ -84,7 +84,7 @@
         leftFlex = (e.clientX / windowWidth) * 100;
       }
 
-      if ($page.query['show_lessons'] === undefined) {
+      if ($showLessonStore) {
         leftFlex = 0;
       }
 
@@ -195,7 +195,7 @@
   on:mousemove={resizeLeftSide}
   on:mousemove={resizeRightSide}
 >
-  {#if $page.query['show_lessons'] !== undefined}
+  {#if $showLessonStore}
     <div style="flex: {leftFlex}; overflow-y: scroll;">
       <Lessons />
     </div>
