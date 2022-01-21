@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import _ from 'lodash';
   import firebase from 'firebase/app';
 
@@ -31,9 +31,9 @@
   $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
 
   let height = '500px';
-  let middleFlex = 39;
-  let rightFlex = 29;
-  let leftFlex = 31;
+  let middleFlex = 59.5;
+  let rightFlex = 39.5;
+  let leftFlex = 0;
   let isResizingLeft = false;
   let isResizingRight = false;
 
@@ -84,7 +84,8 @@
         leftFlex = (e.clientX / windowWidth) * 100;
       }
 
-      if ($showLessonStore) {
+      // If this is false we should not worry about lesson side of the screen.
+      if (!$showLessonStore) {
         leftFlex = 0;
       }
 
@@ -130,6 +131,22 @@
         showScrollOnRightSide = false;
       }
       resizeHeight();
+    });
+
+    showLessonStore.subscribe(async (showLesson) => {
+      if (showLesson) {
+        middleFlex = 39;
+        rightFlex = 29;
+        leftFlex = 31;
+      } else {
+        middleFlex = 59.5;
+        rightFlex = 39.5;
+        leftFlex = 0;
+      }
+      await tick();
+      await tick();
+      await tick();
+      resizeStore.mainWindow();
     });
 
     let loadedProject = false;

@@ -26,8 +26,8 @@
 
   let params = '';
 
-  async function onOpenLesson() {
-    showLessonStore.set(true);
+  async function onToggleLessons() {
+    showLessonStore.update((u) => !u);
   }
 
   projectStore.subscribe((p) => {
@@ -132,12 +132,10 @@
     <a href="/arduino{params}" class:active={$page.path.includes('arduino')}>
       <i class="fa fa-microchip" />
     </a>
-    <span
-      on:click={onOpenLesson}
-      class:active={isPathOnHomePage($page.path) && $showLessonStore}
-    >
+    <span class:active={$showLessonStore} on:click={onToggleLessons}>
       <i class="fa fa-book" />
     </span>
+
     <a href="/open" class:active={segment === 'open'}>
       <i
         class="fa "
@@ -172,7 +170,9 @@
     <a href="/arduino" class:active={$page.path.includes('arduino')}>
       <i class="fa fa-microchip" />
     </a>
-    <span on:click={onOpenLesson}> <i class="fa fa-book" /> </span>
+    <span class:active={$showLessonStore} on:click={onToggleLessons}>
+      <i class="fa fa-book" />
+    </span>
     <label class:active={segment === 'open'}>
       <i
         class="fa "
@@ -218,6 +218,7 @@
   }
 
   nav a .fa,
+  nav span .fa,
   nav .disabled .fa {
     opacity: 0.5;
   }

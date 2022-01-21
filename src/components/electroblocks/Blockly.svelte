@@ -17,9 +17,7 @@
     getAllBlocks,
     getBlockById,
   } from '../../core/blockly/helpers/block.helper';
-  import InAppTutorialFeter from '../../lessons/InAppTutorialFetcher';
-  import { loadProjectFromUrl } from '../../core/blockly/helpers/workspace.helper';
-  import showLessonStore from '../../stores/showLessons.store';
+  import updateLoopblockStore from '../../stores/update-loopblock.store';
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text
@@ -53,25 +51,6 @@
       resizeBlockly();
     }, 200);
 
-    document.addEventListener(
-      InAppTutorialFeter.CHANGE_LESSON_EVENT,
-      async (e) => {
-        if (!e.detail || !e.detail.projectFilePath) {
-          return;
-        }
-
-        const filePath = e.detail.projectFilePath;
-        if (filePath) {
-          await loadProjectFromUrl(filePath);
-          if (showLoopExecutionTimesArduinoStartBlock) {
-            arduinoLoopBlockShowNumberOfTimesThroughLoop();
-          } else {
-            arduinoLoopBlockShowLoopForeverText();
-          }
-        }
-      }
-    );
-
     unsubscribes.push(
       currentFrameStore.subscribe((frame) => {
         if (!frame) return;
@@ -79,6 +58,16 @@
         const selectedBlock = getBlockById(frame.blockId);
         if (selectedBlock) {
           selectedBlock.select();
+        }
+      })
+    );
+
+    unsubscribes.push(
+      updateLoopblockStore.subscribe(() => {
+        if (showLoopExecutionTimesArduinoStartBlock && workspaceInitialize) {
+          arduinoLoopBlockShowNumberOfTimesThroughLoop();
+        } else if (workspaceInitialize) {
+          arduinoLoopBlockShowLoopForeverText();
         }
       })
     );

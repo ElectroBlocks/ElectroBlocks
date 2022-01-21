@@ -22,6 +22,7 @@
 <div class="lessons-container">
   <div on:click={close} id="close">X</div>
   <h2>Lessons</h2>
+
   <FormGroup>
     <Input type="select" bind:value={category} name="select" id="Category">
       <option value="video">Videos</option>
@@ -29,12 +30,24 @@
     </Input>
   </FormGroup>
   {#if category == 'video'}
+    <p>
+      Instructions for building the circuit are on the support page linkd.
+      Please consider taking our
+      <a
+        target="_blank"
+        href="https://docs.google.com/forms/d/1LngdF9DGPjRZfSl4uLvGfpX4WK_7CHlUw2y9-vIg1fY/prefill"
+      >anonymous survey</a>.
+    </p>
     {#each videoLessonFiltered as videoLesson}
       <VideoLesson lesson={videoLesson} />
     {/each}
   {/if}
 
   {#if category == 'starter'}
+    <p>
+      Click on the picture to see code. Instructions for building the circuit
+      are on the support page linked.
+    </p>
     {#each starterLessonsFiltered as starterLesson}
       <StarterLesson lesson={starterLesson} />
     {/each}
@@ -59,5 +72,9 @@
     position: absolute;
     cursor: pointer;
     user-select: none;
+  }
+  a {
+    color: darkblue;
+    text-decoration: underline;
   }
 </style>

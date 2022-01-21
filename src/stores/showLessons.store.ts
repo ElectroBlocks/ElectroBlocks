@@ -5,4 +5,5 @@ const lessonOpenStore = writable(false);
 export default {
   subscribe: lessonOpenStore.subscribe,
   set: lessonOpenStore.set,
+  update: lessonOpenStore.update,
 };

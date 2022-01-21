@@ -10,6 +10,7 @@ export interface StarterLesson {
   title: string;
   projectUrl: string;
   pictureUrl: string;
+  lessonUrl: string;
 }
 
 export const videoLessons: Array<VideoLesson> = [
@@ -64,25 +65,12 @@ export const starterLessons: Array<StarterLesson> = [
       'https://storage.googleapis.com/electroblocks/starters/blink/picture.png',
     projectUrl:
       'https://storage.googleapis.com/electroblocks/starters/blink/project.xml',
+    lessonUrl: 'https://electroblocks.github.io/docs/lessons/blink/',
   },
 ];
 
 /**
- * {
-    "url": "/",
-    "type": "TUTORIALS",
-    "mainPicture": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FzZCRQIEaHZTDEFGiRjX5%2FmainPicture.png?alt=media&token=1e4c5c54-6180-4c93-b6ff-814ebee456f9",
-    "description": "Make an led blink.",
-    "created": "2021-11-18T07:54:00.350Z",
-    "updated": "2021-11-18T07:54:00.350Z",
-    "title": "Blink Starter",
-    "published": true,
-    "projectFilePath": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FzZCRQIEaHZTDEFGiRjX5%2FprojectFile.xml?alt=media&token=1f298fbb-5f90-4b8e-adc7-6d0b89736a1b",
-    "projectFileUrl": "",
-    "metadata": "{\"TYPE\": \"STARTER\"}",
-    "userId": "mgMqiXuPbEdHtr6UoPVbQozFQwD2",
-    "id": "zZCRQIEaHZTDEFGiRjX5"
-}
+
 
 {
     "updated": "2021-11-18T07:55:19.506Z",
