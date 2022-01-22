@@ -55,8 +55,35 @@ export const videoLessons: Array<VideoLesson> = [
     videoUrl: 'https://storage.googleapis.com/electroblocks/videos/6-wave.mp4',
     lessonUrl: 'https://electroblocks.github.io/docs/lessons/wave/',
   },
+  {
+    id: 'rgbled',
+    title: 'RGB LED',
+    videoUrl:
+      'https://storage.googleapis.com/electroblocks/videos/7-rbgled.mp4',
+    lessonUrl: 'https://electroblocks.github.io/docs/lessons/rgbled/',
+  },
+  {
+    id: 'intro-FastLED',
+    title: 'Intro - FastLED',
+    videoUrl:
+      'https://storage.googleapis.com/electroblocks/videos/8-intro-rgb-light-strip.mp4',
+    lessonUrl: 'https://electroblocks.github.io/docs/lessons/fastled/',
+  },
+  {
+    id: 'fastLED-alternating-pattern',
+    title: 'FastLED - Alternating Colors',
+    videoUrl:
+      'https://storage.googleapis.com/electroblocks/videos/9-FastLED-Alternating-Pattern.mp4',
+    lessonUrl: 'https://electroblocks.github.io/docs/lessons/fastled/',
+  },
+  {
+    id: 'fastLED-snake-pattern',
+    title: 'FastLED - Snake',
+    videoUrl:
+      'https://storage.googleapis.com/electroblocks/videos/9-FastLED-Alternating-Pattern.mp4',
+    lessonUrl: 'https://electroblocks.github.io/docs/lessons/fastled/',
+  },
 ];
-
 export const starterLessons: Array<StarterLesson> = [
   {
     id: 'blink',
@@ -67,58 +94,31 @@ export const starterLessons: Array<StarterLesson> = [
       'https://storage.googleapis.com/electroblocks/starters/blink/project.xml',
     lessonUrl: 'https://electroblocks.github.io/docs/lessons/blink/',
   },
+  {
+    id: 'double-blink',
+    title: 'Double Blink',
+    pictureUrl:
+      'https://storage.googleapis.com/electroblocks/starters/double-blink/picture.png',
+    projectUrl:
+      'https://storage.googleapis.com/electroblocks/starters/double-blink/project.xml',
+    lessonUrl: 'https://electroblocks.github.io/docs/lessons/blink/',
+  },
+  {
+    id: 'alernating-blink',
+    title: 'Alternating Blink',
+    pictureUrl:
+      'https://storage.googleapis.com/electroblocks/starters/alternating-blink/picture.png',
+    projectUrl:
+      'https://storage.googleapis.com/electroblocks/starters/alternating-blink/project.xml',
+    lessonUrl: 'https://electroblocks.github.io/docs/lessons/blink/',
+  },
+  {
+    id: 'high-five',
+    title: 'High Five',
+    pictureUrl:
+      'https://storage.googleapis.com/electroblocks/starters/highfive/picture.png',
+    projectUrl:
+      'https://storage.googleapis.com/electroblocks/starters/highfive/project.xml',
+    lessonUrl: 'https://electroblocks.github.io/docs/lessons/highfive/',
+  },
 ];
-
-/**
-
-
-{
-    "updated": "2021-11-18T07:55:19.506Z",
-    "projectFilePath": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FCL8CFfEcsKIod58n70PM%2FprojectFile.xml?alt=media&token=f401b007-927e-4ccf-8d57-28a70bc7040b",
-    "projectFileUrl": "",
-    "metadata": "{\"TYPE\": \"STARTER\"}",
-    "published": true,
-    "mainPicture": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FCL8CFfEcsKIod58n70PM%2FmainPicture.png?alt=media&token=277c2208-8881-49ae-aa6a-055c6340ad8a",
-    "type": "TUTORIALS",
-    "url": "/",
-    "description": "Make two LEDs blink.",
-    "title": "Double Blink Starter",
-    "created": "2021-11-18T07:55:19.506Z",
-    "userId": "mgMqiXuPbEdHtr6UoPVbQozFQwD2",
-    "id": "CL8CFfEcsKIod58n70PM"
-}
-
-{
-    "url": "/",
-    "updated": "2021-11-18T07:58:26.424Z",
-    "mainPicture": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FhPveoHbFdDJAVlYoXSYw%2FmainPicture.png?alt=media&token=e8d04f8d-88c4-4c85-9a4e-6211e0a91fa2",
-    "projectFilePath": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FhPveoHbFdDJAVlYoXSYw%2FprojectFile.xml?alt=media&token=b2c9246b-f782-41a8-8fc0-bd3ed50cfe8f",
-    "metadata": "{\"TYPE\": \"STARTER\"}",
-    "title": "Alternating Blink Starter",
-    "userId": "mgMqiXuPbEdHtr6UoPVbQozFQwD2",
-    "created": "2021-11-18T07:58:26.424Z",
-    "description": "Make alternating LED Blink pattern. ",
-    "published": true,
-    "type": "TUTORIALS",
-    "projectFileUrl": "",
-    "id": "hPveoHbFdDJAVlYoXSYw"
-}
- * 
- * 
- * {
-    "updated": "2021-03-28T05:21:54.820Z",
-    "projectFile": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FM7YjDVswT4QU8CVURJVJ%2FprojectFile.xml?alt=media&token=d4a6dced-c21a-4943-8dc3-4679d913432b",
-    "published": true,
-    "title": "High Five Starter",
-    "projectFilePath": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FM7YjDVswT4QU8CVURJVJ%2FprojectFile.xml?alt=media&token=a14a92f3-9e2a-46e8-9c68-f838e6ab8903",
-    "mainPicture": "https://firebasestorage.googleapis.com/v0/b/inapp-tutorial.appspot.com/o/electroblocks-org%2FM7YjDVswT4QU8CVURJVJ%2FmainPicture.png?alt=media&token=aa081b40-713a-480f-a77c-b961fac6da3b",
-    "description": "When you press the button the servo will give you a high five.",
-    "type": "TUTORIALS",
-    "url": "/",
-    "projectFileUrl": "",
-    "created": "2021-03-28T05:21:54.820Z",
-    "userId": "mgMqiXuPbEdHtr6UoPVbQozFQwD2",
-    "metadata": "{\"TYPE\": \"STARTER\"}",
-    "id": "M7YjDVswT4QU8CVURJVJ"
-}
- */
