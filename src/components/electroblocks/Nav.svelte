@@ -1,20 +1,21 @@
 <script lang="ts">
   export let segment: string;
-  import authStore from "../../stores/auth.store";
-  import projectStore from "../../stores/project.store";
-  import { isPathOnHomePage } from "../../helpers/is-path-on-homepage";
-  import { fade } from "svelte/transition";
-  import { stores, goto } from "@sapper/app";
-  import { logout } from "../../firebase/auth";
-  import { loadNewProjectFile } from "../../helpers/open-project-file";
+  import authStore from '../../stores/auth.store';
+  import projectStore from '../../stores/project.store';
+  import { isPathOnHomePage } from '../../helpers/is-path-on-homepage';
+  import { fade } from 'svelte/transition';
+  import { stores, goto } from '@sapper/app';
+  import { logout } from '../../firebase/auth';
+  import { loadNewProjectFile } from '../../helpers/open-project-file';
   import {
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop,
-  } from "../../core/blockly/helpers/arduino_loop_block.helper";
-  import { resetWorkspace } from "../../core/blockly/helpers/workspace.helper";
-  import { saveProject } from "../../firebase/db";
-  import { wait } from "../../helpers/wait";
-  import { onConfirm, onErrorMessage } from "../../help/alerts";
+  } from '../../core/blockly/helpers/arduino_loop_block.helper';
+  import { resetWorkspace } from '../../core/blockly/helpers/workspace.helper';
+  import { saveProject } from '../../firebase/db';
+  import { wait } from '../../helpers/wait';
+  import { onConfirm, onErrorMessage } from '../../help/alerts';
+  import showLessonStore from '../../stores/showLessons.store';
 
   let isOpeningFile = false;
   let fileUpload;
@@ -23,12 +24,17 @@
 
   const { page } = stores();
 
-  let params = "";
+  let params = '';
+
+  async function onToggleLessons() {
+    showLessonStore.update((u) => !u);
+  }
+
   projectStore.subscribe((p) => {
     if (p.projectId) {
       params = `?projectid=${p.projectId}`;
     } else {
-      params = "";
+      params = '';
     }
   });
 
@@ -39,7 +45,7 @@
     }
 
     const confirmNewFile = await onConfirm(
-      "We are about to save your current project and create a new one? Would you like to continue?"
+      'We are about to save your current project and create a new one? Would you like to continue?'
     );
 
     if (!confirmNewFile) {
@@ -48,16 +54,16 @@
     try {
       await saveProject($projectStore.project, $projectStore.projectId);
       projectStore.set({ projectId: null, project: null });
-      await goto("/");
+      await goto('/');
       resetWorkspace();
     } catch (e) {
-      onErrorMessage("Error saving your project please try agian.", e);
+      onErrorMessage('Error saving your project please try agian.', e);
     }
   }
 
   async function onNewFileNoAuth() {
     const confirmNewFile = await onConfirm(
-      "You are creating a new file, which will delete your work.  Would you like to continue?"
+      'You are creating a new file, which will delete your work.  Would you like to continue?'
     );
     if (!confirmNewFile) {
       return;
@@ -68,7 +74,7 @@
 
   async function onSaveClick() {
     if (!$projectStore.projectId) {
-      await goto("/project-settings");
+      await goto('/project-settings');
       return;
     }
 
@@ -80,7 +86,7 @@
       canSave = true;
       showSaveSuccess = false;
     } catch (e) {
-      onErrorMessage("Error saving your project please try agian.", e);
+      onErrorMessage('Error saving your project please try agian.', e);
     }
   }
 
@@ -88,7 +94,7 @@
     try {
       await logout();
     } catch (e) {
-      onErrorMessage("Please try again in 5 minutes", e);
+      onErrorMessage('Please try again in 5 minutes', e);
     }
   }
 
@@ -102,7 +108,7 @@
     try {
       await loadNewProjectFile(file);
     } catch (e) {
-      onErrorMessage("Please make sure you uploaded a valid file.", e);
+      onErrorMessage('Please make sure you uploaded a valid file.', e);
     }
 
     isOpeningFile = false;
@@ -126,9 +132,10 @@
     <a href="/arduino{params}" class:active={$page.path.includes('arduino')}>
       <i class="fa fa-microchip" />
     </a>
-    <a href="/lessons{params}" class:active={segment === 'lessons'}>
+    <span class:active={$showLessonStore} on:click={onToggleLessons}>
       <i class="fa fa-book" />
-    </a>
+    </span>
+
     <a href="/open" class:active={segment === 'open'}>
       <i
         class="fa "
@@ -163,9 +170,9 @@
     <a href="/arduino" class:active={$page.path.includes('arduino')}>
       <i class="fa fa-microchip" />
     </a>
-    <a href="/lessons" class:active={segment === 'lessons'}>
+    <span class:active={$showLessonStore} on:click={onToggleLessons}>
       <i class="fa fa-book" />
-    </a>
+    </span>
     <label class:active={segment === 'open'}>
       <i
         class="fa "
@@ -211,6 +218,7 @@
   }
 
   nav a .fa,
+  nav span .fa,
   nav .disabled .fa {
     opacity: 0.5;
   }

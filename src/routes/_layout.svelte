@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import _ from 'lodash';
   import firebase from 'firebase/app';
 
@@ -10,14 +10,15 @@
   import { stores, goto } from '@sapper/app';
   import authStore from '../stores/auth.store';
   import projectStore from '../stores/project.store';
-  import { onErrorMessage } from '../help/alerts';
   import { getFile, getProject } from '../firebase/db';
   import { loadProject } from '../core/blockly/helpers/workspace.helper';
+  import showLessonStore from '../stores/showLessons.store';
   import {
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop,
   } from '../core/blockly/helpers/arduino_loop_block.helper';
   import swal from 'sweetalert';
+  import Lessons from '../components/electroblocks/home/Lessons.svelte';
 
   const { page } = stores();
   export let segment = '';
@@ -30,54 +31,79 @@
   $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
 
   let height = '500px';
-  let leftFlex = 44;
-  let rightFlex = 44;
-  let isResizing = false;
+  let middleFlex = 59.5;
+  let rightFlex = 39.5;
+  let leftFlex = 0;
+  let isResizingLeft = false;
+  let isResizingRight = false;
 
   /**
    * Event is on grabber on is trigger by a mouse down event
    */
-  function startResize() {
-    isResizing = true;
+  function startResize(side) {
+    if (side == 'right') {
+      isResizingRight = true;
+    } else {
+      isResizingLeft = true;
+    }
   }
 
   /**
    * Event is on the body so that all mouse up events stop resizing
    */
   function stopResize() {
-    isResizing = false;
+    isResizingRight = false;
+    isResizingLeft = false;
   }
+
+  const resize = (side) => {
+    return (e) => {
+      if (!isResizingLeft && side == 'left') {
+        return;
+      }
+
+      if (!isResizingRight && side == 'right') {
+        return;
+      }
+
+      // Width of the window
+      const windowWidth = window.innerWidth;
+
+      // If the either window size is less than 200 px don't resize window
+      if (e.clientX < 20 || windowWidth - e.clientX < 20) {
+        return;
+      }
+
+      // Because e.clientX represents the number of pixels the mouse is to the left
+      // Subtract that from the total window size to get the width of the right side
+      // Then divide that by total width and multiply by 100 to get the flex size
+      // Subtract .5 for the size of the grabber which is 1 flex
+      if (side == 'right') {
+        rightFlex = ((windowWidth - e.clientX) / windowWidth) * 100;
+      } else {
+        leftFlex = (e.clientX / windowWidth) * 100;
+      }
+
+      // If this is false we should not worry about lesson side of the screen.
+      if (!$showLessonStore) {
+        leftFlex = 0;
+      }
+
+      // Derive the from right flex calculation
+      middleFlex = 100 - rightFlex - leftFlex - 1;
+
+      // Trigger an main windows that need to be resized
+      resizeStore.mainWindow();
+    };
+  };
 
   /**
    * This is a mouse move event on the main section of the html
    * It will resize the 2 windows,
    * Slight Trottling with debounce
    */
-  const resize = _.debounce((e) => {
-    if (!isResizing) {
-      return;
-    }
-
-    // Width of the window
-    const windowWidth = window.innerWidth;
-
-    // If the either window size is less than 200 px don't resize window
-    if (e.clientX < 200 || windowWidth - e.clientX < 200) {
-      return;
-    }
-
-    // Because e.clientX represents the number of pixels the mouse is to the left
-    // Subtract that from the total window size to get the width of the right side
-    // Then divide that by total width and multiply by 100 to get the flex size
-    // Subtract .5 for the size of the grabber which is 1 flex
-    rightFlex = ((windowWidth - e.clientX) / windowWidth) * 100 - 0.5;
-
-    // Derive the from right flex calculation
-    leftFlex = 100 - rightFlex - 0.5;
-
-    // Trigger an main windows that need to be resized
-    resizeStore.mainWindow();
-  }, 2);
+  const resizeRightSide = _.debounce(resize('right'), 2);
+  const resizeLeftSide = _.debounce(resize('left'), 2);
 
   function resizeHeight() {
     // Calculates the height of the window
@@ -105,6 +131,22 @@
         showScrollOnRightSide = false;
       }
       resizeHeight();
+    });
+
+    showLessonStore.subscribe(async (showLesson) => {
+      if (showLesson) {
+        middleFlex = 39;
+        rightFlex = 29;
+        leftFlex = 31;
+      } else {
+        middleFlex = 59.5;
+        rightFlex = 39.5;
+        leftFlex = 0;
+      }
+      await tick();
+      await tick();
+      await tick();
+      resizeStore.mainWindow();
     });
 
     let loadedProject = false;
@@ -165,14 +207,25 @@
 
 <Nav {segment} />
 <svelte:body on:mouseup={stopResize} />
-<main style="height: {height}" on:mousemove={resize}>
-  <div style="flex: {leftFlex}" id="left_panel">
+<main
+  style="height: {height}"
+  on:mousemove={resizeLeftSide}
+  on:mousemove={resizeRightSide}
+>
+  {#if $showLessonStore}
+    <div style="flex: {leftFlex}; overflow-y: scroll;">
+      <Lessons />
+    </div>
+    <div class="grabber" on:mousedown={() => startResize('left')} />
+  {/if}
+  <div style="flex: {middleFlex}" id="middle_panel">
     <Blockly {showLoopExecutionTimesArduinoStartBlock} />
   </div>
-  <div on:mousedown={startResize} id="grabber" />
+  <div on:mousedown={() => startResize('right')} class="grabber" />
   <div
     style="flex: {rightFlex}"
     class:scroll={showScrollOnRightSide}
+    class:hide={rightFlex < 15}
     id="right_panel"
   >
     <slot />
@@ -191,7 +244,7 @@
   }
 
   /** div used to resize both items */
-  #grabber {
+  .grabber {
     flex: 1;
     cursor: col-resize;
     background-color: #eff0f1;
@@ -204,5 +257,8 @@
   }
   #right_panel.scroll {
     overflow-y: scroll;
+  }
+  .hide {
+    opacity: 0.01;
   }
 </style>

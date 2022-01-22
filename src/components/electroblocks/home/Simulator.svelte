@@ -8,16 +8,18 @@
   import frameStore from '../../../stores/frame.store';
   import currentFrameStore from '../../../stores/currentFrame.store';
   import settings from '../../../stores/settings.store';
-  import { resizeStore } from '../../../stores/resize.store';
+  import { resizeStore, WindowType } from '../../../stores/resize.store.ts';
   import paint from '../../../core/virtual-circuit/paint.ts';
   import update from '../../../core/virtual-circuit/update.ts';
   // What if we made everything a series of components.
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, tick } from 'svelte';
   import { onErrorMessage } from '../../../help/alerts';
   import { wait } from '../../../helpers/wait';
   import { arduinoComponentStateToId } from '../../../core/frames/arduino-component-id';
   import { centerCircuit } from '../../../core/virtual-circuit/centerCircuit';
   import { stores } from '@sapper/app';
+  import showLessonsStore from '../../../stores/showLessons.store';
+
   const { page } = stores();
 
   let container;
@@ -109,8 +111,13 @@
     );
 
     unsubscribes.push(
-      resizeStore.subscribe(() => {
+      resizeStore.subscribe(async ({ type }) => {
         draw.size(container.clientWidth - 10, container.clientHeight - 10);
+        if (type == WindowType.MAIN) {
+          await tick();
+          await tick();
+          reCenter();
+        }
       })
     );
 
