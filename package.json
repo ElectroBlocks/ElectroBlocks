@@ -29,6 +29,7 @@
     "@types/file-saver": "^2.0.1",
     "@types/firebase": "^3.2.1",
     "@types/lodash": "^4.14.157",
+    "arduino-create-agent-js-client": "^2.7.0",
     "axios": "^0.21.2",
     "blockly": "^5.20210325.1",
     "blockly-field-color-wheel": "^1.0.1",

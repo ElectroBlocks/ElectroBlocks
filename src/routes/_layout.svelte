@@ -19,6 +19,7 @@
   } from '../core/blockly/helpers/arduino_loop_block.helper';
   import swal from 'sweetalert';
   import Lessons from '../components/electroblocks/home/Lessons.svelte';
+  import arduinoAgentStore from '../stores/arduino-agent.store';
 
   const { page } = stores();
   export let segment = '';
@@ -118,7 +119,22 @@
     }, 5);
   }
 
-  onMount(() => {
+  onMount(async () => {
+    const Daemon = (await import('arduino-create-agent-js-client')).default
+      .default;
+    console.log(Daemon);
+    const chromeExtensionID = 'hfejhkbipnickajaidoppbadcomekkde';
+
+    const daemon = new Daemon(
+      'https://builder.arduino.cc/v3/boards',
+      chromeExtensionID
+    );
+
+    arduinoAgentStore.start(daemon);
+
+    arduinoAgentStore.subscribe((s) => {
+      console.log('arduino state', s);
+    });
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
       if (
