@@ -132,7 +132,7 @@ export const createWiresLed: CreateWire<LedState> = (
     arduino,
     draw,
     holes[2],
-    isDown,
+    false,
     arduinoComponentStateToId(state),
     "horizontal",
     300

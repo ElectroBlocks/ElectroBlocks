@@ -233,7 +233,7 @@ export const createResistor = (
   arduino: Svg | Element,
   draw: Svg,
   hole: number,
-  isDown: boolean,
+  isConnecting: boolean, // This means that it's connecting the top and bottom of the breadboard
   componentId: string,
   direction: "vertical" | "horizontal",
   ohms: number
@@ -248,7 +248,7 @@ export const createResistor = (
   resistorEl.findOne("#BAND_2").node.style.stroke = bandColor2;
   resistorEl.findOne("#BAND_3").node.style.stroke = bandColor3;
   resistorEl.data("component-id", componentId);
-  const holeId = `pin${hole}${isDown ? "D" : "I"}`;
+  const holeId = `pin${hole}${isConnecting ? "F" : "D"}`;
 
   const { x, y } = findResistorBreadboardHoleXY(holeId, arduino, draw);
   if (direction === "vertical") {
@@ -257,6 +257,18 @@ export const createResistor = (
   } else {
     resistorEl.x(x - 1);
     resistorEl.y(y - 2);
+  }
+
+  if (isConnecting) {
+    createWireComponentToBreadboard(
+      `pin${hole}E`,
+      resistorEl,
+      draw,
+      arduino,
+      "WIRE_1",
+      componentId,
+      "#999"
+    );
   }
 };
 

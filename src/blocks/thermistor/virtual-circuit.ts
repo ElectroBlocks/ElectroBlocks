@@ -80,7 +80,7 @@ export const createThermistorWires: CreateWire<ThermistorState> = (
     arduinoEl,
     draw,
     holes[1],
-    isDown,
+    false,
     id,
     "horizontal",
     state.externalResistorsOhms
