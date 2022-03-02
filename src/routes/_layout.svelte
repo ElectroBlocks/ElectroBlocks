@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
   import _ from 'lodash';
-  import firebase from 'firebase/app';
+  import { getAuth } from 'firebase/auth';
 
   import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
   import Nav from '../components/electroblocks/Nav.svelte';
@@ -156,8 +156,8 @@
       loadProject(xmlText);
       loadedProject = true;
     }
-
-    firebase.auth().onAuthStateChanged(async (user) => {
+    const auth = getAuth();
+    auth.onAuthStateChanged(async (user) => {
       if (!user) {
         authStore.set({
           isLoggedIn: false,
