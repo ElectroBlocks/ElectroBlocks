@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import type { Timestamp } from 'firebase/firestore';
 import { MicroControllerType } from '../core/microcontroller/microcontroller';
 
 export interface User {
@@ -12,8 +12,8 @@ export interface Project {
   userId: string;
   name: string;
   description: string;
-  created: firebase.firestore.Timestamp | Date;
-  updated: firebase.firestore.Timestamp | Date;
+  created: Timestamp | Date;
+  updated: Timestamp | Date;
   canShare: boolean;
 }
 

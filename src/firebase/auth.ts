@@ -1,10 +1,18 @@
-import firebase from "firebase/app";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth';
 
 export const loginGoogleUser = async () => {
-  await firebase.auth()
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  const auth = getAuth();
+
+  signInWithPopup(auth, new GoogleAuthProvider());
 };
 
 export const logout = async () => {
-  await firebase.auth().signOut();
+  const auth = getAuth();
+
+  await signOut(auth);
 };
