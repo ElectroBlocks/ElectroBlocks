@@ -1,26 +1,32 @@
 <script lang="ts">
-  import { Table, Button, FormGroup, Input, Label } from "sveltestrap/src";
+  import { Table, Button, FormGroup, Input, Label } from 'sveltestrap/src';
 
-  import { onMount, onDestroy } from "svelte";
-  import { goto } from "@sapper/app";
+  import { onMount, onDestroy } from 'svelte';
+  import { goto } from '@sapper/app';
 
-  import Login from "../components/auth/Login.svelte";
-  import { loadProject } from "../core/blockly/helpers/workspace.helper";
-  import authStore from "../stores/auth.store";
-  import firebase from "firebase/app";
-  import { deleteProject, getFile, getProject } from "../firebase/db";
-  import type { Project } from "../firebase/model";
-  import { onConfirm, onErrorMessage } from "../help/alerts";
-  import projectStore from "../stores/project.store";
+  import Login from '../components/auth/Login.svelte';
+  import { loadProject } from '../core/blockly/helpers/workspace.helper';
+  import authStore from '../stores/auth.store';
+  import {
+    deleteProject,
+    getFile,
+    getProject,
+    getProjects,
+  } from '../firebase/db';
+  import type { Project } from '../firebase/model';
+  import type { Timestamp } from 'firebase/firestore';
+
+  import { onConfirm, onErrorMessage } from '../help/alerts';
+  import projectStore from '../stores/project.store';
 
   const unSubList: Function[] = [];
   let projectList: [Project, string][] = [];
   let searchList: [Project, string][] = [];
-  let searchTerm = "";
+  let searchTerm = '';
   $: filterSearch(searchTerm);
 
   function filterSearch(term: string) {
-    if (term === "") {
+    if (term === '') {
       searchList = [...projectList];
       return;
     }
@@ -48,7 +54,7 @@
     reader.onload = function (evt) {
       if (evt.target.readyState != 2) return;
       if (evt.target.error) {
-        onErrorMessage("Please upload a valid electroblock file.", e);
+        onErrorMessage('Please upload a valid electroblock file.', e);
         return;
       }
 
@@ -73,19 +79,11 @@
 
   async function updateProjectList() {
     try {
-      const db = firebase.firestore();
-      const projectCollection = db.collection("projects");
-      const querySnapshot = await projectCollection
-        .where("userId", "==", $authStore.uid)
-        .get();
-      projectList = [];
-      querySnapshot.forEach((doc) => {
-        projectList.push([doc.data() as Project, doc.id]);
-      });
+      projectList = await getProjects($authStore.uid);
       projectList = [...projectList];
       searchList = [...projectList];
     } catch (e) {
-      onErrorMessage("Please refresh the page and try again.", e);
+      onErrorMessage('Please refresh the page and try again.', e);
     }
   }
 
@@ -93,7 +91,7 @@
     unSubList.forEach((s) => s());
   });
 
-  function formatDate(timestamp: firebase.firestore.Timestamp | Date) {
+  function formatDate(timestamp: Timestamp | Date) {
     if (timestamp instanceof Date) {
       return timestamp.toDateString();
     }
@@ -104,14 +102,14 @@
   }
 
   async function onDeleteProject(projectId: string) {
-    if (!(await onConfirm("Are you want to delete this project?"))) {
+    if (!(await onConfirm('Are you want to delete this project?'))) {
       return;
     }
     try {
       await deleteProject(projectId, $authStore.uid);
       await updateProjectList();
     } catch (e) {
-      onErrorMessage("Please try agian in 5 minutes.", e);
+      onErrorMessage('Please try agian in 5 minutes.', e);
     }
   }
 
@@ -190,7 +188,7 @@
     width: 90%;
     margin: 10px auto;
   }
-  input[type="file"] {
+  input[type='file'] {
     display: none;
   }
 

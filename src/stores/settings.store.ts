@@ -4,8 +4,8 @@ import is_browser from '../helpers/is_browser';
 import { defaultSetting } from '../firebase/model';
 import _ from 'lodash';
 import authStore from './auth.store';
-import firebase from 'firebase/app';
 import { MicroControllerType } from '../core/microcontroller/microcontroller';
+import { getSettings } from '../firebase/db';
 let settings;
 try {
   settings =
@@ -23,14 +23,8 @@ const settingsStore = writable<Settings>(settings);
 authStore.subscribe(async (auth) => {
   if (auth.isLoggedIn && is_browser()) {
     try {
-      const db = firebase.firestore();
-      const settings = await db.collection('settings').doc(auth.uid).get();
-      if (settings.exists) {
-        let settingData = settings.data();
-        settingData['boardType'] =
-          settingData.boardType || MicroControllerType.ARDUINO_UNO;
-        settingsStore.set(settings.data() as Settings);
-      }
+      const settingsFB = await getSettings(auth.uid);
+      settingsStore.set(settingsFB);
     } catch (e) {
       console.log(e, 'error settings');
     }
