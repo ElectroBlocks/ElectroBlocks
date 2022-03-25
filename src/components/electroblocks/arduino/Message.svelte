@@ -145,18 +145,10 @@
         arduinoStore.set(PortState.CLOSE);
         return;
       }
-      if (e.message.includes('receiveData timeout after 400ms')) {
-        const reloadBrowser = await onConfirm(
-          'Something timed out but we think your code upload. In order to connect we need to refresh your browser.  You will not lose anything you wrote.  Click ok to agree.',
-          e
-        );
-
-        if (reloadBrowser) {
-          const reloadedWorkspaceText = workspaceToXML();
-          localStorage.setItem('reload_once_workspace', reloadedWorkspaceText);
-          location.reload();
-        }
-
+      if (e.message.includes('receiveData timeout after')) {
+        console.log(e, 'eating these errors.  Everything should work!');
+        onSuccess('Your code is uploaded!! :)');
+        arduinoStore.set(PortState.CLOSE);
         return;
       }
       onErrorMessage('Sorry, please try again in 5 minutes. :)', e);
