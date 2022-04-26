@@ -1,22 +1,22 @@
 import type {
   SyncComponent,
   ResetComponent,
-} from "../../core/virtual-circuit/svg-sync";
+} from '../../core/virtual-circuit/svg-sync';
 import type {
   PositionComponent,
   CreateWire,
   AfterComponentCreateHook,
-} from "../../core/virtual-circuit/svg-create";
+} from '../../core/virtual-circuit/svg-create';
 
-import type { Element, Svg } from "@svgdotjs/svg.js";
-import _ from "lodash";
-import { rgbToHex } from "../../core/blockly/helpers/color.helper";
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import type { FastLEDState } from "./state";
+import type { Element, Svg } from '@svgdotjs/svg.js';
+import _ from 'lodash';
+import { rgbToHex } from '../../core/blockly/helpers/color.helper';
+import { positionComponent } from '../../core/virtual-circuit/svg-position';
+import type { FastLEDState } from './state';
 import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire";
+} from '../../core/virtual-circuit/wire';
 
 export const fastLEDCreate: AfterComponentCreateHook<FastLEDState> = (
   state,
@@ -24,7 +24,7 @@ export const fastLEDCreate: AfterComponentCreateHook<FastLEDState> = (
 ) => {
   showRGBStripLeds(fastLEDEl, state);
   fastLEDEl.findOne(
-    "#DATA_TEXT"
+    '#DATA_TEXT'
   ).node.innerHTML = `Data Pin = ${state.pins[0]}`;
 };
 
@@ -37,14 +37,14 @@ export const fastLEDPosition: PositionComponent<FastLEDState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(fastLEDEl, arduino, draw, holes[1], isDown, "PIN_DATA");
+  positionComponent(fastLEDEl, arduino, draw, holes[1], isDown, 'PIN_DATA');
 };
 
 export const fastLEDReset: ResetComponent = (fastLEDEl: Element) => {
   for (let i = 1; i <= 60; i += 1) {
     const ledEl = fastLEDEl.findOne(`#LED-${i} circle`) as Element;
     if (ledEl) {
-      ledEl.fill("#000000");
+      ledEl.fill('#000000');
     }
   }
 };
@@ -81,7 +81,7 @@ export const createWiresFastLEDs: CreateWire<FastLEDState> = (
     draw,
     arduino,
     id,
-    "PIN_DATA",
+    'PIN_DATA',
     board
   );
 
@@ -92,7 +92,7 @@ export const createWiresFastLEDs: CreateWire<FastLEDState> = (
     draw,
     arduino,
     id,
-    "ground"
+    'ground'
   );
   createGroundOrPowerWire(
     holes[2],
@@ -101,54 +101,61 @@ export const createWiresFastLEDs: CreateWire<FastLEDState> = (
     draw,
     arduino,
     id,
-    "power"
+    'power'
   );
 };
 
-const showRGBStripLeds = (
-  fastLEDEl: Element,
-  fastLEDState: FastLEDState
-) => {
-  _.range(1, 60 + 1).forEach((index) => {
-    if (index <= fastLEDState.numberOfLeds) {
-      fastLEDEl.findOne(`#LED_${index}`).show();
-    } else {
-      fastLEDEl.findOne(`#LED_${index}`).hide();
-    }
-  });
-  if (fastLEDState.numberOfLeds > 48) {
-    fastLEDEl.findOne("#LEVEL1").show();
-    fastLEDEl.findOne("#LEVEL2").show();
-    fastLEDEl.findOne("#LEVEL3").show();
-    fastLEDEl.findOne("#LEVEL4").show();
-  } else if (
-    fastLEDState.numberOfLeds >= 37 &&
-    fastLEDState.numberOfLeds <= 48
-  ) {
-    fastLEDEl.findOne("#LEVEL1").show();
-    fastLEDEl.findOne("#LEVEL2").show();
-    fastLEDEl.findOne("#LEVEL3").show();
-    fastLEDEl.findOne("#LEVEL4").hide();
-  } else if (
-    fastLEDState.numberOfLeds >= 25 &&
-    fastLEDState.numberOfLeds < 37
-  ) {
-    fastLEDEl.findOne("#LEVEL1").show();
-    fastLEDEl.findOne("#LEVEL2").show();
-    fastLEDEl.findOne("#LEVEL3").hide();
-    fastLEDEl.findOne("#LEVEL4").hide();
-  } else if (
-    fastLEDState.numberOfLeds >= 13 &&
-    fastLEDState.numberOfLeds <= 24
-  ) {
-    fastLEDEl.findOne("#LEVEL1").show();
-    fastLEDEl.findOne("#LEVEL2").hide();
-    fastLEDEl.findOne("#LEVEL3").hide();
-    fastLEDEl.findOne("#LEVEL4").hide();
-  } else if (fastLEDState.numberOfLeds <= 12) {
-    fastLEDEl.findOne("#LEVEL1").hide();
-    fastLEDEl.findOne("#LEVEL2").hide();
-    fastLEDEl.findOne("#LEVEL3").hide();
-    fastLEDEl.findOne("#LEVEL4").hide();
+const showRGBStripLeds = (fastLEDEl: Element, fastLEDState: FastLEDState) => {
+  let map = {};
+  let actualId = 144;
+  let currentLed = 1;
+  for (let actualId = 133; actualId <= 144; actualId += 1) {
+    map[currentLed] = actualId;
+    currentLed += 1;
   }
+  for (let actualId = 132; actualId >= 121; actualId -= 1) {
+    map[actualId] = currentLed;
+    currentLed += 1;
+  }
+
+  for (let actualId = 109; actualId <= 120; actualId += 1) {
+    map[actualId] = currentLed;
+    currentLed += 1;
+  }
+
+  //   if (fastLEDState.numberOfLeds > 48) {
+  //     fastLEDEl.findOne('#LEVEL1').show();
+  //     fastLEDEl.findOne('#LEVEL2').show();
+  //     fastLEDEl.findOne('#LEVEL3').show();
+  //     fastLEDEl.findOne('#LEVEL4').show();
+  //   } else if (
+  //     fastLEDState.numberOfLeds >= 37 &&
+  //     fastLEDState.numberOfLeds <= 48
+  //   ) {
+  //     fastLEDEl.findOne('#LEVEL1').show();
+  //     fastLEDEl.findOne('#LEVEL2').show();
+  //     fastLEDEl.findOne('#LEVEL3').show();
+  //     fastLEDEl.findOne('#LEVEL4').hide();
+  //   } else if (
+  //     fastLEDState.numberOfLeds >= 25 &&
+  //     fastLEDState.numberOfLeds < 37
+  //   ) {
+  //     fastLEDEl.findOne('#LEVEL1').show();
+  //     fastLEDEl.findOne('#LEVEL2').show();
+  //     fastLEDEl.findOne('#LEVEL3').hide();
+  //     fastLEDEl.findOne('#LEVEL4').hide();
+  //   } else if (
+  //     fastLEDState.numberOfLeds >= 13 &&
+  //     fastLEDState.numberOfLeds <= 24
+  //   ) {
+  //     fastLEDEl.findOne('#LEVEL1').show();
+  //     fastLEDEl.findOne('#LEVEL2').hide();
+  //     fastLEDEl.findOne('#LEVEL3').hide();
+  //     fastLEDEl.findOne('#LEVEL4').hide();
+  //   } else if (fastLEDState.numberOfLeds <= 12) {
+  //     fastLEDEl.findOne('#LEVEL1').hide();
+  //     fastLEDEl.findOne('#LEVEL2').hide();
+  //     fastLEDEl.findOne('#LEVEL3').hide();
+  //     fastLEDEl.findOne('#LEVEL4').hide();
+  //   }
 };
