@@ -15,6 +15,7 @@ import passiveBuzzerSvgString from '../../blocks/passivebuzzer/passivebuzzer.svg
 import motorSvgString from '../../blocks/motors/motor.svg';
 import neopixelSvgString from '../../blocks/neopixels/neopixel.svg';
 import fastledSvgString from '../../blocks/fastled/fastled-new.svg';
+import fastledSvgString24 from '../../blocks/fastled/fastled-new-24.svg';
 import rfidSvgString from '../../blocks/rfid/rfid.svg';
 import servoSVGText from '../../blocks/servo/servo.svg';
 import tempSvgString from '../../blocks/temperature/temp-humidity.svg';
@@ -27,6 +28,7 @@ import { getAnalogSensorSvg } from '../../blocks/analogsensor/svg-string';
 import stepperMotorSvg from '../../blocks/steppermotor/steppermotor.svg';
 import digitalDisplaySvg from '../../blocks/digit4display/digitdisplay.svg';
 import joyStickSvg from '../../blocks/joystick/joystick.svg';
+import { FastLEDState } from '../../blocks/fastled/state';
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
@@ -47,7 +49,13 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.LED_MATRIX]: (_) => ledmatrixSvgString,
   [ArduinoComponentType.MOTOR]: (_) => motorSvgString,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: (_) => neopixelSvgString,
-  [ArduinoComponentType.FASTLED_STRIP]: () => fastledSvgString,
+  [ArduinoComponentType.FASTLED_STRIP]: (state: FastLEDState) => {
+    if (state.numberOfLeds < 25) {
+      return fastledSvgString24;
+    } else {
+      return fastledSvgString;
+    }
+  },
   [ArduinoComponentType.RFID]: (_) => rfidSvgString,
   [ArduinoComponentType.SERVO]: (_) => servoSVGText,
   [ArduinoComponentType.TEMPERATURE_SENSOR]: (_) => tempSvgString,

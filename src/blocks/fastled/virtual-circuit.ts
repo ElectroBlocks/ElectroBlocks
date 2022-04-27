@@ -8,7 +8,7 @@ import type {
   AfterComponentCreateHook,
 } from '../../core/virtual-circuit/svg-create';
 
-import type { Element, Svg } from '@svgdotjs/svg.js';
+import type { Dom, Element, ElementAlias, Svg } from '@svgdotjs/svg.js';
 import _ from 'lodash';
 import { rgbToHex } from '../../core/blockly/helpers/color.helper';
 import { positionComponent } from '../../core/virtual-circuit/svg-position';
@@ -41,8 +41,8 @@ export const fastLEDPosition: PositionComponent<FastLEDState> = (
 };
 
 export const fastLEDReset: ResetComponent = (fastLEDEl: Element) => {
-  for (let i = 1; i <= 60; i += 1) {
-    const ledEl = fastLEDEl.findOne(`#LED-${i} circle`) as Element;
+  for (let i = 1; i <= 144; i += 1) {
+    const ledEl = fastLEDEl.findOne(`#LED-${i} ellipse`) as Element;
     if (ledEl) {
       ledEl.fill('#000000');
     }
@@ -55,7 +55,7 @@ export const fastLEDUpdate: SyncComponent = (
 ) => {
   state.fastLEDs.forEach((led) => {
     const ledEl = fastLEDEl.findOne(
-      `#LED-${led.position + 1} circle`
+      `#LED-${led.position + 1} ellipse`
     ) as Element;
     if (ledEl) {
       ledEl.fill(rgbToHex(led.color));
@@ -106,56 +106,38 @@ export const createWiresFastLEDs: CreateWire<FastLEDState> = (
 };
 
 const showRGBStripLeds = (fastLEDEl: Element, fastLEDState: FastLEDState) => {
-  let map = {};
-  let actualId = 144;
-  let currentLed = 1;
-  for (let actualId = 133; actualId <= 144; actualId += 1) {
-    map[currentLed] = actualId;
-    currentLed += 1;
-  }
-  for (let actualId = 132; actualId >= 121; actualId -= 1) {
-    map[actualId] = currentLed;
-    currentLed += 1;
+  const { numberOfLeds } = fastLEDState;
+
+  for (let i = 1; i <= 144; i += 1) {
+    let led = fastLEDEl.findOne(`#LED_${i}`);
+    if (!led) return;
+
+    if (i <= numberOfLeds) {
+      led.show();
+    } else {
+      led.hide();
+    }
   }
 
-  for (let actualId = 109; actualId <= 120; actualId += 1) {
-    map[actualId] = currentLed;
-    currentLed += 1;
-  }
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_11'), numberOfLeds >= 133);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_10'), numberOfLeds >= 121);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_9'), numberOfLeds >= 109);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_8'), numberOfLeds >= 97);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_7'), numberOfLeds >= 85);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_6'), numberOfLeds >= 73);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_5'), numberOfLeds >= 61);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_4'), numberOfLeds >= 49);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_3'), numberOfLeds >= 37);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_2'), numberOfLeds >= 25);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_1'), numberOfLeds >= 13);
+};
 
-  //   if (fastLEDState.numberOfLeds > 48) {
-  //     fastLEDEl.findOne('#LEVEL1').show();
-  //     fastLEDEl.findOne('#LEVEL2').show();
-  //     fastLEDEl.findOne('#LEVEL3').show();
-  //     fastLEDEl.findOne('#LEVEL4').show();
-  //   } else if (
-  //     fastLEDState.numberOfLeds >= 37 &&
-  //     fastLEDState.numberOfLeds <= 48
-  //   ) {
-  //     fastLEDEl.findOne('#LEVEL1').show();
-  //     fastLEDEl.findOne('#LEVEL2').show();
-  //     fastLEDEl.findOne('#LEVEL3').show();
-  //     fastLEDEl.findOne('#LEVEL4').hide();
-  //   } else if (
-  //     fastLEDState.numberOfLeds >= 25 &&
-  //     fastLEDState.numberOfLeds < 37
-  //   ) {
-  //     fastLEDEl.findOne('#LEVEL1').show();
-  //     fastLEDEl.findOne('#LEVEL2').show();
-  //     fastLEDEl.findOne('#LEVEL3').hide();
-  //     fastLEDEl.findOne('#LEVEL4').hide();
-  //   } else if (
-  //     fastLEDState.numberOfLeds >= 13 &&
-  //     fastLEDState.numberOfLeds <= 24
-  //   ) {
-  //     fastLEDEl.findOne('#LEVEL1').show();
-  //     fastLEDEl.findOne('#LEVEL2').hide();
-  //     fastLEDEl.findOne('#LEVEL3').hide();
-  //     fastLEDEl.findOne('#LEVEL4').hide();
-  //   } else if (fastLEDState.numberOfLeds <= 12) {
-  //     fastLEDEl.findOne('#LEVEL1').hide();
-  //     fastLEDEl.findOne('#LEVEL2').hide();
-  //     fastLEDEl.findOne('#LEVEL3').hide();
-  //     fastLEDEl.findOne('#LEVEL4').hide();
-  //   }
+const toggleShowHide = (el: Dom, show: boolean) => {
+  if (!el) return;
+
+  if (show) {
+    el.show();
+  } else {
+    el.hide();
+  }
 };
