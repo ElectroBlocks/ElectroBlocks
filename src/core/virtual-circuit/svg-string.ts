@@ -16,6 +16,8 @@ import motorSvgString from '../../blocks/motors/motor.svg';
 import neopixelSvgString from '../../blocks/neopixels/neopixel.svg';
 import fastledSvgString from '../../blocks/fastled/fastled-new.svg';
 import fastledSvgString24 from '../../blocks/fastled/fastled-new-24.svg';
+import fastledSvgString60 from '../../blocks/fastled/fastled-new-60.svg';
+import fastledSvgString96 from '../../blocks/fastled/fastled-new-96.svg';
 import rfidSvgString from '../../blocks/rfid/rfid.svg';
 import servoSVGText from '../../blocks/servo/servo.svg';
 import tempSvgString from '../../blocks/temperature/temp-humidity.svg';
@@ -52,6 +54,10 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.FASTLED_STRIP]: (state: FastLEDState) => {
     if (state.numberOfLeds < 25) {
       return fastledSvgString24;
+    } else if (state.numberOfLeds < 61) {
+      return fastledSvgString60;
+    } else if (state.numberOfLeds < 96) {
+      return fastledSvgString96;
     } else {
       return fastledSvgString;
     }
