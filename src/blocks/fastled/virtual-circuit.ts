@@ -107,10 +107,9 @@ export const createWiresFastLEDs: CreateWire<FastLEDState> = (
 
 const showRGBStripLeds = (fastLEDEl: Element, fastLEDState: FastLEDState) => {
   const { numberOfLeds } = fastLEDState;
-
   for (let i = 1; i <= 144; i += 1) {
     let led = fastLEDEl.findOne(`#LED_${i}`);
-    if (!led) return;
+    if (!led) break;
 
     if (i <= numberOfLeds) {
       led.show();

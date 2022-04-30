@@ -6,7 +6,7 @@
         <rect x="11.67" y="478.27" width="33.69" height="9.97" fill="#f2d4b7"/>
         <rect x="11.67" y="478.27" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
       </g>
-      <g id="LED">
+      <g id="LED-1">
         <ellipse cx="28.66" cy="478.19" rx="6.24" ry="5.88" fill="#010101"/>
         <ellipse cx="28.66" cy="478.19" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
       </g>
