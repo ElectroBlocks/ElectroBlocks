@@ -1,22 +1,22 @@
 import type {
   SyncComponent,
   ResetComponent,
-} from "../../core/virtual-circuit/svg-sync";
+} from '../../core/virtual-circuit/svg-sync';
 import type {
   PositionComponent,
   CreateWire,
   AfterComponentCreateHook,
-} from "../../core/virtual-circuit/svg-create";
+} from '../../core/virtual-circuit/svg-create';
 
-import type { Element, Svg } from "@svgdotjs/svg.js";
-import _ from "lodash";
-import { rgbToHex } from "../../core/blockly/helpers/color.helper";
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import type { FastLEDState } from "./state";
+import type { Dom, Element, ElementAlias, Svg } from '@svgdotjs/svg.js';
+import _ from 'lodash';
+import { rgbToHex } from '../../core/blockly/helpers/color.helper';
+import { positionComponent } from '../../core/virtual-circuit/svg-position';
+import type { FastLEDState } from './state';
 import {
   createComponentWire,
   createGroundOrPowerWire,
-} from "../../core/virtual-circuit/wire";
+} from '../../core/virtual-circuit/wire';
 
 export const fastLEDCreate: AfterComponentCreateHook<FastLEDState> = (
   state,
@@ -24,7 +24,7 @@ export const fastLEDCreate: AfterComponentCreateHook<FastLEDState> = (
 ) => {
   showRGBStripLeds(fastLEDEl, state);
   fastLEDEl.findOne(
-    "#DATA_TEXT"
+    '#DATA_TEXT'
   ).node.innerHTML = `Data Pin = ${state.pins[0]}`;
 };
 
@@ -37,14 +37,14 @@ export const fastLEDPosition: PositionComponent<FastLEDState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(fastLEDEl, arduino, draw, holes[1], isDown, "PIN_DATA");
+  positionComponent(fastLEDEl, arduino, draw, holes[1], isDown, 'PIN_DATA');
 };
 
 export const fastLEDReset: ResetComponent = (fastLEDEl: Element) => {
-  for (let i = 1; i <= 60; i += 1) {
-    const ledEl = fastLEDEl.findOne(`#LED-${i} circle`) as Element;
+  for (let i = 1; i <= 144; i += 1) {
+    const ledEl = fastLEDEl.findOne(`#LED-${i} ellipse`) as Element;
     if (ledEl) {
-      ledEl.fill("#000000");
+      ledEl.fill('#000000');
     }
   }
 };
@@ -55,7 +55,7 @@ export const fastLEDUpdate: SyncComponent = (
 ) => {
   state.fastLEDs.forEach((led) => {
     const ledEl = fastLEDEl.findOne(
-      `#LED-${led.position + 1} circle`
+      `#LED-${led.position + 1} ellipse`
     ) as Element;
     if (ledEl) {
       ledEl.fill(rgbToHex(led.color));
@@ -81,7 +81,7 @@ export const createWiresFastLEDs: CreateWire<FastLEDState> = (
     draw,
     arduino,
     id,
-    "PIN_DATA",
+    'PIN_DATA',
     board
   );
 
@@ -92,7 +92,7 @@ export const createWiresFastLEDs: CreateWire<FastLEDState> = (
     draw,
     arduino,
     id,
-    "ground"
+    'ground'
   );
   createGroundOrPowerWire(
     holes[2],
@@ -101,54 +101,42 @@ export const createWiresFastLEDs: CreateWire<FastLEDState> = (
     draw,
     arduino,
     id,
-    "power"
+    'power'
   );
 };
 
-const showRGBStripLeds = (
-  fastLEDEl: Element,
-  fastLEDState: FastLEDState
-) => {
-  _.range(1, 60 + 1).forEach((index) => {
-    if (index <= fastLEDState.numberOfLeds) {
-      fastLEDEl.findOne(`#LED_${index}`).show();
+const showRGBStripLeds = (fastLEDEl: Element, fastLEDState: FastLEDState) => {
+  const { numberOfLeds } = fastLEDState;
+  for (let i = 1; i <= 144; i += 1) {
+    let led = fastLEDEl.findOne(`#LED_${i}`);
+    if (!led) break;
+
+    if (i <= numberOfLeds) {
+      led.show();
     } else {
-      fastLEDEl.findOne(`#LED_${index}`).hide();
+      led.hide();
     }
-  });
-  if (fastLEDState.numberOfLeds > 48) {
-    fastLEDEl.findOne("#LEVEL1").show();
-    fastLEDEl.findOne("#LEVEL2").show();
-    fastLEDEl.findOne("#LEVEL3").show();
-    fastLEDEl.findOne("#LEVEL4").show();
-  } else if (
-    fastLEDState.numberOfLeds >= 37 &&
-    fastLEDState.numberOfLeds <= 48
-  ) {
-    fastLEDEl.findOne("#LEVEL1").show();
-    fastLEDEl.findOne("#LEVEL2").show();
-    fastLEDEl.findOne("#LEVEL3").show();
-    fastLEDEl.findOne("#LEVEL4").hide();
-  } else if (
-    fastLEDState.numberOfLeds >= 25 &&
-    fastLEDState.numberOfLeds < 37
-  ) {
-    fastLEDEl.findOne("#LEVEL1").show();
-    fastLEDEl.findOne("#LEVEL2").show();
-    fastLEDEl.findOne("#LEVEL3").hide();
-    fastLEDEl.findOne("#LEVEL4").hide();
-  } else if (
-    fastLEDState.numberOfLeds >= 13 &&
-    fastLEDState.numberOfLeds <= 24
-  ) {
-    fastLEDEl.findOne("#LEVEL1").show();
-    fastLEDEl.findOne("#LEVEL2").hide();
-    fastLEDEl.findOne("#LEVEL3").hide();
-    fastLEDEl.findOne("#LEVEL4").hide();
-  } else if (fastLEDState.numberOfLeds <= 12) {
-    fastLEDEl.findOne("#LEVEL1").hide();
-    fastLEDEl.findOne("#LEVEL2").hide();
-    fastLEDEl.findOne("#LEVEL3").hide();
-    fastLEDEl.findOne("#LEVEL4").hide();
+  }
+
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_11'), numberOfLeds >= 133);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_10'), numberOfLeds >= 121);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_9'), numberOfLeds >= 109);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_8'), numberOfLeds >= 97);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_7'), numberOfLeds >= 85);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_6'), numberOfLeds >= 73);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_5'), numberOfLeds >= 61);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_4'), numberOfLeds >= 49);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_3'), numberOfLeds >= 37);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_2'), numberOfLeds >= 25);
+  toggleShowHide(fastLEDEl.findOne('#LEVEL_1'), numberOfLeds >= 13);
+};
+
+const toggleShowHide = (el: Dom, show: boolean) => {
+  if (!el) return;
+
+  if (show) {
+    el.show();
+  } else {
+    el.hide();
   }
 };

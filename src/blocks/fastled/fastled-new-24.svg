@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="415.79" height="158.07" viewBox="0 0 415.79 158.07">
+  <g id="LEDS">
+    <g id="LED_1">
+      <g id="BASE">
+        <rect x=".5" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x=".5" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-1">
+        <ellipse cx="17.49" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="17.49" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT" transform="translate(13.71 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">1</tspan></text>
+    </g>
+    <g id="LED_2">
+      <g id="BASE-2" data-name="BASE">
+        <rect x="34.19" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="34.19" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-2" data-name="LED">
+        <ellipse cx="51.18" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="51.18" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-2" data-name="LED_NUMBER_TEXT" transform="translate(47.4 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">2</tspan></text>
+    </g>
+    <g id="LED_3">
+      <g id="BASE-3" data-name="BASE">
+        <rect x="67.87" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="67.87" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-3" data-name="LED">
+        <ellipse cx="84.87" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="84.87" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-3" data-name="LED_NUMBER_TEXT" transform="translate(81.08 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">3</tspan></text>
+    </g>
+    <g id="LED_4">
+      <g id="BASE-4" data-name="BASE">
+        <rect x="101.56" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="101.56" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-4" data-name="LED">
+        <ellipse cx="118.55" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="118.55" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-4" data-name="LED_NUMBER_TEXT" transform="translate(114.77 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">4</tspan></text>
+    </g>
+    <g id="LED_5">
+      <g id="BASE-5" data-name="BASE">
+        <rect x="135.24" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="135.24" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-5" data-name="LED">
+        <ellipse cx="152.24" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="152.24" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-5" data-name="LED_NUMBER_TEXT" transform="translate(148.46 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">5</tspan></text>
+    </g>
+    <g id="LED_6">
+      <g id="BASE-6" data-name="BASE">
+        <rect x="168.93" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="168.93" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-6" data-name="LED">
+        <ellipse cx="185.92" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="185.92" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-6" data-name="LED_NUMBER_TEXT" transform="translate(182.14 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">6</tspan></text>
+    </g>
+    <g id="LED_7">
+      <g id="BASE-7" data-name="BASE">
+        <rect x="202.61" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="202.61" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-7" data-name="LED">
+        <ellipse cx="219.61" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="219.61" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-7" data-name="LED_NUMBER_TEXT" transform="translate(215.83 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">7</tspan></text>
+    </g>
+    <g id="LED_8">
+      <g id="BASE-8" data-name="BASE">
+        <rect x="236.3" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="236.3" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-8" data-name="LED">
+        <ellipse cx="253.3" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="253.3" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-8" data-name="LED_NUMBER_TEXT" transform="translate(249.51 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">8</tspan></text>
+    </g>
+    <g id="LED_9">
+      <g id="BASE-9" data-name="BASE">
+        <rect x="269.99" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="269.99" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-9" data-name="LED">
+        <ellipse cx="286.98" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="286.98" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-9" data-name="LED_NUMBER_TEXT" transform="translate(283.2 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">9</tspan></text>
+    </g>
+    <g id="LED_10">
+      <g id="BASE-10" data-name="BASE">
+        <rect x="303.67" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="303.67" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-10" data-name="LED">
+        <ellipse cx="320.67" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="320.67" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-10" data-name="LED_NUMBER_TEXT" transform="translate(312.29 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">10</tspan></text>
+    </g>
+    <g id="LED_11">
+      <g id="BASE-11" data-name="BASE">
+        <rect x="337.36" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="337.36" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-11" data-name="LED">
+        <ellipse cx="354.35" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="354.35" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-11" data-name="LED_NUMBER_TEXT" transform="translate(345.98 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">11</tspan></text>
+    </g>
+    <g id="LED_12">
+      <g id="BASE-12" data-name="BASE">
+        <rect x="371.04" y="50.36" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="371.04" y="50.36" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-12" data-name="LED">
+        <ellipse cx="388.04" cy="50.28" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="388.04" cy="50.28" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-12" data-name="LED_NUMBER_TEXT" transform="translate(379.66 71.78) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">12</tspan></text>
+    </g>
+    <g id="LED_13">
+      <g id="BASE-13" data-name="BASE">
+        <rect x="371.04" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="371.04" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-13" data-name="LED">
+        <ellipse cx="388.04" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="388.04" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-13" data-name="LED_NUMBER_TEXT" transform="translate(380.96 28.11) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">13</tspan></text>
+    </g>
+    <g id="LED_14">
+      <g id="BASE-14" data-name="BASE">
+        <rect x="337.36" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="337.36" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-14" data-name="LED">
+        <ellipse cx="354.35" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="354.35" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-14" data-name="LED_NUMBER_TEXT" transform="translate(347.28 27.88) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">14</tspan></text>
+    </g>
+    <g id="LED_15">
+      <g id="BASE-15" data-name="BASE">
+        <rect x="303.67" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="303.67" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-15" data-name="LED">
+        <ellipse cx="320.67" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="320.67" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-15" data-name="LED_NUMBER_TEXT" transform="translate(313.59 27.88) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">15</tspan></text>
+    </g>
+    <g id="LED_16">
+      <g id="BASE-16" data-name="BASE">
+        <rect x="269.99" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="269.99" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-16" data-name="LED">
+        <ellipse cx="286.98" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="286.98" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-16" data-name="LED_NUMBER_TEXT" transform="translate(278.65 27.88) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">16</tspan></text>
+    </g>
+    <g id="LED_17">
+      <g id="BASE-17" data-name="BASE">
+        <rect x="236.3" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="236.3" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-17" data-name="LED">
+        <ellipse cx="253.3" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="253.3" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-17" data-name="LED_NUMBER_TEXT" transform="translate(244.63 27.88) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">17</tspan></text>
+    </g>
+    <g id="LED_18">
+      <g id="BASE-18" data-name="BASE">
+        <rect x="202.61" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="202.61" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-18" data-name="LED">
+        <ellipse cx="219.61" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="219.61" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-18" data-name="LED_NUMBER_TEXT" transform="translate(211.61 27.88) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">18</tspan></text>
+    </g>
+    <g id="LED_19">
+      <g id="BASE-19" data-name="BASE">
+        <rect x="168.93" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="168.93" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-19" data-name="LED">
+        <ellipse cx="185.92" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="185.92" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-19" data-name="LED_NUMBER_TEXT" transform="translate(177.25 27.88) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">19</tspan></text>
+    </g>
+    <g id="LED_20">
+      <g id="BASE-20" data-name="BASE">
+        <rect x="135.24" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="135.24" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-20" data-name="LED">
+        <ellipse cx="152.24" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="152.24" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-20" data-name="LED_NUMBER_TEXT" transform="translate(144.24 28.11) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">20</tspan></text>
+    </g>
+    <g id="LED_21">
+      <g id="BASE-21" data-name="BASE">
+        <rect x="101.56" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="101.56" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-21" data-name="LED">
+        <ellipse cx="118.55" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="118.55" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-21" data-name="LED_NUMBER_TEXT" transform="translate(112.32 27.88) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">21</tspan></text>
+    </g>
+    <g id="LED_22">
+      <g id="BASE-22" data-name="BASE">
+        <rect x="67.87" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="67.87" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-22" data-name="LED">
+        <ellipse cx="84.87" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="84.87" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-22" data-name="LED_NUMBER_TEXT" transform="translate(77.04 27.88) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">22</tspan></text>
+    </g>
+    <g id="LED_23">
+      <g id="BASE-23" data-name="BASE">
+        <rect x="34.19" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x="34.19" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-23" data-name="LED">
+        <ellipse cx="51.18" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="51.18" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-23" data-name="LED_NUMBER_TEXT" transform="translate(43.25 28.11) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">23</tspan></text>
+    </g>
+    <g id="LED_24">
+      <g id="BASE-24" data-name="BASE">
+        <rect x=".5" y="6.45" width="33.69" height="9.97" fill="#f2d4b7"/>
+        <rect x=".5" y="6.45" width="33.69" height="9.97" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <g id="LED-24" data-name="LED">
+        <ellipse cx="17.49" cy="6.38" rx="6.24" ry="5.88" fill="#010101"/>
+        <ellipse cx="17.49" cy="6.38" rx="6.24" ry="5.88" fill="none" stroke="#010101" stroke-miterlimit="10"/>
+      </g>
+      <text id="LED_NUMBER_TEXT-24" data-name="LED_NUMBER_TEXT" transform="translate(10.09 27.88) scale(1.06 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="13.46"><tspan x="0" y="0">24</tspan></text>
+    </g>
+  </g>
+  <g id="BASE-25" data-name="BASE">
+    <line id="PIN_GND" x1="194.1" y1="145.06" x2="194.1" y2="120.06" fill="none" stroke="#010101" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_POWER" x1="211.1" y1="120.06" x2="211.1" y2="145.06" fill="none" stroke="#ed2224" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="PIN_DATA" x1="202.6" y1="145.06" x2="202.6" y2="120.06" fill="none" stroke="#046937" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect x="191.1" y="112.06" width="23" height="13" fill="#f2d4b7"/>
+    <text id="GND_TEXT" transform="translate(179.66 145.31) scale(1.14 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="21"><tspan x="0" y="0">-</tspan></text>
+    <text id="DATA_TEXT" transform="translate(102.15 103.64) scale(1.21 1)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="21"><tspan x="0" y="0">data pin = A15</tspan></text>
+    <text id="POWER_TEXT" transform="translate(213.72 145.31)" fill="#010101" font-family="Biryani-SemiBold, Biryani" font-size="21"><tspan x="0" y="0">+</tspan></text>
+    <text transform="translate(45 139.81)" fill="#010101" font-family="Biryani-Bold, Biryani" font-size="24"><tspan x="0" y="0">Neo Pixels</tspan></text>
+  </g>
+  <g id="SIDES">
+    <path id="LEVEL_1" d="M404.73,6.45h7.56c1.66,0,3,1.34,3,3V57.32c0,1.66-1.34,3-3,3h-7.56V6.45h0Z" fill="#f2d4b7" stroke="#010101" stroke-miterlimit="10"/>
+  </g>
+</svg>
