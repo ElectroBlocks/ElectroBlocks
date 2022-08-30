@@ -1,5 +1,6 @@
 import Blockly from 'blockly';
 import { COLOR_THEME } from '../../core/blockly/constants/colors';
+import { ColorWheelField } from 'blockly-field-color-wheel';
 
 import { selectBoardBlockly } from '../../core/microcontroller/selectBoard';
 
@@ -118,6 +119,28 @@ Blockly.Blocks['fastled_setup'] = {
       .appendField('Brightness 1 to 255')
       .appendField(new Blockly.FieldNumber(10, 1, 255, 1), 'BRIGHTNESS');
 
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setTooltip('');
+    this.setHelpUrl('');
+  },
+};
+
+Blockly.Blocks['fastled_set_all_colors'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage('./blocks/neo_pixel/neo_pixel.png', 15, 15)
+      )
+      .appendField('Set all Colors');
+    let rows = 1;
+    for (let rows = 1; rows <= 12; rows += 1) {
+      let input = this.appendDummyInput();
+      for (let cols = 1; cols <= 12; cols += 1) {
+        input.appendField(new ColorWheelField('#000000'), `${rows}-${cols}`);
+      }
+    }
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip('');
     this.setHelpUrl('');

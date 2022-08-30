@@ -116,6 +116,7 @@ export const blocksThatRequireSetup = {
   lcd_screen_blink: 'lcd_setup',
   neo_pixel_set_color: 'neo_pixel_setup',
   fastled_set_color: 'fastled_setup',
+  fastled_set_all_colors: 'fastled_setup',
   soil_humidity_percentage: 'soil_sensor_setup',
   soil_humidity_value: 'soil_sensor_setup',
   soil_is_raining: 'soil_sensor_setup',
@@ -393,6 +394,10 @@ export const blocksToBlockTypes: {
     pinCategory: PinCategory.FAST_LED,
   },
   fastled_set_color: {
+    type: BlockType.STATE,
+    pinCategory: PinCategory.NONE,
+  },
+  fastled_set_all_colors: {
     type: BlockType.STATE,
     pinCategory: PinCategory.NONE,
   },

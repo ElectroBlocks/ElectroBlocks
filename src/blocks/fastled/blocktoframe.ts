@@ -1,14 +1,14 @@
-import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
-import { ArduinoComponentType } from "../../core/frames/arduino.frame";
-import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
-import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
+import { findFieldValue } from '../../core/blockly/helpers/block-data.helper';
+import { ArduinoComponentType } from '../../core/frames/arduino.frame';
+import type { BlockToFrameTransformer } from '../../core/frames/transformer/block-to-frame.transformer';
+import { getInputValue } from '../../core/frames/transformer/block-to-value.factories';
 import {
   arduinoFrameByComponent,
   findComponent,
   getDefaultIndexValue,
-} from "../../core/frames/transformer/frame-transformer.helpers";
-import type { FastLEDState } from "./state";
-import _ from "lodash";
+} from '../../core/frames/transformer/frame-transformer.helpers';
+import type { FastLEDState } from './state';
+import _ from 'lodash';
 
 export const fastLEDSetup: BlockToFrameTransformer = (
   blocks,
@@ -17,12 +17,22 @@ export const fastLEDSetup: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  const numberOfLeds = +findFieldValue(block, "NUMBER_LEDS");
+  const numberOfLeds = +findFieldValue(block, 'NUMBER_LEDS');
 
   const ledStripState: FastLEDState = {
     pins: block.pins,
     type: ArduinoComponentType.FASTLED_STRIP,
     numberOfLeds,
+    preShowLEDs: _.range(0, numberOfLeds).map((i) => {
+      return {
+        position: i,
+        color: {
+          red: 0,
+          green: 0,
+          blue: 0,
+        },
+      };
+    }),
     fastLEDs: _.range(0, numberOfLeds).map((i) => {
       return {
         position: i,
@@ -40,10 +50,20 @@ export const fastLEDSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       ledStripState,
-      "Setting up led light strip.",
+      'Setting up led light strip.',
       previousState
     ),
   ];
+};
+
+export const setAllColors: BlockToFrameTransformer = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  return [previousState];
 };
 
 export const setFastLEDColor: BlockToFrameTransformer = (
@@ -62,7 +82,7 @@ export const setFastLEDColor: BlockToFrameTransformer = (
     block,
     variables,
     timeline,
-    "COLOR",
+    'COLOR',
     { red: 0, green: 0, blue: 0 },
     previousState
   );
@@ -74,12 +94,12 @@ export const setFastLEDColor: BlockToFrameTransformer = (
       block,
       variables,
       timeline,
-      "POSITION",
+      'POSITION',
       1,
       previousState
     )
   );
-  fastLED.fastLEDs[position - 1] = { position: position - 1, color };
+  fastLED.preShowLEDs[position - 1] = { position: position - 1, color };
   const newComponent = _.cloneDeep(fastLED);
 
   return [
