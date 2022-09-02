@@ -44,7 +44,7 @@ Blockly.defineBlocksWithJsonArray([
     message0: "%1 show all rgb leds",
     args0: [
       {
-        type: "fastled_show_all_rgb_leds",
+        type: "field_image",
         src: "./blocks/neo_pixel/neo_pixel.png",
         width: 15,
         height: 15,
@@ -155,7 +155,12 @@ Blockly.Blocks["fastled_set_all_colors"] = {
     for (let rows = 12; rows >= 1; rows -= 1) {
       let input = this.appendDummyInput();
       for (let cols = 1; cols <= 12; cols += 1) {
-        input.appendField(new ColorWheelField("#000000"), `${rows}-${cols}`);
+        // This is to reverse the columns
+        let actualCol = rows % 2 == 0 ? 13 - cols : cols;
+        input.appendField(
+          new ColorWheelField("#000000"),
+          `${rows}-${actualCol}`
+        );
       }
     }
     this.setPreviousStatement(true, null);
