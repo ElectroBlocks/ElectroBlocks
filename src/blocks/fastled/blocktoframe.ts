@@ -109,7 +109,6 @@ export const setAllColors: BlockToFrameTransformer = (
 
   const leds = [];
   for (let position = 1; position <= fastLED.numberOfLeds; position += 1) {
-    console.log(getRowColId(position));
     const hexValue = findFieldValue(block, getRowColId(position));
     const color = hexToRgb(hexValue);
     leds.push({ position: position - 1, color });
