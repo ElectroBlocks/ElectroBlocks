@@ -47,7 +47,9 @@ import {
 } from "../../../blocks/neopixels/blocktoframe";
 import {
   fastLEDSetup,
+  setAllColors,
   setFastLEDColor,
+  showAllColors,
 } from "../../../blocks/fastled/blocktoframe";
 import {
   ledMatrixDraw,
@@ -150,7 +152,8 @@ const blockToFrameTransformerList: {
   set_color_led: setLedColor,
   neo_pixel_set_color: setNeoPixelColor,
   fastled_set_color: setFastLEDColor,
-
+  fastled_set_all_colors: setAllColors,
+  fastled_show_all_colors: showAllColors,
   led_matrix_make_draw: ledMatrixDraw,
   led_matrix_turn_one_on_off: ledMatrixOnLed,
   led_matrix_setup: ledMatrixSetup,

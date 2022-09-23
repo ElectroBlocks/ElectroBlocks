@@ -18,6 +18,7 @@ import {
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import type { FastLEDState } from "./state";
+import { hexToRgb } from "../../core/blockly/helpers/color.helper";
 
 describe("fastLED state factories", () => {
   let workspace: Workspace;
@@ -41,6 +42,12 @@ describe("fastLED state factories", () => {
       pins: [ARDUINO_PINS.PIN_6],
       numberOfLeds: 60,
       type: ArduinoComponentType.FASTLED_STRIP,
+      preShowLEDs: _.range(0, 60).map((i) => {
+        return {
+          position: i,
+          color: { red: 0, green: 0, blue: 0 },
+        };
+      }),
       fastLEDs: _.range(0, 60).map((i) => {
         return {
           position: i,
@@ -65,6 +72,57 @@ describe("fastLED state factories", () => {
     };
 
     expect(eventToFrameFactory(event).frames).toEqual([state]);
+  });
+
+  test("should be able to use set all color block and be able to change to showing all the colors", () => {
+    const setAllColorBlock = workspace.newBlock(
+      "fastled_set_all_colors"
+    ) as BlockSvg;
+    const showAllColors = workspace.newBlock(
+      "fastled_show_all_colors"
+    ) as BlockSvg;
+    setAllColorBlock.setFieldValue("#FF0000", "1-1");
+    setAllColorBlock.setFieldValue("#00AA00", "2-2");
+    connectToArduinoBlock(showAllColors);
+    connectToArduinoBlock(setAllColorBlock);
+    const [_, state2, state3] = eventToFrameFactory(
+      createTestEvent(setAllColorBlock.id)
+    ).frames;
+
+    expect(state2.components.length).toBe(1);
+    const [component1State2] = state2.components as FastLEDState[];
+
+    for (let i = 0; i < 60; i += 1) {
+      expect(component1State2.preShowLEDs[i].color.blue).toBe(0);
+      if (i == 13) {
+        expect(component1State2.preShowLEDs[i].color.green).toBe(170);
+      } else if (i == 0) {
+        expect(component1State2.preShowLEDs[i].color.red).toBe(255);
+      } else {
+        expect(component1State2.preShowLEDs[i].color.green).toBe(0);
+        expect(component1State2.preShowLEDs[i].color.red).toBe(0);
+      }
+      expect(component1State2.fastLEDs[i].color.red).toBe(0);
+      expect(component1State2.fastLEDs[i].color.green).toBe(0);
+      expect(component1State2.fastLEDs[i].color.blue).toBe(0);
+    }
+
+    const [component1State3] = state3.components as FastLEDState[];
+
+    for (let i = 0; i < 60; i += 1) {
+      expect(component1State3.fastLEDs[i].color.blue).toBe(0);
+      if (i == 13) {
+        expect(component1State3.fastLEDs[i].color.green).toBe(170);
+      } else if (i == 0) {
+        expect(component1State3.fastLEDs[i].color.red).toBe(255);
+      } else {
+        expect(component1State3.fastLEDs[i].color.green).toBe(0);
+        expect(component1State3.fastLEDs[i].color.red).toBe(0);
+      }
+      expect(component1State3.preShowLEDs[i].color.red).toBe(0);
+      expect(component1State3.preShowLEDs[i].color.green).toBe(0);
+      expect(component1State3.preShowLEDs[i].color.blue).toBe(0);
+    }
   });
 
   test("should be able to set all the colors of an led light strip.", () => {
@@ -116,7 +174,7 @@ describe("fastLED state factories", () => {
     );
     expect(state2.components.length).toBe(1);
     const [component1] = state2.components as FastLEDState[];
-    component1.fastLEDs.forEach((pixel) => {
+    component1.preShowLEDs.forEach((pixel) => {
       if (pixel.position === 0) {
         expect(pixel.color).toEqual({
           red: 0,
@@ -137,7 +195,7 @@ describe("fastLED state factories", () => {
     // );
     expect(state3.components.length).toBe(1);
     const [componentv2] = state3.components as FastLEDState[];
-    componentv2.fastLEDs.forEach((pixel) => {
+    componentv2.preShowLEDs.forEach((pixel) => {
       if (pixel.position === 0) {
         expect(pixel.color).toEqual({
           red: 0,

@@ -6,6 +6,12 @@ export default `<category name="FastLED" colour="${COLOR_THEME.COMPONENTS}">
 
              <field name="PIN">A0</field>
        </block>
+       <block type="fastled_set_all_colors">
+                     <comment pinned="false" h="80" w="460">This block will set all the colors on the neopixels.</comment>
+       </block>
+       <block type="fastled_show_all_colors">
+          <comment pinned="false" h="80" w="460">Use the block to display all RGB LED Strips</comment>
+       </block>
        <block type="fastled_set_color">
               <comment pinned="false" h="80" w="460">This block will set the color of one led in your fastled light strip.  This block uses 1 as the first pixel.</comment>
 
