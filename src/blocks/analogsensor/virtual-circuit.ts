@@ -275,10 +275,12 @@ const createWiresFunc = {
   [AnalogSensorPicture.SOIL_SENSOR]: createSoilSensorWires,
   [AnalogSensorPicture.SENSOR]: createSensorWires,
   [AnalogSensorPicture.PHOTO_SENSOR]: createPhotoSensorWires,
+  [AnalogSensorPicture.POTENTIOMETER]: createSensorWires,
 };
 
 const updateSensorList = {
   [AnalogSensorPicture.SOIL_SENSOR]: updateSoilSensor,
   [AnalogSensorPicture.SENSOR]: updateGenericSensor,
   [AnalogSensorPicture.PHOTO_SENSOR]: updatePhotoSensor,
+  [AnalogSensorPicture.POTENTIOMETER]: updateGenericSensor,
 };

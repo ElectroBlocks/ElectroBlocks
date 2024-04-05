@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="300"
+   height="370"
+   viewBox="0 0 79.374953 97.89583"
+   version="1.1"
+   id="svg7892"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   sodipodi:docname="potentiometer.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs7886" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="165.5"
+     inkscape:cy="159.5"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g5894"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1392"
+     inkscape:window-height="1212"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <metadata
+     id="metadata7889">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-6.7420057,-6.6693388)"
+     style="display:inline">
+    <g
+       id="g5894"
+       transform="matrix(0.60360556,0,0,0.60360556,119.45545,137.8555)">
+      <rect
+         ry="8.1522207"
+         y="-192.35448"
+         x="-185.37505"
+         height="128.89323"
+         width="129.11356"
+         id="rect5424"
+         style="display:inline;opacity:1;fill:#045881;fill-opacity:1;stroke:#045881;stroke-width:1.95152;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         y="-188.67798"
+         x="-150.76115"
+         height="12.407617"
+         width="60.234947"
+         id="rect5455"
+         style="opacity:1;fill:#ccdae3;fill-opacity:1;stroke:none;stroke-width:2.26042;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         y="-80.647011"
+         x="-142.63103"
+         height="13.660479"
+         width="42.74408"
+         id="rect5392"
+         style="opacity:1;fill:#000000;fill-opacity:0;stroke:#ffffff;stroke-width:1.95152;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         id="text5396"
+         y="-83.291"
+         x="-145.16521"
+         style="font-style:normal;font-weight:normal;font-size:6.42555px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.344226"
+         xml:space="preserve"><tspan
+           style="font-size:6.42555px;fill:#ffffff;stroke-width:0.344226"
+           y="-83.291"
+           x="-145.16521"
+           id="tspan5394"
+           sodipodi:role="line">GND</tspan></text>
+      <text
+         id="text5396-1"
+         y="-83.155312"
+         x="-128.39781"
+         style="font-style:normal;font-weight:normal;font-size:6.42555px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.344226"
+         xml:space="preserve"><tspan
+           style="font-size:6.42555px;fill:#ffffff;stroke-width:0.344226"
+           y="-83.155312"
+           x="-128.39781"
+           id="tspan5394-1"
+           sodipodi:role="line">VCC</tspan></text>
+      <text
+         id="text5396-5"
+         y="-83.375633"
+         x="-111.76274"
+         style="font-style:normal;font-weight:normal;font-size:6.42555px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.344226"
+         xml:space="preserve"
+         inkscape:label="PIN_TEXT"><tspan
+           style="font-size:6.42555px;fill:#ffffff;stroke-width:0.344226"
+           y="-83.375633"
+           x="-111.76274"
+           id="PIN_TEXT"
+           sodipodi:role="line">SIG</tspan></text>
+      <ellipse
+         ry="6.3895783"
+         rx="6.6099091"
+         cy="-181.33797"
+         cx="-175.23991"
+         id="path5426"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.95152;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <ellipse
+         ry="6.3895783"
+         rx="6.6099091"
+         cy="-71.613472"
+         cx="-176.56194"
+         id="path5426-2"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.95152;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <ellipse
+         ry="6.3895783"
+         rx="6.6099091"
+         cy="-70.952477"
+         cx="-67.278061"
+         id="path5426-5"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.95152;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <ellipse
+         ry="6.3895783"
+         rx="6.6099091"
+         cy="-180.67697"
+         cx="-66.617111"
+         id="path5426-3"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.95152;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <ellipse
+         ry="49.255947"
+         rx="48.154297"
+         cy="-139.14471"
+         cx="-120.70818"
+         id="path5373"
+         style="opacity:1;fill:#e4e8eb;fill-opacity:1;stroke:none;stroke-width:1.97907;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:label="WHITE_CIRCLE"
+         transform="translate(-8.6148975e-6)" />
+      <g
+         id="g1"
+         inkscape:label="ROTATE_KNOB"
+         transform="rotate(40,-120.38096,-139.91586)">
+        <ellipse
+           ry="43.629311"
+           rx="43.739475"
+           cy="-139.91585"
+           cx="-120.38097"
+           id="path5373-3"
+           style="display:inline;opacity:1;fill:#c3c2c3;fill-opacity:1;stroke:none;stroke-width:1.77517;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           inkscape:label="GRAY_CIRCLE" />
+        <rect
+           transform="matrix(-0.75872699,0.65140875,-0.66443305,-0.74734779,0,0)"
+           y="182.797"
+           x="-46.431877"
+           height="2.7833986"
+           width="20.26368"
+           id="rect5390"
+           style="display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.29906;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           inkscape:label="KNOB" />
+      </g>
+      <ellipse
+         ry="4.2065206"
+         rx="4.0507231"
+         cy="-73.640999"
+         cx="-135.42528"
+         id="PIN_GND"
+         style="opacity:1;fill:#b3b1b0;fill-opacity:1;stroke:none;stroke-width:1.95152;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:label="PIN_GND" />
+      <ellipse
+         ry="4.2065206"
+         rx="4.0507231"
+         cy="-73.796799"
+         cx="-121.71519"
+         id="PIN_POWER"
+         style="opacity:1;fill:#b3b1b0;fill-opacity:1;stroke:none;stroke-width:1.95152;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:label="PIN_POWER" />
+      <ellipse
+         ry="4.2065206"
+         rx="4.0507231"
+         cy="-73.796799"
+         cx="-107.69341"
+         id="PIN_DATA"
+         style="opacity:1;fill:#b3b1b0;fill-opacity:1;stroke:none;stroke-width:1.95152;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:label="PIN_DATA" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:11.8991px;fill:#000000;stroke-width:0.991592"
+       x="49.996632"
+       y="19.117575"
+       id="READING_VALUE"
+       transform="scale(0.93693701,1.0673076)"
+       inkscape:label="READING_VALUE"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="text-align:center;text-anchor:middle;stroke-width:0.991592"
+         x="49.996632"
+         y="19.117575">180</tspan></text>
+  </g>
+</svg>
