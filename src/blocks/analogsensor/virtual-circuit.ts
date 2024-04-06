@@ -87,6 +87,50 @@ export const analogSensorReset: ResetComponent = (componentEl: Element) => {
   }
 };
 
+const createPotentiometerWires: CreateWire<AnalogSensorState> = (
+  state,
+  draw,
+  componentEl,
+  arduinoEl,
+  id,
+  board,
+  area
+) => {
+  const { holes, isDown } = area;
+
+  createComponentWire(
+    holes[3],
+    isDown,
+    componentEl,
+    state.pin,
+    draw,
+    arduinoEl,
+    id,
+    "PIN_DATA",
+    board
+  );
+
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
+    componentEl,
+    draw,
+    arduinoEl,
+    id,
+    "ground"
+  );
+
+  createGroundOrPowerWire(
+    holes[2],
+    isDown,
+    componentEl,
+    draw,
+    arduinoEl,
+    id,
+    "power"
+  );
+};
+
 const createSensorWires: CreateWire<AnalogSensorState> = (
   state,
   draw,
@@ -275,7 +319,7 @@ const createWiresFunc = {
   [AnalogSensorPicture.SOIL_SENSOR]: createSoilSensorWires,
   [AnalogSensorPicture.SENSOR]: createSensorWires,
   [AnalogSensorPicture.PHOTO_SENSOR]: createPhotoSensorWires,
-  [AnalogSensorPicture.POTENTIOMETER]: createSensorWires,
+  [AnalogSensorPicture.POTENTIOMETER]: createPotentiometerWires,
 };
 
 const updateSensorList = {
