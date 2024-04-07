@@ -172,7 +172,7 @@
        style="fill:#e4e8eb;fill-opacity:1;stroke:none;stroke-width:1.19458;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        inkscape:label="WHITE_CIRCLE" />
     <g
-       id="g1"
+       id="ROTATE_KNOB"
        inkscape:label="ROTATE_KNOB"
        transform="matrix(0.46238869,0.38799018,-0.38799018,0.46238869,42.228794,155.92607)">
       <ellipse

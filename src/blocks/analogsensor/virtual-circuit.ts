@@ -306,6 +306,20 @@ const updateSoilSensor = (
   (analogSensorEl.findOne("#POT") as Element).fill(color);
 };
 
+const updatePotentiometerSensor = (
+  state: AnalogSensorState,
+  sensor: Element
+) => {
+  const textEl = sensor.findOne("#READING_VALUE") as Text;
+  textEl.cx(43);
+  const rotateEl = sensor.findOne("#ROTATE_KNOB") as Svg;
+  const lastDegree = +sensor.data("degree") ?? 0;
+  const degree = (state.state / 1024) * 180;
+  rotateEl.rotate(lastDegree, rotateEl.cx(), rotateEl.cy());
+  rotateEl.rotate(degree * -1, rotateEl.cx(), rotateEl.cy());
+  sensor.data("degree", degree);
+};
+
 const updateGenericSensor = (
   state: AnalogSensorState,
   analogSensorEl: Element
@@ -326,5 +340,5 @@ const updateSensorList = {
   [AnalogSensorPicture.SOIL_SENSOR]: updateSoilSensor,
   [AnalogSensorPicture.SENSOR]: updateGenericSensor,
   [AnalogSensorPicture.PHOTO_SENSOR]: updatePhotoSensor,
-  [AnalogSensorPicture.POTENTIOMETER]: updateGenericSensor,
+  [AnalogSensorPicture.POTENTIOMETER]: updatePotentiometerSensor,
 };
