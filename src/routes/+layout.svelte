@@ -2,7 +2,7 @@
   import { onMount, tick } from 'svelte';
   import _ from 'lodash';
   import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
+  import config from '../env';
   import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
   import Nav from '../components/electroblocks/Nav.svelte';
   import Blockly from '../components/electroblocks/Blockly.svelte';
@@ -19,6 +19,8 @@
   } from '../core/blockly/helpers/arduino_loop_block.helper';
   import swal from 'sweetalert';
   import Lessons from '../components/electroblocks/home/Lessons.svelte';
+  import { initializeAnalytics } from 'firebase/analytics';
+  import { initializeApp } from 'firebase/app';
 
   const { page } = stores();
   export let segment = '';
@@ -27,7 +29,7 @@
 
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
-  let showLoopExecutionTimesArduinoStartBlock;
+  let showLoopExecutionTimesArduinoStartBlock: boolean;
   $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
 
   let height = '500px';
@@ -40,7 +42,7 @@
   /**
    * Event is on grabber on is trigger by a mouse down event
    */
-  function startResize(side) {
+  function startResize(side: string) {
     if (side == 'right') {
       isResizingRight = true;
     } else {
@@ -56,8 +58,8 @@
     isResizingLeft = false;
   }
 
-  const resize = (side) => {
-    return (e) => {
+  const resize = (side: string) => {
+    return (e : PointerEvent) => {
       if (!isResizingLeft && side == 'left') {
         return;
       }
@@ -119,6 +121,11 @@
   }
 
   onMount(() => {
+    // Initialize Firebase
+    const app = initializeApp(config.firebase);
+    initializeAnalytics(app);
+
+    localStorage.removeItem('no_alert');
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ path, params, query }) => {
       if (

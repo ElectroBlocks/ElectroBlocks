@@ -1,6 +1,6 @@
 <script>
-    import Help from '../../components/electroblocks/block-help/help.svelte'
-    import { getBlockHelp } from '../../help/help-block-list';
+    import Help from '../../../components/electroblocks/block-help/help.svelte'
+    import { getBlockHelp } from '../../../help/help-block-list';
     import { stores } from '@sapper/app';
 	const {  page } = stores();
     const { blocktype } = $page.params;
