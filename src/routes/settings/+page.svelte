@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FormGroup, Input, Label, Button } from 'sveltestrap/src';
+  import { FormGroup, Input, Label, Button } from '@sveltestrap/sveltestrap';
 
   import { defaultSetting } from '../../firebase/model';
   import type { Settings } from '../../firebase/model';

@@ -1,5 +1,5 @@
 import type { BlockEvent } from "../dto/event.type";
-import { VariableAction, ActionType } from "./actions";
+import { type VariableAction, ActionType } from "./actions";
 
 export const deleteUnusedVariables = (event: BlockEvent): VariableAction[] => {
   const { variables } = event;

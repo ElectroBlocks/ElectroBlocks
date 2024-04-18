@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FormGroup, Input, Label } from 'sveltestrap/src';
+  import { FormGroup, Input, Label } from '@sveltestrap/sveltestrap';
 
   export let segment;
   import { goto } from '$app/navigation';;

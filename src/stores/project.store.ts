@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { Project } from "../firebase/model";
+import type { Project } from "../firebase/model";
 import authStore from "./auth.store";
 
 const projectStore = writable<{
@@ -15,7 +15,6 @@ authStore.subscribe((auth) => {
     projectStore.set({ project: null, projectId: null });
   }
 });
-
 
 export default {
   subscribe: projectStore.subscribe,

@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import type { Element } from "@svgdotjs/svg.js";
 
-  import { FormGroup, Input, Label, Button } from "sveltestrap/src";
+  import { FormGroup, Input, Label, Button } from "@sveltestrap/sveltestrap";
 
   let showLedChanger = false;
   let ledEl: Element;

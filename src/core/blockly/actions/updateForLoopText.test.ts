@@ -3,7 +3,7 @@ import "../blocks";
 import _ from "lodash";
 import type { BlockEvent } from "../dto/event.type";
 import updateForLoopText from "./updateForLoopText";
-import { ForLoopTextChange, ActionType } from "./actions";
+import { type ForLoopTextChange, ActionType } from "./actions";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,

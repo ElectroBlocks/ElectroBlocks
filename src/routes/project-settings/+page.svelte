@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FormGroup, Input, Label, Button } from "sveltestrap/src";
+  import { FormGroup, Input, Label, Button } from "@sveltestrap/sveltestrap";
 
   import authStore from "../../stores/auth.store";
   import projectStore from "../../stores/project.store";
@@ -8,7 +8,6 @@
   import { onDestroy } from "svelte";
   import FlashMessage from "../../components/electroblocks/ui/FlashMessage.svelte";
   import { wait } from "../../helpers/wait";
-  import { goto } from "@sapper/app";
   import { onErrorMessage } from "../../help/alerts";
   import { workspaceToXML } from "../../core/blockly/helpers/workspace.helper";
   import codeStore from "../../stores/code.store";

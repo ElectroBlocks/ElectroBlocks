@@ -3,7 +3,7 @@
   import codeStore from "../../stores/code.store";
   import { saveAs } from "file-saver";
   import { onDestroy } from "svelte";
-  import { Button } from "sveltestrap/src";
+  import { Button } from "@sveltestrap/sveltestrap";
 
   let code;
 

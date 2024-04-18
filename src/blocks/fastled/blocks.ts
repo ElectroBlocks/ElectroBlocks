@@ -1,6 +1,6 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
-import { ColorWheelField } from "blockly-field-color-wheel";
+import * as ColorWheelField from "blockly-field-color-wheel";
 
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 

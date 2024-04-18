@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Table, Button, FormGroup, Input, Label } from 'sveltestrap/src';
+  import { Table, Button, FormGroup, Input, Label } from '@sveltestrap/sveltestrap';
 
   import { onMount, onDestroy } from 'svelte';
   import { goto } from '$app/navigation';;

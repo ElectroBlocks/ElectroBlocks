@@ -1,5 +1,5 @@
 import type { BlockEvent } from "../../dto/event.type";
-import { ActionType, DisableBlock } from "../actions";
+import { ActionType, type DisableBlock } from "../actions";
 
 // This is so that when some switches microcontrollers the pins are
 // valid in the new microcontroller.  Otherwise disable the pins and force

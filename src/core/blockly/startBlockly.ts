@@ -1,24 +1,23 @@
-import { WorkspaceSvg, BlocklyOptions, Block } from 'blockly';
-import Blockly from 'blockly';
-import './menus';
-import './blocks';
-import './overrides/index';
-import './generators/index';
+import Blockly from "blockly";
+import "./menus";
+import "./blocks";
+import "./overrides/index";
+import "./generators/index";
 
-import { theme } from './theme';
+import { theme } from "./theme";
 
-import { addListener, createFrames } from './registerEvents';
-import registerListMenu from '../../blocks/list/menu';
-import registerCodeMenu from '../../blocks/arduino/menu';
+import { addListener, createFrames } from "./registerEvents";
+import registerListMenu from "../../blocks/list/menu";
+import registerCodeMenu from "../../blocks/arduino/menu";
 
-import { getToolBoxString } from './toolbox';
+import { getToolBoxString } from "./toolbox";
 
-import { connectToArduinoBlock, createBlock } from './helpers/block.helper';
-import { ARDUINO_PINS } from '../microcontroller/selectBoard';
-import { DELAY_COMMENT } from '../../blocks/time/toolbox';
-import { LED_COMMENT } from '../../blocks/led/toolbox';
+import { connectToArduinoBlock, createBlock } from "./helpers/block.helper";
+import { ARDUINO_PINS } from "../microcontroller/selectBoard";
+import { DELAY_COMMENT } from "../../blocks/time/toolbox";
+import { LED_COMMENT } from "../../blocks/led/toolbox";
 
-import '@blockly/block-plus-minus';
+import "@blockly/block-plus-minus";
 
 /**
  * This will start up blockly and will add all the event listeners and styles
@@ -37,7 +36,7 @@ const startBlockly = (blocklyElement: HTMLElement) => {
   registerCodeMenu(workspace);
 
   // creates the arduino loop block
-  const arduinoBlock = createBlock('arduino_loop', 50, 151, false);
+  const arduinoBlock = createBlock("arduino_loop", 50, 151, false);
 
   // Creating Blink
   createLedWithDelay(0.2, false);
@@ -54,24 +53,24 @@ const startBlockly = (blocklyElement: HTMLElement) => {
  */
 const createWorkspace = (blocklyElement: HTMLElement) => {
   Blockly.inject(blocklyElement, createBlockConfig());
-  return Blockly.getMainWorkspace() as WorkspaceSvg;
+  return Blockly.getMainWorkspace() as Blockly.WorkspaceSvg;
 };
 
 const createLedWithDelay = (seconds = 1, isOn = true) => {
-  const ledBlock = createBlock('led', 0, 0, true);
+  const ledBlock = createBlock("led", 0, 0, true);
   ledBlock.setCommentText(LED_COMMENT);
-  ledBlock.comment.setBubbleSize(460, 145);
-  ledBlock.setFieldValue(ARDUINO_PINS.PIN_13, 'PIN');
-  ledBlock.setFieldValue(isOn ? 'ON' : 'OFF', 'STATE');
+  ledBlock.getCommentIcon().setBubbleSize(460, 145);
+  ledBlock.setFieldValue(ARDUINO_PINS.PIN_13, "PIN");
+  ledBlock.setFieldValue(isOn ? "ON" : "OFF", "STATE");
   connectToArduinoBlock(ledBlock);
-  const delayBlock = createBlock('delay_block', 0, 0, true);
+  const delayBlock = createBlock("delay_block", 0, 0, true);
 
   delayBlock.setCommentText(DELAY_COMMENT);
-  delayBlock.comment.setBubbleSize(460, 90);
-  const numberBlock1 = createBlock('math_number', 0, 0, true);
-  numberBlock1.setFieldValue(seconds.toString(), 'NUM');
+  delayBlock.getCommentIcon().setBubbleSize(460, 90);
+  const numberBlock1 = createBlock("math_number", 0, 0, true);
+  numberBlock1.setFieldValue(seconds.toString(), "NUM");
   delayBlock
-    .getInput('DELAY')
+    .getInput("DELAY")
     .connection.connect(numberBlock1.outputConnection);
   ledBlock.nextConnection.connect(delayBlock.previousConnection);
 };
@@ -79,7 +78,7 @@ const createLedWithDelay = (seconds = 1, isOn = true) => {
 /**
  * Returns the blockly config object
  */
-const createBlockConfig = (): BlocklyOptions => {
+const createBlockConfig = (): Blockly.BlocklyOptions => {
   const toolboxString = getToolBoxString();
 
   return {
@@ -89,9 +88,9 @@ const createBlockConfig = (): BlocklyOptions => {
     disable: false,
     trashcan: true,
     horizontalLayout: false,
-    toolboxPosition: 'start',
+    toolboxPosition: "start",
     css: true,
-    media: 'https://blockly-demo.appspot.com/static/media/',
+    media: "https://blockly-demo.appspot.com/static/media/",
     rtl: false,
     sounds: true,
     theme,
@@ -99,7 +98,7 @@ const createBlockConfig = (): BlocklyOptions => {
     grid: {
       spacing: 20,
       length: 1,
-      colour: '#888',
+      colour: "#888",
       snap: false,
     },
     zoom: {

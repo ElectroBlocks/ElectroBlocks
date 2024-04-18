@@ -7,7 +7,7 @@
   import Nav from '../components/electroblocks/Nav.svelte';
   import Blockly from '../components/electroblocks/Blockly.svelte';
   import { resizeStore } from '../stores/resize.store';
-  import { stores, goto } from '@sapper/app';
+  import { page } from '$app/stores';
   import authStore from '../stores/auth.store';
   import projectStore from '../stores/project.store';
   import { getFile, getProject } from '../firebase/db';
@@ -22,7 +22,6 @@
   import { initializeAnalytics } from 'firebase/analytics';
   import { initializeApp } from 'firebase/app';
 
-  const { page } = stores();
   export let segment = '';
 
   let showScrollOnRightSide = false;
@@ -127,10 +126,10 @@
 
     localStorage.removeItem('no_alert');
     // Wrapped in an onMount because we don't want it executed by the server
-    page.subscribe(({ path, params, query }) => {
+    page.subscribe(({ url }) => {
       if (
         ['open', 'settings', 'lessons'].reduce((found, value) => {
-          return found || path.indexOf(value) >= 0;
+          return found || url.pathname.indexOf(value) >= 0;
         }, false)
       ) {
         showScrollOnRightSide = true;

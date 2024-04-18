@@ -1,6 +1,6 @@
-import Blockly, { WorkspaceSvg } from "blockly";
+import Blockly from "blockly";
 
-const registerCodeMenu = (workspace: WorkspaceSvg) => {
+const registerCodeMenu = (workspace: Blockly.WorkspaceSvg) => {
   workspace.registerToolboxCategoryCallback("CODE", () => {
     const xmlList = [];
     const setupBlock = workspace

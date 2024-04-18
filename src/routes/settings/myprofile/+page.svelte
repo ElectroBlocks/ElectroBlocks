@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { FormGroup, Input, Label, Button } from "sveltestrap/src";
+    import { FormGroup, Input, Label, Button } from "@sveltestrap/sveltestrap";
 
     import Login from "../../../components/auth/Login.svelte";
     import authStore from "../../../stores/auth.store";
