@@ -211,7 +211,7 @@
     user-select: none;
   }
   #recenter-icon {
-    background-image: url(/target.svg);
+    background-image: url(/target.svg?raw);
     width: 25px;
     height: 25px;
     background-size: contain;

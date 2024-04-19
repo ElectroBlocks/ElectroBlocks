@@ -30,7 +30,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
         `This block gets the value that the variable is storing.  This variable store a ${humanType}.`
       );
       if (typeof this.getCommentIcon() !== "string") {
-        this.getCommentIcon().setBubbleSize(460, 80);
+        this.getCommentIcon().setBubbleSize(new Blockly.utils.Size(460, 80));
       }
     },
   };
@@ -59,7 +59,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
         `This block sets the value the variable is storing.  This variable will store ${humanType} only.`
       );
       if (typeof this.getCommentIcon() !== "string") {
-        this.getCommentIcon().setBubbleSize(460, 90);
+        this.getCommentIcon().setBubbleSize(new Blockly.utils.Size(460, 90));
       }
     },
   };

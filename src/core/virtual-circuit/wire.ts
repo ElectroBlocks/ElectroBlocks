@@ -1,7 +1,7 @@
 import { Element, Line, Svg } from "@svgdotjs/svg.js";
 import _ from "lodash";
-import resistorSvg from "../virtual-circuit/commonsvgs/resistors/resistor-small.svg";
-import horizontalResistorSvg from "../virtual-circuit/commonsvgs/resistors/resistor-small-horizontal.svg";
+import resistorSvg from "../virtual-circuit/commonsvgs/resistors/resistor-small.svg?raw";
+import horizontalResistorSvg from "../virtual-circuit/commonsvgs/resistors/resistor-small-horizontal.svg?raw";
 
 import {
   Breadboard,
@@ -295,9 +295,9 @@ export const hideAllAnalogWires = (draw: Svg) => {
 };
 
 export const updateWires = (element: Element, draw: Svg, arduino: Svg) => {
-  const wires = (draw.find(
+  const wires = draw.find(
     `[data-component-id=${element.id()}]`
-  ) as any[]) as Line[];
+  ) as any[] as Line[];
   wires
     .filter((w) => {
       return w.data("type") == "wire" && w.data("update-wire");

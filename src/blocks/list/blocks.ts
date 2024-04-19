@@ -33,7 +33,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
         `This block creates a list of ${humanType}s.  The size determines how many ${humanType}s are in the list.`
       );
       if (typeof this.getCommentIcon() !== "string") {
-        this.getCommentIcon().setBubbleSize(460, 80);
+        this.getCommentIcon().setBubbleSize(new Blockly.utils.Size(460, 80));
       }
     },
   };
@@ -68,7 +68,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
         `This block puts a ${humanType} into the list.  The position determines where in the list the ${humanType} will be.  The first ${humanType} in the list starts at position 1.`
       );
       if (typeof this.getCommentIcon() !== "string") {
-        this.getCommentIcon().setBubbleSize(460, 120);
+        this.getCommentIcon().setBubbleSize(new Blockly.utils.Size(460, 120));
       }
     },
   };
@@ -98,7 +98,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
         `This block gets a ${humanType} from the list.  The position determines where in the list you are getting the ${humanType}.  The first ${humanType} in the list starts at position 1.`
       );
       if (typeof this.getCommentIcon() !== "string") {
-        this.getCommentIcon().setBubbleSize(460, 120);
+        this.getCommentIcon().setBubbleSize(new Blockly.utils.Size(460, 120));
       }
     },
   };

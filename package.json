@@ -16,6 +16,7 @@
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "@sveltestrap/sveltestrap": "^6.2.7",
     "@svgdotjs/svg.draggable.js": "^3.0.2",
     "@svgdotjs/svg.js": "^3.0.16",
     "@svgdotjs/svg.panzoom.js": "^2.1.1",
@@ -43,8 +44,5 @@
     "uuid": "^8.3.1",
     "vite": "^5.0.3"
   },
-  "type": "module",
-  "dependencies": {
-    "@sveltestrap/sveltestrap": "^6.2.7"
-  }
+  "type": "module"
 }

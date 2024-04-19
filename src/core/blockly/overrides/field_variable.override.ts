@@ -1,11 +1,13 @@
-import Blockly from 'blockly';
+import Blockly from "blockly";
 
-Blockly.FieldVariable.prototype.initModel = function() {
-  if (this.variable_) {
+Blockly.FieldVariable.prototype.initModel = function () {
+  if (this.variable) {
     return; // Initialization already happened.
   }
   this.workspace_ = this.sourceBlock_.workspace;
-  const variables = Blockly.mainWorkspace.getVariablesOfType(this.defaultType_);
+  const variables = Blockly.getMainWorkspace().getVariablesOfType(
+    this.defaultType_
+  );
   let variableId = null;
 
   // This create new variable make it so that it creates a new variable
@@ -30,11 +32,11 @@ Blockly.FieldVariable.prototype.initModel = function() {
   }
 };
 
-Blockly.FieldVariable.dropdownCreate = function() {
-  if (!this.variable_) {
+Blockly.FieldVariable.dropdownCreate = function () {
+  if (!this.getVariable()) {
     throw Error(
-      'Tried to call dropdownCreate on a variable field with no' +
-        ' variable selected.'
+      "Tried to call dropdownCreate on a variable field with no" +
+        " variable selected."
     );
   }
   const name = this.getText();
@@ -44,8 +46,8 @@ Blockly.FieldVariable.dropdownCreate = function() {
   }
 
   let variableModelList = [];
-  if (workspace && this.showOnlyVariableAssigned === false) {
-    const variableTypes = this.getVariableTypes_();
+  if (workspace && (this as any).showOnlyVariableAssigned === false) {
+    const variableTypes = this.variableTypes;
     // Get a copy of the list, so that adding rename and new variable options
     // doesn't modify the workspace's list.
     for (let i = 0; i < variableTypes.length; i++) {
@@ -56,8 +58,8 @@ Blockly.FieldVariable.dropdownCreate = function() {
     variableModelList.sort(Blockly.VariableModel.compareByName);
   }
 
-  if (workspace && this.showOnlyVariableAssigned !== false) {
-    variableModelList.push(this.variable_);
+  if (workspace && (this as any).showOnlyVariableAssigned !== false) {
+    variableModelList.push(this.getVariable());
   }
 
   const options = [];
@@ -65,23 +67,25 @@ Blockly.FieldVariable.dropdownCreate = function() {
     // Set the UUID as the internal representation of the variable.
     options[i] = [variableModelList[i].name, variableModelList[i].getId()];
   }
-  options.push([Blockly.Msg['RENAME_VARIABLE'], Blockly.RENAME_VARIABLE_ID]);
-  if (Blockly.Msg['DELETE_VARIABLE']) {
+  options.push([Blockly.Msg["RENAME_VARIABLE"], Blockly.RENAME_VARIABLE_ID]);
+  if (Blockly.Msg["DELETE_VARIABLE"]) {
     options.push([
-      Blockly.Msg['DELETE_VARIABLE'].replace('%1', name),
-      Blockly.DELETE_VARIABLE_ID
+      Blockly.Msg["DELETE_VARIABLE"].replace("%1", name),
+      Blockly.DELETE_VARIABLE_ID,
     ]);
   }
 
   return options;
 };
 
-Blockly.FieldVariable.fromJson = function(options) {
-  const varname = Blockly.utils.replaceMessageReferences(options['variable']);
-  const variableTypes = options['variableTypes'];
-  const defaultType = options['defaultType'];
-  const showOnlyVariableAssigned = options['showOnlyVariableAssigned'] || false;
-  const createNewVariable = options['createNewVariable'] || false;
+Blockly.FieldVariable.fromJson = function (options) {
+  const varname = Blockly.utils.parsing.replaceMessageReferences(
+    options["variable"]
+  );
+  const variableTypes = options["variableTypes"];
+  const defaultType = options["defaultType"];
+  const showOnlyVariableAssigned = options["showOnlyVariableAssigned"] || false;
+  const createNewVariable = options["createNewVariable"] || false;
   const fieldVariable = new Blockly.FieldVariable(
     varname,
     null,

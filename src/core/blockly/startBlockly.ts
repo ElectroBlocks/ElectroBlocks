@@ -59,14 +59,14 @@ const createWorkspace = (blocklyElement: HTMLElement) => {
 const createLedWithDelay = (seconds = 1, isOn = true) => {
   const ledBlock = createBlock("led", 0, 0, true);
   ledBlock.setCommentText(LED_COMMENT);
-  ledBlock.getCommentIcon().setBubbleSize(460, 145);
+  ledBlock.getCommentIcon().setBubbleSize(new Blockly.utils.Size(460, 90));
   ledBlock.setFieldValue(ARDUINO_PINS.PIN_13, "PIN");
   ledBlock.setFieldValue(isOn ? "ON" : "OFF", "STATE");
   connectToArduinoBlock(ledBlock);
   const delayBlock = createBlock("delay_block", 0, 0, true);
 
   delayBlock.setCommentText(DELAY_COMMENT);
-  delayBlock.getCommentIcon().setBubbleSize(460, 90);
+  delayBlock.getCommentIcon().setBubbleSize(new Blockly.utils.Size(460, 90));
   const numberBlock1 = createBlock("math_number", 0, 0, true);
   numberBlock1.setFieldValue(seconds.toString(), "NUM");
   delayBlock

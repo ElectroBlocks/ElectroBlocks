@@ -1,8 +1,8 @@
 import { AnalogSensorPicture, AnalogSensorState } from "./state";
-import sensorSvgString from "./art/analog_sensor.svg";
-import photoSensorSvgString from "./art/photosensor.svg";
-import soilSensorSvgString from "./art/soilsensor.svg";
-import potentiometerSvgString from "./art/potentiometer.svg";
+import sensorSvgString from "./art/analog_sensor.svg?raw";
+import photoSensorSvgString from "./art/photosensor.svg?raw";
+import soilSensorSvgString from "./art/soilsensor.svg?raw";
+import potentiometerSvgString from "./art/potentiometer.svg?raw";
 
 export const getAnalogSensorSvg = (state: AnalogSensorState) => {
   switch (state.pictureType) {
