@@ -18,6 +18,7 @@ import { DELAY_COMMENT } from "../../blocks/time/toolbox";
 import { LED_COMMENT } from "../../blocks/led/toolbox";
 
 import "@blockly/block-plus-minus";
+import { registerVariableMenu } from "../../blocks/variables/menu";
 
 /**
  * This will start up blockly and will add all the event listeners and styles
@@ -28,6 +29,8 @@ const startBlockly = (blocklyElement: HTMLElement) => {
 
   // Register custom list menu event for the toolbox
   registerListMenu(workspace);
+
+  registerVariableMenu(workspace);
 
   // Setups all the listeners for the blockly events
   addListener(workspace);

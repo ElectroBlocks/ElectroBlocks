@@ -6,7 +6,7 @@ import { createBlock } from "../../core/blockly/helpers/block.helper";
  * Crappy code to register the button listeners for blockly
  */
 
-const registerListMenu = (workspace: WorkspaceSvg) => {
+export const registerListMenu = (workspace: WorkspaceSvg) => {
   var parser = new DOMParser();
 
   workspace.registerToolboxCategoryCallback("LIST", () => {
