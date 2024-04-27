@@ -4,7 +4,6 @@ import arduinoMegaSvg from "../../microcontrollers/arduino_mega/board.svg?raw";
 
 export const getBoardSvg = (board: MicroControllerType) => {
   if (boardSvg[board]) {
-    console.log(board, boardSvg[board], arduinoUnoSvg, "look here");
     return boardSvg[board];
   }
 

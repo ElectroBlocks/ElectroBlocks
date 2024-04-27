@@ -4,6 +4,7 @@
   import { saveAs } from "file-saver";
   import { onDestroy } from "svelte";
   import { Button } from "@sveltestrap/sveltestrap";
+  export const ssr = false;
 
   let code;
 

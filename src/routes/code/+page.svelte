@@ -1,25 +1,27 @@
 <script>
   import { onMount } from "svelte";
   import codeStore from "../../stores/code.store";
-  import "prismjs/themes/prism.css";
-  import "prismjs/themes/prism-coy.css";
-  import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+  import hljs from 'highlight.js/lib/core';
+  import arduinoLang from 'highlight.js/lib/languages/arduino';
+
   import { afterUpdate } from "svelte";
+  export const ssr = false;
 
   let code = "";
   let loaded = false;
   onMount(async () => {
-    await import("prismjs");
-
-    await import("prismjs/components");
-    await import("prismjs/components/prism-c.js");
-    await import("prismjs/plugins/line-numbers/prism-line-numbers.js");
-
-    await import(
-      "prismjs/plugins/highlight-keywords/prism-highlight-keywords.js"
-    );
+    hljs.registerLanguage('arduino', arduinoLang);
     codeStore.subscribe(async (codeInfo) => {
-      code = Prism.highlight(codeInfo.code, Prism.languages.c, "c");
+      try
+      {
+        // @ts-ignore
+        code =  hljs.highlight(codeInfo.code,{ language: 'arduino' }).value;
+
+      }
+      catch(e)
+      {
+        console.log(e);
+      }
     });
 
     loaded = true;
@@ -27,7 +29,11 @@
 
   afterUpdate(() => {
     if (loaded) {
-      Prism.highlightAll();
+      try {
+
+      } catch (error) {
+        console.log(error, 'error')
+      }
     }
   });
 </script>
@@ -35,8 +41,7 @@
 <pre class="line-numbers language-c ">
   <code
     class="language-c"
-  >
-    {@html code}
+  > {@html code}
   </code>
 </pre>
 <svelte:head>

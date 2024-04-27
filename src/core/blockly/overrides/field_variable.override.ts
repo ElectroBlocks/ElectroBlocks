@@ -6,7 +6,7 @@ Blockly.FieldVariable.prototype.initModel = function () {
   }
   this.workspace_ = this.sourceBlock_.workspace;
   const variables = Blockly.getMainWorkspace().getVariablesOfType(
-    this.defaultType_
+    this.defaultType
   );
   let variableId = null;
 
@@ -19,7 +19,7 @@ Blockly.FieldVariable.prototype.initModel = function () {
     this.workspace_,
     variableId,
     this.defaultVariableName,
-    this.defaultType_
+    this.defaultType
   );
 
   // Don't fire a change event for this setValue.  It would have null as the
@@ -27,6 +27,8 @@ Blockly.FieldVariable.prototype.initModel = function () {
   Blockly.Events.disable();
   try {
     this.setValue(variable.getId());
+  } catch (e) {
+    console.log(e, "error for");
   } finally {
     Blockly.Events.enable();
   }
