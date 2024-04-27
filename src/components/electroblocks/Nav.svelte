@@ -179,13 +179,13 @@
     <span on:click={onNewFileNoAuth} class="active">
       <i class="fa fa-file-o" />
     </span>
-    <a href="/download" class:active={segment === 'download'}>
+    <a href="/download" class:active={$page.url.pathname.includes('download')}>
       <i class="fa fa-download" />
     </a>
-    <a href="/settings" class:active={segment === 'settings'}>
+    <a href="/settings" class:active={$page.url.pathname.includes('settings')}>
       <i class="fa fa-gears" />
     </a>
-    <a href="/login" class:active={segment === 'login'}>
+    <a href="/login" class:active={$page.url.pathname.includes('login')}>
       <i class="fa fa-sign-in" />
     </a>
   {/if}

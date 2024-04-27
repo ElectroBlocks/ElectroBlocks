@@ -3,6 +3,8 @@
   import codeStore from "../../stores/code.store";
   import hljs from 'highlight.js/lib/core';
   import arduinoLang from 'highlight.js/lib/languages/arduino';
+  import 'highlight.js/styles/arduino-light.css';
+  import 'highlight.js/styles/a11y-light.css';
 
   import { afterUpdate } from "svelte";
   export const ssr = false;
@@ -30,7 +32,7 @@
   afterUpdate(() => {
     if (loaded) {
       try {
-
+        hljs.highlightAll();
       } catch (error) {
         console.log(error, 'error')
       }
@@ -38,11 +40,8 @@
   });
 </script>
 
-<pre class="line-numbers language-c ">
-  <code
-    class="language-c"
-  > {@html code}
-  </code>
+<pre>
+  <code class="language-arduino">{@html code}</code>
 </pre>
 <svelte:head>
   <title>ElectroBlocks - Code</title>
@@ -51,6 +50,7 @@
 <style>
   pre {
     margin: 0;
+    padding: 0;
     min-height: 100%;
     min-width: 100%;
     border-left: none;

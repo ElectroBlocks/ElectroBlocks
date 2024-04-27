@@ -29,7 +29,7 @@
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
   let showLoopExecutionTimesArduinoStartBlock: boolean;
-  $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
+  $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.url.pathname);
 
   let height = '500px';
   let middleFlex = 59.5;
@@ -58,7 +58,7 @@
   }
 
   const resize = (side: string) => {
-    return (e : PointerEvent) => {
+    return (e : MouseEvent) => {
       if (!isResizingLeft && side == 'left') {
         return;
       }
@@ -181,8 +181,8 @@
       });
 
       if (
-        $projectStore.projectId === $page.query['projectid'] ||
-        !$page.query['projectid'] ||
+        $projectStore.projectId === $page.url.searchParams.get('projectid') ||
+        !$page.url.searchParams.get('projectid') ||
         loadedProject
       ) {
         return;
@@ -197,11 +197,11 @@
         },
       } as any);
 
-      const project = await getProject($page.query['projectid']);
-      const file = await getFile($page.query['projectid'], $authStore.uid);
+      const project = await getProject($page.url.searchParams.get('projectid'));
+      const file = await getFile($page.url.searchParams.get('projectid'), $authStore.uid);
       loadProject(file);
-      projectStore.set({ project, projectId: $page.query['projectid'] });
-      if (isPathOnHomePage($page.path)) {
+      projectStore.set({ project, projectId: $page.url.searchParams.get('projectid') });
+      if (isPathOnHomePage($page.url.pathname)) {
         arduinoLoopBlockShowNumberOfTimesThroughLoop();
       } else {
         arduinoLoopBlockShowLoopForeverText();
