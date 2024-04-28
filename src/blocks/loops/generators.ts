@@ -32,7 +32,7 @@ Blockly["Arduino"]["controls_repeat_ext"] = function (block: Block) {
 };
 
 Blockly["Arduino"]["controls_for"] = function (block: Block) {
-  const loopIndexVariable = Blockly.mainWorkspace.getVariableById(
+  const loopIndexVariable = Blockly.getMainWorkspace().getVariableById(
     block.getFieldValue("VAR")
   ).name;
 

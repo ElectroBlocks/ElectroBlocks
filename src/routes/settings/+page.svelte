@@ -84,12 +84,8 @@
 
   <div class="row">
     <div class="col">
-      <FormGroup check>
-        <Label check>
-          <Input type="checkbox" bind:checked={settings.customLedColor} />
-          Custom Led Color
-        </Label>
-      </FormGroup>
+      <Input type="switch" bind:checked={settings.customLedColor} label="Custom Led Color" />
+
     </div>
   </div>
 

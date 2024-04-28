@@ -164,7 +164,6 @@
     }
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
-      console.log(user);
       if (!user) {
         authStore.set({
           isLoggedIn: false,
