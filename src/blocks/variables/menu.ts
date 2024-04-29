@@ -12,7 +12,6 @@ export const registerVariableMenu = (workspace: WorkspaceSvg) => {
     const btnNumVariable = document.createElement("button");
     btnNumVariable.setAttribute("text", "Create Number Variable");
     btnNumVariable.setAttribute("callbackKey", "CREATE_NUM_VARIABLE");
-    debugger;
     castedWorkspace.registerButtonCallback(
       "CREATE_NUM_VARIABLE",
       function (button) {
