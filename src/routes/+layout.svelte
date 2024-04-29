@@ -128,7 +128,7 @@
     // Wrapped in an onMount because we don't want it executed by the server
     page.subscribe(({ url }) => {
       if (
-        ['open', 'settings', 'lessons'].reduce((found, value) => {
+        ['open', 'settings', 'lessons', 'code'].reduce((found, value) => {
           return found || url.pathname.indexOf(value) >= 0;
         }, false)
       ) {

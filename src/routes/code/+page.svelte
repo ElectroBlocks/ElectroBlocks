@@ -51,15 +51,13 @@
   pre {
     margin: 0;
     padding: 0;
-    min-height: 100%;
-    min-width: 100%;
-    border-left: none;
-    margin-bottom: 15px;
+    width: 100vw;
+    height: 100vh;
   }
   code {
-    height: 100% !important;
-    position: absolute !important;
-    width: 100% !important;
-    overflow: scroll !important;
+    margin-left: 10px;
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
   }
 </style>
