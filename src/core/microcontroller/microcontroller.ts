@@ -45,15 +45,15 @@ export interface MicroController {
 }
 
 export interface MicroControllerBlocks {
-  digitalPins: string[][];
-  analogPins: string[][];
+  digitalPins: [string, string][];
+  analogPins: [string, string][];
   serial_baud_rate: number;
-  pwmPins: string[][];
-  sdaPins: string[][];
-  sclPins: string[][];
-  mosiPins: string[][];
-  misoPins: string[][];
-  sckPins: string[][];
-  ssPins: string[][];
+  pwmPins: [string, string][];
+  sdaPins: [string, string][];
+  sclPins: [string, string][];
+  mosiPins: [string, string][];
+  misoPins: [string, string][];
+  sckPins: [string, string][];
+  ssPins: [string, string][];
   type: MicroControllerType;
 }
