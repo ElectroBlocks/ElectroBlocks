@@ -7,8 +7,8 @@
     "dev": "cp env/env.development.ts src/env.ts && vite dev",
     "build": "cp ./env/env.staging.ts ./src/env.ts && vite build",
     "preview": "vite preview",
-    "test": "jest",
-    "test-coverage": "jest --coverage",
+    "test": "vitest",
+    "test-coverage": "vitest --coverage",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
@@ -45,7 +45,8 @@
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
     "uuid": "^8.3.1",
-    "vite": "^5.0.3"
+    "vite": "^5.0.3",
+    "vitest": "^1.5.2"
   },
   "type": "module"
 }

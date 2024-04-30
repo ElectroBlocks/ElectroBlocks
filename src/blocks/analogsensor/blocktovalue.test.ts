@@ -1,6 +1,5 @@
-import "jest";
 import "../../core/blockly/blocks";
-
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
 import type { BlockSvg, Workspace } from "blockly";
 import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";

@@ -1,5 +1,6 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
+import { IconType } from "blockly/core/icons";
 
 Blockly.Blocks["arduino_loop"] = {
   init: function () {
@@ -15,9 +16,9 @@ Blockly.Blocks["arduino_loop"] = {
     this.setCommentText(
       "The loop block runs on repeat until your Arduino loses power.  It runs right after your setup block if you have one.\n\nIf you are using the simulator, you can control how many times it repeats."
     );
-    if (typeof this.getCommentIcon() !== "string") {
-      this.getCommentIcon().setBubbleSize(new Blockly.utils.Size(460, 170));
-    }
+    // if (typeof this.getCommentIcon() !== "string") {
+    this.getIcon("comment")?.setBubbleSize(new Blockly.utils.Size(460, 170));
+    // }
   },
 };
 
