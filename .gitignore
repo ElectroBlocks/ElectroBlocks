@@ -13,3 +13,4 @@ yarn-error.log
 *.log
 /coverage*
 .svelte-kit*
+build*
