@@ -16,8 +16,8 @@ export const motorPosition: PositionComponent<MotorState> = (
   state,
   motorEl
 ) => {
-  motorEl.x(0);
-  motorEl.y(10);
+  motorEl.x(-23 + (state.motorNumber - 1) * 180);
+  motorEl.y(-205);
 };
 
 export const motorCreate: AfterComponentCreateHook<MotorState> = (

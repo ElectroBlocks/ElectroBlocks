@@ -3,6 +3,19 @@
   import config from "../../env";
 </script>
 
+<style>
+  h2 {
+    margin-top: 20px;
+  }
+  h3 {
+    margin-top: 15px;
+  }
+  a {
+    text-decoration: underline;
+    color: blue;
+  }
+</style>
+
 <svelte:head>
   <title>ElectroBlocks - About</title>
 </svelte:head>
@@ -83,8 +96,7 @@
         </ListGroupItem>
 
         <ListGroupItem
-          href="https://github.com/shaai/Arduino_LED_matrix_sketch"
-        >
+          href="https://github.com/shaai/Arduino_LED_matrix_sketch">
           LedControlMS
         </ListGroupItem>
         <ListGroupItem href="https://github.com/electronicdrops/RFIDRdm630">
@@ -94,8 +106,7 @@
           Servo
         </ListGroupItem>
         <ListGroupItem
-          href="https://github.com/adafruit/Adafruit-Motor-Shield-library"
-        >
+          href="https://github.com/adafruit/Adafruit-Motor-Shield-library">
           Adafruit Motor Shield Library
         </ListGroupItem>
       </ListGroup>
@@ -134,43 +145,3 @@
     </div>
   </div>
 {/if}
-{#if config.site === 'sfl-electroblocks-org'}
-  <div class="row">
-    <div class="col">
-      <h2>School Fab Labs & ElectroBlocks</h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <p>
-        ElectroBlocks and School Fabs Labs have teamed up to build an drag and
-        drop Arduino Simulator. It's like video editing for code. You can even
-        upload code directly from the website to the Arduino. It works with mac,
-        pc, and chromebooks.
-      </p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col"><img src="/sfl/logo.png" alt="" /></div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <h2>Thank you</h2>
-    </div>
-  </div>
-{/if}
-
-<style>
-  h2 {
-    margin-top: 20px;
-  }
-  h3 {
-    margin-top: 15px;
-  }
-  a {
-    text-decoration: underline;
-    color: blue;
-  }
-</style>

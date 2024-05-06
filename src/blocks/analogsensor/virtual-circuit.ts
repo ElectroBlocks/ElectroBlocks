@@ -87,6 +87,50 @@ export const analogSensorReset: ResetComponent = (componentEl: Element) => {
   }
 };
 
+const createPotentiometerWires: CreateWire<AnalogSensorState> = (
+  state,
+  draw,
+  componentEl,
+  arduinoEl,
+  id,
+  board,
+  area
+) => {
+  const { holes, isDown } = area;
+
+  createComponentWire(
+    holes[3],
+    isDown,
+    componentEl,
+    state.pin,
+    draw,
+    arduinoEl,
+    id,
+    "PIN_DATA",
+    board
+  );
+
+  createGroundOrPowerWire(
+    holes[1],
+    isDown,
+    componentEl,
+    draw,
+    arduinoEl,
+    id,
+    "ground"
+  );
+
+  createGroundOrPowerWire(
+    holes[2],
+    isDown,
+    componentEl,
+    draw,
+    arduinoEl,
+    id,
+    "power"
+  );
+};
+
 const createSensorWires: CreateWire<AnalogSensorState> = (
   state,
   draw,
@@ -262,6 +306,20 @@ const updateSoilSensor = (
   (analogSensorEl.findOne("#POT") as Element).fill(color);
 };
 
+const updatePotentiometerSensor = (
+  state: AnalogSensorState,
+  sensor: Element
+) => {
+  const textEl = sensor.findOne("#READING_VALUE") as Text;
+  textEl.cx(43);
+  const rotateEl = sensor.findOne("#ROTATE_KNOB") as Svg;
+  const lastDegree = +sensor.data("degree") ?? 0;
+  const degree = (state.state / 1024) * 180;
+  rotateEl.rotate(lastDegree, rotateEl.cx(), rotateEl.cy());
+  rotateEl.rotate(degree * -1, rotateEl.cx(), rotateEl.cy());
+  sensor.data("degree", degree);
+};
+
 const updateGenericSensor = (
   state: AnalogSensorState,
   analogSensorEl: Element
@@ -275,10 +333,12 @@ const createWiresFunc = {
   [AnalogSensorPicture.SOIL_SENSOR]: createSoilSensorWires,
   [AnalogSensorPicture.SENSOR]: createSensorWires,
   [AnalogSensorPicture.PHOTO_SENSOR]: createPhotoSensorWires,
+  [AnalogSensorPicture.POTENTIOMETER]: createPotentiometerWires,
 };
 
 const updateSensorList = {
   [AnalogSensorPicture.SOIL_SENSOR]: updateSoilSensor,
   [AnalogSensorPicture.SENSOR]: updateGenericSensor,
   [AnalogSensorPicture.PHOTO_SENSOR]: updatePhotoSensor,
+  [AnalogSensorPicture.POTENTIOMETER]: updatePotentiometerSensor,
 };

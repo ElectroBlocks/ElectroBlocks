@@ -9,12 +9,6 @@
       "predeploy": "npm run build",
       "public": "__sapper__/export",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
-    },
-    {
-      "target": "sfl",
-      "predeploy": "npm run build-sfl",
-      "public": "__sapper__/export",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     }
   ],
   "storage": {

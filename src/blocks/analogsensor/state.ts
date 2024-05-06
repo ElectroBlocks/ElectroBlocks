@@ -17,4 +17,5 @@ export enum AnalogSensorPicture {
   SENSOR = "SENSOR",
   PHOTO_SENSOR = "PHOTO_SENSOR",
   SOIL_SENSOR = "SOIL_SENSOR",
+  POTENTIOMETER = "POTENTIOMETER",
 }

@@ -59,7 +59,7 @@ const setServoPinText = (servoEl: Element, servoState: ServoState) => {
 const setText = (servoEl: Element, degrees: number) => {
   const degreeText = servoEl.findOne("#degrees") as Text;
 
-  degreeText.node.textContent = `${degrees}˚`;
+  degreeText.node.textContent = `${degrees.toFixed(1)}˚`;
   degreeText.cx(40);
 };
 

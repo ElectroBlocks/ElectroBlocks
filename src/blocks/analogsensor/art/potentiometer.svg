@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="80"
+   height="105"
+   viewBox="0 0 80 105"
+   version="1.1"
+   id="svg7892"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   sodipodi:docname="potentiometer.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs7886" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.27"
+     inkscape:cx="43.259972"
+     inkscape:cy="57.702889"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1904"
+     inkscape:window-height="1212"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     showguides="true">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="5"
+       spacingx="3.7795276"
+       spacingy="3.7795276"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       dotted="false"
+       gridanglex="30"
+       gridanglez="30"
+       visible="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7889">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <rect
+       ry="4.5753746"
+       y="26.193298"
+       x="0.49988478"
+       height="72.340393"
+       width="77.975449"
+       id="rect5424"
+       style="display:inline;fill:#045881;fill-opacity:1;stroke:#045881;stroke-width:1.13617;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:label="BASE" />
+    <rect
+       y="86.605583"
+       x="12.270316"
+       height="7.7367849"
+       width="56.378468"
+       id="rect5392"
+       style="display:inline;fill:#000000;fill-opacity:0;stroke:#ffffff;stroke-width:1.6867;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:label="PINBOX" />
+    <text
+       id="text5396"
+       y="87.781418"
+       x="15.003489"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:36px;line-height:1.25;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.207777"
+       xml:space="preserve"
+       inkscape:label="MINUS_TEXT"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:36px;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';fill:#000000;stroke-width:0.207777"
+         y="87.781418"
+         x="15.003489"
+         id="tspan5394"
+         sodipodi:role="line">-</tspan></text>
+    <text
+       id="text5396-1"
+       y="87.953873"
+       x="32.275433"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28px;line-height:1.25;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';letter-spacing:0px;word-spacing:0px;display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.207777"
+       xml:space="preserve"
+       inkscape:label="PLUS_TEXT"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28px;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';fill:#ff0000;stroke-width:0.207777"
+         y="87.953873"
+         x="32.275433"
+         id="tspan5394-3"
+         sodipodi:role="line">+</tspan></text>
+    <text
+       id="text5396-5"
+       y="84.704193"
+       x="55.239681"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;line-height:1.25;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.207777"
+       xml:space="preserve"
+       inkscape:label="PIN_TEXT"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';fill:#ffffff;stroke-width:0.207777"
+         y="84.704193"
+         x="55.239681"
+         id="PIN_TEXT"
+         sodipodi:role="line">A5</tspan></text>
+    <g
+       id="ROTATE_KNOB"
+       inkscape:label="ROTATE_KNOB"
+       transform="matrix(0.46238869,0.38799018,-0.38799018,0.46238869,42.366346,161.97834)">
+      <ellipse
+         ry="27.834923"
+         rx="26.049625"
+         cy="-183.79001"
+         cx="-2.6082137"
+         id="path5373"
+         style="display:inline;fill:#e4e8eb;fill-opacity:1;stroke:none;stroke-width:1.09424;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:label="WHITE_CIRCLE"
+         transform="rotate(-39.999999)" />
+      <ellipse
+         ry="24.225546"
+         rx="24.103361"
+         cy="-137.0614"
+         cx="-117.37289"
+         id="path5373-3"
+         style="display:inline;opacity:1;fill:#c3c2c3;fill-opacity:1;stroke:none;stroke-width:0.98195;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:label="GRAY_CIRCLE"
+         transform="matrix(0.99976721,0.02157585,0.02141296,0.99977072,0,0)" />
+      <rect
+         transform="matrix(-0.75884267,0.65127398,-0.66477392,-0.7470446,0,0)"
+         y="183.38803"
+         x="-26.420946"
+         height="3.047369"
+         width="22.539131"
+         id="rect5390"
+         style="display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.43355;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:label="KNOB" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;fill:#000000;stroke-width:0.991592"
+       x="40.493622"
+       y="21.367765"
+       id="READING_VALUE"
+       transform="scale(0.93693701,1.0673076)"
+       inkscape:label="READING_VALUE"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28px;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';text-align:center;text-anchor:middle;stroke-width:0.991592"
+         x="40.493622"
+         y="21.367765">180</tspan></text>
+    <rect
+       style="display:inline;fill:#b3b1b0;stroke-width:0.844275"
+       id="PIN_GND"
+       width="1.9257221"
+       height="15.589384"
+       x="19.151907"
+       y="88.52491"
+       ry="0.68632519"
+       inkscape:label="PIN_GND" />
+    <rect
+       style="display:inline;fill:#b3b1b0;stroke-width:0.840495"
+       id="PIN_POWER"
+       width="1.9257221"
+       height="15.450197"
+       x="39.29221"
+       y="88.822777"
+       ry="0.68019748"
+       inkscape:label="PIN_POWER" />
+    <rect
+       style="display:inline;fill:#b3b1b0;stroke-width:0.848035"
+       id="PIN_DATA"
+       width="1.9257221"
+       height="15.728577"
+       x="62.979969"
+       y="88.796333"
+       ry="0.69245321"
+       inkscape:label="PIN_DATA" />
+  </g>
+</svg>

@@ -57,6 +57,7 @@ const analogReadSetupBlock: any = {
       .appendField("Type")
       .appendField(
         new Blockly.FieldDropdown([
+          ["Potentiometer", "POTENTIOMETER"],
           ["Photo Sensor", "PHOTO_SENSOR"],
           ["Soil Sensor", "SOIL_SENSOR"],
           ["Sensor", "SENSOR"],
