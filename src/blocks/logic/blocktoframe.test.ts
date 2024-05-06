@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import {
@@ -23,7 +24,7 @@ describe("factories if block tests", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
   });
 
-  test("if blocks should execute if true is connnected true is connected to it other should not do anything", () => {
+  it("if blocks should execute if true is connnected true is connected to it other should not do anything", () => {
     const booleanBlock = createValueBlock(
       workspace,
       VariableTypes.BOOLEAN,
@@ -64,7 +65,7 @@ describe("factories if block tests", () => {
     });
   });
 
-  test("should be execute else block if what is in there is not true", () => {
+  it("should be execute else block if what is in there is not true", () => {
     const booleanBlock = createValueBlock(
       workspace,
       VariableTypes.BOOLEAN,

@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import {
@@ -21,7 +22,7 @@ describe("generate states for functions", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
   });
 
-  test("should be able to create an call a function", () => {
+  it("should be able to create an call a function", () => {
     const functionBlock = workspace.newBlock("procedures_defnoreturn");
     functionBlock.setFieldValue("funcName", "NAME");
     const debugBlock = workspace.newBlock("debug_block");

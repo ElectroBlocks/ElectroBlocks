@@ -16,9 +16,7 @@ Blockly.Blocks["arduino_loop"] = {
     this.setCommentText(
       "The loop block runs on repeat until your Arduino loses power.  It runs right after your setup block if you have one.\n\nIf you are using the simulator, you can control how many times it repeats."
     );
-    // if (typeof this.getCommentIcon() !== "string") {
     this.getIcon("comment")?.setBubbleSize(new Blockly.utils.Size(460, 170));
-    // }
   },
 };
 
@@ -32,8 +30,6 @@ Blockly.Blocks["arduino_setup"] = {
     this.setCommentText(
       "The setup block runs after all library blocks.  It only runs once.\n\nUse a setup block initialize variables in code."
     );
-    if (typeof this.getCommentIcon() !== "string") {
-      this.getCommentIcon().setBubbleSize(new Blockly.utils.Size(460, 150));
-    }
+    this.getIcon("comment")?.setBubbleSize(new Blockly.utils.Size(460, 150));
   },
 };

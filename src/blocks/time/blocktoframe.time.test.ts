@@ -11,6 +11,7 @@ import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../tests/tests.helper";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
 
 describe("time state factories", () => {
   let workspace: Workspace;
@@ -27,7 +28,7 @@ describe("time state factories", () => {
     timesetup.setFieldValue(".3", "time_in_seconds");
   });
 
-  test("should be able generate state for time setup block", () => {
+  it("should be able generate state for time setup block", () => {
     const event = createTestEvent(timesetup.id);
 
     const timeState: TimeState = {

@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../blocks";
 import type { Workspace } from "blockly";
 import _ from "lodash";
@@ -22,7 +23,7 @@ describe("disableSensorReadBlocksWithWrongPins", () => {
     workspace.dispose();
   });
 
-  test("should disable blocks that use same pin twice", () => {
+  it("should disable blocks that use same pin twice", () => {
     const rfidBlockSetup = workspace.newBlock("rfid_setup");
     rfidBlockSetup.setFieldValue(ARDUINO_PINS.PIN_5, "PIN_TX");
 

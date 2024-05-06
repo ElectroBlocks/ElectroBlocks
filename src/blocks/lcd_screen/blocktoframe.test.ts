@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -35,7 +36,7 @@ describe("lcd  factories", () => {
     lcdsetup.setFieldValue("20 x 4", "SIZE");
   });
 
-  test("should be able generate state for lcd setup block", () => {
+  it("should be able generate state for lcd setup block", () => {
     const event = createTestEvent(lcdsetup.id);
 
     const lcdState: LCDScreenState = {
@@ -74,7 +75,7 @@ describe("lcd  factories", () => {
     expect(eventToFrameFactory(event).frames).toEqual([state]);
   });
 
-  test("LCD Screen simple print should print something simple", () => {
+  it("LCD Screen simple print should print something simple", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const lcdPrintLCDBlock = workspace.newBlock(
       "lcd_screen_simple_print"
@@ -131,7 +132,7 @@ describe("lcd  factories", () => {
     expect(lcdState2.rowsOfText[3]).toBe("                    ");
   });
 
-  test("should be able to move test to right and then to left", () => {
+  it("should be able to move test to right and then to left", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const textBlock = createValueBlock(
       workspace,
@@ -276,7 +277,7 @@ describe("lcd  factories", () => {
     );
   });
 
-  test("test print block an row and column over flow gets cut off.", () => {
+  it("test print block an row and column over flow gets cut off.", () => {
     const textBlock = createValueBlock(
       workspace,
       VariableTypes.STRING,
@@ -309,7 +310,7 @@ describe("lcd  factories", () => {
     expect(lcdState.rowsOfText[3]).toBe("                   T");
   });
 
-  test("should be able to write over text with the print block", () => {
+  it("should be able to write over text with the print block", () => {
     const textBlock1 = createValueBlock(
       workspace,
       VariableTypes.STRING,
@@ -382,7 +383,7 @@ describe("lcd  factories", () => {
     );
   });
 
-  test("should be able to make the lcd blink and save the state", () => {
+  it("should be able to make the lcd blink and save the state", () => {
     const turnOnBlink = workspace.newBlock("lcd_blink") as BlockSvg;
     const colBlockBlinkOn = createValueBlock(
       workspace,
@@ -479,7 +480,7 @@ describe("lcd  factories", () => {
     );
   });
 
-  test("should be able to clear everything off a screen", () => {
+  it("should be able to clear everything off a screen", () => {
     const textBlock1 = createValueBlock(
       workspace,
       VariableTypes.STRING,
@@ -525,7 +526,7 @@ describe("lcd  factories", () => {
     expect(state3.explanation).toBe("Clearing the screen.");
   });
 
-  test("should be able to turn the back light on and off", () => {
+  it("should be able to turn the back light on and off", () => {
     const backLightOn = workspace.newBlock("lcd_backlight") as BlockSvg;
     const backLightOff = workspace.newBlock("lcd_backlight");
 

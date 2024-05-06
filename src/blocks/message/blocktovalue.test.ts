@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -48,7 +49,7 @@ describe("arduino message state factories", () => {
     saveSensorSetupBlockData(event3).forEach(updater);
   });
 
-  test("should be to get the text message being sent", () => {
+  it("should be to get the text message being sent", () => {
     const textVariableBlock = createSetVariableBlockWithValue(
       workspace,
       "text",
@@ -71,7 +72,7 @@ describe("arduino message state factories", () => {
     expect(state4.variables["text"].value).toBe("");
   });
 
-  test("should be able to see if the arduino is recieving a message", () => {
+  it("should be able to see if the arduino is recieving a message", () => {
     const boolVariableBlock = createSetVariableBlockWithValue(
       workspace,
       "has_message",

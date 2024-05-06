@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import {
@@ -23,7 +24,7 @@ describe("generate states controls_repeat_ext", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
   });
 
-  test("should generate states for the number of times plugged in the TIMES slot", () => {
+  it("should generate states for the number of times plugged in the TIMES slot", () => {
     const simpleForLoop = workspace.newBlock("controls_repeat_ext") as BlockSvg;
     const numberBlock = createValueBlock(workspace, VariableTypes.NUMBER, 3);
     const debugBlock = workspace.newBlock("debug_block");

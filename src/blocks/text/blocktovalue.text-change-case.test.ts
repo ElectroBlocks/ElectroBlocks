@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import {
   createArduinoAndWorkSpace,
@@ -22,7 +23,7 @@ describe("text_changeCase state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("should change case text block/variable or nothing is empty", () => {
+  it("should change case text block/variable or nothing is empty", () => {
     const textChangeCase = workspace.newBlock("text_changeCase");
     const textBlock = workspace.newBlock("text");
     textBlock.setFieldValue("hEllo WorLD", "TEXT");

@@ -1,4 +1,4 @@
-import { vi } from "vitest";
+import { vi, expect } from "vitest";
 import { Workspace, BlockSvg, WorkspaceSvg } from "blockly";
 import * as helpers from "../core/blockly/helpers/workspace.helper";
 import { VariableTypes } from "../core/blockly/dto/variable.type";

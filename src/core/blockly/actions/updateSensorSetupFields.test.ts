@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../blocks";
 import Blockly from "blockly";
 import { getAllBlocks } from "../helpers/block.helper";
@@ -27,13 +28,13 @@ describe("updateSensorSetup", () => {
     workspace.dispose();
   });
 
-  test("should return an event that is not change event", () => {
+  it("should return an event that is not change event", () => {
     // NO Sensor blocks
     const event = createTestEvent(arduinoBlock.id, Blockly.Events.BLOCK_DELETE);
     expect(updateSensorSetupFields(event)).toEqual([]);
   });
 
-  test("should return nothing for a non loop field change event ", () => {
+  it("should return nothing for a non loop field change event ", () => {
     workspace.newBlock("ultra_sonic_sensor_setup");
     const numBlock = workspace.newBlock("math_number");
 
@@ -51,7 +52,7 @@ describe("updateSensorSetup", () => {
     expect(updateSensorSetupFields(numValueChangingEvent)).toEqual([]);
   });
 
-  test("should return nothing if sensor block has no json data stored in it.", () => {
+  it("should return nothing if sensor block has no json data stored in it.", () => {
     const sensorBlock = workspace.newBlock("ultra_sonic_sensor_setup");
     workspace.newBlock("math_number");
 
@@ -70,7 +71,7 @@ describe("updateSensorSetup", () => {
     expect(updateSensorSetupFields(sensorBlockChangeEvent)).toEqual([]);
   });
 
-  test("should update block with saved data based on the loop change", () => {
+  it("should update block with saved data based on the loop change", () => {
     const sensorBlock = workspace.newBlock("rfid_setup");
     workspace.newBlock("math_number");
     // scanned_card, card_number, tag

@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import {
@@ -21,7 +22,7 @@ describe("disableBlocksThatNeedASetupBlock", () => {
     workspace.dispose();
   });
 
-  test("disable blocks require a setup block", () => {
+  it("disable blocks require a setup block", () => {
     workspace.newBlock("arduino_send_message");
     workspace.newBlock("message_setup");
     workspace.newBlock("button_setup");
@@ -46,7 +47,7 @@ describe("disableBlocksThatNeedASetupBlock", () => {
     });
   });
 
-  test("if setup block is disabled then it should disable blocks that require it", () => {
+  it("if setup block is disabled then it should disable blocks that require it", () => {
     const setupBlock = workspace.newBlock("message_setup");
     setupBlock.setEnabled(false);
     workspace.newBlock("arduino_send_message");

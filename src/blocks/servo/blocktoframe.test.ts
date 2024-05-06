@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 
 import {
@@ -30,7 +31,7 @@ describe("test servos factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("should be able to create different arduino", () => {
+  it("should be able to create different arduino", () => {
     const servo6Block1 = createServoBlock(20, ARDUINO_PINS.PIN_6);
     const servo6Block2 = createServoBlock(120, ARDUINO_PINS.PIN_6);
     const servo9Block1 = createServoBlock(29, ARDUINO_PINS.PIN_9);

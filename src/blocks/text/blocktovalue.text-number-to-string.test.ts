@@ -1,5 +1,6 @@
 import type { BlockSvg, Workspace } from "blockly";
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -22,7 +23,7 @@ describe("number_to_string state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("should be able be able change a number variable/text block/empty to a text", () => {
+  it("should be able be able change a number variable/text block/empty to a text", () => {
     const numberToTextBlock = workspace.newBlock("number_to_string");
     numberToTextBlock.setFieldValue("3", "PRECISION");
 

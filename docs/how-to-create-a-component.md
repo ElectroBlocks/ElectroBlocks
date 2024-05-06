@@ -25,7 +25,8 @@
 9\. Add add a blocktoframe.test.ts file.
 
 ```ts
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -59,7 +60,7 @@ describe("Thermistors Frames and Values", () => {
     thermistorSetupBlock.setFieldValue("A4", "PIN");
   });
 
-  test("should be able generate state for thermistor block.", () => {
+  it("should be able generate state for thermistor block.", () => {
     saveLoopData(10, thermistorSetupBlock, 1);
     saveLoopData(104, thermistorSetupBlock, 2);
     saveLoopData(204, thermistorSetupBlock, 3);

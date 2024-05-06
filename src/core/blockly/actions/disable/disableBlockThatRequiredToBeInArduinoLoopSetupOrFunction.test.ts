@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../helpers/block.helper";
@@ -23,7 +24,7 @@ describe("disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction", () => {
     workspace.dispose();
   });
 
-  test("blocks that require to be in an arduino loop block setup or function should be disabled", () => {
+  it("blocks that require to be in an arduino loop block setup or function should be disabled", () => {
     const debugBlock1 = workspace.newBlock("debug_block") as BlockSvg;
     const debugBlock2 = workspace.newBlock("debug_block") as BlockSvg;
     const servoBlock = workspace.newBlock("rotate_servo") as BlockSvg;
@@ -38,9 +39,8 @@ describe("disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction", () => {
     const servoBlock1 = workspace.newBlock("rotate_servo") as BlockSvg;
     const event = createTestEvent(arduinoBlock.id);
 
-    const actions = disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(
-      event
-    );
+    const actions =
+      disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(event);
 
     expect(actions.length).toBe(3);
     expect(actions.map((a) => a.blockId)).toEqual([
@@ -52,7 +52,7 @@ describe("disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction", () => {
     expect(actions.map((b) => b.warningText)).toEqual([null, null, null]);
   });
 
-  test("should disable blocks that are connected but not to a function, loop or setup", () => {
+  it("should disable blocks that are connected but not to a function, loop or setup", () => {
     const debugBlock1 = workspace.newBlock("debug_block") as BlockSvg;
     const debugBlock2 = workspace.newBlock("debug_block") as BlockSvg;
 
@@ -60,9 +60,8 @@ describe("disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction", () => {
 
     const event = createTestEvent(arduinoBlock.id);
 
-    const actions = disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(
-      event
-    );
+    const actions =
+      disableBlockThatRequiredToBeInArduinoLoopSetupOrFunction(event);
 
     expect(actions.length).toBe(2);
   });

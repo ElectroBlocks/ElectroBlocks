@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import {
   createArduinoAndWorkSpace,
@@ -24,7 +25,7 @@ describe("color rgb state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("test rgb color block can handle variables, number blocks, and blanks", () => {
+  it("test rgb color block can handle variables, number blocks, and blanks", () => {
     const numberBlock = workspace.newBlock("math_number");
     const rgbColorBlock = workspace.newBlock("colour_rgb");
     numberBlock.setFieldValue("120", "NUM");

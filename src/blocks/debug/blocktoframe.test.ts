@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import {
@@ -21,7 +22,7 @@ describe("factories debug state", () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test("should create debug state with all variables and components", () => {
+  it("should create debug state with all variables and components", () => {
     const debugBlock = workspace.newBlock("debug_block") as BlockSvg;
     connectToArduinoBlock(debugBlock);
     const numberVarBlock = createSetVariableBlockWithValue(

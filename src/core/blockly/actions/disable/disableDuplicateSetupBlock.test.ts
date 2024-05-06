@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../blocks";
 import type { Workspace } from "blockly";
 import _ from "lodash";
@@ -42,7 +43,7 @@ describe("disableDuplicatePinBlocks", () => {
     );
   });
 
-  test("should not disable setup block where there is only one setup block", () => {
+  it("should not disable setup block where there is only one setup block", () => {
     const setupBlock = workspace.newBlock("rfid_setup");
 
     const event = createTestEvent(setupBlock.id);

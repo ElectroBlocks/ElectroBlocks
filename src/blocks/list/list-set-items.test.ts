@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import "../../tests/fake-block";
 import {
@@ -28,7 +29,7 @@ describe("list setup factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("should be able to set values in a string list", () => {
+  it("should be able to set values in a string list", () => {
     testSetListBlock(
       workspace,
       VariableTypes.LIST_STRING,
@@ -40,7 +41,7 @@ describe("list setup factories", () => {
     );
   });
 
-  test("should be able to set values in a boolean list", () => {
+  it("should be able to set values in a boolean list", () => {
     testSetListBlock(
       workspace,
       VariableTypes.LIST_BOOLEAN,
@@ -52,7 +53,7 @@ describe("list setup factories", () => {
     );
   });
 
-  test("should be able to set values in a color list", () => {
+  it("should be able to set values in a color list", () => {
     testSetListBlock(
       workspace,
       VariableTypes.LIST_COLOUR,
@@ -64,7 +65,7 @@ describe("list setup factories", () => {
     );
   });
 
-  test("should be able to set values in a numbers list", () => {
+  it("should be able to set values in a numbers list", () => {
     testSetListBlock(
       workspace,
       VariableTypes.LIST_NUMBER,
@@ -172,15 +173,8 @@ const testSetListBlock = (
 
   const event = createTestEvent(numberBlock.id);
 
-  const [
-    state1,
-    state2,
-    state3,
-    state4,
-    state5,
-    state6,
-    state7,
-  ] = eventToFrameFactory(event).frames;
+  const [state1, state2, state3, state4, state5, state6, state7] =
+    eventToFrameFactory(event).frames;
 
   expect(state3.variables["list"].value).toEqual([
     valueBlock1Value,

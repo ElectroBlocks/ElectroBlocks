@@ -1,5 +1,6 @@
 import type { BlockSvg, Workspace } from "blockly";
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -22,7 +23,7 @@ describe("text_join state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("should be able to join text blocks and variable string together", () => {
+  it("should be able to join text blocks and variable string together", () => {
     const textJoinBlock = workspace.newBlock("text_join") as BlockSvg;
     (textJoinBlock as any).itemCount_ = 3;
     (textJoinBlock as any).updateShape_();
@@ -82,7 +83,7 @@ describe("text_join state factories", () => {
     expect(state2.variables["test_string"].value).toBe("*3.434.34*");
   });
 
-  test("should return an empty string if nothing is connected to it.", () => {
+  it("should return an empty string if nothing is connected to it.", () => {
     const textJoinBlock = workspace.newBlock("text_join") as BlockSvg;
     (textJoinBlock as any).itemCount_ = 3;
     (textJoinBlock as any).updateShape_();

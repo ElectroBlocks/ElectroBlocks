@@ -1,5 +1,6 @@
 import type { BlockSvg, Workspace } from "blockly";
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -22,7 +23,7 @@ describe("text_isEmpty state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("should is empty should detect whether a text block/variable or nothing is empty", () => {
+  it("should is empty should detect whether a text block/variable or nothing is empty", () => {
     const textIsEmpty = workspace.newBlock("text_isEmpty");
     const textBlock = workspace.newBlock("text");
     textBlock.setFieldValue("", "TEXT");

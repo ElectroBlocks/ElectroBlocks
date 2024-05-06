@@ -1,5 +1,6 @@
 import { BlockSvg, Workspace } from "blockly";
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -58,6 +59,10 @@ describe("Passive Buzzer Tests", () => {
 
     const frames = eventToFrameFactory(event).frames;
     expect(frames.length).toBe(3);
+    console.log(
+      frames.map((f) => f.components[0]),
+      "frames"
+    );
     verifySingleComponentFrame(frames[0], 33, ARDUINO_PINS.PIN_3);
     verifySingleComponentFrame(frames[1], 0, ARDUINO_PINS.PIN_3);
     verifySingleComponentFrame(frames[2], NOTE_TONES.C, ARDUINO_PINS.PIN_3);
@@ -131,7 +136,7 @@ function createPassiveBuzzerBlock(
   const block = workspace.newBlock("passive_buzzer_note");
 
   block.setFieldValue(pin, "PIN");
-  block.setFieldValue(tone, "TONE");
+  block.setFieldValue(tone.toString(), "TONE");
 
   return block as BlockSvg;
 }

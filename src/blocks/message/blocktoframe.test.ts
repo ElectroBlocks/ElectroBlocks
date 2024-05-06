@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -39,7 +40,7 @@ describe("arduino message state factories", () => {
     saveSensorSetupBlockData(event).forEach(updater);
   });
 
-  test("should be able send a message", () => {
+  it("should be able send a message", () => {
     const sendMessageBlock = workspace.newBlock(
       "arduino_send_message"
     ) as BlockSvg;
@@ -65,7 +66,7 @@ describe("arduino message state factories", () => {
     expect(state2.builtInLedOn).toBeFalsy();
   });
 
-  test("should be able generate state for message setup block", () => {
+  it("should be able generate state for message setup block", () => {
     const event = createTestEvent(messageSetup.id);
 
     const message: ArduinoReceiveMessageState = {

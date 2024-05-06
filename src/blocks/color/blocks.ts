@@ -1,11 +1,11 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
-import * as Color from "blockly-field-color-wheel";
+import { ColorWheelField } from "blockly-field-color-wheel";
 
 Blockly.Blocks["color_picker_custom"] = {
   init: function () {
     this.appendDummyInput().appendField(
-      new Color.ColorWheelField("#ff00ff"),
+      new ColorWheelField("#ff00ff"),
       "COLOR"
     );
     this.setOutput(true, "Colour");

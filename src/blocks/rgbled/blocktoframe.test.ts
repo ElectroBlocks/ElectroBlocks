@@ -4,6 +4,7 @@ import "../../tests/fake-block";
 import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import {
@@ -35,7 +36,7 @@ describe("rgb led frame", () => {
     ledColorSetup.setFieldValue("BUILT_IN", "PICTURE_TYPE");
   });
 
-  test("should be able generate state for led color setup block", () => {
+  it("should be able generate state for led color setup block", () => {
     const event = createTestEvent(ledColorSetup.id);
 
     const ledColorState: LedColorState = {
@@ -66,7 +67,7 @@ describe("rgb led frame", () => {
     expect(eventToFrameFactory(event).frames).toEqual([state]);
   });
 
-  test("should be able to change color the led", () => {
+  it("should be able to change color the led", () => {
     ledColorSetup.setFieldValue("BREADBOARD", "PICTURE_TYPE");
     const color1 = createValueBlock(workspace, VariableTypes.COLOUR, {
       red: 200,

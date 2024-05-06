@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../helpers/block.helper";
@@ -23,7 +24,7 @@ describe("disableDuplicatePinBlocks", () => {
     workspace.dispose();
   });
 
-  test("should disable 2 setup blocks that are taking up the same pins", () => {
+  it("should disable 2 setup blocks that are taking up the same pins", () => {
     const setupBlock = workspace.newBlock("rfid_setup");
     setupBlock.setFieldValue(ARDUINO_PINS.PIN_10, "PIN_TX");
 
@@ -48,7 +49,7 @@ describe("disableDuplicatePinBlocks", () => {
     expect(actions[0].type).toBe(ActionType.DISABLE_BLOCK);
   });
 
-  test("should allow fade and regular leds to use the same pins", () => {
+  it("should allow fade and regular leds to use the same pins", () => {
     const ledBlock = workspace.newBlock("led");
     ledBlock.setFieldValue(ARDUINO_PINS.PIN_5, "PIN");
 
@@ -61,7 +62,7 @@ describe("disableDuplicatePinBlocks", () => {
     expect(actions).toEqual([]);
   });
 
-  test("should disable setup block and servo block that share the same pin number", () => {
+  it("should disable setup block and servo block that share the same pin number", () => {
     const servoBlock = workspace.newBlock("rotate_servo") as BlockSvg;
     servoBlock.setFieldValue(ARDUINO_PINS.PIN_5, "PIN");
 
@@ -113,7 +114,7 @@ describe("disableDuplicatePinBlocks", () => {
     );
   });
 
-  test("should not disable setup block and non setup block if non setup block is not connected a function, loop, or arduino setup ", () => {
+  it("should not disable setup block and non setup block if non setup block is not connected a function, loop, or arduino setup ", () => {
     const servoBlock = workspace.newBlock("rotate_servo") as BlockSvg;
     servoBlock.setFieldValue(ARDUINO_PINS.PIN_9, "PIN");
 
@@ -127,7 +128,7 @@ describe("disableDuplicatePinBlocks", () => {
     expect(actions).toEqual([]);
   });
 
-  test("sensor read block pins do not count against pin count", () => {
+  it("sensor read block pins do not count against pin count", () => {
     const rfidBlockSetup = workspace.newBlock("rfid_setup");
     rfidBlockSetup.setFieldValue(ARDUINO_PINS.PIN_9, "PIN_TX");
 
@@ -146,7 +147,7 @@ describe("disableDuplicatePinBlocks", () => {
     expect(actions).toEqual([]);
   });
 
-  test("if 3 block intersect it should block all three of them", () => {
+  it("if 3 block intersect it should block all three of them", () => {
     const sensorBlock = workspace.newBlock("bluetooth_setup");
     sensorBlock.setFieldValue(ARDUINO_PINS.PIN_9, "PIN_TX");
     sensorBlock.setFieldValue(ARDUINO_PINS.PIN_5, "PIN_RX");

@@ -1,7 +1,8 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
-import Blockly from 'blockly';
+import Blockly from "blockly";
 import {
   createArduinoAndWorkSpace,
   createValueBlock,
@@ -31,7 +32,7 @@ describe("factories delay state", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("should be able to delay for a certain number of seconds with and without input", () => {
+  it("should be able to delay for a certain number of seconds with and without input", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const delayBlock = workspace.newBlock("delay_block") as BlockSvg;
     const numberBlock = createValueBlock(

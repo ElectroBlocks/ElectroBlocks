@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect, vi } from "vitest";
+
 import "../blockly/blocks";
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
 import * as helpers from "../blockly/helpers/workspace.helper";
@@ -31,9 +32,9 @@ describe("generator", () => {
 
   beforeEach(() => {
     workspace = new Workspace();
-    jest
-      .spyOn(helpers, "getWorkspace")
-      .mockReturnValue(workspace as WorkspaceSvg);
+    vi.spyOn(helpers, "getWorkspace").mockReturnValue(
+      workspace as WorkspaceSvg
+    );
     arduinoBlock = workspace.newBlock("arduino_loop") as BlockSvg;
     arduinoSetupBlock = workspace.newBlock("arduino_setup") as BlockSvg;
 
@@ -58,7 +59,7 @@ describe("generator", () => {
     saveSensorSetupBlockData(event2).forEach(updater);
   });
 
-  test("should generate zero frames when no blocks other than the loop are present", () => {
+  it("should generate zero frames when no blocks other than the loop are present", () => {
     const setNumberBlock = createSetVariableBlockWithValue(
       workspace,
       "num_var",
@@ -102,5 +103,5 @@ describe("generator", () => {
     expect(states[4].variables["num_var2"].value).toBe(30);
   });
 
-  test("should be able frames that are in the setup block", () => {});
+  it("should be able frames that are in the setup block", () => {});
 });

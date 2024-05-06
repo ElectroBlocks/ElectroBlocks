@@ -24,9 +24,8 @@ Blockly.Blocks["procedures_defnoreturn"] = {
       this.setCommentText(
         `This block allows you to create your own blocks.  The blocks you put inside this block will ran when you use your custom block.`
       );
-      if (typeof this.getCommentIcon() !== "string") {
-        this.getCommentIcon().setBubbleSize(new Blockly.utils.Size(460, 110));
-      }
+
+      this.getIcon("comment")?.setBubbleSize(new Blockly.utils.Size(460, 110));
     }
     this.setStyle("procedure_blocks");
     this.setTooltip(Blockly.Msg["PROCEDURES_DEFNORETURN_TOOLTIP"]);

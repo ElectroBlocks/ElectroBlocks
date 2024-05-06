@@ -1,7 +1,8 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 
-import  type { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
@@ -31,7 +32,7 @@ describe("logic compare blocks", () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test("should be able to determine if something is true or false, logic_compare", () => {
+  it("should be able to determine if something is true or false, logic_compare", () => {
     const boolTest = createSetVariableBlockWithValue(
       workspace,
       "bool_test",

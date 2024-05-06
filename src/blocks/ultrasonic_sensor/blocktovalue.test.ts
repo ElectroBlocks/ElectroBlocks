@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import Blockly, { Workspace, BlockSvg, WorkspaceSvg, Blocks } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -35,7 +36,7 @@ describe("ultra sonic sensor state factories", () => {
     ultraSonicSensor.setFieldValue("12", "PIN_ECHO");
   });
 
-  test("should be able generate state for ultra sonic sensor setup block", () => {
+  it("should be able generate state for ultra sonic sensor setup block", () => {
     saveLoopData(10, ultraSonicSensor, 1);
     saveLoopData(104, ultraSonicSensor, 2);
     saveLoopData(204, ultraSonicSensor, 3);

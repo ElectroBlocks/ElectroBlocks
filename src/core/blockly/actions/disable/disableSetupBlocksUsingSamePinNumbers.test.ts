@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../blocks";
 import type { Workspace } from "blockly";
 import _ from "lodash";
@@ -21,7 +22,7 @@ describe("disableSetupBlocksUsingSamePinNumbers", () => {
     workspace.dispose();
   });
 
-  test("should disble blocks with NO_PINS in the pin dropdown", () => {
+  it("should disble blocks with NO_PINS in the pin dropdown", () => {
     workspace.newBlock("analog_read_setup");
     workspace.newBlock("analog_read_setup");
     workspace.newBlock("analog_read_setup");

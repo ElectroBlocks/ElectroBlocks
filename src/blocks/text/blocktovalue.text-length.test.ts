@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import type { BlockSvg, Workspace } from "blockly";
 import "../../core/blockly/blocks";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
@@ -22,7 +23,7 @@ describe("text_length state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("should be able to get the text length of text, variable and no block", () => {
+  it("should be able to get the text length of text, variable and no block", () => {
     const textLengthBlock = workspace.newBlock("text_length");
     const textBlock = workspace.newBlock("text");
     textBlock.setFieldValue("blue", "TEXT");

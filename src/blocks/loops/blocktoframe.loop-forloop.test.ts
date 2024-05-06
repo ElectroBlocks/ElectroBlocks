@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import {
@@ -24,34 +25,34 @@ describe("generate states controls_for block", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
   });
 
-  test("should loop -3 to -10 subtracting by 2", () => {
+  it("should loop -3 to -10 subtracting by 2", () => {
     // -3 -5, -7, -9
     testloop(workspace, -3, -10, 2, [-3, -5, -7, -9]);
   });
 
-  test("should loop -3 to 0 substracting by 1", () => {
+  it("should loop -3 to 0 substracting by 1", () => {
     // -3, -2, -1, 0
     testloop(workspace, -3, 0, 1, [-3, -2, -1, 0, 1]);
   });
 
-  test("should loop 1 to 10 by adding by 3", () => {
+  it("should loop 1 to 10 by adding by 3", () => {
     // 1, 4, 7, 10
     testloop(workspace, 1, 10, 3, [1, 4, 7, 10]);
   });
 
-  test("should loop 1 to 10 by adding by 2", () => {
+  it("should loop 1 to 10 by adding by 2", () => {
     testloop(workspace, 1, 10, 2, [1, 3, 5, 7, 9]);
   });
 
-  test("should be able to handle having nothing inside the loop 1 to 10", () => {
+  it("should be able to handle having nothing inside the loop 1 to 10", () => {
     testloop(workspace, 1, 10, 1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   });
 
-  test("should be able to handler nothing in the from, by, and to inputs", () => {
+  it("should be able to handler nothing in the from, by, and to inputs", () => {
     testloop(workspace, null, null, null, [1]);
   });
 
-  test("shoudl be able to handle nothing inside the for loop", () => {
+  it("shoudl be able to handle nothing inside the for loop", () => {
     testloop(workspace, 1, 10, 1, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], true);
   });
 });

@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import _ from "lodash";
 import type { BlockSvg, Workspace } from "blockly";
@@ -23,7 +24,7 @@ describe("math_round state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("math_round block should be able to roundup/round/rounddown math_number blocks together", () => {
+  it("math_round block should be able to roundup/round/rounddown math_number blocks together", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const variableNumTest = workspace.createVariable("num_test", "Number");
     const setNumberBlock = workspace.newBlock(
@@ -59,7 +60,7 @@ describe("math_round state factories", () => {
     });
   });
 
-  test("math_round block should be able to roundup/round/rounddown variable", () => {
+  it("math_round block should be able to roundup/round/rounddown variable", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
 
     const setNumberRoundBlock = createSetVariableBlockWithValue(
@@ -111,7 +112,7 @@ describe("math_round state factories", () => {
     });
   });
 
-  test("math_round block should be able to round if nothing is connectted it", () => {
+  it("math_round block should be able to round if nothing is connectted it", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const variableNumTest = workspace.createVariable("num_test", "Number");
     const setNumberBlock = workspace.newBlock(

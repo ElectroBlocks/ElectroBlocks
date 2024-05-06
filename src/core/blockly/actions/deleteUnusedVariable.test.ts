@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../blocks";
 import Blockly, { Workspace } from "blockly";
 import _ from "lodash";
@@ -21,7 +22,7 @@ describe("deleteUnusedVariables", () => {
     workspace.dispose();
   });
 
-  test("should create delete variable actions for unused variables", () => {
+  it("should create delete variable actions for unused variables", () => {
     const b = workspace.createVariable("var_b", "Number");
     const c = workspace.createVariable("var_c", "String");
     workspace.newBlock("variables_set_number");

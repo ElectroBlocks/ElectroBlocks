@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../blocks";
 import Blockly, { Workspace } from "blockly";
 import { getAllBlocks } from "../helpers/block.helper";
@@ -28,13 +29,13 @@ describe("saveSensorSetupBlockData", () => {
     workspace.dispose();
   });
 
-  test("no action if block is not a sensor setup block", () => {
+  it("no action if block is not a sensor setup block", () => {
     const event = createTestEvent(arduinoBlock.id);
     const actions = saveSensorSetupBlockData(event);
     expect(actions).toEqual([]);
   });
 
-  test("no action if the block loop field is being changed", () => {
+  it("no action if the block loop field is being changed", () => {
     const sensorBlock = workspace.newBlock("rfid_setup");
     const event: BlockEvent = {
       blockId: sensorBlock.id,
@@ -51,7 +52,7 @@ describe("saveSensorSetupBlockData", () => {
     expect(actions).toEqual([]);
   });
 
-  test("create an action for a block with no metadata", () => {
+  it("create an action for a block with no metadata", () => {
     const sensorBlock = workspace.newBlock("ultra_sonic_sensor_setup");
     const event: BlockEvent = {
       blockId: sensorBlock.id,
@@ -92,7 +93,7 @@ describe("saveSensorSetupBlockData", () => {
     expect(actions[0].blockId).toEqual(sensorBlock.id);
   });
 
-  test("create an action for a block already has metadata.  Should replace what is ther for the loop selected", () => {
+  it("create an action for a block already has metadata.  Should replace what is ther for the loop selected", () => {
     const sensorBlock = workspace.newBlock("ultra_sonic_sensor_setup");
     const currentMetadata = [
       {
@@ -141,7 +142,7 @@ describe("saveSensorSetupBlockData", () => {
     expect(actions[0].blockId).toEqual(sensorBlock.id);
   });
 
-  test("should exclude the time block because there is no loop drop down for it.  Time is consider constant through the loop", () => {
+  it("should exclude the time block because there is no loop drop down for it.  Time is consider constant through the loop", () => {
     const sensorBlock = workspace.newBlock("time_setup");
     const event: BlockEvent = {
       blockId: sensorBlock.id,

@@ -1,5 +1,6 @@
 import type { BlockSvg, Workspace } from "blockly";
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -22,7 +23,7 @@ describe("parse_string_block state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("should be able to parse a string with an empty string", () => {
+  it("should be able to parse a string with an empty string", () => {
     const textBlock = workspace.newBlock("text");
     textBlock.setFieldValue("blue*red*yellow", "TEXT");
     const parseBlock = workspace.newBlock("parse_string_block");
