@@ -4,8 +4,7 @@ import type { Block } from "blockly";
 Blockly["Arduino"]["procedures_defreturn"] = function (block: Block | any) {
   // Define a procedure with a return value.
   const funcName = Blockly["Arduino"].variableDB_.getName(
-    block.getFieldValue("NAME"),
-    Blockly.Procedures.VAR_LETTER_OPTIONS
+    block.getFieldValue("NAME")
   );
   const branch = Blockly["Arduino"].statementToCode(block, "STACK");
   const returnType = block.getFieldValue("RETURN TYPE") || "void";
@@ -19,20 +18,12 @@ Blockly["Arduino"]["procedures_defreturn"] = function (block: Block | any) {
   if (returnValue) {
     returnValue = Blockly["Arduino"].INDENT + "return " + returnValue + ";\n";
   }
-  const args = [];
-  for (let i = 0; i < block.argumentVarModels_.length; i++) {
-    args[i] =
-      translateType(block.argumentVarModels_[i].type) +
-      " " +
-      block.argumentVarModels_[i].name;
-  }
+
   let code =
     translateType(returnType) +
     " " +
     funcName +
-    "(" +
-    args.join(", ") +
-    ") {\n" +
+    "() {\n" +
     branch +
     returnValue +
     "}";
@@ -60,40 +51,12 @@ function translateType(type) {
 Blockly["Arduino"]["procedures_defnoreturn"] =
   Blockly["Arduino"]["procedures_defreturn"];
 
-Blockly["Arduino"]["procedures_callreturn"] = function (block: Block | any) {
-  // Call a procedure with a return value.
-  const funcName = Blockly["Arduino"].variableDB_.getName(
-    block.getFieldValue("NAME"),
-    Blockly.Procedures.VAR_LETTER_OPTIONS
-  );
-  const args = [];
-  for (let i = 0; i < block.arguments_.length; i++) {
-    args[i] =
-      Blockly["Arduino"].valueToCode(
-        block,
-        "ARG" + i,
-        Blockly["Arduino"].ORDER_COMMA
-      ) || "null";
-  }
-  const code = funcName + "(" + args.join(", ") + ")";
-  return [code, Blockly["Arduino"].ORDER_ATOMIC];
-};
-
 Blockly["Arduino"]["procedures_callnoreturn"] = function (block: Block | any) {
   // Call a procedure with no return value.
   const funcName = Blockly["Arduino"].variableDB_.getName(
     block.getFieldValue("NAME"),
-    Blockly.Procedures.VAR_LETTER_OPTIONS
+    Blockly.Procedures.DEFAULT_ARG
   );
-  const args = [];
-  for (let i = 0; i < block.arguments_.length; i++) {
-    args[i] =
-      Blockly["Arduino"].valueToCode(
-        block,
-        "ARG" + i,
-        Blockly["Arduino"].ORDER_COMMA
-      ) || "null";
-  }
 
-  return funcName + "(" + args.join(", ") + ");\n";
+  return funcName + "();\n";
 };

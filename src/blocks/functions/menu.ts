@@ -53,7 +53,6 @@ export const registerFunctionMenu = (workspace: WorkspaceSvg) => {
     function populateProcedures(procedureList, templateName) {
       for (let i = 0; i < procedureList.length; i++) {
         const name = procedureList[i][0];
-        const argsModel = procedureList[i][3]; //  CHANGING TO SUPPORT TYPES
         // <block type="procedures_callnoreturn" gap="16">
         //   <mutation name="do something">
         //     <arg name="x" type="Nubmer"></arg>
@@ -65,12 +64,6 @@ export const registerFunctionMenu = (workspace: WorkspaceSvg) => {
         const mutation = Blockly.utils.xml.createElement("mutation");
         mutation.setAttribute("name", name);
         block.appendChild(mutation);
-        for (let j = 0; j < argsModel.length; j++) {
-          const arg = Blockly.utils.xml.createElement("arg");
-          arg.setAttribute("name", argsModel[j].name);
-          arg.setAttribute("type", argsModel[j].type); // CHANGE TO GET TYPES
-          mutation.appendChild(arg);
-        }
         xmlList.push(block);
       }
     }

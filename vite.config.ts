@@ -3,5 +3,5 @@ import { defineConfig } from "vite";
 import commonjs from "@rollup/plugin-commonjs"; // Import the plugin
 
 export default defineConfig({
-  plugins: [commonjs(), sveltekit()],
+  plugins: [commonjs({ sourceMap: true }), sveltekit()],
 });
