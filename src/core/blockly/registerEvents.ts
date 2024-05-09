@@ -1,6 +1,7 @@
 import updateForLoopText from "./actions/updateForLoopText";
 import type { WorkspaceSvg } from "blockly";
 import _ from "lodash";
+import Blockly from "blockly";
 
 import codeStore from "../../stores/code.store";
 import frameStore from "../../stores/frame.store";
@@ -53,18 +54,18 @@ settingStore.subscribe((newSettings) => {
 });
 
 export const createFrames = async (blocklyEvent) => {
-  if (
-    blocklyEvent.element === "disabled" ||
-    // Means a modal is opening
-    blocklyEvent.element === "warningOpen" ||
-    blocklyEvent.element === "click" ||
-    // If old value equals null that means it's probably not a copy event
-    (blocklyEvent.element === "selected" &&
-      blocklyEvent.oldElementId &&
-      blocklyEvent.newElementId)
-  ) {
-    return;
+  if ((Blockly.getMainWorkspace() as any).isDragging()) {
+    return; // Don't update while changes are happening.
   }
+
+  const supportedEvents = new Set([
+    Blockly.Events.BLOCK_CHANGE,
+    Blockly.Events.BLOCK_CREATE,
+    Blockly.Events.BLOCK_DELETE,
+    Blockly.Events.BLOCK_MOVE,
+  ]);
+
+  if (!supportedEvents.has(blocklyEvent.type)) return;
 
   const microControllerType = getBoardType() as MicroControllerType;
   const event = transformEvent(
@@ -179,5 +180,5 @@ const enableBlocks = (actions: DisableBlock[]) => {
 };
 
 export const addListener = (workspace: WorkspaceSvg) => {
-  workspace.addChangeListener(_.debounce(createFrames, 5));
+  workspace.addChangeListener(createFrames);
 };
