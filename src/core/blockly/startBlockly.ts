@@ -17,7 +17,6 @@ import { ARDUINO_PINS } from "../microcontroller/selectBoard";
 import { DELAY_COMMENT } from "../../blocks/time/toolbox";
 import { LED_COMMENT } from "../../blocks/led/toolbox";
 
-import "@blockly/block-plus-minus";
 import { registerVariableMenu } from "../../blocks/variables/menu";
 import { registerFunctionMenu } from "../../blocks/functions/menu";
 
