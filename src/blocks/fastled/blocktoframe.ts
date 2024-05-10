@@ -78,9 +78,8 @@ export const showAllColors: BlockToFrameTransformer = (
       },
     };
   });
-  const newFastLeds = fastLED.preShowLEDs;
   fastLED.preShowLEDs = preShowLeds;
-  fastLED.fastLEDs = newFastLeds;
+  fastLED.fastLEDs = preShowLeds;
   const newComponent = _.cloneDeep(fastLED);
 
   return [
@@ -114,6 +113,7 @@ export const setAllColors: BlockToFrameTransformer = (
     leds.push({ position: position - 1, color });
   }
   fastLED.preShowLEDs = leds;
+  fastLED.fastLEDs = leds;
   const newComponent = _.cloneDeep(fastLED);
 
   return [
@@ -168,6 +168,7 @@ export const setFastLEDColor: BlockToFrameTransformer = (
     )
   );
   fastLED.preShowLEDs[position - 1] = { position: position - 1, color };
+  fastLED.fastLEDs[position - 1] = { position: position - 1, color };
   const newComponent = _.cloneDeep(fastLED);
 
   return [
