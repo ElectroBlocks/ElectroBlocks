@@ -1,5 +1,6 @@
 export enum ActionType {
   FOR_LOOP_BLOCK_CHANGE = "FOR_LOOP_CHANGE",
+  LCD_SIMPLE_PRINT_CHANGE = "LCD_SIMPLE_PRINT_CHANGE",
   SETUP_SENSOR_BLOCK_FIELD_UPDATE = "SETUP_SENSOR_BLOCK_FIELD_UPDATE",
   SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE = "SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE",
   SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA = "SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA",
@@ -23,6 +24,10 @@ export interface VariableAction extends Action {
 
 export interface ForLoopTextChange extends BlockAction {
   changeText: string;
+}
+
+export interface UpdateLCDScreenPrintBlock extends BlockAction {
+  numberOfRows: number;
 }
 
 export interface UpdateSetupSensorBlockFields extends BlockAction {
