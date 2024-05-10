@@ -3,7 +3,8 @@ import type { Block } from "blockly";
 
 Blockly["Arduino"]["controls_repeat_ext"] = function (block: Block) {
   // Repeat n times.
-
+  Blockly["Arduino"].libraries_["controls_repeat_ext"] =
+    "int simple_loop_variable = 0;";
   const repeats =
     Blockly["Arduino"].valueToCode(
       block,

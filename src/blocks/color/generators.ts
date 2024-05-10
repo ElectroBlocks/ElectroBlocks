@@ -11,9 +11,17 @@ function hexToRgb(hex) {
     : null;
 }
 
+function createColorStruct() {
+  Blockly["Arduino"].libraries_["color_struct"] = `struct RGB {
+    int red;
+    int green;
+    int blue;
+}`;
+}
+
 Blockly["Arduino"]["color_picker_custom"] = function (block) {
   const rgb = hexToRgb(block.getFieldValue("COLOR"));
-
+  createColorStruct();
   return [
     "{ " + rgb.r + ", " + rgb.g + ", " + rgb.b + "}",
     Blockly["Arduino"].ORDER_ATOMIC,
@@ -21,6 +29,7 @@ Blockly["Arduino"]["color_picker_custom"] = function (block) {
 };
 
 Blockly["Arduino"]["colour_random"] = function (block) {
+  createColorStruct();
   return [
     "{ random(0, 255), random(0, 255), random(0, 255)}",
     Blockly["Arduino"].ORDER_ATOMIC,
@@ -28,6 +37,7 @@ Blockly["Arduino"]["colour_random"] = function (block) {
 };
 
 Blockly["Arduino"]["colour_rgb"] = function (block) {
+  createColorStruct();
   const red = Blockly["Arduino"].valueToCode(
     block,
     "RED",
