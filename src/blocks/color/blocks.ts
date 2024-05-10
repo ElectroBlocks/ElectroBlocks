@@ -1,6 +1,6 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
-import {ColorWheelField} from 'blockly-field-color-wheel';
+import ColorWheelField from "blockly-field-color-wheel";
 
 Blockly.Blocks["color_picker_custom"] = {
   init: function () {

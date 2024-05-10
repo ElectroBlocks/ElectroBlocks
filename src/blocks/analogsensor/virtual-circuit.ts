@@ -10,7 +10,7 @@ import type {
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import _ from "lodash";
 
-import { AnalogSensorPicture, AnalogSensorState } from "./state";
+import { AnalogSensorPicture, type AnalogSensorState } from "./state";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import {
   createComponentWire,

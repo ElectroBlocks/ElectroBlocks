@@ -1,6 +1,6 @@
 import type { MicroController, MicroControllerBlocks } from "./microcontroller";
 
-const pinArrayToFieldList = (pins: string[]) => {
+const pinArrayToFieldList = (pins: string[]): [string, string][] => {
   return pins.map((pin) => [pin, pin]);
 };
 

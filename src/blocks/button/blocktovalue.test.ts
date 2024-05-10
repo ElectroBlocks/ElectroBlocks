@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
@@ -32,7 +33,7 @@ describe("button state factories", () => {
     arduinoBlock.setFieldValue("2", "LOOP_TIMES");
   });
 
-  test("should be able generate state for button setup block", () => {
+  it("should be able generate state for button setup block", () => {
     const buttonSetup1 = workspace.newBlock("button_setup") as BlockSvg;
     buttonSetup1.setFieldValue("3", "PIN");
     buttonSetup1.setFieldValue("TRUE", "is_pressed");
@@ -63,14 +64,8 @@ describe("button state factories", () => {
     setVariablePin3.nextConnection.connect(setVariablePin5.previousConnection);
     const event = createTestEvent(setVariablePin3.id);
 
-    const [
-      setup1,
-      setup2,
-      state1,
-      state2,
-      state3,
-      state4,
-    ] = eventToFrameFactory(event).frames;
+    const [setup1, setup2, state1, state2, state3, state4] =
+      eventToFrameFactory(event).frames;
 
     expect(state1.variables["block1"].value).toBeTruthy();
     verifyState(state1, true, false);

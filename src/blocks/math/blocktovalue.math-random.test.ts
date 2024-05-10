@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import _ from "lodash";
 import type { BlockSvg, Workspace } from "blockly";
@@ -21,7 +22,7 @@ describe("math_random_int state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("math_random_int block should be able to generate random numbers", () => {
+  it("math_random_int block should be able to generate random numbers", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const variableNumTest = workspace.createVariable("num_test", "Number");
     const setNumberBlock = workspace.newBlock(
@@ -52,7 +53,7 @@ describe("math_random_int state factories", () => {
     expect(_.keys(state.variables).length).toBe(1);
   });
 
-  test("math_random_int block should be able to generate random numbers", () => {
+  it("math_random_int block should be able to generate random numbers", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const variableNumTest = workspace.createVariable("num_test", "Number");
     const setNumberBlock = workspace.newBlock(

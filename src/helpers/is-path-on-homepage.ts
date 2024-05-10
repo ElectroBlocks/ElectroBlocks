@@ -1,5 +1,5 @@
 export function isPathOnHomePage(path: string) {
-  if (path === "/") {
+  if (path === "/" || path === undefined) {
     return true;
   }
 

@@ -7,8 +7,20 @@
     {
       "target": "main",
       "predeploy": "npm run build",
-      "public": "__sapper__/export",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+      "public": "build",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "**",
+      "destination": "/app.html"
     }
   ],
   "storage": {

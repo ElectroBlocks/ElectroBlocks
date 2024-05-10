@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import _ from "lodash";
 import type { BlockSvg, Workspace } from "blockly";
@@ -23,7 +24,7 @@ describe("math_round state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("should be able to take a variable string and turn it into a number", () => {
+  it("should be able to take a variable string and turn it into a number", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const stringVariableBlock = createSetVariableBlockWithValue(
       workspace,
@@ -61,7 +62,7 @@ describe("math_round state factories", () => {
     expect(_.keys(state2.variables).length).toBe(2);
   });
 
-  test("should be able to string_to_number if no block is connected", () => {
+  it("should be able to string_to_number if no block is connected", () => {
     const stringToNumberBlock = workspace.newBlock("string_to_number");
     const variableNumTest = workspace.createVariable("num_test", "Number");
     const setNumberBlock = workspace.newBlock(

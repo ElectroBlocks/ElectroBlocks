@@ -1,5 +1,5 @@
-import { Settings, Project, defaultSetting } from './model';
-import { workspaceToXML } from '../core/blockly/helpers/workspace.helper';
+import { type Settings, type Project, defaultSetting } from "./model";
+import { workspaceToXML } from "../core/blockly/helpers/workspace.helper";
 import {
   initializeFirestore,
   CACHE_SIZE_UNLIMITED,
@@ -13,25 +13,25 @@ import {
   orderBy,
   query,
   where,
-} from 'firebase/firestore';
+} from "firebase/firestore";
 import {
   getStorage,
   ref,
   getDownloadURL,
   uploadBytes,
   deleteObject,
-} from 'firebase/storage';
-import { getApp } from 'firebase/app';
+} from "firebase/storage";
+import { getApp } from "firebase/app";
 
 export async function fbSaveSettings(uid: string, settings: Settings) {
   const db = firestore();
-  const settingDoc = doc(db, 'settings', uid);
+  const settingDoc = doc(db, "settings", uid);
   await updateDoc(settingDoc, { ...settings });
 }
 
 export async function getSettings(uid: string): Promise<Settings> {
   const db = firestore();
-  const settingDoc = await getDoc(doc(db, 'settings', uid));
+  const settingDoc = await getDoc(doc(db, "settings", uid));
 
   if (settingDoc.exists) {
     return settingDoc.data() as Settings;
@@ -42,7 +42,7 @@ export async function getSettings(uid: string): Promise<Settings> {
 
 export async function addProject(project: Project) {
   const db = firestore();
-  const projectCollection = collection(db, 'projects');
+  const projectCollection = collection(db, "projects");
   project.created = project.created ? project.created : new Date();
   project.updated = new Date();
   project.canShare = false;
@@ -55,7 +55,7 @@ export async function addProject(project: Project) {
 
 export async function saveProject(project: Project, projectId: string) {
   const db = firestore();
-  const projectRef = doc(db, 'projects', projectId);
+  const projectRef = doc(db, "projects", projectId);
 
   project.created = project.created ? project.created : new Date();
   project.updated = new Date();
@@ -67,7 +67,7 @@ export async function saveProject(project: Project, projectId: string) {
 export async function getProject(projectId: string): Promise<Project> {
   const db = firestore();
   const project = (
-    await getDoc(doc(db, 'projects', projectId))
+    await getDoc(doc(db, "projects", projectId))
   ).data() as Project;
 
   return project;
@@ -78,9 +78,9 @@ export async function getProjects(uid: string): Promise<[Project, string][]> {
 
   const docs = await getDocs(
     query(
-      collection(db, 'projects'),
-      where('userId', '==', uid),
-      orderBy('created', 'desc')
+      collection(db, "projects"),
+      where("userId", "==", uid),
+      orderBy("created", "desc")
     )
   );
 
@@ -93,7 +93,7 @@ async function saveFile(projectId: string, uid: string) {
 
   await uploadBytes(
     fileRef,
-    new Blob([workspaceToXML()], { type: 'application/xml;charset=utf-8' })
+    new Blob([workspaceToXML()], { type: "application/xml;charset=utf-8" })
   );
 }
 
@@ -104,18 +104,18 @@ export async function saveUserProfile(
 ) {
   const db = firestore();
 
-  await updateDoc(doc(db, 'profiles', uid), { bio, username });
+  await updateDoc(doc(db, "profiles", uid), { bio, username });
 }
 
 export async function getUserProfile(uid: string) {
   const db = firestore();
-  const profileDoc = await getDoc(doc(db, 'profiles', uid));
+  const profileDoc = await getDoc(doc(db, "profiles", uid));
 
   if (profileDoc.exists) {
     return profileDoc.data();
   }
 
-  return { username: '', bio: '' };
+  return { username: "", bio: "" };
 }
 
 export async function getFile(projectId: string, uid: string) {
@@ -134,7 +134,7 @@ export async function deleteProject(projectId: string, uid: string) {
   await deleteObject(storageRef);
 
   const db = firestore();
-  const projectDoc = doc(db, 'projects', projectId);
+  const projectDoc = doc(db, "projects", projectId);
   await deleteDoc(projectDoc);
 }
 

@@ -1,10 +1,10 @@
-import Blockly, { BlockSvg } from "blockly";
+import Blockly, { type BlockSvg } from "blockly";
 import {
-  BlockData,
-  Input,
-  InputStatement,
+  type BlockData,
+  type Input,
+  type InputStatement,
   blocksToBlockTypes,
-  FieldValue,
+  type FieldValue,
   BlocklyInputTypes,
 } from "../dto/block.type";
 import _ from "lodash";

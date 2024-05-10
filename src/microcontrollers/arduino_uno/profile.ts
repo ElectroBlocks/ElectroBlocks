@@ -1,7 +1,7 @@
 import {
-  Breadboard,
+  type Breadboard,
   MicroControllerType,
-  PinConnection,
+  type PinConnection,
 } from "../../core/microcontroller/microcontroller";
 import type { MicroController } from "../../core/microcontroller/microcontroller";
 
@@ -115,29 +115,8 @@ const unoArduino: MicroController = {
   type: MicroControllerType.ARDUINO_UNO,
   breadboard,
   skipHoles: [
-    6,
-    9,
-    13,
-    18,
-    22,
-    27,
-    31,
-    37,
-    41,
-    46,
-    51,
-    54,
-    58,
-    61,
-    56,
-    50,
-    44,
-    38,
-    32,
-    26,
-    20,
-    14,
-    8,
+    6, 9, 13, 18, 22, 27, 31, 37, 41, 46, 51, 54, 58, 61, 56, 50, 44, 38, 32,
+    26, 20, 14, 8,
   ],
   pinConnections,
 };

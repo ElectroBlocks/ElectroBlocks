@@ -6,7 +6,9 @@ import { createBlock } from "../../core/blockly/helpers/block.helper";
  * Crappy code to register the button listeners for blockly
  */
 
-const registerListMenu = (workspace: WorkspaceSvg) => {
+export const registerListMenu = (workspace: WorkspaceSvg) => {
+  var parser = new DOMParser();
+
   workspace.registerToolboxCategoryCallback("LIST", () => {
     const xmlList: Element[] = [];
     const btnCreateNumberList = document.createElement("button");
@@ -73,8 +75,10 @@ const registerListMenu = (workspace: WorkspaceSvg) => {
         '<value name="POSITION"> <block type="math_number"> <field name="NUM">1</field></block> </value>' +
         "</block>" +
         "</xml>";
-      const blockSetNumberList = Blockly.Xml.textToDom(blockNumberListSetText)
-        .firstChild as Element;
+      const blockSetNumberList = parser.parseFromString(
+        blockNumberListSetText,
+        "application/xml"
+      ).documentElement.firstChild as Element;
       xmlList.push(blockSetNumberList);
 
       const blockTextGetListNum =
@@ -86,8 +90,10 @@ const registerListMenu = (workspace: WorkspaceSvg) => {
         '<value name="POSITION"> <block type="math_number"> <field name="NUM">1</field></block> </value>' +
         "</block>" +
         "</xml>";
-      const blockGetListNum = Blockly.Xml.textToDom(blockTextGetListNum)
-        .firstChild as Element;
+      const blockGetListNum = parser.parseFromString(
+        blockTextGetListNum,
+        "application/xml"
+      ).documentElement.firstChild as Element;
       xmlList.push(blockGetListNum);
     }
 
@@ -104,8 +110,10 @@ const registerListMenu = (workspace: WorkspaceSvg) => {
         '<value name="POSITION"> <block type="math_number"> <field name="NUM">1</field></block> </value>' +
         "</block>" +
         "</xml>";
-      const blockSetStringList = Blockly.Xml.textToDom(blockStringListSetText)
-        .firstChild as Element;
+      const blockSetStringList = parser.parseFromString(
+        blockStringListSetText,
+        "application/xml"
+      ).documentElement.firstChild as Element;
       xmlList.push(blockSetStringList);
 
       const blockTextGetListText =
@@ -117,8 +125,10 @@ const registerListMenu = (workspace: WorkspaceSvg) => {
         '<value name="POSITION"> <block type="math_number"> <field name="NUM">1</field></block> </value>' +
         "</block>" +
         "</xml>";
-      const blockGetListText = Blockly.Xml.textToDom(blockTextGetListText)
-        .firstChild as Element;
+      const blockGetListText = parser.parseFromString(
+        blockTextGetListText,
+        "application/xml"
+      ).documentElement.firstChild as Element;
       xmlList.push(blockGetListText);
     }
 
@@ -135,8 +145,10 @@ const registerListMenu = (workspace: WorkspaceSvg) => {
         '<value name="POSITION"> <block type="math_number"> <field name="NUM">1</field></block> </value>' +
         "</block>" +
         "</xml>";
-      const blockSetBooleanList = Blockly.Xml.textToDom(blockBooleanListSetText)
-        .firstChild as Element;
+      const blockSetBooleanList = parser.parseFromString(
+        blockBooleanListSetText,
+        "application/xml"
+      ).documentElement.firstChild as Element;
       xmlList.push(blockSetBooleanList);
 
       const blockTextGetListBoolean =
@@ -148,8 +160,10 @@ const registerListMenu = (workspace: WorkspaceSvg) => {
         '<value name="POSITION"> <block type="math_number"> <field name="NUM">1</field></block> </value>' +
         "</block>" +
         "</xml>";
-      const blockGetListBoolean = Blockly.Xml.textToDom(blockTextGetListBoolean)
-        .firstChild as Element;
+      const blockGetListBoolean = parser.parseFromString(
+        blockTextGetListBoolean,
+        "application/xml"
+      ).documentElement.firstChild as Element;
       xmlList.push(blockGetListBoolean);
     }
 
@@ -166,8 +180,10 @@ const registerListMenu = (workspace: WorkspaceSvg) => {
         '<value name="POSITION"> <block type="math_number"> <field name="NUM">1</field></block> </value>' +
         "</block>" +
         "</xml>";
-      const blockColourListSet = Blockly.Xml.textToDom(blockColourListSetText)
-        .firstChild as Element;
+      const blockColourListSet = parser.parseFromString(
+        blockColourListSetText,
+        "application/xml"
+      ).documentElement.firstChild as Element;
       xmlList.push(blockColourListSet);
 
       const blockTextGetListColor =
@@ -179,8 +195,10 @@ const registerListMenu = (workspace: WorkspaceSvg) => {
         '<value name="POSITION"> <block type="math_number"> <field name="NUM">1</field></block> </value>' +
         "</block>" +
         "</xml>";
-      const blockGetListColor = Blockly.Xml.textToDom(blockTextGetListColor)
-        .firstChild as Element;
+      const blockGetListColor = parser.parseFromString(
+        blockTextGetListColor,
+        "application/xml"
+      ).documentElement.firstChild as Element;
       xmlList.push(blockGetListColor);
     }
 

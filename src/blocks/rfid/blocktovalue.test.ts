@@ -1,13 +1,8 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
-import type {
-  Workspace,
-  BlockSvg,
-  Block,
-} from "blockly";
-import {
-  connectToArduinoBlock,
-} from "../../core/blockly/helpers/block.helper";
+import type { Workspace, BlockSvg, Block } from "blockly";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import { saveSensorSetupBlockData } from "../../core/blockly/actions/saveSensorSetupBlockData";
@@ -39,7 +34,7 @@ describe("rfid value factories", () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test("should be able generate state for rfid setup block", () => {
+  it("should be able generate state for rfid setup block", () => {
     const setupBlock = workspace.newBlock("rfid_setup") as BlockSvg;
 
     const rfidHasScanCardBlock = workspace.newBlock("rfid_scan");

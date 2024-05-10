@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 
 import type { Workspace, BlockSvg } from "blockly";
@@ -28,7 +29,7 @@ describe("test servos factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("test it can do one two motors in different directions.", () => {
+  it("test it can do one two motors in different directions.", () => {
     const motor1Block1 = createMotorBlock(1, "FORWARD", 50);
     const motor2Block2 = createMotorBlock(2, "BACKWARD", 150);
 

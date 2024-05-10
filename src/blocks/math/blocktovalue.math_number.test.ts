@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import {
   createArduinoAndWorkSpace,
@@ -39,7 +40,7 @@ describe("math_number_property state factories", () => {
     connectToArduinoBlock(setBooleanBlock);
   });
 
-  test("math_number_property block should be able to even/odd/positive/negative", () => {
+  it("math_number_property block should be able to even/odd/positive/negative", () => {
     [
       { OP: "EVEN", num: 3, value: false },
       { OP: "EVEN", num: 4, value: true },

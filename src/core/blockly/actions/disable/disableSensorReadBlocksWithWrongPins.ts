@@ -4,7 +4,7 @@ import {
   BlockType,
   multipleTopBlocks,
 } from "../../dto/block.type";
-import { ActionType, DisableBlock } from "../actions";
+import { ActionType, type DisableBlock } from "../actions";
 
 import _ from "lodash";
 

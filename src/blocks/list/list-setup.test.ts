@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace } from "blockly";
 import _ from "lodash";
@@ -22,7 +23,7 @@ describe("list  factories", () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test("should be able generate state for list create block", () => {
+  it("should be able generate state for list create block", () => {
     const numListBlock = createListSetupBlock(
       workspace,
       "nums",

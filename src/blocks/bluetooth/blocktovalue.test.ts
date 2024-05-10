@@ -1,6 +1,7 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
-import type  { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
 
@@ -16,7 +17,7 @@ import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
 import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import  type { BluetoothState } from "./state";
+import type { BluetoothState } from "./state";
 
 describe("bluetooth state factories", () => {
   let workspace: Workspace;
@@ -33,7 +34,7 @@ describe("bluetooth state factories", () => {
     btSetupBlock.setFieldValue(ARDUINO_PINS.PIN_6, "PIN_TX");
   });
 
-  test("should be able generate state for bluetooth setup block", () => {
+  it("should be able generate state for bluetooth setup block", () => {
     arduinoBlock.setFieldValue("3", "LOOP_TIMES");
     btSetupBlock.setFieldValue("TRUE", "receiving_message");
     btSetupBlock.setFieldValue("MESSAGE_1", "message");

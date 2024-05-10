@@ -1,9 +1,10 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../blocks";
 import _ from "lodash";
 import type { BlockEvent } from "../dto/event.type";
 import updateForLoopText from "./updateForLoopText";
-import { ForLoopTextChange, ActionType } from "./actions";
+import { type ForLoopTextChange, ActionType } from "./actions";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
@@ -21,13 +22,13 @@ describe("updateForLoopText", () => {
     workspace.dispose();
   });
 
-  test("should return an empty array if no for blocks are present", () => {
+  it("should return an empty array if no for blocks are present", () => {
     const event: BlockEvent = createTestEvent(arduinoBlock.id);
 
     expect(updateForLoopText(event)).toEqual([]);
   });
 
-  test("from number greater than to number", () => {
+  it("from number greater than to number", () => {
     const forBlock = createForLoopBlock(30, 10);
     const event = createTestEvent(arduinoBlock.id);
 
@@ -40,7 +41,7 @@ describe("updateForLoopText", () => {
     expect(updateForLoopText(event)).toEqual([forTextAction]);
   });
 
-  test("to number greater than from number", () => {
+  it("to number greater than from number", () => {
     const forBlock = createForLoopBlock(10, 30);
     const event = createTestEvent(arduinoBlock.id);
 
@@ -53,7 +54,7 @@ describe("updateForLoopText", () => {
     expect(updateForLoopText(event)).toEqual([forTextAction]);
   });
 
-  test("empty for loop block uses by", () => {
+  it("empty for loop block uses by", () => {
     const forBlock = workspace.newBlock("controls_for");
     const event = createTestEvent(arduinoBlock.id);
 
@@ -66,7 +67,7 @@ describe("updateForLoopText", () => {
     expect(updateForLoopText(event)).toEqual([forTextAction]);
   });
 
-  test("variables for number block uses by", () => {
+  it("variables for number block uses by", () => {
     const forBlock = workspace.newBlock("controls_for");
     const fromBlock = workspace.newBlock("variables_get_number");
     const toBlock = workspace.newBlock("math_number");

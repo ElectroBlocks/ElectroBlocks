@@ -1,7 +1,8 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 
-import  type { Workspace, BlockSvg } from "blockly";
+import type { Workspace, BlockSvg } from "blockly";
 import {
   createArduinoAndWorkSpace,
   createSetVariableBlockWithValue,
@@ -22,7 +23,7 @@ describe("logic not blocks", () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test("logic not block should turn a true value to a false value and if nothing is connect will return a true value", () => {
+  it("logic not block should turn a true value to a false value and if nothing is connect will return a true value", () => {
     const boolTest = createSetVariableBlockWithValue(
       workspace,
       "bool_test",

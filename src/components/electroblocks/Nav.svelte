@@ -4,7 +4,6 @@
   import projectStore from "../../stores/project.store";
   import { isPathOnHomePage } from "../../helpers/is-path-on-homepage";
   import { fade } from "svelte/transition";
-  import { stores, goto } from "@sapper/app";
   import { logout } from "../../firebase/auth";
   import { loadNewProjectFile } from "../../helpers/open-project-file";
   import {
@@ -15,13 +14,13 @@
   import { saveProject } from "../../firebase/db";
   import { wait } from "../../helpers/wait";
   import { onConfirm, onErrorMessage } from "../../help/alerts";
+  import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
 
   let isOpeningFile = false;
   let fileUpload;
   let canSave = true;
   let showSaveSuccess = false;
-
-  const { page } = stores();
 
   let params = "";
 
@@ -107,7 +106,7 @@
     }
 
     isOpeningFile = false;
-    if (isPathOnHomePage($page.path)) {
+    if (isPathOnHomePage($page.url.pathname)) {
       arduinoLoopBlockShowNumberOfTimesThroughLoop();
     } else {
       arduinoLoopBlockShowLoopForeverText();
@@ -117,14 +116,14 @@
 
 <nav class:small={!$authStore.isLoggedIn}>
   {#if $authStore.isLoggedIn}
-    <a href="/{params}" class:active={isPathOnHomePage($page.path)}>
+    <a href="/{params}" class:active={isPathOnHomePage($page.url.pathname)}>
       <i class="fa fa-home" />
     </a>
 
-    <a href="/code{params}" class:active={$page.path.includes('code')}>
+    <a href="/code{params}" class:active={$page.url.pathname.includes('code')}>
       <i class="fa fa-code" />
     </a>
-    <a href="/arduino{params}" class:active={$page.path.includes('arduino')}>
+    <a href="/arduino{params}" class:active={$page.url.pathname.includes('arduino')}>
       <i class="fa fa-microchip" />
     </a>
 
@@ -139,7 +138,7 @@
     <span on:click={onSaveClick}><i class="fa fa-floppy-o" /></span>
     <a
       href="/project-settings"
-      class:active={$page.path.includes('project-settings')}
+      class:active={$page.url.pathname.includes('project-settings')}
     >
       <i class="fa fa-wrench" aria-hidden="true" />
     </a>
@@ -152,14 +151,14 @@
   {/if}
 
   {#if !$authStore.isLoggedIn}
-    <a href="/" class:active={isPathOnHomePage($page.path)}>
+    <a href="/" class:active={isPathOnHomePage($page.url.pathname)}>
       <i class="fa fa-home" />
     </a>
 
-    <a href="/code" class:active={$page.path.includes('code')}>
+    <a href="/code" class:active={$page.url.pathname.includes('code')}>
       <i class="fa fa-code" />
     </a>
-    <a href="/arduino" class:active={$page.path.includes('arduino')}>
+    <a href="/arduino" class:active={$page.url.pathname.includes('arduino')}>
       <i class="fa fa-microchip" />
     </a>
 
@@ -180,13 +179,13 @@
     <span on:click={onNewFileNoAuth} class="active">
       <i class="fa fa-file-o" />
     </span>
-    <a href="/download" class:active={segment === 'download'}>
+    <a href="/download" class:active={$page.url.pathname.includes('download')}>
       <i class="fa fa-download" />
     </a>
-    <a href="/settings" class:active={segment === 'settings'}>
+    <a href="/settings" class:active={$page.url.pathname.includes('settings')}>
       <i class="fa fa-gears" />
     </a>
-    <a href="/login" class:active={segment === 'login'}>
+    <a href="/login" class:active={$page.url.pathname.includes('login')}>
       <i class="fa fa-sign-in" />
     </a>
   {/if}

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { ListGroup, ListGroupItem } from "sveltestrap/src";
-  import config from "../../env";
+  import { ListGroup, ListGroupItem } from "@sveltestrap/sveltestrap";
+  import config from "../../../env";
 </script>
 
 <style>

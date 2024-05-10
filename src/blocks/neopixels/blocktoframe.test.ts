@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../tests/fake-block";
 import "../../core/blockly/blocks";
 
@@ -34,7 +35,7 @@ describe("neo pixle state factories", () => {
     neoPixelSetup.setFieldValue(ARDUINO_PINS.PIN_6, "PIN");
   });
 
-  test("should be able generate state for neo pixel setup block", () => {
+  it("should be able generate state for neo pixel setup block", () => {
     const event = createTestEvent(neoPixelSetup.id);
 
     const ledLightStrip: NeoPixelState = {
@@ -67,7 +68,7 @@ describe("neo pixle state factories", () => {
     expect(eventToFrameFactory(event).frames).toEqual([state]);
   });
 
-  test("should be able to set all the colors of an led light strip.", () => {
+  it("should be able to set all the colors of an led light strip.", () => {
     const setNeoPixel1Block = workspace.newBlock(
       "neo_pixel_set_color"
     ) as BlockSvg;

@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import {
   createArduinoAndWorkSpace,
@@ -30,7 +31,7 @@ describe("math_arithmetic state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("math_arithmetic block should be able to add/subtract/multiply/divide 2 math_number blocks together", () => {
+  it("math_arithmetic block should be able to add/subtract/multiply/divide 2 math_number blocks together", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const variableNumTest = workspace.createVariable("num_test", "Number");
     const setNumberBlock = workspace.newBlock(
@@ -68,7 +69,7 @@ describe("math_arithmetic state factories", () => {
     });
   });
 
-  test("math_arithmetic block should be able to add add/subtract/multiply/divide variables together", () => {
+  it("math_arithmetic block should be able to add add/subtract/multiply/divide variables together", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const setNumberBlocka = createSetVariableBlockWithValue(
       workspace,
@@ -134,7 +135,7 @@ describe("math_arithmetic state factories", () => {
     });
   });
 
-  test("math_arithmetic block should be able to add add/subtract/multiply/divide if nothing is connectted to A or B", () => {
+  it("math_arithmetic block should be able to add add/subtract/multiply/divide if nothing is connectted to A or B", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const variableNumTest = workspace.createVariable("num_test", "Number");
     const setNumberBlock = workspace.newBlock(

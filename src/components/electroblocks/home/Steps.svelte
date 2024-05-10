@@ -36,7 +36,7 @@
 
 <div bind:this={stepContainer} id="steps">
   <ol>
-    {#each frames as frame, i}
+    {#each frames as frame, i (i)}
       <li
         data-step={i}
         on:click={changeFrame}

@@ -3,8 +3,6 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import loopTimes from "../../core/blockly/helpers/looptimes";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 
-Blockly.FieldAngle.OFFSET = 180;
-Blockly.FieldAngle.CLOCKWISE = false;
 Blockly.Blocks["joystick_setup"] = {
   init: function () {
     this.appendDummyInput()

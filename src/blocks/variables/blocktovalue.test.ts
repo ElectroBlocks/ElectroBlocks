@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import {
   createArduinoAndWorkSpace,
@@ -24,7 +25,7 @@ describe("math_arithmetic state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("if the variable we are trying to get does not exist it should use default value", () => {
+  it("if the variable we are trying to get does not exist it should use default value", () => {
     const numberVariableBlock = createSetVariableBlockWithValue(
       workspace,
       "num",

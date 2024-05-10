@@ -2,6 +2,7 @@ import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 import _ from "lodash";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
 
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import {
@@ -26,7 +27,7 @@ describe("get time block factories", () => {
     timesetup.setFieldValue(".3", "time_in_seconds");
   });
 
-  test("should be able generate state for time setup block", () => {
+  it("should be able generate state for time setup block", () => {
     arduinoBlock.setFieldValue("3", "LOOP_TIMES");
 
     const numberVariableBlock = createSetVariableBlockWithValue(

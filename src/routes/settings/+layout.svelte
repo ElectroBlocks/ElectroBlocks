@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { FormGroup, Input, Label } from 'sveltestrap/src';
+  import { FormGroup, Input, Label } from '@sveltestrap/sveltestrap';
 
   export let segment;
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';;
   import { onMount } from 'svelte';
   let value;
   async function navigate(e) {

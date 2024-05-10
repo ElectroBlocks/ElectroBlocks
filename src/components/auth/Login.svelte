@@ -2,7 +2,7 @@
 
 <script lang="ts">
     import { loginGoogleUser } from '../../firebase/auth';
-    import { goto } from '@sapper/app'
+    import { goto } from '$app/navigation';
     import { onErrorMessage } from '../../help/alerts';
     
     async function googleLogin() {

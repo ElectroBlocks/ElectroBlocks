@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import _ from "lodash";
 import type { BlockSvg, Workspace } from "blockly";
@@ -22,7 +23,7 @@ describe("math_modulo state factories", () => {
     [workspace] = createArduinoAndWorkSpace();
   });
 
-  test("math_modulo block should be able to 2 math_number blocks together", () => {
+  it("math_modulo block should be able to 2 math_number blocks together", () => {
     const variableNumTest = workspace.createVariable("num_test", "Number");
     const setNumberBlock = workspace.newBlock(
       "variables_set_number"
@@ -53,7 +54,7 @@ describe("math_modulo state factories", () => {
     expect(_.keys(state.variables).length).toBe(1);
   });
 
-  test("math_modulo block should be able to 2 variables blocks together", () => {
+  it("math_modulo block should be able to 2 variables blocks together", () => {
     const variableNumTest = workspace.createVariable("num_test", "Number");
     const setNumberBlock = workspace.newBlock(
       "variables_set_number"
@@ -108,7 +109,7 @@ describe("math_modulo state factories", () => {
     expect(_.keys(state3.variables).length).toBe(3);
   });
 
-  test("math_modulo block should be able to modulus if nothing is connectted", () => {
+  it("math_modulo block should be able to modulus if nothing is connectted", () => {
     const variableNumTest = workspace.createVariable("num_test", "Number");
     const setNumberBlock = workspace.newBlock(
       "variables_set_number"

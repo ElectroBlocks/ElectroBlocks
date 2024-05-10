@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import _ from "lodash";
@@ -35,7 +36,7 @@ describe("rfid state factories", () => {
     saveSensorSetupBlockData(event).forEach(updater);
   });
 
-  test("should be able generate state for temp sesnor setup block", () => {
+  it("should be able generate state for temp sesnor setup block", () => {
     const event = createTestEvent(tempBlock.id);
 
     const tempSensorState: TemperatureState = {

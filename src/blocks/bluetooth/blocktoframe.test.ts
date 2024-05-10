@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import Blockly, { Workspace, BlockSvg } from "blockly";
 import {
@@ -49,7 +50,7 @@ describe("bluetooth state factories", () => {
     saveSensorSetupBlockData(event).forEach(updater);
   });
 
-  test("should be able generate state for bluetooth setup block", () => {
+  it("should be able generate state for bluetooth setup block", () => {
     const event = createTestEvent(bluethoothsetupblock.id);
 
     const btComponent: BluetoothState = {
@@ -80,7 +81,7 @@ describe("bluetooth state factories", () => {
     expect(eventToFrameFactory(event).frames).toEqual([state]);
   });
 
-  test("should be able to send a message via bluetooth block", () => {
+  it("should be able to send a message via bluetooth block", () => {
     arduinoBlock.setFieldValue("2", "LOOP_TIMES");
 
     const btSendMessageBlock = workspace.newBlock(

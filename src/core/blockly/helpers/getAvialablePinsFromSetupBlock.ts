@@ -3,12 +3,14 @@ import _ from "lodash";
 
 export const configuredPins = (
   setupBlockType: string,
-  potentialListOfPins: string[][]
-) => {
-  const pins = getBlocksByName(setupBlockType).map((block) => [
-    block.getFieldValue("PIN"),
-    block.getFieldValue("PIN"),
-  ]);
+  potentialListOfPins: [string, string][]
+): [string, string][] => {
+  const pins = getBlocksByName(setupBlockType).map(
+    (block): [string, string] => [
+      block.getFieldValue("PIN") as string,
+      block.getFieldValue("PIN") as string,
+    ]
+  );
 
   if (pins.length === 0) {
     return potentialListOfPins;
@@ -20,8 +22,8 @@ export const configuredPins = (
 export const getAvailablePins = (
   setupBlockType: string,
   selectedPin: string,
-  potentialListOfPins: string[][]
-) => {
+  potentialListOfPins: [string, string][]
+): [string, string][] => {
   const takenPins = configuredPins(setupBlockType, potentialListOfPins);
   if (_.isEqual(potentialListOfPins, takenPins)) {
     return potentialListOfPins;

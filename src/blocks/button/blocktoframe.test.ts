@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import {
@@ -33,7 +34,7 @@ describe("button state factories", () => {
     saveSensorSetupBlockData(event).forEach(updater);
   });
 
-  test("should be able generate state for button setup block", () => {
+  it("should be able generate state for button setup block", () => {
     const event = createTestEvent(buttonSetup.id);
 
     const buttonState: ButtonState = {

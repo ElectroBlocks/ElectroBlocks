@@ -5,9 +5,8 @@ import { stepSerialBegin } from "../message/generators";
 Blockly["Arduino"]["debug_block"] = function (block) {
   stepSerialBegin();
 
-  Blockly["Arduino"].functionNames_[
-    "double_to_string_debug"
-  ] = createDoubleToStringCFunc();
+  Blockly["Arduino"].functionNames_["double_to_string_debug"] =
+    createDoubleToStringCFunc();
 
   Blockly["Arduino"].functionNames_["color_struct_string"] = colorFunction();
 
@@ -48,12 +47,12 @@ Blockly["Arduino"]["debug_block"] = function (block) {
 export function createDebugVariable() {
   let debugString = "";
 
-  const allVariables = Blockly.mainWorkspace.getAllVariables();
+  const allVariables = Blockly.getMainWorkspace().getAllVariables();
 
   for (let i = 0; i < allVariables.length; i += 1) {
+    // TODO FIGURE OUT ACTUAL VARIABLE NAME
     const actualVariableName = Blockly["Arduino"].variableDB_.getName(
-      allVariables[i].getId(),
-      Blockly.Variables.NAME_TYPE
+      allVariables[i].getId()
     );
     if (VARIABLE_TYPES.indexOf(allVariables[i].type) > -1) {
       debugString +=
@@ -124,7 +123,7 @@ function getArrayVariableSize(variable) {
     blockType = "create_list_colour_block";
   }
 
-  const block = Blockly.mainWorkspace
+  const block = Blockly.getMainWorkspace()
     .getBlocksByType(blockType, true)
     .find((block) => block.getFieldValue("VAR") === variableId);
 

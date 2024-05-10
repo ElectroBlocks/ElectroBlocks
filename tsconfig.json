@@ -1,13 +1,20 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
+  "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
-    "importsNotUsedAsValues": "remove",
+    "checkJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "lib": ["DOM", "ES2017", "ES2019", "WebWorker"],
-    "typeRoots": ["typings"],
-    "types": ["svelte", "@sapper", "@types/jest", "node"]
-  },
-  "include": ["custom.d.ts", "src/**/*", "src/node_modules/**/*"],
-  "exclude": ["node_modules/*", "__sapper__/*", "static/*"]
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": false,
+    "verbatimModuleSyntax": false,
+    "moduleResolution": "bundler"
+  }
+  // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
+  // except $lib which is handled by https://kit.svelte.dev/docs/configuration#files
+  //
+  // If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
+  // from the referenced tsconfig.json - TypeScript does not merge them in
 }

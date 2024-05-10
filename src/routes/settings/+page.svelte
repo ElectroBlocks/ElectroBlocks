@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FormGroup, Input, Label, Button } from 'sveltestrap/src';
+  import { FormGroup, Input, Label, Button } from '@sveltestrap/sveltestrap';
 
   import { defaultSetting } from '../../firebase/model';
   import type { Settings } from '../../firebase/model';
@@ -84,12 +84,8 @@
 
   <div class="row">
     <div class="col">
-      <FormGroup check>
-        <Label check>
-          <Input type="checkbox" bind:checked={settings.customLedColor} />
-          Custom Led Color
-        </Label>
-      </FormGroup>
+      <Input type="switch" bind:checked={settings.customLedColor} label="Custom Led Color" />
+
     </div>
   </div>
 

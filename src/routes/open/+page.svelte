@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { Table, Button, FormGroup, Input, Label } from 'sveltestrap/src';
+  import { Table, Button, FormGroup, Input, Label } from '@sveltestrap/sveltestrap';
 
   import { onMount, onDestroy } from 'svelte';
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';;
 
-  import Login from '../components/auth/Login.svelte';
-  import { loadProject } from '../core/blockly/helpers/workspace.helper';
-  import authStore from '../stores/auth.store';
+  import Login from '../../components/auth/Login.svelte';
+  import { loadProject } from '../../core/blockly/helpers/workspace.helper';
+  import authStore from '../../stores/auth.store';
   import {
     deleteProject,
     getFile,
     getProject,
     getProjects,
-  } from '../firebase/db';
-  import type { Project } from '../firebase/model';
+  } from '../../firebase/db';
+  import type { Project } from '../../firebase/model';
   import type { Timestamp } from 'firebase/firestore';
 
-  import { onConfirm, onErrorMessage } from '../help/alerts';
-  import projectStore from '../stores/project.store';
+  import { onConfirm, onErrorMessage } from '../../help/alerts';
+  import projectStore from '../../stores/project.store';
 
   const unSubList: Function[] = [];
   let projectList: [Project, string][] = [];

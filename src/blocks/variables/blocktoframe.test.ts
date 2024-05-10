@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import "../../tests/fake-block";
 import {
@@ -25,7 +26,7 @@ describe("test variables factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("a number variable should be able to change", () => {
+  it("a number variable should be able to change", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const setNumberBlock1 = createSetVariableBlockWithValue(
       workspace,
@@ -52,7 +53,7 @@ describe("test variables factories", () => {
     expect(state2.variables["num_var"].value).toBe(50);
   });
 
-  test("all the set variables blocks should work", () => {
+  it("all the set variables blocks should work", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
     const setNumberBlock = createSetVariableBlockWithValue(
       workspace,

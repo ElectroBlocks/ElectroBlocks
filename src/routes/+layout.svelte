@@ -2,12 +2,12 @@
   import { onMount, tick } from 'svelte';
   import _ from 'lodash';
   import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
+  import config from '../env';
   import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
   import Nav from '../components/electroblocks/Nav.svelte';
   import Blockly from '../components/electroblocks/Blockly.svelte';
   import { resizeStore } from '../stores/resize.store';
-  import { stores, goto } from '@sapper/app';
+  import { page } from '$app/stores';
   import authStore from '../stores/auth.store';
   import projectStore from '../stores/project.store';
   import { getFile, getProject } from '../firebase/db';
@@ -19,16 +19,17 @@
   } from '../core/blockly/helpers/arduino_loop_block.helper';
   import swal from 'sweetalert';
   import Lessons from '../components/electroblocks/home/Lessons.svelte';
+  import { initializeAnalytics } from 'firebase/analytics';
+  import { initializeApp } from 'firebase/app';
 
-  const { page } = stores();
   export let segment = '';
 
   let showScrollOnRightSide = false;
 
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
-  let showLoopExecutionTimesArduinoStartBlock;
-  $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.path);
+  let showLoopExecutionTimesArduinoStartBlock: boolean;
+  $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.url.pathname);
 
   let height = '500px';
   let middleFlex = 59.5;
@@ -40,7 +41,7 @@
   /**
    * Event is on grabber on is trigger by a mouse down event
    */
-  function startResize(side) {
+  function startResize(side: string) {
     if (side == 'right') {
       isResizingRight = true;
     } else {
@@ -56,8 +57,8 @@
     isResizingLeft = false;
   }
 
-  const resize = (side) => {
-    return (e) => {
+  const resize = (side: string) => {
+    return (e : MouseEvent) => {
       if (!isResizingLeft && side == 'left') {
         return;
       }
@@ -119,11 +120,16 @@
   }
 
   onMount(() => {
+    // Initialize Firebase
+    const app = initializeApp(config.firebase);
+    initializeAnalytics(app);
+
+    localStorage.removeItem('no_alert');
     // Wrapped in an onMount because we don't want it executed by the server
-    page.subscribe(({ path, params, query }) => {
+    page.subscribe(({ url }) => {
       if (
-        ['open', 'settings', 'lessons'].reduce((found, value) => {
-          return found || path.indexOf(value) >= 0;
+        ['open', 'settings', 'lessons', 'code'].reduce((found, value) => {
+          return found || url.pathname.indexOf(value) >= 0;
         }, false)
       ) {
         showScrollOnRightSide = true;
@@ -158,7 +164,6 @@
     }
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
-      console.log(user);
       if (!user) {
         authStore.set({
           isLoggedIn: false,
@@ -175,8 +180,8 @@
       });
 
       if (
-        $projectStore.projectId === $page.query['projectid'] ||
-        !$page.query['projectid'] ||
+        $projectStore.projectId === $page.url.searchParams.get('projectid') ||
+        !$page.url.searchParams.get('projectid') ||
         loadedProject
       ) {
         return;
@@ -191,11 +196,11 @@
         },
       } as any);
 
-      const project = await getProject($page.query['projectid']);
-      const file = await getFile($page.query['projectid'], $authStore.uid);
+      const project = await getProject($page.url.searchParams.get('projectid'));
+      const file = await getFile($page.url.searchParams.get('projectid'), $authStore.uid);
       loadProject(file);
-      projectStore.set({ project, projectId: $page.query['projectid'] });
-      if (isPathOnHomePage($page.path)) {
+      projectStore.set({ project, projectId: $page.url.searchParams.get('projectid') });
+      if (isPathOnHomePage($page.url.pathname)) {
         arduinoLoopBlockShowNumberOfTimesThroughLoop();
       } else {
         arduinoLoopBlockShowLoopForeverText();

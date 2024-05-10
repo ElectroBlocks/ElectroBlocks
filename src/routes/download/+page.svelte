@@ -1,9 +1,10 @@
 <script>
-  import { workspaceToXML } from "../core/blockly/helpers/workspace.helper";
-  import codeStore from "../stores/code.store";
-  import { saveAs } from "file-saver";
+  import { workspaceToXML } from "../../core/blockly/helpers/workspace.helper";
+  import codeStore from "../../stores/code.store";
+  // import { saveAs } from "file-saver";
   import { onDestroy } from "svelte";
-  import { Button } from "sveltestrap/src";
+  import { Button } from "@sveltestrap/sveltestrap";
+  export const ssr = false;
 
   let code;
 
@@ -22,6 +23,23 @@
     });
     saveAs(blob, "electroblocks_project.xml");
   }
+
+  function saveAs(blob, filename) {
+    // Create a link element
+    const link = document.createElement('a');
+
+    // Set the link's attributes including the download attribute which specifies the filename
+    link.href = window.URL.createObjectURL(blob);
+    link.download = filename;
+
+    // Simulate a click on the link to trigger the download
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(link.href);
+ }
 
   onDestroy(() => {
     unsubCodeStore();

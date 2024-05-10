@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../blocks";
 import type { Workspace } from "blockly";
 import _ from "lodash";
@@ -23,7 +24,7 @@ describe("disableSensorReadBlocksWithWrongPins", () => {
     workspace.dispose();
   });
 
-  test("sensor read blocks that have pins select that are not selected by the setup block are disabled", () => {
+  it("sensor read blocks that have pins select that are not selected by the setup block are disabled", () => {
     const btnSetup1 = workspace.newBlock("button_setup");
     btnSetup1.setFieldValue(ARDUINO_PINS.PIN_10, "PIN");
     const btnSetup2 = workspace.newBlock("button_setup");

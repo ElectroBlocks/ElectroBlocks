@@ -1,13 +1,13 @@
 <script lang="ts">
-    import { FormGroup, Input, Label, Button } from "sveltestrap/src";
+    import { FormGroup, Input, Label, Button } from "@sveltestrap/sveltestrap";
 
-    import Login from "../../components/auth/Login.svelte";
-    import authStore from "../../stores/auth.store";
-    import { saveUserProfile, getUserProfile } from "../../firebase/db";
+    import Login from "../../../components/auth/Login.svelte";
+    import authStore from "../../../stores/auth.store";
+    import { saveUserProfile, getUserProfile } from "../../../firebase/db";
     import { onMount } from "svelte";
-    import { wait } from "../../helpers/wait";
-    import FlashMessage from "../../components/electroblocks/ui/FlashMessage.svelte";
-    import { onErrorMessage } from "../../help/alerts";
+    import { wait } from "../../../helpers/wait";
+    import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
+    import { onErrorMessage } from "../../../help/alerts";
     let username = "";
     let bio = "";
     let canSave = true;

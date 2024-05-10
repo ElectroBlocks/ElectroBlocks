@@ -12,3 +12,5 @@ yarn-error.log
 /functions/package-lock.json
 *.log
 /coverage*
+.svelte-kit*
+build*

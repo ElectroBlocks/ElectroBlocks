@@ -16,7 +16,7 @@ Blockly["Arduino"]["text"] = function (block: Block) {
  * @return {string} Code evaluating to a string.
  */
 Blockly["Arduino"].text.forceString_ = function (value) {
-  if (Blockly["Arduino"].text.forceString_.strRegExp.test(value)) {
+  if (Blockly["Arduino"].text.forceString_.strRegExp.it(value)) {
     return value;
   }
   return "String(" + value + ")";
@@ -94,9 +94,8 @@ Blockly["Arduino"]["text_isEmpty"] = function (block: Block | any) {
 };
 
 Blockly["Arduino"]["number_to_string"] = function (block: Block | any) {
-  Blockly["Arduino"].functionNames_[
-    "double_to_string_debug"
-  ] = createDoubleToStringCFunc();
+  Blockly["Arduino"].functionNames_["double_to_string_debug"] =
+    createDoubleToStringCFunc();
 
   const numberOfDecimals = block.getFieldValue("PRECISION");
   const number = Blockly["Arduino"].valueToCode(

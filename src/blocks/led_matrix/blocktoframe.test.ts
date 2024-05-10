@@ -14,6 +14,7 @@ import "../../tests/fake-block";
 import { findComponent } from "../../core/frames/transformer/frame-transformer.helpers";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
 import type { LedMatrixState } from "./state";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
 
 describe("led matrix  factories", () => {
   let workspace: Workspace;
@@ -30,7 +31,7 @@ describe("led matrix  factories", () => {
     ledmatrixsetup.setFieldValue("11", "PIN_CS");
   });
 
-  test("should be able to draw with the led and should be limited", () => {
+  it("should be able to draw with the led and should be limited", () => {
     const ledmatrixdraw1 = workspace.newBlock(
       "led_matrix_make_draw"
     ) as BlockSvg;
@@ -94,7 +95,7 @@ describe("led matrix  factories", () => {
     expect(state2.components.length).toBe(1);
   });
 
-  test("should be able to have 2 types of components and not lose it's states", () => {
+  it("should be able to have 2 types of components and not lose it's states", () => {
     const ledmatrixdraw1 = workspace.newBlock(
       "led_matrix_make_draw"
     ) as BlockSvg;
@@ -107,15 +108,8 @@ describe("led matrix  factories", () => {
 
     const event = createTestEvent(ledmatrixdraw1.id);
 
-    const [
-      state0,
-      state1,
-      state2,
-      state3,
-      state4,
-      state5,
-      state6,
-    ] = eventToFrameFactory(event).frames;
+    const [state0, state1, state2, state3, state4, state5, state6] =
+      eventToFrameFactory(event).frames;
     expect(state0.components.length).toBe(1);
     expect(state1.components.length).toBe(2);
     expect(state2.components.length).toBe(2);
@@ -125,7 +119,7 @@ describe("led matrix  factories", () => {
     expect(state6.components.length).toBe(2);
   });
 
-  test("should be able to keep the state when using single led", () => {
+  it("should be able to keep the state when using single led", () => {
     const ledMatrix1 = createLedMatrixBlock(1, 1, true);
     const ledMatrix2 = createLedMatrixBlock(2, 2, true);
     const ledMatrix3 = createLedMatrixBlock(1, 1, false);

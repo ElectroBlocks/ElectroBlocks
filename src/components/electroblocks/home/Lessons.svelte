@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FormGroup, Input } from 'sveltestrap/src';
+  import { FormGroup, Input } from '@sveltestrap/sveltestrap';
   import { starterLessons, videoLessons } from '../../../lessons/lessons';
   import StarterLesson from '../lessons/StarterLesson.svelte';
   import VideoLesson from '../lessons/VideoLesson.svelte';

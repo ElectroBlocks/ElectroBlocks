@@ -1,6 +1,6 @@
 <script>
   import { rgbToHex } from "../../../core/blockly/helpers/color.helper";
-  import _, { chunk, reverse } from "lodash";
+  import _ from "lodash";
   import currentFrameStore from "../../../stores/currentFrame.store";
   import frameStore from "../../../stores/frame.store";
   import { onDestroy } from "svelte";
@@ -73,7 +73,7 @@
 >
   <h3>Preview</h3>
   <div class="led-preivew-container">
-    {#each chunk(preRGBLEDColors, 12) as row, i}
+    {#each _.chunk(preRGBLEDColors, 12) as row, i}
       <div class="row-led">
         <!-- to replicate the snake pattern on the preview-->
         {#each i % 2 == 1 ? row.reverse() : row as led}

@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import "../../tests/fake-block";
 
@@ -30,7 +31,7 @@ describe("list get items value factories", () => {
     arduinoBlock.setFieldValue("1", "LOOP_TIMES");
   });
 
-  test("should be able to get items in a number list", () => {
+  it("should be able to get items in a number list", () => {
     testGetItemsInList(
       workspace,
       VariableTypes.LIST_NUMBER,
@@ -41,7 +42,7 @@ describe("list get items value factories", () => {
     );
   });
 
-  test("should be able to get items in a string list", () => {
+  it("should be able to get items in a string list", () => {
     testGetItemsInList(
       workspace,
       VariableTypes.LIST_STRING,
@@ -52,7 +53,7 @@ describe("list get items value factories", () => {
     );
   });
 
-  test("should be able to get items in a booleans list", () => {
+  it("should be able to get items in a booleans list", () => {
     testGetItemsInList(
       workspace,
       VariableTypes.LIST_BOOLEAN,
@@ -63,7 +64,7 @@ describe("list get items value factories", () => {
     );
   });
 
-  test("should be able to get items in a colours list", () => {
+  it("should be able to get items in a colours list", () => {
     testGetItemsInList(
       workspace,
       VariableTypes.LIST_COLOUR,

@@ -1,36 +1,36 @@
 import {
   ArduinoComponentType,
   ArduinoComponentState,
-} from '../frames/arduino.frame';
+} from "../frames/arduino.frame";
 
-import bluetoothSvg from '../../blocks/bluetooth/bluetooth.svg';
-import buttonSvgString from '../../blocks/button/button.svg';
-import writePinSvgString from '../../blocks/writepin/writepin.svg';
-import irRemoteSvgString from '../../blocks/ir_remote/ir_remote.svg';
-import ledmatrixSvgString from '../../blocks/led_matrix/ledmatrix.svg';
+import bluetoothSvg from "../../blocks/bluetooth/bluetooth.svg?raw";
+import buttonSvgString from "../../blocks/button/button.svg?raw";
+import writePinSvgString from "../../blocks/writepin/writepin.svg?raw";
+import irRemoteSvgString from "../../blocks/ir_remote/ir_remote.svg?raw";
+import ledmatrixSvgString from "../../blocks/led_matrix/ledmatrix.svg?raw";
 
-import thermistorSvgString from '../../blocks/thermistor/thermistor.svg';
-import passiveBuzzerSvgString from '../../blocks/passivebuzzer/passivebuzzer.svg';
+import thermistorSvgString from "../../blocks/thermistor/thermistor.svg?raw";
+import passiveBuzzerSvgString from "../../blocks/passivebuzzer/passivebuzzer.svg?raw";
 
-import motorSvgString from '../../blocks/motors/motor.svg';
-import neopixelSvgString from '../../blocks/neopixels/neopixel.svg';
-import fastledSvgString from '../../blocks/fastled/fastled-new.svg';
-import fastledSvgString24 from '../../blocks/fastled/fastled-new-24.svg';
-import fastledSvgString60 from '../../blocks/fastled/fastled-new-60.svg';
-import fastledSvgString96 from '../../blocks/fastled/fastled-new-96.svg';
-import rfidSvgString from '../../blocks/rfid/rfid.svg';
-import servoSVGText from '../../blocks/servo/servo.svg';
-import tempSvgString from '../../blocks/temperature/temp-humidity.svg';
-import ultraSonicSvgString from '../../blocks/ultrasonic_sensor/ultrasonic-sensor.svg';
-import { getLcdScreenSvgString } from '../../blocks/lcd_screen/svg-string';
-import { getLedColorSvgString } from '../../blocks/rgbled/svg-string';
-import { getLedSvgString } from '../../blocks/led/svg-string';
-import { getDigitalSensorSvg } from '../../blocks/digitalsensor/svg-string';
-import { getAnalogSensorSvg } from '../../blocks/analogsensor/svg-string';
-import stepperMotorSvg from '../../blocks/steppermotor/steppermotor.svg';
-import digitalDisplaySvg from '../../blocks/digit4display/digitdisplay.svg';
-import joyStickSvg from '../../blocks/joystick/joystick.svg';
-import { FastLEDState } from '../../blocks/fastled/state';
+import motorSvgString from "../../blocks/motors/motor.svg?raw";
+import neopixelSvgString from "../../blocks/neopixels/neopixel.svg?raw";
+import fastledSvgString from "../../blocks/fastled/fastled-new.svg?raw";
+import fastledSvgString24 from "../../blocks/fastled/fastled-new-24.svg?raw";
+import fastledSvgString60 from "../../blocks/fastled/fastled-new-60.svg?raw";
+import fastledSvgString96 from "../../blocks/fastled/fastled-new-96.svg?raw";
+import rfidSvgString from "../../blocks/rfid/rfid.svg?raw";
+import servoSVGText from "../../blocks/servo/servo.svg?raw";
+import tempSvgString from "../../blocks/temperature/temp-humidity.svg?raw";
+import ultraSonicSvgString from "../../blocks/ultrasonic_sensor/ultrasonic-sensor.svg?raw";
+import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
+import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
+import { getLedSvgString } from "../../blocks/led/svg-string";
+import { getDigitalSensorSvg } from "../../blocks/digitalsensor/svg-string";
+import { getAnalogSensorSvg } from "../../blocks/analogsensor/svg-string";
+import stepperMotorSvg from "../../blocks/steppermotor/steppermotor.svg?raw";
+import digitalDisplaySvg from "../../blocks/digit4display/digitdisplay.svg?raw";
+import joyStickSvg from "../../blocks/joystick/joystick.svg?raw";
+import { FastLEDState } from "../../blocks/fastled/state";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
@@ -41,7 +41,7 @@ export const getSvgString = (state: ArduinoComponentState) => {
     return createSvgString[state.type](state);
   }
 
-  throw new Error('No Svg String found ' + state.type);
+  throw new Error("No Svg String found " + state.type);
 };
 
 const createSvgString: { [key: string]: GetSvgString } = {

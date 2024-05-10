@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../tests/fake-block";
 import "../../core/blockly/blocks";
 
@@ -35,7 +36,7 @@ describe("fastLED state factories", () => {
     fastLEDSetup.setFieldValue(ARDUINO_PINS.PIN_6, "PIN");
   });
 
-  test("should be able generate state for fastled setup block", () => {
+  it("should be able generate state for fastled setup block", () => {
     const event = createTestEvent(fastLEDSetup.id);
 
     const ledLightStrip: FastLEDState = {
@@ -74,7 +75,7 @@ describe("fastLED state factories", () => {
     expect(eventToFrameFactory(event).frames).toEqual([state]);
   });
 
-  test("should be able to use set all color block and be able to change to showing all the colors", () => {
+  it("should be able to use set all color block and be able to change to showing all the colors", () => {
     const setAllColorBlock = workspace.newBlock(
       "fastled_set_all_colors"
     ) as BlockSvg;
@@ -125,7 +126,7 @@ describe("fastLED state factories", () => {
     }
   });
 
-  test("should be able to set all the colors of an led light strip.", () => {
+  it("should be able to set all the colors of an led light strip.", () => {
     const setFastLED1Block = workspace.newBlock(
       "fastled_set_color"
     ) as BlockSvg;

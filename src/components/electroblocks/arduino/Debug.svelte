@@ -144,7 +144,7 @@
         </tr>
       </thead>
       <tbody id="variable-tbody">
-        {#each variables as variable}
+        {#each variables as variable (variable.id)}
           <tr class:coloredElement={variable.type === 'Colour'}>
             <td>{variable.name}</td>
             <td>{variable.type}</td>

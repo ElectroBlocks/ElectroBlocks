@@ -1,7 +1,8 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../blocks";
 import type { Workspace } from "blockly";
-import Blockly from 'blockly';
+import Blockly from "blockly";
 import { transformBlock } from "./block.transformer";
 import { transformEvent } from "./event.transformer";
 import { getAllBlocks } from "../helpers/block.helper";

@@ -1,7 +1,7 @@
 import type { LedColorState } from "./state";
 
-import rgbLedBreadboard from "./rgbled-breadboard.svg";
-import rgbLedResistorBuiltIn from "./rgbled-resistorbuiltin.svg";
+import rgbLedBreadboard from "./rgbled-breadboard.svg?raw";
+import rgbLedResistorBuiltIn from "./rgbled-resistorbuiltin.svg?raw";
 
 export const getLedColorSvgString = (state: LedColorState) => {
   return state.pictureType === "BREADBOARD"

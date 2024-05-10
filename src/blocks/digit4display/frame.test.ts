@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import type { Workspace, BlockSvg } from "blockly";
 import {
@@ -37,7 +38,7 @@ describe("test digital display", () => {
     setupBlock.setFieldValue(ARDUINO_PINS.PIN_12, "DIO_PIN");
   });
 
-  test("should be able to update the text and colon", () => {
+  it("should be able to update the text and colon", () => {
     createSetBlock(workspace, "NoAh", true);
     createSetBlock(workspace, "1010", false);
 
@@ -80,7 +81,6 @@ function verifyFrame(
   );
 
   const state = frame.components[0] as DigitilDisplayState;
-  console.log(state, "state");
   expect(state.colonOn).toBe(colonOn);
   expect(state.chars).toBe(text);
   expect(state.clkPin).toBe(ARDUINO_PINS.PIN_11);

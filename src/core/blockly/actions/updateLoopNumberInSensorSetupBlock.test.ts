@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../blocks";
 import Blockly, { BlockSvg } from "blockly";
 import { getAllBlocks } from "../helpers/block.helper";
@@ -27,13 +28,13 @@ describe("changeLoopNumberInSensorBlock", () => {
     workspace.dispose();
   });
 
-  test("should only change when arduino block has field has changed", () => {
+  it("should only change when arduino block has field has changed", () => {
     const block = workspace.newBlock("math_number");
     const event = createTestEvent(block.id, Blockly.Events.UI);
     expect(updateLoopNumberInSensorSetupBlock(event)).toEqual([]);
   });
 
-  test("nothing should happen if no setup sensor blocks are present", () => {
+  it("nothing should happen if no setup sensor blocks are present", () => {
     workspace.newBlock("math_number");
     const event: BlockEvent = {
       blockId: arduinoBlock.id,
@@ -50,7 +51,7 @@ describe("changeLoopNumberInSensorBlock", () => {
     expect(updateLoopNumberInSensorSetupBlock(event)).toEqual([]);
   });
 
-  test("should generate actions for sensor setup blocks that have the a higher loop number in the field than the arduino loop block", () => {
+  it("should generate actions for sensor setup blocks that have the a higher loop number in the field than the arduino loop block", () => {
     // This done so the generated blocks have 10 loop drop down items
     arduinoBlock.setFieldValue("10", "LOOP_TIMES");
 

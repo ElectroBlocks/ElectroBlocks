@@ -1,4 +1,4 @@
-import Blockly, { Block } from "blockly";
+import Blockly, { type Block } from "blockly";
 
 Blockly["Arduino"]["stepper_motor_setup"] = function (block: Block) {
   const totalSteps = block.getFieldValue("TOTAL_STEPS");

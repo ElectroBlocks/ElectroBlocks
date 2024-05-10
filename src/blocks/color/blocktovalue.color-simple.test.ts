@@ -1,4 +1,5 @@
-import "jest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
+
 import "../../core/blockly/blocks";
 import "../../tests/fake-block";
 
@@ -26,7 +27,7 @@ describe("simple color state factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  test("test color picker block gives the right rgb value", () => {
+  it("test color picker block gives the right rgb value", () => {
     const colorPickerVariable = createSetVariableBlockWithValue(
       workspace,
       "color_test",
