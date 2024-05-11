@@ -7,7 +7,6 @@
   import 'highlight.js/styles/a11y-light.css';
 
   import { afterUpdate } from "svelte";
-  export const ssr = false;
 
   let code = "";
   let loaded = false;
