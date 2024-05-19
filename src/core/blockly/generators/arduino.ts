@@ -128,6 +128,14 @@ Blockly["Arduino"].init = function (workspace) {
   }
 
   const colourVariables = workspace.getVariablesOfType("Colour");
+  if(colourVariables.length>0){
+    variableCode +=
+    //"struct RGB {\n" +
+     // "  int red;\n" +
+      //"  int green;\n" +
+     // "  int blue;\n" +
+     // "};\n";
+  }
   for (i = 0; i < colourVariables.length; i += 1) {
     variableCode +=
       "struct RGB " +
