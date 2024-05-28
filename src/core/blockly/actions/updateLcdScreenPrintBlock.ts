@@ -12,7 +12,6 @@ const UpdateLCDScreenPrintBlock = (
     return [];
   }
   const rows = findFieldValue(lcdSetupBlock, "SIZE") === "20 x 4" ? 4 : 2;
-  console.log(lcdSetupBlock, "hi");
 
   const lcdScreenPrintBlocks = blockEvent.blocks.filter(
     (block) => block.blockName === "lcd_screen_simple_print"
