@@ -129,12 +129,7 @@ Blockly["Arduino"].init = function (workspace) {
 
   const colourVariables = workspace.getVariablesOfType("Colour");
   if(colourVariables.length>0){
-    variableCode +=
-    "struct RGB {\n" +
-      "  int red;\n" +
-      "  int green;\n" +
-      "  int blue;\n" +
-      "};\n";
+    variableCode +="";
   }
   for (i = 0; i < colourVariables.length; i += 1) {
     variableCode +=
@@ -154,7 +149,7 @@ Blockly["Arduino"].init = function (workspace) {
 Blockly["Arduino"].finish = function (code) {
   let libraryCode = "";
   let functionsCode = "";
-  let devVariables = "int simple_loop_variable = 0; \n";
+  let devVariables = "";
 
   for (const key in Blockly["Arduino"].libraries_) {
     libraryCode += Blockly["Arduino"].libraries_[key] + "\n";
@@ -200,11 +195,7 @@ Blockly["Arduino"].finish = function (code) {
   // Convert the definitions dictionary into a list.
   code =
     devVariables +
-    "struct RGB { \n" +
-    "\tint red;\n" +
-    "\tint green;\n" +
-    "\tint blue;\n" +
-    "};\n" +
+    
     libraryCode +
     "\n" +
     Blockly["Arduino"].variablesInitCode_ +
