@@ -10,7 +10,7 @@ Blockly["Arduino"]["controls_repeat_ext"] = function (block: Block) {
       "TIMES",
       Blockly["Arduino"].ORDER_ASSIGNMENT
     ) || "0";
-
+    loopLine();
   let branch = Blockly["Arduino"].statementToCode(block, "DO");
   branch = Blockly["Arduino"].addLoopTrap(branch, block.id);
   let code = "";
@@ -35,7 +35,7 @@ Blockly["Arduino"]["controls_for"] = function (block: Block) {
   const loopIndexVariable = Blockly.getMainWorkspace().getVariableById(
     block.getFieldValue("VAR")
   ).name;
-
+ 
   const branch = Blockly["Arduino"].statementToCode(block, "DO");
 
   const startNumber =
@@ -81,6 +81,7 @@ Blockly["Arduino"]["controls_for"] = function (block: Block) {
 
 Blockly["Arduino"]["controls_whileUntil"] = function (block: Block) {
   // Do while/until loop.
+ 
   const until = block.getFieldValue("MODE") === "UNTIL";
   let argument0 =
     Blockly["Arduino"].valueToCode(
@@ -106,3 +107,8 @@ Blockly["Arduino"]["controls_flow_statements"] = function (block: Block) {
   }
   throw Error("Unknown flow statement.");
 };
+
+function loopLine(){
+  Blockly["Arduino"].libraries_['LoopL']= `int simple_loop_variable = 0;
+  `;
+}

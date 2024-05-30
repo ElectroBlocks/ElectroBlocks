@@ -15,13 +15,14 @@ Blockly['Arduino']['move_motor'] = function(block: Block) {
     'SPEED',
     Blockly['Arduino'].ORDER_ATOMIC
   );
-
+  let dir = 'backward';
+  if(direction=='CLOCKWISE') dir= 'forward';
   Blockly['Arduino'].libraries_['include_motor_library'] =
     '#include <AFMotor.h>;\n';
   Blockly['Arduino'].libraries_['include_motor_init_' + motorNumber] =
     'AF_DCMotor motor_' + motorNumber + '(' + motorNumber + ');\n';
 
-  let code = 'motor_' + motorNumber + '.run("' + direction + '");\n';
+  let code = 'motor_' + motorNumber + '.run("' + dir + '");\n';
   code += 'motor_' + motorNumber + '.setSpeed(' + speed + ');\n';
 
   return code;
