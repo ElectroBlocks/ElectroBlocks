@@ -31,11 +31,14 @@
   onMount(async () => {
     try {
       await import('@svgdotjs/svg.draggable.js');
-
+      const { LEDElement } =  await import ("@wokwi/elements");
+      const led = new LEDElement();
+      console.log(led);
       await import('@svgdotjs/svg.panzoom.js');
     } catch (e) {
       onErrorMessage('Please refresh your browser and try again.', e);
     }
+
 
     let width = container.clientWidth - 10;
     let height = container.clientHeight - 10;
@@ -171,6 +174,8 @@
 
 <div style="background-color: {$settings.backgroundColor}" id="container">
   <LedColorChanger />
+  <wokwi-led label="blah test" value={true} color="green" ></wokwi-led>
+
   <div bind:this={container} id="simulator" />
   <div id="simulator-controls">
     <h3>{loopText}</h3>

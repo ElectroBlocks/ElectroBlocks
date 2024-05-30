@@ -29,6 +29,7 @@
     "@types/lodash": "^4.14.157",
     "@vitest/coverage-istanbul": "^1.5.3",
     "@vitest/coverage-v8": "^1.5.3",
+    "@wokwi/elements": "^1.5.0",
     "axios": "^1.6.8",
     "blockly": "^10.4.3",
     "blockly-field-color-wheel": "^1.0.5",
