@@ -63,6 +63,9 @@ export const createFrames = async (blocklyEvent) => {
     Blockly.Events.BLOCK_CREATE,
     Blockly.Events.BLOCK_DELETE,
     Blockly.Events.BLOCK_MOVE,
+    Blockly.Events.VAR_CREATE,
+    Blockly.Events.VAR_DELETE,
+    Blockly.Events.VAR_RENAME,
   ]);
 
   if (!supportedEvents.has(blocklyEvent.type)) return;
