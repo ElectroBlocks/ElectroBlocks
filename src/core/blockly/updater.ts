@@ -8,6 +8,7 @@ import {
   SaveSetupSensorData,
   ActionType,
   Action,
+  UpdateLCDScreenPrintBlock,
 } from "./actions/actions";
 import { deleteVariable } from "./helpers/variable.helper";
 import { getBlockById } from "./helpers/block.helper";
@@ -80,14 +81,28 @@ const updateSensorBlockData = (action: SaveSetupSensorData) => {
   block.data = action.data;
 };
 
+const updateLcdScreenPrintBlock = (action: UpdateLCDScreenPrintBlock) => {
+  const block = getBlockById(action.blockId);
+  if (action.numberOfRows == 2) {
+    block.getInput("ROW_3").setVisible(false);
+    block.getInput("ROW_4").setVisible(false);
+  } else {
+    block.getInput("ROW_3").setVisible(true);
+    block.getInput("ROW_4").setVisible(true);
+  }
+  block.render();
+};
+
 const updaterList: { [key: string]: Updater } = {
   [ActionType.DELETE_VARIABLE]: updateVariable,
   [ActionType.DISABLE_BLOCK]: updateDisableBlock,
   [ActionType.ENABLE_BLOCK]: updateEnableBlock,
   [ActionType.FOR_LOOP_BLOCK_CHANGE]: updateForLoop,
   [ActionType.SETUP_SENSOR_BLOCK_FIELD_UPDATE]: updateSetupSensorBlockFields,
-  [ActionType.SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE]: updateSetupSensorBlockLoopField,
+  [ActionType.SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE]:
+    updateSetupSensorBlockLoopField,
   [ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA]: updateSensorBlockData,
+  [ActionType.LCD_SIMPLE_PRINT_CHANGE]: updateLcdScreenPrintBlock,
 };
 
 export const updater = (action: Action) => {
