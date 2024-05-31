@@ -146,7 +146,7 @@ Blockly["Arduino"].init = function (workspace) {
 Blockly["Arduino"].finish = function (code) {
   let libraryCode = "";
   let functionsCode = "";
-  let devVariables = "int simple_loop_variable = 0; \n";
+  let devVariables = "";
 
   for (const key in Blockly["Arduino"].libraries_) {
     libraryCode += Blockly["Arduino"].libraries_[key] + "\n";
@@ -192,11 +192,6 @@ Blockly["Arduino"].finish = function (code) {
   // Convert the definitions dictionary into a list.
   code =
     devVariables +
-    "struct RGB { \n" +
-    "\tint red;\n" +
-    "\tint green;\n" +
-    "\tint blue;\n" +
-    "};\n" +
     libraryCode +
     "\n" +
     Blockly["Arduino"].variablesInitCode_ +
