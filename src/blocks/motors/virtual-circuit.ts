@@ -41,7 +41,7 @@ export const motorUpdate: SyncComponent = (state: MotorState, motorEl) => {
 export const motorReset: ResetComponent = (componentEl: Element) => {
   (componentEl.findOne("#direction") as Text).node.innerHTML =
     "Direction: " +
-    MOTOR_DIRECTION.FORWARD.charAt(0).toUpperCase() +
-    MOTOR_DIRECTION.FORWARD.slice(1).toLowerCase();
+    MOTOR_DIRECTION.CLOCKWISE.charAt(0).toUpperCase() +
+    MOTOR_DIRECTION.CLOCKWISE.slice(1).toLowerCase();
   (componentEl.findOne("#speed") as Text).node.innerHTML = "Speed: 1";
 };
