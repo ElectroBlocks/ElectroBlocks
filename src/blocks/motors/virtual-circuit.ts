@@ -29,12 +29,11 @@ export const motorCreate: AfterComponentCreateHook<MotorState> = (
 
 export const motorUpdate: SyncComponent = (state: MotorState, motorEl) => {
   const directionText = state.direction.toString();
-
+  motorEl.findOne("#motor").node.style.animation=state.direction==MOTOR_DIRECTION.FORWARD? "rotate 5s linear infinite":"rotateAntiClockwise 5s linear infinite";
   (motorEl.findOne("#direction") as Text).node.innerHTML =
     "Direction: " +
     directionText.charAt(0).toUpperCase() +
     directionText.slice(1).toLowerCase();
-
   (motorEl.findOne("#speed") as Text).node.innerHTML = "Speed: " + state.speed;
 };
 
