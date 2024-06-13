@@ -30,11 +30,11 @@ describe("test servos factories", () => {
   });
 
   it("test it can do one two motors in different directions.", () => {
-    const motor1Block1 = createMotorBlock(1, "FORWARD", 50);
-    const motor2Block2 = createMotorBlock(2, "BACKWARD", 150);
+    const motor1Block1 = createMotorBlock(1, "CLOCKWISE", 50);
+    const motor2Block2 = createMotorBlock(2, "ANTICLOCKWISE", 150);
 
-    const motor1Block3 = createMotorBlock(1, "BACKWARD", 32);
-    const motor2Block4 = createMotorBlock(2, "FORWARD", 43);
+    const motor1Block3 = createMotorBlock(1, "ANTICLOCKWISE", 32);
+    const motor2Block4 = createMotorBlock(2, "CLOCKWISE", 43);
 
     connectToArduinoBlock(motor1Block1);
     motor1Block1.nextConnection.connect(motor2Block2.previousConnection);
@@ -45,23 +45,23 @@ describe("test servos factories", () => {
 
     const [state1, state2, state3, state4] = eventToFrameFactory(event).frames;
 
-    expect(state1.explanation).toBe("Motor 1 moves forward at speed 50.");
-    expect(state2.explanation).toBe("Motor 2 moves backward at speed 150.");
-    expect(state3.explanation).toBe("Motor 1 moves backward at speed 32.");
-    expect(state4.explanation).toBe("Motor 2 moves forward at speed 43.");
+    expect(state1.explanation).toBe("Motor 1 moves clockwise at speed 50.");
+    expect(state2.explanation).toBe("Motor 2 moves anticlockwise at speed 150.");
+    expect(state3.explanation).toBe("Motor 1 moves anticlockwise at speed 32.");
+    expect(state4.explanation).toBe("Motor 2 moves clockwise at speed 43.");
 
     const motor1 = state1.components.find(
       (c) =>
         c.type === ArduinoComponentType.MOTOR &&
         parseInt((c as MotorState).motorNumber) === 1
     ) as MotorState;
-    expect(motor1.direction).toBe("FORWARD");
+    expect(motor1.direction).toBe("CLOCKWISE");
     expect(motor1.speed).toBe(50);
     expect(parseInt(motor1.motorNumber)).toBe(1);
 
-    verifyMotorServos(state2, 50, 150, "FORWARD", "BACKWARD");
-    verifyMotorServos(state3, 32, 150, "BACKWARD", "BACKWARD");
-    verifyMotorServos(state4, 32, 43, "BACKWARD", "FORWARD");
+    verifyMotorServos(state2, 50, 150, "CLOCKWISE", "ANTICLOCKWISE");
+    verifyMotorServos(state3, 32, 150, "ANTICLOCKWISE", "ANTICLOCKWISE");
+    verifyMotorServos(state4, 32, 43, "ANTICLOCKWISE", "CLOCKWISE");
   });
 
   const createMotorBlock = (

@@ -8,8 +8,8 @@ export interface MotorState extends ArduinoComponentState {
 }
 
 export enum MOTOR_DIRECTION {
-  FORWARD = "FORWARD",
-  BACKWARD = "BACKWARD",
+  CLOCKWISE = "CLOCKWISE",
+  ANTICLOCKWISE = "ANTICLOCKWISE",
 }
 
 export interface MotionSensor extends Sensor {
