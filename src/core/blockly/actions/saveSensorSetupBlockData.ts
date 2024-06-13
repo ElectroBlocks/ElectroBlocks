@@ -3,12 +3,15 @@ import { type SaveSetupSensorData, ActionType } from "./actions";
 import { BlockType } from "../dto/block.type";
 import _ from "lodash";
 import { convertToSensorData } from "../transformers/sensor-data.transformer";
-import { getLoopTimeFromBlockData } from "../helpers/block-data.helper";
+import {
+  findFieldValue,
+  getLoopTimeFromBlockData,
+} from "../helpers/block-data.helper";
 
 export const saveSensorSetupBlockData = (
   event: BlockEvent
 ): SaveSetupSensorData[] => {
-  const { fieldName, blockId, blocks, fieldType } = event;
+  const { fieldName, blockId, blocks, fieldType } = event;  
   if (fieldName == "LOOP" && fieldType === "field") {
     return [];
   }
@@ -26,9 +29,12 @@ export const saveSensorSetupBlockData = (
   }
 
   const executionTimes = getLoopTimeFromBlockData(blocks);
+  console.log({executionTimes});
+  
   const loopTimes = _.range(1, executionTimes + 1);
   const sensorData = convertToSensorData(block);
-  if (!_.isEmpty(block.metaData)) {
+  const copyAll = findFieldValue(block, "COPY_SAME") == "TRUE";
+  if (!_.isEmpty(block.metaData) && !copyAll) {
     const metadata = JSON.parse(block.metaData);
     const nonBlankMetaData = loopTimes.map((loopIndex) => {
       const existingLoop = metadata.find((b) => b.loop === loopIndex);
@@ -53,6 +59,9 @@ export const saveSensorSetupBlockData = (
   const metadata = loopTimes.map((i) => {
     return { ...sensorData, loop: i };
   });
+
+  console.log({metadata});
+  
 
   return [
     {

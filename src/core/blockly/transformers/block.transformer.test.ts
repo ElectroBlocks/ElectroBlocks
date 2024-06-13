@@ -100,6 +100,7 @@ describe("block transformer", () => {
       "LOOP",
       "receiving_message",
       "message",
+      "COPY_SAME"
     ]);
 
     bluetoothSetupData.metaData = bluetoothSetupBlock.data;

@@ -79,6 +79,9 @@ const analogReadSetupBlock: any = {
     this.appendDummyInput("LEVEL")
       .appendField("Sensor's reading: ")
       .appendField(new Blockly.FieldNumber(512, 0, 1024, 0.000001), "state");
+    this.appendDummyInput("COPY_ALL")
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

@@ -76,7 +76,7 @@ const irSetupBlock: any = {
           return value;
         }),
         "scanned_new_code"
-      );
+      );   
     this.appendDummyInput()
       .appendField("Code")
       .appendField(
@@ -87,7 +87,10 @@ const irSetupBlock: any = {
           return value;
         }),
         "code"
-      );
+      )
+    this.appendDummyInput("COPY_ALL")
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

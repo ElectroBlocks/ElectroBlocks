@@ -102,7 +102,7 @@ const bluetoothSetupBlock: any = {
           return value;
         }),
         "receiving_message"
-      );
+      );      
     this.appendDummyInput()
       .appendField("Message:")
       .appendField(
@@ -113,7 +113,10 @@ const bluetoothSetupBlock: any = {
           return value;
         }),
         "message"
-      );
+      );      
+    this.appendDummyInput("COPY_ALL")
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");
