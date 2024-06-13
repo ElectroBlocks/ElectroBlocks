@@ -74,17 +74,12 @@ describe("test servos factories", () => {
       VariableTypes.NUMBER,
       speed
     );
-    const numberBlockMotor = createValueBlock(
-      workspace,
-      VariableTypes.NUMBER,
-      motorNumber
-    );
+    
     const motorBlock = workspace.newBlock("move_motor") as BlockSvg;
 
     motorBlock.setFieldValue(direction, "DIRECTION");
     motorBlock
-      .getInput("MOTOR")
-      .connection.connect(numberBlockMotor.outputConnection);
+      .setFieldValue(motorNumber.toString(), "MOTOR");
     motorBlock
       .getInput("SPEED")
       .connection.connect(numberBlock.outputConnection);
