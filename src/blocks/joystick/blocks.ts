@@ -40,7 +40,10 @@ Blockly.Blocks["joystick_setup"] = {
       .appendField(new Blockly.FieldAngle(0), "DEGREE");
     this.appendDummyInput()
       .appendField("Button Pressed")
-      .appendField(new Blockly.FieldCheckbox("TRUE"), "BUTTON_PRESSED");
+      .appendField(new Blockly.FieldCheckbox("TRUE"), "BUTTON_PRESSED");      
+    this.appendDummyInput("COPY_ALL")
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

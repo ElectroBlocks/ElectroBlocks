@@ -11,7 +11,7 @@ import {
 export const saveSensorSetupBlockData = (
   event: BlockEvent
 ): SaveSetupSensorData[] => {
-  const { fieldName, blockId, blocks, fieldType } = event;
+  const { fieldName, blockId, blocks, fieldType } = event;  
   if (fieldName == "LOOP" && fieldType === "field") {
     return [];
   }
@@ -29,6 +29,8 @@ export const saveSensorSetupBlockData = (
   }
 
   const executionTimes = getLoopTimeFromBlockData(blocks);
+  console.log({executionTimes});
+  
   const loopTimes = _.range(1, executionTimes + 1);
   const sensorData = convertToSensorData(block);
   const copyAll = findFieldValue(block, "COPY_SAME") == "TRUE";
@@ -57,6 +59,9 @@ export const saveSensorSetupBlockData = (
   const metadata = loopTimes.map((i) => {
     return { ...sensorData, loop: i };
   });
+
+  console.log({metadata});
+  
 
   return [
     {

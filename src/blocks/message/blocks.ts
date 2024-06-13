@@ -101,6 +101,10 @@ const messageSetupBlock: any = {
         }),
         "message"
       );
+      
+    this.appendDummyInput("COPY_ALL")
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
     this.setColour(COLOR_THEME.ARDUINO);
     this.setTooltip("");
     this.setHelpUrl("");

@@ -55,6 +55,10 @@ const ultraSonicSensorBlock: any = {
     this.appendDummyInput()
       .appendField("Distance In CMs")
       .appendField(new Blockly.FieldNumber(1, 0.1, 500, 0.00001), "cm");
+      
+    this.appendDummyInput("COPY_ALL")
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

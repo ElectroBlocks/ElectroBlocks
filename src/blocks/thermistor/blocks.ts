@@ -45,6 +45,10 @@ Blockly.Blocks["thermistor_setup"] = {
     this.appendDummyInput()
       .appendField("Temperature in °C")
       .appendField(new Blockly.FieldNumber(23, -500, 500), "TEMP");
+      
+    this.appendDummyInput("COPY_ALL")
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

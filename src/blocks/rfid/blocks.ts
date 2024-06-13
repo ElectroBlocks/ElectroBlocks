@@ -100,7 +100,7 @@ const rfidSetupBlock: any = {
           return value;
         }),
         "scanned_card"
-      );
+      );          
     this.appendDummyInput()
       .appendField("Card #:")
       .appendField(
@@ -123,6 +123,10 @@ const rfidSetupBlock: any = {
         }),
         "tag"
       );
+      
+    this.appendDummyInput("COPY_ALL")
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

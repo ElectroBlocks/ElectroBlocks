@@ -75,7 +75,10 @@ const digitalReadSetupBlock: any = {
       );
     this.appendDummyInput()
       .appendField("Sensing something? ")
-      .appendField(new Blockly.FieldCheckbox("TRUE"), "isOn");
+      .appendField(new Blockly.FieldCheckbox("TRUE"), "isOn");      
+    this.appendDummyInput("COPY_ALL")
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");
