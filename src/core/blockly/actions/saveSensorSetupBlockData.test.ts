@@ -158,4 +158,54 @@ describe("saveSensorSetupBlockData", () => {
     const actions = saveSensorSetupBlockData(event);
     expect(actions).toEqual([]);
   });
+
+  it("copies all sensor values if COPY_SAME field is checked", () => {
+    const sensorBlock = workspace.newBlock("ultra_sonic_sensor_setup");
+    sensorBlock.setFieldValue("TRUE", "COPY_SAME");
+    sensorBlock.setFieldValue("2", "cm");
+
+    const currentMetadata = [
+      {
+        loop: 1,
+        cm: 1,
+        blockName: sensorBlock.type,
+      },
+      {
+        loop: 2,
+        cm: 1,
+        blockName: sensorBlock.type,
+      },
+      {
+        loop: 3,
+        cm: 1,
+        blockName: sensorBlock.type,
+      },
+    ];
+
+    sensorBlock.data = JSON.stringify(currentMetadata);
+
+    const event: BlockEvent = {
+      blockId: sensorBlock.id,
+      variables: getAllVariables().map(transformVariable),
+      blocks: getAllBlocks().map(transformBlock),
+      type: Blockly.Events.BLOCK_CHANGE,
+      newValue: "2",
+      oldValue: "1",
+      fieldName: "cm",
+      fieldType: "field",
+      microController: MicroControllerType.ARDUINO_UNO,
+    };
+
+    const actions = saveSensorSetupBlockData(event);
+    const metadataToSave = JSON.parse(actions[0].data) as MotionSensor[];
+    expect(metadataToSave.length).toBe(3);
+    metadataToSave.forEach((data) => {
+      expect(data.cm).toBe(2);
+    });
+
+    expect(actions[0].type).toEqual(
+      ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA
+    );
+    expect(actions[0].blockId).toEqual(sensorBlock.id);
+  });
 });
