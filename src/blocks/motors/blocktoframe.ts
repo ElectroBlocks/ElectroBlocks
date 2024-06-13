@@ -26,7 +26,7 @@ export const moveMotor: BlockToFrameTransformer = (
   );
 
   const speed = getDefaultIndexValue(
-    1,
+    0,
     4000,
     getInputValue(blocks, block, variables, timeline, "SPEED", 1, previousState)
   );

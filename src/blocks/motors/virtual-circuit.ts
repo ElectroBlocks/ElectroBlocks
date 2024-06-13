@@ -30,11 +30,17 @@ export const motorCreate: AfterComponentCreateHook<MotorState> = (
 export const motorUpdate: SyncComponent = (state: MotorState, motorEl) => {
   const directionText = state.direction.toString();
   const animationSpeed = (1 / state.speed)*50 + 's'; // Calculate animation duration based on speed
+  if(state.speed==0){
+    motorEl.findOne("#motor").node.style.animation ='none';
 
-  motorEl.findOne("#motor").node.style.animation =
-    state.direction === MOTOR_DIRECTION.FORWARD
+    }
+    else{
+      motorEl.findOne("#motor").node.style.animation =
+    state.direction === MOTOR_DIRECTION.CLOCKWISE
       ? `rotate ${animationSpeed} linear infinite`
       : `rotateAntiClockwise ${animationSpeed} linear infinite`;
+    }
+  
 
   (motorEl.findOne("#direction") as Text).node.innerHTML =
     "Direction: " +
