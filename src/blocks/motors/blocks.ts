@@ -19,11 +19,16 @@ Blockly.defineBlocksWithJsonArray([
         type: "input_dummy",
       },
       {
-        type: "input_value",
+        type: "field_dropdown",
         name: "MOTOR",
-        check: "Number",
-        align: "RIGHT",
+        // check: "Number",
+        // align: "RIGHT",
+        options: [
+          ["1", "1"],
+          ["2", "2"],
+        ],
       },
+      
       {
         type: "field_dropdown",
         name: "DIRECTION",

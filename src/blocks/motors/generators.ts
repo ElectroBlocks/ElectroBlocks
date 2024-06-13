@@ -2,11 +2,8 @@ import Blockly from 'blockly';
 import type { Block } from 'blockly';
 
 Blockly['Arduino']['move_motor'] = function(block: Block) {
-  const motorNumber = Blockly['Arduino'].valueToCode(
-    block,
-    'MOTOR',
-    Blockly['Arduino'].ORDER_ATOMIC
-  );
+  const motorNumber = block.getFieldValue('MOTOR');
+
 
   const direction = block.getFieldValue('DIRECTION').toUpperCase();
   let rotation;

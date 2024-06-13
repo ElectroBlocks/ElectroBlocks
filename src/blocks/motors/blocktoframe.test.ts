@@ -53,11 +53,11 @@ describe("test servos factories", () => {
     const motor1 = state1.components.find(
       (c) =>
         c.type === ArduinoComponentType.MOTOR &&
-        (c as MotorState).motorNumber === 1
+        parseInt((c as MotorState).motorNumber) === 1
     ) as MotorState;
     expect(motor1.direction).toBe("CLOCKWISE");
     expect(motor1.speed).toBe(50);
-    expect(motor1.motorNumber).toBe(1);
+    expect(parseInt(motor1.motorNumber)).toBe(1);
 
     verifyMotorServos(state2, 50, 150, "CLOCKWISE", "ANTICLOCKWISE");
     verifyMotorServos(state3, 32, 150, "ANTICLOCKWISE", "ANTICLOCKWISE");
@@ -74,17 +74,12 @@ describe("test servos factories", () => {
       VariableTypes.NUMBER,
       speed
     );
-    const numberBlockMotor = createValueBlock(
-      workspace,
-      VariableTypes.NUMBER,
-      motorNumber
-    );
+    
     const motorBlock = workspace.newBlock("move_motor") as BlockSvg;
 
     motorBlock.setFieldValue(direction, "DIRECTION");
     motorBlock
-      .getInput("MOTOR")
-      .connection.connect(numberBlockMotor.outputConnection);
+      .setFieldValue(motorNumber.toString(), "MOTOR");
     motorBlock
       .getInput("SPEED")
       .connection.connect(numberBlock.outputConnection);
@@ -102,13 +97,13 @@ describe("test servos factories", () => {
     const motor1 = state.components.find(
       (c) =>
         c.type === ArduinoComponentType.MOTOR &&
-        (c as MotorState).motorNumber === 1
+        parseInt((c as MotorState).motorNumber) === 1
     ) as MotorState;
 
     const motor2 = state.components.find(
       (c) =>
         c.type === ArduinoComponentType.MOTOR &&
-        (c as MotorState).motorNumber === 2
+        parseInt((c as MotorState).motorNumber) === 2
     ) as MotorState;
 
     expect(motor1.direction).toBe(motor1Direction);
