@@ -53,11 +53,11 @@ describe("test servos factories", () => {
     const motor1 = state1.components.find(
       (c) =>
         c.type === ArduinoComponentType.MOTOR &&
-        (c as MotorState).motorNumber === 1
+        parseInt((c as MotorState).motorNumber) === 1
     ) as MotorState;
     expect(motor1.direction).toBe("FORWARD");
     expect(motor1.speed).toBe(50);
-    expect(motor1.motorNumber).toBe(1);
+    expect(parseInt(motor1.motorNumber)).toBe(1);
 
     verifyMotorServos(state2, 50, 150, "FORWARD", "BACKWARD");
     verifyMotorServos(state3, 32, 150, "BACKWARD", "BACKWARD");
@@ -102,13 +102,13 @@ describe("test servos factories", () => {
     const motor1 = state.components.find(
       (c) =>
         c.type === ArduinoComponentType.MOTOR &&
-        (c as MotorState).motorNumber === 1
+        parseInt((c as MotorState).motorNumber) === 1
     ) as MotorState;
 
     const motor2 = state.components.find(
       (c) =>
         c.type === ArduinoComponentType.MOTOR &&
-        (c as MotorState).motorNumber === 2
+        parseInt((c as MotorState).motorNumber) === 2
     ) as MotorState;
 
     expect(motor1.direction).toBe(motor1Direction);

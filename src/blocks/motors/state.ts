@@ -2,7 +2,7 @@ import type { Sensor } from "../../core/blockly/dto/sensors.type";
 import type { ArduinoComponentState } from "../../core/frames/arduino.frame";
 
 export interface MotorState extends ArduinoComponentState {
-  motorNumber: number;
+  motorNumber: string;
   speed: number;
   direction: MOTOR_DIRECTION;
 }

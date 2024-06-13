@@ -22,7 +22,7 @@ export const moveMotor: BlockToFrameTransformer = (
   const motorNumber = getDefaultIndexValue(
     1,
     4,
-    getInputValue(blocks, block, variables, timeline, "MOTOR", 1, previousState)
+    parseInt(getInputValue(blocks, block, variables, timeline, "MOTOR", 1, previousState))
   );
 
   const speed = getDefaultIndexValue(
@@ -33,7 +33,7 @@ export const moveMotor: BlockToFrameTransformer = (
 
   const motorState = getMotorState(
     previousState,
-    motorNumber,
+    findFieldValue(block,"MOTOR"),
     speed,
     findFieldValue(block, "DIRECTION")
   );
@@ -56,7 +56,7 @@ export const moveMotor: BlockToFrameTransformer = (
 
 const getMotorState = (
   frame: ArduinoFrame,
-  motorNumber: number,
+  motorNumber: string,
   speed: number,
   direction: MOTOR_DIRECTION
 ): MotorState => {
@@ -85,7 +85,7 @@ const getMotorState = (
   return { ...motorState, direction, speed, motorNumber };
 };
 
-const findComponent = (frame: ArduinoFrame, motorNumber: number) => {
+const findComponent = (frame: ArduinoFrame, motorNumber: string) => {
   return frame.components.find(
     (c) =>
       c.type === ArduinoComponentType.MOTOR &&
