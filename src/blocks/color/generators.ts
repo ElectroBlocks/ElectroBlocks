@@ -16,7 +16,7 @@ function createColorStruct() {
     int red;
     int green;
     int blue;
-}`;
+};`;
 }
 
 Blockly["Arduino"]["color_picker_custom"] = function (block) {
