@@ -21,6 +21,15 @@ import {
 } from "../../core/virtual-circuit/wire";
 
 const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
+const lightColors: { [key: string]: string } = {
+  red: "#ff8080",
+  green: "#80ff80",
+  blue: "#8080ff",
+  yellow: "#ffff80",
+  orange: "#ffcf80",
+  white: "#ffffff",
+  purple: "#ff80ff",
+};
 
 export const ledCreate: AfterComponentCreateHook<LedState> = (
   state,
