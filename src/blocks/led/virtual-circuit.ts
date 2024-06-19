@@ -47,10 +47,11 @@ export const ledCreate: AfterComponentCreateHook<LedState> = (
   board,
   settings
 ) => {
-  let ledColor = ledColors[_.random(0, ledColors.length - 1)];
+  let ledColor = "red";
 
   if (settings.customLedColor) {
-    ledColor = settings.ledColor;
+    ledColor =
+      ledColors.indexOf(settings.ledColor) > -1 ? settings.ledColor : "red";
   }
   let ledLightColor = lightColorsShades[ledColor];
 

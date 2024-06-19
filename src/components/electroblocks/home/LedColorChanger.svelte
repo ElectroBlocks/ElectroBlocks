@@ -24,12 +24,12 @@
   });
 
   function changeColor(e) {
-    const color = e.target.getAttribute("data-color");
-    let ledLightColor = lightColorsShades[color];
+    ledColor = e.target.getAttribute("data-color");
+    let ledLightColor = lightColorsShades[ledColor];
 
-    ledEl.data("color", color);
+    ledEl.data("color", ledColor);
     const mainColor = ledEl.findOne("#MAIN_COLOR") as Element;
-    mainColor.fill(color);
+    mainColor.fill(ledColor);
     const secondColorEl = ledEl.findOne("#SECOND_COLOR") as Element;
     secondColorEl.fill(ledLightColor);
   }
@@ -49,10 +49,11 @@
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <!-- svelte-ignore a11y-no-static-element-interactions -->
           <div
-            class="color"
+            class="color {color}"
             on:click={changeColor}
             style="background-color: {color};"
             data-color={color}
+            class:selected={ledColor == color}
             id={color}
           ></div>
         {/each}
@@ -85,12 +86,14 @@
   }
   .color {
     flex: 1;
-    border: solid 1px;
     margin: 2px;
     height: 30px;
     cursor: pointer;
   }
   .color-container {
     display: flex;
+  }
+  .selected {
+    border: black 10px dashed;
   }
 </style>
