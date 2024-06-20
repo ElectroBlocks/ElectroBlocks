@@ -122,6 +122,7 @@ describe("fastLED state factories", () => {
       }
     }
   });
+  
 
   it("should be able to set all the colors of an led light strip.", () => {
     const setFastLED1Block = workspace.newBlock(
