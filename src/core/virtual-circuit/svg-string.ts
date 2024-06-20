@@ -8,6 +8,7 @@ import buttonSvgString from "../../blocks/button/button.svg?raw";
 import writePinSvgString from "../../blocks/writepin/writepin.svg?raw";
 import irRemoteSvgString from "../../blocks/ir_remote/ir_remote.svg?raw";
 import ledmatrixSvgString from "../../blocks/led_matrix/ledmatrix.svg?raw";
+import ledSvgString from "../../blocks/led/led.svg?raw";
 
 import thermistorSvgString from "../../blocks/thermistor/thermistor.svg?raw";
 import passiveBuzzerSvgString from "../../blocks/passivebuzzer/passivebuzzer.svg?raw";
@@ -24,7 +25,6 @@ import tempSvgString from "../../blocks/temperature/temp-humidity.svg?raw";
 import ultraSonicSvgString from "../../blocks/ultrasonic_sensor/ultrasonic-sensor.svg?raw";
 import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
 import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
-import { getLedSvgString } from "../../blocks/led/svg-string";
 import { getDigitalSensorSvg } from "../../blocks/digitalsensor/svg-string";
 import { getAnalogSensorSvg } from "../../blocks/analogsensor/svg-string";
 import stepperMotorSvg from "../../blocks/steppermotor/steppermotor.svg?raw";
@@ -69,7 +69,7 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.LCD_SCREEN]: getLcdScreenSvgString,
   [ArduinoComponentType.LED_COLOR]: getLedColorSvgString,
   [ArduinoComponentType.DIGITAL_SENSOR]: getDigitalSensorSvg,
-  [ArduinoComponentType.LED]: getLedSvgString,
+  [ArduinoComponentType.LED]: () => ledSvgString,
   [ArduinoComponentType.WRITE_PIN]: (_) => writePinSvgString,
   [ArduinoComponentType.ANALOG_SENSOR]: getAnalogSensorSvg,
   [ArduinoComponentType.THERMISTOR]: (_) => thermistorSvgString,
