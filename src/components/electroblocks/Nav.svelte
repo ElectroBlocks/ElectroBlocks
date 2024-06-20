@@ -142,6 +142,15 @@
     >
       <i class="fa fa-wrench" aria-hidden="true" />
     </a>
+
+    <a
+    href="/project"
+    class:active={$page.url.pathname.includes('project')}
+    >
+    <i class=" fa fa-diagram-project" aria-hidden="true" />
+    </a>
+
+    
     <a href="/settings" class:active={segment === 'settings'}>
       <i class="fa fa-gears" />
     </a>
@@ -181,6 +190,9 @@
     </span>
     <a href="/download" class:active={$page.url.pathname.includes('download')}>
       <i class="fa fa-download" />
+    </a>
+    <a href="/project" class:active={$page.url.pathname.includes('project')}>
+      <i class="fa fa-lightbulb-o"  />
     </a>
     <a href="/settings" class:active={$page.url.pathname.includes('settings')}>
       <i class="fa fa-gears" />
@@ -235,7 +247,7 @@
   nav.small a,
   nav.small span,
   nav.small label {
-    width: 12.5%;
+    width: 11%;
   }
   #saved {
     position: absolute;
