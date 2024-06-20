@@ -1,4 +1,4 @@
-import Blockly from "blockly";
+import Blockly, { CodeGenerator } from "blockly";
 import { numberToCode } from "../../core/blockly/helpers/number-code.helper";
 
 Blockly["Arduino"]["lcd_setup"] = function (block) {
@@ -34,7 +34,10 @@ Blockly["Arduino"]["lcd_scroll"] = function (block) {
   }
 };
 
-Blockly["Arduino"]["lcd_screen_simple_print"] = function (block) {
+Blockly["Arduino"]["lcd_screen_simple_print"] = function (
+  block,
+  generator: CodeGenerator
+) {
   const textRow1 = Blockly["Arduino"].valueToCode(
     block,
     "ROW_1",
@@ -45,6 +48,15 @@ Blockly["Arduino"]["lcd_screen_simple_print"] = function (block) {
     "ROW_2",
     Blockly["Arduino"].ORDER_ATOMIC
   );
+  const workspace = Blockly.getMainWorkspace();
+  const setupblock = workspace
+    .getAllBlocks()
+    .find((b) => b.type === "lcd_setup");
+  let numRows = 2;
+  if (setupblock) {
+    const size = setupblock.getFieldValue("SIZE");
+    numRows = size === "16 x 2" ? 2 : 4;
+  }
   const textRow3 = Blockly["Arduino"].valueToCode(
     block,
     "ROW_3",
@@ -67,12 +79,15 @@ Blockly["Arduino"]["lcd_screen_simple_print"] = function (block) {
       : "";
   }
 
+  const row3 = numRows === 2 ? "" : printRow(2, textRow3);
+  const row4 = numRows === 2 ? "" : printRow(3, textRow4);
+
   return (
     "lcd.clear(); \n" +
     printRow(0, textRow1) +
     printRow(1, textRow2) +
-    printRow(2, textRow3) +
-    printRow(3, textRow4) +
+    row3 +
+    row4 +
     "delay(" +
     seconds * 1000 +
     "); \n" +

@@ -9,7 +9,7 @@ Right now, motor move only works with Adafruit motor shield version 1.  We will 
 
    <value name="SPEED">
                    <block type="math_number">
-                       <field name="NUM">250</field>
+                       <field name="NUM">50</field>
                    </block>
                </value>
                <value name="MOTOR">

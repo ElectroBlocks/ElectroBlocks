@@ -31,6 +31,7 @@ import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
 import type { Settings } from "../../firebase/model";
 import settingStore from "../../stores/settings.store";
+import UpdateLCDScreenPrintBlock from "./actions/updateLcdScreenPrintBlock";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
@@ -63,6 +64,9 @@ export const createFrames = async (blocklyEvent) => {
     Blockly.Events.BLOCK_CREATE,
     Blockly.Events.BLOCK_DELETE,
     Blockly.Events.BLOCK_MOVE,
+    Blockly.Events.VAR_CREATE,
+    Blockly.Events.VAR_DELETE,
+    Blockly.Events.VAR_RENAME,
   ]);
 
   if (!supportedEvents.has(blocklyEvent.type)) return;
@@ -135,6 +139,7 @@ export const createFrames = async (blocklyEvent) => {
     ...saveSensorSetupBlockData(event2),
     ...updateSensorSetupFields(event2),
     ...updateForLoopText(event2),
+    ...UpdateLCDScreenPrintBlock(event2),
     ...updateLoopNumberInSensorSetupBlock(event2),
   ];
 
