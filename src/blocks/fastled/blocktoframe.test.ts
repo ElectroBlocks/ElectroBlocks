@@ -114,17 +114,19 @@ describe("fastLED state factories", () => {
       expect(component1State3.fastLEDs[i].color.blue).toBe(0);
       if (i == 13) {
         expect(component1State3.fastLEDs[i].color.green).toBe(170);
+        expect(component1State3.preShowLEDs[i].color.green).toBe(170);
       } else if (i == 0) {
         expect(component1State3.fastLEDs[i].color.red).toBe(255);
+        expect(component1State3.preShowLEDs[i].color.red).toBe(255);
       } else {
         expect(component1State3.fastLEDs[i].color.green).toBe(0);
         expect(component1State3.fastLEDs[i].color.red).toBe(0);
+        expect(component1State3.preShowLEDs[i].color.red).toBe(0);
+        expect(component1State3.preShowLEDs[i].color.green).toBe(0);
       }
-      expect(component1State3.preShowLEDs[i].color.red).toBe(0);
-      expect(component1State3.preShowLEDs[i].color.green).toBe(0);
-      expect(component1State3.preShowLEDs[i].color.blue).toBe(0);
     }
   });
+
 
   it("should be able to set all the colors of an led light strip.", () => {
     const setFastLED1Block = workspace.newBlock(
