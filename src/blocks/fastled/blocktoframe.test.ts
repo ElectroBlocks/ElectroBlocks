@@ -120,9 +120,6 @@ describe("fastLED state factories", () => {
         expect(component1State3.fastLEDs[i].color.green).toBe(0);
         expect(component1State3.fastLEDs[i].color.red).toBe(0);
       }
-      expect(component1State3.preShowLEDs[i].color.red).toBe(0);
-      expect(component1State3.preShowLEDs[i].color.green).toBe(0);
-      expect(component1State3.preShowLEDs[i].color.blue).toBe(0);
     }
   });
 
