@@ -12,6 +12,25 @@ import {
 import type { MotorState } from "./state";
 import type { MOTOR_DIRECTION } from "./state";
 
+
+// export const MotorSetup: BlockToFrameTransformer=(
+//   blocks,
+//   block,
+//   variables,
+//   timeline,
+//   previousState
+// ) =>{
+//   const motorNumber = getDefaultIndexValue(
+//     1,
+//     4,
+//     parseInt(getInputValue(blocks, block, variables, timeline, "MOTOR", 1, previousState))
+//   );
+//   const pin1= getDefaultIndexValue(
+//     2,
+//     13,
+//     parseInt(getInputValue(blocks, block, variables, timeline, "PIN_1", 3, previousState))
+//   ); 
+// };
 export const moveMotor: BlockToFrameTransformer = (
   blocks,
   block,
@@ -31,10 +50,17 @@ export const moveMotor: BlockToFrameTransformer = (
     getInputValue(blocks, block, variables, timeline, "SPEED", 1, previousState)
   );
 
+  // const pin1= getDefaultIndexValue(
+  //   2,
+  //   13,
+  //   parseInt(getInputValue(blocks, block, variables, timeline, "PIN_1", 3, previousState))
+  // );
+
   const motorState = getMotorState(
     previousState,
     findFieldValue(block,"MOTOR"),
     speed,
+    // findFieldValue(block, "PIN_1"),
     findFieldValue(block, "DIRECTION")
   );
 
@@ -58,6 +84,7 @@ const getMotorState = (
   frame: ArduinoFrame,
   motorNumber: string,
   speed: number,
+  // pin: string,
   direction: MOTOR_DIRECTION
 ): MotorState => {
   if (!frame) {
@@ -66,6 +93,7 @@ const getMotorState = (
       type: ArduinoComponentType.MOTOR,
       direction,
       speed,
+      // pin,
       motorNumber,
     };
   }
@@ -78,6 +106,7 @@ const getMotorState = (
       type: ArduinoComponentType.MOTOR,
       direction,
       speed,
+      // pin,
       motorNumber,
     };
   }

@@ -14,6 +14,10 @@ import {
   lcdClear,
   lcdBacklight,
 } from "../../../blocks/lcd_screen/blocktoframe";
+
+// import {
+//   MotorSetup
+// } from "../../../blocks/motors/blocktoframe";
 import type { VariableData } from "../../blockly/dto/variable.type";
 import {
   createListNumberState,
@@ -103,6 +107,7 @@ const blockToFrameTransformerList: {
   message_setup: messageSetup,
   time_setup: timeSetup,
   lcd_setup: lcdScreenSetup,
+  // motor_setup: MotorSetup,
   neo_pixel_setup: neoPixelSetup,
   fastled_setup: fastLEDSetup,
   rgb_led_setup: ledColorSetup,

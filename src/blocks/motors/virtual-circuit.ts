@@ -24,29 +24,29 @@ export const motorCreate: AfterComponentCreateHook<MotorState> = (
   state,
   motorEl
 ) => {
-  motorEl.findOne("#motor_info").node.innerHTML = "Motor: " + state.motorNumber;
+  // motorEl.findOne("#motor_info").node.innerHTML = "Motor: " + state.motorNumber;
 };
 
 export const motorUpdate: SyncComponent = (state: MotorState, motorEl) => {
   const directionText = state.direction.toString();
   const animationSpeed = (1 / state.speed)*50 + 's'; // Calculate animation duration based on speed
   if(state.speed==0){
-    motorEl.findOne("#motor").node.style.animation ='none';
+    motorEl.findOne("#MOTOR_"+ state.motorNumber+ "_FAN").node.style.animation ='none';
 
     }
     else{
-      motorEl.findOne("#motor").node.style.animation =
+      motorEl.findOne("#MOTOR_"+ state.motorNumber+ "_FAN").node.style.animation =
     state.direction === MOTOR_DIRECTION.CLOCKWISE
       ? `rotate ${animationSpeed} linear infinite`
       : `rotateAntiClockwise ${animationSpeed} linear infinite`;
     }
   
 
-  (motorEl.findOne("#direction") as Text).node.innerHTML =
+  (motorEl.findOne("#MOTOR_" + state.motorNumber + "_DIRECTION") as Text).node.innerHTML =
     "Direction: " +
     directionText.charAt(0).toUpperCase() +
     directionText.slice(1).toLowerCase();
-  (motorEl.findOne("#speed") as Text).node.innerHTML = "Speed: " + state.speed;
+  (motorEl.findOne("#MOTOR_"+ state.motorNumber+ "_SPEED") as Text).node.innerHTML = "Speed: " + state.speed;
 };
 
 export const motorReset: ResetComponent = (componentEl: Element) => {

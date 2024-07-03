@@ -191,9 +191,9 @@
     <a href="/download" class:active={$page.url.pathname.includes('download')}>
       <i class="fa fa-download" />
     </a>
-    <a href="/project" class:active={$page.url.pathname.includes('project')}>
+    <!-- <a href="/project" class:active={$page.url.pathname.includes('project')}>
       <i class="fa fa-lightbulb-o"  />
-    </a>
+    </a> -->
     <a href="/settings" class:active={$page.url.pathname.includes('settings')}>
       <i class="fa fa-gears" />
     </a>
@@ -247,7 +247,7 @@
   nav.small a,
   nav.small span,
   nav.small label {
-    width: 11%;
+    width: 12.5%;
   }
   #saved {
     position: absolute;
