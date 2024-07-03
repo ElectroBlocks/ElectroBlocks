@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="81.81" 
+   height="112.4" 
+   viewBox="0 0 81.81 112.4"
+   preserveAspectRatio="xMinYMin meet"
+   overflow="visible"
+   id="svg19"
+   sodipodi:docname="rgbled-resistorbuiltin.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   >
+  <defs
+     id="defs19" />
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="28.034367"
+     inkscape:cx="43.865095"
+     inkscape:cy="80.432145"
+     inkscape:window-width="1920"
+     inkscape:window-height="1046"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg19" />
+  <!-- LED Legs -->
+  <g
+     id="LED_LEGS"
+     fill="none"
+     stroke="#9d9999"
+     stroke-linecap="round"
+     stroke-width="1.5px"
+     transform="translate(32.260112,37.84024)">
+    <path
+       id="LED_LEG_1"
+       d="m 4.1,15.334 3.0611,9.971" />
+    <path
+       id="LED_LEG_2"
+       d="m 8,14.4 5.9987,4.0518 1.1777,6.5679"
+       stroke-linejoin="round" />
+    <path
+       id="LED_LEG_3"
+       d="m -1.1,15.607 -0.33725,18.4" />
+    <path
+       id="LED_LEG_4"
+       d="m -4.3,14.184 -5.0755,5.6592 -0.10206,6.1694"
+       stroke-linejoin="round" />
+  </g>
+  <!-- LED Body -->
+  <path
+     d="m 40.603612,43.49024 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
+     opacity="0.3"
+     id="path4" />
+  <path
+     d="m 40.603612,43.49024 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
+     fill="#e6e6e6"
+     opacity="0.5"
+     id="path5" />
+  <path
+     d="m 40.603612,43.49024 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 4.6296 c 1.4738,1.6517 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 l -4e-5,-1.5235 c -7e-4,-1.1419 -0.4744,-2.2032 -1.283,-3.1054 z"
+     fill="#d1d1d1"
+     opacity="0.9"
+     id="path6" />
+  <g
+     transform="translate(26.430612,30.48924)"
+     id="g8">
+    <path
+       d="m 14.173,13.001 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 4.6296 c 1.4738,1.6517 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 l -4e-5,-1.5235 c -7e-4,-1.1419 -0.4744,-2.2032 -1.283,-3.1054 z"
+       opacity="0.7"
+       id="path7" />
+    <path
+       d="m 14.173,13.001 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 3.1054 c 1.4738,1.6502 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 -7.4e-4,-1.1412 -0.47444,-2.2025 -1.283,-3.1047 z"
+       opacity="0.25"
+       id="path8" />
+    <ellipse
+       cx="7.0876999"
+       cy="16.106001"
+       rx="7.0869999"
+       ry="4.9608002"
+       opacity="0.25"
+       id="ellipse8" />
+  </g>
+  <polygon
+     transform="translate(26.430612,30.48924)"
+     points="6.0156,13.095 10.012,8.8049 3.407,8.8049 2.2032,9.648 2.2032,16.107 3.1961,16.107 3.1961,13.095 "
+     fill="#666666"
+     id="polygon8" />
+  <polygon
+     transform="translate(26.430612,30.48924)"
+     points="11.06,16.107 11.974,16.107 11.974,8.5241 10.778,8.5241 11.215,9.0338 7.4117,13.095 11.06,13.095 "
+     fill="#666666"
+     id="polygon9" />
+  <path
+     d="m 40.603612,43.49024 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
+     fill="#ffffff"
+     opacity="0.65"
+     id="path9" />
+  <g
+     transform="translate(26.430612,30.48924)"
+     fill="#ffffff"
+     id="g12">
+    <path
+       d="M 10.388,3.7541 11.8244,3.4805 C 10.98272,2.3487 9.7422,1.5228 8.2827,1.242 l 0.25416,1.0807 c 0.76388,0.27072 1.4068,0.78048 1.8511,1.4314 z"
+       opacity="0.5"
+       id="path10" />
+    <path
+       d="m 0.76824,19.926 v 1.5199 c 0.64872,0.5292 1.4335,0.97632 2.3076,1.3169 v -1.525 C 2.19744,20.90156 1.41914,20.45586 0.76824,19.926 Z"
+       opacity="0.5"
+       id="path11" />
+    <path
+       d="m 11.073,20.21 c -0.2556,0.1224 -0.52992,0.22968 -0.80568,0.32976 -0.05832,0.01944 -0.11736,0.04032 -0.17784,0.05832 -0.56376,0.17928 -1.1614,0.31896 -1.795,0.39456 -0.07488,0.0094 -0.1512,0.01872 -0.22464,0.01944 -0.3204,0.03024 -0.64368,0.05832 -0.97056,0.05832 -0.14832,0 -0.30744,-0.01512 -0.4716,-0.02376 C 5.42748,20.98976 4.29708,20.732 3.33008,20.3072 l -2e-5,-8.3895 V 7.0923 c 0,-1.471 0.84816,-2.7295 2.0736,-3.3494 L 5.38134,3.68962 4.13354,2.17762 c -1.6697,1.003 -2.79,2.8224 -2.79,4.9118 v 11.905 C 1.29386,18.94474 1.03538,18.68554 0.8633,18.4645 l -0.30744,0.6876 c 1.4011,1.4818 3.8088,2.4617 6.5426,2.4617 1.6798,0 3.2371,-0.37368 4.5115,-1.0022 l -0.52704,-0.40896 -0.01006,0.0072 z"
+       opacity="0.5"
+       id="path12" />
+  </g>
+  <filter
+     id="ledFilter"
+     x="-0.48"
+     y="-0.48"
+     height="1.96"
+     width="1.96">
+    <feGaussianBlur
+       stdDeviation="4"
+       id="feGaussianBlur12" />
+  </filter>
+  <filter
+     id="ledFilterRed"
+     x="-0.8"
+     y="-0.8"
+     height="5.2"
+     width="5.8">
+    <feGaussianBlur
+       stdDeviation="${ledRed * 3}"
+       id="feGaussianBlur13" />
+  </filter>
+  <filter
+     id="ledFilterGreen"
+     x="-0.8"
+     y="-0.8"
+     height="5.2"
+     width="5.8">
+    <feGaussianBlur
+       stdDeviation="${ledGreen * 3}"
+       id="feGaussianBlur14" />
+  </filter>
+  <filter
+     id="ledFilterBlue"
+     x="-0.8"
+     y="-0.8"
+     height="5.2"
+     width="5.8">
+    <feGaussianBlur
+       stdDeviation="${ledBlue * 3}"
+       id="feGaussianBlur15" />
+  </filter>
+  <circle
+     cx="33.960114"
+     cy="40.84024"
+     r="0"
+     fill="#ff0000"
+     opacity="${Math.min(ledRed * 20, 0.3)}"
+     filter="url(#ledFilterRed)"
+     id="circle15" />
+  <circle
+     cx="34.960114"
+     cy="42.84024"
+     r="0"
+     fill="#00ff00"
+     opacity="${Math.min(ledGreen * 20, 0.3)}"
+     filter="url(#ledFilterGreen)"
+     id="circle16" />
+  <circle
+     cx="32.960114"
+     cy="42.84024"
+     r="0"
+     fill="#0155fd"
+     opacity="${Math.min(ledBlue * 20, 0.3)}"
+     filter="url(#ledFilterBlue)"
+     id="circle17" />
+  <circle
+     cx="33.960114"
+     cy="41.84024"
+     r="10"
+     fill="rgb(${ledRed * 255}, ${ledGreen * 255 + ledBlue * 90}, ${ledBlue * 255})"
+     filter="url(#ledFilter)"
+     opacity="${opacity}"
+     id="circle18" />
+  <circle
+     cx="34.16011"
+     cy="42.84024"
+     r="15"
+     stroke="#666666"
+     stroke-width="1"
+     fill="none"
+     filter="url(#ledFilter)"
+     opacity="${opacity}"
+     id="circle19" />
+  <rect
+     style="fill:#9c9898;fill-opacity:1"
+     id="PIN_RED"
+     width="1.4709947"
+     height="7.3409996"
+     x="22.022161"
+     y="63.655834"
+     inkscape:transform-center-x="-0.27160513"
+     inkscape:transform-center-y="0.08148154"
+     inkscape:label="PIN_RED" />
+  <rect
+     style="fill:#9c9898;fill-opacity:1"
+     id="PIN_GND"
+     width="1.4709947"
+     height="7.3409996"
+     x="30.158031"
+     y="67.172836"
+     inkscape:transform-center-x="-0.27160513"
+     inkscape:transform-center-y="0.08148154"
+     inkscape:label="PIN_GND" />
+  <rect
+     style="fill:#9c9898;fill-opacity:1"
+     id="PIN_GREEN"
+     width="1.4709947"
+     height="7.3409996"
+     x="38.772846"
+     y="62.953083"
+     inkscape:transform-center-x="-0.27160513"
+     inkscape:transform-center-y="0.08148154"
+     inkscape:label="PIN_GREEN" />
+  <rect
+     style="fill:#9c9898;fill-opacity:1"
+     id="PIN_BLUE"
+     width="1.4709947"
+     height="7.3409996"
+     x="46.767906"
+     y="62.651852"
+     inkscape:transform-center-x="-0.27160513"
+     inkscape:transform-center-y="0.08148154"
+     inkscape:label="PIN_BLUE" />
+</svg>

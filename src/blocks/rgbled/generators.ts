@@ -9,37 +9,36 @@ Blockly['Arduino']['rgb_led_setup'] = function (block: Block) {
 
   Blockly['Arduino'].setupCode_[
     'led_pin_' + redPin
-  ] = `\tpinMode(RED_PIN, OUTPUT); \n`;
+  ] = `pinMode(RED_PIN, OUTPUT);\n`;
   Blockly['Arduino'].setupCode_[
     'led_pin_' + greenPin
-  ] = `\tpinMode(GREEN_PIN, OUTPUT); \n`;
+  ] = `pinMode(GREEN_PIN, OUTPUT);\n`;
   Blockly['Arduino'].setupCode_[
     'led_pin_' + bluePin
-  ] = `\tpinMode(BLUE_PIN, OUTPUT); \n`;
+  ] = `pinMode(BLUE_PIN, OUTPUT);\n`;
 
-  Blockly['Arduino'].libraries_['color_pin_blue'] =
-    'int BLUE_PIN = ' + bluePin + ';\n';
+  Blockly['Arduino'].libraries_['color_pin_blue'] = 
+  `int BLUE_PIN = ${bluePin};\n`;
+  Blockly['Arduino'].libraries_['color_pin_red'] = 
+  `int RED_PIN = ${redPin};\n`;
+  Blockly['Arduino'].libraries_['color_pin_green'] = 
+  `int GREEN_PIN = ${greenPin};\n`;
 
-  Blockly['Arduino'].libraries_['color_pin_red'] =
-    'int RED_PIN = ' + redPin + ';\n';
-
-  Blockly['Arduino'].libraries_['color_pin_green'] =
-    'int GREEN_PIN = ' + greenPin + ';\n';
-
-  Blockly['Arduino'].functionNames_['_setLedColor'] =
-    'void setLedColor(RGB color) {\n' +
-    '\tanalogWrite(GREEN_PIN, color.green); \n' +
-    '\tanalogWrite(BLUE_PIN, color.blue); \n' +
-    '\tanalogWrite(RED_PIN, color.red); \n' +
-    '}\n';
+  Blockly['Arduino'].functionNames_['_setLedColor'] = `
+    void setLedColor(RGB color) {
+      analogWrite(GREEN_PIN, color.green);
+      analogWrite(BLUE_PIN, color.blue);
+      analogWrite(RED_PIN, color.red);
+    }
+  `;
 
   return '';
 };
 
 Blockly['Arduino']['set_color_led'] = function (block: Block) {
   let color = Blockly['Arduino'].valueToCode(
-    block,
-    'COLOUR',
+    block, 
+    'COLOUR', 
     Blockly['Arduino'].ORDER_ATOMIC
   );
 
@@ -47,5 +46,5 @@ Blockly['Arduino']['set_color_led'] = function (block: Block) {
     color = '{ 0, 0, 0 }';
   }
 
-  return 'setLedColor(' + color + ');\n';
+  return `setLedColor(${color});\n`;
 };

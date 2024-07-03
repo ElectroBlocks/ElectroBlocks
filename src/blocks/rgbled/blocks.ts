@@ -8,15 +8,6 @@ Blockly.Blocks["rgb_led_setup"] = {
       .appendField(new Blockly.FieldImage("./blocks/led/color_led.png", 15, 15))
       .appendField("Setup RGB LED");
     this.appendDummyInput()
-      .appendField("Picture Type")
-      .appendField(
-        new Blockly.FieldDropdown([
-          ["Breadboard", "BREADBOARD"],
-          ["Built in resistors", "BUILT_IN"],
-        ]),
-        "PICTURE_TYPE"
-      );
-    this.appendDummyInput()
       .appendField("Red")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().pwmPins),

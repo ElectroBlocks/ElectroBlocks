@@ -33,7 +33,6 @@ describe("rgb led frame", () => {
     ledColorSetup.setFieldValue("11", "PIN_RED");
     ledColorSetup.setFieldValue("10", "PIN_GREEN");
     ledColorSetup.setFieldValue("9", "PIN_BLUE");
-    ledColorSetup.setFieldValue("BUILT_IN", "PICTURE_TYPE");
   });
 
   it("should be able generate state for led color setup block", () => {
@@ -44,9 +43,8 @@ describe("rgb led frame", () => {
       redPin: ARDUINO_PINS.PIN_11,
       greenPin: ARDUINO_PINS.PIN_10,
       bluePin: ARDUINO_PINS.PIN_9,
-      pictureType: "BUILT_IN",
       color: { green: 0, red: 0, blue: 0 },
-      type: ArduinoComponentType.LED_COLOR,
+      type: ArduinoComponentType.LED_COLOR
     };
 
     const state: ArduinoFrame = {
@@ -67,8 +65,7 @@ describe("rgb led frame", () => {
     expect(eventToFrameFactory(event).frames).toEqual([state]);
   });
 
-  it("should be able to change color the led", () => {
-    ledColorSetup.setFieldValue("BREADBOARD", "PICTURE_TYPE");
+  it("should be able to change color the led", () => {    
     const color1 = createValueBlock(workspace, VariableTypes.COLOUR, {
       red: 200,
       blue: 0,
@@ -102,8 +99,7 @@ describe("rgb led frame", () => {
     );
 
     expect(state2.components.length).toBe(1);
-    const [component2] = state2.components as LedColorState[];
-    expect(component2.pictureType).toBe("BREADBOARD");
+    const [component2] = state2.components as LedColorState[];    
     expect(component2.color).toEqual({ red: 200, green: 200, blue: 0 });
 
     expect(state3.explanation).toBe(
@@ -111,8 +107,7 @@ describe("rgb led frame", () => {
     );
 
     expect(state3.components.length).toBe(1);
-    const [component3] = state3.components as LedColorState[];
-    expect(component3.pictureType).toBe("BREADBOARD");
+    const [component3] = state3.components as LedColorState[];    
     expect(component3.color).toEqual({ red: 200, green: 0, blue: 100 });
   });
 });

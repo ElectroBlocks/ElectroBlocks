@@ -35,11 +35,11 @@ export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
 ) => {
   //todo consider labeling pin in picture
 
-  rgbLedEl.data("picture-type", state.pictureType);
+  rgbLedEl.data("picture-type", "BUILT_IN");
 
-  rgbLedEl.findOne("#PIN_RED_TEXT").node.innerHTML = state.redPin;
-  rgbLedEl.findOne("#PIN_BLUE_TEXT").node.innerHTML = state.bluePin;
-  rgbLedEl.findOne("#PIN_GREEN_TEXT").node.innerHTML = state.greenPin;
+  rgbLedEl.findOne("#PIN_RED").node.innerHTML = state.redPin;
+  rgbLedEl.findOne("#PIN_BLUE").node.innerHTML = state.bluePin;
+  rgbLedEl.findOne("#PIN_GREEN").node.innerHTML = state.greenPin;
 };
 
 export const positionRgbLed: PositionComponent<LedColorState> = (
@@ -59,12 +59,12 @@ export const updateRgbLed: SyncComponent = (state: LedColorState, rgbLedEl) => {
   if (color.toUpperCase() === "#000000") {
     color = "#FFFFFF";
   }
-  (rgbLedEl.findOne("#COLOR_LED") as Element).fill(color);
+  (rgbLedEl.findOne("#COLOR_LED_RED") as Element).fill(color);
 };
 
 export const resetRgbLed: ResetComponent = (rgbLedEl) => {
   if (rgbLedEl.data("picture-type") === "BUILT_IN") {
-    (rgbLedEl.findOne("#COLOR_LED circle") as Element).fill("#FFF");
+    (rgbLedEl.findOne("COLOR_LED_RED") as Element).fill("#FFF");
     return;
   }
 
@@ -81,58 +81,6 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
   area
 ) => {
   const { holes, isDown } = area;
-
-  if (state.pictureType == "BREADBOARD") {
-    createResistorRequiredWire(
-      board.pinConnections[state.redPin].color,
-      state.redPin,
-      holes[0],
-      "PIN_RED",
-      arduino as Svg,
-      draw,
-      rgbLedEl,
-      id,
-      board
-    );
-
-    createResistorRequiredWire(
-      board.pinConnections[state.greenPin].color,
-      state.greenPin,
-      holes[2],
-      "PIN_GREEN",
-      arduino as Svg,
-      draw,
-      rgbLedEl,
-      id,
-      board
-    );
-
-    createResistorRequiredWire(
-      board.pinConnections[state.bluePin].color,
-      state.bluePin,
-      holes[3],
-      "PIN_BLUE",
-      arduino as Svg,
-      draw,
-      rgbLedEl,
-      id,
-      board
-    );
-
-    createGroundWireForBreadboard(
-      holes[1],
-      "PIN_GND",
-      arduino as Svg,
-      draw,
-      rgbLedEl,
-      id
-    );
-    createResistor(arduino, draw, holes[0], true, id, "vertical", 1000);
-    createResistor(arduino, draw, holes[2], true, id, "vertical", 1000);
-    createResistor(arduino, draw, holes[3], true, id, "vertical", 1000);
-
-    return;
-  }
 
   createComponentWire(
     holes[0],
