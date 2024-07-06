@@ -70,7 +70,7 @@ Blockly.defineBlocksWithJsonArray([
       },
       {
         type: "field_dropdown",
-        name: "EN1",
+        name: "PIN_1",
         options: [
           ["3", "3"],
           ["5", "5"],
@@ -86,7 +86,7 @@ Blockly.defineBlocksWithJsonArray([
       // },
       {
         type: "field_dropdown",
-        name: "EN2",
+        name: "PIN_2",
         options: [
           ["3", "3"],
           ["5", "5"],

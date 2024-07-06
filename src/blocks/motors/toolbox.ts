@@ -22,12 +22,12 @@ Right now, motor move only works with Adafruit motor shield version 1.  We will 
         <field name="NUM">1</field>
       </block>
     </value>
-    <value name="EN1">
+    <value name="PIN_1">
       <block type="math_number">
         <field name="NUM">3</field>
       </block>
     </value>
-    <value name="EN2">
+    <value name="PIN_2">
       <block type="math_number">
         <field name="NUM">3</field>
       </block>
