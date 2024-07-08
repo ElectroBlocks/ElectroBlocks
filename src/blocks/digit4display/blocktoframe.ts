@@ -21,6 +21,7 @@ export const digit4DisplaySetup: BlockToFrameTransformer = (
     pins: block.pins.sort(),
     dioPin: findFieldValue(block, "DIO_PIN"),
     clkPin: findFieldValue(block, "CLK_PIN"),
+    componentType: findFieldValue(block, "COMPONENT_TYPE"),
     chars: "",
     colonOn: false,
   };

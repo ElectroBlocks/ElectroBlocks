@@ -4,6 +4,7 @@ import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 export interface DigitilDisplayState extends ArduinoComponentState {
   dioPin: ARDUINO_PINS;
   clkPin: ARDUINO_PINS;
+  componentType: "SINGLE" | "MULTIPLE";
   chars: string;
   colonOn: boolean;
 }
