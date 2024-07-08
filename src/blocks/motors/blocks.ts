@@ -47,7 +47,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "setup_motor",
-    message0: "%1 Setup Motor %2 Which Motor %3 EN1 %4 EN2 ",
+    message0: "%1 Setup Motor %2 Which Motor %3 PIN 1 %4 PIN 2 %5 EN 1",
     args0: [
       {
         type: "field_image",
@@ -72,12 +72,19 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_dropdown",
         name: "PIN_1",
         options: [
+          ["1", "1"],
+          ["2", "2"],
           ["3", "3"],
+          ["4", "4"],
           ["5", "5"],
           ["6", "6"],
+          ["7", "7"],
+          ["8", "8"],
           ["9", "9"],
           ["10", "10"],
           ["11", "11"],
+          ["12", "12"],
+          ["13", "13"]
         ],
       },
       // {
@@ -88,6 +95,30 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_dropdown",
         name: "PIN_2",
         options: [
+          ["1", "1"],
+          ["2", "2"],
+          ["3", "3"],
+          ["4", "4"],
+          ["5", "5"],
+          ["6", "6"],
+          ["7", "7"],
+          ["8", "8"],
+          ["9", "9"],
+          ["10", "10"],
+          ["11", "11"],
+          ["12", "12"],
+          ["13", "13"]
+        ],
+      },
+      // {
+      //   type: "input_dummy",
+      //   align: "RIGHT",
+      // },
+
+      {
+        type: "field_dropdown",
+        name: "EN_1",
+        options: [
           ["3", "3"],
           ["5", "5"],
           ["6", "6"],
@@ -96,10 +127,6 @@ Blockly.defineBlocksWithJsonArray([
           ["11", "11"],
         ],
       },
-      // {
-      //   type: "input_dummy",
-      //   align: "RIGHT",
-      // },
       
     ],
     inputsInline: false,
@@ -111,43 +138,84 @@ Blockly.defineBlocksWithJsonArray([
   },
 ]);
 
-// Blockly.Blocks["motor_setup"] = {
-//   init: function () {
-//     this.appendDummyInput()
-//       .appendField(new Blockly.FieldImage("./blocks/motor/motor.png", 15, 15))
-//       .appendField("Setup Motor");
-//     this.appendDummyInput()
-//       .appendField("Library")
-//       .appendField(
-//         new Blockly.FieldDropdown([
-//           ["L298N", "L298N"],
-//         ]),
-//         "LIBRARY"
-//       );
-//     this.appendDummyInput()
-//       .appendField("EN1")
-//       .appendField(
-//         new Blockly.FieldDropdown(() => selectBoardBlockly().pwmPins),
-//         "EN1"
-//       )
-//       .appendField("EN2")
-//       .appendField(
-//         new Blockly.FieldDropdown(() => selectBoardBlockly().pwmPins),
-//         "EN2"
-//       );
-//     this.appendDummyInput()
-//       .appendField("Motor Pin 1")
-//       .appendField(
-//         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
-//         "PIN_1"
-//       )
-//       .appendField("Motor Pin 2")
-//       .appendField(
-//         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
-//         "PIN_2"
-//       );
-//     this.setColour(COLOR_THEME.COMPONENTS);
-//     this.setTooltip("");
-//     this.setHelpUrl("");
-//   },
-// };
+Blockly.Blocks["setup_motor"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(new Blockly.FieldImage("./blocks/motor/motor.png", 15, 15))
+      .appendField("Setup Motor");
+    this.appendDummyInput()
+      .appendField("Library")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["L298N", "L298N"],
+          ["L298NX2", "L298NX2"],
+        ]),
+        "LIBRARY"
+      );
+      this.appendDummyInput()
+      .appendField("Which Motor")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["1", "1"],
+          ["2", "2"],
+        ]),
+        "Which Motor"
+      );
+
+    this.appendDummyInput()
+      .appendField("EN1")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["3", "3"],
+          ["5", "5"],
+          ["6", "6"],
+          ["9", "9"],
+          ["10", "10"],
+          ["11", "11"],
+        ]),
+        "EN1"
+      );
+    this.appendDummyInput()
+      .appendField("Pin 1")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["1", "1"],
+          ["2", "2"],
+          ["3", "3"],
+          ["4", "4"],
+          ["5", "5"],
+          ["6", "6"],
+          ["7", "7"],
+          ["8", "8"],
+          ["9", "9"],
+          ["10", "10"],
+          ["11", "11"],
+          ["12", "12"],
+          ["13", "13"]
+        ]),
+        "PIN_1"
+      )
+      .appendField("Pin 2")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["1", "1"],
+          ["2", "2"],
+          ["3", "3"],
+          ["4", "4"],
+          ["5", "5"],
+          ["6", "6"],
+          ["7", "7"],
+          ["8", "8"],
+          ["9", "9"],
+          ["10", "10"],
+          ["11", "11"],
+          ["12", "12"],
+          ["13", "13"]
+        ]),
+        "PIN_2"
+      );
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+};

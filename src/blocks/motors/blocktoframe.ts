@@ -35,6 +35,11 @@ export const MotorSetup: BlockToFrameTransformer = (
     13,
     parseInt(getInputValue(blocks, block, variables, timeline, "PIN_2", 3, previousState))
   ); 
+  const EN1 = getDefaultIndexValue(
+    2,
+    13,
+    parseInt(getInputValue(blocks, block, variables, timeline, "EN_1", 3, previousState))
+  ); 
 
   const motorState = getMotorState(
     previousState,
@@ -42,6 +47,7 @@ export const MotorSetup: BlockToFrameTransformer = (
     0, // Assuming initial speed is 0
     findFieldValue(block, "PIN_1"),
     findFieldValue(block, "PIN_2"),
+    findFieldValue(block, "EN_1"),
     null // Assuming no direction is set during setup
   );
 
@@ -51,7 +57,7 @@ export const MotorSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       motorState,
-      `Motor ${motorState.motorNumber} setup with pins ${motorState.PIN_1} and ${motorState.PIN_2}.`,
+      `Motor ${motorState.motorNumber} setup with pins ${motorState.PIN_1} and ${motorState.PIN_2} and ${motorState.EN_1}.`,
       previousState
     ),
   ];
@@ -77,6 +83,7 @@ export const moveMotor: BlockToFrameTransformer = (
     speed,
     null, // Assuming pin values are not needed here
     null, // Assuming pin values are not needed here
+    null,
     direction
   );
 
@@ -99,6 +106,7 @@ const getMotorState = (
   speed: number,
   PIN_1: number,
   PIN_2: number,
+  EN_1: number,
   direction: MOTOR_DIRECTION
 ): MotorState => {
   if (!frame) {
@@ -109,6 +117,7 @@ const getMotorState = (
       speed,
       PIN_1,
       PIN_2,
+      EN_1,
       motorNumber,
     };
   }
@@ -123,11 +132,12 @@ const getMotorState = (
       speed,
       PIN_1,
       PIN_2,
+      EN_1,
       motorNumber,
     };
   }
 
-  return { ...motorState, direction, speed, motorNumber, PIN_1, PIN_2};
+  return { ...motorState, direction, speed, motorNumber, PIN_1, PIN_2, EN_1};
 };
 
 const findComponent = (frame: ArduinoFrame, motorNumber: string) => {
