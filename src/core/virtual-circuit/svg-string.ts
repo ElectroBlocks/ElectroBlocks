@@ -28,9 +28,9 @@ import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
 import { getDigitalSensorSvg } from "../../blocks/digitalsensor/svg-string";
 import { getAnalogSensorSvg } from "../../blocks/analogsensor/svg-string";
 import stepperMotorSvg from "../../blocks/steppermotor/steppermotor.svg?raw";
-import digitalDisplaySvg from "../../blocks/digit4display/digitdisplay.svg?raw";
 import joyStickSvg from "../../blocks/joystick/joystick.svg?raw";
 import { FastLEDState } from "../../blocks/fastled/state";
+import { getDigitalDisplaySvg } from "../../blocks/digit4display/svg-string";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
@@ -75,6 +75,6 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.THERMISTOR]: (_) => thermistorSvgString,
   [ArduinoComponentType.PASSIVE_BUZZER]: (_) => passiveBuzzerSvgString,
   [ArduinoComponentType.STEPPER_MOTOR]: (_) => stepperMotorSvg,
-  [ArduinoComponentType.DIGITAL_DISPLAY]: (_) => digitalDisplaySvg,
+  [ArduinoComponentType.DIGITAL_DISPLAY]: getDigitalDisplaySvg,
   [ArduinoComponentType.JOYSTICK]: (_) => joyStickSvg,
 };
