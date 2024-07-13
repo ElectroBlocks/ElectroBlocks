@@ -5,9 +5,9 @@
    version="1.2"
    x="0in"
    y="0in"
-   width="120"
-   height="100"
-   viewBox="0 0 89.999762 74.999749"
+   width="250"
+   height="200"
+   viewBox="0 0 187.4995 149.9995"
    id="svg908"
    sodipodi:docname="digitaldisplay_single_v2.svg"
    inkscape:version="1.3.2 (091e20e, 2023-11-25)"
@@ -25,12 +25,12 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="in"
-     inkscape:zoom="11.274877"
-     inkscape:cx="28.913841"
-     inkscape:cy="78.936559"
+     inkscape:zoom="3.986271"
+     inkscape:cx="127.4374"
+     inkscape:cy="74.505722"
      inkscape:window-width="1728"
      inkscape:window-height="973"
-     inkscape:window-x="1"
+     inkscape:window-x="0"
      inkscape:window-y="38"
      inkscape:window-maximized="0"
      inkscape:current-layer="g884"
@@ -50,7 +50,7 @@
       <g
          id="breadboard"
          style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1"
-         transform="translate(6.9665385,16.744923)">
+         transform="translate(2.0747633,88.428244)">
         <rect
            fill="#ffffff"
            height="49.355"
@@ -128,32 +128,32 @@
            id="polyline870"
            style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <polygon
-           points="29.979,7.354 27.838,10.561 13.939,10.561 11.803,7.354 12.871,6.286 28.909,6.286 "
+           points="13.939,10.561 11.803,7.354 12.871,6.286 28.909,6.286 29.979,7.354 27.838,10.561 "
            fill="#ef1818"
            id="polygon870"
            style="display:none;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <polygon
-           points="29.979,22.324 27.838,24.46 25.702,22.324 27.838,11.629 31.047,8.421 32.116,10.561 "
+           points="25.702,22.324 27.838,11.629 31.047,8.421 32.116,10.561 29.979,22.324 27.838,24.46 "
            fill="#d1c7c7"
            id="polygon871"
            style="display:none;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <polygon
-           points="26.771,39.43 24.632,41.568 22.494,39.43 24.632,28.738 27.838,25.53 28.909,27.667 "
+           points="22.494,39.43 24.632,28.738 27.838,25.53 28.909,27.667 26.771,39.43 24.632,41.568 "
            fill="#d1c7c7"
            id="polygon872"
            style="display:none;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <polygon
-           points="5.386,42.634 7.525,39.43 21.426,39.43 23.563,42.637 22.494,43.705 6.455,43.705 "
+           points="21.426,39.43 23.563,42.637 22.494,43.705 6.455,43.705 5.386,42.634 7.525,39.43 "
            fill="#d1c7c7"
            id="polygon873"
            style="display:none;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <polygon
-           points="4.315,41.568 3.248,39.43 5.386,27.667 7.525,25.53 9.662,27.667 7.525,38.359 "
+           points="5.386,27.667 7.525,25.53 9.662,27.667 7.525,38.359 4.315,41.568 3.248,39.43 "
            fill="#ef1818"
            id="polygon874"
            style="display:none;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <polygon
-           points="12.871,10.561 10.732,21.255 7.525,24.46 6.455,22.324 8.594,10.561 10.732,8.421 "
+           points="7.525,24.46 6.455,22.324 8.594,10.561 10.732,8.421 12.871,10.561 10.732,21.255 "
            fill="#ef1818"
            id="polygon875"
            style="display:none;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
@@ -174,15 +174,16 @@
            height="1.8"
            y="2.418"
            width="1.8"
-           x="31.216"
+           x="31.287416"
            id="rect875"
-           style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
+           style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1"
+           inkscape:label="TOP_RIGHT" />
         <rect
            fill="#8c8c8c"
            height="1.8"
            y="2.4170001"
            width="1.799"
-           x="24.018"
+           x="24.087439"
            id="rect876"
            style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <rect
@@ -198,7 +199,7 @@
            height="1.8"
            y="2.4170001"
            width="1.799"
-           x="9.6169996"
+           x="9.6874809"
            id="rect878"
            style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <rect
@@ -206,7 +207,7 @@
            height="1.8"
            y="2.4170001"
            width="1.799"
-           x="2.4170001"
+           x="2.4875028"
            id="rect879"
            style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <rect
@@ -214,7 +215,7 @@
            height="1.8"
            y="45.617001"
            width="1.799"
-           x="31.216999"
+           x="31.287416"
            id="rect880"
            style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <rect
@@ -222,7 +223,7 @@
            height="1.8"
            y="45.617001"
            width="1.799"
-           x="24.018"
+           x="24.087439"
            id="rect881"
            style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <rect
@@ -239,7 +240,7 @@
            height="1.8"
            y="45.617001"
            width="1.799"
-           x="9.618"
+           x="9.6874809"
            id="rect883"
            style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <rect
@@ -247,7 +248,7 @@
            height="1.8"
            y="45.617001"
            width="1.799"
-           x="2.418"
+           x="2.4875028"
            id="rect884"
            style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <path
@@ -280,33 +281,67 @@
              y="41.629684">h</tspan></text>
       </g>
       <rect
-         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.29294;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#550000;fill-opacity:1;stroke:#00aa00;stroke-width:2.59199222;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
          id="rect1"
-         width="1.5870485"
-         height="14.850358"
-         x="38.663052"
-         y="-2.3207684" />
+         width="1.795303"
+         height="53.421864"
+         x="33.128704"
+         y="31.104414"
+         inkscape:label="TOP_WIRE_1" />
       <rect
-         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.29294;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#000080;fill-opacity:1;stroke:#00aa00;stroke-width:2.59199;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1-4"
+         width="1.795303"
+         height="53.421864"
+         x="-32.774479"
+         y="33.370018"
+         inkscape:label="TOP_WIRE_CONNECT_1"
+         transform="rotate(-90)" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#0000aa;stroke-width:2.71782;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
          id="rect1-5"
-         width="1.5870485"
-         height="14.850358"
-         x="31.463076"
-         y="-2.3207684" />
+         width="1.6856847"
+         height="61.778782"
+         x="26.141098"
+         y="22.692688" />
       <rect
-         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.29294;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#000000;fill-opacity:1;stroke:#0000aa;stroke-width:2.9723;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1-5-8"
+         width="1.4312074"
+         height="87.027428"
+         x="-24.028549"
+         y="26.735744"
+         transform="rotate(-90)" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#aa00aa;stroke-width:2.81901;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
          id="rect1-5-1"
-         width="1.5870485"
-         height="14.850358"
-         x="17.063118"
-         y="-2.3207684" />
+         width="1.5845026"
+         height="70.708572"
+         x="11.778169"
+         y="13.712308" />
       <rect
-         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.29294;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:#000000;fill-opacity:1;stroke:#aa00aa;stroke-width:3.25802;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1-5-1-9"
+         width="1.1454903"
+         height="130.64369"
+         x="-14.676913"
+         y="12.061628"
+         transform="rotate(-90)" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#00aaaa;stroke-width:2.90042;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
          id="rect1-5-1-2"
-         width="1.5870485"
-         height="14.850358"
-         x="9.8631401"
-         y="-2.3207684" />
+         width="1.503093"
+         height="78.905548"
+         x="4.7628946"
+         y="5.4746242" />
+      <rect
+         style="fill:#000000;fill-opacity:1;stroke:#00aaaa;stroke-width:3.38503;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         id="rect1-5-1-2-0"
+         width="1.0184832"
+         height="158.61449"
+         x="5.1568069"
+         y="-163.62108"
+         transform="rotate(90)" />
     </g>
   </g>
 </svg>

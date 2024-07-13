@@ -45,8 +45,8 @@ export const digitalDisplayPosition: PositionComponent<DigitilDisplayState> = (
       isDown,
       "PIN_GND"
     );
-    digitalDisplayEl.x(+digitalDisplayEl.x() + 2);
-    digitalDisplayEl.y(40);
+    digitalDisplayEl.x(+digitalDisplayEl.x());
+    digitalDisplayEl.y(-40);
     return;
   }
   positionComponent(
