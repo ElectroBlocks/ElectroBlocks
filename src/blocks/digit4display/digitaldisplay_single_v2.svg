@@ -9,7 +9,7 @@
    height="80"
    viewBox="0 0 44.999881 59.999799"
    id="svg908"
-   sodipodi:docname="digitaldisplay_single_test.svg"
+   sodipodi:docname="digitaldisplay_single_v2.svg"
    inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -25,9 +25,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="in"
-     inkscape:zoom="11.274877"
-     inkscape:cx="21.286263"
-     inkscape:cy="49.667947"
+     inkscape:zoom="31.890168"
+     inkscape:cx="33.207727"
+     inkscape:cy="27.688785"
      inkscape:window-width="1728"
      inkscape:window-height="973"
      inkscape:window-x="0"
@@ -255,23 +255,25 @@
            style="stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1" />
         <text
            xml:space="preserve"
-           style="font-size:10.5px;line-height:2.35;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';text-align:center;text-anchor:middle;display:inline;fill:#8c8c8c;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1"
+           style="font-size:10.5px;line-height:2.35;font-family:'DSEG7 Classic';-inkscape-font-specification:'DSEG7 Classic';text-align:center;text-anchor:middle;display:inline;fill:#8c8c8c;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
            x="182.43985"
            y="88.752419"
            id="text908"
-           transform="translate(-165.483,-47.0875)"><tspan
+           transform="translate(-165.483,-47.0875)"
+           inkscape:label="ACTUAL_TEXT"><tspan
              id="tspan908"
-             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:35.9999px;font-family:'DSEG7 Classic';-inkscape-font-specification:'DSEG7 Classic Bold';stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35.9999px;font-family:'DSEG7 Classic';-inkscape-font-specification:'DSEG7 Classic';stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1"
              x="182.43985"
              y="88.752419">8</tspan></text>
         <text
            xml:space="preserve"
-           style="font-size:10.5px;line-height:2.35;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, ';text-align:center;text-anchor:middle;display:inline;fill:#d40000;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1"
+           style="font-size:10.5px;line-height:2.35;font-family:'DSEG7 Classic';-inkscape-font-specification:'DSEG7 Classic';text-align:center;text-anchor:middle;display:inline;fill:#d40000;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
            x="16.978022"
            y="41.629684"
-           id="text908-1"><tspan
+           id="text908-1"
+           inkscape:label="BACKGROUND_TEXT"><tspan
              id="tspan908-5"
-             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:35.9999px;font-family:'DSEG7 Classic';-inkscape-font-specification:'DSEG7 Classic Bold';fill:#d40000;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35.9999px;font-family:'DSEG7 Classic';-inkscape-font-specification:'DSEG7 Classic';fill:#d40000;stroke:#000000;stroke-width:0.474749;stroke-dasharray:none;stroke-opacity:1"
              x="16.978022"
              y="41.629684">h</tspan></text>
       </g>
