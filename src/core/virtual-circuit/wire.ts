@@ -56,10 +56,33 @@ export const createWireFromArduinoToBreadBoard = (
   const hole = findBreadboardHoleXY(breadBoardHoleId, arduinoEl, draw);
   const pinConnection = board.pinConnections[pin];
   const arduinoPin = findArduinoConnectionCenter(arduinoEl, pinConnection.id);
+  createWire(
+    draw,
+    board,
+    pin,
+    componentId,
+    hole.x,
+    hole.y,
+    arduinoPin.x,
+    arduinoPin.y
+  );
+};
+
+export const createWire = (
+  draw: Svg,
+  board: MicroController,
+  pin: ARDUINO_PINS,
+  componentId: string,
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number
+) => {
+  const pinConnection = board.pinConnections[pin];
 
   const line = draw
     .line()
-    .plot(hole.x, hole.y, arduinoPin.x, arduinoPin.y)
+    .plot(x1, y1, x2, y2)
     .stroke({ width: 2, color: pinConnection.color, linecap: "round" });
 
   line.data("component-id", componentId);

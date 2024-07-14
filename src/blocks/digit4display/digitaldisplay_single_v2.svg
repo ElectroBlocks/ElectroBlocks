@@ -26,8 +26,8 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="in"
      inkscape:zoom="3.986271"
-     inkscape:cx="127.4374"
-     inkscape:cy="74.505722"
+     inkscape:cx="109.3754"
+     inkscape:cy="68.485058"
      inkscape:window-width="1728"
      inkscape:window-height="973"
      inkscape:window-x="0"
@@ -297,6 +297,14 @@
          y="33.370018"
          inkscape:label="TOP_WIRE_CONNECT_1"
          transform="rotate(-90)" />
+      <rect
+         style="fill:#000080;fill-opacity:1;stroke:#00aa00;stroke-width:2.25415;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         id="TOP_WIRE_DOWN_1"
+         width="2.1331429"
+         height="34.004459"
+         x="84.80854"
+         y="31.01515"
+         inkscape:label="TOP_WIRE_DOWN_1" />
       <rect
          style="fill:#000000;fill-opacity:1;stroke:#0000aa;stroke-width:2.71782;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
          id="rect1-5"
