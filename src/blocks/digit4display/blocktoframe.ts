@@ -24,6 +24,7 @@ export const digit4DisplaySetup: BlockToFrameTransformer = (
     componentType: findFieldValue(block, "COMPONENT_TYPE"),
     chars: "",
     colonOn: false,
+    draggable: findFieldValue(block, "COMPONENT_TYPE") == "MULTIPLE",
   };
 
   return [

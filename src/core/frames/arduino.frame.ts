@@ -57,6 +57,10 @@ export interface ArduinoComponentState {
   type: ArduinoComponentType;
 }
 
+export interface DraggableOption {
+  draggable: boolean;
+}
+
 export enum ArduinoComponentType {
   SERVO = "SERVO_COMPONENT",
   LCD_SCREEN = "LCD_SCREEN_COMPONENT",

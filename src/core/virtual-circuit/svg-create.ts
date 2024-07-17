@@ -3,6 +3,7 @@ import type { Element, Svg } from "@svgdotjs/svg.js";
 import {
   ArduinoComponentState,
   ArduinoComponentType,
+  type DraggableOption,
 } from "../frames/arduino.frame";
 import { addDraggableEvent } from "./component-events.helpers";
 import {
@@ -159,7 +160,10 @@ export default (
   const area = takeBoardArea();
 
   componentEl = createComponentEl(draw, state, getSvgString(state));
-  addDraggableEvent(componentEl, arduinoEl, draw);
+
+  if ("draggable" in state == false || state.draggable) {
+    addDraggableEvent(componentEl, arduinoEl, draw);
+  }
   (window as any)[state.type] = componentEl;
   if (area) {
     componentEl.data("holes", area.holes.join("-"));
