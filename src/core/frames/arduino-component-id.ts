@@ -9,6 +9,7 @@ import { writePinId } from '../../blocks/writepin/component-state-to-id';
 import { getDigitalSensorId } from '../../blocks/digitalsensor/component-state-to-id';
 import { getAnalogSensorId } from '../../blocks/analogsensor/component-state-to-id';
 import { getMotorStateId } from '../../blocks/motors/component-to-state-id';
+import { getDigitalDisplayId } from "../../blocks/digit4display/component-state-to-id";
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;
@@ -40,7 +41,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.THERMISTOR]: genericSingleComponentId,
   [ArduinoComponentType.PASSIVE_BUZZER]: genericSingleComponentId,
   [ArduinoComponentType.STEPPER_MOTOR]: genericSingleComponentId,
-  [ArduinoComponentType.DIGITAL_DISPLAY]: genericSingleComponentId,
+  [ArduinoComponentType.DIGITAL_DISPLAY]: getDigitalDisplayId,
   [ArduinoComponentType.JOYSTICK]: genericSingleComponentId,
   [ArduinoComponentType.TIME]: genericSingleComponentId,
 };

@@ -14,6 +14,15 @@ Blockly.Blocks["digital_display_setup"] = {
       )
       .appendField("Digital Display");
     this.appendDummyInput()
+      .appendField("Type ")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["MULTIPLE", "MULTIPLE"],
+          ["SINGLE", "SINGLE"],
+        ]),
+        "COMPONENT_TYPE"
+      );
+    this.appendDummyInput()
       .appendField("DIO Pin# ")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),

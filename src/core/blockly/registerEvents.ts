@@ -161,6 +161,7 @@ export const createFrames = async (blocklyEvent) => {
     JSON.stringify(newFrameContainer) !== JSON.stringify(currentFrameContainter)
   ) {
     currentFrameContainter = newFrameContainer;
+    console.log(currentFrameContainter, "currentFrameContainter");
     frameStore.set(currentFrameContainter);
   }
   codeStore.set({ code: getArduinoCode(), boardType: microControllerType });

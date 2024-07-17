@@ -14,12 +14,20 @@ import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import {
   createComponentWire,
   createGroundOrPowerWire,
+  createWire,
 } from "../../core/virtual-circuit/wire";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import {
+  findArduinoConnectionCenter,
+  findComponentConnection,
+} from "../../core/virtual-circuit/svg-helpers";
 
-export const digitalDisplayCreate: AfterComponentCreateHook<DigitilDisplayState> = (
-  state,
-  digitalDisplayEl
-) => {
+export const digitalDisplayCreate: AfterComponentCreateHook<
+  DigitilDisplayState
+> = (state, digitalDisplayEl) => {
+  if (state.componentType == "SINGLE") {
+    return;
+  }
   digitalDisplayEl.findOne("#DIO_PIN_TEXT").node.innerHTML = state.dioPin;
   digitalDisplayEl.findOne("#CLK_PIN_TEXT").node.innerHTML = state.clkPin;
 };
@@ -33,6 +41,20 @@ export const digitalDisplayPosition: PositionComponent<DigitilDisplayState> = (
   area
 ) => {
   const { holes, isDown } = area;
+
+  if (state.componentType == "SINGLE") {
+    positionComponent(
+      digitalDisplayEl,
+      arduino,
+      draw,
+      holes[0],
+      isDown,
+      "PIN_GND"
+    );
+    digitalDisplayEl.x(+digitalDisplayEl.x());
+    digitalDisplayEl.y(-40);
+    return;
+  }
   positionComponent(
     digitalDisplayEl,
     arduino,
@@ -63,6 +85,9 @@ export const digitalDisplayUpdate: SyncComponent = (
   state: DigitilDisplayState,
   digitalDisplayEl
 ) => {
+  if (state.componentType == "SINGLE") {
+    return;
+  }
   const char1 = state.chars[0] || "";
   const char2 = state.chars[1] || "";
   const char3 = state.chars[2] || "";
@@ -100,6 +125,27 @@ export const createWiresDigitalDisplay: CreateWire<DigitilDisplayState> = (
   board,
   area
 ) => {
+  if (state.componentType == "SINGLE") {
+    const pinConnection = board.pinConnections[ARDUINO_PINS.PIN_7];
+
+    const arduinoPin = findArduinoConnectionCenter(arduino, pinConnection.id);
+    const componentPin = findComponentConnection(
+      digitalDisplayEl,
+      "TOP_WIRE_DOWN_1"
+    );
+    console.log(componentPin, arduinoPin);
+    createWire(
+      draw,
+      board,
+      ARDUINO_PINS.PIN_7,
+      id,
+      componentPin.x + 5,
+      componentPin.y,
+      arduinoPin.x,
+      arduinoPin.y
+    );
+    return;
+  }
   const { holes, isDown } = area;
 
   createGroundOrPowerWire(
