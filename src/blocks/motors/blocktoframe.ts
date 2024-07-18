@@ -12,7 +12,8 @@ import {
 import type { MotorState } from "./state";
 import type { MOTOR_DIRECTION } from "./state";
 
-export const moveMotor: BlockToFrameTransformer = (
+
+export const MotorSetup: BlockToFrameTransformer = (
   blocks,
   block,
   variables,
@@ -21,21 +22,33 @@ export const moveMotor: BlockToFrameTransformer = (
 ) => {
   const motorNumber = getDefaultIndexValue(
     1,
-    4,
+    2,
     parseInt(getInputValue(blocks, block, variables, timeline, "MOTOR", 1, previousState))
   );
-
-  const speed = getDefaultIndexValue(
-    0,
-    4000,
-    getInputValue(blocks, block, variables, timeline, "SPEED", 1, previousState)
-  );
+  const pin1 = getDefaultIndexValue(
+    2,
+    13,
+    parseInt(getInputValue(blocks, block, variables, timeline, "PIN_1", 3, previousState))
+  ); 
+  const pin2 = getDefaultIndexValue(
+    2,
+    13,
+    parseInt(getInputValue(blocks, block, variables, timeline, "PIN_2", 3, previousState))
+  ); 
+  const EN1 = getDefaultIndexValue(
+    2,
+    13,
+    parseInt(getInputValue(blocks, block, variables, timeline, "EN_1", 3, previousState))
+  ); 
 
   const motorState = getMotorState(
     previousState,
-    findFieldValue(block,"MOTOR"),
-    speed,
-    findFieldValue(block, "DIRECTION")
+    findFieldValue(block, "MOTOR"),
+    0, // Assuming initial speed is 0
+    findFieldValue(block, "PIN_1"),
+    findFieldValue(block, "PIN_2"),
+    findFieldValue(block, "EN_1"),
+    null // Assuming no direction is set during setup
   );
 
   return [
@@ -44,20 +57,56 @@ export const moveMotor: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       motorState,
-      `Motor ${
-        motorState.motorNumber
-      } moves ${motorState.direction.toLowerCase()} at speed ${
-        motorState.speed
-      }.`,
+      `Motor ${motorState.motorNumber} setup with pins ${motorState.PIN_1} and ${motorState.PIN_2} and ${motorState.EN_1}.`,
+      previousState
+    ),
+  ];
+};
+export const moveMotor: BlockToFrameTransformer = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const speed = getDefaultIndexValue(
+    0,
+    4000,
+    getInputValue(blocks, block, variables, timeline, "SPEED", 1, previousState)
+  );
+
+  const direction = findFieldValue(block, "DIRECTION");
+
+  const motorState = getMotorState(
+    previousState,
+    findFieldValue(block, "MOTOR"),
+    speed,
+    null, // Assuming pin values are not needed here
+    null, // Assuming pin values are not needed here
+    null,
+    direction
+  );
+
+  return [
+    arduinoFrameByComponent(
+      block.id,
+      block.blockName,
+      timeline,
+      motorState,
+      `Motor ${motorState.motorNumber} moves ${motorState.direction.toLowerCase()} at speed ${motorState.speed}.`,
       previousState
     ),
   ];
 };
 
+
 const getMotorState = (
   frame: ArduinoFrame,
   motorNumber: string,
   speed: number,
+  PIN_1: number,
+  PIN_2: number,
+  EN_1: number,
   direction: MOTOR_DIRECTION
 ): MotorState => {
   if (!frame) {
@@ -66,6 +115,9 @@ const getMotorState = (
       type: ArduinoComponentType.MOTOR,
       direction,
       speed,
+      PIN_1,
+      PIN_2,
+      EN_1,
       motorNumber,
     };
   }
@@ -78,11 +130,14 @@ const getMotorState = (
       type: ArduinoComponentType.MOTOR,
       direction,
       speed,
+      PIN_1,
+      PIN_2,
+      EN_1,
       motorNumber,
     };
   }
 
-  return { ...motorState, direction, speed, motorNumber };
+  return { ...motorState, direction, speed, motorNumber, PIN_1, PIN_2, EN_1};
 };
 
 const findComponent = (frame: ArduinoFrame, motorNumber: string) => {

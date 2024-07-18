@@ -22,9 +22,14 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   let getNewTempReading = "";
   let setJoyStickValues = "";
   let setSerialMessageDEV = "";
+  let resetMotorSetup= "";
 
   if (!_.isEmpty(Blockly["Arduino"].setupCode_["bluetooth_setup"])) {
     resetBluetoothVariable = '\tbluetoothMessageDEV = ""; \n';
+  }
+
+  if (!_.isEmpty(Blockly["Arduino"].setupCode_["motor_setup"])) {
+    resetMotorSetup = '\tmotorSetup = ""; \n';
   }
 
   if (!_.isEmpty(Blockly["Arduino"].setupCode_["joystick"])) {

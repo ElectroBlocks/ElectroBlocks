@@ -14,6 +14,7 @@ import {
   lcdClear,
   lcdBacklight,
 } from "../../../blocks/lcd_screen/blocktoframe";
+
 import type { VariableData } from "../../blockly/dto/variable.type";
 import {
   createListNumberState,
@@ -72,7 +73,9 @@ import {
   messageSetup,
 } from "../../../blocks/message/blocktoframe";
 import { ultraSonicSensor } from "../../../blocks/ultrasonic_sensor/blocktoframe";
-import { moveMotor } from "../../../blocks/motors/blocktoframe";
+import { moveMotor,
+  MotorSetup
+ } from "../../../blocks/motors/blocktoframe";
 import { setVariable } from "../../../blocks/variables/blocktoframe";
 import { rfidSetup } from "../../../blocks/rfid/blocktoframe";
 import { servoRotate } from "../../../blocks/servo/blocktoframe";
@@ -160,7 +163,7 @@ const blockToFrameTransformerList: {
 
   rotate_servo: servoRotate,
   move_motor: moveMotor,
-
+  setup_motor: MotorSetup,
   thermistor_setup: thermistorSetup,
 
   passive_buzzer_note: passiveBuzzer,

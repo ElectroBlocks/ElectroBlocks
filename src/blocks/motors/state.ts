@@ -5,6 +5,9 @@ export interface MotorState extends ArduinoComponentState {
   motorNumber: string;
   speed: number;
   direction: MOTOR_DIRECTION;
+  PIN_1: number;
+  PIN_2: number;
+  EN_1: number;
 }
 
 export enum MOTOR_DIRECTION {

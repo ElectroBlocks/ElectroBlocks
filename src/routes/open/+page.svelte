@@ -2,8 +2,8 @@
   import { Table, Button, FormGroup, Input, Label } from '@sveltestrap/sveltestrap';
 
   import { onMount, onDestroy } from 'svelte';
-  import { goto } from '$app/navigation';;
-
+  import { goto } from '$app/navigation';
+  import { projects } from '../project/projects';
   import Login from '../../components/auth/Login.svelte';
   import { loadProject } from '../../core/blockly/helpers/workspace.helper';
   import authStore from '../../stores/auth.store';
@@ -24,6 +24,22 @@
   let searchList: [Project, string][] = [];
   let searchTerm = '';
   $: filterSearch(searchTerm);
+
+  async function loadDemo(url: string) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Failed to fetch the demo project.');
+      }
+      const xmlContent = await response.text();
+      
+      projectStore.set({ project: null, projectId: null });
+      loadProject(xmlContent);
+      await goto("/");
+    } catch (e) {
+      onErrorMessage('Error loading the demo project. Please try again.', e);
+    }
+  }
 
   function filterSearch(term: string) {
     if (term === '') {
@@ -109,11 +125,11 @@
       await deleteProject(projectId, $authStore.uid);
       await updateProjectList();
     } catch (e) {
-      onErrorMessage('Please try agian in 5 minutes.', e);
+      onErrorMessage('Please try again in 5 minutes.', e);
     }
   }
 
-  async function openProject(projectId) {
+  async function openProject(projectId: string) {
     const project = await getProject(projectId);
     const file = await getFile(projectId, $authStore.uid);
     loadProject(file);
@@ -178,7 +194,18 @@
     <p>Login to see your saved projects.</p>
     <Login />
   {/if}
+  
+  <h2>Starter Projects</h2>
+  <div class="projects-container">
+    {#each projects as project}
+      <div class="project-item" on:click={() => loadDemo(project.demoUrl)}>
+        <img src={project.imageUrl} alt={project.name} />
+        <p>{project.name}</p>
+      </div>
+    {/each}
+  </div>
 </main>
+
 <svelte:head>
   <title>ElectroBlocks - Open Projects</title>
 </svelte:head>
@@ -200,3 +227,4 @@
     width: 100%;
   }
 </style>
+
