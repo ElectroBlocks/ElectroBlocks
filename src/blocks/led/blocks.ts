@@ -20,6 +20,14 @@ Blockly.Blocks["led"] = {
           ["off", "OFF"],
         ]),
         "STATE"
+      )
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["red", "red"],
+          ["green", "green"],
+          ["blue", "blue"],
+        ]),
+        "COLOR"
       );
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
