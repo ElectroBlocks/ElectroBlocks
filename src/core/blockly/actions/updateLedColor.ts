@@ -9,13 +9,15 @@ export const updateLedBlockColorField = (
 
   const block = blocks.find((block) => block.id === blockId);
 
-  if (block.blockName != "led") {
+  if (block.blockName != "led" && block.blockName != "led_fade") {
     return [];
   }
 
   const ledBlocks = blocks.filter(
     (b) =>
-      b.blockName == "led" && b.pins.includes(block.pins[0]) && b.id != blockId
+      (b.blockName == "led" || b.blockName == "led_fade") &&
+      b.pins.includes(block.pins[0]) &&
+      b.id != blockId
   );
 
   return ledBlocks.map((b) => {
