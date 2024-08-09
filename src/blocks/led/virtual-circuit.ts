@@ -25,9 +25,9 @@ export const ledColors = [
   "green",
   "blue",
   "yellow",
-  "orange",
   "white",
   "purple",
+  "orange",
 ];
 export const lightColorsShades: { [key: string]: string } = {
   red: "#ff8080",
@@ -47,27 +47,7 @@ export const ledCreate: AfterComponentCreateHook<LedState> = (
   board,
   settings
 ) => {
-  let ledColor = "red";
-
-  if (settings.customLedColor) {
-    ledColor =
-      ledColors.indexOf(settings.ledColor) > -1 ? settings.ledColor : "red";
-  }
-  let ledLightColor = lightColorsShades[ledColor];
-
-  ledEl.on("dblclick", (e) => {
-    const event = new CustomEvent("led-color-show", {
-      detail: { componentEl: ledEl, pin: state.pin },
-    });
-    document.dispatchEvent(event);
-  });
-  ledEl.data("pin-number", state.pin);
-
-  ledEl.data("color", ledColor);
-  const mainColor = ledEl.findOne("#MAIN_COLOR") as Element;
-  mainColor.fill(ledColor);
-  const secondColorEl = ledEl.findOne("#SECOND_COLOR") as Element;
-  secondColorEl.fill(ledLightColor);
+  changeLedColor(state, ledEl);
   const pinText = ledEl.findOne("#PIN_NUMBER") as Text;
   pinText.node.innerHTML = state.pin;
 
@@ -104,6 +84,7 @@ export const updateLed: SyncComponent = (state: LedState, ledEl, draw) => {
     ).toString();
   }
   ledText.cx(23);
+  changeLedColor(state, ledEl);
 };
 
 export const resetLed: ResetComponent = (componentEl: Element) => {
@@ -154,4 +135,27 @@ export const createWiresLed: CreateWire<LedState> = (
     id,
     board
   );
+};
+
+const changeLedColor = (state: LedState, ledEl: Element) => {
+  const hexColor = state.color;
+  const mapColor = {
+    "#ff0000": "red",
+    "#008000": "green",
+    "#0000ff": "blue",
+    "#ffff00": "yellow",
+    "#ffffff": "white",
+    "#800080": "purple",
+    "#ffa500": "orange",
+  };
+  let ledColor = mapColor[hexColor];
+  let ledLightColor = lightColorsShades[ledColor];
+
+  ledEl.data("pin-number", state.pin);
+
+  ledEl.data("color", ledColor);
+  const mainColor = ledEl.findOne("#MAIN_COLOR") as Element;
+  mainColor.fill(ledColor);
+  const secondColorEl = ledEl.findOne("#SECOND_COLOR") as Element;
+  secondColorEl.fill(ledLightColor);
 };

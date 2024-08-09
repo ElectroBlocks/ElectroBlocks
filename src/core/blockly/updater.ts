@@ -9,6 +9,7 @@ import {
   ActionType,
   Action,
   UpdateLCDScreenPrintBlock,
+  UpdateLedColor,
 } from "./actions/actions";
 import { deleteVariable } from "./helpers/variable.helper";
 import { getBlockById } from "./helpers/block.helper";
@@ -93,6 +94,12 @@ const updateLcdScreenPrintBlock = (action: UpdateLCDScreenPrintBlock) => {
   block.render();
 };
 
+const updateLedColor = (action: UpdateLedColor) => {
+  const block = getBlockById(action.blockId);
+  block.setFieldValue(action.color, "COLOR");
+  block.render();
+};
+
 const updaterList: { [key: string]: Updater } = {
   [ActionType.DELETE_VARIABLE]: updateVariable,
   [ActionType.DISABLE_BLOCK]: updateDisableBlock,
@@ -103,6 +110,7 @@ const updaterList: { [key: string]: Updater } = {
     updateSetupSensorBlockLoopField,
   [ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA]: updateSensorBlockData,
   [ActionType.LCD_SIMPLE_PRINT_CHANGE]: updateLcdScreenPrintBlock,
+  [ActionType.UPDATE_LED_COLOR]: updateLedColor,
 };
 
 export const updater = (action: Action) => {
