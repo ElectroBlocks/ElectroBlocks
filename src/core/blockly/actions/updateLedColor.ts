@@ -5,10 +5,16 @@ import { ActionType, UpdateLedColor } from "./actions";
 export const updateLedBlockColorField = (
   event: BlockEvent
 ): UpdateLedColor[] => {
-  const { blocks, newValue, fieldName, blockId } = event;
+  const { blocks, blockId } = event;
 
   const block = blocks.find((block) => block.id === blockId);
 
+  // If the block is not found it means it was deleted.
+  if (!block) {
+    return [];
+  }
+
+  // This means that the block is not a led or led fade and we can ignore.
   if (block.blockName != "led" && block.blockName != "led_fade") {
     return [];
   }
