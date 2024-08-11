@@ -32,7 +32,7 @@ import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlo
 import type { Settings } from "../../firebase/model";
 import settingStore from "../../stores/settings.store";
 import UpdateLCDScreenPrintBlock from "./actions/updateLcdScreenPrintBlock";
-import { updateLedBlockColorField } from "./actions/updateLedColor";
+import updateLedBlockColorField from "./actions/updateLedBlockColorField";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
