@@ -15,7 +15,7 @@ import {
   ArduinoFrame,
   ArduinoComponentType,
 } from "../../core/frames/arduino.frame";
-import type { MotorState } from "./state";
+import type { MotorShieldState } from "./state";
 
 describe("test servos factories", () => {
   let workspace: Workspace;
@@ -46,15 +46,17 @@ describe("test servos factories", () => {
     const [state1, state2, state3, state4] = eventToFrameFactory(event).frames;
 
     expect(state1.explanation).toBe("Motor 1 moves clockwise at speed 50.");
-    expect(state2.explanation).toBe("Motor 2 moves anticlockwise at speed 150.");
+    expect(state2.explanation).toBe(
+      "Motor 2 moves anticlockwise at speed 150."
+    );
     expect(state3.explanation).toBe("Motor 1 moves anticlockwise at speed 32.");
     expect(state4.explanation).toBe("Motor 2 moves clockwise at speed 43.");
 
     const motor1 = state1.components.find(
       (c) =>
         c.type === ArduinoComponentType.MOTOR &&
-        parseInt((c as MotorState).motorNumber) === 1
-    ) as MotorState;
+        parseInt((c as MotorShieldState).motorNumber) === 1
+    ) as MotorShieldState;
     expect(motor1.direction).toBe("CLOCKWISE");
     expect(motor1.speed).toBe(50);
     expect(parseInt(motor1.motorNumber)).toBe(1);
@@ -74,12 +76,11 @@ describe("test servos factories", () => {
       VariableTypes.NUMBER,
       speed
     );
-    
+
     const motorBlock = workspace.newBlock("move_motor") as BlockSvg;
 
     motorBlock.setFieldValue(direction, "DIRECTION");
-    motorBlock
-      .setFieldValue(motorNumber.toString(), "MOTOR");
+    motorBlock.setFieldValue(motorNumber.toString(), "MOTOR");
     motorBlock
       .getInput("SPEED")
       .connection.connect(numberBlock.outputConnection);
@@ -97,14 +98,14 @@ describe("test servos factories", () => {
     const motor1 = state.components.find(
       (c) =>
         c.type === ArduinoComponentType.MOTOR &&
-        parseInt((c as MotorState).motorNumber) === 1
-    ) as MotorState;
+        parseInt((c as MotorShieldState).motorNumber) === 1
+    ) as MotorShieldState;
 
     const motor2 = state.components.find(
       (c) =>
         c.type === ArduinoComponentType.MOTOR &&
-        parseInt((c as MotorState).motorNumber) === 2
-    ) as MotorState;
+        parseInt((c as MotorShieldState).motorNumber) === 2
+    ) as MotorShieldState;
 
     expect(motor1.direction).toBe(motor1Direction);
     expect(motor2.direction).toBe(motor2Direction);

@@ -1,17 +1,21 @@
-import type { Sensor } from "../../core/blockly/dto/sensors.type";
 import type { ArduinoComponentState } from "../../core/frames/arduino.frame";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 
-export interface MotorState extends ArduinoComponentState {
-  motorNumber: string;
-  speed: number;
-  direction: MOTOR_DIRECTION;
+export interface MotorShieldState extends ArduinoComponentState {
+  numberOfMotors: 1 | 2;
+  speed1: number;
+  direction1: MOTOR_DIRECTION;
+  speed2: number;
+  direction2: MOTOR_DIRECTION;
+  en1: ARDUINO_PINS;
+  in1: ARDUINO_PINS;
+  in2: ARDUINO_PINS;
+  in3: ARDUINO_PINS | null;
+  in4: ARDUINO_PINS | null;
+  en2: ARDUINO_PINS | null;
 }
 
 export enum MOTOR_DIRECTION {
   CLOCKWISE = "CLOCKWISE",
   ANTICLOCKWISE = "ANTICLOCKWISE",
-}
-
-export interface MotionSensor extends Sensor {
-  cm: number;
 }

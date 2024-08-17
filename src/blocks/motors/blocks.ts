@@ -1,5 +1,6 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
+import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 
 Blockly.defineBlocksWithJsonArray([
   // BEGIN JSON EXTRACT
@@ -28,7 +29,7 @@ Blockly.defineBlocksWithJsonArray([
           ["2", "2"],
         ],
       },
-      
+
       {
         type: "field_dropdown",
         name: "DIRECTION",
@@ -56,3 +57,58 @@ Blockly.defineBlocksWithJsonArray([
     helpUrl: "",
   },
 ]);
+
+const motor_setup = {
+  init: function () {
+    this.appendDummyInput("")
+      .appendField(new Blockly.FieldImage("./blocks/motor/motor.png", 15, 15))
+      .appendField("Motor Setup");
+    this.appendDummyInput("NAME")
+      .appendField("Number of motors")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["1", "1"],
+          ["2", "2"],
+        ]),
+        "NUMBER_OF_MOTORS"
+      );
+    this.appendDummyInput("MOTOR_1")
+      .appendField("Motor 1 Pins")
+      .appendField("EN1")
+      .appendField(
+        new Blockly.FieldDropdown(selectBoardBlockly().pwmPins),
+        "EN1"
+      )
+      .appendField("IN2")
+      .appendField(
+        new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
+        "IN1"
+      )
+      .appendField("IN2")
+      .appendField(
+        new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
+        "IN2"
+      );
+    this.appendDummyInput("MOTOR_2")
+      .appendField("Motor 2 Pins")
+      .appendField("EN2")
+      .appendField(
+        new Blockly.FieldDropdown(selectBoardBlockly().pwmPins),
+        "EN2"
+      )
+      .appendField("IN3")
+      .appendField(
+        new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
+        "IN3"
+      )
+      .appendField("IN4")
+      .appendField(
+        new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
+        "IN4"
+      );
+    this.setTooltip("");
+    this.setHelpUrl("");
+    this.setColour(COLOR_THEME.COMPONENTS);
+  },
+};
+Blockly.common.defineBlocks({ motor_setup: motor_setup });

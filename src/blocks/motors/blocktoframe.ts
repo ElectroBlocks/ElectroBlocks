@@ -7,10 +7,65 @@ import type { BlockToFrameTransformer } from "../../core/frames/transformer/bloc
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByComponent,
+  findComponent,
   getDefaultIndexValue,
 } from "../../core/frames/transformer/frame-transformer.helpers";
-import type { MotorState } from "./state";
-import type { MOTOR_DIRECTION } from "./state";
+import type { MotorShieldState } from "./state";
+import { MOTOR_DIRECTION } from "./state";
+
+export const motorSetup: BlockToFrameTransformer = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const numberOfMotors =
+    findFieldValue(block, "NUMBER_OF_MOTORS") == "1" ? 1 : 2;
+  const en1 = findFieldValue(block, "EN1");
+  const in1 = findFieldValue(block, "IN1");
+  const in2 = findFieldValue(block, "IN2");
+  const en2 = findFieldValue(block, "EN1");
+  const in3 = findFieldValue(block, "IN3");
+  const in4 = findFieldValue(block, "IN4");
+  const motorShieldState: MotorShieldState = {
+    numberOfMotors,
+    en1,
+    in1,
+    in2,
+    en2: null,
+    in3: null,
+    in4: null,
+    direction1: MOTOR_DIRECTION.CLOCKWISE,
+    direction2: MOTOR_DIRECTION.CLOCKWISE,
+    speed1: 0,
+    speed2: 0,
+    pins: [en1, in1, in2],
+    type: ArduinoComponentType.MOTOR,
+  };
+
+  if (numberOfMotors === 2) {
+    motorShieldState.en2 = en2;
+    motorShieldState.in3 = in3;
+    motorShieldState.in4 = in4;
+  }
+
+  var message =
+    motorShieldState.numberOfMotors == 1
+      ? "Setting up 1 motor with a motor shield"
+      : "Setting up 2 motors with a motor shield.";
+
+  return [
+    arduinoFrameByComponent(
+      block.id,
+      block.blockName,
+      timeline,
+      motorShieldState,
+      message,
+      previousState
+    ),
+  ];
+};
 
 export const moveMotor: BlockToFrameTransformer = (
   blocks,
@@ -19,11 +74,13 @@ export const moveMotor: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  const motorNumber = getDefaultIndexValue(
-    1,
-    4,
-    parseInt(getInputValue(blocks, block, variables, timeline, "MOTOR", 1, previousState))
-  );
+  const motorShieldStateToUpdate = {
+    ...findComponent<MotorShieldState>(
+      previousState,
+      ArduinoComponentType.MOTOR
+    ),
+  };
+  const motorNumber = +findFieldValue(block, "MOTOR");
 
   const speed = getDefaultIndexValue(
     0,
@@ -31,64 +88,25 @@ export const moveMotor: BlockToFrameTransformer = (
     getInputValue(blocks, block, variables, timeline, "SPEED", 1, previousState)
   );
 
-  const motorState = getMotorState(
-    previousState,
-    findFieldValue(block,"MOTOR"),
-    speed,
-    findFieldValue(block, "DIRECTION")
-  );
+  const direction = findFieldValue(block, "DIRECTION") as MOTOR_DIRECTION;
+  let actualMotorNumber = 1;
+  if (motorShieldStateToUpdate.numberOfMotors === 1 || motorNumber === 1) {
+    motorShieldStateToUpdate.direction1 = direction;
+    motorShieldStateToUpdate.speed1 = speed;
+  } else {
+    motorShieldStateToUpdate.direction2 = direction;
+    motorShieldStateToUpdate.speed2 = speed;
+    actualMotorNumber = 2;
+  }
 
   return [
     arduinoFrameByComponent(
       block.id,
       block.blockName,
       timeline,
-      motorState,
-      `Motor ${
-        motorState.motorNumber
-      } moves ${motorState.direction.toLowerCase()} at speed ${
-        motorState.speed
-      }.`,
+      motorShieldStateToUpdate,
+      `Motor ${actualMotorNumber} moves ${direction.toLowerCase()} at speed ${speed}.`,
       previousState
     ),
   ];
-};
-
-const getMotorState = (
-  frame: ArduinoFrame,
-  motorNumber: string,
-  speed: number,
-  direction: MOTOR_DIRECTION
-): MotorState => {
-  if (!frame) {
-    return {
-      pins: [],
-      type: ArduinoComponentType.MOTOR,
-      direction,
-      speed,
-      motorNumber,
-    };
-  }
-
-  const motorState = findComponent(frame, motorNumber);
-
-  if (!motorState) {
-    return {
-      pins: [],
-      type: ArduinoComponentType.MOTOR,
-      direction,
-      speed,
-      motorNumber,
-    };
-  }
-
-  return { ...motorState, direction, speed, motorNumber };
-};
-
-const findComponent = (frame: ArduinoFrame, motorNumber: string) => {
-  return frame.components.find(
-    (c) =>
-      c.type === ArduinoComponentType.MOTOR &&
-      (<MotorState>c).motorNumber === motorNumber
-  ) as MotorState;
 };
