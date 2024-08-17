@@ -20,10 +20,9 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/">
 
    <style>
-   #motor{
+   #MOTOR_1_FAN, #MOTOR_2_FAN{
       transform-origin: 74.06px 126.32px; /* Adjust the center point as needed */
       animation: rotate 5s linear infinite; /* Adjust duration and timing function as needed */
-      
    }
 
    @keyframes rotate {
@@ -459,9 +458,9 @@
     </g>
     <g
        partID="854526460"
-       id="g4085-3"
        transform="matrix(-1,0,0,1,491.84717,74.888504)"
        style="display:inline"
+       id="MOTOR_1_ACTUAL"
        inkscape:label="MOTOR_1_ACTUAL">
       <g
          transform="rotate(90,219.1381,224.13245)"

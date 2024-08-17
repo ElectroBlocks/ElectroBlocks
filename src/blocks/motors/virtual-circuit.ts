@@ -43,6 +43,12 @@ export const motorUpdate: SyncComponent = (
   motorEl.findOne(
     "#MOTOR_2_DIRECTION"
   ).node.innerHTML = `Direction: ${state.direction2}`;
+  if (state.numberOfMotors === 1) {
+    setMotorSpeed(motorEl, 1, state.speed1, state.direction1);
+  } else {
+    setMotorSpeed(motorEl, 1, state.speed1, state.direction1);
+    setMotorSpeed(motorEl, 2, state.speed2, state.direction2);
+  }
   // const directionText = state.direction.toString();
   // const animationSpeed = (1 / state.speed) * 50 + "s"; // Calculate animation duration based on speed
   // if (state.speed == 0) {
@@ -58,6 +64,19 @@ export const motorUpdate: SyncComponent = (
   //   directionText.charAt(0).toUpperCase() +
   //   directionText.slice(1).toLowerCase();
   // (motorEl.findOne("#speed") as Text).node.innerHTML = "Speed: " + state.speed;
+};
+
+const setMotorSpeed = (
+  motorEl: Element,
+  motorNumber: number,
+  speed: number,
+  direction: MOTOR_DIRECTION
+) => {
+  const animationSpeed = (1 / speed) * 50 + "s";
+  motorEl.findOne(`#MOTOR_${motorNumber}_FAN`).node.style.animation =
+    direction === MOTOR_DIRECTION.CLOCKWISE
+      ? `rotate ${animationSpeed} linear infinite`
+      : `rotateAntiClockwise ${animationSpeed} linear infinite`;
 };
 
 export const motorReset: ResetComponent = (componentEl: Element) => {
