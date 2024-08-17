@@ -11,6 +11,8 @@ import type { Element, Text } from "@svgdotjs/svg.js";
 import { MotorShieldState, MOTOR_DIRECTION } from "./state";
 
 import _ from "lodash";
+let motorSpin1TimerId;
+let motorSpin2TimerId;
 
 export const motorPosition: PositionComponent<MotorShieldState> = (
   state,
@@ -36,13 +38,17 @@ export const motorUpdate: SyncComponent = (
   motorEl
 ) => {
   motorEl.findOne("#MOTOR_1_SPEED").node.innerHTML = `Speed: ${state.speed1}`;
-  motorEl.findOne(
-    "#MOTOR_1_DIRECTION"
-  ).node.innerHTML = `Direction: ${state.direction1}`;
+  motorEl.findOne("#MOTOR_1_DIRECTION").node.innerHTML = `Direction: ${
+    state.direction1 == MOTOR_DIRECTION.CLOCKWISE
+      ? "Clockwise"
+      : "AntiClockwise"
+  }`;
   motorEl.findOne("#MOTOR_2_SPEED").node.innerHTML = `Speed: ${state.speed2}`;
-  motorEl.findOne(
-    "#MOTOR_2_DIRECTION"
-  ).node.innerHTML = `Direction: ${state.direction2}`;
+  motorEl.findOne("#MOTOR_2_DIRECTION").node.innerHTML = `Direction: ${
+    state.direction2 == MOTOR_DIRECTION.CLOCKWISE
+      ? "Clockwise"
+      : "AntiClockwise"
+  }`;
   if (state.numberOfMotors === 1) {
     setMotorSpeed(motorEl, 1, state.speed1, state.direction1);
   } else {
@@ -72,11 +78,26 @@ const setMotorSpeed = (
   speed: number,
   direction: MOTOR_DIRECTION
 ) => {
-  const animationSpeed = (1 / speed) * 50 + "s";
-  motorEl.findOne(`#MOTOR_${motorNumber}_FAN`).node.style.animation =
-    direction === MOTOR_DIRECTION.CLOCKWISE
-      ? `rotate ${animationSpeed} linear infinite`
-      : `rotateAntiClockwise ${animationSpeed} linear infinite`;
+  const setSpeed =
+    ((direction == MOTOR_DIRECTION.CLOCKWISE ? 1 : -1) * speed) / 30;
+  if (motorNumber == 1) {
+    clearInterval(motorSpin1TimerId);
+    motorSpin1TimerId = setInterval(() => {
+      const motorFan = motorEl.findOne(`#MOTOR_1_FAN`) as Element;
+      motorFan.rotate(setSpeed);
+    }, 10);
+  } else {
+    clearInterval(motorSpin2TimerId);
+    motorSpin2TimerId = setInterval(() => {
+      const motorFan = motorEl.findOne(`#MOTOR_2_FAN`) as Element;
+      motorFan.rotate(setSpeed);
+    }, 10);
+  }
+  // const animationSpeed = (1 / speed) * 50 + "s";
+  // motorEl.findOne(`#MOTOR_${motorNumber}_FAN`).node.style.animation =
+  //   direction === MOTOR_DIRECTION.CLOCKWISE
+  //     ? `rotate ${animationSpeed} linear infinite`
+  //     : `rotateAntiClockwise ${animationSpeed} linear infinite`;
 };
 
 export const motorReset: ResetComponent = (componentEl: Element) => {

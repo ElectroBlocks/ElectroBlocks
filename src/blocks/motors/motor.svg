@@ -9,7 +9,7 @@
    height="400"
    viewBox="0 0 465.86638 299.99984"
    id="svg4100"
-   sodipodi:docname="new_motor_prototype_1.svg"
+   sodipodi:docname="motor.svg"
    inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -18,29 +18,9 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/">
-
-   <style>
-   #MOTOR_1_FAN, #MOTOR_2_FAN{
-      transform-origin: 74.06px 126.32px; /* Adjust the center point as needed */
-      animation: rotate 5s linear infinite; /* Adjust duration and timing function as needed */
-   }
-
-   @keyframes rotate {
-      from {
-         transform: rotate(0deg);
-      }
-      to {
-         transform: rotate(360deg);
-      }
-   }
-   @keyframes rotateAntiClockwise {
-         from {
-         transform: rotate(360deg);
-         }
-         to {
-         transform: rotate(0deg);
-         }
-      }
+  <style
+     id="style1">
+   
    
    </style>
   <defs
@@ -56,14 +36,14 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="in"
      inkscape:zoom="0.99999999"
-     inkscape:cx="463"
-     inkscape:cy="34.5"
+     inkscape:cx="231.5"
+     inkscape:cy="356"
      inkscape:window-width="1728"
-     inkscape:window-height="984"
-     inkscape:window-x="1920"
+     inkscape:window-height="979"
+     inkscape:window-x="0"
      inkscape:window-y="38"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer5" />
+     inkscape:current-layer="MOTOR_1" />
   <g
      inkscape:groupmode="layer"
      id="MOTOR_2"
@@ -366,7 +346,7 @@
     </g>
     <g
        inkscape:groupmode="layer"
-       id="MOTOR_1_TEXT"
+       id="g1"
        inkscape:label="MOTOR_1_TEXT">
       <text
          id="MOTOR_1_SPEED"
@@ -398,7 +378,8 @@
     <g
        id="MOTOR_1_FAN"
        transform="matrix(0.7499993,0,0,0.7499993,21.415893,151.45911)"
-       inkscape:label="MOTOR_1_FAN">
+       inkscape:label="MOTOR_1_FAN"
+       sodipodi:insensitive="true">
       <g
          id="g3">
         <path
@@ -422,7 +403,8 @@
          cx="74.059998"
          cy="126.32"
          r="12.8"
-         style="fill:#c5d3de" />
+         style="fill:#c5d3de;image-rendering:auto"
+         inkscape:label="inner-circle" />
       <path
          d="m 126.12,126.13 a 2,2 0 0 0 1.93,1.57 1.81,1.81 0 0 0 0.4,0 2,2 0 0 0 1.53,-2.33 50.43,50.43 0 0 0 -6,-15.54 2,2 0 0 0 -3.39,2 46.59,46.59 0 0 1 5.52,14.34 z"
          transform="translate(-6.15,-9.27)"
