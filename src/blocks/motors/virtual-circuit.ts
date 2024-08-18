@@ -37,23 +37,13 @@ export const motorUpdate: SyncComponent = (
   state: MotorShieldState,
   motorEl
 ) => {
-  motorEl.findOne("#MOTOR_1_SPEED").node.innerHTML = `Speed: ${state.speed1}`;
-  motorEl.findOne("#MOTOR_1_DIRECTION").node.innerHTML = `Direction: ${
-    state.direction1 == MOTOR_DIRECTION.CLOCKWISE
-      ? "Clockwise"
-      : "AntiClockwise"
-  }`;
-  motorEl.findOne("#MOTOR_2_SPEED").node.innerHTML = `Speed: ${state.speed2}`;
-  motorEl.findOne("#MOTOR_2_DIRECTION").node.innerHTML = `Direction: ${
-    state.direction2 == MOTOR_DIRECTION.CLOCKWISE
-      ? "Clockwise"
-      : "AntiClockwise"
-  }`;
+  setDirectionAndSpeed(motorEl, 1, state.speed1, state.direction1);
+  setDirectionAndSpeed(motorEl, 2, state.speed2, state.direction2);
   if (state.numberOfMotors === 1) {
-    setMotorSpeed(motorEl, 1, state.speed1, state.direction1);
+    setMotorSpin(motorEl, 1, state.speed1, state.direction1);
   } else {
-    setMotorSpeed(motorEl, 1, state.speed1, state.direction1);
-    setMotorSpeed(motorEl, 2, state.speed2, state.direction2);
+    setMotorSpin(motorEl, 1, state.speed1, state.direction1);
+    setMotorSpin(motorEl, 2, state.speed2, state.direction2);
   }
   // const directionText = state.direction.toString();
   // const animationSpeed = (1 / state.speed) * 50 + "s"; // Calculate animation duration based on speed
@@ -72,7 +62,7 @@ export const motorUpdate: SyncComponent = (
   // (motorEl.findOne("#speed") as Text).node.innerHTML = "Speed: " + state.speed;
 };
 
-const setMotorSpeed = (
+const setMotorSpin = (
   motorEl: Element,
   motorNumber: number,
   speed: number,
@@ -99,6 +89,22 @@ const setMotorSpeed = (
   //     ? `rotate ${animationSpeed} linear infinite`
   //     : `rotateAntiClockwise ${animationSpeed} linear infinite`;
 };
+
+function setDirectionAndSpeed(
+  motorEl: Element,
+  motor: number,
+  speed: number,
+  direction: MOTOR_DIRECTION
+) {
+  motorEl.findOne(`#MOTOR_${motor}_SPEED`).node.innerHTML = `Speed: ${speed}`;
+  if (speed === 0) {
+    motorEl.findOne(`#MOTOR_${motor}_DIRECTION`).node.innerHTML = "";
+    return;
+  }
+  motorEl.findOne(`#MOTOR_${motor}_DIRECTION`).node.innerHTML = `Direction: ${
+    direction == MOTOR_DIRECTION.CLOCKWISE ? "Clockwise" : "AntiClockwise"
+  }`;
+}
 
 export const motorReset: ResetComponent = (componentEl: Element) => {
   // (componentEl.findOne("#direction") as Text).node.innerHTML =
