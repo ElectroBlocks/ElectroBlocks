@@ -76,6 +76,7 @@ Blockly["Arduino"].init = function (workspace) {
 
   // creates a list of code to be setup before the setup block
   Blockly["Arduino"].setupCode_ = Object.create(null);
+  Blockly["Arduino"].information_ = Object.create(null);
 
   // Create a dictionary mapping desired function names in definitions_
   // to actual function names (to avoid collisions with user functions).

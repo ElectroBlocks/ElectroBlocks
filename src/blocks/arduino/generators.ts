@@ -1,5 +1,5 @@
 import Blockly from "blockly";
-import type { Block } from "blockly";
+import { Block } from "blockly";
 import _ from "lodash";
 
 Blockly["Arduino"]["arduino_setup"] = function (block: Block) {
@@ -31,9 +31,12 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
     setJoyStickValues = "\tsetJoyStickValues(); \n";
   }
 
-  if (!_.isEmpty(Blockly["Arduino"].setupCode_["serial_begin"])) {
-    resetMessageVariable = '\tserialMessageDEV= ""; \n';
-    setSerialMessageDEV = "\tsetSerialMessage();";
+  if (
+    !_.isEmpty(Blockly["Arduino"].setupCode_["serial_begin"]) &&
+    Blockly["Arduino"].information_["message_recieve_block"]
+  ) {
+    resetMessageVariable = ' serialMessageDEV= ""; \n';
+    setSerialMessageDEV = "  setSerialMessage();\n";
   }
 
   if (!_.isEmpty(Blockly["Arduino"].setupCode_["setup_ir_remote"])) {
