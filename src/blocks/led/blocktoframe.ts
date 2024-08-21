@@ -12,7 +12,6 @@ export const led: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  console.log(block);
   const pin = findFieldValue(block, "PIN");
   const color = findFieldValue(block, "COLOR");
   const state = findFieldValue(block, "STATE") === "ON" ? 1 : 0;

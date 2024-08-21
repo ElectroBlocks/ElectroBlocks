@@ -16,6 +16,8 @@ Blockly["Arduino"]["message_setup"] = function () {
 };
 
 Blockly["Arduino"]["arduino_get_message"] = function (block) {
+  Blockly["Arduino"].information_["message_recieve_block"] = true;
+
   Blockly["Arduino"].functionNames_[
     "setSerialMessage"
   ] = `void setSerialMessage() {
@@ -43,8 +45,6 @@ Blockly["Arduino"]["arduino_receive_message"] = function (block) {
 };
 
 Blockly["Arduino"]["arduino_send_message"] = function (block) {
-  Blockly["Arduino"].information_["message_recieve_block"] = true;
-
   const message = Blockly["Arduino"].valueToCode(
     block,
     "MESSAGE",
