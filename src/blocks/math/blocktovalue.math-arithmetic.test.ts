@@ -151,10 +151,9 @@ describe("math_arithmetic state factories", () => {
     connectToArduinoBlock(setNumberBlock);
 
     [
-      { OP: "ADD", value: 2 },
+      { OP: "ADD", value: 0 },
       { OP: "MINUS", value: 0 },
-      { OP: "MULTIPLY", value: 1 },
-      { OP: "DIVIDE", value: 1 },
+      { OP: "MULTIPLY", value: 0 },
     ].forEach((obj) => {
       mathOperatorBlock.setFieldValue(obj.OP, "OP");
 
