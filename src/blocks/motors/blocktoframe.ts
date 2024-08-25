@@ -22,12 +22,12 @@ export const motorSetup: BlockToFrameTransformer = (
 ) => {
   const numberOfMotors =
     findFieldValue(block, "NUMBER_OF_MOTORS") == "1" ? 1 : 2;
-  const en1 = findFieldValue(block, "EN1");
-  const in1 = findFieldValue(block, "IN1");
-  const in2 = findFieldValue(block, "IN2");
-  const en2 = findFieldValue(block, "EN1");
-  const in3 = findFieldValue(block, "IN3");
-  const in4 = findFieldValue(block, "IN4");
+  const en1 = findFieldValue(block, "PIN_EN1");
+  const in1 = findFieldValue(block, "PIN_IN1");
+  const in2 = findFieldValue(block, "PIN_IN2");
+  const en2 = findFieldValue(block, "PIN_EN2");
+  const in3 = findFieldValue(block, "PIN_IN3");
+  const in4 = findFieldValue(block, "PIN_IN4");
   const motorShieldState: MotorShieldState = {
     numberOfMotors,
     en1,
@@ -48,6 +48,9 @@ export const motorSetup: BlockToFrameTransformer = (
     motorShieldState.en2 = en2;
     motorShieldState.in3 = in3;
     motorShieldState.in4 = in4;
+    motorShieldState.pins.push(in4);
+    motorShieldState.pins.push(in3);
+    motorShieldState.pins.push(en2);
   }
 
   var message =

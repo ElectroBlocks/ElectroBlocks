@@ -5,12 +5,24 @@ import type {
 import type {
   PositionComponent,
   AfterComponentCreateHook,
+  CreateWire,
 } from "../../core/virtual-circuit/svg-create";
+import {
+  createComponentWire,
+  createGroundOrPowerWire,
+  createWireComponentToBreadboard,
+  createWireFromArduinoToBreadBoard,
+  findBreadboardHoleXY,
+} from "../../core/virtual-circuit/wire";
 
 import type { Element, Text } from "@svgdotjs/svg.js";
 import { MotorShieldState, MOTOR_DIRECTION } from "./state";
 
 import _ from "lodash";
+import { Svg } from "@svgdotjs/svg.js";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import { MicroController } from "../../core/microcontroller/microcontroller";
+import { findComponentConnection } from "../../core/virtual-circuit/svg-helpers";
 let motorSpin1TimerId;
 let motorSpin2TimerId;
 
@@ -31,6 +43,86 @@ export const motorCreate: AfterComponentCreateHook<MotorShieldState> = (
   } else {
     motorEl.findOne("#MOTOR_2").show();
   }
+};
+export const createMotorWires: CreateWire<MotorShieldState> = (
+  state,
+  draw,
+  motorEl,
+  arduino,
+  id,
+  board,
+  area
+) => {
+  const { holes, isDown } = area;
+  createComponentWire(
+    holes[0],
+    isDown,
+    motorEl,
+    state.en1,
+    draw,
+    arduino,
+    id,
+    "EN1_PIN",
+    board
+  );
+  createComponentWire(
+    holes[1],
+    isDown,
+    motorEl,
+    state.in1,
+    draw,
+    arduino,
+    id,
+    "IN1_PIN",
+    board
+  );
+  createComponentWire(
+    holes[2],
+    isDown,
+    motorEl,
+    state.in2,
+    draw,
+    arduino,
+    id,
+    "IN2_PIN",
+    board
+  );
+  if (state.numberOfMotors == 1) {
+    return;
+  }
+  createComponentWire(
+    holes[3],
+    isDown,
+    motorEl,
+    state.en2,
+    draw,
+    arduino,
+    id,
+    "EN2_PIN",
+    board
+  );
+  createComponentWire(
+    holes[4],
+    isDown,
+    motorEl,
+    state.in3,
+    draw,
+    arduino,
+    id,
+    "IN3_PIN",
+    board
+  );
+  createComponentWire(
+    holes[5],
+    isDown,
+    motorEl,
+    state.in4,
+    draw,
+    arduino,
+    id,
+    "IN4_PIN",
+    board
+  );
 };
 
 export const motorUpdate: SyncComponent = (

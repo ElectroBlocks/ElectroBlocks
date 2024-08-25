@@ -5,9 +5,9 @@
    version="1.2"
    x="0in"
    y="0in"
-   width="621.15601"
-   height="400"
-   viewBox="0 0 465.86638 299.99984"
+   width="420.80557"
+   height="251.81042"
+   viewBox="0 0 420.80558 251.81042"
    id="svg4100"
    sodipodi:docname="motor.svg"
    inkscape:version="1.3.2 (091e20e, 2023-11-25)"
@@ -55,21 +55,22 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:document-units="in"
-     inkscape:zoom="4"
-     inkscape:cx="297.75"
-     inkscape:cy="171.375"
-     inkscape:window-width="1728"
-     inkscape:window-height="984"
-     inkscape:window-x="465"
-     inkscape:window-y="243"
+     inkscape:document-units="px"
+     inkscape:zoom="11.313708"
+     inkscape:cx="222.38508"
+     inkscape:cy="121.00365"
+     inkscape:window-width="2560"
+     inkscape:window-height="1387"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
-     inkscape:current-layer="text20412" />
+     inkscape:current-layer="svg4100" />
   <g
      inkscape:groupmode="layer"
      id="MOTOR_2"
      inkscape:label="MOTOR_2"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(-14.645577,-32.196063)">
     <g
        inkscape:groupmode="layer"
        id="MOTOR_2_WIRES"
@@ -82,7 +83,7 @@
          sodipodi:nodetypes="cccc" />
       <path
          style="display:inline;fill:none;fill-opacity:1;stroke:#2fb63f;stroke-width:3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-         d="m 294.50382,95.435626 h 61.47694 V 12.880882 l 56.79298,-10e-6 0,23.419795"
+         d="m 294.50382,95.435626 h 61.47694 V 12.880882 l 56.79298,-10e-6 v 23.419795"
          id="path4112"
          sodipodi:nodetypes="ccccc"
          transform="translate(-2.3419787,69.088374)" />
@@ -159,7 +160,7 @@
            id="rect4069" />
         <polygon
            fill="#f3ff00"
-           points="27.642,0 27.642,25.9996 37.884,25.9996 37.884,29.7185 27.642,29.7185 27.642,55.7201 35.158,55.7201 35.158,30.6525 37.884,30.6525 37.884,25.0686 35.158,25.0686 35.158,0 "
+           points="27.642,55.7201 35.158,55.7201 35.158,30.6525 37.884,30.6525 37.884,25.0686 35.158,25.0686 35.158,0 27.642,0 27.642,25.9996 37.884,25.9996 37.884,29.7185 27.642,29.7185 "
            id="polygon4069" />
       </g>
       <path
@@ -349,7 +350,8 @@
   <g
      inkscape:groupmode="layer"
      id="MOTOR_1"
-     inkscape:label="MOTOR_1">
+     inkscape:label="MOTOR_1"
+     transform="translate(-14.645577,-32.196063)">
     <g
        inkscape:groupmode="layer"
        id="MOTOR_1_WIRES"
@@ -537,7 +539,7 @@
                id="rect4069-7" />
             <polygon
                fill="#f3ff00"
-               points="35.158,55.7201 35.158,30.6525 37.884,30.6525 37.884,25.0686 35.158,25.0686 35.158,0 27.642,0 27.642,25.9996 37.884,25.9996 37.884,29.7185 27.642,29.7185 27.642,55.7201 "
+               points="35.158,0 27.642,0 27.642,25.9996 37.884,25.9996 37.884,29.7185 27.642,29.7185 27.642,55.7201 35.158,55.7201 35.158,30.6525 37.884,30.6525 37.884,25.0686 35.158,25.0686 "
                id="polygon4069-4" />
           </g>
           <path
@@ -635,10 +637,10 @@
     </g>
   </g>
   <g
-     transform="translate(174.29397,77.870792)"
      id="CONTROLLER_CHIP"
      style="display:inline"
-     inkscape:label="CONTROLLER_CHIP">
+     inkscape:label="CONTROLLER_CHIP"
+     transform="translate(158.75,48)">
     <g
        gorn="0.1"
        id="breadboard"
@@ -1720,17 +1722,6 @@
            id="rect9"
            width="2.2983201"
            style="display:inline" />
-        <rect
-           stroke-width="0.0072"
-           fill="#8c8663"
-           gorn="0.1.724"
-           x="51.189182"
-           height="1.18216"
-           y="114.08971"
-           id="EN1_PIN"
-           width="1.18216"
-           style="display:inline"
-           inkscape:label="EN1_PIN" />
         <g
            transform="matrix(0.00254,0,0,0.00254,48.179741,111.08066)"
            id="g3658"
@@ -1857,17 +1848,6 @@
            id="rect25"
            width="2.2983201"
            style="display:inline" />
-        <rect
-           stroke-width="0.0072"
-           fill="#8c8663"
-           gorn="0.1.733"
-           x="63.684902"
-           height="1.18216"
-           y="114.08961"
-           id="IN1_PIN"
-           width="1.18216"
-           style="display:inline"
-           inkscape:label="IN1_PIN" />
         <g
            transform="matrix(0.00254,0,0,0.00254,53.475469,111.08066)"
            id="g3678"
@@ -1994,17 +1974,6 @@
            id="rect41"
            width="2.2983201"
            style="display:inline" />
-        <rect
-           stroke-width="0.0072"
-           fill="#8c8663"
-           gorn="0.1.742"
-           x="76.434853"
-           height="1.18216"
-           y="114.08962"
-           id="IN2_PIN"
-           width="1.18216"
-           style="display:inline"
-           inkscape:label="IN2_PIN" />
         <g
            transform="matrix(0.00254,0,0,0.00254,59.025471,111.08066)"
            id="g3698"
@@ -2130,17 +2099,6 @@
            id="rect16963"
            width="2.2983201"
            style="display:inline" />
-        <rect
-           stroke-width="0.0072"
-           fill="#8c8663"
-           gorn="0.1.751"
-           x="89.184837"
-           height="1.18216"
-           y="114.08959"
-           id="IN3_PIN"
-           width="1.18216"
-           style="display:inline"
-           inkscape:label="IN3_PIN" />
         <g
            transform="matrix(0.00254,0,0,0.00254,86.175456,111.08066)"
            id="g3718"
@@ -2266,17 +2224,6 @@
            id="rect16981"
            width="2.2983201"
            style="display:inline" />
-        <rect
-           stroke-width="0.0072"
-           fill="#8c8663"
-           gorn="0.1.760"
-           x="101.93481"
-           height="1.18216"
-           y="114.08963"
-           id="IN4_PIN"
-           width="1.18216"
-           style="display:inline"
-           inkscape:label="IN4_PIN" />
         <g
            transform="matrix(0.00254,0,0,0.00254,91.725433,111.08066)"
            id="g3738"
@@ -2402,17 +2349,6 @@
            id="rect16999"
            width="2.2983201"
            style="display:inline" />
-        <rect
-           stroke-width="0.0072"
-           fill="#8c8663"
-           gorn="0.1.769"
-           x="114.68438"
-           height="1.18216"
-           y="114.08964"
-           id="EN2_PIN"
-           width="1.18216"
-           style="display:inline"
-           inkscape:label="EN2_PIN" />
         <g
            transform="matrix(0.00254,0,0,0.00254,97.275435,111.08066)"
            id="g3758"
@@ -3155,7 +3091,7 @@
                 <polygon
                    gorn="0.1.842.0.0.0"
                    fill="#e6e6e6"
-                   points="0,257.323 1361.5,257.323 1361.5,93.2678 1071.14,0 290.356,0 0,93.2678 "
+                   points="1361.5,93.2678 1071.14,0 290.356,0 0,93.2678 0,257.323 1361.5,257.323 "
                    id="polygon17266" />
               </g>
             </g>
@@ -5745,7 +5681,8 @@
          fill="#d1c690"
          gorn="0.1.1043"
          d="m 64.3827,85.1409 v 0.578268 h 0.390756 c 0.09383,0 0.159591,0.0601 0.201827,0.140882 h 2.286 v -0.757502 h -2.83799 -0.03742"
-         id="path21155" />
+         id="path21155"
+         inkscape:label="path21155" />
       <rect
          stroke-width="0.75"
          fill="#ffffff"
@@ -5762,7 +5699,8 @@
          fill="#d1c690"
          gorn="0.1.1045"
          d="m 64.3827,90.6511 h 0.03742 2.83725 v -0.804019 h -2.59801 c -0.0428,0.0788 -0.109417,0.14315 -0.203244,0.14315 h -0.07512 v 0.622488"
-         id="path21159" />
+         id="path21159"
+         inkscape:label="path21159" />
       <rect
          stroke-width="0.75"
          fill="#ffffff"
@@ -6005,7 +5943,7 @@
            sodipodi:role="line"
            id="tspan10"
            style="stroke-width:0"
-           x="39.511585"
+           x="39.511578"
            y="94.457001">5v</tspan></text>
       <text
          xml:space="preserve"
@@ -6016,7 +5954,7 @@
            sodipodi:role="line"
            id="tspan11"
            style="stroke-width:0"
-           x="26.607702"
+           x="26.60771"
            y="94.946335">GND</tspan></text>
       <text
          xml:space="preserve"
@@ -6027,7 +5965,7 @@
            sodipodi:role="line"
            id="tspan12"
            style="stroke-width:0"
-           x="13.905232"
+           x="13.90524"
            y="95.165878">12v</tspan></text>
       <text
          xml:space="preserve"
@@ -6050,8 +5988,74 @@
            sodipodi:role="line"
            id="tspan13-6"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.49999px;line-height:1.3875px;font-family:Monospace;-inkscape-font-specification:Monospace;stroke-width:0"
-           x="120.98512"
+           x="120.98511"
            y="108.53069">EN2</tspan></text>
     </g>
   </g>
+  <rect
+     stroke-width="0.0072"
+     fill="#8c8663"
+     gorn="0.1.724"
+     x="210.35355"
+     height="1.18216"
+     y="159.51517"
+     id="EN1_PIN"
+     width="1.18216"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;font-family:'Droid Sans';-inkscape-font-specification:'OCR A Extended, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;stroke-linecap:butt;stroke-linejoin:miter"
+     inkscape:label="EN1_PIN" />
+  <rect
+     stroke-width="0.0072"
+     fill="#8c8663"
+     gorn="0.1.760"
+     x="261.24442"
+     height="1.18216"
+     y="159.43332"
+     id="IN4_PIN"
+     width="1.18216"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;font-family:'Droid Sans';-inkscape-font-specification:'OCR A Extended, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;stroke-linecap:butt;stroke-linejoin:miter"
+     inkscape:label="IN4_PIN" />
+  <rect
+     stroke-width="0.0072"
+     fill="#8c8663"
+     gorn="0.1.769"
+     x="273.97235"
+     height="1.18216"
+     y="159.52171"
+     id="EN2_PIN"
+     width="1.18216"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;font-family:'Droid Sans';-inkscape-font-specification:'OCR A Extended, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;stroke-linecap:butt;stroke-linejoin:miter"
+     inkscape:label="EN2_PIN" />
+  <rect
+     stroke-width="0.0072"
+     fill="#8c8663"
+     gorn="0.1.751"
+     x="248.4281"
+     height="1.18216"
+     y="159.43332"
+     id="IN3_PIN"
+     width="1.18216"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;font-family:'Droid Sans';-inkscape-font-specification:'OCR A Extended, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;stroke-linecap:butt;stroke-linejoin:miter"
+     inkscape:label="IN3_PIN" />
+  <rect
+     stroke-width="0.0072"
+     fill="#8c8663"
+     gorn="0.1.742"
+     x="235.56163"
+     height="1.18216"
+     y="159.43332"
+     id="IN2_PIN"
+     width="1.18216"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;font-family:'Droid Sans';-inkscape-font-specification:'OCR A Extended, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;stroke-linecap:butt;stroke-linejoin:miter"
+     inkscape:label="IN2_PIN" />
+  <rect
+     stroke-width="0.0072"
+     fill="#8c8663"
+     gorn="0.1.733"
+     x="222.92209"
+     height="1.18216"
+     y="159.43332"
+     id="IN1_PIN"
+     width="1.18216"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;font-family:'Droid Sans';-inkscape-font-specification:'OCR A Extended, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;display:inline;stroke-linecap:butt;stroke-linejoin:miter"
+     inkscape:label="IN1_PIN" />
 </svg>

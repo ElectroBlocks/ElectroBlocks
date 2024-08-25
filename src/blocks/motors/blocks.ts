@@ -77,34 +77,34 @@ const motor_setup = {
       .appendField("EN1")
       .appendField(
         new Blockly.FieldDropdown(selectBoardBlockly().pwmPins),
-        "EN1"
+        "PIN_EN1"
       )
       .appendField("IN2")
       .appendField(
         new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
-        "IN1"
+        "PIN_IN1"
       )
       .appendField("IN2")
       .appendField(
         new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
-        "IN2"
+        "PIN_IN2"
       );
     this.appendDummyInput("MOTOR_2")
       .appendField("Motor 2 Pins")
       .appendField("EN2")
       .appendField(
         new Blockly.FieldDropdown(selectBoardBlockly().pwmPins),
-        "EN2"
+        "PIN_EN2"
       )
       .appendField("IN3")
       .appendField(
         new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
-        "IN3"
+        "PIN_IN3"
       )
       .appendField("IN4")
       .appendField(
         new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
-        "IN4"
+        "PIN_IN4"
       );
     this.setTooltip("");
     this.setHelpUrl("");
