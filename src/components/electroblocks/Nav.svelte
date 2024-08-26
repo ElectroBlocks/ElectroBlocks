@@ -1,5 +1,8 @@
 <script lang="ts">
   export let segment: string;
+  const navTooltipStyle = {
+    position: 'bottom',  align: 'center',  animation: 'slide', theme: 'nav-tooltip'
+  }
   import authStore from "../../stores/auth.store";
   import projectStore from "../../stores/project.store";
   import { isPathOnHomePage } from "../../helpers/is-path-on-homepage";
@@ -16,6 +19,7 @@
   import { onConfirm, onErrorMessage } from "../../help/alerts";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
+  import { tooltip } from "@svelte-plugins/tooltips";
 
   let isOpeningFile = false;
   let fileUpload;
@@ -116,46 +120,48 @@
 
 <nav class:small={!$authStore.isLoggedIn}>
   {#if $authStore.isLoggedIn}
-    <a href="/{params}" class:active={isPathOnHomePage($page.url.pathname)}>
-      <i class="fa fa-home" />
+    <a href="/{params}"  class:active={isPathOnHomePage($page.url.pathname)}>
+      <i class="fa fa-home" title="Simulator" use:tooltip={navTooltipStyle} />
     </a>
 
-    <a href="/code{params}" class:active={$page.url.pathname.includes('code')}>
+    <a href="/code{params}" title="Code" use:tooltip={navTooltipStyle} class:active={$page.url.pathname.includes('code')}>
       <i class="fa fa-code" />
     </a>
     <a href="/arduino{params}" class:active={$page.url.pathname.includes('arduino')}>
       <i class="fa fa-microchip" />
     </a>
 
-    <a href="/open" class:active={segment === 'open'}>
+    <a href="/open"  class:active={segment === 'open'}>
       <i
         class="fa "
         class:fa-folder-open-o={segment !== 'open'}
         class:fa-folder-open={segment === 'open'}
       />
     </a>
-    <span on:click={onNewFileAuth}> <i class="fa fa-file-o" /> </span>
-    <span on:click={onSaveClick}><i class="fa fa-floppy-o" /></span>
+    <span title="New Project"  on:click={onNewFileAuth}> <i class="fa fa-file-o" /> </span>
+    <span title="Save Project"  on:click={onSaveClick}><i class="fa fa-floppy-o" /></span>
     <a
+      title="Project Settings" 
       href="/project-settings"
       class:active={$page.url.pathname.includes('project-settings')}
     >
       <i class="fa fa-wrench" aria-hidden="true" />
     </a>
-    <a href="/settings" class:active={segment === 'settings'}>
+    <a       title="Settings" 
+ href="/settings" class:active={segment === 'settings'}>
       <i class="fa fa-gears" />
     </a>
-    <span on:click={onSignOut}>
+    <span on:click={onSignOut}  title="Sign Out" use:tooltip> 
       <i class="fa fa-sign-out" title="Sign Out" aria-hidden="true" />
     </span>
   {/if}
 
   {#if !$authStore.isLoggedIn}
-    <a href="/" class:active={isPathOnHomePage($page.url.pathname)}>
+    <a href="/" title="Simulator" use:tooltip={navTooltipStyle} class:active={isPathOnHomePage($page.url.pathname)}>
       <i class="fa fa-home" />
     </a>
 
-    <a href="/code" class:active={$page.url.pathname.includes('code')}>
+    <a href="/code" title="Code" use:tooltip={navTooltipStyle} class:active={$page.url.pathname.includes('code')}>
       <i class="fa fa-code" />
     </a>
     <a href="/arduino" class:active={$page.url.pathname.includes('arduino')}>
@@ -248,5 +254,9 @@
     transform: translateX(-50%);
     z-index: 21;
     color: #fff;
+  }
+
+  :global(.tooltip.nav-tooltip) {
+   margin-top: 42px;
   }
 </style>
