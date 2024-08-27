@@ -201,19 +201,27 @@
   >
     <i class="fa fa-paper-plane" />
   </button>
-  <button
-    use:tooltip
-    title="Connect to Arduino"
-    disabled={arduinoStatus !== PortState.OPEN &&
-      arduinoStatus !== PortState.CLOSE}
-    on:click={connectOrDisconnectArduino}
-  >
-    <i
-      class="fa"
-      class:fa-eject={arduinoStatus === PortState.OPEN}
-      class:fa-usb={arduinoStatus === PortState.CLOSE}
-    />
-  </button>
+  {#if arduinoStatus == PortState.OPEN}
+    <button
+      title="Disconnect from Arduino"
+      use:tooltip
+      on:click={connectOrDisconnectArduino}
+    >
+      <i class="fa" class:fa-eject={arduinoStatus === PortState.OPEN} />
+    </button>
+  {:else if arduinoStatus === PortState.CLOSE}
+    <button
+      title="Connect to Arduino"
+      use:tooltip
+      on:click={connectOrDisconnectArduino}
+    >
+      <i class="fa" class:fa-usb={arduinoStatus === PortState.CLOSE} />
+    </button>
+  {:else}
+    <button>
+      <i class="fa fa-spinner fa-spin fa-6x fa-fw" />
+    </button>
+  {/if}
 
   <button
     use:tooltip
