@@ -17,7 +17,7 @@ import {
 } from "../../core/frames/arduino.frame";
 import type { MotorShieldState } from "./state";
 
-describe("test servos factories", () => {
+describe("test motors factories", () => {
   let workspace: Workspace;
   let arduinoBlock: BlockSvg;
 
@@ -30,6 +30,8 @@ describe("test servos factories", () => {
   });
 
   it("test it can do one two motors in different directions.", () => {
+    const motorSetupBlock = workspace.newBlock("motor_setup");
+    motorSetupBlock.setFieldValue("2", "NUMBER_OF_MOTORS");
     const motor1Block1 = createMotorBlock(1, "CLOCKWISE", 50);
     const motor2Block2 = createMotorBlock(2, "ANTICLOCKWISE", 150);
 
@@ -43,8 +45,9 @@ describe("test servos factories", () => {
 
     const event = createTestEvent(motor2Block2.id);
 
-    const [state1, state2, state3, state4] = eventToFrameFactory(event).frames;
-
+    const [stateSetup, state1, state2, state3, state4] =
+      eventToFrameFactory(event).frames;
+    console.log(state2.components[0]);
     expect(state1.explanation).toBe("Motor 1 moves clockwise at speed 50.");
     expect(state2.explanation).toBe(
       "Motor 2 moves anticlockwise at speed 150."
@@ -52,14 +55,11 @@ describe("test servos factories", () => {
     expect(state3.explanation).toBe("Motor 1 moves anticlockwise at speed 32.");
     expect(state4.explanation).toBe("Motor 2 moves clockwise at speed 43.");
 
-    const motor1 = state1.components.find(
-      (c) =>
-        c.type === ArduinoComponentType.MOTOR &&
-        parseInt((c as MotorShieldState).motorNumber) === 1
+    const motorShield = state1.components.find(
+      (c) => c.type === ArduinoComponentType.MOTOR
     ) as MotorShieldState;
-    expect(motor1.direction).toBe("CLOCKWISE");
-    expect(motor1.speed).toBe(50);
-    expect(parseInt(motor1.motorNumber)).toBe(1);
+    expect(motorShield.direction1).toBe("CLOCKWISE");
+    expect(motorShield.speed1).toBe(50);
 
     verifyMotorServos(state2, 50, 150, "CLOCKWISE", "ANTICLOCKWISE");
     verifyMotorServos(state3, 32, 150, "ANTICLOCKWISE", "ANTICLOCKWISE");
@@ -95,24 +95,16 @@ describe("test servos factories", () => {
     motor1Direction: string,
     motor2Direction: string
   ) => {
-    const motor1 = state.components.find(
-      (c) =>
-        c.type === ArduinoComponentType.MOTOR &&
-        parseInt((c as MotorShieldState).motorNumber) === 1
+    const motorShield = state.components.find(
+      (c) => c.type === ArduinoComponentType.MOTOR
     ) as MotorShieldState;
 
-    const motor2 = state.components.find(
-      (c) =>
-        c.type === ArduinoComponentType.MOTOR &&
-        parseInt((c as MotorShieldState).motorNumber) === 2
-    ) as MotorShieldState;
+    expect(motorShield.direction1).toBe(motor1Direction);
+    expect(motorShield.direction2).toBe(motor2Direction);
 
-    expect(motor1.direction).toBe(motor1Direction);
-    expect(motor2.direction).toBe(motor2Direction);
+    expect(motorShield.speed1).toBe(motor1Speed);
+    expect(motorShield.speed2).toBe(motor2Speed);
 
-    expect(motor1.speed).toBe(motor1Speed);
-    expect(motor2.speed).toBe(motor2Speed);
-
-    expect(state.components.length).toBe(2);
+    expect(state.components.length).toBe(1);
   };
 });
