@@ -9,6 +9,7 @@
   import { getAllBlocks } from "../../../core/blockly/helpers/block.helper";
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
+  import { tooltip } from "@svelte-plugins/tooltips";
 
   let frames: ArduinoFrame[] = [];
   let frameNumber = 1;
@@ -201,14 +202,43 @@
   class:disable={disablePlayer}
   class="icon-bar"
 >
-  <span on:click={prev} class:disable={disablePlayer} id="video-debug-backward">
+  <span
+    use:tooltip
+    title="Previous Step"
+    on:click={prev}
+    class:disable={disablePlayer}
+    id="video-debug-backward"
+  >
     <i class="fa fa-backward" />
   </span>
-  <span on:click={play} id="video-debug-play" class:disable={disablePlayer}>
-    <i class="fa" class:fa-play={!playing} class:fa-stop={playing} />
-  </span>
-
-  <span on:click={next} id="video-debug-forward" class:disable={disablePlayer}>
+  {#if playing}
+    <span
+      use:tooltip
+      title="Stop"
+      on:click={play}
+      id="video-debug-play"
+      class:disable={disablePlayer}
+    >
+      <i class="fa fa-stop" />
+    </span>
+  {:else}
+    <span
+      use:tooltip
+      title="Play"
+      on:click={play}
+      id="video-debug-play"
+      class:disable={disablePlayer}
+    >
+      <i class="fa fa-play" />
+    </span>
+  {/if}
+  <span
+    use:tooltip
+    title="Next Step"
+    on:click={next}
+    id="video-debug-forward"
+    class:disable={disablePlayer}
+  >
     <i class="fa fa-forward" />
   </span>
 </div>
