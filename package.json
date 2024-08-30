@@ -40,7 +40,7 @@
     "lodash": "^4.17.21",
     "rollup-plugin-copy": "^3.3.0",
     "simple-color-picker": "^1.0.5",
-    "svelte": "^4.2.14",
+    "svelte": "^4.2.19",
     "svelte-check": "^3.6.0",
     "sweetalert": "^2.1.2",
     "ts-jest": "^29.1.2",
