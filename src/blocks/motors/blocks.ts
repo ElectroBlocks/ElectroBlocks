@@ -6,7 +6,7 @@ Blockly.defineBlocksWithJsonArray([
   // BEGIN JSON EXTRACT
   {
     type: "move_motor",
-    message0: "%1 Move  motor %2 Which Motor %3 Direction %4 %5 Speed %6",
+    message0: "%1 Move motor %2 Which Motor %3 %4 Direction %5 %6 Speed %7",
     args0: [
       {
         type: "field_image",
@@ -18,6 +18,7 @@ Blockly.defineBlocksWithJsonArray([
       },
       {
         type: "input_dummy",
+        align: "RIGHT",
       },
       {
         type: "field_dropdown",
@@ -29,7 +30,11 @@ Blockly.defineBlocksWithJsonArray([
           ["2", "2"],
         ],
       },
-
+      {
+        type: "input_dummy",
+        align: "RIGHT",
+        name: "WHICH_MOTOR",
+      },
       {
         type: "field_dropdown",
         name: "DIRECTION",

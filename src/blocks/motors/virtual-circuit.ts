@@ -90,19 +90,9 @@ export const createMotorWires: CreateWire<MotorShieldState> = (
   if (state.numberOfMotors == 1) {
     return;
   }
+
   createComponentWire(
     holes[3],
-    isDown,
-    motorEl,
-    state.en2,
-    draw,
-    arduino,
-    id,
-    "EN2_PIN",
-    board
-  );
-  createComponentWire(
-    holes[4],
     isDown,
     motorEl,
     state.in3,
@@ -113,7 +103,7 @@ export const createMotorWires: CreateWire<MotorShieldState> = (
     board
   );
   createComponentWire(
-    holes[5],
+    holes[4],
     isDown,
     motorEl,
     state.in4,
@@ -121,6 +111,17 @@ export const createMotorWires: CreateWire<MotorShieldState> = (
     arduino,
     id,
     "IN4_PIN",
+    board
+  );
+  createComponentWire(
+    holes[5],
+    isDown,
+    motorEl,
+    state.en2,
+    draw,
+    arduino,
+    id,
+    "EN2_PIN",
     board
   );
 };

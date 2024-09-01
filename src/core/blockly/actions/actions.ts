@@ -1,5 +1,3 @@
-import { ARDUINO_PINS } from "../../microcontroller/selectBoard";
-
 export enum ActionType {
   FOR_LOOP_BLOCK_CHANGE = "FOR_LOOP_CHANGE",
   LCD_SIMPLE_PRINT_CHANGE = "LCD_SIMPLE_PRINT_CHANGE",
@@ -10,6 +8,7 @@ export enum ActionType {
   ENABLE_BLOCK = "ENABLE_BLOCK",
   DELETE_VARIABLE = "DELETE_VARIABLE",
   UPDATE_LED_COLOR = "UPDATE_LED_COLOR",
+  UPDATE_MOTOR_SETUP_BLOCK = "UPDATE_MOTOR_SETUP_BLOCK",
 }
 
 export interface Action {
@@ -27,6 +26,10 @@ export interface VariableAction extends Action {
 
 export interface ForLoopTextChange extends BlockAction {
   changeText: string;
+}
+
+export interface UpdateMotorSetupBlock extends BlockAction {
+  showMotorTwo: boolean;
 }
 
 export interface UpdateLCDScreenPrintBlock extends BlockAction {
