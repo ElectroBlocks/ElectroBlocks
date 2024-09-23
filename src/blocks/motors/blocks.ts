@@ -61,6 +61,43 @@ Blockly.defineBlocksWithJsonArray([
     tooltip: "",
     helpUrl: "",
   },
+  {
+    type: "stop_motor",
+    tooltip: "",
+    helpUrl: "",
+    message0: "%1 Stop Motor %2 Which Motor %3 %4",
+    args0: [
+      {
+        type: "field_image",
+        src: "./blocks/motor/motor.png",
+        width: 15,
+        height: 15,
+        alt: "*",
+        flipRtl: "FALSE",
+      },
+      {
+        type: "input_dummy",
+        name: "Title",
+        align: "RIGHT",
+      },
+      {
+        type: "field_dropdown",
+        name: "MOTOR",
+        options: [
+          ["1", "1"],
+          ["2", "2"],
+        ],
+      },
+      {
+        type: "input_dummy",
+        name: "WHICH_MOTOR",
+        align: "RIGHT",
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: COLOR_THEME.COMPONENTS,
+  },
 ]);
 
 const motor_setup = {

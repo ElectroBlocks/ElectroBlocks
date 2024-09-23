@@ -117,6 +117,11 @@ const updateMotorSetupBlock = (action: UpdateMotorSetupBlock) => {
     b.getInput("WHICH_MOTOR").setVisible(action.showMotorTwo);
     b.render();
   });
+  const stopMotorBlocks = getBlocksByName("stop_motor");
+  stopMotorBlocks.forEach((b) => {
+    b.getInput("WHICH_MOTOR").setVisible(action.showMotorTwo);
+    b.render();
+  });
 };
 
 const updaterList: { [key: string]: Updater } = {

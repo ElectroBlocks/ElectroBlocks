@@ -26,5 +26,8 @@ export default `
                    </block>
                </value>
    </block>
+      <block type="stop_motor">
+   </block>
+
    </category>
 `;

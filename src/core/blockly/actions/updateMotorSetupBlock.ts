@@ -14,7 +14,7 @@ export const updateMotorSetupBlock = (
     return [];
   }
 
-  if (block.blockName != "motor_setup" && block.blockName != "move_motor") {
+  if (!["motor_setup", "move_motor", "stop_motor"].includes(block.blockName)) {
     return [];
   }
 

@@ -4,6 +4,10 @@ import type { Block } from "blockly";
 Blockly["Arduino"]["motor_setup"] = function (block) {
   return "";
 };
+Blockly["Arduino"]["stop_motor"] = function (block: Block) {
+  // todo set stop motor code.
+  return "";
+};
 Blockly["Arduino"]["move_motor"] = function (block: Block) {
   const motorNumber = block.getFieldValue("MOTOR");
 

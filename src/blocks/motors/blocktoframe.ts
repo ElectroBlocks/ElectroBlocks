@@ -70,6 +70,40 @@ export const motorSetup: BlockToFrameTransformer = (
   ];
 };
 
+export const stopMotor: BlockToFrameTransformer = (
+  blocks,
+  block,
+  variables,
+  timeline,
+  previousState
+) => {
+  const motorShieldStateToUpdate = {
+    ...findComponent<MotorShieldState>(
+      previousState,
+      ArduinoComponentType.MOTOR
+    ),
+  };
+  const motorNumber = +findFieldValue(block, "MOTOR");
+  let actualMotorNumber = 1;
+  if (motorShieldStateToUpdate.numberOfMotors === 1 || motorNumber === 1) {
+    motorShieldStateToUpdate.speed1 = 0;
+  } else {
+    motorShieldStateToUpdate.speed2 = 0;
+    actualMotorNumber = 2;
+  }
+
+  return [
+    arduinoFrameByComponent(
+      block.id,
+      block.blockName,
+      timeline,
+      motorShieldStateToUpdate,
+      `Stopping motor ${actualMotorNumber}.`,
+      previousState
+    ),
+  ];
+};
+
 export const moveMotor: BlockToFrameTransformer = (
   blocks,
   block,

@@ -146,6 +146,7 @@ export const blocksThatRequireSetup = {
   joystick_angle: "joystick_setup",
   joystick_engaged: "joystick_setup",
   move_motor: "motor_setup",
+  stop_motor: "motor_setup",
 };
 
 /**
@@ -413,6 +414,7 @@ export const blocksToBlockTypes: {
   rotate_servo: { type: BlockType.STATE, pinCategory: PinCategory.SERVO },
 
   move_motor: { type: BlockType.STATE, pinCategory: PinCategory.MOTOR },
+  stop_motor: { type: BlockType.STATE, pinCategory: PinCategory.MOTOR },
 
   set_color_led: { type: BlockType.STATE, pinCategory: PinCategory.LED_COLOR },
   rgb_led_setup: {

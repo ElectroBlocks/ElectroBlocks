@@ -138,21 +138,6 @@ export const motorUpdate: SyncComponent = (
     setMotorSpin(motorEl, 1, state.speed1, state.direction1);
     setMotorSpin(motorEl, 2, state.speed2, state.direction2);
   }
-  // const directionText = state.direction.toString();
-  // const animationSpeed = (1 / state.speed) * 50 + "s"; // Calculate animation duration based on speed
-  // if (state.speed == 0) {
-  //   motorEl.findOne("#motor").node.style.animation = "none";
-  // } else {
-  //   motorEl.findOne("#motor").node.style.animation =
-  //     state.direction === MOTOR_DIRECTION.CLOCKWISE
-  //       ? `rotate ${animationSpeed} linear infinite`
-  //       : `rotateAntiClockwise ${animationSpeed} linear infinite`;
-  // }
-  // (motorEl.findOne("#direction") as Text).node.innerHTML =
-  //   "Direction: " +
-  //   directionText.charAt(0).toUpperCase() +
-  //   directionText.slice(1).toLowerCase();
-  // (motorEl.findOne("#speed") as Text).node.innerHTML = "Speed: " + state.speed;
 };
 
 const setMotorSpin = (
@@ -176,11 +161,6 @@ const setMotorSpin = (
       motorFan.rotate(setSpeed);
     }, 10);
   }
-  // const animationSpeed = (1 / speed) * 50 + "s";
-  // motorEl.findOne(`#MOTOR_${motorNumber}_FAN`).node.style.animation =
-  //   direction === MOTOR_DIRECTION.CLOCKWISE
-  //     ? `rotate ${animationSpeed} linear infinite`
-  //     : `rotateAntiClockwise ${animationSpeed} linear infinite`;
 };
 
 function setDirectionAndSpeed(
@@ -189,11 +169,13 @@ function setDirectionAndSpeed(
   speed: number,
   direction: MOTOR_DIRECTION
 ) {
-  motorEl.findOne(`#MOTOR_${motor}_SPEED`).node.innerHTML = `Speed: ${speed}`;
   if (speed === 0) {
+    motorEl.findOne(`#MOTOR_${motor}_SPEED`).node.innerHTML = `Motor stopped!`;
     motorEl.findOne(`#MOTOR_${motor}_DIRECTION`).node.innerHTML = "";
     return;
   }
+  motorEl.findOne(`#MOTOR_${motor}_SPEED`).node.innerHTML = `Speed: ${speed}`;
+
   motorEl.findOne(`#MOTOR_${motor}_DIRECTION`).node.innerHTML = `Direction: ${
     direction == MOTOR_DIRECTION.CLOCKWISE ? "Clockwise" : "AntiClockwise"
   }`;
