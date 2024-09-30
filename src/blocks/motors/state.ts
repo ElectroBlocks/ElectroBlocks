@@ -17,5 +17,5 @@ export interface MotorShieldState extends ArduinoComponentState {
 
 export enum MOTOR_DIRECTION {
   CLOCKWISE = "CLOCKWISE",
-  ANTICLOCKWISE = "ANTICLOCKWISE",
+  ANTICLOCKWISE = "ANTI_CLOCKWISE",
 }

@@ -33,7 +33,7 @@ describe("test motors factories", () => {
     const motorSetupBlock = workspace.newBlock("motor_setup");
     motorSetupBlock.setFieldValue("2", "NUMBER_OF_MOTORS");
     const motor1Block1 = createMoveMotorBlock(1, "CLOCKWISE", 50);
-    const motor2Block2 = createMoveMotorBlock(2, "ANTICLOCKWISE", 150);
+    const motor2Block2 = createMoveMotorBlock(2, "ANTI_CLOCKWISE", 150);
     const stopMotor1 = workspace.newBlock("stop_motor") as BlockSvg;
     const stopMotor2 = workspace.newBlock("stop_motor") as BlockSvg;
     stopMotor1.setFieldValue("1", "MOTOR");
@@ -48,18 +48,18 @@ describe("test motors factories", () => {
       eventToFrameFactory(event).frames;
 
     expect("Stopping motor 1.").toBe(state3.explanation);
-    VerifyMotorState(state3, 0, 150, "CLOCKWISE", "ANTICLOCKWISE");
+    VerifyMotorState(state3, 0, 150, "CLOCKWISE", "ANTI_CLOCKWISE");
     expect("Stopping motor 2.").toBe(state4.explanation);
-    VerifyMotorState(state4, 0, 0, "CLOCKWISE", "ANTICLOCKWISE");
+    VerifyMotorState(state4, 0, 0, "CLOCKWISE", "ANTI_CLOCKWISE");
   });
 
   it("test it can do one two motors in different directions.", () => {
     const motorSetupBlock = workspace.newBlock("motor_setup");
     motorSetupBlock.setFieldValue("2", "NUMBER_OF_MOTORS");
     const motor1Block1 = createMoveMotorBlock(1, "CLOCKWISE", 50);
-    const motor2Block2 = createMoveMotorBlock(2, "ANTICLOCKWISE", 150);
+    const motor2Block2 = createMoveMotorBlock(2, "ANTI_CLOCKWISE", 150);
 
-    const motor1Block3 = createMoveMotorBlock(1, "ANTICLOCKWISE", 32);
+    const motor1Block3 = createMoveMotorBlock(1, "ANTI_CLOCKWISE", 32);
     const motor2Block4 = createMoveMotorBlock(2, "CLOCKWISE", 43);
 
     connectToArduinoBlock(motor1Block1);
@@ -85,9 +85,9 @@ describe("test motors factories", () => {
     expect(motorShield.direction1).toBe("CLOCKWISE");
     expect(motorShield.speed1).toBe(50);
 
-    VerifyMotorState(state2, 50, 150, "CLOCKWISE", "ANTICLOCKWISE");
-    VerifyMotorState(state3, 32, 150, "ANTICLOCKWISE", "ANTICLOCKWISE");
-    VerifyMotorState(state4, 32, 43, "ANTICLOCKWISE", "CLOCKWISE");
+    VerifyMotorState(state2, 50, 150, "CLOCKWISE", "ANTI_CLOCKWISE");
+    VerifyMotorState(state3, 32, 150, "ANTI_CLOCKWISE", "ANTI_CLOCKWISE");
+    VerifyMotorState(state4, 32, 43, "ANTI_CLOCKWISE", "CLOCKWISE");
   });
 
   const createMoveMotorBlock = (

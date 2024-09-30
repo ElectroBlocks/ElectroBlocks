@@ -142,7 +142,9 @@ export const moveMotor: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       motorShieldStateToUpdate,
-      `Motor ${actualMotorNumber} moves ${direction.toLowerCase()} at speed ${speed}.`,
+      `Motor ${actualMotorNumber} moves ${direction
+        .toLowerCase()
+        .replace("_", "")} at speed ${speed}.`,
       previousState
     ),
   ];
