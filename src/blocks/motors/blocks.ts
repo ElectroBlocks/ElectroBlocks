@@ -40,7 +40,7 @@ Blockly.defineBlocksWithJsonArray([
         name: "DIRECTION",
         options: [
           ["Clockwise", "CLOCKWISE"],
-          ["AntiClockwise", "ANTICLOCKWISE"],
+          ["AntiClockwise", "ANTI_CLOCKWISE"],
         ],
       },
       {
