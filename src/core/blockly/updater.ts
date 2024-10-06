@@ -10,9 +10,14 @@ import {
   Action,
   UpdateLCDScreenPrintBlock,
   UpdateLedColor,
+  UpdateMotorSetupBlock,
 } from "./actions/actions";
 import { deleteVariable } from "./helpers/variable.helper";
-import { getBlockById } from "./helpers/block.helper";
+import {
+  getBlockById,
+  getBlockByType,
+  getBlocksByName,
+} from "./helpers/block.helper";
 import _ from "lodash";
 import Blockly from "blockly";
 
@@ -100,6 +105,25 @@ const updateLedColor = (action: UpdateLedColor) => {
   block.render();
 };
 
+const updateMotorSetupBlock = (action: UpdateMotorSetupBlock) => {
+  const block = getBlockById(action.blockId);
+  if (block.type === "motor_setup") {
+    block.getInput("MOTOR_2").setVisible(action.showMotorTwo);
+    block.render();
+  }
+
+  const motorMoveBlocks = getBlocksByName("move_motor");
+  motorMoveBlocks.forEach((b) => {
+    b.getInput("WHICH_MOTOR").setVisible(action.showMotorTwo);
+    b.render();
+  });
+  const stopMotorBlocks = getBlocksByName("stop_motor");
+  stopMotorBlocks.forEach((b) => {
+    b.getInput("WHICH_MOTOR").setVisible(action.showMotorTwo);
+    b.render();
+  });
+};
+
 const updaterList: { [key: string]: Updater } = {
   [ActionType.DELETE_VARIABLE]: updateVariable,
   [ActionType.DISABLE_BLOCK]: updateDisableBlock,
@@ -111,6 +135,7 @@ const updaterList: { [key: string]: Updater } = {
   [ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA]: updateSensorBlockData,
   [ActionType.LCD_SIMPLE_PRINT_CHANGE]: updateLcdScreenPrintBlock,
   [ActionType.UPDATE_LED_COLOR]: updateLedColor,
+  [ActionType.UPDATE_MOTOR_SETUP_BLOCK]: updateMotorSetupBlock,
 };
 
 export const updater = (action: Action) => {

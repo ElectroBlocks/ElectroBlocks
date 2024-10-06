@@ -2,11 +2,19 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 export default `
 <category name="Motor" colour="${COLOR_THEME.COMPONENTS}">
-   <block type="move_motor">
-    <comment pinned="false" h="220" w="460">The motor number is on your motor shield.  The speed determines how much electricity will flow through your motor.  Depending on how big your motor is will decide on your actual speed.
-    
-Right now, motor move only works with Adafruit motor shield version 1.  We will be adding version 2 and other motor shield libraries soon.</comment>
+   <block type="motor_setup">
+       <comment pinned="false" h="220" w="460">This setups up the pins to control the L298N chip and the number of motors you want to control.</comment>
+    <field name="PIN_EN1">9</field>
+    <field name="PIN_IN1">8</field>
+    <field name="PIN_IN2">7</field>
+    <field name="PIN_IN3">5</field>
+    <field name="PIN_IN4">4</field>
+    <field name="PIN_EN2">3</field>
 
+   </block>
+
+   <block type="move_motor">
+    <comment pinned="false" h="220" w="460">Moves the motor and allow you to control the speed and direction.</comment>
    <value name="SPEED">
                    <block type="math_number">
                        <field name="NUM">50</field>
@@ -18,5 +26,10 @@ Right now, motor move only works with Adafruit motor shield version 1.  We will 
                    </block>
                </value>
    </block>
+      <block type="stop_motor">
+          <comment pinned="false" h="220" w="460">Stop the motor from spinning.</comment>
+
+   </block>
+
    </category>
 `;

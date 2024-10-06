@@ -15,7 +15,7 @@ import {
   createTestEvent,
 } from "../../../tests/tests.helper";
 import { MicroControllerType } from "../../microcontroller/microcontroller";
-import type { MotionSensor } from "../../../blocks/motors/state";
+import type { UltraSonicSensor } from "../../../blocks/ultrasonic_sensor/state";
 
 describe("saveSensorSetupBlockData", () => {
   let workspace: Workspace;
@@ -129,7 +129,7 @@ describe("saveSensorSetupBlockData", () => {
     };
 
     const actions = saveSensorSetupBlockData(event);
-    const metadataToSave = JSON.parse(actions[0].data) as MotionSensor[];
+    const metadataToSave = JSON.parse(actions[0].data) as UltraSonicSensor[];
     expect(metadataToSave.length).toBe(3);
     metadataToSave.forEach((data) => {
       const expectedcm = data.loop == 2 ? 10 : 1;
@@ -197,7 +197,7 @@ describe("saveSensorSetupBlockData", () => {
     };
 
     const actions = saveSensorSetupBlockData(event);
-    const metadataToSave = JSON.parse(actions[0].data) as MotionSensor[];
+    const metadataToSave = JSON.parse(actions[0].data) as UltraSonicSensor[];
     expect(metadataToSave.length).toBe(3);
     metadataToSave.forEach((data) => {
       expect(data.cm).toBe(2);

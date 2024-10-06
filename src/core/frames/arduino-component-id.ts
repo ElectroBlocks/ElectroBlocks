@@ -8,8 +8,8 @@ import { getLedColorId } from "../../blocks/rgbled/component-state-to-id";
 import { writePinId } from "../../blocks/writepin/component-state-to-id";
 import { getDigitalSensorId } from "../../blocks/digitalsensor/component-state-to-id";
 import { getAnalogSensorId } from "../../blocks/analogsensor/component-state-to-id";
-import { getMotorStateId } from "../../blocks/motors/component-to-state-id";
 import { getLedId } from "../../blocks/led/component-state-to-id";
+import { getMotorShieldId } from "../../blocks/motors/component-state-to-id";
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;
@@ -24,7 +24,7 @@ const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.BUTTON]: genericSingleComponentId,
   [ArduinoComponentType.IR_REMOTE]: genericSingleComponentId,
   [ArduinoComponentType.LED_MATRIX]: genericSingleComponentId,
-  [ArduinoComponentType.MOTOR]: getMotorStateId,
+  [ArduinoComponentType.MOTOR]: getMotorShieldId,
   [ArduinoComponentType.MESSAGE]: () => ArduinoComponentType.MESSAGE.toString(),
   [ArduinoComponentType.NEO_PIXEL_STRIP]: neoPixelId,
   [ArduinoComponentType.FASTLED_STRIP]: fastLEDId,
