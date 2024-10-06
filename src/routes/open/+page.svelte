@@ -4,7 +4,6 @@
   import { onMount, onDestroy } from 'svelte';
   import { goto } from '$app/navigation';;
 
-  import Login from '../../components/auth/Login.svelte';
   import { loadProject } from '../../core/blockly/helpers/workspace.helper';
   import authStore from '../../stores/auth.store';
   import {
@@ -123,9 +122,16 @@
 </script>
 
 <main>
-  <h2>Your Projects</h2>
-  {#if $authStore.isLoggedIn}
-    {#if projectList.length > 0}
+  <h2>Projects</h2>
+  <hr />
+  <label for="file-upload" class="form custom-file-upload">
+    <i class="fa fa-cloud-upload" />
+    Open a project from your computer
+  </label>
+  <input on:change={changeProject} id="file-upload" type="file" />
+  <hr />
+    {#if projectList.length > 0 && $authStore.isLoggedIn}
+      <h3>Your Projects</h3>
       <FormGroup>
         <Label for="search">Search</Label>
         <Input bind:value={searchTerm} type="text" id="search" />
@@ -164,26 +170,45 @@
           {/each}
         </tbody>
       </Table>
-    {:else}
-      <h2>Once you save a project it will appear here.</h2>
-    {/if}
-    <hr />
-    <h3>Load project from your computer</h3>
-    <label for="file-upload" class="form custom-file-upload">
-      <i class="fa fa-cloud-upload" />
-      Choose Project
-    </label>
-    <input on:change={changeProject} id="file-upload" type="file" />
-  {:else}
-    <p>Login to see your saved projects.</p>
-    <Login />
   {/if}
+  <h3>Example Projects</h3>
+  <section class="container">
+    <div class="row">
+      <div data-project="snake.xml" class="col">
+        <img src="/example-projects/snake.gif" alt="snake projects">
+        <h4 class="text-center mt-4">Snake Pattern</h4>
+        <p class="text-center">A snake LED Light Pattern.</p> 
+      </div>
+      <div data-project="rainbow.xml" class="col ms-3">
+          <img src="/example-projects/rainbow.gif" alt="rainbow lights">
+          <h4 class="text-center mt-4">Rainbow Lights</h4>
+          <p class="text-center">Create your own rainbow light pattern.</p> 
+      </div>
+    </div>
+  </section>
 </main>
 <svelte:head>
   <title>ElectroBlocks - Open Projects</title>
 </svelte:head>
 
 <style>
+  img {
+    width: 100%;
+    display: block;
+    margin-top: 30px;
+  }
+  h4 {
+    text-align: center;
+    
+  }
+  .custom-file-upload {
+    cursor: pointer;
+  }
+  .col {
+    height: 300px;
+    border: solid;
+    cursor: pointer;
+  }
   main {
     width: 90%;
     margin: 10px auto;

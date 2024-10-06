@@ -18,7 +18,6 @@
   import { arduinoComponentStateToId } from '../../../core/frames/arduino-component-id';
   import { centerCircuit } from '../../../core/virtual-circuit/centerCircuit';
   import { page } from '$app/stores';
-  import showLessonsStore from '../../../stores/showLessons.store';
 
 
   let container;

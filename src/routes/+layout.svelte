@@ -12,17 +12,14 @@
   import projectStore from '../stores/project.store';
   import { getFile, getProject } from '../firebase/db';
   import { loadProject } from '../core/blockly/helpers/workspace.helper';
-  import showLessonStore from '../stores/showLessons.store';
   import {
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop,
   } from '../core/blockly/helpers/arduino_loop_block.helper';
   import swal from 'sweetalert';
-  import Lessons from '../components/electroblocks/home/Lessons.svelte';
   import { initializeAnalytics } from 'firebase/analytics';
   import { initializeApp } from 'firebase/app';
 
-  export let segment = '';
 
   let showScrollOnRightSide = false;
 
@@ -30,7 +27,6 @@
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
   let showLoopExecutionTimesArduinoStartBlock: boolean;
   $: showLoopExecutionTimesArduinoStartBlock = isPathOnHomePage($page.url.pathname);
-
   let height = '500px';
   let middleFlex = 59.5;
   let rightFlex = 39.5;
@@ -86,9 +82,7 @@
       }
 
       // If this is false we should not worry about lesson side of the screen.
-      if (!$showLessonStore) {
-        leftFlex = 0;
-      }
+      leftFlex = 0;
 
       // Derive the from right flex calculation
       middleFlex = 100 - rightFlex - leftFlex - 1;
@@ -139,21 +133,6 @@
       resizeHeight();
     });
 
-    showLessonStore.subscribe(async (showLesson) => {
-      if (showLesson) {
-        middleFlex = 39;
-        rightFlex = 29;
-        leftFlex = 31;
-      } else {
-        middleFlex = 59.5;
-        rightFlex = 39.5;
-        leftFlex = 0;
-      }
-      await tick();
-      await tick();
-      await tick();
-      resizeStore.mainWindow();
-    });
 
     let loadedProject = false;
     if (localStorage.getItem('reload_once_workspace')) {
@@ -211,19 +190,14 @@
   });
 </script>
 
-<Nav {segment} />
+<Nav  />
 <svelte:body on:mouseup={stopResize} />
 <main
   style="height: {height}"
   on:mousemove={resizeLeftSide}
   on:mousemove={resizeRightSide}
 >
-  {#if $showLessonStore}
-    <div style="flex: {leftFlex}; overflow-y: scroll;">
-      <Lessons />
-    </div>
-    <div class="grabber" on:mousedown={() => startResize('left')} />
-  {/if}
+  
   <div style="flex: {middleFlex}" id="middle_panel">
     <Blockly {showLoopExecutionTimesArduinoStartBlock} />
   </div>
