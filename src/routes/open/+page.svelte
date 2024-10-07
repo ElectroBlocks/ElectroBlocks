@@ -34,6 +34,13 @@
     );
   }
 
+  async function openfile(filename) {
+    const localFileResponse = await fetch(`/example-projects/${filename}`);
+    const xmlFile = await localFileResponse.text();
+    loadProject(xmlFile);
+    await goto('/');
+  }
+
   async function changeProject(e) {
     const file = e.target.files[0];
     if (!file) {
@@ -174,12 +181,12 @@
   <h3>Example Projects</h3>
   <section class="container">
     <div class="row">
-      <div data-project="snake.xml" class="col">
+      <div on:click={() => openfile('snake.xml')} class="col">
         <img src="/example-projects/snake.gif" alt="snake projects">
         <h4 class="text-center mt-4">Snake Pattern</h4>
         <p class="text-center">A snake LED Light Pattern.</p> 
       </div>
-      <div data-project="rainbow.xml" class="col ms-3">
+      <div on:click={() => openfile('rainbow.xml')} class="col ms-3">
           <img src="/example-projects/rainbow.gif" alt="rainbow lights">
           <h4 class="text-center mt-4">Rainbow Lights</h4>
           <p class="text-center">Create your own rainbow light pattern.</p> 
