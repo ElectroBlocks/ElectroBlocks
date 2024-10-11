@@ -11,6 +11,7 @@ import {
   UpdateLCDScreenPrintBlock,
   UpdateLedColor,
   UpdateMotorSetupBlock,
+  UpdateSetAllFastLedBlock,
 } from "./actions/actions";
 import { deleteVariable } from "./helpers/variable.helper";
 import {
@@ -124,6 +125,21 @@ const updateMotorSetupBlock = (action: UpdateMotorSetupBlock) => {
   });
 };
 
+const updateFastLedSetAllColorsBlock = (action: UpdateSetAllFastLedBlock) => {
+  const block = getBlockById(action.blockId);
+  for (let i = 1; i <= 12; i += 1) {
+    block.getInput(`ROW_${i}`).setVisible(i <= action.maxRows);
+    if (i == action.maxRows) {
+      for (let col = 1; col <= 12; col += 1) {
+        block
+          .getField(`${i}-${col}`)
+          .setVisible(col <= action.maxColumnsOnLastRow);
+      }
+    }
+  }
+  block.render();
+};
+
 const updaterList: { [key: string]: Updater } = {
   [ActionType.DELETE_VARIABLE]: updateVariable,
   [ActionType.DISABLE_BLOCK]: updateDisableBlock,
@@ -136,6 +152,8 @@ const updaterList: { [key: string]: Updater } = {
   [ActionType.LCD_SIMPLE_PRINT_CHANGE]: updateLcdScreenPrintBlock,
   [ActionType.UPDATE_LED_COLOR]: updateLedColor,
   [ActionType.UPDATE_MOTOR_SETUP_BLOCK]: updateMotorSetupBlock,
+  [ActionType.UPDATE_FASTLED_SET_ALL_COLORS_BLOCK]:
+    updateFastLedSetAllColorsBlock,
 };
 
 export const updater = (action: Action) => {

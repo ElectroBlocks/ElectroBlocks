@@ -153,7 +153,7 @@ Blockly.Blocks["fastled_set_all_colors"] = {
       .appendField("Set all Colors");
     // This is so that it starts the bottom.
     for (let rows = 12; rows >= 1; rows -= 1) {
-      let input = this.appendDummyInput();
+      let input = this.appendDummyInput(`ROW_${rows}`);
       for (let cols = 1; cols <= 12; cols += 1) {
         // This is to reverse the columns
         let actualCol = rows % 2 == 0 ? 13 - cols : cols;
