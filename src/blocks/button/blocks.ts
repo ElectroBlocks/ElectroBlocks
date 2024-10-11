@@ -78,3 +78,31 @@ const isBtnPressedBlock: any = {
 };
 
 Blockly.Blocks["is_button_pressed"] = isBtnPressedBlock;
+
+
+const release_button = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage("./blocks/button/button.png", 15, 15, "*")
+      )
+      .appendField("button")
+      .appendField(
+        new Blockly.FieldDropdown(() => {
+          return configuredPins(
+            "button_setup",
+            selectBoardBlockly().digitalPins
+          );
+        }),
+        "PIN"
+      )
+      .appendField("is released.");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip("");
+    this.setHelpUrl("");
+    this.setColour(COLOR_THEME.SENSOR);
+  },
+};
+Blockly.common.defineBlocks({ release_button: release_button });
+                    

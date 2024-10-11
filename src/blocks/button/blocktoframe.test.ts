@@ -15,6 +15,7 @@ import {
 } from "../../core/frames/arduino.frame";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
 import type { ButtonState } from "./state";
+import { connectToArduinoBlock } from "../../core/blockly/helpers/block.helper";
 
 describe("button state factories", () => {
   let workspace: Workspace;
@@ -32,6 +33,34 @@ describe("button state factories", () => {
 
     const event = createTestEvent(buttonSetup.id);
     saveSensorSetupBlockData(event).forEach(updater);
+  });
+
+  it("should be able to release button after it has been pressed in the loop", () => {
+    const buttonState: ButtonState = {
+      isPressed: false,
+      pins: [ARDUINO_PINS.PIN_3],
+      type: ArduinoComponentType.BUTTON,
+    };
+    const releaseButton = workspace.newBlock("release_button") as BlockSvg;
+
+    const expectedReleaseState: ArduinoFrame = {
+      blockId: releaseButton.id,
+      blockName: "release_button",
+      timeLine: { function: "loop", iteration: 1 },
+      explanation: "Button 3 is being released.",
+      components: [buttonState],
+      variables: {},
+      txLedOn: false,
+      builtInLedOn: false,
+      sendMessage: "", // message arduino is sending
+      delay: 0, // Number of milliseconds to delay
+      powerLedOn: true,
+      frameNumber: 2,
+    };
+
+    connectToArduinoBlock(releaseButton);
+    const event = createTestEvent(releaseButton.id);
+    expect(eventToFrameFactory(event).frames[1]).toEqual(expectedReleaseState);
   });
 
   it("should be able generate state for button setup block", () => {

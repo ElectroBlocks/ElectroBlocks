@@ -132,6 +132,7 @@ export const blocksThatRequireSetup = {
   rfid_tag: "rfid_setup",
   rfid_card: "rfid_setup",
   is_button_pressed: "button_setup",
+  release_button: "button_setup",
   arduino_send_message: "message_setup",
   arduino_get_message: "message_setup",
   arduino_receive_message: "message_setup",
@@ -445,7 +446,10 @@ export const blocksToBlockTypes: {
     type: BlockType.SENSOR_READ,
     pinCategory: PinCategory.NONE,
   },
-
+  release_button: {
+    type: BlockType.STATE,
+    pinCategory: PinCategory.NONE,
+  },
   digital_read_setup: {
     type: BlockType.SENSOR_SETUP,
     pinCategory: PinCategory.DIGITAL_READ_SETUP,
