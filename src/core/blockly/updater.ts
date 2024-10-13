@@ -127,14 +127,17 @@ const updateMotorSetupBlock = (action: UpdateMotorSetupBlock) => {
 
 const updateFastLedSetAllColorsBlock = (action: UpdateSetAllFastLedBlock) => {
   const block = getBlockById(action.blockId);
-  for (let i = 1; i <= 12; i += 1) {
-    block.getInput(`ROW_${i}`).setVisible(i <= action.maxRows);
-    if (i == action.maxRows) {
-      for (let col = 1; col <= 12; col += 1) {
-        block
-          .getField(`${i}-${col}`)
-          .setVisible(col <= action.maxColumnsOnLastRow);
+  console.log("update blocks");
+  for (let row = 1; row <= 12; row += 1) {
+    const showAllInRow = row <= action.maxRows;
+    block.getInput(`ROW_${row}`).setVisible(showAllInRow);
+    for (let col = 1; col <= 12; col += 1) {
+      const field = block.getField(`${row}-${col}`);
+      if (row === action.maxRows) {
+        field.setVisible(col <= action.maxColumnsOnLastRow);
+        continue;
       }
+      field.setVisible(showAllInRow);
     }
   }
   block.render();
