@@ -256,6 +256,9 @@ Blockly["Arduino"].quote_ = function (string) {
  */
 Blockly["Arduino"].scrub_ = function (block, code) {
   let commentCode = "";
+  // Simulation only blocks that we don't want to output comments for.
+  if (block.type == "release_button") return "";
+
   // Only collect comments for blocks that aren't inline.
   // Do not collect comments for setup blocks
   if (

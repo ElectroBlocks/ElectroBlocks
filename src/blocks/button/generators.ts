@@ -14,3 +14,8 @@ Blockly["Arduino"]["is_button_pressed"] = function (block: BlockSvg) {
 
   return ["(digitalRead(" + pin + ") == LOW)", Blockly["Arduino"].ORDER_ATOMIC];
 };
+
+// This is a simulation only block
+Blockly["Arduino"]["release_button"] = function (block: BlockSvg) {
+  return ""
+};

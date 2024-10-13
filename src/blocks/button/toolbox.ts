@@ -9,6 +9,6 @@ export default `<category name="Button" colour="${COLOR_THEME.SENSOR}">
   <comment pinned="false" h="60" w="460">Returns true if the button is pressed.</comment>
 </block>
 <block type="release_button">
-  <comment pinned="false" h="60" w="460">Releases the button on the simulation.</comment>
+  <comment pinned="false" h="60" w="460">Releases the button on the only simulation.</comment>
 </block>
 </category>`;
