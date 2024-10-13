@@ -9,6 +9,7 @@ export enum ActionType {
   DELETE_VARIABLE = "DELETE_VARIABLE",
   UPDATE_LED_COLOR = "UPDATE_LED_COLOR",
   UPDATE_MOTOR_SETUP_BLOCK = "UPDATE_MOTOR_SETUP_BLOCK",
+  UPDATE_FASTLED_SET_ALL_COLORS_BLOCK = "UPDATE_FASTLED_SET_ALL_COLORS_BLOCK",
 }
 
 export interface Action {
@@ -30,6 +31,12 @@ export interface ForLoopTextChange extends BlockAction {
 
 export interface UpdateMotorSetupBlock extends BlockAction {
   showMotorTwo: boolean;
+}
+
+export interface UpdateSetAllFastLedBlock extends BlockAction {
+  maxLeds: number;
+  maxRows: number;
+  maxColumnsOnLastRow: number;
 }
 
 export interface UpdateLCDScreenPrintBlock extends BlockAction {
