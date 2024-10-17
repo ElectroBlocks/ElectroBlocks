@@ -32,7 +32,7 @@ export const buttonSetup: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       buttonState,
-      `button ${pin} is being setup.`,
+      `Button ${pin} is being setup.`,
       previousState
     ),
   ];
@@ -46,13 +46,14 @@ export const releaseButton: BlockToFrameTransformer = (
   previousState
 ) => {
   const pin = findFieldValue(block, "PIN");
+  const isPressed = findFieldValue(block, "STATE") == "PRESSED";
   let buttonState = findComponent<ButtonState>(
     previousState,
     ArduinoComponentType.BUTTON,
     pin
   );
   buttonState = _.clone(buttonState);
-  buttonState.isPressed = false;
+  buttonState.isPressed = isPressed;
 
   return [
     arduinoFrameByComponent(
@@ -60,7 +61,7 @@ export const releaseButton: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       buttonState,
-      `Button ${pin} is being released.`,
+      `Button ${pin} is being ${isPressed ? "pressed" : "released"}.`,
       previousState
     ),
   ];

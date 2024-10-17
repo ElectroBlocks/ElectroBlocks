@@ -86,7 +86,7 @@ const release_button = {
       .appendField(
         new Blockly.FieldImage("./blocks/button/button.png", 15, 15, "*")
       )
-      .appendField("button")
+      .appendField("Button")
       .appendField(
         new Blockly.FieldDropdown(() => {
           return configuredPins(
@@ -96,7 +96,15 @@ const release_button = {
         }),
         "PIN"
       )
-      .appendField("is released.");
+      .appendField("is ")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["released", "RELEASED"],
+          ["pressed", "PRESSED"],
+        ]),
+        "STATE"
+      )
+      .appendField(".");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip("");
