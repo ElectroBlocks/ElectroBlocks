@@ -7,6 +7,7 @@ import loopTimes from "../../core/blockly/helpers/looptimes";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 import { virtualCircuitComment, whatIsAPin } from "../comment-text";
+import { RedCheckboxThatIsLong } from "../../core/blockly/overrides/redcheckoxthatislong";
 const buttonSetupBlock: any = {
   init: function () {
     this.appendDummyInput()
@@ -39,11 +40,14 @@ const buttonSetupBlock: any = {
     this.appendDummyInput()
       .appendField("Is button pressed: ")
       .appendField(new Blockly.FieldCheckbox("TRUE"), "is_pressed");
-    
+    this.appendDummyInput()
+      .appendField("IGNORE: ")
+      .appendField(new RedCheckboxThatIsLong("TRUE"), "silly");
+
     this.appendDummyInput("COPY_ALL")
-    .appendField("Copy All: ")
-    .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
-    
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
+
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");
