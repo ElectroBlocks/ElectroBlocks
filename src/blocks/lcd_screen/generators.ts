@@ -90,8 +90,7 @@ Blockly["Arduino"]["lcd_screen_simple_print"] = function (
     row4 +
     "delay(" +
     seconds * 1000 +
-    "); \n" +
-    "lcd.clear(); \n"
+    "); \n"
   );
 };
 
