@@ -13,5 +13,4 @@ export default {
   bucket_name: "electroblocks-lesson-test",
   useEmulator: true,
   site: "electroblocks-org",
-  starterLessonId: "F074ph1AOoQALhHV2mKA",
 };
