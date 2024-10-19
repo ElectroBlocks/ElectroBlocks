@@ -38,7 +38,10 @@ import {
   bluetoothSetup,
 } from "../../../blocks/bluetooth/blocktoframe";
 import { debugBlock } from "../../../blocks/debug/blocktoframe";
-import { buttonSetup } from "../../../blocks/button/blocktoframe";
+import {
+  buttonSetup,
+  releaseButton,
+} from "../../../blocks/button/blocktoframe";
 import { irRemoteSetup } from "../../../blocks/ir_remote/blocktoframe";
 import { customBlock } from "../../../blocks/functions/blocktoframe";
 import {
@@ -166,6 +169,8 @@ const blockToFrameTransformerList: {
   move_motor: moveMotor,
   stop_motor: stopMotor,
   motor_setup: motorSetup,
+
+  release_button: releaseButton,
 
   thermistor_setup: thermistorSetup,
 
