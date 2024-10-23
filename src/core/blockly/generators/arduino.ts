@@ -275,7 +275,6 @@ Blockly["Arduino"].scrub_ = function (block, code) {
           Blockly["Arduino"].COMMENT_WRAP - 3
         )
       : null;
-    console.log(comment, "test");
     if (comment) {
       if (block.getProcedureDef) {
         // Use a comment block for function comments.
