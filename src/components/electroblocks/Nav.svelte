@@ -122,6 +122,10 @@
 </script>
 
 <nav class:small={!$authStore.isLoggedIn}>
+  <a href="/" class="logos">
+    <img class="electroblocks" src="/logo.png" alt="">
+    <img class="fossee" src="/fossee.png" alt="">
+  </a>
   {#if $authStore.isLoggedIn}
     <a
       title="Home"
@@ -284,9 +288,21 @@
     border-bottom: 1px solid gray;
     height: 56px;
   }
+  img {
+    max-height: 40px;
+  }
+  img.electroblocks {
+    max-width: 20%;
+  }
+  img.fossee {
+    max-width: 60%;
+  }
 
   nav .fa {
     color: #505bda;
+  }
+  .logos {
+    margin-top: 10px;
   }
 
   nav a .fa,
@@ -304,7 +320,7 @@
   nav span,
   label {
     float: left;
-    width: 11.11111%;
+    width: calc(100% / 10);
     text-align: center;
     padding: 2px 0;
     transition: all 0.3s ease;
@@ -318,7 +334,7 @@
   nav.small a,
   nav.small span,
   nav.small label {
-    width: 12.5%;
+    width: calc(100% / 9);
   }
   #saved {
     position: absolute;
