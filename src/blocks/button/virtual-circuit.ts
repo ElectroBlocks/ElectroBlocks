@@ -37,6 +37,10 @@ export const createButton: AfterComponentCreateHook<ButtonState> = (
   buttonEl
 ) => {
   buttonEl.findOne("#PIN_TEXT").node.innerHTML = state.pins[0];
+  buttonEl.findOne("#PIN_TEXT_TYPE").node.innerHTML = state.usePullup
+    ? "-"
+    : "+";
+  // buttonEl.findOne("#PIN_GND_POWER").node.setAttribute('color', but)
 };
 
 export const updateButton: SyncComponent = (
@@ -85,7 +89,8 @@ export const createWiresButton: CreateWire<ButtonState> = (
       draw,
       arduino,
       id,
-      "ground"
+      "ground",
+      "PIN_GND_POWER"
     );
 
     createComponentWire(

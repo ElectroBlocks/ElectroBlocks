@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="94.86" height="151.64" viewBox="0 0 94.86 151.64">
   <g id="WIRES">
-    <line id="PIN_GND" x1="30.79" y1="101.84" x2="30.79" y2="133.69" fill="none" stroke="#020101" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
+    <line id="PIN_GND_POWER" x1="30.79" y1="101.84" x2="30.79" y2="133.69" fill="none" stroke="#020101" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
     <line id="PIN_DATA" x1="46.37" y1="101.84" x2="46.37" y2="133.69" fill="none" stroke="#3d8938" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
   </g>
   <g id="BUTTON_NOT_PRESSED">
@@ -24,7 +24,7 @@
   <g id="TEXT">
     <text id="BUTTON_PRESSED_TEXT" transform="translate(0 15.82) scale(0.91 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">Button <tspan x="0" y="21.6">Pressed</tspan></text>
     <text id="PIN_TEXT" transform="translate(50.37 126.59)" font-size="24" font-family="Biryani-SemiBold, Biryani" font-weight="600">A15</text>
-    <text transform="translate(11.84 129.75)" font-size="36" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
+    <text id="PIN_TEXT_TYPE" transform="translate(11.84 129.75)" font-size="36" font-family="Biryani-SemiBold, Biryani" font-weight="600">-</text>
     <text id="BUTTON_TEXT" transform="translate(0.9 30.49) scale(0.91 1)" font-size="18" font-family="Biryani-SemiBold, Biryani" font-weight="600">Button </text>
   </g>
 </svg>
