@@ -29,7 +29,14 @@ export const positionButton: PositionComponent<ButtonState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(buttonEl, arduinoEl, draw, holes[0], isDown, "PIN_GND");
+  positionComponent(
+    buttonEl,
+    arduinoEl,
+    draw,
+    holes[0],
+    isDown,
+    "PIN_GND_POWER"
+  );
 };
 
 export const createButton: AfterComponentCreateHook<ButtonState> = (
@@ -40,7 +47,12 @@ export const createButton: AfterComponentCreateHook<ButtonState> = (
   buttonEl.findOne("#PIN_TEXT_TYPE").node.innerHTML = state.usePullup
     ? "-"
     : "+";
-  // buttonEl.findOne("#PIN_GND_POWER").node.setAttribute('color', but)
+  buttonEl
+    .findOne("#PIN_TEXT_TYPE")
+    .node.setAttribute("font-size", state.usePullup ? "36px" : "30px");
+  buttonEl
+    .findOne("#PIN_GND_POWER")
+    .node.setAttribute("stroke", state.usePullup ? "#020101" : "#AA0000");
 };
 
 export const updateButton: SyncComponent = (
@@ -115,7 +127,7 @@ export const createWiresButton: CreateWire<ButtonState> = (
     arduino,
     id,
     "power",
-    "PIN_GND"
+    "PIN_GND_POWER"
   );
 
   const color = board.pinConnections[state.pins[0]].color;
