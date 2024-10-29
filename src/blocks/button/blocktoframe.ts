@@ -17,6 +17,7 @@ export const buttonSetup: BlockToFrameTransformer = (
 ) => {
   const btnDatum = JSON.parse(block.metaData) as ButtonSensor[];
   const btnData = btnDatum.find((d) => d.loop === 1);
+  const usePullup = findFieldValue(block, "PULLUP_RESISTOR") === "TRUE";
 
   const [pin] = block.pins;
 
@@ -24,8 +25,8 @@ export const buttonSetup: BlockToFrameTransformer = (
     type: ArduinoComponentType.BUTTON,
     pins: block.pins,
     isPressed: btnData.is_pressed,
+    usePullup,
   };
-
   return [
     arduinoFrameByComponent(
       block.id,
@@ -54,7 +55,6 @@ export const releaseButton: BlockToFrameTransformer = (
   );
   buttonState = _.clone(buttonState);
   buttonState.isPressed = isPressed;
-
   return [
     arduinoFrameByComponent(
       block.id,

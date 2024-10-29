@@ -139,10 +139,13 @@ export const createGroundOrPowerWire = (
   draw: Svg,
   arduino: Element,
   componentId: string,
-  type: "ground" | "power"
+  type: "ground" | "power",
+  pinConnectionId: string = ""
 ) => {
   const groundHole = `pin${hole}${isDown ? "E" : "F"}`;
-  const pinConnectionId = type === "ground" ? "PIN_GND" : "PIN_POWER";
+  if (pinConnectionId === "") {
+    pinConnectionId = type === "ground" ? "PIN_GND" : "PIN_POWER";
+  }
   const color = type === "ground" ? "#000" : "#AA0000";
   const breadBoardHoleA = `pin${hole}${isDown ? "A" : "J"}`;
   const breadBoardHoleB = `pin${hole}${getGroundorPowerWireLetter(

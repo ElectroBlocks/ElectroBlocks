@@ -14,7 +14,11 @@ import type { ButtonState } from "./state";
 import {
   createComponentWire,
   createGroundOrPowerWire,
+  createResistor,
+  createWireComponentToBreadboard,
+  createWireFromArduinoToBreadBoard,
 } from "../../core/virtual-circuit/wire";
+import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
 
 export const positionButton: PositionComponent<ButtonState> = (
   state,
@@ -66,32 +70,77 @@ export const createWiresButton: CreateWire<ButtonState> = (
   state,
   draw,
   buttonEl,
-  arduinoEl,
+  arduino,
   id,
   board,
   area
 ) => {
   const { holes, isDown } = area;
+  console.log(state.usePullup);
+  if (state.usePullup) {
+    createGroundOrPowerWire(
+      holes[0],
+      isDown,
+      buttonEl,
+      draw,
+      arduino,
+      id,
+      "ground"
+    );
+
+    createComponentWire(
+      holes[3],
+      isDown,
+      buttonEl,
+      state.pins[0],
+      draw,
+      arduino,
+      id,
+      "PIN_DATA",
+      board
+    );
+    return;
+  }
 
   createGroundOrPowerWire(
-    holes[0],
+    holes[1],
     isDown,
     buttonEl,
     draw,
-    arduinoEl,
+    arduino,
     id,
-    "ground"
+    "power",
+    "PIN_GND"
   );
 
-  createComponentWire(
-    holes[3],
-    isDown,
+  const color = board.pinConnections[state.pins[0]].color;
+  createWireComponentToBreadboard(
+    `pin${holes[2]}${isDown ? "E" : "F"}`,
     buttonEl,
-    state.pins[0],
     draw,
-    arduinoEl,
-    id,
+    arduino,
     "PIN_DATA",
+    id,
+    color
+  );
+
+  createResistor(
+    arduino,
+    draw,
+    holes[2],
+    false,
+    arduinoComponentStateToId(state),
+    "horizontal",
+    10000
+  );
+
+  const holeId = `pin${holes[4]}${isDown ? "A" : "J"}`;
+  createWireFromArduinoToBreadBoard(
+    state.pins[0],
+    arduino as Svg,
+    draw,
+    holeId,
+    id,
     board
   );
 };
