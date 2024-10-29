@@ -13,7 +13,7 @@ Blockly["Arduino"]["button_setup"] = function (block: BlockSvg) {
   }
   Blockly["Arduino"].setupCode_[
     "btn_pin_" + pin
-  ] = `\tpinMode("${pin}, ${inputType}); \n`;
+  ] = `\tpinMode(${pin}, ${inputType}); \n`;
 
   return "";
 };
