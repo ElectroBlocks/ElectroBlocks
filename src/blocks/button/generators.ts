@@ -22,7 +22,8 @@ Blockly["Arduino"]["is_button_pressed"] = function (block: BlockSvg) {
   const pin = block.getFieldValue("PIN");
   const readType = Blockly["Arduino"].buttonTypes[pin].usePullupResistor
     ? "LOW"
-    : "HIGH";
+    : // Changing to low for now
+      "LOW";
   return [
     `(digitalRead(${pin}) == ${readType})`,
     Blockly["Arduino"].ORDER_ATOMIC,
