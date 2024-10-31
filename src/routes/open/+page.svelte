@@ -2,7 +2,8 @@
   import { Table, Button, FormGroup, Input, Label } from '@sveltestrap/sveltestrap';
 
   import { onMount, onDestroy } from 'svelte';
-  import { goto } from '$app/navigation';;
+  import { goto } from '$app/navigation';
+  import { lessons } from '../../lessons/lessons';
 
   import { loadProject } from '../../core/blockly/helpers/workspace.helper';
   import authStore from '../../stores/auth.store';
@@ -17,6 +18,8 @@
 
   import { onConfirm, onErrorMessage } from '../../help/alerts';
   import projectStore from '../../stores/project.store';
+  import { chunk } from 'lodash';
+  import _ from 'lodash';
 
   const unSubList: Function[] = [];
   let projectList: [Project, string][] = [];
@@ -178,21 +181,33 @@
         </tbody>
       </Table>
   {/if}
-  <h3>Example Projects</h3>
   <section class="container">
     <div class="row">
-      <div on:click={() => openfile('snake.xml')} class="col">
-        <img src="/example-projects/snake.gif" alt="snake projects">
-        <h4 class="text-center mt-4">Snake Pattern</h4>
-        <p class="text-center">A snake LED Light Pattern.</p> 
-      </div>
-      <div on:click={() => openfile('rainbow.xml')} class="col ms-3">
-          <img src="/example-projects/rainbow.gif" alt="rainbow lights">
-          <h4 class="text-center mt-4">Rainbow Lights</h4>
-          <p class="text-center">Create your own rainbow light pattern.</p> 
-      </div>
+        <h2 class="p-0">Demo Projects!</h2>
     </div>
-  </section>
+  {#each lessons as lessonContainer }
+
+      <div class="row">
+        <h3 class="p-0" >{lessonContainer.title}</h3>
+
+      </div>
+      {#each _.chunk(lessonContainer.lessons, 2) as lessonRow }
+        <div class="row">
+          {#each lessonRow as lesson}
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <!-- svelte-ignore a11y-no-static-element-interactions -->
+          <div on:click={() => openfile(lesson.file)} class="col lessonbox">
+            <img src={lesson.image} alt={lesson.title}>
+            <h4 class="text-center mt-4">{lesson.title}</h4>
+            <p class="text-center">{lesson.description}</p> 
+          </div>
+          {/each}
+        </div>
+      {/each}
+  {/each}
+</section>
+
+      
 </main>
 <svelte:head>
   <title>ElectroBlocks - Open Projects</title>
@@ -211,7 +226,7 @@
   .custom-file-upload {
     cursor: pointer;
   }
-  .col {
+  .lessonbox {
     height: 300px;
     border: solid;
     cursor: pointer;
