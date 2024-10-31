@@ -15,9 +15,9 @@ import {
   ArduinoFrame,
   ArduinoComponentType,
 } from "../../core/frames/arduino.frame";
-import type { MotorState } from "./state";
+import type { MotorShieldState } from "./state";
 
-describe("test servos factories", () => {
+describe("test motors factories", () => {
   let workspace: Workspace;
   let arduinoBlock: BlockSvg;
 
@@ -29,12 +29,38 @@ describe("test servos factories", () => {
     [workspace, arduinoBlock] = createArduinoAndWorkSpace();
   });
 
-  it("test it can do one two motors in different directions.", () => {
-    const motor1Block1 = createMotorBlock(1, "CLOCKWISE", 50);
-    const motor2Block2 = createMotorBlock(2, "ANTICLOCKWISE", 150);
+  it("test stop motor block will stop the right motors", () => {
+    const motorSetupBlock = workspace.newBlock("motor_setup");
+    motorSetupBlock.setFieldValue("2", "NUMBER_OF_MOTORS");
+    const motor1Block1 = createMoveMotorBlock(1, "CLOCKWISE", 50);
+    const motor2Block2 = createMoveMotorBlock(2, "ANTI_CLOCKWISE", 150);
+    const stopMotor1 = workspace.newBlock("stop_motor") as BlockSvg;
+    const stopMotor2 = workspace.newBlock("stop_motor") as BlockSvg;
+    stopMotor1.setFieldValue("1", "MOTOR");
+    stopMotor2.setFieldValue("2", "MOTOR");
+    connectToArduinoBlock(motor1Block1);
+    motor1Block1.nextConnection.connect(motor2Block2.previousConnection);
+    motor2Block2.nextConnection.connect(stopMotor1.previousConnection);
+    stopMotor1.nextConnection.connect(stopMotor2.previousConnection);
+    const event = createTestEvent(motor2Block2.id);
 
-    const motor1Block3 = createMotorBlock(1, "ANTICLOCKWISE", 32);
-    const motor2Block4 = createMotorBlock(2, "CLOCKWISE", 43);
+    const [stateSetup, state1, state2, state3, state4] =
+      eventToFrameFactory(event).frames;
+
+    expect("Stopping motor 1.").toBe(state3.explanation);
+    VerifyMotorState(state3, 0, 150, "CLOCKWISE", "ANTI_CLOCKWISE");
+    expect("Stopping motor 2.").toBe(state4.explanation);
+    VerifyMotorState(state4, 0, 0, "CLOCKWISE", "ANTI_CLOCKWISE");
+  });
+
+  it("test it can do one two motors in different directions.", () => {
+    const motorSetupBlock = workspace.newBlock("motor_setup");
+    motorSetupBlock.setFieldValue("2", "NUMBER_OF_MOTORS");
+    const motor1Block1 = createMoveMotorBlock(1, "CLOCKWISE", 50);
+    const motor2Block2 = createMoveMotorBlock(2, "ANTI_CLOCKWISE", 150);
+
+    const motor1Block3 = createMoveMotorBlock(1, "ANTI_CLOCKWISE", 32);
+    const motor2Block4 = createMoveMotorBlock(2, "CLOCKWISE", 43);
 
     connectToArduinoBlock(motor1Block1);
     motor1Block1.nextConnection.connect(motor2Block2.previousConnection);
@@ -43,28 +69,28 @@ describe("test servos factories", () => {
 
     const event = createTestEvent(motor2Block2.id);
 
-    const [state1, state2, state3, state4] = eventToFrameFactory(event).frames;
-
+    const [stateSetup, state1, state2, state3, state4] =
+      eventToFrameFactory(event).frames;
+    console.log(state2.components[0]);
     expect(state1.explanation).toBe("Motor 1 moves clockwise at speed 50.");
-    expect(state2.explanation).toBe("Motor 2 moves anticlockwise at speed 150.");
+    expect(state2.explanation).toBe(
+      "Motor 2 moves anticlockwise at speed 150."
+    );
     expect(state3.explanation).toBe("Motor 1 moves anticlockwise at speed 32.");
     expect(state4.explanation).toBe("Motor 2 moves clockwise at speed 43.");
 
-    const motor1 = state1.components.find(
-      (c) =>
-        c.type === ArduinoComponentType.MOTOR &&
-        parseInt((c as MotorState).motorNumber) === 1
-    ) as MotorState;
-    expect(motor1.direction).toBe("CLOCKWISE");
-    expect(motor1.speed).toBe(50);
-    expect(parseInt(motor1.motorNumber)).toBe(1);
+    const motorShield = state1.components.find(
+      (c) => c.type === ArduinoComponentType.MOTOR
+    ) as MotorShieldState;
+    expect(motorShield.direction1).toBe("CLOCKWISE");
+    expect(motorShield.speed1).toBe(50);
 
-    verifyMotorServos(state2, 50, 150, "CLOCKWISE", "ANTICLOCKWISE");
-    verifyMotorServos(state3, 32, 150, "ANTICLOCKWISE", "ANTICLOCKWISE");
-    verifyMotorServos(state4, 32, 43, "ANTICLOCKWISE", "CLOCKWISE");
+    VerifyMotorState(state2, 50, 150, "CLOCKWISE", "ANTI_CLOCKWISE");
+    VerifyMotorState(state3, 32, 150, "ANTI_CLOCKWISE", "ANTI_CLOCKWISE");
+    VerifyMotorState(state4, 32, 43, "ANTI_CLOCKWISE", "CLOCKWISE");
   });
 
-  const createMotorBlock = (
+  const createMoveMotorBlock = (
     motorNumber: number,
     direction: string,
     speed: number
@@ -74,12 +100,11 @@ describe("test servos factories", () => {
       VariableTypes.NUMBER,
       speed
     );
-    
+
     const motorBlock = workspace.newBlock("move_motor") as BlockSvg;
 
     motorBlock.setFieldValue(direction, "DIRECTION");
-    motorBlock
-      .setFieldValue(motorNumber.toString(), "MOTOR");
+    motorBlock.setFieldValue(motorNumber.toString(), "MOTOR");
     motorBlock
       .getInput("SPEED")
       .connection.connect(numberBlock.outputConnection);
@@ -87,31 +112,23 @@ describe("test servos factories", () => {
     return motorBlock;
   };
 
-  const verifyMotorServos = (
+  const VerifyMotorState = (
     state: ArduinoFrame,
     motor1Speed: number,
     motor2Speed: number,
     motor1Direction: string,
     motor2Direction: string
   ) => {
-    const motor1 = state.components.find(
-      (c) =>
-        c.type === ArduinoComponentType.MOTOR &&
-        parseInt((c as MotorState).motorNumber) === 1
-    ) as MotorState;
+    const motorShield = state.components.find(
+      (c) => c.type === ArduinoComponentType.MOTOR
+    ) as MotorShieldState;
 
-    const motor2 = state.components.find(
-      (c) =>
-        c.type === ArduinoComponentType.MOTOR &&
-        parseInt((c as MotorState).motorNumber) === 2
-    ) as MotorState;
+    expect(motorShield.direction1).toBe(motor1Direction);
+    expect(motorShield.direction2).toBe(motor2Direction);
 
-    expect(motor1.direction).toBe(motor1Direction);
-    expect(motor2.direction).toBe(motor2Direction);
+    expect(motorShield.speed1).toBe(motor1Speed);
+    expect(motorShield.speed2).toBe(motor2Speed);
 
-    expect(motor1.speed).toBe(motor1Speed);
-    expect(motor2.speed).toBe(motor2Speed);
-
-    expect(state.components.length).toBe(2);
+    expect(state.components.length).toBe(1);
   };
 });

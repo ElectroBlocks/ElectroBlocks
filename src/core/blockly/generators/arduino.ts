@@ -256,6 +256,7 @@ Blockly["Arduino"].quote_ = function (string) {
  */
 Blockly["Arduino"].scrub_ = function (block, code) {
   let commentCode = "";
+
   // Only collect comments for blocks that aren't inline.
   // Do not collect comments for setup blocks
   if (
@@ -263,7 +264,10 @@ Blockly["Arduino"].scrub_ = function (block, code) {
     block.nextConnection !== null
   ) {
     // Collect comment for this block.
-    let comment = block.getCommentText();
+    let comment =
+      ["release_button"].includes(block.type) == false
+        ? block.getCommentText()
+        : null;
     //@ts-ignore
     comment = comment
       ? (Blockly.utils as any).string.wrap(

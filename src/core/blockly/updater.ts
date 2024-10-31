@@ -10,9 +10,15 @@ import {
   Action,
   UpdateLCDScreenPrintBlock,
   UpdateLedColor,
+  UpdateMotorSetupBlock,
+  UpdateSetAllFastLedBlock,
 } from "./actions/actions";
 import { deleteVariable } from "./helpers/variable.helper";
-import { getBlockById } from "./helpers/block.helper";
+import {
+  getBlockById,
+  getBlockByType,
+  getBlocksByName,
+} from "./helpers/block.helper";
 import _ from "lodash";
 import Blockly from "blockly";
 
@@ -100,6 +106,43 @@ const updateLedColor = (action: UpdateLedColor) => {
   block.render();
 };
 
+const updateMotorSetupBlock = (action: UpdateMotorSetupBlock) => {
+  const block = getBlockById(action.blockId);
+  if (block.type === "motor_setup") {
+    block.getInput("MOTOR_2").setVisible(action.showMotorTwo);
+    block.render();
+  }
+
+  const motorMoveBlocks = getBlocksByName("move_motor");
+  motorMoveBlocks.forEach((b) => {
+    b.getInput("WHICH_MOTOR").setVisible(action.showMotorTwo);
+    b.render();
+  });
+  const stopMotorBlocks = getBlocksByName("stop_motor");
+  stopMotorBlocks.forEach((b) => {
+    b.getInput("WHICH_MOTOR").setVisible(action.showMotorTwo);
+    b.render();
+  });
+};
+
+const updateFastLedSetAllColorsBlock = (action: UpdateSetAllFastLedBlock) => {
+  const block = getBlockById(action.blockId);
+  console.log("update blocks");
+  for (let row = 1; row <= 12; row += 1) {
+    const showAllInRow = row <= action.maxRows;
+    block.getInput(`ROW_${row}`).setVisible(showAllInRow);
+    for (let col = 1; col <= 12; col += 1) {
+      const field = block.getField(`${row}-${col}`);
+      if (row === action.maxRows) {
+        field.setVisible(col <= action.maxColumnsOnLastRow);
+        continue;
+      }
+      field.setVisible(showAllInRow);
+    }
+  }
+  block.render();
+};
+
 const updaterList: { [key: string]: Updater } = {
   [ActionType.DELETE_VARIABLE]: updateVariable,
   [ActionType.DISABLE_BLOCK]: updateDisableBlock,
@@ -111,6 +154,9 @@ const updaterList: { [key: string]: Updater } = {
   [ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA]: updateSensorBlockData,
   [ActionType.LCD_SIMPLE_PRINT_CHANGE]: updateLcdScreenPrintBlock,
   [ActionType.UPDATE_LED_COLOR]: updateLedColor,
+  [ActionType.UPDATE_MOTOR_SETUP_BLOCK]: updateMotorSetupBlock,
+  [ActionType.UPDATE_FASTLED_SET_ALL_COLORS_BLOCK]:
+    updateFastLedSetAllColorsBlock,
 };
 
 export const updater = (action: Action) => {
