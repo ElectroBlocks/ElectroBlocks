@@ -199,7 +199,6 @@
           <div on:click={() => openfile(lesson.file)} class="col lessonbox">
             <img src={lesson.image} alt={lesson.title}>
             <h4 class="text-center mt-4">{lesson.title}</h4>
-            <p class="text-center">{lesson.description}</p> 
           </div>
           {/each}
         </div>
@@ -227,7 +226,7 @@
     cursor: pointer;
   }
   .lessonbox {
-    height: 300px;
+    height: 270px;
     border: solid;
     cursor: pointer;
   }

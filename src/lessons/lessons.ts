@@ -6,7 +6,7 @@ export interface Lesson {
   file: string;
   image: string;
   title: string;
-  description: string;
+  description?: string;
 }
 
 export const lessons: LessonContainer[] = [
@@ -14,16 +14,34 @@ export const lessons: LessonContainer[] = [
     title: "Fast Leds",
     lessons: [
       {
+        file: "solid_colors.xml",
+        image: "/example-projects/snake.gif",
+        title: "Solid Colors",
+      },
+      {
+        file: "2different_colors.xml",
+        image: "/example-projects/snake.gif",
+        title: "Every other color",
+      },
+      {
+        file: "christmas_lights.xml",
+        image: "/example-projects/snake.gif",
+        title: "Christmas Lights",
+      },
+      {
         file: "snake.xml",
         image: "/example-projects/snake.gif",
         title: "Snake Pattern",
-        description: "A snake LED Light Pattern.",
       },
       {
         file: "rainbow.xml",
         image: "/example-projects/rainbow.gif",
         title: "Rainbow Lights",
-        description: "Create your own rainbow light pattern.",
+      },
+      {
+        file: "rainbow.xml",
+        image: "/example-projects/snake.gif",
+        title: "Rainbow Lights Streaming",
       },
     ],
   },
