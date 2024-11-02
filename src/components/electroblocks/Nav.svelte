@@ -1,5 +1,4 @@
 <script lang="ts">
-  export let segment: string;
   const navTooltipStyle = {
     position: "bottom",
     align: "center",
@@ -157,12 +156,12 @@
       href="/open"
       use:tooltip={navTooltipStyle}
       title="My Projects"
-      class:active={segment === "open"}
+      class:active={$page.url.pathname.includes('open')}
     >
       <i
         class="fa"
-        class:fa-folder-open-o={segment !== "open"}
-        class:fa-folder-open={segment === "open"}
+        class:fa-folder-open-o={!$page.url.pathname.includes('open')}
+        class:fa-folder-open={$page.url.pathname.includes('open')}
       />
     </a>
     <span
@@ -189,7 +188,7 @@
       title="Settings"
       use:tooltip={navTooltipStyle}
       href="/settings"
-      class:active={segment === "settings"}
+      class:active={$page.url.pathname.includes('settings')}
     >
       <i class="fa fa-gears" />
     </a>
@@ -225,24 +224,18 @@
       <i class="fa fa-microchip" />
     </a>
 
-    <label
+    <a
+      href="/open"
       use:tooltip={navTooltipStyle}
-      title="Open File"
-      class:active={segment === "open"}
+      title="Projects"
+      class:active={$page.url.pathname.includes("open")}
     >
       <i
         class="fa"
-        class:fa-folder-open-o={!isOpeningFile}
-        class:fa-folder-open={isOpeningFile}
+        class:fa-folder-open-o={!$page.url.pathname.includes("open")}
+        class:fa-folder-open={$page.url.pathname.includes("open")}
       />
-      <input
-        on:change={openFile}
-        type="file"
-        accept="text/xml"
-        style="display:none"
-        bind:this={fileUpload}
-      />
-    </label>
+    </a>
     <span
       use:tooltip={navTooltipStyle}
       title="New File/Blank File"
