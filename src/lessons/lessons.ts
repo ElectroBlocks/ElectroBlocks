@@ -39,7 +39,7 @@ export const lessons: LessonContainer[] = [
         title: "Rainbow Lights",
       },
       {
-        file: "rainbow.xml",
+        file: "rainbow_rolling.xml",
         image: "/example-projects/rainbow_streaming.gif",
         title: "Rainbow Lights Streaming",
       },
