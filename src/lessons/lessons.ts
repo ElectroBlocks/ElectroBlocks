@@ -15,17 +15,17 @@ export const lessons: LessonContainer[] = [
     lessons: [
       {
         file: "solid_colors.xml",
-        image: "/example-projects/snake.gif",
+        image: "/example-projects/solid_colors.png",
         title: "Solid Colors",
       },
       {
         file: "2different_colors.xml",
-        image: "/example-projects/snake.gif",
+        image: "/example-projects/2colors.png",
         title: "Every other color",
       },
       {
         file: "christmas_lights.xml",
-        image: "/example-projects/snake.gif",
+        image: "/example-projects/christmas_lights.gif",
         title: "Christmas Lights",
       },
       {
@@ -40,7 +40,7 @@ export const lessons: LessonContainer[] = [
       },
       {
         file: "rainbow.xml",
-        image: "/example-projects/snake.gif",
+        image: "/example-projects/rainbow_streaming.gif",
         title: "Rainbow Lights Streaming",
       },
     ],
