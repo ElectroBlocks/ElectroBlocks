@@ -45,4 +45,24 @@ export const lessons: LessonContainer[] = [
       },
     ],
   },
+  {
+    title: "Led Matrix",
+    lessons: [
+      {
+        file: "ledmatrix_happy_face.xml",
+        image: "/example-projects/ledmatrix_happy_face.png",
+        title: "Happy Face",
+      },
+      {
+        file: "ledmatrix_blink.xml",
+        image: "/example-projects/ledmatrix_blink.gif",
+        title: "Wink",
+      },
+      {
+        file: "ledmatrix_loop.xml",
+        image: "/example-projects/ledmatrix_loop.gif",
+        title: "Led Matrix Loop",
+      },
+    ],
+  },
 ];
