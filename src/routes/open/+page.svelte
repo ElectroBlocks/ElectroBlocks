@@ -226,7 +226,7 @@
     cursor: pointer;
   }
   .lessonbox {
-    height: 270px;
+    min-height: 300px;
     border: solid;
     cursor: pointer;
   }

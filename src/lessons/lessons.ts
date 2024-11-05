@@ -15,12 +15,12 @@ export const lessons: LessonContainer[] = [
     lessons: [
       {
         file: "solid_colors.xml",
-        image: "/example-projects/solid_colors.png",
+        image: "/example-projects/solid_colors.jpeg",
         title: "Solid Colors",
       },
       {
         file: "2different_colors.xml",
-        image: "/example-projects/2colors.png",
+        image: "/example-projects/2colors.jpeg",
         title: "Every other color",
       },
       {
