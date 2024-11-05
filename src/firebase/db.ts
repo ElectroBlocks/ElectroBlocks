@@ -33,7 +33,7 @@ export async function getSettings(uid: string): Promise<Settings> {
   const db = firestore();
   const settingDoc = await getDoc(doc(db, "settings", uid));
 
-  if (settingDoc.exists) {
+  if (settingDoc.exists()) {
     return settingDoc.data() as Settings;
   }
 
