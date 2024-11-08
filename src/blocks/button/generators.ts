@@ -20,14 +20,11 @@ Blockly["Arduino"]["button_setup"] = function (block: BlockSvg) {
 
 Blockly["Arduino"]["is_button_pressed"] = function (block: BlockSvg) {
   const pin = block.getFieldValue("PIN");
-  const readType = Blockly["Arduino"].buttonTypes[pin].usePullupResistor
-    ? "LOW"
-    : // Changing to low for now
-      "LOW";
-  return [
-    `(digitalRead(${pin}) == ${readType})`,
-    Blockly["Arduino"].ORDER_ATOMIC,
-  ];
+  // const readType = Blockly["Arduino"].buttonTypes[pin].usePullupResistor
+  //   ? "HIGH"
+  //   : // Changing to low for now
+  //     "HIGH";
+  return [`(digitalRead(${pin}) == HIGH)`, Blockly["Arduino"].ORDER_ATOMIC];
 };
 
 // This is a simulation only block
