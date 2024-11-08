@@ -24,14 +24,13 @@ import servoSVGText from "../../blocks/servo/servo.svg?raw";
 import tempSvgString from "../../blocks/temperature/temp-humidity.svg?raw";
 import ultraSonicSvgString from "../../blocks/ultrasonic_sensor/ultrasonic-sensor.svg?raw";
 import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
-import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
 import { getDigitalSensorSvg } from "../../blocks/digitalsensor/svg-string";
 import { getAnalogSensorSvg } from "../../blocks/analogsensor/svg-string";
 import stepperMotorSvg from "../../blocks/steppermotor/steppermotor.svg?raw";
 import digitalDisplaySvg from "../../blocks/digit4display/digitdisplay.svg?raw";
 import joyStickSvg from "../../blocks/joystick/joystick.svg?raw";
 import { FastLEDState } from "../../blocks/fastled/state";
-import rgbLEDSVG from "../../blocks/rgbled/rgbled.svg?raw"
+import rgbLEDSVG from "../../blocks/rgbled/rgbled.svg?raw";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
