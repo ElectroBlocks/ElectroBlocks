@@ -2,9 +2,9 @@
   import { Table, Button, FormGroup, Input, Label } from '@sveltestrap/sveltestrap';
 
   import { onMount, onDestroy } from 'svelte';
-  import { goto } from '$app/navigation';;
+  import { goto } from '$app/navigation';
+  import { lessons } from '../../lessons/lessons';
 
-  import Login from '../../components/auth/Login.svelte';
   import { loadProject } from '../../core/blockly/helpers/workspace.helper';
   import authStore from '../../stores/auth.store';
   import {
@@ -18,6 +18,8 @@
 
   import { onConfirm, onErrorMessage } from '../../help/alerts';
   import projectStore from '../../stores/project.store';
+  import { chunk } from 'lodash';
+  import _ from 'lodash';
 
   const unSubList: Function[] = [];
   let projectList: [Project, string][] = [];
@@ -33,6 +35,13 @@
     searchList = searchList.filter(([p, id]) =>
       p.name.toLowerCase().includes(term.toLowerCase())
     );
+  }
+
+  async function openfile(filename) {
+    const localFileResponse = await fetch(`/example-projects/${filename}`);
+    const xmlFile = await localFileResponse.text();
+    loadProject(xmlFile);
+    await goto('/');
   }
 
   async function changeProject(e) {
@@ -123,9 +132,16 @@
 </script>
 
 <main>
-  <h2>Your Projects</h2>
-  {#if $authStore.isLoggedIn}
-    {#if projectList.length > 0}
+  <h2>Projects</h2>
+  <hr />
+  <label for="file-upload" class="form custom-file-upload">
+    <i class="fa fa-cloud-upload" />
+    Open a project from your computer
+  </label>
+  <input on:change={changeProject} id="file-upload" type="file" />
+  <hr />
+    {#if projectList.length > 0 && $authStore.isLoggedIn}
+      <h3>Your Projects</h3>
       <FormGroup>
         <Label for="search">Search</Label>
         <Input bind:value={searchTerm} type="text" id="search" />
@@ -164,26 +180,56 @@
           {/each}
         </tbody>
       </Table>
-    {:else}
-      <h2>Once you save a project it will appear here.</h2>
-    {/if}
-    <hr />
-    <h3>Load project from your computer</h3>
-    <label for="file-upload" class="form custom-file-upload">
-      <i class="fa fa-cloud-upload" />
-      Choose Project
-    </label>
-    <input on:change={changeProject} id="file-upload" type="file" />
-  {:else}
-    <p>Login to see your saved projects.</p>
-    <Login />
   {/if}
+  <section class="container">
+    <div class="row">
+        <h2 class="p-0">Demo Projects!</h2>
+    </div>
+  {#each lessons as lessonContainer }
+
+      <div class="row">
+        <h3 class="p-0" >{lessonContainer.title}</h3>
+
+      </div>
+      {#each _.chunk(lessonContainer.lessons, 3) as lessonRow }
+        <div class="row">
+          {#each lessonRow as lesson}
+          <!-- svelte-ignore a11y-click-events-have-key-events -->
+          <!-- svelte-ignore a11y-no-static-element-interactions -->
+          <div on:click={() => openfile(lesson.file)} class="col lessonbox">
+            <img src={lesson.image} alt={lesson.title}>
+            <h4 class="text-center mt-4">{lesson.title}</h4>
+          </div>
+          {/each}
+        </div>
+      {/each}
+  {/each}
+</section>
+
+      
 </main>
 <svelte:head>
   <title>ElectroBlocks - Open Projects</title>
 </svelte:head>
 
 <style>
+  img {
+    width: 100%;
+    display: block;
+    margin-top: 30px;
+  }
+  h4 {
+    text-align: center;
+    
+  }
+  .custom-file-upload {
+    cursor: pointer;
+  }
+  .lessonbox {
+    min-height: 300px;
+    border: solid;
+    cursor: pointer;
+  }
   main {
     width: 90%;
     margin: 10px auto;

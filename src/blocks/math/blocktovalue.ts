@@ -25,7 +25,7 @@ export const mathArithmetic: ValueGenerator = (
     variables,
     timeline,
     "A",
-    1,
+    0,
     previousState
   );
   const bValue = +getInputValue(
@@ -34,7 +34,7 @@ export const mathArithmetic: ValueGenerator = (
     variables,
     timeline,
     "B",
-    1,
+    0,
     previousState
   );
 

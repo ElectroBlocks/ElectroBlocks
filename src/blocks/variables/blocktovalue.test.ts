@@ -53,11 +53,11 @@ describe("math_arithmetic state factories", () => {
     const event = createTestEvent(testNumberVariableBlock.id);
     const [state1, state2] = eventToFrameFactory(event).frames;
 
-    expect(state1.explanation).toBe('Variable "var_test" stores 1.');
+    expect(state1.explanation).toBe('Variable "var_test" stores 0.');
     expect(state2.explanation).toBe('Variable "num" stores 33.');
     expect(_.keys(state1.variables).length).toBe(1);
     expect(_.keys(state2.variables).length).toBe(2);
-    expect(state1.variables["var_test"].value).toBe(1);
+    expect(state1.variables["var_test"].value).toBe(0);
     expect(state2.variables["num"].value).toBe(33);
   });
 });

@@ -5,6 +5,16 @@ import { stepSerialBegin } from "../message/generators";
 Blockly["Arduino"]["debug_block"] = function (block) {
   stepSerialBegin();
 
+  Blockly["Arduino"].setupCode_["debug_clean_pipes"] =
+    "\tdelay(200); // to prevent noise after uploading code \n";
+
+  Blockly["Arduino"].setupCode_[
+    "debug_wait_til_ok"
+  ] = `while(Serial.readStringUntil('|').indexOf("START_DEBUG") == -1) {
+      Serial.println("C_D_B_C_D_B_C_D_B_C_D_B_C_D_B_");
+      delay(100);
+  }\n\n`;
+
   Blockly["Arduino"].functionNames_["double_to_string_debug"] =
     createDoubleToStringCFunc();
 

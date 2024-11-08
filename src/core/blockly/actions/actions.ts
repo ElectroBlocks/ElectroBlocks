@@ -7,6 +7,9 @@ export enum ActionType {
   DISABLE_BLOCK = "DISABLE_BLOCK",
   ENABLE_BLOCK = "ENABLE_BLOCK",
   DELETE_VARIABLE = "DELETE_VARIABLE",
+  UPDATE_LED_COLOR = "UPDATE_LED_COLOR",
+  UPDATE_MOTOR_SETUP_BLOCK = "UPDATE_MOTOR_SETUP_BLOCK",
+  UPDATE_FASTLED_SET_ALL_COLORS_BLOCK = "UPDATE_FASTLED_SET_ALL_COLORS_BLOCK",
 }
 
 export interface Action {
@@ -26,12 +29,26 @@ export interface ForLoopTextChange extends BlockAction {
   changeText: string;
 }
 
+export interface UpdateMotorSetupBlock extends BlockAction {
+  showMotorTwo: boolean;
+}
+
+export interface UpdateSetAllFastLedBlock extends BlockAction {
+  maxLeds: number;
+  maxRows: number;
+  maxColumnsOnLastRow: number;
+}
+
 export interface UpdateLCDScreenPrintBlock extends BlockAction {
   numberOfRows: number;
 }
 
 export interface UpdateSetupSensorBlockFields extends BlockAction {
   fields: Array<{ name: string; value: any }>;
+}
+
+export interface UpdateLedColor extends BlockAction {
+  color: string;
 }
 
 export interface UpdateSetupSensorBlockLoop extends BlockAction {

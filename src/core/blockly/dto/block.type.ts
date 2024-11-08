@@ -22,6 +22,7 @@ export enum PinCategory {
   LED_MATRIX = "LED_MATRIX",
   LED_COLOR = "LED_COLOR",
   ULTRA_SONIC = "ULTRA_SONIC",
+  MOTOR = "MOTOR",
   LED = "LED",
   DIGITAL_WRITE = "DIGITAL_WRITE",
   ANALOG_WRITE = "ANALOG_WRITE",
@@ -58,6 +59,7 @@ export const standAloneBlocks = [
   "create_list_boolean_block",
   "create_list_colour_block",
   "procedures_defnoreturn",
+  "motor_setup",
   "lcd_setup",
   "neo_pixel_setup",
   "fastled_setup",
@@ -130,6 +132,7 @@ export const blocksThatRequireSetup = {
   rfid_tag: "rfid_setup",
   rfid_card: "rfid_setup",
   is_button_pressed: "button_setup",
+  release_button: "button_setup",
   arduino_send_message: "message_setup",
   arduino_get_message: "message_setup",
   arduino_receive_message: "message_setup",
@@ -143,6 +146,8 @@ export const blocksThatRequireSetup = {
   joystick_button: "joystick_setup",
   joystick_angle: "joystick_setup",
   joystick_engaged: "joystick_setup",
+  move_motor: "motor_setup",
+  stop_motor: "motor_setup",
 };
 
 /**
@@ -169,6 +174,7 @@ export const setupBlockTypeToHumanName = {
   stepper_motor_setup: "stepper motor setup block",
   digital_display_setup: "digital display setup block",
   joystick_setup: "joystick setup block",
+  motor_setup: "motor setup block",
 };
 
 export const blocksToBlockTypes: {
@@ -380,7 +386,7 @@ export const blocksToBlockTypes: {
 
   led: { type: BlockType.STATE, pinCategory: PinCategory.LED },
   led_fade: { type: BlockType.STATE, pinCategory: PinCategory.LED },
-
+  motor_setup: { type: BlockType.SETUP, pinCategory: PinCategory.MOTOR },
   neo_pixel_setup: {
     type: BlockType.SETUP,
     pinCategory: PinCategory.NEO_PIXEL,
@@ -407,8 +413,9 @@ export const blocksToBlockTypes: {
     pinCategory: PinCategory.NONE,
   },
   rotate_servo: { type: BlockType.STATE, pinCategory: PinCategory.SERVO },
-  // NO WAY TO CHECK BECAUSE OF shield
-  move_motor: { type: BlockType.STATE, pinCategory: PinCategory.NONE },
+
+  move_motor: { type: BlockType.STATE, pinCategory: PinCategory.MOTOR },
+  stop_motor: { type: BlockType.STATE, pinCategory: PinCategory.MOTOR },
 
   set_color_led: { type: BlockType.STATE, pinCategory: PinCategory.LED_COLOR },
   rgb_led_setup: {
@@ -439,7 +446,10 @@ export const blocksToBlockTypes: {
     type: BlockType.SENSOR_READ,
     pinCategory: PinCategory.NONE,
   },
-
+  release_button: {
+    type: BlockType.STATE,
+    pinCategory: PinCategory.NONE,
+  },
   digital_read_setup: {
     type: BlockType.SENSOR_SETUP,
     pinCategory: PinCategory.DIGITAL_READ_SETUP,

@@ -20,7 +20,24 @@ import {
   createWireFromArduinoToBreadBoard,
 } from "../../core/virtual-circuit/wire";
 
-const colors = ["#39b54a", "#ff2a5f", "#1545ff", "#fff76a", "#ff9f3f"];
+export const ledColors = [
+  "red",
+  "green",
+  "blue",
+  "yellow",
+  "white",
+  "purple",
+  "orange",
+];
+export const lightColorsShades: { [key: string]: string } = {
+  red: "#ff8080",
+  green: "#80ff80",
+  blue: "#8080ff",
+  yellow: "#ffff80",
+  orange: "#ffcf80",
+  white: "#ffffff",
+  purple: "#ff80ff",
+};
 
 export const ledCreate: AfterComponentCreateHook<LedState> = (
   state,
@@ -30,32 +47,14 @@ export const ledCreate: AfterComponentCreateHook<LedState> = (
   board,
   settings
 ) => {
-  let ledColor = colors[_.random(0, colors.length - 1)];
-
-  if (settings.customLedColor) {
-    ledColor = settings.ledColor;
-  }
-
-  ledEl.on("dblclick", (e) => {
-    const event = new CustomEvent("led-color-show", {
-      detail: { componentEl: ledEl, pin: state.pin },
-    });
-    document.dispatchEvent(event);
-  });
-  ledEl.data("color", ledColor);
-  ledEl.data("pin-number", state.pin);
-  ledEl
-    .find(`#radial-gradient-${state.pin} stop`)
-    .toArray()
-    .find((stopEl) => +stopEl.attr("offset") === 1)
-    .attr("stop-color", ledColor);
-
-  ledEl.data("color", ledColor);
+  changeLedColor(state, ledEl);
   const pinText = ledEl.findOne("#PIN_NUMBER") as Text;
   pinText.node.innerHTML = state.pin;
 
   const ledText = ledEl.findOne("#LED_TEXT") as Text;
   ledText.node.innerHTML = "";
+  (ledEl.findOne("#LIGHT_ON") as Element).node.style.opacity =
+    state.state.toString();
 };
 
 export const ledPosition: PositionComponent<LedState> = (
@@ -72,37 +71,26 @@ export const ledPosition: PositionComponent<LedState> = (
 };
 
 export const updateLed: SyncComponent = (state: LedState, ledEl, draw) => {
-  const stopEl = draw
-    .find(`#radial-gradient-${state.pin} stop`)
-    .toArray()
-    .find((sp) => +sp.attr("offset") === 1);
-
   const ledText = ledEl.findOne("#LED_TEXT") as Text;
-
   if (!state.fade) {
-    const color = state.state === 1 ? ledEl.data("color") : "#FFF";
-    ledText.node.innerHTML = state.state === 1 ? "ON" : "OFF";
-    stopEl.attr("stop-color", color);
+    ledText.node.innerHTML = state.state === 1 ? "on" : "off";
+    (ledEl.findOne("#LIGHT_ON") as Element).node.style.opacity =
+      state.state.toString();
   }
-
   if (state.fade) {
     ledText.node.innerHTML = `${state.state}`;
-    stopEl.attr("stop-color", ledEl.data("color"));
-    (ledEl.findOne("#LED_LIGHT") as Element).opacity(state.state / 255);
+    (ledEl.findOne("#LIGHT_ON") as Element).node.style.opacity = (
+      state.state / 125
+    ).toString();
   }
-
-  ledText.cx(21);
+  ledText.cx(23);
+  changeLedColor(state, ledEl);
 };
 
 export const resetLed: ResetComponent = (componentEl: Element) => {
   const ledText = componentEl.findOne("#LED_TEXT") as Text;
   ledText.node.innerHTML = "";
-
-  componentEl
-    .find(`#radial-gradient-${componentEl.data("pin-number")} stop`)
-    .toArray()
-    .find((stop) => +stop.attr("offset") === 1)
-    .attr("stop-color", "#FFF");
+  (componentEl.findOne("#LIGHT_ON") as Element).node.style.opacity = "0";
 };
 
 export const createWiresLed: CreateWire<LedState> = (
@@ -147,4 +135,27 @@ export const createWiresLed: CreateWire<LedState> = (
     id,
     board
   );
+};
+
+const changeLedColor = (state: LedState, ledEl: Element) => {
+  const hexColor = state.color;
+  const mapColor = {
+    "#ff0000": "red",
+    "#008000": "green",
+    "#0000ff": "blue",
+    "#ffff00": "yellow",
+    "#ffffff": "white",
+    "#800080": "purple",
+    "#ffa500": "orange",
+  };
+  let ledColor = mapColor[hexColor];
+  let ledLightColor = lightColorsShades[ledColor];
+
+  ledEl.data("pin-number", state.pin);
+
+  ledEl.data("color", ledColor);
+  const mainColor = ledEl.findOne("#MAIN_COLOR") as Element;
+  mainColor.fill(ledColor);
+  const secondColorEl = ledEl.findOne("#SECOND_COLOR") as Element;
+  secondColorEl.fill(ledLightColor);
 };

@@ -1,14 +1,14 @@
 <script>
-  import arduionMessageStore from '../../../stores/arduino-message.store';
-  import codeStore from '../../../stores/code.store';
-  import arduinoStore, { PortState } from '../../../stores/arduino.store';
+  import arduionMessageStore from "../../../stores/arduino-message.store";
+  import codeStore from "../../../stores/code.store";
+  import arduinoStore, { PortState } from "../../../stores/arduino.store";
 
-  import { upload } from '../../../core/serial/upload';
+  import { upload } from "../../../core/serial/upload";
 
-  import { afterUpdate } from 'svelte';
-  import { getBoard } from '../../../core/microcontroller/selectBoard';
-  import { onConfirm, onErrorMessage, onSuccess } from '../../../help/alerts';
-  import { workspaceToXML } from '../../../core/blockly/helpers/workspace.helper';
+  import { afterUpdate } from "svelte";
+  import { getBoard } from "../../../core/microcontroller/selectBoard";
+  import { onErrorMessage, onSuccess } from "../../../help/alerts";
+  import { tooltip } from "@svelte-plugins/tooltips";
 
   const navigatorSerialNotAvailableMessaeg = `To upload code you must use chrome or a chromium based browser like edge, or brave.  This will work with chrome version 89 or higher. `;
 
@@ -22,7 +22,7 @@
   let arduinoStatus = PortState.CLOSE;
 
   // This is the value in the input text used to send messages to the Arduino
-  let messageToSend = '';
+  let messageToSend = "";
 
   // This is the variable storing the arduino code
   let code;
@@ -38,8 +38,8 @@
 
   $: uploadingClass =
     arduinoStatus === PortState.UPLOADING
-      ? 'fa-spinner fa-spin fa-6x fa-fw'
-      : 'fa-upload';
+      ? "fa-spinner fa-spin fa-6x fa-fw"
+      : "fa-upload";
 
   codeStore.subscribe((codeInfo) => {
     code = codeInfo.code;
@@ -55,17 +55,17 @@
       return;
     }
 
-    if (newMessage.message.includes('C_D_B_C_D')) {
-      arduionMessageStore.sendMessage('START_DEBUG');
+    if (newMessage.message.includes("C_D_B_C_D")) {
+      arduionMessageStore.sendMessage("START_DEBUG");
     }
 
     if (
-      newMessage.message.includes('**(|)') ||
-      newMessage.message.includes('DEBUG_BLOCK_') ||
-      newMessage.message.includes('stop_debug') ||
-      newMessage.message.includes('continue_debug') ||
-      newMessage.message.includes('START_DEBUG') ||
-      newMessage.message.includes('C_D_B_C_D')
+      newMessage.message.includes("**(|)") ||
+      newMessage.message.includes("DEBUG_BLOCK_") ||
+      newMessage.message.includes("stop_debug") ||
+      newMessage.message.includes("continue_debug") ||
+      newMessage.message.includes("START_DEBUG") ||
+      newMessage.message.includes("C_D_B_C_D")
     ) {
       return;
     }
@@ -75,7 +75,7 @@
   });
 
   async function connectOrDisconnectArduino() {
-    if (!navigator['serial']) {
+    if (!navigator["serial"]) {
       onErrorMessage(navigatorSerialNotAvailableMessaeg);
       return;
     }
@@ -86,7 +86,7 @@
         await arduionMessageStore.closePort();
       } catch (e) {
         onErrorMessage(
-          'Sorry, error with the arduino.  Please refresh your browser to disconnect.',
+          "Sorry, error with the arduino.  Please refresh your browser to disconnect.",
           e
         );
       }
@@ -101,12 +101,12 @@
         arduinoStore.set(PortState.OPEN);
       })
       .catch((e) => {
-        if (e.message.toLowerCase() === 'no port selected by the user.') {
+        if (e.message.toLowerCase() === "no port selected by the user.") {
           arduinoStore.set(PortState.CLOSE);
           return;
         }
         arduinoStore.set(PortState.CLOSE);
-        onErrorMessage('Sorry, please refresh your browser and try again.', e);
+        onErrorMessage("Sorry, please refresh your browser and try again.", e);
       });
   }
 
@@ -116,14 +116,14 @@
     }
     try {
       arduionMessageStore.sendMessage(messageToSend);
-      messageToSend = '';
+      messageToSend = "";
     } catch (e) {
-      console.log(e, 'sendMessage error');
+      console.log(e, "sendMessage error");
     }
   }
 
   async function uploadCode() {
-    if (!navigator['serial']) {
+    if (!navigator["serial"]) {
       onErrorMessage(navigatorSerialNotAvailableMessaeg);
       return;
     }
@@ -139,19 +139,19 @@
       });
 
       await upload(code, avrgirl, boardType);
-      onSuccess('Your code is uploaded!! :)');
+      onSuccess("Your code is uploaded!! :)");
     } catch (e) {
-      if (e.message.toLowerCase() === 'no port selected by the user.') {
+      if (e.message.toLowerCase() === "no port selected by the user.") {
         arduinoStore.set(PortState.CLOSE);
         return;
       }
-      if (e.message.includes('receiveData timeout after')) {
-        console.log(e, 'eating these errors.  Everything should work!');
-        onSuccess('Your code is uploaded!! :)');
+      if (e.message.includes("receiveData timeout after")) {
+        console.log(e, "eating these errors.  Everything should work!");
+        onSuccess("Your code is uploaded!! :)");
         arduinoStore.set(PortState.CLOSE);
         return;
       }
-      onErrorMessage('Sorry, please try again in 5 minutes. :)', e);
+      onErrorMessage("Sorry, please try again in 5 minutes. :)", e);
     }
     arduinoStore.set(PortState.CLOSE);
   }
@@ -175,8 +175,8 @@
     <article class="message-computer">
       <p>
         <img
-          src={mes.type === 'Computer' ? './laptop.png' : './cpu.png'}
-          alt={mes.type === 'Computer' ? 'computer' : 'arduino'}
+          src={mes.type === "Computer" ? "./laptop.png" : "./cpu.png"}
+          alt={mes.type === "Computer" ? "computer" : "arduino"}
         />
         {mes.message}
         ({mes.time})
@@ -193,26 +193,54 @@
       placeholder="send message"
     />
   </form>
-  <button disabled={!(arduinoStatus === PortState.OPEN)} on:click={sendMessage}>
+  <button
+    use:tooltip
+    title="Send Message"
+    disabled={!(arduinoStatus === PortState.OPEN)}
+    on:click={sendMessage}
+  >
     <i class="fa fa-paper-plane" />
   </button>
-  <button
-    disabled={arduinoStatus !== PortState.OPEN && arduinoStatus !== PortState.CLOSE}
-    on:click={connectOrDisconnectArduino}
-  >
-    <i
-      class="fa"
-      class:fa-eject={arduinoStatus === PortState.OPEN}
-      class:fa-usb={arduinoStatus === PortState.CLOSE}
-    />
-  </button>
+  {#if arduinoStatus == PortState.OPEN}
+    <button
+      title="Disconnect from Arduino"
+      use:tooltip
+      on:click={connectOrDisconnectArduino}
+    >
+      <i class="fa" class:fa-eject={arduinoStatus === PortState.OPEN} />
+    </button>
+  {:else if arduinoStatus === PortState.CLOSE}
+    <button
+      title="Connect to Arduino"
+      use:tooltip
+      on:click={connectOrDisconnectArduino}
+    >
+      <i class="fa" class:fa-usb={arduinoStatus === PortState.CLOSE} />
+    </button>
+  {:else}
+    <button>
+      <i class="fa fa-spinner fa-spin fa-6x fa-fw" />
+    </button>
+  {/if}
 
-  <button disabled={!(arduinoStatus === PortState.CLOSE)} on:click={uploadCode}>
+  <button
+    use:tooltip
+    title="Upload code"
+    disabled={!(arduinoStatus === PortState.CLOSE)}
+    on:click={uploadCode}
+  >
     <i class="fa {uploadingClass}" />
   </button>
-  <button on:click={clearMessages}> <i class="fa fa-trash" /> </button>
-  <button class:scroll-active={autoScroll} on:click={toggleAutoScroll}>
-    <i class="fa fa-arrow-down" />
+  <button use:tooltip title="Delete" on:click={clearMessages}>
+    <i class="fa fa-trash" />
+  </button>
+  <button
+    use:tooltip
+    title="Autoscroll"
+    class:scroll-active={autoScroll}
+    on:click={toggleAutoScroll}
+  >
+    <i class="fa fa-angle-double-down" />
   </button>
 </section>
 

@@ -162,7 +162,7 @@ export const getDefaultValue = (type: VariableTypes) => {
     case VariableTypes.BOOLEAN:
       return true;
     case VariableTypes.NUMBER:
-      return 1;
+      return 0;
     default:
       return undefined;
   }

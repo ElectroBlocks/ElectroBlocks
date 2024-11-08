@@ -32,6 +32,9 @@ import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlo
 import type { Settings } from "../../firebase/model";
 import settingStore from "../../stores/settings.store";
 import UpdateLCDScreenPrintBlock from "./actions/updateLcdScreenPrintBlock";
+import updateLedBlockColorField from "./actions/updateLedBlockColorField";
+import { updateMotorSetupBlock } from "./actions/updateMotorSetupBlock";
+import { updateFastLedSetAllColorsUpdateBlock } from "./actions/fastLedSetAllColorsUpdateBlock";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
@@ -141,6 +144,9 @@ export const createFrames = async (blocklyEvent) => {
     ...updateForLoopText(event2),
     ...UpdateLCDScreenPrintBlock(event2),
     ...updateLoopNumberInSensorSetupBlock(event2),
+    ...updateLedBlockColorField(event2),
+    ...updateMotorSetupBlock(event2),
+    ...updateFastLedSetAllColorsUpdateBlock(event2),
   ];
 
   thirdActionPass.forEach((a) => updater(a));

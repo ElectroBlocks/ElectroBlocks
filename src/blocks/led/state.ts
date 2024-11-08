@@ -5,4 +5,5 @@ export interface LedState extends ArduinoComponentState {
   pin: ARDUINO_PINS;
   state: number;
   fade: boolean;
+  color: string;
 }

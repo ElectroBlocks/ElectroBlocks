@@ -25,6 +25,10 @@ const buttonSetupBlock: any = {
         }),
         "PIN"
       );
+    this.appendDummyInput()
+      .appendField("Use PULLUP Resistor ")
+      .appendField(new Blockly.FieldCheckbox("FALSE"), "PULLUP_RESISTOR");
+
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(
       "-------------------------------------"
     );
@@ -78,3 +82,39 @@ const isBtnPressedBlock: any = {
 };
 
 Blockly.Blocks["is_button_pressed"] = isBtnPressedBlock;
+
+
+const release_button = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage("./blocks/button/button.png", 15, 15, "*")
+      )
+      .appendField("Button")
+      .appendField(
+        new Blockly.FieldDropdown(() => {
+          return configuredPins(
+            "button_setup",
+            selectBoardBlockly().digitalPins
+          );
+        }),
+        "PIN"
+      )
+      .appendField("is ")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["released", "RELEASED"],
+          ["pressed", "PRESSED"],
+        ]),
+        "STATE"
+      )
+      .appendField(".");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip("");
+    this.setHelpUrl("");
+    this.setColour(COLOR_THEME.SENSOR);
+  },
+};
+Blockly.common.defineBlocks({ release_button: release_button });
+                    

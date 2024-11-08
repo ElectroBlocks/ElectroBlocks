@@ -39,6 +39,7 @@ import {
 
 import { arduinoMessageCreate } from "../../blocks/message/virtual-circuit";
 import {
+  createMotorWires,
   motorCreate,
   motorPosition,
 } from "../../blocks/motors/virtual-circuit";
@@ -241,13 +242,9 @@ const emptyPositionComponent: PositionComponent<ArduinoComponentState> = (
   draw
 ) => {};
 
-const emptyCreateHookComponent: AfterComponentCreateHook<ArduinoComponentState> = (
-  state,
-  componentEl,
-  arduinoEl,
-  draw,
-  wire
-) => {};
+const emptyCreateHookComponent: AfterComponentCreateHook<
+  ArduinoComponentState
+> = (state, componentEl, arduinoEl, draw, wire) => {};
 
 const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.BLUE_TOOTH]: createBluetoothWires,
@@ -258,7 +255,7 @@ const createWires: { [key: string]: CreateWire<ArduinoComponentState> } = {
   [ArduinoComponentType.LED_MATRIX]: createWiresLedMatrix,
   [ArduinoComponentType.LED]: createWiresLed,
   [ArduinoComponentType.MESSAGE]: createNoWires,
-  [ArduinoComponentType.MOTOR]: createNoWires,
+  [ArduinoComponentType.MOTOR]: createMotorWires,
   [ArduinoComponentType.NEO_PIXEL_STRIP]: createWiresNeoPixels,
   [ArduinoComponentType.FASTLED_STRIP]: createWiresFastLEDs,
   [ArduinoComponentType.RFID]: createWiresRfid,

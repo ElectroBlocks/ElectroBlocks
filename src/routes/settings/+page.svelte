@@ -1,15 +1,16 @@
 <script lang="ts">
-  import { FormGroup, Input, Label, Button } from '@sveltestrap/sveltestrap';
+  import { FormGroup, Input, Label, Button } from "@sveltestrap/sveltestrap";
 
-  import { defaultSetting } from '../../firebase/model';
-  import type { Settings } from '../../firebase/model';
-  import { fbSaveSettings } from '../../firebase/db';
-  import authStore from '../../stores/auth.store';
-  import settingsStore from '../../stores/settings.store';
-  import FlashMessage from '../../components/electroblocks/ui/FlashMessage.svelte';
-  import _ from 'lodash';
-  import { onErrorMessage } from '../../help/alerts';
-  import { MicroControllerType } from '../../core/microcontroller/microcontroller';
+  import { defaultSetting } from "../../firebase/model";
+  import type { Settings } from "../../firebase/model";
+  import { fbSaveSettings } from "../../firebase/db";
+  import authStore from "../../stores/auth.store";
+  import settingsStore from "../../stores/settings.store";
+  import FlashMessage from "../../components/electroblocks/ui/FlashMessage.svelte";
+  import _ from "lodash";
+  import { onErrorMessage } from "../../help/alerts";
+  import { MicroControllerType } from "../../core/microcontroller/microcontroller";
+  import { ledColors } from "../../blocks/led/virtual-circuit";
   let uid: string;
 
   let settings: Settings;
@@ -30,19 +31,23 @@
     await saveSettings(defaultSetting);
   }
 
+  function changeLedColor(e) {
+    settings.ledColor = e.target.getAttribute("data-color");
+  }
+
   async function saveSettings(settings: Settings) {
     if (_.isEqual(previousSettings, settings)) {
       showMessage = true;
-      console.log('blocked saved', previousSettings, settings);
+      console.log("blocked saved", previousSettings, settings);
       return;
     }
 
     if (uid) {
       try {
         await fbSaveSettings(uid, settings);
-        console.log('saved settings', settings);
+        console.log("saved settings", settings);
       } catch (e) {
-        onErrorMessage('Please try again in 5 minutes.', e);
+        onErrorMessage("Please try again in 5 minutes.", e);
       }
     }
 
@@ -84,18 +89,33 @@
 
   <div class="row">
     <div class="col">
-      <Input type="switch" bind:checked={settings.customLedColor} label="Custom Led Color" />
-
+      <Input
+        type="switch"
+        bind:checked={settings.customLedColor}
+        label="Custom Led Color"
+      />
     </div>
   </div>
 
   <div class="row">
     <div class="col">
       {#if settings.customLedColor}
-        <FormGroup>
-          <Label for="led-color">Led Color</Label>
-          <Input bind:value={settings.ledColor} type="color" id="led-color" />
-        </FormGroup>
+        <div class="row">
+          <div class="col color-container">
+            {#each ledColors as color (color)}
+              <!-- svelte-ignore a11y-click-events-have-key-events -->
+              <!-- svelte-ignore a11y-no-static-element-interactions -->
+              <div
+                class="color {color}"
+                on:click={changeLedColor}
+                style="background-color: {color};"
+                data-color={color}
+                class:selected={settings.ledColor == color}
+                id={color}
+              ></div>
+            {/each}
+          </div>
+        </div>
       {/if}
     </div>
   </div>
@@ -141,3 +161,18 @@
 <svelte:head>
   <title>ElectroBlocks - Virtual Circuit</title>
 </svelte:head>
+
+<style>
+  .color {
+    flex: 1;
+    margin: 2px;
+    height: 30px;
+    cursor: pointer;
+  }
+  .color-container {
+    display: flex;
+  }
+  .selected {
+    border: black 10px dashed;
+  }
+</style>
