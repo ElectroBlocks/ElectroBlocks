@@ -7,4 +7,5 @@ export interface ButtonSensor extends Sensor {
 
 export interface ButtonState extends ArduinoComponentState {
   isPressed: boolean;
+  usePullup: boolean;
 }

@@ -25,6 +25,10 @@ const buttonSetupBlock: any = {
         }),
         "PIN"
       );
+    this.appendDummyInput()
+      .appendField("Use PULLUP Resistor ")
+      .appendField(new Blockly.FieldCheckbox("FALSE"), "PULLUP_RESISTOR");
+
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(
       "-------------------------------------"
     );

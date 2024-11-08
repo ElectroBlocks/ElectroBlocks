@@ -10,6 +10,7 @@ import { getDigitalSensorId } from "../../blocks/digitalsensor/component-state-t
 import { getAnalogSensorId } from "../../blocks/analogsensor/component-state-to-id";
 import { getLedId } from "../../blocks/led/component-state-to-id";
 import { getMotorShieldId } from "../../blocks/motors/component-state-to-id";
+import { getButtonId } from "../../blocks/button/component-state-to-id";
 
 export interface ComponentStateToId {
   (state: ArduinoComponentState): string;
@@ -21,7 +22,7 @@ const genericSingleComponentId = (state: ArduinoComponentState) => {
 
 const componentStateFuncs: { [key: string]: ComponentStateToId } = {
   [ArduinoComponentType.BLUE_TOOTH]: genericSingleComponentId,
-  [ArduinoComponentType.BUTTON]: genericSingleComponentId,
+  [ArduinoComponentType.BUTTON]: getButtonId,
   [ArduinoComponentType.IR_REMOTE]: genericSingleComponentId,
   [ArduinoComponentType.LED_MATRIX]: genericSingleComponentId,
   [ArduinoComponentType.MOTOR]: getMotorShieldId,
