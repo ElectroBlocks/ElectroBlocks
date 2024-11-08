@@ -191,7 +191,7 @@
         <h3 class="p-0" >{lessonContainer.title}</h3>
 
       </div>
-      {#each _.chunk(lessonContainer.lessons, 2) as lessonRow }
+      {#each _.chunk(lessonContainer.lessons, 3) as lessonRow }
         <div class="row">
           {#each lessonRow as lesson}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
