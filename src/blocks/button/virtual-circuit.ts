@@ -44,15 +44,9 @@ export const createButton: AfterComponentCreateHook<ButtonState> = (
   buttonEl
 ) => {
   buttonEl.findOne("#PIN_TEXT").node.innerHTML = state.pins[0];
-  buttonEl.findOne("#PIN_TEXT_TYPE").node.innerHTML = state.usePullup
-    ? "-"
-    : "+";
-  buttonEl
-    .findOne("#PIN_TEXT_TYPE")
-    .node.setAttribute("font-size", state.usePullup ? "36px" : "30px");
-  buttonEl
-    .findOne("#PIN_GND_POWER")
-    .node.setAttribute("stroke", state.usePullup ? "#020101" : "#AA0000");
+  buttonEl.findOne("#PIN_TEXT_TYPE").node.innerHTML = "+";
+  buttonEl.findOne("#PIN_TEXT_TYPE").node.setAttribute("font-size", "30px");
+  buttonEl.findOne("#PIN_GND_POWER").node.setAttribute("stroke", "#AA0000");
 };
 
 export const updateButton: SyncComponent = (
@@ -92,32 +86,6 @@ export const createWiresButton: CreateWire<ButtonState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  console.log(state.usePullup);
-  if (state.usePullup) {
-    createGroundOrPowerWire(
-      holes[0],
-      isDown,
-      buttonEl,
-      draw,
-      arduino,
-      id,
-      "ground",
-      "PIN_GND_POWER"
-    );
-
-    createComponentWire(
-      holes[3],
-      isDown,
-      buttonEl,
-      state.pins[0],
-      draw,
-      arduino,
-      id,
-      "PIN_DATA",
-      board
-    );
-    return;
-  }
 
   createGroundOrPowerWire(
     holes[1],
@@ -148,7 +116,7 @@ export const createWiresButton: CreateWire<ButtonState> = (
     false,
     arduinoComponentStateToId(state),
     "horizontal",
-    10000
+    10_000
   );
 
   const holeId = `pin${holes[4]}${isDown ? "A" : "J"}`;
