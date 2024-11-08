@@ -57,7 +57,7 @@ Blockly.Blocks["passive_buzzer_tone"] = {
       )
       .appendField("Passive Buzzer");
     this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_RIGHT)
+      .setAlign(Blockly.ALIGN_CENTRE)
       .appendField("Pin")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
