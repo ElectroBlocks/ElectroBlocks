@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="160"
+   width="81.81"
    height="112.4"
-   viewBox="0 0 160 112.4"
-   preserveAspectRatio="xMinYMin"
+   viewBox="0 0 81.81 112.4"
+   preserveAspectRatio="xMinYMin meet"
    overflow="visible"
    id="svg19"
    sodipodi:docname="rgbled.svg"
@@ -17,63 +17,13 @@
      id="defs19">
     <filter
        id="filter2"
-       x="-0.56680113"
-       y="-0.56680113"
-       height="2.1336024"
-       width="2.1336024">
+       x="-0.56680115"
+       y="-0.56680115"
+       height="2.1336023"
+       width="2.1336023">
       <feGaussianBlur
          stdDeviation="4.7233431"
          id="feGaussianBlur2" />
-    </filter>
-    <filter
-       id="ledFilterRed-8"
-       x="-0.80000001"
-       y="-0.80000001"
-       height="5.1999998"
-       width="5.8000002">
-      <feGaussianBlur
-         stdDeviation="4"
-         id="feGaussianBlur13-4" />
-    </filter>
-    <filter
-       id="ledFilterGreen-0"
-       x="-0.80000001"
-       y="-0.80000001"
-       height="5.1999998"
-       width="5.8000002">
-      <feGaussianBlur
-         stdDeviation="4"
-         id="feGaussianBlur14-0" />
-    </filter>
-    <filter
-       id="ledFilterBlue-9"
-       x="-0.80000001"
-       y="-0.80000001"
-       height="5.1999998"
-       width="5.8000002">
-      <feGaussianBlur
-         stdDeviation="4"
-         id="feGaussianBlur15-3" />
-    </filter>
-    <filter
-       id="ledFilter-7"
-       x="-0.39816272"
-       y="-0.39816272"
-       height="1.7963254"
-       width="1.7963254">
-      <feGaussianBlur
-         stdDeviation="3.9816273"
-         id="feGaussianBlur12-5" />
-    </filter>
-    <filter
-       id="filter1"
-       x="-0.39816272"
-       y="-0.39816272"
-       height="1.7963254"
-       width="1.7963254">
-      <feGaussianBlur
-         stdDeviation="3.9816273"
-         id="feGaussianBlur1" />
     </filter>
   </defs>
   <sodipodi:namedview
@@ -85,508 +35,276 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="3.5042958"
-     inkscape:cx="72.339785"
-     inkscape:cy="63.065453"
+     inkscape:zoom="14.017183"
+     inkscape:cx="34.7074"
+     inkscape:cy="40.949739"
      inkscape:window-width="1728"
      inkscape:window-height="973"
      inkscape:window-x="0"
      inkscape:window-y="38"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer2-7" />
+     inkscape:current-layer="svg19" />
   <!-- LED Legs -->
   <!-- LED Body -->
+  <path
+     d="m 40.603612,43.49024 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
+     opacity="0.3"
+     id="path4" />
+  <path
+     id="PIN_GREEN_PATH"
+     d="m 5.1089142,14.425977 9.7027548,5.338621 0.319855,22.490161"
+     sodipodi:nodetypes="ccc"
+     style="stroke:#05cb21;stroke-opacity:1;fill:none"
+     inkscape:label="PIN_GREEN_PATH"
+     transform="translate(32.260112,37.84024)" />
+  <path
+     id="PIN_GND_PATH_1"
+     d="m -1.8627116,13.336258 0.6171454,40.061485"
+     sodipodi:nodetypes="cc"
+     style="stroke:#0c0d11;stroke-opacity:1"
+     inkscape:label="PIN_GND_PATH"
+     transform="translate(32.260112,37.84024)" />
+  <path
+     id="PIN_BLUE_PATH"
+     d="M 8.2017829,10.566126 33.672528,18.350909 33.538639,42.171242"
+     stroke-linejoin="round"
+     sodipodi:nodetypes="ccc"
+     style="stroke:#2e4fe5;stroke-opacity:1;fill:none"
+     inkscape:label="PIN_BLUE_PATH"
+     transform="translate(32.260112,37.84024)" />
+  <rect
+     style="fill:#ff0202;fill-opacity:1;stroke:none;stroke-width:1.42105;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+     id="PIN_RED"
+     width="0.99846649"
+     height="5.5994735"
+     x="6.21527"
+     y="77.938622"
+     inkscape:label="PIN_RED" />
+  <rect
+     style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.43368;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+     id="PIN_GND"
+     width="1.0163018"
+     height="5.5994735"
+     x="30.501837"
+     y="90.976524"
+     inkscape:label="PIN_GND" />
+  <rect
+     style="fill:#05cb21;fill-opacity:1;stroke:none;stroke-width:1.41939;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+     id="PIN_GREEN"
+     width="0.99614906"
+     height="5.5994735"
+     x="46.905701"
+     y="79.89608"
+     inkscape:label="PIN_GREEN" />
+  <path
+     id="PIN_RED_PATH"
+     d="m -4.3,14.184 -21.134037,2.948242 -0.102242,23.097139"
+     stroke-linejoin="round"
+     sodipodi:nodetypes="ccc"
+     style="fill:none;stroke:#f80101;stroke-opacity:1"
+     inkscape:label="PIN_RED_PATH"
+     transform="translate(32.260112,37.84024)" />
+  <rect
+     style="fill:#2e4fe5;fill-opacity:1;stroke:none;stroke-width:1.21941;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+     id="PIN_BLUE"
+     width="1.0139842"
+     height="6.6083879"
+     x="65.288986"
+     y="79.653778"
+     inkscape:label="PIN_BLUE" />
+  <path
+     d="m 40.603612,43.49024 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
+     fill="#e6e6e6"
+     opacity="0.5"
+     id="path5" />
+  <path
+     d="m 40.603612,43.49024 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 4.6296 c 1.4738,1.6517 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 l -4e-5,-1.5235 c -7e-4,-1.1419 -0.4744,-2.2032 -1.283,-3.1054 z"
+     fill="#d1d1d1"
+     opacity="0.9"
+     id="path6" />
+  <g
+     transform="translate(26.430612,30.48924)"
+     id="g8">
+    <path
+       d="m 14.173,13.001 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 4.6296 c 1.4738,1.6517 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 l -4e-5,-1.5235 c -7e-4,-1.1419 -0.4744,-2.2032 -1.283,-3.1054 z"
+       opacity="0.7"
+       id="path7" />
+    <path
+       d="m 14.173,13.001 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 3.1054 c 1.4738,1.6502 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 -7.4e-4,-1.1412 -0.47444,-2.2025 -1.283,-3.1047 z"
+       opacity="0.25"
+       id="path8" />
+    <ellipse
+       cx="7.0876999"
+       cy="16.106001"
+       rx="7.0869999"
+       ry="4.9608002"
+       opacity="0.25"
+       id="ellipse8" />
+  </g>
+  <polygon
+     transform="translate(26.430612,30.48924)"
+     points="6.0156,13.095 10.012,8.8049 3.407,8.8049 2.2032,9.648 2.2032,16.107 3.1961,16.107 3.1961,13.095 "
+     fill="#666666"
+     id="polygon8" />
+  <polygon
+     transform="translate(26.430612,30.48924)"
+     points="11.06,16.107 11.974,16.107 11.974,8.5241 10.778,8.5241 11.215,9.0338 7.4117,13.095 11.06,13.095 "
+     fill="#666666"
+     id="polygon9" />
+  <path
+     d="m 40.603612,43.49024 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
+     fill="#ffffff"
+     opacity="0.65"
+     id="path9" />
+  <g
+     transform="translate(26.430612,30.48924)"
+     fill="#ffffff"
+     id="g12">
+    <path
+       d="M 10.388,3.7541 11.8244,3.4805 C 10.98272,2.3487 9.7422,1.5228 8.2827,1.242 l 0.25416,1.0807 c 0.76388,0.27072 1.4068,0.78048 1.8511,1.4314 z"
+       opacity="0.5"
+       id="path10" />
+    <path
+       d="m 0.76824,19.926 v 1.5199 c 0.64872,0.5292 1.4335,0.97632 2.3076,1.3169 v -1.525 C 2.19744,20.90156 1.41914,20.45586 0.76824,19.926 Z"
+       opacity="0.5"
+       id="path11" />
+    <path
+       d="m 11.073,20.21 c -0.2556,0.1224 -0.52992,0.22968 -0.80568,0.32976 -0.05832,0.01944 -0.11736,0.04032 -0.17784,0.05832 -0.56376,0.17928 -1.1614,0.31896 -1.795,0.39456 -0.07488,0.0094 -0.1512,0.01872 -0.22464,0.01944 -0.3204,0.03024 -0.64368,0.05832 -0.97056,0.05832 -0.14832,0 -0.30744,-0.01512 -0.4716,-0.02376 C 5.42748,20.98976 4.29708,20.732 3.33008,20.3072 l -2e-5,-8.3895 V 7.0923 c 0,-1.471 0.84816,-2.7295 2.0736,-3.3494 L 5.38134,3.68962 4.13354,2.17762 c -1.6697,1.003 -2.79,2.8224 -2.79,4.9118 v 11.905 C 1.29386,18.94474 1.03538,18.68554 0.8633,18.4645 l -0.30744,0.6876 c 1.4011,1.4818 3.8088,2.4617 6.5426,2.4617 1.6798,0 3.2371,-0.37368 4.5115,-1.0022 l -0.52704,-0.40896 -0.01006,0.0072 z"
+       opacity="0.5"
+       id="path12" />
+  </g>
   <filter
      id="ledFilter"
-     x="-0.39816272"
-     y="-0.39816272"
-     height="1.7963254"
-     width="1.7963254">
+     x="-0.33519684"
+     y="-0.33519684"
+     height="1.6703937"
+     width="1.6703937">
     <feGaussianBlur
        stdDeviation="3.9816273"
        id="feGaussianBlur12" />
   </filter>
   <filter
      id="ledFilterRed"
-     x="-0.80000001"
-     y="-0.80000001"
-     height="5.1999998"
-     width="5.8000002">
+     x="-0.8"
+     y="-0.8"
+     height="5.2"
+     width="5.8">
     <feGaussianBlur
        stdDeviation="4"
        id="feGaussianBlur13" />
   </filter>
   <filter
      id="ledFilterGreen"
-     x="-0.80000001"
-     y="-0.80000001"
-     height="5.1999998"
-     width="5.8000002">
+     x="-0.8"
+     y="-0.8"
+     height="5.2"
+     width="5.8">
     <feGaussianBlur
        stdDeviation="4"
        id="feGaussianBlur14" />
   </filter>
   <filter
      id="ledFilterBlue"
-     x="-0.80000001"
-     y="-0.80000001"
-     height="5.1999998"
-     width="5.8000002">
+     x="-0.8"
+     y="-0.8"
+     height="5.2"
+     width="5.8">
     <feGaussianBlur
        stdDeviation="4"
        id="feGaussianBlur15" />
   </filter>
-  <g
-     inkscape:groupmode="layer"
-     id="LED_1"
-     inkscape:label="LED_1"
-     sodipodi:insensitive="true">
-    <path
-       id="PIN_GREEN_PATH"
-       d="m 5.1089142,14.425977 9.7027548,5.338621 0.319855,22.490161"
-       sodipodi:nodetypes="ccc"
-       style="fill:none;stroke:#05cb21;stroke-opacity:1"
-       inkscape:label="PIN_GREEN_PATH_1"
-       transform="translate(32.260112,37.84024)" />
-    <path
-       d="m 40.603612,43.49024 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
-       opacity="0.3"
-       id="path4"
-       inkscape:label="path4" />
-    <path
-       id="PIN_GND_PATH_1"
-       d="m -1.8627116,13.336258 0.6171454,40.061485"
-       sodipodi:nodetypes="cc"
-       style="stroke:#0c0d11;stroke-opacity:1"
-       inkscape:label="PIN_GND_PATH_1"
-       transform="translate(32.260112,37.84024)" />
-    <path
-       id="PIN_BLUE_PATH"
-       d="M 8.2017829,10.566126 33.672528,18.350909 33.538639,42.171242"
-       stroke-linejoin="round"
-       sodipodi:nodetypes="ccc"
-       style="fill:none;stroke:#2e4fe5;stroke-opacity:1"
-       inkscape:label="PIN_BLUE_PATH_1"
-       transform="translate(32.260112,37.84024)" />
-    <rect
-       style="fill:#ff0202;fill-opacity:1;stroke:none;stroke-width:1.42105;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
-       id="PIN_RED_1"
-       width="0.99846649"
-       height="5.5994735"
-       x="6.21527"
-       y="77.938622"
-       inkscape:label="PIN_RED_1" />
-    <rect
-       style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.43368;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
-       id="PIN_GND_1"
-       width="1.0163018"
-       height="5.5994735"
-       x="30.501837"
-       y="90.976524"
-       inkscape:label="PIN_GND_1" />
-    <rect
-       style="fill:#05cb21;fill-opacity:1;stroke:none;stroke-width:1.41939;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
-       id="PIN_GREEN_1"
-       width="0.99614906"
-       height="5.5994735"
-       x="46.905701"
-       y="79.89608"
-       inkscape:label="PIN_GREEN_1" />
-    <path
-       id="PIN_RED_PATH"
-       d="m -4.3,14.184 -21.134037,2.948242 -0.102242,23.097139"
-       stroke-linejoin="round"
-       sodipodi:nodetypes="ccc"
-       style="fill:none;stroke:#f80101;stroke-opacity:1"
-       inkscape:label="PIN_RED_PATH_1"
-       transform="translate(32.260112,37.84024)" />
-    <rect
-       style="fill:#2e4fe5;fill-opacity:1;stroke:none;stroke-width:1.21941;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
-       id="PIN_BLUE_1"
-       width="1.0139842"
-       height="6.6083879"
-       x="65.288986"
-       y="79.653778"
-       inkscape:label="PIN_BLUE_1" />
-    <path
-       d="m 40.603612,43.49024 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
-       fill="#e6e6e6"
-       opacity="0.5"
-       id="path5" />
-    <path
-       d="m 40.603612,43.49024 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 4.6296 c 1.4738,1.6517 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 l -4e-5,-1.5235 c -7e-4,-1.1419 -0.4744,-2.2032 -1.283,-3.1054 z"
-       fill="#d1d1d1"
-       opacity="0.9"
-       id="path6" />
-    <g
-       transform="translate(26.430612,30.48924)"
-       id="g8">
-      <path
-         d="m 14.173,13.001 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 4.6296 c 1.4738,1.6517 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 l -4e-5,-1.5235 c -7e-4,-1.1419 -0.4744,-2.2032 -1.283,-3.1054 z"
-         opacity="0.7"
-         id="path7" />
-      <path
-         d="m 14.173,13.001 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 3.1054 c 1.4738,1.6502 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 -7.4e-4,-1.1412 -0.47444,-2.2025 -1.283,-3.1047 z"
-         opacity="0.25"
-         id="path8" />
-      <ellipse
-         cx="7.0876999"
-         cy="16.106001"
-         rx="7.0869999"
-         ry="4.9608002"
-         opacity="0.25"
-         id="ellipse8" />
-    </g>
-    <polygon
-       transform="translate(26.430612,30.48924)"
-       points="6.0156,13.095 10.012,8.8049 3.407,8.8049 2.2032,9.648 2.2032,16.107 3.1961,16.107 3.1961,13.095 "
-       fill="#666666"
-       id="polygon8" />
-    <polygon
-       transform="translate(26.430612,30.48924)"
-       points="11.06,16.107 11.974,16.107 11.974,8.5241 10.778,8.5241 11.215,9.0338 7.4117,13.095 11.06,13.095 "
-       fill="#666666"
-       id="polygon9" />
-    <path
-       d="m 40.603612,43.49024 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
-       fill="#ffffff"
-       opacity="0.65"
-       id="path9" />
-    <g
-       transform="translate(26.430612,30.48924)"
-       fill="#ffffff"
-       id="g12">
-      <path
-         d="M 10.388,3.7541 11.8244,3.4805 C 10.98272,2.3487 9.7422,1.5228 8.2827,1.242 l 0.25416,1.0807 c 0.76388,0.27072 1.4068,0.78048 1.8511,1.4314 z"
-         opacity="0.5"
-         id="path10" />
-      <path
-         d="m 0.76824,19.926 v 1.5199 c 0.64872,0.5292 1.4335,0.97632 2.3076,1.3169 v -1.525 C 2.19744,20.90156 1.41914,20.45586 0.76824,19.926 Z"
-         opacity="0.5"
-         id="path11" />
-      <path
-         d="m 11.073,20.21 c -0.2556,0.1224 -0.52992,0.22968 -0.80568,0.32976 -0.05832,0.01944 -0.11736,0.04032 -0.17784,0.05832 -0.56376,0.17928 -1.1614,0.31896 -1.795,0.39456 -0.07488,0.0094 -0.1512,0.01872 -0.22464,0.01944 -0.3204,0.03024 -0.64368,0.05832 -0.97056,0.05832 -0.14832,0 -0.30744,-0.01512 -0.4716,-0.02376 C 5.42748,20.98976 4.29708,20.732 3.33008,20.3072 l -2e-5,-8.3895 V 7.0923 c 0,-1.471 0.84816,-2.7295 2.0736,-3.3494 L 5.38134,3.68962 4.13354,2.17762 c -1.6697,1.003 -2.79,2.8224 -2.79,4.9118 v 11.905 C 1.29386,18.94474 1.03538,18.68554 0.8633,18.4645 l -0.30744,0.6876 c 1.4011,1.4818 3.8088,2.4617 6.5426,2.4617 1.6798,0 3.2371,-0.37368 4.5115,-1.0022 l -0.52704,-0.40896 -0.01006,0.0072 z"
-         opacity="0.5"
-         id="path12" />
-    </g>
-    <circle
-       cx="33.960114"
-       cy="40.84024"
-       r="0"
-       fill="#ff0000"
-       filter="url(#ledFilterRed)"
-       id="circle15"
-       style="display:none" />
-    <circle
-       cx="34.960114"
-       cy="42.84024"
-       r="0"
-       fill="#00ff00"
-       opacity="0"
-       filter="url(#ledFilterGreen)"
-       id="circle16"
-       style="display:none" />
-    <circle
-       cx="32.960114"
-       cy="42.84024"
-       r="0"
-       fill="#0155fd"
-       opacity="0"
-       filter="url(#ledFilterBlue)"
-       id="circle17"
-       style="display:none" />
-    <circle
-       cx="33.032681"
-       cy="40.556103"
-       r="12"
-       filter="url(#ledFilter)"
-       id="MAIN_COLOR_1"
-       opacity="0.7"
-       style="display:inline;stroke:none"
-       inkscape:label="MAIN_COLOR_1"
-       transform="matrix(1.1509562,0,0,1.1779127,-4.7011244,-6.9657516)" />
-    <circle
-       cx="34.16011"
-       cy="42.84024"
-       r="15"
-       stroke="#666666"
-       stroke-width="1"
-       fill="none"
-       filter="url(#ledFilter)"
-       id="circle19"
-       style="display:none" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
-       x="20.279175"
+  <circle
+     cx="33.960114"
+     cy="40.84024"
+     r="0"
+     fill="#ff0000"
+     filter="url(#ledFilterRed)"
+     id="circle15"
+     style="display:none" />
+  <circle
+     cx="34.960114"
+     cy="42.84024"
+     r="0"
+     fill="#00ff00"
+     opacity="0"
+     filter="url(#ledFilterGreen)"
+     id="circle16"
+     style="display:none" />
+  <circle
+     cx="32.960114"
+     cy="42.84024"
+     r="0"
+     fill="#0155fd"
+     opacity="0"
+     filter="url(#ledFilterBlue)"
+     id="circle17"
+     style="display:none" />
+  <circle
+     cx="33.032681"
+     cy="40.556103"
+     r="12"
+     filter="url(#ledFilter)"
+     id="MAIN_COLOR"
+     opacity="0.7"
+     style="display:inline;stroke:none"
+     inkscape:label="MAIN_COLOR"
+     transform="matrix(1.1509562,0,0,1.1779127,-4.7011244,-6.9657516)" />
+  <circle
+     cx="34.16011"
+     cy="42.84024"
+     r="15"
+     stroke="#666666"
+     stroke-width="1"
+     fill="none"
+     filter="url(#ledFilter)"
+     id="circle19"
+     style="display:none" />
+  <text
+     xml:space="preserve"
+     style="font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+     x="20.279175"
+     y="75.264999"
+     id="RED_PIN_TEXT"
+     inkscape:label="RED_PIN_TEXT"><tspan
+       sodipodi:role="line"
+       id="tspan1"
+       x="19.499176"
        y="75.264999"
-       id="RED_PIN_TEXT_1"
-       inkscape:label="RED_PIN_TEXT_1"><tspan
-         sodipodi:role="line"
-         id="tspan1"
-         x="19.499176"
-         y="75.264999"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">13</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
-       x="60.235134"
-       y="75.769371"
-       id="GREEN_PIN_TEXT_1"
-       inkscape:label="GREEN_PIN_TEXT_1"><tspan
-         sodipodi:role="line"
-         id="tspan1-7"
-         x="59.455135"
-         y="75.769371"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">13</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
-       x="78.964874"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">13</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+     x="60.235134"
+     y="75.769371"
+     id="GREEN_PIN_TEXT"
+     inkscape:label="GREEN_PIN_TEXT"><tspan
+       sodipodi:role="line"
+       id="tspan1-7"
+       x="0"
+       y="0"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">13</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+     x="78.964874"
+     y="75.356888"
+     id="BLUE_PIN_TEXT"
+     inkscape:label="BLUE_PIN_TEXT"><tspan
+       sodipodi:role="line"
+       id="tspan1-7-1"
+       x="78.184875"
        y="75.356888"
-       id="BLUE_PIN_TEXT_1"
-       inkscape:label="BLUE_PIN_TEXT_1"><tspan
-         sodipodi:role="line"
-         id="tspan1-7-1"
-         x="78.184875"
-         y="75.356888"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">13</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">13</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+     x="37.368435"
+     y="74.751534"
+     id="text1-6"
+     inkscape:label="GND_TEXT"><tspan
+       sodipodi:role="line"
+       id="tspan1-5"
        x="37.368435"
        y="74.751534"
-       id="text1-6"
-       inkscape:label="GND_TEXT_1"><tspan
-         sodipodi:role="line"
-         id="tspan1-5"
-         x="37.368435"
-         y="74.751534"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">-</tspan></text>
-  </g>
-  <g
-     inkscape:groupmode="layer"
-     id="LED_2"
-     inkscape:label="LED_2"
-     transform="translate(29.78473,6.585178)"
-     style="display:inline">
-    <path
-       id="PIN_GREEN_PATH_2"
-       d="m 87.593098,44.846752 9.702754,5.338621 0.319855,22.490161"
-       sodipodi:nodetypes="ccc"
-       style="fill:none;stroke:#05cb21;stroke-opacity:1"
-       inkscape:label="PIN_GREEN_PATH_2" />
-    <path
-       d="m 90.827683,36.070775 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
-       opacity="0.3"
-       id="path4-9"
-       inkscape:label="path4" />
-    <path
-       id="PIN_GND_PATH_2"
-       d="m 80.621472,43.757033 0.617145,40.061485"
-       sodipodi:nodetypes="cc"
-       style="stroke:#0c0d11;stroke-opacity:1"
-       inkscape:label="PIN_GND_PATH_2" />
-    <path
-       id="PIN_BLUE_PATH_2"
-       d="m 90.685966,40.986901 25.470744,7.784783 -0.13389,23.820333"
-       stroke-linejoin="round"
-       sodipodi:nodetypes="ccc"
-       style="fill:none;stroke:#2e4fe5;stroke-opacity:1"
-       inkscape:label="PIN_BLUE_PATH_2" />
-    <rect
-       style="fill:#ff0202;fill-opacity:1;stroke:none;stroke-width:1.42105;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
-       id="PIN_RED_2"
-       width="0.99846649"
-       height="5.5994735"
-       x="56.439342"
-       y="70.519157"
-       inkscape:label="PIN_RED_2" />
-    <rect
-       style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.43368;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
-       id="PIN_GND_2"
-       width="1.0163018"
-       height="5.5994735"
-       x="80.725906"
-       y="83.55706"
-       inkscape:label="PIN_GND_2" />
-    <rect
-       style="fill:#05cb21;fill-opacity:1;stroke:none;stroke-width:1.41939;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
-       id="PIN_GREEN_2"
-       width="0.99614906"
-       height="5.5994735"
-       x="97.129768"
-       y="72.476616"
-       inkscape:label="PIN_GREEN_2" />
-    <path
-       id="PIN_RED_PATH_2"
-       d="M 78.184183,44.604775 57.050146,47.553017 56.947904,70.650156"
-       stroke-linejoin="round"
-       sodipodi:nodetypes="ccc"
-       style="fill:none;stroke:#f80101;stroke-opacity:1"
-       inkscape:label="PIN_RED_PATH_2" />
-    <rect
-       style="fill:#2e4fe5;fill-opacity:1;stroke:none;stroke-width:1.21941;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
-       id="PIN_BLUE_2"
-       width="1.0139842"
-       height="6.6083879"
-       x="115.51305"
-       y="72.234314"
-       inkscape:label="PIN_BLUE_2" />
-    <path
-       d="m 90.827683,36.070775 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
-       fill="#e6e6e6"
-       opacity="0.5"
-       id="path5-8" />
-    <path
-       d="m 90.827683,36.070775 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 4.6296 c 1.4738,1.6517 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 l -4e-5,-1.5235 c -7e-4,-1.1419 -0.4744,-2.2032 -1.283,-3.1054 z"
-       fill="#d1d1d1"
-       opacity="0.9"
-       id="path6-5" />
-    <g
-       transform="translate(76.654683,23.069775)"
-       id="g8-5">
-      <path
-         d="m 14.173,13.001 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 4.6296 c 1.4738,1.6517 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 l -4e-5,-1.5235 c -7e-4,-1.1419 -0.4744,-2.2032 -1.283,-3.1054 z"
-         opacity="0.7"
-         id="path7-5" />
-      <path
-         d="m 14.173,13.001 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 3.1054 c 1.4738,1.6502 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 -7.4e-4,-1.1412 -0.47444,-2.2025 -1.283,-3.1047 z"
-         opacity="0.25"
-         id="path8-4" />
-      <ellipse
-         cx="7.0876999"
-         cy="16.106001"
-         rx="7.0869999"
-         ry="4.9608002"
-         opacity="0.25"
-         id="ellipse8-2" />
-    </g>
-    <polygon
-       transform="translate(76.654683,23.069775)"
-       points="3.1961,13.095 6.0156,13.095 10.012,8.8049 3.407,8.8049 2.2032,9.648 2.2032,16.107 3.1961,16.107 "
-       fill="#666666"
-       id="polygon8-1" />
-    <polygon
-       transform="translate(76.654683,23.069775)"
-       points="11.06,13.095 11.06,16.107 11.974,16.107 11.974,8.5241 10.778,8.5241 11.215,9.0338 7.4117,13.095 "
-       fill="#666666"
-       id="polygon9-9" />
-    <path
-       d="m 90.827683,36.070775 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
-       fill="#ffffff"
-       opacity="0.65"
-       id="path9-2" />
-    <g
-       transform="translate(76.654683,23.069775)"
-       fill="#ffffff"
-       id="g12-4">
-      <path
-         d="M 10.388,3.7541 11.8244,3.4805 C 10.98272,2.3487 9.7422,1.5228 8.2827,1.242 l 0.25416,1.0807 c 0.76388,0.27072 1.4068,0.78048 1.8511,1.4314 z"
-         opacity="0.5"
-         id="path10-5" />
-      <path
-         d="m 0.76824,19.926 v 1.5199 c 0.64872,0.5292 1.4335,0.97632 2.3076,1.3169 v -1.525 C 2.19744,20.90156 1.41914,20.45586 0.76824,19.926 Z"
-         opacity="0.5"
-         id="path11-8" />
-      <path
-         d="m 11.073,20.21 c -0.2556,0.1224 -0.52992,0.22968 -0.80568,0.32976 -0.05832,0.01944 -0.11736,0.04032 -0.17784,0.05832 -0.56376,0.17928 -1.1614,0.31896 -1.795,0.39456 -0.07488,0.0094 -0.1512,0.01872 -0.22464,0.01944 -0.3204,0.03024 -0.64368,0.05832 -0.97056,0.05832 -0.14832,0 -0.30744,-0.01512 -0.4716,-0.02376 C 5.42748,20.98976 4.29708,20.732 3.33008,20.3072 l -2e-5,-8.3895 V 7.0923 c 0,-1.471 0.84816,-2.7295 2.0736,-3.3494 L 5.38134,3.68962 4.13354,2.17762 c -1.6697,1.003 -2.79,2.8224 -2.79,4.9118 v 11.905 C 1.29386,18.94474 1.03538,18.68554 0.8633,18.4645 l -0.30744,0.6876 c 1.4011,1.4818 3.8088,2.4617 6.5426,2.4617 1.6798,0 3.2371,-0.37368 4.5115,-1.0022 l -0.52704,-0.40896 -0.01006,0.0072 z"
-         opacity="0.5"
-         id="path12-6" />
-    </g>
-    <circle
-       cx="33.960114"
-       cy="40.84024"
-       r="0"
-       fill="#ff0000"
-       filter="url(#ledFilterRed)"
-       id="circle15-2"
-       style="display:none;filter:url(#ledFilterRed-8)" />
-    <circle
-       cx="34.960114"
-       cy="42.84024"
-       r="0"
-       fill="#00ff00"
-       opacity="0"
-       filter="url(#ledFilterGreen)"
-       id="circle16-5"
-       style="display:none;filter:url(#ledFilterGreen-0)" />
-    <circle
-       cx="32.960114"
-       cy="42.84024"
-       r="0"
-       fill="#0155fd"
-       opacity="0"
-       filter="url(#ledFilterBlue)"
-       id="circle17-1"
-       style="display:none;filter:url(#ledFilterBlue-9)" />
-    <circle
-       cx="33.032681"
-       cy="40.556103"
-       r="12"
-       filter="url(#ledFilter)"
-       id="MAIN_COLOR_2"
-       opacity="0.7"
-       style="display:inline;stroke:none;filter:url(#ledFilter-7)"
-       inkscape:label="MAIN_COLOR_2"
-       transform="matrix(1.1509562,0,0,1.1779127,45.522947,-14.385217)" />
-    <circle
-       cx="34.16011"
-       cy="42.84024"
-       r="15"
-       stroke="#666666"
-       stroke-width="1"
-       fill="none"
-       filter="url(#ledFilter)"
-       id="circle19-9"
-       style="display:none;filter:url(#ledFilter-7)" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
-       x="70.503242"
-       y="67.845535"
-       id="RED_PIN_TEXT_2"
-       inkscape:label="RED_PIN_TEXT_2"><tspan
-         sodipodi:role="line"
-         id="tspan1-3"
-         x="69.723244"
-         y="67.845535"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">13</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
-       x="110.45921"
-       y="68.349907"
-       id="GREEN_PIN_TEXT_2"
-       inkscape:label="GREEN_PIN_TEXT_2"><tspan
-         sodipodi:role="line"
-         id="tspan1-7-5"
-         x="109.67921"
-         y="68.349907"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">13</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
-       x="129.18895"
-       y="67.937424"
-       id="BLUE_PIN_TEXT_2"
-       inkscape:label="BLUE_PIN_TEXT_2"><tspan
-         sodipodi:role="line"
-         id="tspan1-7-1-2"
-         x="128.40895"
-         y="67.937424"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">13</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;direction:rtl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.44;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
-       x="87.592506"
-       y="67.332069"
-       id="text1-6-1"
-       inkscape:label="GND_TEXT_2"><tspan
-         sodipodi:role="line"
-         id="tspan1-5-8"
-         x="87.592506"
-         y="67.332069"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">-</tspan></text>
-  </g>
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0.741176px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">-</tspan></text>
 </svg>

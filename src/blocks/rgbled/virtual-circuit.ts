@@ -15,7 +15,16 @@ import { rgbToHex } from "../../core/blockly/helpers/color.helper";
 import {
   createComponentWire,
   createGroundOrPowerWire,
+  createResistor,
+  createWireBreadboard,
+  createWireComponentToBreadboard,
+  createWireFromArduinoToBreadBoard,
 } from "../../core/virtual-circuit/wire";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import {
+  Breadboard,
+  MicroController,
+} from "../../core/microcontroller/microcontroller";
 
 export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
   state,
@@ -24,21 +33,11 @@ export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
   draw,
   board
 ) => {
-  if (state.numberOfComponents == 2) {
-    rgbLedEl.findOne("#RED_PIN_TEXT_2").node.innerHTML = state.redPin2;
-    rgbLedEl.findOne("#BLUE_PIN_TEXT_2").node.innerHTML = state.bluePin2;
-    rgbLedEl.findOne("#GREEN_PIN_TEXT_2").node.innerHTML = state.greenPin2;
-  }
+  //todo consider labeling pin in picture
 
-  rgbLedEl.findOne("#RED_PIN_TEXT_1").node.innerHTML = state.redPin1;
-  rgbLedEl.findOne("#BLUE_PIN_TEXT_1").node.innerHTML = state.bluePin1;
-  rgbLedEl.findOne("#GREEN_PIN_TEXT_1").node.innerHTML = state.greenPin1;
-
-  if (state.numberOfComponents == 1) {
-    rgbLedEl.findOne("#LED_2").hide();
-  } else {
-    rgbLedEl.findOne("#LED_2").show();
-  }
+  rgbLedEl.findOne("#RED_PIN_TEXT").node.innerHTML = state.redPin;
+  rgbLedEl.findOne("#BLUE_PIN_TEXT").node.innerHTML = state.bluePin;
+  rgbLedEl.findOne("#GREEN_PIN_TEXT").node.innerHTML = state.greenPin;
 };
 
 export const positionRgbLed: PositionComponent<LedColorState> = (
@@ -50,35 +49,19 @@ export const positionRgbLed: PositionComponent<LedColorState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(rgbLedEl, arduinoEl, draw, holes[2], isDown, "PIN_BLUE_1");
+  positionComponent(rgbLedEl, arduinoEl, draw, holes[2], isDown, "PIN_GND");
 };
 
 export const updateRgbLed: SyncComponent = (state: LedColorState, rgbLedEl) => {
   let color = rgbToHex(state.color);
-  setColor(state, rgbLedEl, color, 1);
-  if (state.numberOfComponents == 2) {
-    let color2 = rgbToHex(state.color2);
-    setColor(state, rgbLedEl, color2, 2);
+  if (color.toUpperCase() === "#000000") {
+    color = "#FFFFFF";
   }
+  (rgbLedEl.findOne("#MAIN_COLOR") as Element).fill(color);
 };
 
-function setColor(
-  state: LedColorState,
-  rgbLedEl,
-  color: string,
-  ledNum: number
-) {
-  if (color.toUpperCase() === "#000000") {
-    (rgbLedEl.findOne(`#MAIN_COLOR_${ledNum}`) as Element).hide();
-    return;
-  }
-  (rgbLedEl.findOne(`#MAIN_COLOR_${ledNum}`) as Element).show();
-  (rgbLedEl.findOne(`#MAIN_COLOR_${ledNum}`) as Element).fill(color);
-}
-
 export const resetRgbLed: ResetComponent = (rgbLedEl) => {
-  (rgbLedEl.findOne("#MAIN_COLOR_1") as Element).hide();
-  (rgbLedEl.findOne("#MAIN_COLOR_2") as Element).hide();
+  (rgbLedEl.findOne("#MAIN_COLOR") as Element).fill("#FFF");
 };
 
 export const createWiresRgbLed: CreateWire<LedColorState> = (
@@ -91,94 +74,111 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  if (state.numberOfComponents == 2) {
-    createComponentWire(
-      holes[0],
-      isDown,
-      rgbLedEl,
-      state.redPin1,
-      draw,
-      arduino,
-      id,
-      "PIN_RED_2",
-      board
-    );
-    createComponentWire(
-      holes[2],
-      isDown,
-      rgbLedEl,
-      state.greenPin1,
-      draw,
-      arduino,
-      id,
-      "PIN_GREEN_2",
-      board
-    );
 
-    createComponentWire(
-      holes[3],
-      isDown,
-      rgbLedEl,
-      state.bluePin1,
-      draw,
-      arduino,
-      id,
-      "PIN_BLUE_2",
-      board
-    );
-    createGroundOrPowerWire(
-      holes[1],
-      isDown,
-      rgbLedEl,
-      draw,
-      arduino,
-      id,
-      "ground",
-      "PIN_GND_2"
-    );
-  }
-  createComponentWire(
+  createResistorRequiredWire(
+    board.pinConnections[state.redPin].color,
+    state.redPin,
     holes[0],
-    isDown,
-    rgbLedEl,
-    state.redPin1,
+    "PIN_RED",
+    arduino as Svg,
     draw,
-    arduino,
-    id,
-    "PIN_RED_1",
-    board
-  );
-  createComponentWire(
-    holes[2],
-    isDown,
     rgbLedEl,
-    state.greenPin1,
-    draw,
-    arduino,
     id,
-    "PIN_GREEN_1",
     board
   );
 
-  createComponentWire(
-    holes[3],
-    isDown,
-    rgbLedEl,
-    state.bluePin1,
+  createResistorRequiredWire(
+    board.pinConnections[state.greenPin].color,
+    state.greenPin,
+    holes[2],
+    "PIN_GREEN",
+    arduino as Svg,
     draw,
-    arduino,
+    rgbLedEl,
     id,
-    "PIN_BLUE_1",
     board
   );
-  createGroundOrPowerWire(
+
+  createResistorRequiredWire(
+    board.pinConnections[state.bluePin].color,
+    state.bluePin,
+    holes[3],
+    "PIN_BLUE",
+    arduino as Svg,
+    draw,
+    rgbLedEl,
+    id,
+    board
+  );
+
+  createGroundWireForBreadboard(
     holes[1],
-    isDown,
+    "PIN_GND",
+    arduino as Svg,
+    draw,
+    rgbLedEl,
+    id
+  );
+  createResistor(arduino, draw, holes[0], true, id, "vertical", 1000);
+  createResistor(arduino, draw, holes[2], true, id, "vertical", 1000);
+  createResistor(arduino, draw, holes[3], true, id, "vertical", 1000);
+};
+
+const createResistorRequiredWire = (
+  color: string,
+  pin: ARDUINO_PINS,
+  hole: number,
+  connectionId: string,
+  arduino: Svg,
+  draw: Svg,
+  rgbLedEl: Element,
+  componentId: string,
+  board: MicroController
+) => {
+  createWireComponentToBreadboard(
+    `pin${hole}H`,
     rgbLedEl,
     draw,
     arduino,
-    id,
-    "ground",
-    "PIN_GND_1"
+    connectionId,
+    componentId,
+    color
+  );
+
+  createWireFromArduinoToBreadBoard(
+    pin,
+    arduino as Svg,
+    draw,
+    `pin${hole}A`,
+    componentId,
+    board
+  );
+};
+
+const createGroundWireForBreadboard = (
+  hole: number,
+  connectionId: string,
+  arduino: Svg,
+  draw: Svg,
+  rgbLedEl: Element,
+  componentId: string
+) => {
+  createWireComponentToBreadboard(
+    `pin${hole}H`,
+    rgbLedEl,
+    draw,
+    arduino,
+    connectionId,
+    componentId,
+    "#000"
+  );
+
+  createWireBreadboard(
+    `pin${hole}F`,
+    `pin${hole + 1}X`,
+    "#000",
+    draw,
+    arduino as Svg,
+    componentId
   );
 };

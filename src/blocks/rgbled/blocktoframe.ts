@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
 import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
@@ -19,38 +18,46 @@ export const ledColorSetup: BlockToFrameTransformer = (
   const redPin = findFieldValue(block, "PIN_RED_1");
   const greenPin = findFieldValue(block, "PIN_GREEN_1");
   const bluePin = findFieldValue(block, "PIN_BLUE_1");
+
   const redPin2 = findFieldValue(block, "PIN_RED_2");
   const greenPin2 = findFieldValue(block, "PIN_GREEN_2");
   const bluePin2 = findFieldValue(block, "PIN_BLUE_2");
+
   const numberOfComponents = +findFieldValue(block, "NUMBER_OF_COMPONENTS");
-  const pins =
-    numberOfComponents == 2
-      ? [redPin, greenPin, bluePin, redPin2, greenPin2, bluePin2]
-      : [redPin, greenPin, bluePin];
-  const ledColorState: LedColorState = {
+
+  const ledColorState1: LedColorState = {
     type: ArduinoComponentType.LED_COLOR,
-    pins: pins.sort(),
-    redPin1: redPin,
-    greenPin1: greenPin,
-    bluePin1: bluePin,
-    redPin2: redPin2,
-    greenPin2: greenPin2,
-    bluePin2: bluePin2,
-    numberOfComponents,
+    pins: [redPin, greenPin, bluePin],
+    redPin,
+    greenPin,
+    bluePin,
     color: { green: 0, red: 0, blue: 0 },
-    color2: { green: 0, red: 0, blue: 0 },
+    ledNumber: 1,
   };
 
-  return [
-    arduinoFrameByComponent(
-      block.id,
-      block.blockName,
-      timeline,
-      ledColorState,
-      "Setting up color led.",
-      previousState
-    ),
-  ];
+  const setupFrame = arduinoFrameByComponent(
+    block.id,
+    block.blockName,
+    timeline,
+    ledColorState1,
+    "Setting up color RGB Led.",
+    previousState
+  );
+
+  if (numberOfComponents == 2) {
+    const ledColorState2: LedColorState = {
+      type: ArduinoComponentType.LED_COLOR,
+      pins: [redPin2, greenPin2, bluePin2],
+      redPin: redPin2,
+      greenPin: greenPin2,
+      bluePin: bluePin2,
+      color: { green: 0, red: 0, blue: 0 },
+      ledNumber: 2,
+    };
+    setupFrame.explanation = "Setting up color RGB Led 1 and 2.";
+    setupFrame.components.push(ledColorState2);
+  }
+  return [setupFrame];
 };
 
 export const setLedColor: BlockToFrameTransformer = (
@@ -69,27 +76,15 @@ export const setLedColor: BlockToFrameTransformer = (
     { red: 0, green: 0, blue: 0 },
     previousState
   );
+  const whichComponent = +findFieldValue(block, "WHICH_COMPONENT");
 
-  const ledColor = findComponent<LedColorState>(
-    previousState,
-    ArduinoComponentType.LED_COLOR
+  const ledColorStates = previousState.components.filter(
+    (x) => x.type == ArduinoComponentType.LED_COLOR
   );
-  const whichLed =
-    ledColor.numberOfComponents == 1
-      ? 1
-      : +findFieldValue(block, "WHICH_COMPONENT");
-
-  const newComponent = _.cloneDeep(ledColor);
-  if (whichLed == 1) {
-    newComponent.color = color;
-  } else {
-    newComponent.color2 = color;
-  }
-
-  const message =
-    newComponent.numberOfComponents == 1
-      ? `Setting led color to (red=${color.red},green=${color.green},blue=${color.blue}).`
-      : `Setting led ${whichLed} color to (red=${color.red},green=${color.green},blue=${color.blue}).`;
+  let ledState = ledColorStates.find(
+    (x: LedColorState) => x.ledNumber == whichComponent
+  );
+  const newComponent = { ...ledState, color };
 
   return [
     arduinoFrameByComponent(
@@ -97,7 +92,7 @@ export const setLedColor: BlockToFrameTransformer = (
       block.blockName,
       timeline,
       newComponent,
-      message,
+      `Setting led color to (red=${color.red},green=${color.green},blue=${color.blue}).`,
       previousState
     ),
   ];
