@@ -40,11 +40,11 @@ describe("rgb led frame", () => {
 
     const ledColorState: LedColorState = {
       pins: [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_9],
-      redPin: ARDUINO_PINS.PIN_11,
-      greenPin: ARDUINO_PINS.PIN_10,
-      bluePin: ARDUINO_PINS.PIN_9,
+      redPin1: ARDUINO_PINS.PIN_11,
+      greenPin1: ARDUINO_PINS.PIN_10,
+      bluePin1: ARDUINO_PINS.PIN_9,
       color: { green: 0, red: 0, blue: 0 },
-      type: ArduinoComponentType.LED_COLOR
+      type: ArduinoComponentType.LED_COLOR,
     };
 
     const state: ArduinoFrame = {

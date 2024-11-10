@@ -7,10 +7,10 @@ import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../../tests/tests.helper";
-import { ActionType, UpdateMotorSetupBlock } from "./actions";
+import { ActionType, UpdateComponentSetupBlock } from "./actions";
 import { updateMotorSetupBlock } from "./updateMotorSetupBlock";
 
-describe("changeLoopNumberInSensorBlock", () => {
+describe("changeNumberOfComponentsInSetupBlock", () => {
   let workspace;
   let arduinoBlock;
 
@@ -25,24 +25,24 @@ describe("changeLoopNumberInSensorBlock", () => {
   it("should hide/show based on the number of motors the user set.", () => {
     // Hide the motors
     const motorSetupBlock = workspace.newBlock("motor_setup");
-    motorSetupBlock.setFieldValue("1", "NUMBER_OF_MOTORS");
+    motorSetupBlock.setFieldValue("1", "NUMBER_OF_COMPONENTS");
     const event = createTestEvent(motorSetupBlock.id);
     expect(updateMotorSetupBlock(event)).toEqual([
       {
         blockId: motorSetupBlock.id,
         showMotorTwo: false,
-        type: ActionType.UPDATE_MOTOR_SETUP_BLOCK,
+        type: ActionType.UPDATE_MULTIPLE_SETUP_BLOCK,
       },
     ]);
 
     // Show the motors
-    motorSetupBlock.setFieldValue("2", "NUMBER_OF_MOTORS");
+    motorSetupBlock.setFieldValue("2", "NUMBER_OF_COMPONENTS");
     const event2 = createTestEvent(motorSetupBlock.id);
     expect(updateMotorSetupBlock(event2)).toEqual([
       {
         blockId: motorSetupBlock.id,
         showMotorTwo: true,
-        type: ActionType.UPDATE_MOTOR_SETUP_BLOCK,
+        type: ActionType.UPDATE_MULTIPLE_SETUP_BLOCK,
       },
     ]);
   });

@@ -24,9 +24,21 @@ export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
   draw,
   board
 ) => {
-  rgbLedEl.findOne("#RED_PIN_TEXT").node.innerHTML = state.redPin;
-  rgbLedEl.findOne("#BLUE_PIN_TEXT").node.innerHTML = state.bluePin;
-  rgbLedEl.findOne("#GREEN_PIN_TEXT").node.innerHTML = state.greenPin;
+  if (state.numberOfComponents == 2) {
+    rgbLedEl.findOne("#RED_PIN_TEXT_2").node.innerHTML = state.redPin2;
+    rgbLedEl.findOne("#BLUE_PIN_TEXT_2").node.innerHTML = state.bluePin2;
+    rgbLedEl.findOne("#GREEN_PIN_TEXT_2").node.innerHTML = state.greenPin2;
+  }
+
+  rgbLedEl.findOne("#RED_PIN_TEXT_1").node.innerHTML = state.redPin1;
+  rgbLedEl.findOne("#BLUE_PIN_TEXT_1").node.innerHTML = state.bluePin1;
+  rgbLedEl.findOne("#GREEN_PIN_TEXT_1").node.innerHTML = state.greenPin1;
+
+  if (state.numberOfComponents == 1) {
+    rgbLedEl.findOne("#LED_2").hide();
+  } else {
+    rgbLedEl.findOne("#LED_2").show();
+  }
 };
 
 export const positionRgbLed: PositionComponent<LedColorState> = (
@@ -38,21 +50,35 @@ export const positionRgbLed: PositionComponent<LedColorState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(rgbLedEl, arduinoEl, draw, holes[2], isDown, "PIN_GND");
+  positionComponent(rgbLedEl, arduinoEl, draw, holes[2], isDown, "PIN_BLUE_1");
 };
 
 export const updateRgbLed: SyncComponent = (state: LedColorState, rgbLedEl) => {
   let color = rgbToHex(state.color);
-  if (color.toUpperCase() === "#000000") {
-    (rgbLedEl.findOne("#MAIN_COLOR") as Element).hide();
-    return;
+  setColor(state, rgbLedEl, color, 1);
+  if (state.numberOfComponents == 2) {
+    let color2 = rgbToHex(state.color2);
+    setColor(state, rgbLedEl, color2, 2);
   }
-  (rgbLedEl.findOne("#MAIN_COLOR") as Element).show();
-  (rgbLedEl.findOne("#MAIN_COLOR") as Element).fill(color);
 };
 
+function setColor(
+  state: LedColorState,
+  rgbLedEl,
+  color: string,
+  ledNum: number
+) {
+  if (color.toUpperCase() === "#000000") {
+    (rgbLedEl.findOne(`#MAIN_COLOR_${ledNum}`) as Element).hide();
+    return;
+  }
+  (rgbLedEl.findOne(`#MAIN_COLOR_${ledNum}`) as Element).show();
+  (rgbLedEl.findOne(`#MAIN_COLOR_${ledNum}`) as Element).fill(color);
+}
+
 export const resetRgbLed: ResetComponent = (rgbLedEl) => {
-  (rgbLedEl.findOne("#MAIN_COLOR") as Element).hide();
+  (rgbLedEl.findOne("#MAIN_COLOR_1") as Element).hide();
+  (rgbLedEl.findOne("#MAIN_COLOR_2") as Element).hide();
 };
 
 export const createWiresRgbLed: CreateWire<LedColorState> = (
@@ -65,27 +91,72 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
   area
 ) => {
   const { holes, isDown } = area;
+  if (state.numberOfComponents == 2) {
+    createComponentWire(
+      holes[0],
+      isDown,
+      rgbLedEl,
+      state.redPin1,
+      draw,
+      arduino,
+      id,
+      "PIN_RED_2",
+      board
+    );
+    createComponentWire(
+      holes[2],
+      isDown,
+      rgbLedEl,
+      state.greenPin1,
+      draw,
+      arduino,
+      id,
+      "PIN_GREEN_2",
+      board
+    );
 
+    createComponentWire(
+      holes[3],
+      isDown,
+      rgbLedEl,
+      state.bluePin1,
+      draw,
+      arduino,
+      id,
+      "PIN_BLUE_2",
+      board
+    );
+    createGroundOrPowerWire(
+      holes[1],
+      isDown,
+      rgbLedEl,
+      draw,
+      arduino,
+      id,
+      "ground",
+      "PIN_GND_2"
+    );
+  }
   createComponentWire(
     holes[0],
     isDown,
     rgbLedEl,
-    state.redPin,
+    state.redPin1,
     draw,
     arduino,
     id,
-    "PIN_RED",
+    "PIN_RED_1",
     board
   );
   createComponentWire(
     holes[2],
     isDown,
     rgbLedEl,
-    state.greenPin,
+    state.greenPin1,
     draw,
     arduino,
     id,
-    "PIN_GREEN",
+    "PIN_GREEN_1",
     board
   );
 
@@ -93,11 +164,11 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
     holes[3],
     isDown,
     rgbLedEl,
-    state.bluePin,
+    state.bluePin1,
     draw,
     arduino,
     id,
-    "PIN_BLUE",
+    "PIN_BLUE_1",
     board
   );
   createGroundOrPowerWire(
@@ -107,6 +178,7 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
     draw,
     arduino,
     id,
-    "ground"
+    "ground",
+    "PIN_GND_1"
   );
 };
