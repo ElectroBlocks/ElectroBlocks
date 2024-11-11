@@ -74,7 +74,8 @@ export const createWireComponentToBreadboard = (
   arduinoEl: Svg | Element,
   componentConnectionId: string,
   componentId: string,
-  color: string
+  color: string,
+  updateWireWhenComponentMoves: boolean = true
 ) => {
   const hole = findBreadboardHoleXY(holeId, arduinoEl, draw);
   const componentPin = findComponentConnection(
@@ -88,7 +89,7 @@ export const createWireComponentToBreadboard = (
   line.data("connection-id", componentConnectionId);
   line.data("component-id", componentId);
   line.data("type", "wire");
-  line.data("update-wire", true);
+  line.data("update-wire", updateWireWhenComponentMoves);
   line.data("hole-id", holeId);
 };
 
@@ -270,7 +271,8 @@ export const createResistor = (
       arduino,
       "WIRE_1",
       componentId,
-      "#999"
+      "#999",
+      false
     );
   }
 };
@@ -310,7 +312,6 @@ export const updateWires = (element: Element, draw: Svg, arduino: Svg) => {
       const hole = findSvgElement(holeId, arduino);
       const holeX = hole.cx() + arduino.x();
       const holeY = hole.cy() + arduino.y();
-
       const connectionId = w.data("connection-id");
       const componentPin = findComponentConnection(element, connectionId);
       w.plot(holeX, holeY, componentPin.x, componentPin.y);

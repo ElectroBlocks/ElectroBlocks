@@ -9,6 +9,7 @@ import {
 } from "../../../tests/tests.helper";
 import { ActionType, UpdateComponentSetupBlock } from "./actions";
 import { updateMotorSetupBlock } from "./updateMotorSetupBlock";
+import { ArduinoComponentType } from "../../frames/arduino.frame";
 
 describe("changeNumberOfComponentsInSetupBlock", () => {
   let workspace;
@@ -30,7 +31,8 @@ describe("changeNumberOfComponentsInSetupBlock", () => {
     expect(updateMotorSetupBlock(event)).toEqual([
       {
         blockId: motorSetupBlock.id,
-        showMotorTwo: false,
+        componentType: ArduinoComponentType.MOTOR,
+        numberOfComponents: 1,
         type: ActionType.UPDATE_MULTIPLE_SETUP_BLOCK,
       },
     ]);
@@ -41,7 +43,8 @@ describe("changeNumberOfComponentsInSetupBlock", () => {
     expect(updateMotorSetupBlock(event2)).toEqual([
       {
         blockId: motorSetupBlock.id,
-        showMotorTwo: true,
+        componentType: ArduinoComponentType.MOTOR,
+        numberOfComponents: 2,
         type: ActionType.UPDATE_MULTIPLE_SETUP_BLOCK,
       },
     ]);
