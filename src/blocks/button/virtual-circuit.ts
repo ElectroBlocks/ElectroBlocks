@@ -22,6 +22,7 @@ import {
   getGroundorPowerWireLetter,
 } from "../../core/virtual-circuit/wire";
 import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
+import { Text } from "@svgdotjs/svg.js";
 
 export const positionButton: PositionComponent<ButtonState> = (
   state,
@@ -36,7 +37,7 @@ export const positionButton: PositionComponent<ButtonState> = (
   positionComponent(buttonEl, arduinoEl, draw, holes[0], isDown, "PIN_1");
   const holeId = `pin${holes[0]}F`;
   const hole = findBreadboardHoleXY(holeId, arduinoEl, draw);
-  buttonEl.y(hole.y - 2);
+  buttonEl.y(hole.y - 43.5);
 };
 
 export const createButton: AfterComponentCreateHook<ButtonState> = (
@@ -60,12 +61,16 @@ export const resetButton: ResetComponent = (componentEl: Element) => {
 
 const toggleButton = (componentEl: Element, isOn: boolean) => {
   if (isOn) {
+    componentEl.findOne("#HAND").show();
     componentEl.findOne("#HIDE_PRESSED").hide();
     componentEl.findOne("#BOTTOM_WIRE").show();
     componentEl.findOne("#TOP_WIRE").show();
+
+    (componentEl.findOne("#BTN_TEXT") as Text).x(4).text("Pressed");
     return;
   }
-
+  (componentEl.findOne("#BTN_TEXT") as Text).x(1).text("Released");
+  componentEl.findOne("#HAND").hide();
   componentEl.findOne("#BOTTOM_WIRE").hide();
   componentEl.findOne("#TOP_WIRE").hide();
   componentEl.findOne("#HIDE_PRESSED").show();
