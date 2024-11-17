@@ -113,7 +113,7 @@ export const createWireBreadboard = (
   line.data("update-wire", false);
 };
 
-const getGroundorPowerWireLetter = (
+export const getGroundorPowerWireLetter = (
   isDown: boolean,
   type: "ground" | "power"
 ) => {
@@ -140,7 +140,8 @@ export const createGroundOrPowerWire = (
   arduino: Element,
   componentId: string,
   type: "ground" | "power",
-  pinConnectionId: string = ""
+  pinConnectionId: string = "",
+  noComponentWire = false
 ) => {
   const groundHole = `pin${hole}${isDown ? "E" : "F"}`;
   if (pinConnectionId === "") {
@@ -152,16 +153,17 @@ export const createGroundOrPowerWire = (
     isDown,
     type
   )}`;
-
-  createWireComponentToBreadboard(
-    groundHole,
-    componentEl,
-    draw,
-    arduino,
-    pinConnectionId,
-    componentId,
-    color
-  );
+  if (!noComponentWire) {
+    createWireComponentToBreadboard(
+      groundHole,
+      componentEl,
+      draw,
+      arduino,
+      pinConnectionId,
+      componentId,
+      color
+    );
+  }
 
   createWireBreadboard(
     breadBoardHoleA,

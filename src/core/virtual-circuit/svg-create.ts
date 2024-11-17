@@ -160,7 +160,7 @@ export default (
   const area = takeBoardArea();
 
   componentEl = createComponentEl(draw, state, getSvgString(state));
-  addDraggableEvent(componentEl, arduinoEl, draw);
+
   (window as any)[state.type] = componentEl;
   if (area) {
     componentEl.data("holes", area.holes.join("-"));
@@ -190,6 +190,10 @@ export default (
     board,
     settings
   );
+
+  if (componentEl.data("disableDraggable") !== "TRUE") {
+    addDraggableEvent(componentEl, arduinoEl, draw);
+  }
 };
 
 export interface PositionComponent<T extends ArduinoComponentState> {
