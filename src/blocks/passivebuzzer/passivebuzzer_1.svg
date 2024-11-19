@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="passivebuzzer_1.svg"
+   width="80"
+   height="100"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="7.5424724"
+     inkscape:cx="62.910406"
+     inkscape:cy="76.102367"
+     inkscape:window-width="1728"
+     inkscape:window-height="973"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer2" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Wires">
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers"
+       id="PIN_GND"
+       width="2"
+       height="12"
+       x="47.16637"
+       y="87.884926"
+       rx="1"
+       inkscape:label="PIN_GND"
+       ry="1" />
+    <rect
+       style="opacity:1;fill:#e81818;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers"
+       id="PIN_DATA"
+       width="2"
+       height="12"
+       x="35.16637"
+       y="88.121849"
+       rx="1"
+       inkscape:label="PIN_DATA"
+       ry="1" />
+    <text
+       xml:space="preserve"
+       style="font-size:13px;line-height:0.787501px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';text-align:center;letter-spacing:-0.78px;text-anchor:middle;opacity:0.912209;fill:#000000;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers"
+       x="28.37266"
+       y="99.039139"
+       id="PIN_TEXT"
+       inkscape:label="PIN_TEXT"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="27.98266"
+         y="99.039139"
+         style="font-size:13px;line-height:0.787501px">9</tspan></text>
+  </g>
+  <g
+     stroke="#000000"
+     id="g5"
+     transform="matrix(3.7795276,0,0,3.7795276,10.616858,25.991303)"
+     inkscape:label="base">
+    <g
+       id="g4">
+      <circle
+         cx="8.5"
+         cy="8.5"
+         fill="#1a1a1a"
+         stroke-width="0.7"
+         id="ellipse3"
+         r="8.1499996" />
+      <circle
+         cx="8.5"
+         cy="8.5"
+         r="6.3471999"
+         fill="none"
+         stroke-width="0.3"
+         style="paint-order:normal"
+         id="circle3" />
+      <circle
+         cx="8.5"
+         cy="8.5"
+         r="4.3488002"
+         fill="none"
+         stroke-width="0.3"
+         style="paint-order:normal"
+         id="circle4" />
+    </g>
+    <circle
+       cx="8.5"
+       cy="8.5"
+       r="1.3744"
+       fill="#cccccc"
+       stroke-width="0.25"
+       id="circle5" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Notes">
+    <path
+       d="m 33.242371,4.5547218 c -12.292039,0 -14.750446,2.325825 -14.750446,2.325825 v 9.5126252 c -0.368762,-0.116291 -0.811275,-0.209324 -1.229204,-0.209324 -2.040479,0 -3.687612,1.558303 -3.687612,3.488738 0,1.930435 1.647133,3.488738 3.687612,3.488738 2.040478,0 3.687611,-1.558303 3.687611,-3.488738 V 10.43906 C 22.74497,9.9041198 25.842564,9.4156968 30.783963,9.2761468 v 4.7912002 c -0.368761,-0.116291 -0.811274,-0.209324 -1.229204,-0.209324 -2.040478,0 -3.687611,1.558303 -3.687611,3.488738 0,1.930435 1.647133,3.488738 3.687611,3.488738 2.040479,0 3.687612,-1.558303 3.687612,-3.488738 z"
+       id="path1-7-1"
+       inkscape:label="Note"
+       style="stroke-width:2.3912" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;line-height:1.21154px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';text-align:center;letter-spacing:-0.78px;writing-mode:lr-tb;direction:ltr;text-anchor:middle;opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers"
+       x="54.015614"
+       y="19.514748"
+       id="NOTE_TEXT"
+       inkscape:label="NOTE_TEXT"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         x="53.625614"
+         y="19.514748"
+         style="font-size:20px;line-height:1.21154px">c#</tspan></text>
+  </g>
+</svg>

@@ -3,7 +3,7 @@ import { ArduinoComponentType } from "../../core/frames/arduino.frame";
 import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import { arduinoFrameByComponent } from "../../core/frames/transformer/frame-transformer.helpers";
-import { PassiveBuzzerState, NOTE_TONES } from "./state";
+import { PassiveBuzzerState } from "./state";
 
 export const passiveBuzzer: BlockToFrameTransformer = (
   blocks,

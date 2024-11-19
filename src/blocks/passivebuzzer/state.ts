@@ -4,9 +4,24 @@ export interface PassiveBuzzerState extends ArduinoComponentState {
   tone: number;
 }
 
+export const Notes = {
+  220: "A",
+  233: "A#",
+  247: "B",
+  131: "C",
+  139: "C#",
+  147: "D",
+  156: "D#",
+  165: "E",
+  175: "F",
+  185: "F#",
+  196: "G",
+  208: "G#",
+};
+
 export enum NOTE_TONES {
-  NO_TONE = 0,
-  A = 220,
+  "NO_TONE" = 0,
+  "A" = 220,
   "A#" = 233,
   "B" = 247,
   "C" = 131,

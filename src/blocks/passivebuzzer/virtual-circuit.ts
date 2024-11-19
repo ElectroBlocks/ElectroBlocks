@@ -13,7 +13,7 @@ import {
   createComponentWire,
   createGroundOrPowerWire,
 } from "../../core/virtual-circuit/wire";
-import { PassiveBuzzerState, NOTE_TONES } from "./state";
+import { PassiveBuzzerState, NOTE_TONES, Notes } from "./state";
 
 export const afterCreatePassiveBuzzer: AfterComponentCreateHook<PassiveBuzzerState> = (
   state,
@@ -33,8 +33,8 @@ export const updatePassiveBuzzer: SyncComponent = (
   frame
 ) => {
   if (state.tone > 0) {
-    componentEl.findOne("#NOTE_TEXT").node.textContent = state.tone.toString();
-    (componentEl.findOne("#NOTE_TEXT") as Element).cx(20);
+    componentEl.findOne("#NOTE_TEXT").node.textContent =
+      Notes[state.tone] ?? state.tone;
 
     return;
   }
