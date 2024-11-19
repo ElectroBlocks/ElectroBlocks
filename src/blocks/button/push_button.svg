@@ -38,7 +38,7 @@
      inkscape:window-x="0"
      inkscape:window-y="38"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="svg26" />
   <g
      inkscape:groupmode="layer"
      id="layer2"
@@ -47,17 +47,19 @@
        style="opacity:0.912209;fill:#d7a41c;fill-opacity:1;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:stroke fill markers"
        id="PIN_4"
        width="2.5412927"
-       height="8.7962503"
+       height="8.7"
        x="27.544741"
        y="58.227993"
+       rx="1"
        inkscape:label="PIN_4" />
     <rect
        style="opacity:0.912209;fill:#d7a41c;fill-opacity:1;stroke-width:0.70255;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
        id="PIN_3"
        width="2.5412927"
-       height="8.7962503"
+       height="8.7"
        x="27.544741"
        y="41.966167"
+       rx="1"
        inkscape:label="PIN_3" />
     <rect
        style="opacity:0.912209;fill:#d7a41c;fill-opacity:1;stroke-width:0.70255;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
@@ -66,6 +68,7 @@
        height="8.7962503"
        x="13.099933"
        y="41.98143"
+       rx="1"
        inkscape:label="PIN_2" />
     <rect
        style="opacity:0.912209;fill:#d7a41c;fill-opacity:1;stroke-width:0.70255;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
@@ -74,39 +77,8 @@
        height="8.7962503"
        x="13.099933"
        y="58.299274"
+       rx="1"
        inkscape:label="PIN_1" />
-    <polygon
-       fill="#8c8c8c"
-       points="16.9819,15.4706 16.9819,23.7449 14.8219,23.7449 14.8219,15.4706 "
-       id="polygon11"
-       style="display:none"
-       transform="translate(0.21035032,-0.80634294)" />
-    <polygon
-       fill="#8c8c8c"
-       points="2.58048,0.00072 2.58048,8.27496 0.42192,8.27496 0.42192,0.00072 "
-       id="polygon12"
-       style="display:none"
-       transform="translate(0.21035032,-0.80634294)" />
-    <polygon
-       fill="#8c8c8c"
-       points="16.9819,8.27568 14.8219,8.27568 14.8219,0 16.9819,0 "
-       id="polygon13"
-       style="display:none"
-       transform="translate(0.21035032,-0.80634294)" />
-    <polygon
-       fill="#8c8c8c"
-       points="2.58192,15.4706 2.58192,23.7463 0.42264,23.7463 0.42264,15.4706 "
-       id="polygon14"
-       inkscape:label="polygon14"
-       style="display:none"
-       transform="translate(0.21035032,-0.80634294)" />
-    <rect
-       height="17.6544"
-       width="17.653"
-       x="0.21899033"
-       y="2.2406971"
-       id="rect14"
-       style="display:none" />
     <path
        d="m 31.228497,62.544423 c 0,0.883981 -0.719432,1.604975 -1.605875,1.604975 l -16.474699,2.3e-5 c -0.884034,0 -1.605072,-0.720995 -1.605072,-1.604976 V 46.067576 c 0,-0.883179 0.721038,-1.604173 1.605072,-1.604173 h 16.477063 c 0.88564,0 1.603467,0.720994 1.603467,1.604173 z"
        fill="#999999"
@@ -275,15 +247,18 @@
      id="HAND"
      transform="matrix(0,0.20884985,-0.17371103,0,188.22018,43.074151)"
      label="Layer 1"
-     inkscape:label="HAND">
+     inkscape:label="HAND"
+     style="display:inline">
     <path
-       id="imagebot_14"
+       id="BUTTON_HAND_BOTTOM"
        d="m 89.471,1065.9 c 3.727,6.1 -0.484,10 -6.16,12.9 -8.03,4.1 -27.898,2.1 -34.7,-2 -6.243,-3.8 -9.013,-9.3 -6.041,-14.2"
-       style="fill:#9f7ba6;fill-opacity:1;stroke:#000000;stroke-width:4.0614;stroke-linecap:round;stroke-linejoin:round" />
+       style="display:inline;fill:#9f7ba6;fill-opacity:1;stroke:#000000;stroke-width:4.0614;stroke-linecap:round;stroke-linejoin:round"
+       inkscape:label="BUTTON_HAND_BOTTOM" />
     <path
-       id="imagebot_13"
+       id="BUTTON_HAND_TOP"
        d="m 39.807645,980.97123 c -19.424059,8.35808 -37.1200052,31.27557 -17.515647,58.16657 6.201041,6.507 16.997202,23.9622 30.426202,27.9622 9.102,2.7 29.326,3.8 36.494,-1.5 12.278,-9 18.478,-20.7 21.288,-35.1 0.99,-5.1 1.7,-10.9 0.95,-15.7 -3.18,-20.02 -14.946,-20.01 -19.509,-20.72 -2.727,-8.72 -12.699,-15.04 -26.068,-12.39 -0.103,-10.74 0.226,-17.36 1.112,-27.53 1.484,-17.02 -28.071,-12.05 -27.471,15.26 -0.01226,19.6858 5.604119,37.7321 -1.611,54.88 -6.756299,-5.7019 -1.454216,-11.7877 3.626895,-16.3671 -0.144003,-16.22325 -0.83399,-17.25142 -1.72245,-26.96167 z"
-       style="fill:#9f7ba6;stroke:#000000;stroke-width:4.0614;stroke-linecap:round;stroke-linejoin:round;fill-opacity:1" />
+       style="display:inline;fill:#9f7ba6;fill-opacity:1;stroke:#000000;stroke-width:4.0614;stroke-linecap:round;stroke-linejoin:round"
+       inkscape:label="BUTTON_HAND_TOP" />
     <path
        id="imagebot_12"
        d="m 63.838,981.04 c 0.03,10.26 1.214,18.23 7.226,26.06 -2.51,-6.5 -3.37,-19.62 -3.177,-27.89 z"
