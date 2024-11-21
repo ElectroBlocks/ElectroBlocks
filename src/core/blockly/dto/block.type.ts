@@ -319,6 +319,10 @@ export const blocksToBlockTypes: {
     type: BlockType.STATE,
     pinCategory: PinCategory.PASSIVE_BUZZER,
   },
+  passive_buzzer_simple: {
+    type: BlockType.STATE,
+    pinCategory: PinCategory.PASSIVE_BUZZER,
+  },
   controls_ifelse: { type: BlockType.STATE, pinCategory: PinCategory.NONE },
   control_if: { type: BlockType.STATE, pinCategory: PinCategory.NONE },
   logic_compare: { type: BlockType.VALUE, pinCategory: PinCategory.NONE },

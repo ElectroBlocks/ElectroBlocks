@@ -32,6 +32,13 @@ export const updatePassiveBuzzer: SyncComponent = (
   draw,
   frame
 ) => {
+
+  if (state.displaySimpleOn) {
+    componentEl.findOne("#NOTE_TEXT").node.textContent =
+      state.tone > 0 ? "On" : "Off";
+    return;
+  }
+
   if (state.tone > 0) {
     componentEl.findOne("#NOTE_TEXT").node.textContent =
       Notes[state.tone] ?? state.tone;
@@ -39,7 +46,7 @@ export const updatePassiveBuzzer: SyncComponent = (
     return;
   }
 
-  componentEl.findOne("#NOTE_TEXT").node.textContent = "";
+  componentEl.findOne("#NOTE_TEXT").node.textContent = "Off";
 };
 
 export const positionPassiveBuzzer: PositionComponent<PassiveBuzzerState> = (

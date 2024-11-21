@@ -29,3 +29,6 @@ Blockly["Arduino"]["passive_buzzer_tone"] = function (block) {
 
   return `tone(${pin}, ${tone});`;
 };
+
+Blockly["Arduino"]["passive_buzzer_simple"] =
+  Blockly["Arduino"]["passive_buzzer_note"];

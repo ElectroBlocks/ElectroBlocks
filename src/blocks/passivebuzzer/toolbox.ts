@@ -16,5 +16,7 @@ export default `
        <field name="TONE">131</field>
         <comment pinned="false" h="60" w="460">This will set the passive buzzer to a note you want..</comment>
        </block>
+              <block type="passive_buzzer_simple">
+</block>
        </category>
 `;

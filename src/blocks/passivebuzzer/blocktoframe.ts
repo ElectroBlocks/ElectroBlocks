@@ -3,7 +3,7 @@ import { ArduinoComponentType } from "../../core/frames/arduino.frame";
 import { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import { arduinoFrameByComponent } from "../../core/frames/transformer/frame-transformer.helpers";
-import { PassiveBuzzerState } from "./state";
+import { Notes, PassiveBuzzerState } from "./state";
 
 export const passiveBuzzer: BlockToFrameTransformer = (
   blocks,
@@ -14,9 +14,7 @@ export const passiveBuzzer: BlockToFrameTransformer = (
 ) => {
   const pin = findFieldValue(block, "PIN");
   let tone = 0;
-  if (block.blockName === "passive_buzzer_note") {
-    tone = +findFieldValue(block, "TONE");
-  } else {
+  if (block.blockName === "passive_buzzer_tone") {
     tone = getInputValue(
       blocks,
       block,
@@ -26,16 +24,16 @@ export const passiveBuzzer: BlockToFrameTransformer = (
       131,
       previousState
     );
+  } else {
+    tone = +findFieldValue(block, "TONE");
   }
   const passiveBuzzerState: PassiveBuzzerState = {
     type: ArduinoComponentType.PASSIVE_BUZZER,
     pins: [pin],
     tone,
+    displaySimpleOn: block.blockName === "passive_buzzer_simple",
   };
-  const explanation =
-    tone === 0
-      ? `Turning off passive buzzer ${pin}.`
-      : `Setting passive buzzer ${pin} tone to ${tone}.`;
+  const explanation = getExplanation(block.blockName, tone, pin);
 
   return [
     arduinoFrameByComponent(
@@ -48,3 +46,13 @@ export const passiveBuzzer: BlockToFrameTransformer = (
     ),
   ];
 };
+
+function getExplanation(blockType: string, tone: number, pin: string) {
+  if (blockType === "passive_buzzer_simple") {
+    return `Turning ${tone > 0 ? "on" : "off"} passive buzzer ${pin}.`;
+  }
+
+  return tone === 0
+    ? `Turning off passive buzzer ${pin}.`
+    : `Setting passive buzzer ${pin} to play tone ${Notes[tone] ?? tone}.`;
+}

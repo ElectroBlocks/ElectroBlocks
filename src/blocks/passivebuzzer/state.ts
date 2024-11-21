@@ -2,6 +2,7 @@ import { ArduinoComponentState } from "../../core/frames/arduino.frame";
 
 export interface PassiveBuzzerState extends ArduinoComponentState {
   tone: number;
+  displaySimpleOn: boolean;
 }
 
 export const Notes = {
