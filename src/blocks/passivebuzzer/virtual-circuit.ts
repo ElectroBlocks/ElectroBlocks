@@ -58,7 +58,7 @@ export const positionPassiveBuzzer: PositionComponent<PassiveBuzzerState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(componentEl, arduinoEl, draw, holes[0], isDown, "PIN_GND");
+  positionComponent(componentEl, arduinoEl, draw, holes[2], isDown, "PIN_GND");
 };
 
 export const createWiresPassiveBuzzer: CreateWire<PassiveBuzzerState> = (
@@ -73,7 +73,7 @@ export const createWiresPassiveBuzzer: CreateWire<PassiveBuzzerState> = (
   const { holes, isDown } = area;
 
   createGroundOrPowerWire(
-    holes[0],
+    holes[3],
     isDown,
     passiveBuzzerEl,
     draw,
@@ -83,7 +83,7 @@ export const createWiresPassiveBuzzer: CreateWire<PassiveBuzzerState> = (
   );
 
   createComponentWire(
-    holes[3],
+    holes[0],
     isDown,
     passiveBuzzerEl,
     state.pins[0],

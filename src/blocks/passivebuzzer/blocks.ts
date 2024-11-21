@@ -62,8 +62,8 @@ Blockly.Blocks["passive_buzzer_simple"] = {
       )
       .appendField(
         new Blockly.FieldDropdown([
-          ["Off", "0"],
           ["On", "10000"],
+          ["Off", "0"],
         ]),
         "TONE"
       );
