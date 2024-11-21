@@ -17,7 +17,7 @@ import {
   createTestEvent,
   createValueBlock,
 } from "../../tests/tests.helper";
-import { PassiveBuzzerState, NOTE_TONES } from "./state";
+import { PassiveBuzzerState, NOTE_TONES, Notes } from "./state";
 
 describe("Passive Buzzer Tests", () => {
   let workspace: Workspace;
@@ -148,7 +148,7 @@ function verifySingleComponentFrame(
 ) {
   if (tone !== 0) {
     expect(frame.explanation).toBe(
-      `Setting passive buzzer ${pin} tone to ${tone}.`
+      `Setting passive buzzer ${pin} to play tone ${Notes[tone] ?? tone}.`
     );
   } else {
     expect(frame.explanation).toBe(`Turning off passive buzzer ${pin}.`);

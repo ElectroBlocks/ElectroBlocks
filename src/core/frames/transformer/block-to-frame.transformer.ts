@@ -176,6 +176,7 @@ const blockToFrameTransformerList: {
 
   passive_buzzer_note: passiveBuzzer,
   passive_buzzer_tone: passiveBuzzer,
+  passive_buzzer_simple: passiveBuzzer,
 
   stepper_motor_setup: stepperMotorSetup,
   stepper_motor_move: moveStepperMotor,

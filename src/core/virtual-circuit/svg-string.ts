@@ -11,7 +11,7 @@ import ledmatrixSvgString from "../../blocks/led_matrix/ledmatrix.svg?raw";
 import ledSvgString from "../../blocks/led/led.svg?raw";
 
 import thermistorSvgString from "../../blocks/thermistor/thermistor.svg?raw";
-import passiveBuzzerSvgString from "../../blocks/passivebuzzer/passivebuzzer.svg?raw";
+import passiveBuzzerSvgString from "../../blocks/passivebuzzer/passivebuzzer_1.svg?raw";
 
 import motorSvgString from "../../blocks/motors/motor.svg?raw";
 import neopixelSvgString from "../../blocks/neopixels/neopixel.svg?raw";
