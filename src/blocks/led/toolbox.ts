@@ -1,7 +1,7 @@
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import { whatIsAPin } from "../comment-text";
 
-export const LED_COMMENT = `Turn on or off the led attached to the pin in the dropdown box.${whatIsAPin}`;
+export const LED_COMMENT = `Set defined pin to HIGH or LOW to turn on or off the LED light.`;
 
 export default `<category name="Led" colour="${COLOR_THEME.COMPONENTS}">
    <block type="led">

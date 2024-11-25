@@ -18,7 +18,13 @@ Blockly['Arduino']['rotate_servo'] = function(block: Block) {
   );
   servoSetup(pin);
 
-  return 'servo_' + pin + '.write(' + degrees + ');\n';
+  return (
+    "servo_" +
+    pin +
+    ".write(" +
+    degrees +
+    ");\n // Rotate servo position for defined degrees"
+  );
 };
 
 Blockly['Arduino']['servo_read_degrees'] = function(block: Block) {

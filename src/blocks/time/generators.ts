@@ -17,7 +17,7 @@ Blockly["Arduino"]["delay_block"] = function (block) {
     ) || 1;
   delay = Math.ceil(Math.abs(delay) * 1000);
 
-  return "delay(" + delay + ");\n";
+  return "delay(" + delay + "); // Wait for the given/defined milliseconds.\n";
 };
 
 Blockly["Arduino"]["time_setup"] = function () {

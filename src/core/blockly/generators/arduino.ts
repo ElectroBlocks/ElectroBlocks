@@ -181,14 +181,20 @@ Blockly["Arduino"].finish = function (code) {
     getBlockByType("arduino_setup") === undefined &&
     !_.isEmpty(Blockly["Arduino"].setupCode_)
   ) {
-    setupCode = "\nvoid setup() { \n" + setupCodeFunctionText + "\n}\n";
+    setupCode =
+      "\n// Initialise the program settings and configurations" +
+      "\nvoid setup() { \n" +
+      setupCodeFunctionText +
+      "\n}\n";
   }
   // If setup block does not exist an empty setup function is required for things to compile
   else if (
     getBlockByType("arduino_setup") === undefined &&
     _.isEmpty(Blockly["Arduino"].setupCode_)
   ) {
-    setupCode = "\nvoid setup() { \n\n}\n";
+    setupCode =
+      "\n// Initialise the program settings and configurations" +
+      "\nvoid setup() { \n\n}\n";
   }
   // Convert the definitions dictionary into a list.
   code =
@@ -265,7 +271,13 @@ Blockly["Arduino"].scrub_ = function (block, code) {
   ) {
     // Collect comment for this block.
     let comment =
-      ["release_button"].includes(block.type) == false
+      [
+        "release_button",
+        "led",
+        "delay_block",
+        "set_color_led",
+        "rotate_servo",
+      ].includes(block.type) == false
         ? block.getCommentText()
         : null;
     //@ts-ignore

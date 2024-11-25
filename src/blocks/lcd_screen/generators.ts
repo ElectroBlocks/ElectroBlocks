@@ -7,9 +7,10 @@ Blockly["Arduino"]["lcd_setup"] = function (block) {
 
   const numberOfRows = size === "16 x 2" ? 2 : 4;
   const numberOfColumns = size === "16 x 2" ? 16 : 20;
-  Blockly["Arduino"].libraries_["define_wire"] = "#include <Wire.h>;\n";
+  Blockly["Arduino"].libraries_["define_wire"] =
+    "#include <Wire.h>;  // Include the Wire library for I2C communication.";
   Blockly["Arduino"].libraries_["define_liquid_crystal_i2c_big"] =
-    "#include <LiquidCrystal_I2C.h>;\n";
+    "#include <LiquidCrystal_I2C.h>;  // Include the LiquidCrystal_I2C library for controlling the LCD";
   Blockly["Arduino"].libraries_["liquid_crystal_ic2_lcd_object"] =
     "LiquidCrystal_I2C lcd(" +
     memoryAddressLCDType +
@@ -17,10 +18,12 @@ Blockly["Arduino"]["lcd_setup"] = function (block) {
     numberOfRows +
     "," +
     numberOfColumns +
-    ");";
+    `); // Create an LCD object with I2C address ${memoryAddressLCDType}, ${numberOfRows} rows, and ${numberOfColumns} columns`;
 
-  Blockly["Arduino"].setupCode_["liquid_crystal_ic2_lcd"] =
-    "" + "\tlcd.init();\n" + "\tlcd.backlight(); \n";
+  Blockly["Arduino"].setupCode_[
+    "liquid_crystal_ic2_lcd"
+  ] = `   lcd.init(); // Initialize the LCD
+   lcd.backlight(); // Turn on the LCD backlight`;
 
   return "";
 };

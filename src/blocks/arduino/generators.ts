@@ -6,6 +6,7 @@ Blockly["Arduino"]["arduino_setup"] = function (block: Block) {
   const statementsSetup = Blockly["Arduino"].statementToCode(block, "setup");
 
   return (
+    "\n// Initialise the program settings and configurations" +
     "\nvoid setup() { \n" +
     "__REPLACE_WITH_SETUP_CODE" +
     statementsSetup +
@@ -47,10 +48,10 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
     getNewTempReading = "\ttakeTempReading(); \n";
   }
   return (
+    "// The void loop function runs over and over again forever." +
     "\nvoid loop() { \n" +
     setSerialMessageDEV +
     statementsLoop +
-    "\n" +
     resetBluetoothVariable +
     resetMessageVariable +
     resetIrRemoteCode +
