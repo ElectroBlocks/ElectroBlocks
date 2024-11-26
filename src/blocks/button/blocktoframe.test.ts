@@ -86,8 +86,6 @@ describe("button state factories", () => {
     connectToArduinoBlock(releaseButton1);
 
     const event = createTestEvent(releaseButton1.id);
-    console.log(eventToFrameFactory(event).frames[0].components[0], "btn1");
-    console.log(eventToFrameFactory(event).frames[1].components[0], "btn2");
     expect(eventToFrameFactory(event).frames[1]).toEqual(expectedReleaseState1);
     expect(eventToFrameFactory(event).frames[2]).toEqual(expectedReleaseState2);
   });

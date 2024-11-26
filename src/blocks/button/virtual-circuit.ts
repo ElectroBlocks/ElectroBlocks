@@ -15,10 +15,14 @@ import {
   createComponentWire,
   createGroundOrPowerWire,
   createResistor,
+  createWireBreadboard,
   createWireComponentToBreadboard,
   createWireFromArduinoToBreadBoard,
+  findBreadboardHoleXY,
+  getGroundorPowerWireLetter,
 } from "../../core/virtual-circuit/wire";
 import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
+import { Text } from "@svgdotjs/svg.js";
 
 export const positionButton: PositionComponent<ButtonState> = (
   state,
@@ -28,31 +32,19 @@ export const positionButton: PositionComponent<ButtonState> = (
   board,
   area
 ) => {
+  buttonEl.data("disableDraggable", "TRUE");
   const { holes, isDown } = area;
-  positionComponent(
-    buttonEl,
-    arduinoEl,
-    draw,
-    holes[0],
-    isDown,
-    "PIN_GND_POWER"
-  );
+  positionComponent(buttonEl, arduinoEl, draw, holes[0], isDown, "PIN_1");
+  const holeId = `pin${holes[0]}F`;
+  const hole = findBreadboardHoleXY(holeId, arduinoEl, draw);
+  buttonEl.y(hole.y - 43.5);
 };
 
 export const createButton: AfterComponentCreateHook<ButtonState> = (
   state,
   buttonEl
 ) => {
-  buttonEl.findOne("#PIN_TEXT").node.innerHTML = state.pins[0];
-  buttonEl.findOne("#PIN_TEXT_TYPE").node.innerHTML = state.usePullup
-    ? "-"
-    : "+";
-  buttonEl
-    .findOne("#PIN_TEXT_TYPE")
-    .node.setAttribute("font-size", state.usePullup ? "36px" : "30px");
-  buttonEl
-    .findOne("#PIN_GND_POWER")
-    .node.setAttribute("stroke", state.usePullup ? "#020101" : "#AA0000");
+  return;
 };
 
 export const updateButton: SyncComponent = (
@@ -69,17 +61,19 @@ export const resetButton: ResetComponent = (componentEl: Element) => {
 
 const toggleButton = (componentEl: Element, isOn: boolean) => {
   if (isOn) {
-    componentEl.findOne("#BUTTON_PRESSED_TEXT").show();
-    componentEl.findOne("#BUTTON_TEXT").hide();
-    componentEl.findOne("#BUTTON_PRESSED").show();
-    componentEl.findOne("#BUTTON_NOT_PRESSED").hide();
+    componentEl.findOne("#HAND").show();
+    componentEl.findOne("#HIDE_PRESSED").hide();
+    componentEl.findOne("#BOTTOM_WIRE").show();
+    componentEl.findOne("#TOP_WIRE").show();
+
+    (componentEl.findOne("#BTN_TEXT") as Text).x(4).text("Pressed");
     return;
   }
-
-  componentEl.findOne("#BUTTON_PRESSED_TEXT").hide();
-  componentEl.findOne("#BUTTON_TEXT").show();
-  componentEl.findOne("#BUTTON_PRESSED").hide();
-  componentEl.findOne("#BUTTON_NOT_PRESSED").show();
+  (componentEl.findOne("#BTN_TEXT") as Text).x(1).text("Released");
+  componentEl.findOne("#HAND").hide();
+  componentEl.findOne("#BOTTOM_WIRE").hide();
+  componentEl.findOne("#TOP_WIRE").hide();
+  componentEl.findOne("#HIDE_PRESSED").show();
 };
 
 export const createWiresButton: CreateWire<ButtonState> = (
@@ -92,7 +86,6 @@ export const createWiresButton: CreateWire<ButtonState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  console.log(state.usePullup);
   if (state.usePullup) {
     createGroundOrPowerWire(
       holes[0],
@@ -101,44 +94,32 @@ export const createWiresButton: CreateWire<ButtonState> = (
       draw,
       arduino,
       id,
-      "ground",
-      "PIN_GND_POWER"
+      "power",
+      "PIN_1",
+      true
     );
-
-    createComponentWire(
-      holes[3],
-      isDown,
-      buttonEl,
+    const holeId = `pin${holes[2]}A`;
+    createWireFromArduinoToBreadBoard(
       state.pins[0],
+      arduino as Svg,
       draw,
-      arduino,
+      holeId,
       id,
-      "PIN_DATA",
       board
     );
     return;
   }
 
   createGroundOrPowerWire(
-    holes[1],
+    holes[0],
     isDown,
     buttonEl,
     draw,
     arduino,
     id,
     "power",
-    "PIN_GND_POWER"
-  );
-
-  const color = board.pinConnections[state.pins[0]].color;
-  createWireComponentToBreadboard(
-    `pin${holes[2]}${isDown ? "E" : "F"}`,
-    buttonEl,
-    draw,
-    arduino,
-    "PIN_DATA",
-    id,
-    color
+    "PIN_1",
+    true
   );
 
   createResistor(
@@ -150,8 +131,21 @@ export const createWiresButton: CreateWire<ButtonState> = (
     "horizontal",
     10000
   );
+  const groundBreadBoard = `pin${holes[4]}${getGroundorPowerWireLetter(
+    true,
+    "ground"
+  )}`;
 
-  const holeId = `pin${holes[4]}${isDown ? "A" : "J"}`;
+  createWireBreadboard(
+    groundBreadBoard,
+    `pin${holes[4]}A`,
+    "#000",
+    draw,
+    arduino as Svg,
+    id
+  );
+
+  const holeId = `pin${holes[2]}H`;
   createWireFromArduinoToBreadBoard(
     state.pins[0],
     arduino as Svg,
