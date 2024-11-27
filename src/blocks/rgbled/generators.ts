@@ -15,7 +15,7 @@ Blockly["Arduino"]["rgb_led_setup"] = function (block: Block) {
   ] = `   pinMode(GREEN_PIN, OUTPUT); // Set the green LED pin as an output \n`;
   Blockly["Arduino"].setupCode_[
     "led_pin_" + bluePin
-  ] = `   pinMode(BLUE_PIN, OUTPUT); // Set the blue LED pin as an output`;
+  ] = `   pinMode(BLUE_PIN, OUTPUT); // Set the blue LED pin as an output\n`;
 
   Blockly["Arduino"].libraries_["color_pin_blue"] =
     "int BLUE_PIN = " + bluePin + "; // Define pin number for the blue LED";

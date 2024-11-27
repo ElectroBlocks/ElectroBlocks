@@ -6,7 +6,7 @@ export default `<category name="Button" colour="${COLOR_THEME.SENSOR}">
       <comment pinned="false" h="200" w="460">Initialise the program settings and configurations</comment>
 </block>
 <block type="is_button_pressed">
-  <comment pinned="false" h="60" w="460">Checks if the state of defined pin  is LOW.</comment>
+  <comment pinned="false" h="60" w="460">Checks if the state of defined pin is LOW.</comment>
 </block>
 <block type="release_button">
   <comment pinned="false" h="60" w="460">Releases the button on the only simulation.</comment>

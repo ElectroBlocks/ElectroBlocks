@@ -6,7 +6,7 @@ Blockly["Arduino"]["led"] = function (block: Block) {
   const state = block.getFieldValue("STATE");
 
   Blockly["Arduino"].setupCode_["led_pin" + pin] =
-    "   pinMode(" + pin + ", OUTPUT);  // Configures led pin as an output";
+    "   pinMode(" + pin + ", OUTPUT);  // Configures led pin as an output\n";
   const ledState = state === "ON" ? "HIGH" : "LOW";
   return `digitalWrite(${pin}, ${ledState}); // Set defined pin to ${
     ledState == "HIGH" ? "HIGH (turn it on)." : "LOW (turn it off)."
@@ -22,7 +22,7 @@ Blockly["Arduino"]["led_fade"] = function (block: Block) {
   );
 
   Blockly["Arduino"].setupCode_["led_pin" + pin] =
-    "\tpinMode(" + pin + ", OUTPUT); // Configures led pin as an output";
+    "   pinMode(" + pin + ", OUTPUT); // Configures led pin as an output\n";
 
   return "analogWrite(" + pin + ", " + (fadeNumber || 1) + "); \n";
 };
