@@ -35,6 +35,7 @@ import UpdateLCDScreenPrintBlock from "./actions/updateLcdScreenPrintBlock";
 import updateLedBlockColorField from "./actions/updateLedBlockColorField";
 import { updateMotorSetupBlock } from "./actions/updateMotorSetupBlock";
 import { updateFastLedSetAllColorsUpdateBlock } from "./actions/fastLedSetAllColorsUpdateBlock";
+import { updateCommentIsButtonPressedBlock } from "./actions/updateCommentForButtonBlock";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
@@ -147,6 +148,7 @@ export const createFrames = async (blocklyEvent) => {
     ...updateLedBlockColorField(event2),
     ...updateMotorSetupBlock(event2),
     ...updateFastLedSetAllColorsUpdateBlock(event2),
+    ...updateCommentIsButtonPressedBlock(event2),
   ];
 
   thirdActionPass.forEach((a) => updater(a));
