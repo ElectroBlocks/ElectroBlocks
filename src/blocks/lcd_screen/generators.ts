@@ -23,7 +23,7 @@ Blockly["Arduino"]["lcd_setup"] = function (block) {
   Blockly["Arduino"].setupCode_[
     "liquid_crystal_ic2_lcd"
   ] = `   lcd.init(); // Initialize the LCD
-   lcd.backlight(); // Turn on the LCD backlight`;
+   lcd.backlight(); // Turn on the LCD backlight\n`;
 
   return "";
 };

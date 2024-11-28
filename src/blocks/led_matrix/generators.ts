@@ -7,14 +7,21 @@ Blockly['Arduino']['led_matrix_setup'] = function (block) {
   const clkPin = block.getFieldValue('PIN_CLK');
   const csPin = block.getFieldValue('PIN_CS');
 
-  Blockly['Arduino'].libraries_['define_led_matrix'] =
-    '#include <LedControlMS.h>;\n';
-  Blockly['Arduino'].libraries_[
-    'led_matrix_setup'
-  ] = `LedControl lc = LedControl(${dataPin},${clkPin},${csPin},1);\n`;
+  Blockly["Arduino"].libraries_[
+    "define_led_matrix"
+  ] = `// Includes the LedControlMS library for controlling LED matrices
+#include <LedControlMS.h>;`;
+  Blockly["Arduino"].libraries_[
+    "led_matrix_setup"
+  ] = `// Initializes the LED control object with specified pins 	
+LedControl lc = LedControl(${dataPin},${clkPin},${csPin},1);`;
 
-  Blockly['Arduino'].setupCode_['led_matrix'] =
-    '\tlc.shutdown(0,false); \n\tlc.setIntensity(0,8);\n\tlc.clearDisplay(0);\n';
+  Blockly["Arduino"].setupCode_[
+    "led_matrix"
+  ] = `   lc.shutdown(0,false); // Wakes up the first display (device 0)
+   lc.setIntensity(0,8); // Sets the brightness of the first display to a medium level
+   lc.clearDisplay(0); // Clears the display for the first device
+`;
 
   return '';
 };

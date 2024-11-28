@@ -6,6 +6,7 @@ export default `
            <block type="rfid_setup">
             <comment pinned="false" h="150" w="460">This block setups the RFID sensor and tells the Arduino which pin it should use to transmit RFID data.${virtualCircuitComment}</comment>
                <field name="PIN_TX">6</field>
+               <field name="PIN_RX">5</field>
            </block>
            <block type="rfid_card">
            <comment pinned="false" h="60" w="460">Returns the card number (text data) of the RFID chip.</comment>

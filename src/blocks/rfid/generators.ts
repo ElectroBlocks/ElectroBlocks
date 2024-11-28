@@ -18,9 +18,14 @@ Blockly['Arduino']['rfid_card'] = function() {
   ];
 };
 
-Blockly['Arduino']['rfid_setup'] = function() {
-  Blockly['Arduino'].libraries_['define_rfid'] = '#include "RFIDRdm630.h"\n';
-  Blockly['Arduino'].libraries_['setup_rfid'] =
-    'RFIDRdm630 rfidReader = RFIDRdm630(6,7);\n';
-  return '';
+Blockly["Arduino"]["rfid_setup"] = function (block) {
+  const txPin = block.getFieldValue("PIN_TX");
+  const rxPin = block.getFieldValue("PIN_RX");
+  Blockly["Arduino"].libraries_["define_rfid"] =
+    '#include "RFIDRdm630.h"  // Includes the RFID library\n';
+  Blockly["Arduino"].libraries_[
+    "setup_rfid"
+  ] = `// Initializes RFID reader object with RX pin and TX pin 
+RFIDRdm630 rfidReader = RFIDRdm630(${txPin},${rxPin});\n`;
+  return "";
 };

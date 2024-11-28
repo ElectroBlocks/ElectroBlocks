@@ -17,7 +17,11 @@ export const rfidSetupBlockToComponentState = (
   return {
     type: ArduinoComponentType.RFID,
     txPin: findFieldValue(block, "PIN_TX") as ARDUINO_PINS,
-    pins: [findFieldValue(block, "PIN_TX") as ARDUINO_PINS],
+    rxPin: findFieldValue(block, "PIN_RX") as ARDUINO_PINS,
+    pins: [
+      findFieldValue(block, "PIN_TX") as ARDUINO_PINS,
+      findFieldValue(block, "PIN_RX") as ARDUINO_PINS,
+    ],
     scannedCard: rfidSensor.scanned_card,
     cardNumber: rfidSensor.card_number,
     tag: rfidSensor.tag,
