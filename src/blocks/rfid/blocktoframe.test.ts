@@ -29,6 +29,7 @@ describe("rfid state factories", () => {
 
     rfidBlock = workspace.newBlock("rfid_setup");
     rfidBlock.setFieldValue(ARDUINO_PINS.PIN_6, "PIN_TX");
+    rfidBlock.setFieldValue(ARDUINO_PINS.PIN_7, "PIN_RX");
 
     rfidBlock.setFieldValue("TRUE", "scanned_card");
     rfidBlock.setFieldValue("card_num", "card_number");
@@ -42,8 +43,9 @@ describe("rfid state factories", () => {
     const event = createTestEvent(rfidBlock.id);
 
     const rfidComponent: RfidState = {
-      pins: [ARDUINO_PINS.PIN_6],
+      pins: [ARDUINO_PINS.PIN_6, ARDUINO_PINS.PIN_7],
       txPin: ARDUINO_PINS.PIN_6,
+      rxPin: ARDUINO_PINS.PIN_7,
       scannedCard: true,
       cardNumber: "card_num",
       tag: "tag",
