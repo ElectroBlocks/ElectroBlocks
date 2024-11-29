@@ -1,6 +1,6 @@
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
-export const DELAY_COMMENT = `This block pauses the Arduino for x number of seconds.  Nothing will be able to be sensed while the delay is running.`;
+export const DELAY_COMMENT = `Wait for the given/defined seconds.`;
 
 export default `<category colour="${COLOR_THEME.ARDUINO}" name="Time">
    <block type="time_setup">

@@ -2,23 +2,35 @@ import Blockly from 'blockly';
 import type { Block } from 'blockly';
 
 function servoSetup(pin) {
-  Blockly['Arduino'].libraries_['define_servo'] = '#include <Servo.h>\n';
-  Blockly['Arduino'].libraries_['var_servo' + pin] =
-    'Servo servo_' + pin + ';\n';
-  Blockly['Arduino'].setupCode_['setup_servo_' + pin] =
-    '\tservo_' + pin + '.attach(' + pin + ');\n';
+  Blockly["Arduino"].libraries_["define_servo"] =
+    "#include <Servo.h> // Includes the Servo library for controlling servo motors";
+  Blockly["Arduino"].libraries_[
+    "var_servo" + pin
+  ] = `Servo servo_${pin}; // Creates a servo object`;
+  Blockly["Arduino"].setupCode_[
+    "setup_servo_" + pin
+  ] = `   servo_${pin}.attach(${pin}); // Attaches the servo motor to defined pin
+`;
 }
 
-Blockly['Arduino']['rotate_servo'] = function(block: Block) {
-  const pin = block.getFieldValue('PIN');
-  const degrees = Blockly['Arduino'].valueToCode(
+Blockly["Arduino"]["rotate_servo"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+  const degrees = Blockly["Arduino"].valueToCode(
     block,
-    'DEGREE',
-    Blockly['Arduino'].ORDER_ATOMIC
+    "DEGREE",
+    Blockly["Arduino"].ORDER_ATOMIC
   );
   servoSetup(pin);
 
-  return 'servo_' + pin + '.write(' + degrees + ');\n';
+  return (
+    "servo_" +
+    pin +
+    ".write(" +
+    degrees +
+    "); // Rotate servo position to " +
+    degrees +
+    " degrees\n"
+  );
 };
 
 Blockly['Arduino']['servo_read_degrees'] = function(block: Block) {

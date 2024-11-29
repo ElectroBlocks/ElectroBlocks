@@ -55,36 +55,37 @@ Blockly['Arduino']['logic_operation'] = function(block: Block) {
   return [code, order];
 };
 
-Blockly['Arduino']['control_if'] = function(block: Block) {
-  // If/elseif/else condition.
-  let n = 0;
-  let code = '',
+Blockly["Arduino"]["control_if"] = function (block: Block) {
+  let code = "",
     branchCode,
     conditionCode;
+  // If/elseif/else condition.
+  let n = 0;
+
   do {
     conditionCode =
-      Blockly['Arduino'].valueToCode(
+      Blockly["Arduino"].valueToCode(
         block,
-        'IF' + n,
-        Blockly['Arduino'].ORDER_NONE
-      ) || 'false';
-    branchCode = Blockly['Arduino'].statementToCode(block, 'DO' + n);
+        "IF" + n,
+        Blockly["Arduino"].ORDER_NONE
+      ) || "false";
+    branchCode = Blockly["Arduino"].statementToCode(block, "DO" + n);
     code +=
-      (n > 0 ? ' else ' : '') +
-      'if (' +
+      (n > 0 ? " else " : "") +
+      "if (" +
       conditionCode +
-      ') {\n' +
+      ") {\n" +
       branchCode +
-      '}';
+      "}";
 
     ++n;
-  } while (block.getInput('IF' + n));
+  } while (block.getInput("IF" + n));
 
-  if (block.getInput('ELSE')) {
-    branchCode = Blockly['Arduino'].statementToCode(block, 'ELSE');
-    code += ' else {\n' + branchCode + '}';
+  if (block.getInput("ELSE")) {
+    branchCode = Blockly["Arduino"].statementToCode(block, "ELSE");
+    code += " else {\n" + branchCode + "}";
   }
-  return code + '\n';
+  return code + "\n";
 };
 
 Blockly['Arduino']['controls_ifelse'] = Blockly['Arduino']['control_if'];

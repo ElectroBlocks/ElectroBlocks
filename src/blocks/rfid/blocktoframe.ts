@@ -19,6 +19,7 @@ export const rfidSetup: BlockToFrameTransformer = (
     pins: block.pins,
     type: ArduinoComponentType.RFID,
     txPin: findFieldValue(block, "PIN_TX"),
+    rxPin: findFieldValue(block, "PIN_RX"),
     scannedCard: rfidSensorLoop1.scanned_card,
     tag: rfidSensorLoop1.tag,
     cardNumber: rfidSensorLoop1.card_number,

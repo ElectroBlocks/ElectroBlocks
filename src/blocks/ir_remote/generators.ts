@@ -3,13 +3,14 @@ import type { Block } from "blockly";
 
 Blockly["Arduino"]["ir_remote_setup"] = function (block: Block) {
   const pin = block.getFieldValue("PIN") || "A1";
-  Blockly["Arduino"].libraries_["define_ir_remote"] =
-    "#include <IRremote.h>; \nIRrecv irReceiver(" +
-    pin +
-    ");\ndecode_results result;\n";
+  Blockly["Arduino"].libraries_[
+    "define_ir_remote"
+  ] = `#include <IRremote.h>; // Include the IRremote library for infrared communication
+IRrecv irReceiver(${pin}); // Initialize the IR receiver on defined/selected pin
+decode_results result; // Create a variable to store decoded IR results`;
 
   Blockly["Arduino"].setupCode_["setup_ir_remote"] =
-    "\tirReceiver.enableIRIn(); \n";
+    "   irReceiver.enableIRIn();   // Start the IR receiver\n";
   return "";
 };
 

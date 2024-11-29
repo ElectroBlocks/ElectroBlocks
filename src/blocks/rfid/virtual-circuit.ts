@@ -33,7 +33,8 @@ export const createRfid: AfterComponentCreateHook<RfidState> = (
   state,
   rfidEl
 ) => {
-  rfidEl.findOne("#PIN_TEXT_RX").node.innerHTML = state.txPin;
+  rfidEl.findOne("#PIN_TEXT_TX").node.innerHTML = state.txPin;
+  rfidEl.findOne("#PIN_TEXT_RX").node.innerHTML = state.rxPin;
 };
 
 export const updateRfid: SyncComponent = (state: RfidState, rfidEl) => {
@@ -91,6 +92,18 @@ export const createWiresRfid: CreateWire<RfidState> = (
     arduinoEl,
     id,
     "PIN_TX",
+    board
+  );
+
+  createComponentWire(
+    holes[3],
+    isDown,
+    rfidEl,
+    state.rxPin,
+    draw,
+    arduinoEl,
+    id,
+    "PIN_RX",
     board
   );
 };

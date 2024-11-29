@@ -77,6 +77,11 @@ const rfidSetupBlock: any = {
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN_TX"
+      )
+      .appendField("RX Pin#")
+      .appendField(
+        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
+        "PIN_RX"
       );
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(
       "-----------------------------------------"

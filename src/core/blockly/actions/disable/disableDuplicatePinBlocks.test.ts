@@ -27,6 +27,7 @@ describe("disableDuplicatePinBlocks", () => {
   it("should disable 2 setup blocks that are taking up the same pins", () => {
     const setupBlock = workspace.newBlock("rfid_setup");
     setupBlock.setFieldValue(ARDUINO_PINS.PIN_10, "PIN_TX");
+    setupBlock.setFieldValue(ARDUINO_PINS.PIN_11, "PIN_RX");
 
     const setupBlock2 = workspace.newBlock("bluetooth_setup");
     setupBlock2.setFieldValue(ARDUINO_PINS.PIN_10, "PIN_TX");
