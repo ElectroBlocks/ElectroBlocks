@@ -25,6 +25,7 @@ import {
   Breadboard,
   MicroController,
 } from "../../core/microcontroller/microcontroller";
+import { Text } from "@svgdotjs/svg.js";
 
 export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
   state,
@@ -34,10 +35,15 @@ export const createRgbLed: AfterComponentCreateHook<LedColorState> = (
   board
 ) => {
   //todo consider labeling pin in picture
-
-  rgbLedEl.findOne("#RED_PIN_TEXT").node.innerHTML = state.redPin;
-  rgbLedEl.findOne("#BLUE_PIN_TEXT").node.innerHTML = state.bluePin;
-  rgbLedEl.findOne("#GREEN_PIN_TEXT").node.innerHTML = state.greenPin;
+  (rgbLedEl.findOne("#RED_PIN_TEXT") as Text)
+    .text(`RED PIN -> ${state.redPin}`)
+    .x(0);
+  (rgbLedEl.findOne("#BLUE_PIN_TEXT") as Text)
+    .text(`BLUE PIN -> ${state.bluePin}`)
+    .x(0);
+  (rgbLedEl.findOne("#GREEN_PIN_TEXT") as Text)
+    .text(`GREEN PIN -> ${state.greenPin}`)
+    .x(0);
 };
 
 export const positionRgbLed: PositionComponent<LedColorState> = (
@@ -49,7 +55,9 @@ export const positionRgbLed: PositionComponent<LedColorState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(rgbLedEl, arduinoEl, draw, holes[2], isDown, "PIN_GND");
+  positionComponent(rgbLedEl, arduinoEl, draw, holes[1], isDown, "PIN_POWER");
+  rgbLedEl.y(-97.5);
+  rgbLedEl.data("disableDraggable", "TRUE");
 };
 
 export const updateRgbLed: SyncComponent = (state: LedColorState, rgbLedEl) => {
@@ -113,14 +121,23 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
     board
   );
 
-  createGroundWireForBreadboard(
-    holes[1],
-    "PIN_GND",
-    arduino as Svg,
+  createWireBreadboard(
+    `pin${holes[1]}F`,
+    `pin${holes[1]}W`,
+    "#AA0000",
     draw,
-    rgbLedEl,
-    id
+    arduino as Svg,
+    "PIN_POWER"
   );
+
+  // createPowerWireForBreadboard(
+  //   holes[1],
+  //   "PIN_POWER",
+  //   arduino as Svg,
+  //   draw,
+  //   rgbLedEl,
+  //   id
+  // );
   createResistor(arduino, draw, holes[0], true, id, "vertical", 1000);
   createResistor(arduino, draw, holes[2], true, id, "vertical", 1000);
   createResistor(arduino, draw, holes[3], true, id, "vertical", 1000);
@@ -137,15 +154,15 @@ const createResistorRequiredWire = (
   componentId: string,
   board: MicroController
 ) => {
-  createWireComponentToBreadboard(
-    `pin${hole}H`,
-    rgbLedEl,
-    draw,
-    arduino,
-    connectionId,
-    componentId,
-    color
-  );
+  // createWireComponentToBreadboard(
+  //   `pin${hole}H`,
+  //   rgbLedEl,
+  //   draw,
+  //   arduino,
+  //   connectionId,
+  //   componentId,
+  //   color
+  // );
 
   createWireFromArduinoToBreadBoard(
     pin,
@@ -157,7 +174,7 @@ const createResistorRequiredWire = (
   );
 };
 
-const createGroundWireForBreadboard = (
+const createPowerWireForBreadboard = (
   hole: number,
   connectionId: string,
   arduino: Svg,
@@ -172,13 +189,13 @@ const createGroundWireForBreadboard = (
     arduino,
     connectionId,
     componentId,
-    "#000"
+    "#AA0000"
   );
 
   createWireBreadboard(
     `pin${hole}F`,
-    `pin${hole + 1}X`,
-    "#000",
+    `pin${hole + 1}W`,
+    "#AA0000",
     draw,
     arduino as Svg,
     componentId
