@@ -14,7 +14,7 @@ Blockly.Blocks["arduino_loop"] = {
     this.setTooltip("");
     this.setHelpUrl("");
     this.setCommentText(
-      "The loop block runs on repeat until your Arduino loses power.  It runs right after your setup block if you have one.\n\nIf you are using the simulator, you can control how many times it repeats."
+      "The void loop function runs over and over again forever"
     );
     this.getIcon("comment")?.setBubbleSize(new Blockly.utils.Size(460, 170));
   },

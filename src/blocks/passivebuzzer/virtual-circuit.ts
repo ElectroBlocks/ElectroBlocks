@@ -13,7 +13,7 @@ import {
   createComponentWire,
   createGroundOrPowerWire,
 } from "../../core/virtual-circuit/wire";
-import { PassiveBuzzerState, NOTE_TONES } from "./state";
+import { PassiveBuzzerState, NOTE_TONES, Notes } from "./state";
 
 export const afterCreatePassiveBuzzer: AfterComponentCreateHook<PassiveBuzzerState> = (
   state,
@@ -32,14 +32,21 @@ export const updatePassiveBuzzer: SyncComponent = (
   draw,
   frame
 ) => {
+
+  if (state.displaySimpleOn) {
+    componentEl.findOne("#NOTE_TEXT").node.textContent =
+      state.tone > 0 ? "On" : "Off";
+    return;
+  }
+
   if (state.tone > 0) {
-    componentEl.findOne("#NOTE_TEXT").node.textContent = state.tone.toString();
-    (componentEl.findOne("#NOTE_TEXT") as Element).cx(20);
+    componentEl.findOne("#NOTE_TEXT").node.textContent =
+      Notes[state.tone] ?? state.tone;
 
     return;
   }
 
-  componentEl.findOne("#NOTE_TEXT").node.textContent = "";
+  componentEl.findOne("#NOTE_TEXT").node.textContent = "Off";
 };
 
 export const positionPassiveBuzzer: PositionComponent<PassiveBuzzerState> = (
@@ -51,7 +58,7 @@ export const positionPassiveBuzzer: PositionComponent<PassiveBuzzerState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  positionComponent(componentEl, arduinoEl, draw, holes[0], isDown, "PIN_GND");
+  positionComponent(componentEl, arduinoEl, draw, holes[2], isDown, "PIN_GND");
 };
 
 export const createWiresPassiveBuzzer: CreateWire<PassiveBuzzerState> = (
@@ -66,7 +73,7 @@ export const createWiresPassiveBuzzer: CreateWire<PassiveBuzzerState> = (
   const { holes, isDown } = area;
 
   createGroundOrPowerWire(
-    holes[0],
+    holes[3],
     isDown,
     passiveBuzzerEl,
     draw,
@@ -76,7 +83,7 @@ export const createWiresPassiveBuzzer: CreateWire<PassiveBuzzerState> = (
   );
 
   createComponentWire(
-    holes[3],
+    holes[0],
     isDown,
     passiveBuzzerEl,
     state.pins[0],

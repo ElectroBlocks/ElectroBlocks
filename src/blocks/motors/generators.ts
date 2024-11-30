@@ -10,54 +10,59 @@ Blockly["Arduino"]["motor_setup"] = function (block) {
   const pinIn3 = block.getFieldValue("PIN_IN3");
   const pinIn4 = block.getFieldValue("PIN_IN4");
 
-  let motorSetupStart = `typedef enum {
-  CLOCKWISE = 0,
-  ANTI_CLOCKWISE = 1,
-  STOP = -1
+  let motorSetupStart = `
+// Define an enumeration for motor direction with three possible values
+typedef enum {
+  CLOCKWISE = 0, // Motor turns in the clockwise direction
+  ANTI_CLOCKWISE = 1,  // Motor turns in the anti-clockwise direction
+  STOP = -1 // Motor stops
 } Direction;
 `;
 
   motorSetupStart += `
-const int motor1Pin1 = ${pinIn1};
-const int motor1Pin2 = ${pinIn2};
-const int enablePin1 = ${pinEn1};`;
+// Pin assign for the motor control
+const int motor1Pin1 = ${pinIn1};  // Control pin for motor direction 1
+const int motor1Pin2 = ${pinIn2};  // Control pin for motor direction 2
+const int enablePin1 = ${pinEn1}; // PWM pin to enable the motor1`;
   Blockly["Arduino"].setupCode_["motor_setup"] = `
-  pinMode(motor1Pin1, OUTPUT);
-  pinMode(motor1Pin2, OUTPUT);
-  pinMode(enablePin1, OUTPUT);
+   // Configuring motor control pins
+   pinMode(motor1Pin1, OUTPUT); // Set motor1Pin1 as output
+   pinMode(motor1Pin2, OUTPUT);  // Set motor1Pin2 as output
+   pinMode(enablePin1, OUTPUT);  // Set enablePin1 as output
+   // Motor pin setup complete
 `;
 
   if (numberOfMotors === 2) {
     motorSetupStart += `
-const int motor2Pin1 = ${pinIn3};
-const int motor2Pin2 = ${pinIn4};
-const int enablePin2 = ${pinEn2};`;
+const int motor2Pin1 = ${pinIn3}; // Control pin for motor2 direction 1
+const int motor2Pin2 = ${pinIn4}; // Control pin for motor2 direction 2
+const int enablePin2 = ${pinEn2}; // PWM pin to enable the motor2`;
     Blockly["Arduino"].setupCode_["motor_setup"] = `
-  pinMode(motor1Pin1, OUTPUT);
-  pinMode(motor1Pin2, OUTPUT);
-  pinMode(enablePin1, OUTPUT);
-  pinMode(motor2Pin1, OUTPUT);
-  pinMode(motor2Pin2, OUTPUT);
-  pinMode(enablePin2, OUTPUT);
+   // Configuring motor control pins
+   pinMode(motor1Pin1, OUTPUT); // Set motor1Pin1 as output
+   pinMode(motor1Pin2, OUTPUT); // Set motor1Pin2 as output
+   pinMode(enablePin1, OUTPUT); // Set enablePin1 as output
+   pinMode(motor2Pin1, OUTPUT); // Set motor2Pin1 as output
+   pinMode(motor2Pin2, OUTPUT); // Set motor2Pin2 as output
+   pinMode(enablePin2, OUTPUT); // Set enablePin2 as output
+   // Motor pin setup complete
 `;
   }
 
   motorSetupStart += `
 
+// Function to move the motor based on specified speed and direction
 void moveMotor(int motor, int speed, Direction direction) {
   int enablePin = ${
     numberOfMotors === 1 ? "enablePin1" : "motor == 1 ? enablePin1 : enablePin2"
-  };
+  }; // Set the enable pin to enablePin1
   int pin1 = ${
-    numberOfMotors === 1
-      ? "motor1Pin1;"
-      : "motor == 1 ? motor1Pin1 : motor2Pin1;"
-  } 
+    numberOfMotors === 1 ? "motor1Pin1" : "motor == 1 ? motor1Pin1 : motor2Pin1"
+  }; // Set pin1 to control direction 1
   int pin2 = ${
-    numberOfMotors === 1
-      ? "motor1Pin2;"
-      : "motor == 1 ? motor1Pin2 : motor2Pin2;"
-  } 
+    numberOfMotors === 1 ? "motor1Pin2" : "motor == 1 ? motor1Pin2 : motor2Pin2"
+  }; // Set pin2 to control direction 2
+  // Control the motor direction based on the specified direction
   if (speed > 255) {
     speed = 254;
   } else if (speed < 1) {
@@ -66,17 +71,17 @@ void moveMotor(int motor, int speed, Direction direction) {
 
   switch (direction) {
     case CLOCKWISE:
-      digitalWrite(pin1, HIGH);
-      digitalWrite(pin2, LOW);
-      analogWrite(enablePin, speed);
+      digitalWrite(pin1, HIGH);  // Set pin1 high to turn clockwise
+      digitalWrite(pin2, LOW); // Set pin2 low
+      analogWrite(enablePin, speed);  // Set motor speed
       break;
     case ANTI_CLOCKWISE:
-      digitalWrite(pin1, LOW);
-      digitalWrite(pin2, HIGH);
-      analogWrite(enablePin, speed);
+      digitalWrite(pin1, LOW); // Set pin1 low to turn anti-clockwise
+      digitalWrite(pin2, HIGH); // Set pin2 high
+      analogWrite(enablePin, speed); // Set motor speed
       break;
     case STOP:
-      analogWrite(enablePin, 0);
+      analogWrite(enablePin, 0);  // Stop the motor
       break;
   }
 }

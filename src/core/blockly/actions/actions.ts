@@ -12,10 +12,16 @@ export enum ActionType {
   UPDATE_LED_COLOR = "UPDATE_LED_COLOR",
   UPDATE_MULTIPLE_SETUP_BLOCK = "UPDATE_MULTIPLE_SETUP_BLOCK",
   UPDATE_FASTLED_SET_ALL_COLORS_BLOCK = "UPDATE_FASTLED_SET_ALL_COLORS_BLOCK",
+  UPDATE_COMMENT_FOR_BUTTON_BLOCK = "UPDATE_COMMENT_FOR_BUTTON_BLOCK",
 }
 
 export interface Action {
   type: ActionType;
+}
+
+export interface CommentForButtonBlockAction extends Action {
+  comment: string;
+  blockId: string;
 }
 
 export interface BlockAction extends Action {

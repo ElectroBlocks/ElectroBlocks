@@ -77,7 +77,6 @@ describe("Tests the joy stick out", () => {
     expect(frames.length).toBe(3);
 
     const [frame1, frame2, frame3] = frames;
-    console.log(joystickSetup.data, "data");
     expect(frame1.explanation).toBe("Setting up joystick.");
     verifyState(frame1, false, false, 0);
     verifyState(frame2, false, false, 0);

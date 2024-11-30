@@ -16,7 +16,7 @@ Blockly.Blocks["passive_buzzer_note"] = {
       .appendField("Passive Buzzer Note")
       .appendField(
         new Blockly.FieldDropdown([
-          ["No Tone", "0"],
+          ["Off", "0"],
           ["C", "131"],
           ["C#", "139"],
           ["D", "147"],
@@ -45,6 +45,36 @@ Blockly.Blocks["passive_buzzer_note"] = {
   },
 };
 
+Blockly.Blocks["passive_buzzer_simple"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(
+        new Blockly.FieldImage(
+          "/blocks/passivebuzzer/passivebuzzer.png",
+          15,
+          15
+        )
+      )
+      .appendField("Turn passive buzzer #")
+      .appendField(
+        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
+        "PIN"
+      )
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["On", "10000"],
+          ["Off", "0"],
+        ]),
+        "TONE"
+      );
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(COLOR_THEME.COMPONENTS);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  },
+};
+
 Blockly.Blocks["passive_buzzer_tone"] = {
   init: function () {
     this.appendDummyInput()
@@ -55,9 +85,7 @@ Blockly.Blocks["passive_buzzer_tone"] = {
           15
         )
       )
-      .appendField("Passive Buzzer");
-    this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Passive Buzzer")
       .appendField("Pin")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),

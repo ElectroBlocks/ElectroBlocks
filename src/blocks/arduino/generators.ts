@@ -6,6 +6,7 @@ Blockly["Arduino"]["arduino_setup"] = function (block: Block) {
   const statementsSetup = Blockly["Arduino"].statementToCode(block, "setup");
 
   return (
+    "\n// Initialise the program settings and configurations" +
     "\nvoid setup() { \n" +
     "__REPLACE_WITH_SETUP_CODE" +
     statementsSetup +
@@ -40,17 +41,18 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   }
 
   if (!_.isEmpty(Blockly["Arduino"].setupCode_["setup_ir_remote"])) {
-    resetIrRemoteCode = "\tirReceiver.resume(); \n";
+    resetIrRemoteCode =
+      "  irReceiver.resume(); // Prepare the receiver to receive the next IR signal. \n";
   }
 
   if (!_.isEmpty(Blockly["Arduino"].functionNames_["takeTempReading"])) {
     getNewTempReading = "\ttakeTempReading(); \n";
   }
   return (
+    "// The void loop function runs over and over again forever." +
     "\nvoid loop() { \n" +
     setSerialMessageDEV +
     statementsLoop +
-    "\n" +
     resetBluetoothVariable +
     resetMessageVariable +
     resetIrRemoteCode +

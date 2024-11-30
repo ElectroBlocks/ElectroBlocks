@@ -15,7 +15,7 @@ export default `<category name="RGB LED" colour="${COLOR_THEME.COMPONENTS}">
  </block>
 
    <block type="set_color_led">
-      <comment pinned="false" h="130" w="460">This block sets the color of an RGB led.  RGB stands for red, green, and blue.  To use a custom color, go to the toolbox under data->color and select the biggest block.  Then google RGB color picker to try different colors.</comment>
+      <comment pinned="false" h="130" w="460">Set the RGB LED colour.</comment>
 
                   <value name="COLOR">
            <block type="color_picker_custom"> </block>

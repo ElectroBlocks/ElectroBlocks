@@ -5,16 +5,17 @@ Blockly["Arduino"]["digital_display_setup"] = function (block: Block) {
   let clkPin = block.getFieldValue("CLK_PIN");
 
   Blockly["Arduino"].libraries_["define_digital_display"] = `
-#include "SevenSegmentTM1637.h"
-const byte PIN_CLK = ${dioPin};   // define CLK pin (any digital pin)
-const byte PIN_DIO = ${clkPin};   // define DIO pin (any digital pin)
+#include "SevenSegmentTM1637.h"  // Includes the library for the TM1637 7-segment display
+const byte PIN_CLK = ${dioPin};   // Defines CLK pin for the display
+const byte PIN_DIO = ${clkPin};   // Defines DIO pin for the display
+// Initializes the 7-segment display with CLK and DIO pins
 SevenSegmentTM1637    digitalDisplay(PIN_CLK, PIN_DIO);
 `;
 
   Blockly["Arduino"].setupCode_[
     "digital_display_setup"
-  ] = `  digitalDisplay.begin();
-    digitalDisplay.setBacklight(100);
+  ] = `   digitalDisplay.begin(); // Starts the 7-segment display
+   digitalDisplay.setBacklight(100);  // Sets the display backlight to maximum brightness
 `;
 
   let code = "";

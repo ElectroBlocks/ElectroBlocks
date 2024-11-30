@@ -71,7 +71,6 @@ describe("test motors factories", () => {
 
     const [stateSetup, state1, state2, state3, state4] =
       eventToFrameFactory(event).frames;
-    console.log(state2.components[0]);
     expect(state1.explanation).toBe("Motor 1 moves clockwise at speed 50.");
     expect(state2.explanation).toBe(
       "Motor 2 moves anticlockwise at speed 150."
