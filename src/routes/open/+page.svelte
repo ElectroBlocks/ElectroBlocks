@@ -20,11 +20,18 @@
   import projectStore from '../../stores/project.store';
   import { chunk } from 'lodash';
   import _ from 'lodash';
+  import { tooltip } from '@svelte-plugins/tooltips';
 
   const unSubList: Function[] = [];
   let projectList: [Project, string][] = [];
   let searchList: [Project, string][] = [];
   let searchTerm = '';
+  const toopTipConfig = {
+    position: "bottom",
+    align: "center",
+    animation: "slide",
+    theme: "lesson-tooltip",
+  };
   $: filterSearch(searchTerm);
 
   function filterSearch(term: string) {
@@ -183,22 +190,52 @@
   {/if}
   <section class="container">
     <div class="row">
+      <div class="col">
         <h2 class="p-0">Demo Projects!</h2>
+      </div>
     </div>
+    <div class="row">
+      <div class="col text-center">
+        <h3>Demo project difficulty level</h3>
+      </div>
+    </div>
+    <div class="row legend">
+      <div class="col">
+        <h3 class="text-center w-100 mb-2">Easy</h3>
+        <h5 class="text-center w-100">-</h5>
+      </div>
+      <div class="col">
+        <h3 class="text-center w-100 mb-2">Medium</h3>
+        <h5 class="text-center w-100">--</h5>
+      </div>
+      <div class="col">
+        <h3 class="text-center w-100 mb-2">Hard</h3>
+        <h5 class="text-center w-100">---</h5>
+      </div>
+    </div>
+    
   {#each lessons as lessonContainer }
-
+    <hr>
       <div class="row">
-        <h3 class="p-0" >{lessonContainer.title}</h3>
-
+        <div class="col">
+          <h3 class="p-0" >{lessonContainer.title}</h3>
+        </div>
       </div>
       {#each _.chunk(lessonContainer.lessons, 3) as lessonRow }
         <div class="row">
           {#each lessonRow as lesson}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <!-- svelte-ignore a11y-no-static-element-interactions -->
-          <div on:click={() => openfile(lesson.file)} class="col lessonbox">
-            <img src={lesson.image} alt={lesson.title}>
+          <div on:click={() => openfile(lesson.file)} class="col-4 lessonbox">
             <h4 class="text-center mt-4">{lesson.title}</h4>
+            <img src={lesson.image} alt={lesson.title}>
+            {#if lesson.difficulty == 1}
+              <h5 class="text-center w-100">-</h5>
+            {:else if lesson.difficulty == 2}
+              <h5  class="text-center w-100">--</h5>
+            {:else}
+              <h5 class="text-center w-100">---</h5>
+            {/if}
           </div>
           {/each}
         </div>
@@ -216,19 +253,33 @@
   img {
     width: 100%;
     display: block;
-    margin-top: 30px;
   }
   h4 {
     text-align: center;
-    
+  }
+  .col {
+    position: relative;
+  }
+  .legend h5 {
+    bottom: -10px;
+  }
+
+  h5 {
+    position: absolute;
+    bottom: 0px;
+    margin:0;
+    left: 0;
+    font-size: 5rem;
+    line-height: 20px;
   }
   .custom-file-upload {
     cursor: pointer;
   }
   .lessonbox {
-    min-height: 300px;
+    min-height: 225px;
     border: solid;
     cursor: pointer;
+    position: relative;
   }
   main {
     width: 90%;
@@ -236,6 +287,9 @@
   }
   input[type='file'] {
     display: none;
+  }
+  h4 {
+    font-size: 1rem;
   }
 
   .fa-trash {
@@ -245,4 +299,6 @@
     text-align: center;
     width: 100%;
   }
+
+ 
 </style>
