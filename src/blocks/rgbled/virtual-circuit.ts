@@ -81,6 +81,15 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
     "#FF0000"
   );
 
+  createWireBreadboard(
+    `pin${holes[0]}F`,
+    `pin${holes[0]}E`,
+    "#FF0000",
+    draw,
+    arduino as Svg,
+    id
+  );
+
   createWireFromArduinoToBreadBoard(
     state.greenPin,
     arduino as Svg,
@@ -89,6 +98,15 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
     id,
     board,
     "#00FF00"
+  );
+
+  createWireBreadboard(
+    `pin${holes[2]}F`,
+    `pin${holes[2]}E`,
+    "#00FF00",
+    draw,
+    arduino as Svg,
+    id
   );
 
   createWireFromArduinoToBreadBoard(
@@ -102,7 +120,16 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
   );
 
   createWireBreadboard(
-    `pin${holes[1]}F`,
+    `pin${holes[4]}F`,
+    `pin${holes[4]}E`,
+    "#0000FF",
+    draw,
+    arduino as Svg,
+    id
+  );
+
+  createWireBreadboard(
+    `pin${holes[1]}D`,
     `pin${holes[1]}W`,
     "#AA0000",
     draw,
@@ -110,7 +137,5 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
     id
   );
 
-  createResistor(arduino, draw, holes[0], true, id, "vertical", 1000);
-  createResistor(arduino, draw, holes[2], true, id, "vertical", 1000);
-  createResistor(arduino, draw, holes[4], true, id, "vertical", 1000);
+  createResistor(arduino, draw, holes[1], true, id, "vertical", 1000);
 };
