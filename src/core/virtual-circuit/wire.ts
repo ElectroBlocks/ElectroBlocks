@@ -49,18 +49,19 @@ export const createWireFromArduinoToBreadBoard = (
   draw: Svg,
   breadBoardHoleId,
   componentId: string,
-  board: MicroController
+  board: MicroController,
+  color: string = ""
 ) => {
   showPin(draw, pin);
 
   const hole = findBreadboardHoleXY(breadBoardHoleId, arduinoEl, draw);
   const pinConnection = board.pinConnections[pin];
   const arduinoPin = findArduinoConnectionCenter(arduinoEl, pinConnection.id);
-
+  color = color === "" ? pinConnection.color : color;
   const line = draw
     .line()
     .plot(hole.x, hole.y, arduinoPin.x, arduinoPin.y)
-    .stroke({ width: 2, color: pinConnection.color, linecap: "round" });
+    .stroke({ width: 2, color, linecap: "round" });
 
   line.data("component-id", componentId);
   line.data("type", "wire");
