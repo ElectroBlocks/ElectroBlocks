@@ -49,5 +49,5 @@ Blockly["Arduino"]["set_color_led"] = function (block: Block) {
     color = "{ 0, 0, 0 }";
   }
 
-  return "setLedColor(" + color + "); // Set the RGB LED colour. \n";
+  return `setLedColor(${color}); // Set the RGB LED colour. \n`;
 };

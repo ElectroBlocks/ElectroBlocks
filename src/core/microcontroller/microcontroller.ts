@@ -32,6 +32,7 @@ export interface MicroController {
   analonPins: string[];
   serial_baud_rate: number;
   pwmPins: string[];
+  pwmNonAnalogPins: string[];
   sdaPins: string[];
   sclPins: string[];
   mosiPins: string[];
@@ -49,6 +50,7 @@ export interface MicroControllerBlocks {
   analogPins: [string, string][];
   serial_baud_rate: number;
   pwmPins: [string, string][];
+  pwmNonAnalogPins: [string, string][];
   sdaPins: [string, string][];
   sclPins: [string, string][];
   mosiPins: [string, string][];
