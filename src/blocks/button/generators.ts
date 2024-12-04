@@ -14,8 +14,8 @@ Blockly["Arduino"]["button_setup"] = function (block: BlockSvg) {
   Blockly["Arduino"].setupCode_[
     "btn_pin_" + pin
   ] = `   pinMode(${pin}, ${inputType}); // Set defined pin as an input${
-    usePullupResistor ? " with an internal pull-up resistor\n" : "\n"
-  }.`;
+    usePullupResistor ? " with an internal pull-up resistor.\n" : ".\n"
+  }`;
 
   return "";
 };
