@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import codeStore from "../../stores/code.store";
+  import codeStore from "../../../../stores/code.store";
   
   import hljs from 'highlight.js/lib/core';
   import arduinoLang from 'highlight.js/lib/languages/arduino';

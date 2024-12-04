@@ -2,20 +2,20 @@
   import { onMount, tick } from 'svelte';
   import _ from 'lodash';
   import { getAuth, onAuthStateChanged } from 'firebase/auth';
-  import config from '../env';
-  import { isPathOnHomePage } from '../helpers/is-path-on-homepage';
-  import Nav from '../components/electroblocks/Nav.svelte';
-  import Blockly from '../components/electroblocks/Blockly.svelte';
-  import { resizeStore } from '../stores/resize.store';
+  import config from '../../env';
+  import { isPathOnHomePage } from '../../helpers/is-path-on-homepage';
+  import Nav from '../../components/electroblocks/Nav.svelte';
+  import Blockly from '../../components/electroblocks/Blockly.svelte';
+  import { resizeStore } from '../../stores/resize.store';
   import { page } from '$app/stores';
-  import authStore from '../stores/auth.store';
-  import projectStore from '../stores/project.store';
-  import { getFile, getProject } from '../firebase/db';
-  import { loadProject } from '../core/blockly/helpers/workspace.helper';
+  import authStore from '../../stores/auth.store';
+  import projectStore from '../../stores/project.store';
+  import { getFile, getProject } from '../../firebase/db';
+  import { loadProject } from '../../core/blockly/helpers/workspace.helper';
   import {
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop,
-  } from '../core/blockly/helpers/arduino_loop_block.helper';
+  } from '../../core/blockly/helpers/arduino_loop_block.helper';
   import swal from 'sweetalert';
   import { initializeAnalytics } from 'firebase/analytics';
   import { initializeApp } from 'firebase/app';
@@ -113,7 +113,7 @@
     }, 5);
   }
 
-  onMount(() => {
+  onMount(async () => {
     // Initialize Firebase
     const app = initializeApp(config.firebase);
     initializeAnalytics(app);
@@ -142,6 +142,14 @@
       loadedProject = true;
     }
     const auth = getAuth();
+
+    if ($page.url.searchParams.get('example_project') !== null) {
+        const localFileResponse = await fetch(`/example-projects/${$page.url.searchParams.get('example_project')}`);
+        const xmlFile = await localFileResponse.text();
+        loadProject(xmlFile);
+    }
+
+
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
         authStore.set({
@@ -152,11 +160,14 @@
         return;
       }
 
+      
+
       authStore.set({
         isLoggedIn: true,
         uid: user.uid,
         firebaseControlled: true,
       });
+      
 
       if (
         $projectStore.projectId === $page.url.searchParams.get('projectid') ||
@@ -179,14 +190,16 @@
       const file = await getFile($page.url.searchParams.get('projectid'), $authStore.uid);
       loadProject(file);
       projectStore.set({ project, projectId: $page.url.searchParams.get('projectid') });
-      if (isPathOnHomePage($page.url.pathname)) {
+      
+      swal.close();
+      return;
+    });
+
+    if (isPathOnHomePage($page.url.pathname)) {
         arduinoLoopBlockShowNumberOfTimesThroughLoop();
       } else {
         arduinoLoopBlockShowLoopForeverText();
       }
-      swal.close();
-      return;
-    });
   });
 </script>
 

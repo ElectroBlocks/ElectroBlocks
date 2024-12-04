@@ -3,24 +3,22 @@
 
   import { onMount, onDestroy } from 'svelte';
   import { goto } from '$app/navigation';
-  import { lessons } from '../../lessons/lessons';
+  import { lessons } from '../../../lessons/lessons';
 
-  import { loadProject } from '../../core/blockly/helpers/workspace.helper';
-  import authStore from '../../stores/auth.store';
+  import { loadProject } from '../../../core/blockly/helpers/workspace.helper';
+  import authStore from '../../../stores/auth.store';
   import {
     deleteProject,
     getFile,
     getProject,
     getProjects,
-  } from '../../firebase/db';
-  import type { Project } from '../../firebase/model';
+  } from '../../../firebase/db';
+  import type { Project } from '../../../firebase/model';
   import type { Timestamp } from 'firebase/firestore';
 
-  import { onConfirm, onErrorMessage } from '../../help/alerts';
-  import projectStore from '../../stores/project.store';
-  import { chunk } from 'lodash';
+  import { onConfirm, onErrorMessage } from '../../../help/alerts';
+  import projectStore from '../../../stores/project.store';
   import _ from 'lodash';
-  import { tooltip } from '@svelte-plugins/tooltips';
 
   const unSubList: Function[] = [];
   let projectList: [Project, string][] = [];
@@ -45,10 +43,7 @@
   }
 
   async function openfile(filename) {
-    const localFileResponse = await fetch(`/example-projects/${filename}`);
-    const xmlFile = await localFileResponse.text();
-    loadProject(xmlFile);
-    await goto('/');
+    await goto(`/?example_project=${filename}`);
   }
 
   async function changeProject(e) {
@@ -138,7 +133,7 @@
   }
 </script>
 
-<main>
+<main class="container-fluid">
   <h2>Projects</h2>
   <hr />
   <label for="file-upload" class="form custom-file-upload">
@@ -188,7 +183,6 @@
         </tbody>
       </Table>
   {/if}
-  <section class="container">
     <div class="row">
       <div class="col">
         <h2 class="p-0">Demo Projects!</h2>
@@ -222,26 +216,19 @@
         </div>
       </div>
       {#each _.chunk(lessonContainer.lessons, 3) as lessonRow }
-        <div class="row">
-          {#each lessonRow as lesson}
+        <div class="row g-2 g-lg-3">
+          {#each lessonRow as lesson, index }
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <!-- svelte-ignore a11y-no-static-element-interactions -->
-          <div on:click={() => openfile(lesson.file)} class="col-4 lessonbox">
-            <h4 class="text-center mt-4">{lesson.title}</h4>
-            <img src={lesson.image} alt={lesson.title}>
-            {#if lesson.difficulty == 1}
-              <h5 class="text-center w-100">-</h5>
-            {:else if lesson.difficulty == 2}
-              <h5  class="text-center w-100">--</h5>
-            {:else}
-              <h5 class="text-center w-100">---</h5>
-            {/if}
+          <div on:click={() => openfile(lesson.file)} class="col-4 lessonbox ">
+            <h4 class="mt-4 title">{lesson.title}</h4>
+            <img class="demo-image" src={lesson.image} alt={lesson.title}>
+            <img src={lesson.levelImage} alt="difficulty-level" class="level">
           </div>
           {/each}
         </div>
       {/each}
   {/each}
-</section>
 
       
 </main>
@@ -250,15 +237,26 @@
 </svelte:head>
 
 <style>
-  img {
-    width: 100%;
+  main.container-fluid {
+    overflow: scroll !important;;
+    height: 100vh;
+  }
+  img.demo-image {
+    max-width: 100%;
     display: block;
-  }
-  h4 {
-    text-align: center;
-  }
+    margin-top: 40px;
+    margin-bottom: 10px;
+      }
+  
   .col {
     position: relative;
+  }
+
+  .level {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
   }
   .legend h5 {
     bottom: -10px;
@@ -276,20 +274,22 @@
     cursor: pointer;
   }
   .lessonbox {
-    min-height: 225px;
+    min-height: 170px;
     border: solid;
     cursor: pointer;
     position: relative;
   }
-  main {
-    width: 90%;
-    margin: 10px auto;
-  }
+  
   input[type='file'] {
     display: none;
   }
-  h4 {
-    font-size: 1rem;
+  h4.title {
+    font-size: 12px;
+    position: absolute;
+    width: calc(100% - 70px);
+    margin-top: 0 !important;
+    top: 10px;
+    left: 10px;
   }
 
   .fa-trash {

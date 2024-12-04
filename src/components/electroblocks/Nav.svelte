@@ -10,11 +10,6 @@
   import { isPathOnHomePage } from "../../helpers/is-path-on-homepage";
   import { fade } from "svelte/transition";
   import { logout } from "../../firebase/auth";
-  import { loadNewProjectFile } from "../../helpers/open-project-file";
-  import {
-    arduinoLoopBlockShowLoopForeverText,
-    arduinoLoopBlockShowNumberOfTimesThroughLoop,
-  } from "../../core/blockly/helpers/arduino_loop_block.helper";
   import { resetWorkspace } from "../../core/blockly/helpers/workspace.helper";
   import { saveProject } from "../../firebase/db";
   import { wait } from "../../helpers/wait";
@@ -23,11 +18,8 @@
   import { page } from "$app/stores";
   import { tooltip } from "@svelte-plugins/tooltips";
 
-  let isOpeningFile = false;
-  let fileUpload;
   let canSave = true;
   let showSaveSuccess = false;
-
   let params = "";
 
   projectStore.subscribe((p) => {
@@ -95,27 +87,6 @@
       await logout();
     } catch (e) {
       onErrorMessage("Please try again in 5 minutes", e);
-    }
-  }
-
-  async function openFile(e) {
-    isOpeningFile = true;
-    const file = fileUpload.files[0];
-    if (!file) {
-      return;
-    }
-
-    try {
-      await loadNewProjectFile(file);
-    } catch (e) {
-      onErrorMessage("Please make sure you uploaded a valid file.", e);
-    }
-
-    isOpeningFile = false;
-    if (isPathOnHomePage($page.url.pathname)) {
-      arduinoLoopBlockShowNumberOfTimesThroughLoop();
-    } else {
-      arduinoLoopBlockShowLoopForeverText();
     }
   }
 </script>

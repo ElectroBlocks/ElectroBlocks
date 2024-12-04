@@ -1,7 +1,7 @@
 <script lang="ts">
-  import VerticalComponentContainer from '../components/electroblocks/VerticalComponentContainer.svelte';
-  import Simulator from '../components/electroblocks/home/Simulator.svelte';
-  import Step from '../components/electroblocks/home/Steps.svelte';
+  import VerticalComponentContainer from '../../components/electroblocks/VerticalComponentContainer.svelte';
+  import Simulator from '../../components/electroblocks/home/Simulator.svelte';
+  import Step from '../../components/electroblocks/home/Steps.svelte';
 </script>
 
 <VerticalComponentContainer>
