@@ -1,6 +1,6 @@
 <script>
-  import { workspaceToXML } from "../../../../core/blockly/helpers/workspace.helper";
-  import codeStore from "../../../../stores/code.store";
+  import { workspaceToXML } from "../../../core/blockly/helpers/workspace.helper";
+  import codeStore from "../../../stores/code.store";
   // import { saveAs } from "file-saver";
   import { onDestroy } from "svelte";
   import { Button } from "@sveltestrap/sveltestrap";
