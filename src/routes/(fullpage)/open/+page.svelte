@@ -24,12 +24,10 @@
   let projectList: [Project, string][] = [];
   let searchList: [Project, string][] = [];
   let searchTerm = '';
-  const toopTipConfig = {
-    position: "bottom",
-    align: "center",
-    animation: "slide",
-    theme: "lesson-tooltip",
-  };
+  let lessonList = lessons.reduce((acc, lessons) => {
+    return [...acc, ...lessons.lessons];
+  }, []);
+
   $: filterSearch(searchTerm);
 
   function filterSearch(term: string) {
@@ -133,8 +131,8 @@
   }
 </script>
 
-<main class="container-fluid">
-  <h2>Projects</h2>
+<main class="container-fluid overflow-scroll mb-5 pb-5">
+  <h2 class="mt-3">Projects</h2>
   <hr />
   <label for="file-upload" class="form custom-file-upload">
     <i class="fa fa-cloud-upload" />
@@ -184,52 +182,43 @@
       </Table>
   {/if}
     <div class="row">
-      <div class="col">
+      <div class="col-3">
         <h2 class="p-0">Demo Projects!</h2>
       </div>
-    </div>
-    <div class="row">
-      <div class="col text-center">
-        <h3>Demo project difficulty level</h3>
+      <div class="col-9 legend">
+        <img src="/example-projects/easy.png" alt="difficulty-level" class="legend easy"  >
+        <span class="easy">Easy</span>
+        <img src="/example-projects/medium.png" alt="difficulty-level" class="legend medium"  >
+        <span class="medium">Medium</span>
+        <img src="/example-projects/hard.png" alt="difficulty-level" class="legend hard" >
+        <span class="hard">Hard</span>
       </div>
     </div>
-    <div class="row legend">
-      <div class="col">
-        <h3 class="text-center w-100 mb-2">Easy</h3>
-        <h5 class="text-center w-100">-</h5>
-      </div>
-      <div class="col">
-        <h3 class="text-center w-100 mb-2">Medium</h3>
-        <h5 class="text-center w-100">--</h5>
-      </div>
-      <div class="col">
-        <h3 class="text-center w-100 mb-2">Hard</h3>
-        <h5 class="text-center w-100">---</h5>
-      </div>
-    </div>
-    
-  {#each lessons as lessonContainer }
-    <hr>
-      <div class="row">
-        <div class="col">
-          <h3 class="p-0" >{lessonContainer.title}</h3>
-        </div>
-      </div>
-      {#each _.chunk(lessonContainer.lessons, 3) as lessonRow }
+    <!-- <div class="row legend">
+        <img src="/example-projects/easy.png" alt="difficulty-level" >
+        <p class="text-center w-100 mb-2">Easy</p>
+        <img src="/example-projects/medium.png" alt="difficulty-level" >
+        <p class="text-center w-100 mb-2">Medium</p>
+        <img src="/example-projects/hard.png" alt="difficulty-level" >
+        <p class="text-center w-100 mb-2">Hard</p>
+    </div> -->
+        
+      {#each _.chunk(lessonList, 3) as lessonRow }
         <div class="row g-2 g-lg-3">
-          {#each lessonRow as lesson, index }
-          <!-- svelte-ignore a11y-click-events-have-key-events -->
-          <!-- svelte-ignore a11y-no-static-element-interactions -->
-          <div on:click={() => openfile(lesson.file)} class="col-4 lessonbox ">
-            <h4 class="mt-4 title">{lesson.title}</h4>
-            <img class="demo-image" src={lesson.image} alt={lesson.title}>
-            <img src={lesson.levelImage} alt="difficulty-level" class="level">
+          {#each lessonRow as lesson }
+          <div class="col-4">
+            <div class="card" on:click={() => goto(`/?example_project=${lesson.file}`)}>
+              <div class="card-body">
+                <img src={lesson.levelImage} alt="difficulty-level" class="level">
+                <h5 class="card-title">{lesson.title}</h5>
+              </div>
+              <img src={lesson.image} class="card-img-bottom" alt={lesson.title}>
+            </div>
           </div>
+          
           {/each}
         </div>
       {/each}
-  {/each}
-
       
 </main>
 <svelte:head>
@@ -237,68 +226,61 @@
 </svelte:head>
 
 <style>
-  main.container-fluid {
-    overflow: scroll !important;;
-    height: 100vh;
+  .container-fluid {
+    height: 99vh;
   }
-  img.demo-image {
-    max-width: 100%;
-    display: block;
-    margin-top: 40px;
-    margin-bottom: 10px;
-      }
-  
-  .col {
-    position: relative;
-  }
-
-  .level {
-    position: absolute;
-    top: 5px;
-    right: 5px;
+ 
+ img.card-img-bottom {
+  width: 100%;
+  height: 40vh;
+  object-fit: cover;
+ }
+ .card-body {
+  position: relative;
+ }
+ .card {
+  cursor: pointer;
+ }
+ .level {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 5px;
+  top: 15px;
+ }
+ .legend {
+   position: relative;
+ }
+  .legend img {
     width: 25px;
-  }
-  .legend h5 {
-    bottom: -10px;
-  }
-
-  h5 {
+    height: 25px;
     position: absolute;
-    bottom: 0px;
-    margin:0;
-    left: 0;
-    font-size: 5rem;
-    line-height: 20px;
   }
-  .custom-file-upload {
-    cursor: pointer;
-  }
-  .lessonbox {
-    min-height: 170px;
-    border: solid;
-    cursor: pointer;
-    position: relative;
-  }
-  
-  input[type='file'] {
-    display: none;
-  }
-  h4.title {
-    font-size: 12px;
-    position: absolute;
-    width: calc(100% - 70px);
-    margin-top: 0 !important;
-    top: 10px;
+  .legend img.easy {
     left: 10px;
   }
-
-  .fa-trash {
-    color: #a30d11;
-    font-size: 30px;
-    cursor: pointer;
-    text-align: center;
-    width: 100%;
+ 
+  .legend img.medium {
+    left: 100px;
+  }
+  .legend span {
+    position: absolute;
+    top: 30px;
+  }
+  .legend span.easy {
+    left: 5px;
   }
 
+  .legend span.medium {
+    left: 80px;
+  }
+
+  .legend span.hard {
+    left: 173px;
+  }
+
+  .legend img.hard {
+    left: 180px;
+  }
  
 </style>
