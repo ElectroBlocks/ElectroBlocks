@@ -139,6 +139,12 @@ const updateRGBLedColorBlocks = (action: UpdateMultipleComponentSetupBlock) => {
     b.getInput("WHICH_COMPONENT").setVisible(action.numberOfComponents == 2);
     b.render();
   });
+
+  const setSimpleRgbLedCOlorBlocks = getBlocksByName("set_simple_color_led");
+  setSimpleRgbLedCOlorBlocks.forEach((b) => {
+    b.getInput("WHICH_COMPONENT").setVisible(action.numberOfComponents == 2);
+    b.render();
+  });
 };
 
 const updateMultipleSetupBlock = (

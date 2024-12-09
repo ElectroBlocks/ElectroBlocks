@@ -25,7 +25,10 @@ import { disableSensorReadBlocksWithWrongPins } from "./actions/disable/disableS
 import { disableBlocksThatNeedASetupBlock } from "./actions/disable/disableBlocksThatNeedASetupBlock";
 import { ActionType, DisableBlock, EnableBlock } from "./actions/actions";
 import { eventToFrameFactory } from "../frames/event-to-frame.factory";
-import type { ArduinoFrameContainer } from "../frames/arduino.frame";
+import {
+  ArduinoComponentType,
+  type ArduinoFrameContainer,
+} from "../frames/arduino.frame";
 import type { MicroControllerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
@@ -33,7 +36,7 @@ import type { Settings } from "../../firebase/model";
 import settingStore from "../../stores/settings.store";
 import UpdateLCDScreenPrintBlock from "./actions/updateLcdScreenPrintBlock";
 import updateLedBlockColorField from "./actions/updateLedBlockColorField";
-import { updateMotorSetupBlock } from "./actions/updateMotorSetupBlock";
+import { updateWhichComponent } from "./actions/updateWhichComponent";
 import { updateFastLedSetAllColorsUpdateBlock } from "./actions/fastLedSetAllColorsUpdateBlock";
 import { updateCommentIsButtonPressedBlock } from "./actions/updateCommentForButtonBlock";
 
@@ -146,7 +149,16 @@ export const createFrames = async (blocklyEvent) => {
     ...UpdateLCDScreenPrintBlock(event2),
     ...updateLoopNumberInSensorSetupBlock(event2),
     ...updateLedBlockColorField(event2),
-    ...updateMotorSetupBlock(event2),
+    ...updateWhichComponent(
+      "rgb_led_setup",
+      ["set_color_led", "set_simple_color_led", "rgb_led_setup"],
+      ArduinoComponentType.LED_COLOR
+    )(event2),
+    ...updateWhichComponent(
+      "motor_setup",
+      ["move_motor", "stop_motor"],
+      ArduinoComponentType.MOTOR
+    )(event2),
     ...updateFastLedSetAllColorsUpdateBlock(event2),
     ...updateCommentIsButtonPressedBlock(event2),
   ];

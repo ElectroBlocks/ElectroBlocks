@@ -1,14 +1,12 @@
 import { describe, it, beforeEach, afterEach, expect } from "vitest";
 
 import "../blocks";
-import Blockly, { BlockSvg } from "blockly";
-import { getAllBlocks } from "../helpers/block.helper";
 import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../../tests/tests.helper";
-import { ActionType, UpdateComponentSetupBlock } from "./actions";
-import { updateMotorSetupBlock } from "./updateMotorSetupBlock";
+import { ActionType } from "./actions";
+import { updateWhichComponent } from "./updateWhichComponent";
 import { ArduinoComponentType } from "../../frames/arduino.frame";
 
 describe("changeNumberOfComponentsInSetupBlock", () => {
@@ -28,7 +26,13 @@ describe("changeNumberOfComponentsInSetupBlock", () => {
     const motorSetupBlock = workspace.newBlock("motor_setup");
     motorSetupBlock.setFieldValue("1", "NUMBER_OF_COMPONENTS");
     const event = createTestEvent(motorSetupBlock.id);
-    expect(updateMotorSetupBlock(event)).toEqual([
+    expect(
+      updateWhichComponent(
+        "motor_setup",
+        ["move_motor", "stop_motor"],
+        ArduinoComponentType.MOTOR
+      )(event)
+    ).toEqual([
       {
         blockId: motorSetupBlock.id,
         componentType: ArduinoComponentType.MOTOR,
@@ -40,7 +44,13 @@ describe("changeNumberOfComponentsInSetupBlock", () => {
     // Show the motors
     motorSetupBlock.setFieldValue("2", "NUMBER_OF_COMPONENTS");
     const event2 = createTestEvent(motorSetupBlock.id);
-    expect(updateMotorSetupBlock(event2)).toEqual([
+    expect(
+      updateWhichComponent(
+        "motor_setup",
+        ["move_motor", "stop_motor"],
+        ArduinoComponentType.MOTOR
+      )(event2)
+    ).toEqual([
       {
         blockId: motorSetupBlock.id,
         componentType: ArduinoComponentType.MOTOR,

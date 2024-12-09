@@ -13,6 +13,7 @@ export default `<category name="RGB LED" colour="${COLOR_THEME.COMPONENTS}">
                          <field name="PIN_BLUE_2">3</field>
 
  </block>
+ <block type="set_simple_color_led"></block>
 
    <block type="set_color_led">
       <comment pinned="false" h="130" w="460">Set the RGB LED colour.</comment>
@@ -23,4 +24,5 @@ export default `<category name="RGB LED" colour="${COLOR_THEME.COMPONENTS}">
 
    </value>
    </block>
+
    </category>`;

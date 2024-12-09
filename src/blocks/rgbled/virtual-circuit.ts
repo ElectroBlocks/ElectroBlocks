@@ -130,8 +130,8 @@ export const createWiresRgbLed: CreateWire<LedColorState> = (
 
   createWireBreadboard(
     `pin${holes[1]}D`,
-    `pin${holes[1]}W`,
-    "#AA0000",
+    `pin${holes[0]}X`,
+    "#000",
     draw,
     arduino as Svg,
     id

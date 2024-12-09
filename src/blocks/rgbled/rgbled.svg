@@ -36,14 +36,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="14.017183"
-     inkscape:cx="44.552462"
-     inkscape:cy="121.85045"
+     inkscape:cx="22.008702"
+     inkscape:cy="78.617794"
      inkscape:window-width="1728"
      inkscape:window-height="973"
      inkscape:window-x="0"
      inkscape:window-y="38"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="svg19" />
   <!-- LED Legs -->
   <!-- LED Body -->
   <path
@@ -58,9 +58,9 @@
      inkscape:label="PIN_GREEN_PATH" />
   <path
      id="PIN_GND_PATH_1"
-     d="m 28.249815,58.176554 0.667592,34.905557"
+     d="M 28.963225,58.033872 28.846066,92.939429"
      sodipodi:nodetypes="cc"
-     style="fill:#aa0000;fill-opacity:1;stroke:#aa0000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1"
+     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1"
      inkscape:label="PIN_GND_PATH" />
   <path
      id="PIN_BLUE_PATH"
@@ -79,7 +79,7 @@
      rx="1"
      inkscape:label="PIN_RED" />
   <rect
-     style="display:inline;fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:1.99999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+     style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.99999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
      id="PIN_POWER"
      width="2"
      height="26.433554"
@@ -274,7 +274,7 @@
        xml:space="preserve"
        style="font-size:10px;"
        x="16.5"
-         y="129.62129"
+       y="129.62129"
        id="RED_PIN_TEXT"
        inkscape:label="RED_PIN_TEXT"><tspan
          sodipodi:role="line"
@@ -286,7 +286,7 @@
        xml:space="preserve"
        style="font-size:10px;"
        x="48"
-         y="129.62129"
+       y="129.62129"
        id="BLUE_PIN_TEXT"
        inkscape:label="BLUE_PIN_TEXT"><tspan
          sodipodi:role="line"
@@ -298,7 +298,7 @@
        xml:space="preserve"
        style="font-size:10px;line-height:1.51px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers"
        x="30"
-         y="129.62129"
+       y="129.62129"
        id="GREEN_PIN_TEXT"
        inkscape:label="GREEN_PIN_TEXT"><tspan
          sodipodi:role="line"

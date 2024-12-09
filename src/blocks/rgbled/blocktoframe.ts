@@ -1,4 +1,5 @@
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
+import { hexToRgb } from "../../core/blockly/helpers/color.helper";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
 import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
@@ -67,16 +68,24 @@ export const setLedColor: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
-  const color = getInputValue(
-    blocks,
-    block,
-    variables,
-    timeline,
-    "COLOR",
-    { red: 0, green: 0, blue: 0 },
-    previousState
-  );
-  const whichComponent = +findFieldValue(block, "WHICH_COMPONENT");
+  const color =
+    block.blockName == "set_color_led"
+      ? getInputValue(
+          blocks,
+          block,
+          variables,
+          timeline,
+          "COLOR",
+          { red: 0, green: 0, blue: 0 },
+          previousState
+        )
+      : hexToRgb(findFieldValue(block, "COLOR"));
+  let whichComponent = findFieldValue(block, "WHICH_COMPONENT");
+  if (whichComponent == undefined) {
+    whichComponent = 1;
+  } else {
+    whichComponent = +whichComponent;
+  }
 
   const ledColorStates = previousState.components.filter(
     (x) => x.type == ArduinoComponentType.LED_COLOR
@@ -84,6 +93,7 @@ export const setLedColor: BlockToFrameTransformer = (
   let ledState = ledColorStates.find(
     (x: LedColorState) => x.ledNumber == whichComponent
   );
+
   const newComponent = { ...ledState, color };
 
   return [

@@ -62,7 +62,7 @@ const set_color_led = {
   init: function () {
     this.appendDummyInput("NAME")
       .appendField(new Blockly.FieldImage("./blocks/led/color_led.png", 15, 15))
-      .appendField("RGB Color ");
+      .appendField("Set RGB LED's Color ");
 
     this.appendDummyInput("WHICH_COMPONENT")
       .setAlign(Blockly.ALIGN_RIGHT)
@@ -85,7 +85,44 @@ const set_color_led = {
     this.setColour(COLOR_THEME.COMPONENTS);
   },
 };
-Blockly.common.defineBlocks({ set_color_led: set_color_led });
+
+const set_simple_color_led = {
+  init: function () {
+    this.appendDummyInput("NAME")
+      .appendField(new Blockly.FieldImage("./blocks/led/color_led.png", 15, 15))
+      .appendField("Simple RGB Led's Color ");
+
+    this.appendDummyInput("WHICH_COMPONENT")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Which Led: ")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["1", "1"],
+          ["2", "2"],
+        ]),
+        "WHICH_COMPONENT"
+      );
+    this.appendDummyInput("COLOR")
+      .appendField("Set Color: ")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField(
+        new Blockly.FieldColour("red", null, {
+          colourOptions: ["#ff0000", "#00ff00", "#0000ff", "#000000"],
+        }),
+        "COLOR"
+      );
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip("");
+    this.setHelpUrl("");
+    this.setColour(COLOR_THEME.COMPONENTS);
+  },
+};
+Blockly.common.defineBlocks({
+  set_color_led: set_color_led,
+  set_simple_color_led: set_simple_color_led,
+});
                     
                     
 
