@@ -2,7 +2,7 @@ import Blockly from "blockly";
 import type { Block } from "blockly";
 
 Blockly["Arduino"]["motor_setup"] = function (block) {
-  const numberOfMotors = +block.getFieldValue("NUMBER_OF_MOTORS");
+  const numberOfMotors = +block.getFieldValue("NUMBER_OF_COMPONENTS");
   const pinEn1 = block.getFieldValue("PIN_EN1");
   const pinIn1 = block.getFieldValue("PIN_IN1");
   const pinIn2 = block.getFieldValue("PIN_IN2");

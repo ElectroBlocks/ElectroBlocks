@@ -21,7 +21,7 @@ export const motorSetup: BlockToFrameTransformer = (
   previousState
 ) => {
   const numberOfMotors =
-    findFieldValue(block, "NUMBER_OF_MOTORS") == "1" ? 1 : 2;
+    findFieldValue(block, "NUMBER_OF_COMPONENTS") == "1" ? 1 : 2;
   const en1 = findFieldValue(block, "PIN_EN1");
   const in1 = findFieldValue(block, "PIN_IN1");
   const in2 = findFieldValue(block, "PIN_IN2");

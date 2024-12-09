@@ -15,6 +15,10 @@ export const hexToRgb = (hex: string): Color => {
   };
 };
 
+export const rgbToColorStruct = (color: Color): string => {
+  return `{${color.red}, ${color.green}, ${color.blue}}`;
+};
+
 export const rgbToHex = (color: Color) => {
   return (
     '#' +

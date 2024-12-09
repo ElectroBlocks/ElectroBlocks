@@ -31,7 +31,7 @@ describe("test motors factories", () => {
 
   it("test stop motor block will stop the right motors", () => {
     const motorSetupBlock = workspace.newBlock("motor_setup");
-    motorSetupBlock.setFieldValue("2", "NUMBER_OF_MOTORS");
+    motorSetupBlock.setFieldValue("2", "NUMBER_OF_COMPONENTS");
     const motor1Block1 = createMoveMotorBlock(1, "CLOCKWISE", 50);
     const motor2Block2 = createMoveMotorBlock(2, "ANTI_CLOCKWISE", 150);
     const stopMotor1 = workspace.newBlock("stop_motor") as BlockSvg;
@@ -55,7 +55,7 @@ describe("test motors factories", () => {
 
   it("test it can do one two motors in different directions.", () => {
     const motorSetupBlock = workspace.newBlock("motor_setup");
-    motorSetupBlock.setFieldValue("2", "NUMBER_OF_MOTORS");
+    motorSetupBlock.setFieldValue("2", "NUMBER_OF_COMPONENTS");
     const motor1Block1 = createMoveMotorBlock(1, "CLOCKWISE", 50);
     const motor2Block2 = createMoveMotorBlock(2, "ANTI_CLOCKWISE", 150);
 

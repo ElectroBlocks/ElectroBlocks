@@ -24,13 +24,13 @@ import servoSVGText from "../../blocks/servo/servo.svg?raw";
 import tempSvgString from "../../blocks/temperature/temp-humidity.svg?raw";
 import ultraSonicSvgString from "../../blocks/ultrasonic_sensor/ultrasonic-sensor.svg?raw";
 import { getLcdScreenSvgString } from "../../blocks/lcd_screen/svg-string";
-import { getLedColorSvgString } from "../../blocks/rgbled/svg-string";
 import { getDigitalSensorSvg } from "../../blocks/digitalsensor/svg-string";
 import { getAnalogSensorSvg } from "../../blocks/analogsensor/svg-string";
 import stepperMotorSvg from "../../blocks/steppermotor/steppermotor.svg?raw";
 import digitalDisplaySvg from "../../blocks/digit4display/digitdisplay.svg?raw";
 import joyStickSvg from "../../blocks/joystick/joystick.svg?raw";
 import { FastLEDState } from "../../blocks/fastled/state";
+import rgbLEDSVG from "../../blocks/rgbled/rgbled.svg?raw";
 
 export interface GetSvgString {
   (state: ArduinoComponentState | undefined): string;
@@ -67,7 +67,7 @@ const createSvgString: { [key: string]: GetSvgString } = {
   [ArduinoComponentType.TEMPERATURE_SENSOR]: (_) => tempSvgString,
   [ArduinoComponentType.ULTRASONICE_SENSOR]: (_) => ultraSonicSvgString,
   [ArduinoComponentType.LCD_SCREEN]: getLcdScreenSvgString,
-  [ArduinoComponentType.LED_COLOR]: getLedColorSvgString,
+  [ArduinoComponentType.LED_COLOR]: (_) => rgbLEDSVG,
   [ArduinoComponentType.DIGITAL_SENSOR]: getDigitalSensorSvg,
   [ArduinoComponentType.LED]: () => ledSvgString,
   [ArduinoComponentType.WRITE_PIN]: (_) => writePinSvgString,
