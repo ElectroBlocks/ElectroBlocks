@@ -29,7 +29,7 @@ describe("changeNumberOfComponentsInSetupBlock", () => {
     expect(
       updateWhichComponent(
         "motor_setup",
-        ["move_motor", "stop_motor"],
+        ["move_motor", "stop_motor", "motor_setup"],
         ArduinoComponentType.MOTOR
       )(event)
     ).toEqual([
@@ -47,7 +47,7 @@ describe("changeNumberOfComponentsInSetupBlock", () => {
     expect(
       updateWhichComponent(
         "motor_setup",
-        ["move_motor", "stop_motor"],
+        ["move_motor", "stop_motor", "motor_setup"],
         ArduinoComponentType.MOTOR
       )(event2)
     ).toEqual([

@@ -156,7 +156,7 @@ export const createFrames = async (blocklyEvent) => {
     )(event2),
     ...updateWhichComponent(
       "motor_setup",
-      ["move_motor", "stop_motor"],
+      ["move_motor", "stop_motor", "motor_setup"],
       ArduinoComponentType.MOTOR
     )(event2),
     ...updateFastLedSetAllColorsUpdateBlock(event2),
