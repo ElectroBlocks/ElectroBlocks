@@ -7,10 +7,10 @@ Blockly["Arduino"]["passive_buzzer_note"] = function (block) {
     "\tpinMode(" + pin + ", OUTPUT); \n";
 
   if (tone === 0) {
-    return `noTone(${pin});`;
+    return `noTone(${pin});\n`;
   }
 
-  return `tone(${pin}, ${tone});`;
+  return `tone(${pin}, ${tone});\n`;
 };
 
 Blockly["Arduino"]["passive_buzzer_tone"] = function (block) {
@@ -24,10 +24,10 @@ Blockly["Arduino"]["passive_buzzer_tone"] = function (block) {
     "\tpinMode(" + pin + ", OUTPUT); \n";
 
   if (tone === 0) {
-    return `noTone(${pin});`;
+    return `noTone(${pin});\n`;
   }
 
-  return `tone(${pin}, ${tone});`;
+  return `tone(${pin}, ${tone});\n`;
 };
 
 Blockly["Arduino"]["passive_buzzer_simple"] =

@@ -203,11 +203,11 @@ Blockly["Arduino"].finish = function (code) {
     "\n" +
     Blockly["Arduino"].variablesInitCode_ +
     "\n" +
-    functionsCode +
-    "\n" +
     setupCode +
     "\n" +
-    code;
+    code +
+    "\n\n" +
+    functionsCode;
 
   // This is so that setup functions need to run are there
   // This only happens when the setup block is in place

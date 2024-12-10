@@ -14,9 +14,8 @@ Blockly["Arduino"]["joystick_setup"] = function (block) {
 boolean internal_variable_isJoystickButtonPressed = false;
 boolean internal_variable_isJoyStickEngaged = false;
 int internal_variable_degrees = 0;
-
-void setJoyStickValues() {
-
+`;
+  Blockly["Arduino"].functionNames_["joystick"] = `void setJoyStickValues() {
   // https://medium.com/@melaniechow/using-a-joystick-sensor-on-an-arduino-3498d7399464
   // This function was inspired by this Article
   int y = (analogRead(Y_PIN) * 4.9);   
@@ -42,10 +41,7 @@ void setJoyStickValues() {
   internal_variable_isJoyStickEngaged = distance > 15;
   internal_variable_isJoystickButtonPressed = digitalRead(SW_PIN) == LOW;
   
-}
-
-  `;
-
+}`;
   Blockly["Arduino"].setupCode_["joystick"] = `
     pinMode(SW_PIN, INPUT);
     pinMode(Y_PIN, INPUT);
