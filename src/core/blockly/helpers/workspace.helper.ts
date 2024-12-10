@@ -43,6 +43,7 @@ export const loadProject = (xmlString: string) => {
   Blockly.Xml.domToWorkspace(xml.documentElement as any, getWorkspace()); // load new blocks
   blocksToDelete.forEach((b) => b.dispose(true)); // delete the old blocks
   localStorage.removeItem("no_alert");
+  Blockly.getMainWorkspace().scrollCenter();
 };
 
 export const resetWorkspace = () => {
