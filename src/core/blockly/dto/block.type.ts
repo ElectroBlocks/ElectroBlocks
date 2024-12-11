@@ -128,6 +128,7 @@ export const blocksThatRequireSetup = {
   temp_get_temp: "temp_setup",
   temp_get_humidity: "temp_setup",
   set_color_led: "rgb_led_setup",
+  set_simple_color_led: "rgb_led_setup",
   rfid_scan: "rfid_setup",
   rfid_tag: "rfid_setup",
   rfid_card: "rfid_setup",
@@ -422,6 +423,10 @@ export const blocksToBlockTypes: {
   stop_motor: { type: BlockType.STATE, pinCategory: PinCategory.MOTOR },
 
   set_color_led: { type: BlockType.STATE, pinCategory: PinCategory.LED_COLOR },
+  set_simple_color_led: {
+    type: BlockType.STATE,
+    pinCategory: PinCategory.LED_COLOR,
+  },
   rgb_led_setup: {
     type: BlockType.SETUP,
     pinCategory: PinCategory.LED_COLOR,

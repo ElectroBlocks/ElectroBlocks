@@ -276,6 +276,7 @@ Blockly["Arduino"].scrub_ = function (block, code) {
         "led",
         "delay_block",
         "set_color_led",
+        "set_simple_color_led",
         "rotate_servo",
       ].includes(block.type) == false
         ? block.getCommentText()

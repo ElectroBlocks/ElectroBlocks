@@ -112,7 +112,7 @@ const motor_setup = {
           ["1", "1"],
           ["2", "2"],
         ]),
-        "NUMBER_OF_MOTORS"
+        "NUMBER_OF_COMPONENTS"
       );
     this.appendDummyInput("MOTOR_1")
       .appendField("Motor 1 Pins")

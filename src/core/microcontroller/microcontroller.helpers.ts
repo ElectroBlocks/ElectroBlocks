@@ -11,6 +11,7 @@ export const transformBoardBlockly = (
     serial_baud_rate: board.serial_baud_rate,
     type: board.type,
     pwmPins: pinArrayToFieldList(board.pwmPins),
+    pwmNonAnalogPins: pinArrayToFieldList(board.pwmNonAnalogPins),
     digitalPins: pinArrayToFieldList(board.digitalPins),
     analogPins: pinArrayToFieldList(board.analonPins),
     sckPins: pinArrayToFieldList(board.sckPins),
