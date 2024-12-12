@@ -80,13 +80,13 @@ void setLedColor(RGB color) {
 
     Blockly["Arduino"].setupCode_[
       "led_pin_" + redPin2
-    ] = `   pinMode(RED_PIN_1, OUTPUT); // Set the 2nd red LED pin as an output \n`;
+    ] = `   pinMode(RED_PIN_2, OUTPUT); // Set the 2nd red LED pin as an output \n`;
     Blockly["Arduino"].setupCode_[
       "led_pin_" + greenPin2
-    ] = `   pinMode(GREEN_PIN_1, OUTPUT); // Set the 2nd green LED pin as an output \n`;
+    ] = `   pinMode(GREEN_PIN_2, OUTPUT); // Set the 2nd green LED pin as an output \n`;
     Blockly["Arduino"].setupCode_[
       "led_pin_" + bluePin2
-    ] = `   pinMode(BLUE_PIN_1, OUTPUT); // Set the 2nd LED blue pin as an output\n`;
+    ] = `   pinMode(BLUE_PIN_2, OUTPUT); // Set the 2nd LED blue pin as an output\n`;
 
     Blockly["Arduino"].libraries_["color_pin_blue_1"] =
       "int BLUE_PIN_1 = " +
@@ -105,17 +105,17 @@ void setLedColor(RGB color) {
 
     Blockly["Arduino"].libraries_["color_pin_blue_2"] =
       "int BLUE_PIN_2 = " +
-      bluePin +
+      bluePin2 +
       "; // Define pin number for the blue 2nd LED";
 
     Blockly["Arduino"].libraries_["color_pin_red_2"] =
       "int RED_PIN_2 = " +
-      redPin +
+      redPin2 +
       "; // Define pin number for the red 2nd LED";
 
     Blockly["Arduino"].libraries_["color_pin_green_2"] =
       "int GREEN_PIN_2 = " +
-      greenPin +
+      greenPin2 +
       "; // Define pin number for the green 2nd LED";
   }
 
