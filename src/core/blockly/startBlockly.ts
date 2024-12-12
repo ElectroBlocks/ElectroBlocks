@@ -12,18 +12,27 @@ import registerCodeMenu from "../../blocks/arduino/menu";
 
 import { getToolBoxString } from "./toolbox";
 
-import { connectToArduinoBlock, createBlock } from "./helpers/block.helper";
+import {
+  connectToArduinoBlock,
+  createBlock,
+  getBlockByType,
+} from "./helpers/block.helper";
 import { ARDUINO_PINS } from "../microcontroller/selectBoard";
 import { DELAY_COMMENT } from "../../blocks/time/toolbox";
 import { LED_COMMENT } from "../../blocks/led/toolbox";
 
 import { registerVariableMenu } from "../../blocks/variables/menu";
 import { registerFunctionMenu } from "../../blocks/functions/menu";
+import { getWorkspace, loadProject } from "./helpers/workspace.helper";
 
 /**
  * This will start up blockly and will add all the event listeners and styles
  */
 const startBlockly = (blocklyElement: HTMLElement) => {
+  // removing alert & confirms from blockly library
+  Blockly.dialog.setAlert((m) => console.log(m));
+  Blockly.dialog.setConfirm((m) => true);
+
   // creates the blockly workspace and toolbox
   const workspace = createWorkspace(blocklyElement);
 
@@ -39,14 +48,24 @@ const startBlockly = (blocklyElement: HTMLElement) => {
 
   // Registers the code menu
   registerCodeMenu(workspace);
+  let arduinoBlock;
+  // If the last workspace was empty, create the default blocks
+  if (localStorage && localStorage.getItem("reload_once_workspace") === null) {
+    // creates the arduino loop block
+    arduinoBlock = createBlock("arduino_loop", 50, 151, false);
 
-  // creates the arduino loop block
-  const arduinoBlock = createBlock("arduino_loop", 50, 151, false);
-
-  // Creating Blink
-  createLedWithDelay(0.2, false);
-  createLedWithDelay(0.2, true);
-
+    // Creating Blink
+    createLedWithDelay(0.2, false);
+    createLedWithDelay(0.2, true);
+  } else {
+    // Load the last workspace
+    loadProject(localStorage.getItem("reload_once_workspace"));
+    arduinoBlock = getBlockByType("arduino_loop");
+    setTimeout(() => {
+      Blockly.svgResize(getWorkspace());
+      getWorkspace().scrollCenter();
+    }, 100);
+  }
   createFrames({
     type: Blockly.Events.MOVE,
     blockId: arduinoBlock.id,
