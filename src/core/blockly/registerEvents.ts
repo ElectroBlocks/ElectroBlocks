@@ -63,6 +63,12 @@ export const createFrames = async (blocklyEvent) => {
     return; // Don't update while changes are happening.
   }
 
+  if (blocklyEvent.type === Blockly.Events.VAR_DELETE) {
+    console.log("Variable deletion detected:", blocklyEvent.varName);
+    // Prevent the default alert from triggering
+    blocklyEvent.preventDefault?.();
+  }
+
   const supportedEvents = new Set([
     Blockly.Events.BLOCK_CHANGE,
     Blockly.Events.BLOCK_CREATE,

@@ -18,6 +18,7 @@
     getBlockById,
   } from '../../core/blockly/helpers/block.helper';
   import updateLoopblockStore from '../../stores/update-loopblock.store';
+  import { workspaceToXML } from '../../core/blockly/helpers/workspace.helper';
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text
@@ -34,7 +35,9 @@
   // and blocklyWorkspace is initialized
   $: if (showLoopExecutionTimesArduinoStartBlock && workspaceInitialize) {
     arduinoLoopBlockShowNumberOfTimesThroughLoop();
-  } else if (workspaceInitialize) {
+  } 
+  
+  $: if (!showLoopExecutionTimesArduinoStartBlock && workspaceInitialize) {
     arduinoLoopBlockShowLoopForeverText();
   }
 
@@ -45,7 +48,7 @@
     startBlocly(blocklyElement);
 
     workspaceInitialize = true;
-
+    resizeBlockly();
     // Hack to make sure that once blockly loads it gets resized
     setTimeout(() => {
       resizeBlockly();
@@ -125,6 +128,11 @@
 
   onDestroy(() => {
     unsubscribes.forEach((unSubFunc) => unSubFunc());
+    if (!workspaceInitialize) {
+      return;
+    }
+    const recentBlocks = workspaceToXML();
+    localStorage.setItem('reload_once_workspace', recentBlocks);
   });
 </script>
 

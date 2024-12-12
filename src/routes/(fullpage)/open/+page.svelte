@@ -40,10 +40,6 @@
     );
   }
 
-  async function openfile(filename) {
-    await goto(`/?example_project=${filename}`);
-  }
-
   async function changeProject(e) {
     const file = e.target.files[0];
     if (!file) {
@@ -60,7 +56,7 @@
 
     const reader = new FileReader();
 
-    reader.onload = function (evt) {
+    reader.onload = async function (evt) {
       if (evt.target.readyState != 2) return;
       if (evt.target.error) {
         onErrorMessage('Please upload a valid electroblock file.', e);
@@ -68,8 +64,8 @@
       }
 
       projectStore.set({ project: null, projectId: null });
-
-      loadProject(evt.target.result as string);
+      localStorage.setItem('reload_once_workspace', evt.target.result as string);
+      await goto('/');
     };
 
     reader.readAsText(file);
@@ -123,11 +119,11 @@
   }
 
   async function openProject(projectId) {
+    await goto(`/?projectid=${projectId}`);
     const project = await getProject(projectId);
     const file = await getFile(projectId, $authStore.uid);
     loadProject(file);
     projectStore.set({ project, projectId });
-    await goto(`/?projectid=${projectId}`);
   }
 </script>
 
