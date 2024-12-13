@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="81.809998"
+   height="150"
+   viewBox="0 0 81.81 150"
+   preserveAspectRatio="xMinYMin"
+   overflow="visible"
+   id="svg19"
+   sodipodi:docname="rgbled.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   version="1.1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs19">
+    <filter
+       id="filter2"
+       x="-0.56680113"
+       y="-0.56680113"
+       height="2.1336024"
+       width="2.1336024">
+      <feGaussianBlur
+         stdDeviation="4.7233431"
+         id="feGaussianBlur2" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="14.017183"
+     inkscape:cx="22.008702"
+     inkscape:cy="78.617794"
+     inkscape:window-width="1728"
+     inkscape:window-height="973"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg19" />
+  <!-- LED Legs -->
+  <!-- LED Body -->
+  <path
+     d="m 38.456027,50.481659 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
+     opacity="0.3"
+     id="path4" />
+  <path
+     id="PIN_GREEN_PATH"
+     d="m 34.136858,59.308082 1.782778,12.804589 0.118072,21.70825"
+     sodipodi:nodetypes="ccc"
+     style="fill:none;stroke:#05cb21;stroke-width:2;stroke-dasharray:none;stroke-opacity:1"
+     inkscape:label="PIN_GREEN_PATH" />
+  <path
+     id="PIN_GND_PATH_1"
+     d="M 28.963225,58.033872 28.846066,92.939429"
+     sodipodi:nodetypes="cc"
+     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1"
+     inkscape:label="PIN_GND_PATH" />
+  <path
+     id="PIN_BLUE_PATH"
+     d="m 36.498264,57.012048 13.712185,11.092683 0.245196,24.600018"
+     stroke-linejoin="round"
+     sodipodi:nodetypes="ccc"
+     style="fill:none;stroke:#2e4fe5;stroke-width:2;stroke-dasharray:none;stroke-opacity:1"
+     inkscape:label="PIN_BLUE_PATH" />
+  <rect
+     style="fill:#ff0202;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;paint-order:fill markers stroke"
+     id="PIN_RED"
+     width="2"
+     height="26.23177"
+     x="20.6984"
+     y="91.596909"
+     rx="1"
+     inkscape:label="PIN_RED" />
+  <rect
+     style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.99999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+     id="PIN_POWER"
+     width="2"
+     height="26.433554"
+     x="27.847956"
+     y="91.059334"
+     rx="1"
+     inkscape:label="PIN_POWER" />
+  <rect
+     style="fill:#05cb21;fill-opacity:1;stroke:none;stroke-width:1.4194;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+     id="PIN_GREEN"
+     width="2"
+     height="26.433552"
+     x="35.047955"
+     y="91.510818"
+     rx="1"
+     inkscape:label="PIN_GREEN" />
+  <path
+     id="PIN_RED_PATH"
+     d="M 25.812527,57.79645 24.43995,69.656751 21.594484,93.464501"
+     stroke-linejoin="round"
+     sodipodi:nodetypes="ccc"
+     style="fill:none;stroke:#f80101;stroke-width:2;stroke-dasharray:none;stroke-opacity:1"
+     inkscape:label="PIN_RED_PATH" />
+  <rect
+     style="fill:#2e4fe5;fill-opacity:1;stroke:none;stroke-width:1.21941;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+     id="PIN_BLUE"
+     width="2"
+     height="26.988455"
+     x="49.448002"
+     y="91.13681"
+     rx="1"
+     inkscape:label="PIN_BLUE" />
+  <path
+     d="m 38.456027,50.481659 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
+     fill="#e6e6e6"
+     opacity="0.5"
+     id="path5" />
+  <path
+     d="m 38.456027,50.481659 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 4.6296 c 1.4738,1.6517 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 l -4e-5,-1.5235 c -7e-4,-1.1419 -0.4744,-2.2032 -1.283,-3.1054 z"
+     fill="#d1d1d1"
+     opacity="0.9"
+     id="path6" />
+  <g
+     transform="translate(24.283027,37.480659)"
+     id="g8">
+    <path
+       d="m 14.173,13.001 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 4.6296 c 1.4738,1.6517 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 l -4e-5,-1.5235 c -7e-4,-1.1419 -0.4744,-2.2032 -1.283,-3.1054 z"
+       opacity="0.7"
+       id="path7" />
+    <path
+       d="m 14.173,13.001 v 3.1054 c 0,2.7389 -3.1658,4.9651 -7.0855,4.9651 -3.9125,2e-5 -7.0877,-2.219 -7.0877,-4.9651 v 3.1054 c 1.4738,1.6502 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8586 -7.4e-4,-1.1412 -0.47444,-2.2025 -1.283,-3.1047 z"
+       opacity="0.25"
+       id="path8" />
+    <ellipse
+       cx="7.0876999"
+       cy="16.106001"
+       rx="7.0869999"
+       ry="4.9608002"
+       opacity="0.25"
+       id="ellipse8" />
+  </g>
+  <polygon
+     transform="translate(24.283027,37.480659)"
+     points="3.1961,16.107 3.1961,13.095 6.0156,13.095 10.012,8.8049 3.407,8.8049 2.2032,9.648 2.2032,16.107 "
+     fill="#666666"
+     id="polygon8" />
+  <polygon
+     transform="translate(24.283027,37.480659)"
+     points="7.4117,13.095 11.06,13.095 11.06,16.107 11.974,16.107 11.974,8.5241 10.778,8.5241 11.215,9.0338 "
+     fill="#666666"
+     id="polygon9" />
+  <path
+     d="m 38.456027,50.481659 v -5.9126 c 0,-3.9132 -3.168,-7.0884 -7.0855,-7.0884 -3.9125,0 -7.0877,3.1694 -7.0877,7.0884 v 13.649 c 1.4738,1.651 4.0968,2.7526 7.0877,2.7526 4.6195,0 8.3686,-2.6179 8.3686,-5.8594 v -1.5235 c -7.4e-4,-1.1426 -0.47444,-2.2039 -1.283,-3.1061 z"
+     fill="#ffffff"
+     opacity="0.65"
+     id="path9" />
+  <g
+     transform="translate(24.283027,37.480659)"
+     fill="#ffffff"
+     id="g12">
+    <path
+       d="M 10.388,3.7541 11.8244,3.4805 C 10.98272,2.3487 9.7422,1.5228 8.2827,1.242 l 0.25416,1.0807 c 0.76388,0.27072 1.4068,0.78048 1.8511,1.4314 z"
+       opacity="0.5"
+       id="path10" />
+    <path
+       d="m 0.76824,19.926 v 1.5199 c 0.64872,0.5292 1.4335,0.97632 2.3076,1.3169 v -1.525 C 2.19744,20.90156 1.41914,20.45586 0.76824,19.926 Z"
+       opacity="0.5"
+       id="path11" />
+    <path
+       d="m 11.073,20.21 c -0.2556,0.1224 -0.52992,0.22968 -0.80568,0.32976 -0.05832,0.01944 -0.11736,0.04032 -0.17784,0.05832 -0.56376,0.17928 -1.1614,0.31896 -1.795,0.39456 -0.07488,0.0094 -0.1512,0.01872 -0.22464,0.01944 -0.3204,0.03024 -0.64368,0.05832 -0.97056,0.05832 -0.14832,0 -0.30744,-0.01512 -0.4716,-0.02376 C 5.42748,20.98976 4.29708,20.732 3.33008,20.3072 l -2e-5,-8.3895 V 7.0923 c 0,-1.471 0.84816,-2.7295 2.0736,-3.3494 L 5.38134,3.68962 4.13354,2.17762 c -1.6697,1.003 -2.79,2.8224 -2.79,4.9118 v 11.905 C 1.29386,18.94474 1.03538,18.68554 0.8633,18.4645 l -0.30744,0.6876 c 1.4011,1.4818 3.8088,2.4617 6.5426,2.4617 1.6798,0 3.2371,-0.37368 4.5115,-1.0022 l -0.52704,-0.40896 -0.01006,0.0072 z"
+       opacity="0.5"
+       id="path12" />
+  </g>
+  <filter
+     id="ledFilter"
+     x="-0.39816272"
+     y="-0.39816272"
+     height="1.7963254"
+     width="1.7963254">
+    <feGaussianBlur
+       stdDeviation="3.9816273"
+       id="feGaussianBlur12" />
+  </filter>
+  <filter
+     id="ledFilterRed"
+     x="-0.80000001"
+     y="-0.80000001"
+     height="5.1999998"
+     width="5.8000002">
+    <feGaussianBlur
+       stdDeviation="4"
+       id="feGaussianBlur13" />
+  </filter>
+  <filter
+     id="ledFilterGreen"
+     x="-0.80000001"
+     y="-0.80000001"
+     height="5.1999998"
+     width="5.8000002">
+    <feGaussianBlur
+       stdDeviation="4"
+       id="feGaussianBlur14" />
+  </filter>
+  <filter
+     id="ledFilterBlue"
+     x="-0.80000001"
+     y="-0.80000001"
+     height="5.1999998"
+     width="5.8000002">
+    <feGaussianBlur
+       stdDeviation="4"
+       id="feGaussianBlur15" />
+  </filter>
+  <circle
+     cx="33.960114"
+     cy="40.84024"
+     r="0"
+     fill="#ff0000"
+     filter="url(#ledFilterRed)"
+     id="circle15"
+     style="display:none" />
+  <circle
+     cx="34.960114"
+     cy="42.84024"
+     r="0"
+     fill="#00ff00"
+     opacity="0"
+     filter="url(#ledFilterGreen)"
+     id="circle16"
+     style="display:none" />
+  <circle
+     cx="32.960114"
+     cy="42.84024"
+     r="0"
+     fill="#0155fd"
+     opacity="0"
+     filter="url(#ledFilterBlue)"
+     id="circle17"
+     style="display:none" />
+  <circle
+     cx="33.032681"
+     cy="40.556103"
+     r="12"
+     filter="url(#ledFilter)"
+     id="MAIN_COLOR"
+     opacity="0.7"
+     style="display:inline;stroke:none"
+     inkscape:label="MAIN_COLOR"
+     transform="matrix(1.1509562,0,0,1.1779127,-6.8487094,0.02566699)" />
+  <circle
+     cx="34.16011"
+     cy="42.84024"
+     r="15"
+     stroke="#666666"
+     stroke-width="1"
+     fill="none"
+     filter="url(#ledFilter)"
+     id="circle19"
+     style="display:none" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Text">
+    <rect
+       style="fill:#ffffff"
+       id="rect1"
+       width="46.086296"
+       height="12"
+       x="13.982839"
+       y="120.41872" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;"
+       x="16.5"
+       y="129.62129"
+       id="RED_PIN_TEXT"
+       inkscape:label="RED_PIN_TEXT"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="16"
+         y="129.62129"
+         style="font-size:10px;line-height:1.51px;text-align:center;text-anchor:middle;fill:#130c0c;fill-opacity:1;stroke:none">11</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;"
+       x="48"
+       y="129.62129"
+       id="BLUE_PIN_TEXT"
+       inkscape:label="BLUE_PIN_TEXT"><tspan
+         sodipodi:role="line"
+         id="tspan1-4-7"
+         x="51.152683"
+         y="129.62129"
+         style="font-size:10px;">9</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;line-height:1.51px;font-family:Biryani-Bold, Biryani;-inkscape-font-specification:'Biryani-Bold, Biryani';letter-spacing:-0.78px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke fill markers"
+       x="30"
+       y="129.62129"
+       id="GREEN_PIN_TEXT"
+       inkscape:label="GREEN_PIN_TEXT"><tspan
+         sodipodi:role="line"
+         id="tspan1-4"
+         x="35.84626"
+         y="129.62129"
+         style="font-size:10px;line-height:1.51px;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none">10</tspan></text>
+    <path
+       style="fill:#302b2b;fill-opacity:1;stroke:#ff0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
+       d="m 15.695023,131.54792 11.485902,-0.0713"
+       id="path1" />
+    <path
+       style="fill:#302b2b;fill-opacity:1;stroke:#12ff00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
+       d="m 30.770041,131.54792 10.701151,-0.0713"
+       id="path1-3" />
+    <path
+       style="fill:#302b2b;fill-opacity:1;stroke:#0003ff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
+       d="m 46.340769,131.54792 10.701151,-0.0713"
+       id="path1-3-9" />
+  </g>
+</svg>

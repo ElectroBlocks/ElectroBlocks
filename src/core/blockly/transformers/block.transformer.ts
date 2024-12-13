@@ -33,6 +33,7 @@ const getRootBlockId = (block: BlockSvg): string | undefined => {
 
 const getFieldValues = (block: BlockSvg): FieldValue[] => {
   return block.inputList
+    .filter((input) => input.isVisible())
     .map((input) => {
       return input.fieldRow
         .filter(
