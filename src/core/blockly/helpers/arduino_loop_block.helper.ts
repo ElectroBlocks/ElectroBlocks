@@ -8,7 +8,6 @@ export const arduinoLoopBlockShowNumberOfTimesThroughLoop = () => {
   block.inputList[0].setVisible(false);
   block.inputList[1].setVisible(true);
   block.render();
-  return;
 };
 
 /**
@@ -23,7 +22,11 @@ export const arduinoLoopBlockShowLoopForeverText = () => {
 };
 
 export const getTimesThroughLoop = (): number => {
-  return +getBlockByType('arduino_loop').getFieldValue('LOOP_TIMES');
+  // This is for when the blocks are not loaded and we need this to construct the blocks
+  if (!getBlockByType("arduino_loop")) {
+    return 3;
+  }
+  return +getBlockByType("arduino_loop").getFieldValue("LOOP_TIMES");
 };
 
 export const isArduinoLoopBlockId = (id: string) => {
