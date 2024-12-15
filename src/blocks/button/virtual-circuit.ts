@@ -94,7 +94,7 @@ export const createWiresButton: CreateWire<ButtonState> = (
       draw,
       arduino,
       id,
-      "power",
+      "ground",
       "PIN_1",
       true
     );
@@ -131,10 +131,10 @@ export const createWiresButton: CreateWire<ButtonState> = (
     "horizontal",
     10000
   );
-  const groundBreadBoard = `pin${holes[4]}${getGroundorPowerWireLetter(
-    true,
-    "ground"
-  )}`;
+  // This is the prevent the connecting wire on the breadboard from using the same whole.
+  const groundBreadBoard = `pin${
+    holes[4] == 31 ? 30 : holes[4]
+  }${getGroundorPowerWireLetter(true, "ground")}`;
 
   createWireBreadboard(
     groundBreadBoard,
