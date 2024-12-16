@@ -28,7 +28,7 @@ describe("disable pins where the microcontroller does not have thoses pins", () 
       return { ...settings, boardType: MicroControllerType.ARDUINO_MEGA };
     });
     const servoBlock1 = workspace.newBlock("rotate_servo") as BlockSvg;
-    servoBlock1.setFieldValue("A15", "PIN");
+    servoBlock1.setFieldValue("45", "PIN");
     settingsStore.update((settings) => {
       return { ...settings, boardType: MicroControllerType.ARDUINO_UNO };
     });

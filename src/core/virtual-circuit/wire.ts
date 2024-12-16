@@ -151,10 +151,10 @@ export const createGroundOrPowerWire = (
   }
   const color = type === "ground" ? "#000" : "#AA0000";
   const breadBoardHoleA = `pin${hole}${isDown ? "A" : "J"}`;
-  const breadBoardHoleB = `pin${hole}${getGroundorPowerWireLetter(
-    isDown,
-    type
-  )}`;
+  // This is so that it does not collide with connector wire in the breadboard.
+  const breadBoardHoleB = `pin${
+    hole == 31 ? 30 : hole
+  }${getGroundorPowerWireLetter(isDown, type)}`;
   if (!noComponentWire) {
     createWireComponentToBreadboard(
       groundHole,
