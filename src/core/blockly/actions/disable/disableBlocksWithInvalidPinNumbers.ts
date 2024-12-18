@@ -15,6 +15,7 @@ export const disableBlocksWithInvalidPinNumbers = (
         return !b.fieldValues
           .filter((fv) => fv.validOptions)
           .reduce((acc, next) => {
+            console.log(acc, next, "acc, next");
             return [...acc, ...next.validOptions.map((v) => v.value)];
           }, [])
           .includes(p);
