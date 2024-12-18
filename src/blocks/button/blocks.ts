@@ -16,13 +16,7 @@ const buttonSetupBlock: any = {
     this.appendDummyInput()
       .appendField("Connected to PIN# ")
       .appendField(
-        new Blockly.FieldDropdown(() => {
-          return getAvailablePins(
-            "button_setup",
-            this.getFieldValue("PIN"),
-            selectBoardBlockly().digitalPins
-          );
-        }),
+        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN"
       );
     this.appendDummyInput()

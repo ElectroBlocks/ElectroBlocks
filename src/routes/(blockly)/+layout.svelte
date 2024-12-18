@@ -133,22 +133,20 @@
       resizeHeight();
     });
 
-
     let loadedProject = false;
-    if (localStorage.getItem('reload_once_workspace')) {
-      const xmlText = localStorage.getItem('reload_once_workspace');
-      localStorage.removeItem('reload_once_workspace');
-      loadProject(xmlText);
-      loadedProject = true;
-    }
     const auth = getAuth();
 
     if ($page.url.searchParams.get('example_project') !== null) {
         const localFileResponse = await fetch(`/example-projects/${$page.url.searchParams.get('example_project')}`);
         const xmlFile = await localFileResponse.text();
         loadProject(xmlFile);
+        loadedProject = true;
+    } else if (localStorage.getItem('reload_once_workspace')) {
+      const xmlText = localStorage.getItem('reload_once_workspace');
+      localStorage.removeItem('reload_once_workspace');
+      loadProject(xmlText);
+      loadedProject = true;
     }
-
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -160,14 +158,11 @@
         return;
       }
 
-      
-
       authStore.set({
         isLoggedIn: true,
         uid: user.uid,
         firebaseControlled: true,
       });
-      
 
       if (
         $projectStore.projectId === $page.url.searchParams.get('projectid') ||

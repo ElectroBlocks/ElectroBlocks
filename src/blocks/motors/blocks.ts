@@ -114,7 +114,7 @@ const motor_setup = {
         ]),
         "NUMBER_OF_COMPONENTS"
       );
-    this.appendDummyInput("MOTOR_1")
+    this.appendDummyInput("COMPONENT_1")
       .appendField("Motor 1 Pins")
       .appendField("EN1")
       .appendField(
@@ -131,7 +131,7 @@ const motor_setup = {
         new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
         "PIN_IN2"
       );
-    this.appendDummyInput("MOTOR_2")
+    this.appendDummyInput("COMPONENT_2")
       .appendField("Motor 2 Pins")
       .appendField("EN2")
       .appendField(

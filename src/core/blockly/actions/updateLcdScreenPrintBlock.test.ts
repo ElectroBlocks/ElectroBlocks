@@ -34,7 +34,6 @@ describe("updateLcdScreenPrintBlock", () => {
     let lcdPrintDisplay = workspace.newBlock("lcd_screen_simple_print");
     lcdSetupBlock.setFieldValue("16 x 2", "SIZE");
     const event: BlockEvent = createTestEvent(arduinoBlock.id);
-    console.log(updateLcdScreenPrintBlock(event));
     expect(updateLcdScreenPrintBlock(event)).toEqual([
       {
         blockId: lcdPrintDisplay.id,
@@ -50,7 +49,6 @@ describe("updateLcdScreenPrintBlock", () => {
     let lcdPrintDisplay2 = workspace.newBlock("lcd_screen_simple_print");
     lcdSetupBlock.setFieldValue("20 x 4", "SIZE");
     const event: BlockEvent = createTestEvent(arduinoBlock.id);
-    console.log(updateLcdScreenPrintBlock(event));
     expect(updateLcdScreenPrintBlock(event)).toEqual([
       {
         blockId: lcdPrintDisplay.id,

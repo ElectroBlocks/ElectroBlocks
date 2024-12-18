@@ -109,11 +109,9 @@ const updateLedColor = (action: UpdateLedColor) => {
 };
 
 const updateMotorBlock = (action: UpdateMultipleComponentSetupBlock) => {
-  const block = getBlockById(action.blockId);
-  if (block.type === "motor_setup") {
-    block.getInput("MOTOR_2").setVisible(action.numberOfComponents == 2);
-    block.render();
-  }
+  const block = getBlockByType("motor_setup");
+  block.getInput("COMPONENT_2").setVisible(action.numberOfComponents == 2);
+  block.render();
 
   const motorMoveBlocks = getBlocksByName("move_motor");
   motorMoveBlocks.forEach((b) => {
@@ -128,11 +126,9 @@ const updateMotorBlock = (action: UpdateMultipleComponentSetupBlock) => {
 };
 
 const updateRGBLedColorBlocks = (action: UpdateMultipleComponentSetupBlock) => {
-  const block = getBlockById(action.blockId);
-  if (block.type === "rgb_led_setup") {
-    block.getInput("LED_2").setVisible(action.numberOfComponents == 2);
-    block.render();
-  }
+  const block = getBlockByType("rgb_led_setup");
+  block.getInput("COMPONENT_2").setVisible(action.numberOfComponents == 2);
+  block.render();
 
   const setLedColorBlocks = getBlocksByName("set_color_led");
   setLedColorBlocks.forEach((b) => {
