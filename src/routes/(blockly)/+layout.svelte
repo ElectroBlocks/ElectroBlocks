@@ -135,20 +135,18 @@
 
 
     let loadedProject = false;
-    if (localStorage.getItem('reload_once_workspace')) {
-      const xmlText = localStorage.getItem('reload_once_workspace');
-      localStorage.removeItem('reload_once_workspace');
-      loadProject(xmlText);
-      loadedProject = true;
-    }
     const auth = getAuth();
 
     if ($page.url.searchParams.get('example_project') !== null) {
         const localFileResponse = await fetch(`/example-projects/${$page.url.searchParams.get('example_project')}`);
         const xmlFile = await localFileResponse.text();
         loadProject(xmlFile);
+    } else if (localStorage.getItem('reload_once_workspace')) {
+      const xmlText = localStorage.getItem('reload_once_workspace');
+      localStorage.removeItem('reload_once_workspace');
+      loadProject(xmlText);
+      loadedProject = true;
     }
-
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
