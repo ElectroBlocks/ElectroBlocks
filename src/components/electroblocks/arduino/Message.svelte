@@ -133,9 +133,11 @@
     }
     arduinoStore.set(PortState.UPLOADING);
     try {
+    console.log('Code to be uploaded:', code); 
       const avrgirl = new AvrgirlArduino({
         board: boardType,
         debug: true,
+        protocol: 'stk500v1'
       });
 
       await upload(code, avrgirl, boardType);

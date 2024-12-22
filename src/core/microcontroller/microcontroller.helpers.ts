@@ -1,4 +1,4 @@
-import type { MicroController, MicroControllerBlocks } from "./microcontroller";
+import { MicroControllerType, type MicroController, type MicroControllerBlocks } from "./microcontroller";
 
 const pinArrayToFieldList = (pins: string[]): [string, string][] => {
   return pins.map((pin) => [pin, pin]);
@@ -7,13 +7,13 @@ const pinArrayToFieldList = (pins: string[]): [string, string][] => {
 export const transformBoardBlockly = (
   board: MicroController
 ): MicroControllerBlocks => {
+
   return {
     serial_baud_rate: board.serial_baud_rate,
     type: board.type,
     pwmPins: pinArrayToFieldList(board.pwmPins),
-    pwmNonAnalogPins: pinArrayToFieldList(board.pwmNonAnalogPins),
     digitalPins: pinArrayToFieldList(board.digitalPins),
-    analogPins: pinArrayToFieldList(board.analonPins),
+    analogPins: pinArrayToFieldList(board.analogPins),
     sckPins: pinArrayToFieldList(board.sckPins),
     sclPins: pinArrayToFieldList(board.sclPins),
     sdaPins: pinArrayToFieldList(board.sdaPins),

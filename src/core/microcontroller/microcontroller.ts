@@ -3,6 +3,7 @@ import type { ARDUINO_PINS } from "./selectBoard";
 export enum MicroControllerType {
   ARDUINO_UNO = "uno",
   ARDUINO_MEGA = "mega",
+  BHARATPI_NODEWIFI = "nodewifi",
 }
 
 export interface BreadBoardArea {
@@ -29,10 +30,9 @@ export interface Breadboard {
 
 export interface MicroController {
   digitalPins: string[];
-  analonPins: string[];
+  analogPins: string[];
   serial_baud_rate: number;
   pwmPins: string[];
-  pwmNonAnalogPins: string[];
   sdaPins: string[];
   sclPins: string[];
   mosiPins: string[];
@@ -50,7 +50,6 @@ export interface MicroControllerBlocks {
   analogPins: [string, string][];
   serial_baud_rate: number;
   pwmPins: [string, string][];
-  pwmNonAnalogPins: [string, string][];
   sdaPins: [string, string][];
   sclPins: [string, string][];
   mosiPins: [string, string][];

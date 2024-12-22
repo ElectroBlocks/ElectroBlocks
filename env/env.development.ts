@@ -9,8 +9,9 @@ export default {
     appId: "1:370076465752:web:a290cbfc392e53e148682d",
     measurementId: "G-1LN06YQD0G",
   },
-  server_arduino_url: "https://compile.electroblocks.org",
+  server_arduino_url: "http://localhost:3000",
   bucket_name: "electroblocks-lesson-test",
   useEmulator: true,
   site: "electroblocks-org",
+  starterLessonId: "F074ph1AOoQALhHV2mKA",
 };

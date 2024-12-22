@@ -4,6 +4,7 @@ import unoArduino from '../../microcontrollers/arduino_uno/profile';
 import { transformBoardBlockly } from './microcontroller.helpers';
 import { getBoardType } from '../blockly/helpers/get-board.helper';
 import arduinoMega from '../../microcontrollers/arduino_mega/profile';
+import bharatPiNodeWifi from '../../microcontrollers/bharatpi_node-wifi/profile';
 
 export const getBoard = (type: MicroControllerType) => {
   return boardProfiles[type] || boardProfiles[MicroControllerType.ARDUINO_UNO];
@@ -17,6 +18,8 @@ export const selectBoardBlockly = (): MicroControllerBlocks => {
 const boardProfiles = {
   uno: unoArduino,
   mega: arduinoMega,
+  nodewifi: bharatPiNodeWifi,
+
 };
 
 export enum ARDUINO_PINS {

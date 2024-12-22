@@ -83,6 +83,7 @@ export enum ArduinoComponentType {
   STEPPER_MOTOR = "STEPPER_MOTOR",
   DIGITAL_DISPLAY = "DIGITAL_DISPLAY",
   JOYSTICK = "JOYSTICK",
+  SOUND_SENSOR = "SOUND_SENSOR_COMPONENT",
 }
 
 export const SENSOR_COMPONENTS = [
@@ -98,4 +99,5 @@ export const SENSOR_COMPONENTS = [
   ArduinoComponentType.ANALOG_SENSOR,
   ArduinoComponentType.THERMISTOR,
   ArduinoComponentType.JOYSTICK,
+  ArduinoComponentType.SOUND_SENSOR,
 ];
