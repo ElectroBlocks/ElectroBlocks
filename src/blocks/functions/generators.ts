@@ -54,9 +54,10 @@ Blockly["Arduino"]["procedures_defnoreturn"] =
 Blockly["Arduino"]["procedures_callnoreturn"] = function (block: Block | any) {
   // Call a procedure with no return value.
   const funcName = Blockly["Arduino"].variableDB_.getName(
-    block.getFieldValue("NAME"),
-    Blockly.Procedures.DEFAULT_ARG
+    block.getFieldValue("NAME")
   );
+
+  console.log(funcName, "funcName");
 
   return funcName + "();\n";
 };

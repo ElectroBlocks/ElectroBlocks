@@ -1,7 +1,6 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
-import ColorWheelField from "blockly-field-color-wheel";
 
 Blockly.Blocks["rgb_led_setup"] = {
   init: function () {
@@ -17,7 +16,7 @@ Blockly.Blocks["rgb_led_setup"] = {
         ]),
         "NUMBER_OF_COMPONENTS"
       );
-    this.appendDummyInput()
+    this.appendDummyInput("COMPONENT_1")
       .appendField("LED 1: ")
       .appendField("Red")
       .appendField(
@@ -35,7 +34,7 @@ Blockly.Blocks["rgb_led_setup"] = {
         "PIN_BLUE_1"
       );
 
-    this.appendDummyInput("LED_2")
+    this.appendDummyInput("COMPONENT_2")
       .appendField("LED 2: ")
       .appendField("Red")
       .appendField(

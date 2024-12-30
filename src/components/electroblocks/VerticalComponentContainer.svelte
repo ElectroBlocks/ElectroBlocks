@@ -38,10 +38,10 @@
 
   function onResizeWindow(e) {
     setTimeout(() => {
-      console.log(
-        Math.abs(previousMainHeight - mainSection.clientHeight),
-        'resize dif'
-      );
+      // console.log(
+      //   Math.abs(previousMainHeight - mainSection.clientHeight),
+      //   'resize dif'
+      // );
       if (Math.abs(previousMainHeight - mainSection.clientHeight) < 100) {
         return;
       }

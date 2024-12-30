@@ -13,7 +13,6 @@ export const updateWhichComponent =
     const { blocks, blockId } = event;
 
     const block = blocks.find((block) => block.id === blockId);
-
     // If the block is not found it means it was deleted.
     if (!block) {
       return [];
@@ -24,6 +23,9 @@ export const updateWhichComponent =
     }
 
     const setupBlock = blocks.find((b) => setupBlockName == b.blockName);
+    if (!setupBlock) {
+      return [];
+    }
     const numberOfComponents = +findFieldValue(
       setupBlock,
       "NUMBER_OF_COMPONENTS"
