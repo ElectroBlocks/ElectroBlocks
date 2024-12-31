@@ -34,7 +34,7 @@ export const lessons: LessonContainer[] = [
       {
         file: "rgb_led_pushbutton.xml",
         image: "/example-projects/rgb_led_pushbutton.gif",
-        title: "RGB LED with buttons",
+        title: "RGB LED with button",
         levelImage: "/example-projects/medium.png",
       },
     ],
