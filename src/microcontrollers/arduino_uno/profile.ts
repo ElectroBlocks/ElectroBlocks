@@ -83,7 +83,7 @@ const pinConnections: { [key: string]: PinConnection } = {
 };
 
 const unoArduino: MicroController = {
-  analonPins: ["A5", "A4", "A3", "A2", "A1", "A0"],
+  analogPins: ["A5", "A4", "A3", "A2", "A1", "A0"],
   digitalPins: ["2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"],
   misoPins: ["12"],
   mosiPins: ["11"],

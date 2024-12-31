@@ -19,7 +19,6 @@ const boardProfiles = {
   uno: unoArduino,
   mega: arduinoMega,
   nodewifi: bharatPiNodeWifi,
-
 };
 
 export enum ARDUINO_PINS {

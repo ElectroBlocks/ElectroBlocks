@@ -5,19 +5,14 @@ let clientLibrary: any;
 let ESPLoader, FlashOptions, Transport, LoaderOptions;
   if (browser) {
     (async () => {
-      const module = await import('esptool-js');
-      clientLibrary = module.default;
-    ({ ESPLoader, FlashOptions, Transport, LoaderOptions } = clientLibrary);
+      const module = await import("esptool-js");
+      clientLibrary = module;
+      ({ ESPLoader, FlashOptions, Transport, LoaderOptions } = clientLibrary);
       // Use the library immediately
-      console.log('Client library loaded:', clientLibrary);
     })();
   }
 
-//import { SerialPort } from 'serialport';
-import {serial} from "web-serial-polyfill";
-//import { LoaderOptions } from "esptool-js";
-
-
+  import { serial } from "web-serial-polyfill";
 
 
 const serialLib = !navigator.serial && navigator.usb ? serial : navigator.serial;

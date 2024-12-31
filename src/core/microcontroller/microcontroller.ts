@@ -39,6 +39,7 @@ export interface MicroController {
   misoPins: string[];
   sckPins: string[];
   ssPins: string[];
+  pwmNonAnalogPins: string[];
   type: MicroControllerType;
   breadboard: Breadboard;
   skipHoles: number[];

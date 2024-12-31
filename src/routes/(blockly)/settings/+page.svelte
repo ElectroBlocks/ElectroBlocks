@@ -1,17 +1,16 @@
 <script lang="ts">
   import { FormGroup, Input, Label, Button } from "@sveltestrap/sveltestrap";
 
-  import { defaultSetting } from "../../firebase/model";
-  import type { Settings } from "../../firebase/model";
-  import { fbSaveSettings } from "../../firebase/db";
-  import authStore from "../../stores/auth.store";
-  import settingsStore from "../../stores/settings.store";
-  import FlashMessage from "../../components/electroblocks/ui/FlashMessage.svelte";
+  import { defaultSetting } from "../../../firebase/model";
+  import type { Settings } from "../../../firebase/model";
+  import { fbSaveSettings } from "../../../firebase/db";
+  import authStore from "../../../stores/auth.store";
+  import settingsStore from "../../../stores/settings.store";
+  import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
   import _ from "lodash";
-  import { onErrorMessage } from "../../help/alerts";
-  import { MicroControllerType } from "../../core/microcontroller/microcontroller";
-  import { ledColors } from "../../blocks/led/virtual-circuit";
-    import Message from "../../components/electroblocks/arduino/Message.svelte";
+  import { onErrorMessage } from "../../../help/alerts";
+  import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
+  import { ledColors } from "../../../blocks/led/virtual-circuit";
 
   let uid: string;
 

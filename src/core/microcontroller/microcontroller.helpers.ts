@@ -7,7 +7,6 @@ const pinArrayToFieldList = (pins: string[]): [string, string][] => {
 export const transformBoardBlockly = (
   board: MicroController
 ): MicroControllerBlocks => {
-
   return {
     serial_baud_rate: board.serial_baud_rate,
     type: board.type,
