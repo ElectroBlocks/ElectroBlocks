@@ -100,6 +100,18 @@ export const lessons: LessonContainer[] = [
         title: "Rainbow Lights Streaming",
         levelImage: "/example-projects/hard.png",
       },
+      {
+        file: "sonar_rgbleds.xml",
+        image: "/example-projects/sonar_rgbleds.gif",
+        title: "Motion Sensor with RGB Leds",
+        levelImage: "/example-projects/medium.png",
+      },
+      {
+        file: "sonar_rgbleds_spin.xml",
+        image: "/example-projects/sonar_rgbleds_spin.gif",
+        title: "Motion Sensor with Spinning Lights",
+        levelImage: "/example-projects/hard.png",
+      },
     ],
   },
   {
