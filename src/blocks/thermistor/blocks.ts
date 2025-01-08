@@ -39,7 +39,14 @@ Blockly.Blocks["thermistor_read"] = {
       .appendField(
         new Blockly.FieldImage("./blocks/thermistor/thermistor.svg", 15, 15)
       )
-      .appendField("Read Temperature");
+      .appendField("Read Temperature in ")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["°C", "C"],
+          ["°F", "F"],
+        ]),
+        "UNIT"
+      );
     this.setOutput(true, "Number");
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");

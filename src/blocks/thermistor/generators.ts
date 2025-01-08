@@ -1,5 +1,5 @@
 import Blockly from "blockly";
-import type { Block } from "blockly";
+import { Block } from "blockly";
 import { stepSerialBegin } from "../message/generators";
 
 Blockly["Arduino"]["thermistor_setup"] = function (block: Block) {
@@ -8,9 +8,12 @@ Blockly["Arduino"]["thermistor_setup"] = function (block: Block) {
   Blockly["Arduino"].libraries_["include_motor_library"] = `
 #define THERMISTOR_PIN  ${pin} // Define analog pin for the thermistor
 #define BETA            3950 // The beta value of the thermistor
-#define RESISTANCE      10 // The value of the pull-down resistor (in ohms)
+#define RESISTANCE      10 // The value of the pull-down resistor (in ohms)`;
+  stepSerialBegin();
 
-float readThermistor() {
+  Blockly["Arduino"].functionNames_[
+    "readThermistor"
+  ] = `float readThermistor(String returnUnit) {
   // Read the thermistor value from the analog pin
   long a = analogRead(THERMISTOR_PIN);
 
@@ -32,10 +35,8 @@ float readThermistor() {
 
   delay(200); // Wait for 200 milliseconds before the next reading
 
-  return tempC; // Return the temperature in Celsius
-}
-`;
-  stepSerialBegin();
+  return returnUnit == "C" ? tempC : tempF; // Return the temperature based on the unit.
+}`;
 
   Blockly["Arduino"].setupCode_[
     "thermistor_setup_" + pin
@@ -44,5 +45,6 @@ float readThermistor() {
 };
 
 Blockly["Arduino"]["thermistor_read"] = function (block: Block) {
-  return ["readThermistor()", Blockly["Arduino"].ORDER_ATOMIC];
+  var unit = block.getFieldValue("UNIT");
+  return [`readThermistor("${unit}")`, Blockly["Arduino"].ORDER_ATOMIC];
 };
