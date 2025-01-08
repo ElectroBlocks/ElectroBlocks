@@ -1,40 +1,50 @@
 import Blockly from "blockly";
-import type { Block } from "blockly";
+import { Block } from "blockly";
+import { stepSerialBegin } from "../message/generators";
 
 Blockly["Arduino"]["thermistor_setup"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
-  const thermistorResistance = block.getFieldValue("THERMISTOR_RESISTANCE");
-  const externalResistor = block.getFieldValue("NONIMAL_RESISTANCE");
-  const defaultTemp = block.getFieldValue("DEFAULT_TEMP");
-  const bValue = block.getFieldValue("B_VALUE");
 
   Blockly["Arduino"].libraries_["include_motor_library"] = `
-#include <Thermistor.h> // Include the Thermistor library
-#include <NTC_Thermistor.h> // Include the NTC Thermistor library
+#define THERMISTOR_PIN  ${pin} // Define analog pin for the thermistor
+#define BETA            3950 // The beta value of the thermistor
+#define RESISTANCE      10 // The value of the pull-down resistor (in ohms)`;
+  stepSerialBegin();
 
-#define SENSOR_PIN             ${pin} // Define analog pin for the thermistor
-#define REFERENCE_RESISTANCE   ${externalResistor} // Reference resistance value in ohms.
-#define NOMINAL_RESISTANCE     ${thermistorResistance} // Nominal resistance of the thermistor at defined/given temp.
-#define NOMINAL_TEMPERATURE    ${defaultTemp} // Nominal temperature in °C
-#define B_VALUE                ${bValue}  // Thermistor's B-value (a constant that depends on the thermistor)
+  Blockly["Arduino"].functionNames_[
+    "readThermistor"
+  ] = `float readThermistor(String returnUnit) {
+  // Read the thermistor value from the analog pin
+  long a = analogRead(THERMISTOR_PIN);
 
+  // Calculate the temperature using the thermistor's equation
+  float tempC = BETA / (log((1025.0 * RESISTANCE / a - RESISTANCE) / RESISTANCE) + BETA / 298.0) - 273.0;
 
-Thermistor* thermistor; // Declare a pointer to a Thermistor object
-`;
+  // Convert Celsius to Fahrenheit (optional)
+  float tempF = (tempC * 1.8) + 32.0;
+
+  // Print the Celsius temperature
+  Serial.print("TempC: ");
+  Serial.print(tempC); // Print Celsius temperature
+  Serial.println(" °C"); // Print the unit
+
+  // Print the Fahrenheit temperature (optional)
+  Serial.print("TempF: ");
+  Serial.print(tempF); // Print Fahrenheit temperature
+  Serial.println(" °F"); // Print the unit
+
+  delay(200); // Wait for 200 milliseconds before the next reading
+
+  return returnUnit == "C" ? tempC : tempF; // Return the temperature based on the unit.
+}`;
 
   Blockly["Arduino"].setupCode_[
     "thermistor_setup_" + pin
-  ] = `    // Initialize the NTC thermistor with specified parameters
-   thermistor = new NTC_Thermistor(
-      SENSOR_PIN,
-      REFERENCE_RESISTANCE,
-      NOMINAL_RESISTANCE,
-      NOMINAL_TEMPERATURE,
-      B_VALUE
-   );\n`;
+  ] = `   pinMode(${pin}, INPUT); // Configures the thermistor pin as an input \n`;
   return "";
 };
 
 Blockly["Arduino"]["thermistor_read"] = function (block: Block) {
-  return ["thermistor->readCelsius()", Blockly["Arduino"].ORDER_ATOMIC];
+  var unit = block.getFieldValue("UNIT");
+  return [`readThermistor("${unit}")`, Blockly["Arduino"].ORDER_ATOMIC];
 };

@@ -9,10 +9,7 @@ export default `
 <comment pinned="false" h="150" w="460"> It checks a condition using the if statement, executes a block of code if the condition is true, and otherwise executes the code inside the  block when the condition is false.</comment>
     </block>
     <block type="logic_compare">
-    <comment pinned="false" h="140" w="527">Compares what is in the left and right holes and returns true or false.
-
-If the operator =, it will check if both values are the same.
-If the operator \u2260, it will check if both values are different.</comment>
+    <comment pinned="false" h="140" w="527">Compares what is in the left and right and returns true or false.</comment>
     </block>
     <block type="logic_operation">
 <comment pinned="false" h="170" w="527">Compares what is in the left and right holes and returns true or false.
