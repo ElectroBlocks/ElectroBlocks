@@ -23,7 +23,9 @@ export const getArduinoCode = () => {
 };
 
 export const workspaceToXML = () => {
-  const xml = Blockly.Xml.workspaceToDom(getWorkspace());
+  let workspace = getWorkspace();
+  if (!workspace) return;
+  const xml = Blockly.Xml.workspaceToDom(workspace);
   return Blockly.Xml.domToText(xml);
 };
 
@@ -43,6 +45,7 @@ export const loadProject = (xmlString: string) => {
   Blockly.Xml.domToWorkspace(xml.documentElement as any, getWorkspace()); // load new blocks
   blocksToDelete.forEach((b) => b.dispose(true)); // delete the old blocks
   localStorage.removeItem("no_alert");
+  getWorkspace().scrollCenter();
 };
 
 export const resetWorkspace = () => {

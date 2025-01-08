@@ -10,7 +10,7 @@ import {
   Action,
   UpdateLCDScreenPrintBlock,
   UpdateLedColor,
-  UpdateMotorSetupBlock,
+  UpdateComponentSetupBlock as UpdateMultipleComponentSetupBlock,
   UpdateSetAllFastLedBlock,
   CommentForButtonBlockAction,
 } from "./actions/actions";
@@ -22,6 +22,7 @@ import {
 } from "./helpers/block.helper";
 import _ from "lodash";
 import Blockly from "blockly";
+import { ArduinoComponentType } from "../frames/arduino.frame";
 
 export interface Updater {
   (action: Action): void;
@@ -107,23 +108,52 @@ const updateLedColor = (action: UpdateLedColor) => {
   block.render();
 };
 
-const updateMotorSetupBlock = (action: UpdateMotorSetupBlock) => {
-  const block = getBlockById(action.blockId);
-  if (block.type === "motor_setup") {
-    block.getInput("MOTOR_2").setVisible(action.showMotorTwo);
-    block.render();
-  }
+const updateMotorBlock = (action: UpdateMultipleComponentSetupBlock) => {
+  const block = getBlockByType("motor_setup");
+  block.getInput("COMPONENT_2").setVisible(action.numberOfComponents == 2);
+  block.render();
 
   const motorMoveBlocks = getBlocksByName("move_motor");
   motorMoveBlocks.forEach((b) => {
-    b.getInput("WHICH_MOTOR").setVisible(action.showMotorTwo);
+    b.getInput("WHICH_MOTOR").setVisible(action.numberOfComponents == 2);
     b.render();
   });
   const stopMotorBlocks = getBlocksByName("stop_motor");
   stopMotorBlocks.forEach((b) => {
-    b.getInput("WHICH_MOTOR").setVisible(action.showMotorTwo);
+    b.getInput("WHICH_MOTOR").setVisible(action.numberOfComponents == 2);
     b.render();
   });
+};
+
+const updateRGBLedColorBlocks = (action: UpdateMultipleComponentSetupBlock) => {
+  const block = getBlockByType("rgb_led_setup");
+  block.getInput("COMPONENT_2").setVisible(action.numberOfComponents == 2);
+  block.render();
+
+  const setLedColorBlocks = getBlocksByName("set_color_led");
+  setLedColorBlocks.forEach((b) => {
+    b.getInput("WHICH_COMPONENT").setVisible(action.numberOfComponents == 2);
+    b.render();
+  });
+
+  const setSimpleRgbLedCOlorBlocks = getBlocksByName("set_simple_color_led");
+  setSimpleRgbLedCOlorBlocks.forEach((b) => {
+    b.getInput("WHICH_COMPONENT").setVisible(action.numberOfComponents == 2);
+    b.render();
+  });
+};
+
+const updateMultipleSetupBlock = (
+  action: UpdateMultipleComponentSetupBlock
+) => {
+  switch (action.componentType) {
+    case ArduinoComponentType.MOTOR:
+      updateMotorBlock(action);
+      break;
+    case ArduinoComponentType.LED_COLOR:
+      updateRGBLedColorBlocks(action);
+      break;
+  }
 };
 
 const updateFastLedSetAllColorsBlock = (action: UpdateSetAllFastLedBlock) => {
@@ -161,7 +191,7 @@ const updaterList: { [key: string]: Updater } = {
   [ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA]: updateSensorBlockData,
   [ActionType.LCD_SIMPLE_PRINT_CHANGE]: updateLcdScreenPrintBlock,
   [ActionType.UPDATE_LED_COLOR]: updateLedColor,
-  [ActionType.UPDATE_MOTOR_SETUP_BLOCK]: updateMotorSetupBlock,
+  [ActionType.UPDATE_MULTIPLE_SETUP_BLOCK]: updateMultipleSetupBlock,
   [ActionType.UPDATE_FASTLED_SET_ALL_COLORS_BLOCK]:
     updateFastLedSetAllColorsBlock,
   [ActionType.UPDATE_COMMENT_FOR_BUTTON_BLOCK]: updateButtonIsPressedComments,

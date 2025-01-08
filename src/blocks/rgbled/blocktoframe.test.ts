@@ -30,21 +30,20 @@ describe("rgb led frame", () => {
   beforeEach(() => {
     [workspace] = createArduinoAndWorkSpace();
     ledColorSetup = workspace.newBlock("rgb_led_setup") as BlockSvg;
-    ledColorSetup.setFieldValue("11", "PIN_RED");
-    ledColorSetup.setFieldValue("10", "PIN_GREEN");
-    ledColorSetup.setFieldValue("9", "PIN_BLUE");
-    ledColorSetup.setFieldValue("BUILT_IN", "PICTURE_TYPE");
+    ledColorSetup.setFieldValue("11", "PIN_RED_1");
+    ledColorSetup.setFieldValue("10", "PIN_GREEN_1");
+    ledColorSetup.setFieldValue("9", "PIN_BLUE_1");
   });
 
   it("should be able generate state for led color setup block", () => {
     const event = createTestEvent(ledColorSetup.id);
 
     const ledColorState: LedColorState = {
-      pins: [ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_9],
+      pins: [ARDUINO_PINS.PIN_11, ARDUINO_PINS.PIN_10, ARDUINO_PINS.PIN_9],
       redPin: ARDUINO_PINS.PIN_11,
       greenPin: ARDUINO_PINS.PIN_10,
       bluePin: ARDUINO_PINS.PIN_9,
-      pictureType: "BUILT_IN",
+      ledNumber: 1,
       color: { green: 0, red: 0, blue: 0 },
       type: ArduinoComponentType.LED_COLOR,
     };
@@ -53,7 +52,7 @@ describe("rgb led frame", () => {
       blockId: ledColorSetup.id,
       blockName: "rgb_led_setup",
       timeLine: { function: "pre-setup", iteration: 0 },
-      explanation: "Setting up color led.",
+      explanation: "Setting up color RGB Led.",
       components: [ledColorState],
       variables: {},
       txLedOn: false,
@@ -68,7 +67,6 @@ describe("rgb led frame", () => {
   });
 
   it("should be able to change color the led", () => {
-    ledColorSetup.setFieldValue("BREADBOARD", "PICTURE_TYPE");
     const color1 = createValueBlock(workspace, VariableTypes.COLOUR, {
       red: 200,
       blue: 0,
@@ -84,10 +82,10 @@ describe("rgb led frame", () => {
     const setColorBlock1 = workspace.newBlock("set_color_led") as BlockSvg;
     const setColorBlock2 = workspace.newBlock("set_color_led");
     setColorBlock1
-      .getInput("COLOUR")
+      .getInput("COLOR")
       .connection.connect(color1.outputConnection);
     setColorBlock2
-      .getInput("COLOUR")
+      .getInput("COLOR")
       .connection.connect(color2.outputConnection);
 
     connectToArduinoBlock(setColorBlock1);
@@ -103,7 +101,6 @@ describe("rgb led frame", () => {
 
     expect(state2.components.length).toBe(1);
     const [component2] = state2.components as LedColorState[];
-    expect(component2.pictureType).toBe("BREADBOARD");
     expect(component2.color).toEqual({ red: 200, green: 200, blue: 0 });
 
     expect(state3.explanation).toBe(
@@ -112,7 +109,6 @@ describe("rgb led frame", () => {
 
     expect(state3.components.length).toBe(1);
     const [component3] = state3.components as LedColorState[];
-    expect(component3.pictureType).toBe("BREADBOARD");
     expect(component3.color).toEqual({ red: 200, green: 0, blue: 100 });
   });
 });

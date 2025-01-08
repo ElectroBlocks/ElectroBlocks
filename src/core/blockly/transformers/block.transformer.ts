@@ -33,6 +33,7 @@ const getRootBlockId = (block: BlockSvg): string | undefined => {
 
 const getFieldValues = (block: BlockSvg): FieldValue[] => {
   return block.inputList
+    .filter((input) => input.isVisible())
     .map((input) => {
       return input.fieldRow
         .filter(
@@ -63,6 +64,24 @@ const getFieldValues = (block: BlockSvg): FieldValue[] => {
 };
 
 const getPins = (block: BlockSvg): ARDUINO_PINS[] => {
+  if (["motor_setup", "rgb_led_setup"].includes(block.type)) {
+    const numberOfComponents = +block.getFieldValue("NUMBER_OF_COMPONENTS");
+    const pinTest = block.inputList
+      .filter((input) => input.name.includes("COMPONENT"))
+      .filter((i) => {
+        const num = +i.name.replace("COMPONENT_", "");
+        return num <= numberOfComponents;
+      })
+      .reduce((prev, next) => {
+        const pins = next.fieldRow
+          .filter((f) => f instanceof Blockly.FieldDropdown)
+          .filter((f) => f.name.includes("PIN"))
+          .map((f) => f.getValue().toString());
+        return [...prev, ...pins];
+      }, []);
+    return pinTest;
+  }
+
   return getFieldValues(block)
     .filter((field) => field["name"].includes("PIN"))
     .map((field) => field.value as ARDUINO_PINS);

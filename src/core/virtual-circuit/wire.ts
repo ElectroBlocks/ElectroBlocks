@@ -49,18 +49,19 @@ export const createWireFromArduinoToBreadBoard = (
   draw: Svg,
   breadBoardHoleId,
   componentId: string,
-  board: MicroController
+  board: MicroController,
+  color: string = ""
 ) => {
   showPin(draw, pin);
 
   const hole = findBreadboardHoleXY(breadBoardHoleId, arduinoEl, draw);
   const pinConnection = board.pinConnections[pin];
   const arduinoPin = findArduinoConnectionCenter(arduinoEl, pinConnection.id);
-
+  color = color === "" ? pinConnection.color : color;
   const line = draw
     .line()
     .plot(hole.x, hole.y, arduinoPin.x, arduinoPin.y)
-    .stroke({ width: 2, color: pinConnection.color, linecap: "round" });
+    .stroke({ width: 2, color, linecap: "round" });
 
   line.data("component-id", componentId);
   line.data("type", "wire");
@@ -74,7 +75,8 @@ export const createWireComponentToBreadboard = (
   arduinoEl: Svg | Element,
   componentConnectionId: string,
   componentId: string,
-  color: string
+  color: string,
+  updateWireWhenComponentMoves: boolean = true
 ) => {
   const hole = findBreadboardHoleXY(holeId, arduinoEl, draw);
   const componentPin = findComponentConnection(
@@ -88,7 +90,7 @@ export const createWireComponentToBreadboard = (
   line.data("connection-id", componentConnectionId);
   line.data("component-id", componentId);
   line.data("type", "wire");
-  line.data("update-wire", true);
+  line.data("update-wire", updateWireWhenComponentMoves);
   line.data("hole-id", holeId);
 };
 
@@ -149,10 +151,10 @@ export const createGroundOrPowerWire = (
   }
   const color = type === "ground" ? "#000" : "#AA0000";
   const breadBoardHoleA = `pin${hole}${isDown ? "A" : "J"}`;
-  const breadBoardHoleB = `pin${hole}${getGroundorPowerWireLetter(
-    isDown,
-    type
-  )}`;
+  // This is so that it does not collide with connector wire in the breadboard.
+  const breadBoardHoleB = `pin${
+    hole == 31 ? 30 : hole
+  }${getGroundorPowerWireLetter(isDown, type)}`;
   if (!noComponentWire) {
     createWireComponentToBreadboard(
       groundHole,
@@ -272,7 +274,8 @@ export const createResistor = (
       arduino,
       "WIRE_1",
       componentId,
-      "#999"
+      "#999",
+      false
     );
   }
 };
@@ -312,7 +315,6 @@ export const updateWires = (element: Element, draw: Svg, arduino: Svg) => {
       const hole = findSvgElement(holeId, arduino);
       const holeX = hole.cx() + arduino.x();
       const holeY = hole.cy() + arduino.y();
-
       const connectionId = w.data("connection-id");
       const componentPin = findComponentConnection(element, connectionId);
       w.plot(holeX, holeY, componentPin.x, componentPin.y);

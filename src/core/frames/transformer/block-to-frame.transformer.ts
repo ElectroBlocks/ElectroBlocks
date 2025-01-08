@@ -157,6 +157,7 @@ const blockToFrameTransformerList: {
   analog_write: analogWrite,
   led_fade: ledFade,
   set_color_led: setLedColor,
+  set_simple_color_led: setLedColor,
   neo_pixel_set_color: setNeoPixelColor,
   fastled_set_color: setFastLEDColor,
   fastled_set_all_colors: setAllColors,
