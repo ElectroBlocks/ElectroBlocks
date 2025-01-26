@@ -13,7 +13,7 @@ export default `<category colour="${COLOR_THEME.COMPONENTS}" name="Led Matrix">
         <comment pinned="false" h="80" w="460"></comment>
      </block>
    <block type="led_matrix_turn_one_on_off">
-   <comment pinned="false" h="150" w="460" >Turns or off one led on the led matrix.  The columns and rows are zero index and switch because of the breadboard.</comment>
+   <comment pinned="false" h="150" w="460" >Turns or off one led on the led matrix.  The columns & rows are reversed because of the breadboard.</comment>
    <value name="ROW">
                    <block type="math_number">
                        <field name="NUM">1</field>
