@@ -11,22 +11,27 @@ Blockly["Arduino"]["led_matrix_setup"] = function (block) {
   Blockly["Arduino"].libraries_[
     "define_led_matrix"
   ] = `// Includes the MAX7219 library for controlling LED matrices
-#include <MAX7219.h>;`;
+#include <LedControl.h>;`;
   Blockly["Arduino"].libraries_[
     "led_matrix_setup"
   ] = `// Initializes the LED control object with specified pins 	
-MAX7219 Matrix(1, ${dataPin},${clkPin},${csPin});`;
+LedControl lc = LedControl(${dataPin},${clkPin},${csPin}, 1);`;
   Blockly["Arduino"].functionNames_[
     "led_matrix_set_row"
   ] = `void setRow(int row, byte leds) {
-  // Because we are using the breadboard
-  // the row is the column and we have to inverse row.
-  Matrix.setColumn(1, 7 - row, leds);
+  // Because we are using the breadboard to rotate the matrix by 90 degrees
+  lc.setColumn(0, 7 - row, leds); 
 }`;
-  Blockly["Arduino"].setupCode_[
-    "led_matrix"
-  ] = `   Matrix.setIntensity(1,8); // Sets the brightness of the first display to a medium level
-   Matrix.clearDisplay(1); // Clears the display for the first device
+
+  Blockly["Arduino"].functionNames_[
+    "led_matrix_set_led"
+  ] = `void setLed(int row, int column, bool isOn) {
+   // row and columns are reversed because of the breadboard to rotate 90 degrees
+   lc.setLed(0,  (column - 1), 7 - (row - 1), isOn);
+}`;
+  Blockly["Arduino"].setupCode_["led_matrix"] = `   lc.shutdown(0, false);
+   lc.setIntensity(0, 8);
+   lc.clearDisplay(0);
 `;
 
   return "";
@@ -64,16 +69,5 @@ Blockly["Arduino"]["led_matrix_turn_one_on_off"] = function (block) {
 
   const state = block.getFieldValue("STATE") === "ON" ? "true" : "false";
 
-  return (
-    "   Matrix.setLed(1, 7 - " +
-    // This has to be 7 even though it's an 8 by 8 matrix
-    // Because we are already substracting one
-    // part still needs work
-    numberToCode(row) +
-    "," +
-    numberToCode(column) +
-    "," +
-    state +
-    ");\n"
-  );
+  return `setLed(${row}, ${column}, ${state});\n`;
 };
