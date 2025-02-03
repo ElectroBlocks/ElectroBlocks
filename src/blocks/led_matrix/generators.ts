@@ -10,7 +10,7 @@ Blockly["Arduino"]["led_matrix_setup"] = function (block) {
 
   Blockly["Arduino"].libraries_[
     "define_led_matrix"
-  ] = `// Includes the MAX7219 library for controlling LED matrices
+  ] = `// Includes the library for controlling LED matrix
 #include <LedControl.h>;`;
   Blockly["Arduino"].libraries_[
     "led_matrix_setup"
