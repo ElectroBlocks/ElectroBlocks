@@ -20,7 +20,19 @@ LedControl lc = LedControl(${dataPin},${clkPin},${csPin}, 1);`;
     "led_matrix_set_row"
   ] = `void setRow(int row, byte leds) {
   // Because we are using the breadboard to rotate the matrix by 90 degrees
-  lc.setColumn(0, 7 - row, leds); 
+  lc.setColumn(0, row, flipByte(leds)); 
+}`;
+
+  Blockly["Arduino"].functionNames_[
+    "led_matrix_flip_byte"
+  ] = `byte flipByte(byte c){
+  char r=0;
+  for(byte i = 0; i < 8; i++){
+    r <<= 1;
+    r |= c & 1;
+    c >>= 1;
+  }
+  return r;
 }`;
 
   Blockly["Arduino"].functionNames_[
