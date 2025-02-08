@@ -20,26 +20,14 @@ LedControl lc = LedControl(${dataPin},${clkPin},${csPin}, 1);`;
     "led_matrix_set_row"
   ] = `void setRow(int row, byte leds) {
   // Because we are using the breadboard to rotate the matrix by 90 degrees
-  lc.setColumn(0, row, flipByte(leds)); 
-}`;
-
-  Blockly["Arduino"].functionNames_[
-    "led_matrix_flip_byte"
-  ] = `byte flipByte(byte c){
-  char r=0;
-  for(byte i = 0; i < 8; i++){
-    r <<= 1;
-    r |= c & 1;
-    c >>= 1;
-  }
-  return r;
+  lc.setColumn(0, row, leds); 
 }`;
 
   Blockly["Arduino"].functionNames_[
     "led_matrix_set_led"
   ] = `void setLed(int row, int column, bool isOn) {
    // row and columns are reversed because of the breadboard to rotate 90 degrees
-   lc.setLed(0,  (column - 1), 7 - (row - 1), isOn);
+   lc.setLed(0,  abs(column - 1 - 7), (row - 1), isOn);
 }`;
   Blockly["Arduino"].setupCode_["led_matrix"] = `   lc.shutdown(0, false);
    lc.setIntensity(0, 8);
@@ -54,7 +42,7 @@ Blockly["Arduino"]["led_matrix_make_draw"] = function (block) {
   for (let row = 1; row <= 8; row += 1) {
     let binaryString = "0b";
     let realRow = row - 1;
-    for (let col = 1; col <= 8; col += 1) {
+    for (let col = 8; col >= 1; col -= 1) {
       const lightState =
         block.getFieldValue(row + "," + col).toLowerCase() === "true"
           ? "1"
