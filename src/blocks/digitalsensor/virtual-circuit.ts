@@ -56,10 +56,8 @@ export const positionDigitalSensor: PositionComponent<DigitalSensorState> = (
 };
 
 export const resetDigitalSensor: ResetComponent = (componentEl: Element) => {
-  componentEl.findOne("#READING_VALUE").hide();
-  if (componentEl.findOne("#finger")) {
-    componentEl.findOne("#finger").hide();
-  }
+  componentEl.findOne("#READING_VALUE")?.hide();
+  componentEl.findOne("#finger")?.hide();
 };
 
 export const updateDigitalSensor: SyncComponent = (

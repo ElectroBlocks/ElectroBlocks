@@ -81,10 +81,8 @@ export const analogSensorUpdate: SyncComponent = (
 };
 
 export const analogSensorReset: ResetComponent = (componentEl: Element) => {
-  componentEl.findOne("#READING_VALUE").hide();
-  if (componentEl.findOne("#finger")) {
-    componentEl.findOne("#finger").hide();
-  }
+  componentEl.findOne("#READING_VALUE")?.hide();
+  componentEl.findOne("#finger")?.hide();
 };
 
 const createPotentiometerWires: CreateWire<AnalogSensorState> = (
