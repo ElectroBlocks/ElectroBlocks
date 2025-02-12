@@ -51,6 +51,17 @@ export const lessons: LessonContainer[] = [
     ],
   },
   {
+    title: "Servos",
+    lessons: [
+      {
+        file: "butterfly.xml",
+        image: "/example-projects/butterfly.gif",
+        title: "Servo Butterfly",
+        levelImage: "/example-projects/medium.png",
+      },
+    ],
+  },
+  {
     title: "LCD",
     lessons: [
       {
@@ -122,6 +133,12 @@ export const lessons: LessonContainer[] = [
         image: "/example-projects/ledmatrix_happy_face.png",
         title: "Happy Face",
         levelImage: "/example-projects/easy.png",
+      },
+      {
+        file: "led_matrix_rain.xml",
+        image: "/example-projects/led_matrix_rain.gif",
+        title: "Led Matrix Rain",
+        levelImage: "/example-projects/hard.png",
       },
       {
         file: "ledmatrix_blink.xml",
