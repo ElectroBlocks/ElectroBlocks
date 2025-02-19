@@ -34,12 +34,8 @@
     if (settings.language === "Python") {
       codeStore.resetPythonCode();
       console.log("Resetting to Python");
-    } else if (settings.language === "C") {
-      codeStore.resetCode(MicroControllerType.ARDUINO_UNO);
-      console.log("Resetting to C");
     }
   }
-
   
   async function onSaveSettings() {
     await saveSettings(settings);
