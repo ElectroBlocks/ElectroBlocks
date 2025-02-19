@@ -6,6 +6,9 @@
   import { fbSaveSettings } from "../../../firebase/db";
   import authStore from "../../../stores/auth.store";
   import settingsStore from "../../../stores/settings.store";
+
+  import codeStore from "../../../stores/code.store";
+  
   import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
   import _ from "lodash";
   import { onErrorMessage } from "../../../help/alerts";
@@ -19,10 +22,25 @@
 
   let previousSettings = null;
 
+
+
   settingsStore.subscribe((newSettings) => {
     settings = newSettings;
   });
 
+  
+  $: if (settings) {
+    console.log("Language Selector Changed", settings.language);
+    if (settings.language === "Python") {
+      codeStore.resetPythonCode();
+      console.log("Resetting to Python");
+    } else if (settings.language === "C") {
+      codeStore.resetCode(MicroControllerType.ARDUINO_UNO);
+      console.log("Resetting to C");
+    }
+  }
+
+  
   async function onSaveSettings() {
     await saveSettings(settings);
   }
@@ -86,6 +104,23 @@
       </FormGroup>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col">
+      <FormGroup>
+      <Label for="lang-select">Select Language </Label>
+      <Input
+        bind:value={settings.language}
+        type="select"
+        id="lang-select"
+      >
+        <option>Python</option>
+        <option>C</option>
+      </Input>
+      </FormGroup>
+    </div>
+  </div>
+
 
   <div class="row">
     <div class="col">
