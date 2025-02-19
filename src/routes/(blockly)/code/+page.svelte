@@ -3,7 +3,11 @@
   import codeStore from "../../../stores/code.store";
   
   import hljs from 'highlight.js/lib/core';
+  
+  //Import hljs generator for python
   import arduinoLang from 'highlight.js/lib/languages/arduino';
+  import pythonLang from 'highlight.js/lib/languages/python';
+  
   import 'highlight.js/styles/arduino-light.css';
   import 'highlight.js/styles/a11y-light.css';
 
@@ -17,14 +21,16 @@
   let hasCopiedCode = false;
   onMount(async () => {
     hljs.registerLanguage('arduino', arduinoLang);
+    hljs.registerLanguage('python', pythonLang);
     codeStore.subscribe(async (codeInfo) => {
-      try
-      {
-        // @ts-ignore
-        code =  hljs.highlight(codeInfo.code,{ language: 'arduino' }).value;
-
-      }
-      catch(e)
+      try {
+        if (codeInfo.boardType==="python") {
+          code = hljs.highlight(codeInfo.code, { language: 'python'}).value;
+        } else {
+          // @ts-ignore
+          code =  hljs.highlight(codeInfo.code,{ language: 'arduino' }).value;
+        }
+      }catch(e)
       {
         console.log(e);
       }
@@ -88,8 +94,8 @@
   </div>
 </div>
 <pre style="font-size: {fontSize}px">
-  <code class="language-arduino">{@html code}</code>
-</pre>
+  <code class="{get(codeStore).boardType === 'python' ? 'language-python' : 'language-arduino'}">{@html code}</code>
+  </pre>
 <svelte:head>
   <title>ElectroBlocks - Code</title>
 </svelte:head>
