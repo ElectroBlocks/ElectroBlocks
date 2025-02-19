@@ -6,6 +6,9 @@
   import { fbSaveSettings } from "../../../firebase/db";
   import authStore from "../../../stores/auth.store";
   import settingsStore from "../../../stores/settings.store";
+
+  import codeStore from "../../../stores/code.store";
+
   import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
   import _ from "lodash";
   import { onErrorMessage } from "../../../help/alerts";
@@ -22,6 +25,7 @@
   settingsStore.subscribe((newSettings) => {
     settings = newSettings;
   });
+
 
   async function onSaveSettings() {
     await saveSettings(settings);
@@ -59,6 +63,29 @@
   authStore.subscribe((auth) => {
     uid = auth.uid;
   });
+
+//   function handleLangChange(e: Event | undefined) {
+//     const resetPythonCode = `# Python Code Snippet
+// print("Hello, World!")`;
+
+
+//     function getPyCode() {
+//       return resetPythonCode;
+//     }
+
+
+//     if (!e) {
+//       console.warn("handleLangChange called w/o event object");
+//     }
+//     console.log("Event got");
+//     const target = e.target as HTMLSelectElement;
+//     // settings = { ...settings, language: target.value };
+
+//     if (target.value === "Python") {
+//       codeStore.set({ code: getPyCode(), boardType: settings.boardType });
+//       console.log("Resetting to Python");
+//     }
+//   }
 </script>
 
 {#if settings}
@@ -83,6 +110,22 @@
           type="number"
           id="max-time-per-move"
         />
+      </FormGroup>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <FormGroup>
+      <Label for="lang-select">Select Language </Label>
+      <Input
+        bind:value={settings.language}
+        type="select"
+        id="lang-select" 
+      >
+        <option value="Python">Python</option>
+        <option value="C">C</option>
+      </Input>
       </FormGroup>
     </div>
   </div>

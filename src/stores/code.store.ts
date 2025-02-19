@@ -1,7 +1,14 @@
 import { writable } from "svelte/store";
 import { MicroControllerType } from "../core/microcontroller/microcontroller";
+import settingsStore from "../stores/settings.store";
+import { get } from "svelte/store";
 
-const resetCode = `int simple_loop_variable = 0;
+let settings = get(settingsStore);
+  settingsStore.subscribe((newSettings) => {
+    settings = newSettings;
+  });
+
+const resetCCode = `int simple_loop_variable = 0;
 struct RGB {
 	int red;
 	int green;
@@ -20,8 +27,14 @@ void loop() {
 
 }
 `;
+
+const resetPythonCode = `# Python Code Snippet
+print("Hello, World!")`;
+
+const resetCode = settings.language === "Python" ? resetPythonCode : resetCCode;
+
 const codeStore = writable({
-  code: resetCode,
+  code: resetCode, //For Backwards Compatability
   boardType: MicroControllerType.ARDUINO_UNO,
 });
 
