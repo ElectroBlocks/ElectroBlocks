@@ -8,26 +8,29 @@ struct RGB {
 	int blue;
 };
 
+void setup() {}
 
-
-
-void setup() {
-
-}
-
-
-void loop() {
-
-}
+void loop() {}
 `;
+
 const codeStore = writable({
   code: resetCode,
   boardType: MicroControllerType.ARDUINO_UNO,
+  hiddenCategories: [] 
 });
+
+function updateBoardType(boardType: MicroControllerType) {
+  let hiddenCategories: string[] = [];
+
+  if (boardType === MicroControllerType.ARDUINO_MEGA) {
+    hiddenCategories = ["Bluetooth"]; 
+  }
+
+  codeStore.set({ code: resetCode, boardType, hiddenCategories }); 
+}
 
 export default {
   set: codeStore.set,
   subscribe: codeStore.subscribe,
-  resetCode: (boardType: MicroControllerType) =>
-    codeStore.set({ code: resetCode, boardType }),
+  resetCode: updateBoardType,
 };

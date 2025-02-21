@@ -1,12 +1,12 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, afterUpdate } from "svelte";
   import codeStore from "../../../stores/code.store";
-  
+
   import hljs from 'highlight.js/lib/core';
   import arduinoLang from 'highlight.js/lib/languages/arduino';
   import 'highlight.js/styles/arduino-light.css';
   import 'highlight.js/styles/a11y-light.css';
-
+  
   import { afterUpdate } from "svelte";
   import { tooltip } from "@svelte-plugins/tooltips";
   import { get } from "svelte/store";
@@ -15,17 +15,16 @@
   let loaded = false;
   let fontSize = 14;
   let hasCopiedCode = false;
+  let hiddenCategories = [];
+
   onMount(async () => {
     hljs.registerLanguage('arduino', arduinoLang);
     codeStore.subscribe(async (codeInfo) => {
-      try
-      {
-        // @ts-ignore
-        code =  hljs.highlight(codeInfo.code,{ language: 'arduino' }).value;
-
-      }
-      catch(e)
-      {
+      try {
+        code = hljs.highlight(codeInfo.code, { language: 'arduino' }).value;
+        hiddenCategories = codeInfo.hiddenCategories || [];
+        console.log("Hidden Categories:", hiddenCategories);
+      } catch (e) {
         console.log(e);
       }
     });
@@ -42,6 +41,7 @@
       }
     }
   });
+
   function zoomIn() {
     fontSize += 2;
   }
@@ -61,6 +61,7 @@
     animation: "slide",
     theme: "code-small-margin",
   };
+
   const navTooltipStyleSmallMargin = {
     position: "bottom",
     align: "center",
@@ -68,12 +69,13 @@
     theme: "code-large-margin",
   };
 </script>
+
 <div class="row">
   <div class="col">
     {#if !hasCopiedCode}
-    <i use:tooltip={navTooltipStyleSmallMargin} title="Copy Code" on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
+      <i use:tooltip={navTooltipStyleSmallMargin} title="Copy Code" on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
     {:else}
-    <i use:tooltip={navTooltipStyleSmallMargin} title="Copied" on:mouseleave={() => hasCopiedCode = false} on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
+      <i use:tooltip={navTooltipStyleSmallMargin} title="Copied" on:mouseleave={() => hasCopiedCode = false} on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
     {/if}
     <i       
       use:tooltip={navTooltipStyleCodeSmallMarginBottom}
@@ -87,9 +89,11 @@
       aria-hidden="true" />
   </div>
 </div>
+
 <pre style="font-size: {fontSize}px">
   <code class="language-arduino">{@html code}</code>
 </pre>
+
 <svelte:head>
   <title>ElectroBlocks - Code</title>
 </svelte:head>
