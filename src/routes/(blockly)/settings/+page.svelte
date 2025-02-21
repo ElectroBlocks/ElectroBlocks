@@ -11,23 +11,34 @@
   import { onErrorMessage } from "../../../help/alerts";
   import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
   import { ledColors } from "../../../blocks/led/virtual-circuit";
+  import codeStore from "../../../stores/code.store";
+
   let uid: string;
-
   let settings: Settings;
-
   let showMessage = false;
-
   let previousSettings = null;
 
   settingsStore.subscribe((newSettings) => {
     settings = newSettings;
   });
 
+  function updateBoardType(boardType: MicroControllerType) {
+    let hiddenCategories = [];
+
+    if (boardType === MicroControllerType.ARDUINO_MEGA) {
+      hiddenCategories = ["Bluetooth"]; // Hide Bluetooth category for Arduino Mega
+    }
+
+    codeStore.set({ code: codeStore.code, boardType, hiddenCategories });
+  }
+
   async function onSaveSettings() {
+    updateBoardType(settings.boardType);
     await saveSettings(settings);
   }
 
   async function onReset() {
+    updateBoardType(defaultSetting.boardType);
     await saveSettings(defaultSetting);
   }
 
@@ -38,14 +49,14 @@
   async function saveSettings(settings: Settings) {
     if (_.isEqual(previousSettings, settings)) {
       showMessage = true;
-      console.log("blocked saved", previousSettings, settings);
+      console.log("Blocked save:", previousSettings, settings);
       return;
     }
 
     if (uid) {
       try {
         await fbSaveSettings(uid, settings);
-        console.log("saved settings", settings);
+        console.log("Saved settings:", settings);
       } catch (e) {
         onErrorMessage("Please try again in 5 minutes.", e);
       }
@@ -156,7 +167,7 @@
   </div>
 {/if}
 
-<FlashMessage bind:show={showMessage} message="Successfully Save." />
+<FlashMessage bind:show={showMessage} message="Successfully Saved." />
 
 <svelte:head>
   <title>ElectroBlocks - Virtual Circuit</title>

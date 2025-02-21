@@ -25,6 +25,9 @@ function updateBoardType(boardType: MicroControllerType) {
   if (boardType === MicroControllerType.ARDUINO_MEGA) {
     hiddenCategories = ["Bluetooth"]; 
   }
+  
+  console.log("Board Type Updated:", boardType);  
+  console.log("Hidden Categories:", hiddenCategories);
 
   codeStore.set({ code: resetCode, boardType, hiddenCategories }); 
 }
