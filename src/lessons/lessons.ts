@@ -26,6 +26,18 @@ export const lessons: LessonContainer[] = [
         title: "Traffic Lights",
         levelImage: "/example-projects/easy.png",
       },
+      {
+        file: "automatic_parking_gate.xml",
+        image: "/example-projects/automatic_parking_gate.gif",
+        title: "Automatic Parking Gate",
+        levelImage: "/example-projects/medium.png",
+      },
+      {
+        file: "car_parking_system.xml",
+        image: "/example-projects/car_parking_system.gif",
+        title: "Car Parking System",
+        levelImage: "/example-projects/medium.png",
+      },
     ],
   },
   {
@@ -46,6 +58,23 @@ export const lessons: LessonContainer[] = [
         file: "intruder_sensor.xml",
         image: "/example-projects/intruder_sensor.gif",
         title: "Intruder Sensor",
+        levelImage: "/example-projects/medium.png",
+      },
+      {
+        file: "solar_tracking_system.xml",
+        image: "/example-projects/solar_tracking_system.gif",
+        title: "Solar Tracking System",
+        levelImage: "/example-projects/medium.png",
+      },
+    ],
+  },
+  {
+    title: "Servos",
+    lessons: [
+      {
+        file: "butterfly.xml",
+        image: "/example-projects/butterfly.gif",
+        title: "Servo Butterfly",
         levelImage: "/example-projects/medium.png",
       },
     ],
@@ -134,6 +163,12 @@ export const lessons: LessonContainer[] = [
         image: "/example-projects/ledmatrix_loop.gif",
         title: "Led Matrix Loop",
         levelImage: "/example-projects/medium.png",
+      },
+      {
+        file: "ledmatrix_blink.xml",
+        image: "/example-projects/ledmatrix_blink.gif",
+        title: "Wink",
+        levelImage: "/example-projects/easy.png",
       },
     ],
   },
