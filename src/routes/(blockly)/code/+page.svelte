@@ -1,7 +1,6 @@
 <script>
   import { onMount } from "svelte";
   import codeStore from "../../../stores/code.store";
-  
   import hljs from 'highlight.js/lib/core';
   
   //Import hljs generator for python
@@ -15,16 +14,26 @@
   import { tooltip } from "@svelte-plugins/tooltips";
   import { get } from "svelte/store";
 
+  // Importing settings store
+  import settingsStore from "../../../stores/settings.store";
+
   let code = "";
   let loaded = false;
   let fontSize = 14;
   let hasCopiedCode = false;
+
+  // subscribing to the settings store
+  let settings = get(settingsStore);
+  settingsStore.subscribe((newSettings) => {
+    settings = newSettings;
+  });
+
   onMount(async () => {
     hljs.registerLanguage('arduino', arduinoLang);
     hljs.registerLanguage('python', pythonLang);
     codeStore.subscribe(async (codeInfo) => {
       try {
-        if (codeInfo.boardType==="python") {
+        if (settings.language==="python") {
           code = hljs.highlight(codeInfo.code, { language: 'python'}).value;
         } else {
           // @ts-ignore
@@ -94,7 +103,7 @@
   </div>
 </div>
 <pre style="font-size: {fontSize}px">
-  <code class="{get(codeStore).boardType === 'python' ? 'language-python' : 'language-arduino'}">{@html code}</code>
+  <code class="{settings.language === 'python' ? 'language-python' : 'language-arduino'}">{@html code}</code>
   </pre>
 <svelte:head>
   <title>ElectroBlocks - Code</title>

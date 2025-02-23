@@ -29,6 +29,7 @@ export interface Settings {
   customLedColor: boolean;
   maxTimePerMove: number;
   boardType: MicroControllerType;
+  language: string;
 }
 
 export const defaultSetting: Settings = {
