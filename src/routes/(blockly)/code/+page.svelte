@@ -74,3 +74,53 @@
 <svelte:head>
   <title>ElectroBlocks - Code</title>
 </svelte:head>
+<div class="row">
+  <div class="col">
+    {#if !hasCopiedCode}
+    <i use:tooltip={navTooltipStyleSmallMargin} title="Copy Code" on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
+    {:else}
+    <i use:tooltip={navTooltipStyleSmallMargin} title="Copied" on:mouseleave={() => hasCopiedCode = false} on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
+    {/if}
+    <i       
+      use:tooltip={navTooltipStyleCodeSmallMarginBottom}
+      on:click={zoomOut} 
+      title="Zoom Out" 
+      class="fa fa-search-minus float-end me-4"
+      aria-hidden="true" />
+    <i use:tooltip={navTooltipStyleSmallMargin} 
+      on:click={zoomIn} title="Zoom In"  
+      class="fa fa-search-plus float-end" 
+      aria-hidden="true" />
+  </div>
+</div>
+<pre style="font-size: {fontSize}px">
+  <code class="{get(codeStore).boardType === 'python' ? 'language-python' : 'language-arduino'}">{@html code}</code>
+  </pre>
+<svelte:head>
+  <title>ElectroBlocks - Code</title>
+</svelte:head>
+
+<style>
+  pre {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+  }
+  code {
+    margin-left: 10px;
+    height: 100vh;
+    overflow: scroll;
+  }
+  i {
+    font-size: 30px;
+    margin-left: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  :global(.tooltip.code-small-margin) {
+    margin-top: 10px;
+  }
+  :global(.tooltip.code-large-margin) {
+    margin-top: 30px;
+  }
+</style>
