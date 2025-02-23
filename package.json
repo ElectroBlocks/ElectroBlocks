@@ -1,18 +1,29 @@
 {
   "private": true,
   "name": "electroblocks",
-  "description": "This is electroblocks video editing for code.",
   "version": "3.0.0",
+  "description": "This is electroblocks video editing for code.",
+  "main": "main.js",
+  "type": "module",
   "scripts": {
+    "start": "concurrently \"node express.js\" \"electron .\"",
     "dev": "cp env/env.development.ts src/env.ts && vite dev",
     "build": "cp ./env/env.staging.ts ./src/env.ts && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test-coverage": "vitest --coverage",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "server": "node express.js"
+    
+  },
+  "dependencies": {
+    "electron": "^34.2.0",
+    "express": "^4.21.2",
+    "serialport": "^13.0.0"
   },
   "devDependencies": {
+    "concurrently": "^8.2.1",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@svelte-plugins/tooltips": "^3.0.1",
     "@sveltejs/adapter-static": "^3.0.1",
@@ -49,6 +60,5 @@
     "uuid": "^8.3.1",
     "vite": "^5.4.14",
     "vitest": "^1.5.2"
-  },
-  "type": "module"
+  }
 }
