@@ -29,7 +29,7 @@ export interface Settings {
   customLedColor: boolean;
   maxTimePerMove: number;
   boardType: MicroControllerType;
-  hiddenCategories: string[];  
+  hiddenCategories: string[];
 }
 
 export const defaultSetting: Settings = {
@@ -39,5 +39,5 @@ export const defaultSetting: Settings = {
   customLedColor: false,
   maxTimePerMove: 20,
   boardType: MicroControllerType.ARDUINO_UNO,
-  hiddenCategories: [] 
+  hiddenCategories: []  // Default empty (Bluetooth enabled by default)
 };

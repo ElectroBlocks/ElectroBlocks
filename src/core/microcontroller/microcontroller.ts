@@ -3,6 +3,7 @@ import type { ARDUINO_PINS } from "./selectBoard";
 export enum MicroControllerType {
   ARDUINO_UNO = "uno",
   ARDUINO_MEGA = "mega",
+  ESP32 = "esp32",
 }
 
 export interface BreadBoardArea {
@@ -58,4 +59,18 @@ export interface MicroControllerBlocks {
   sckPins: [string, string][];
   ssPins: [string, string][];
   type: MicroControllerType;
+}
+
+/**
+ * Function to get hidden toolbox categories based on selected microcontroller.
+ */
+export function getHiddenCategories(boardType: MicroControllerType): string[] {
+  switch (boardType) {
+    case MicroControllerType.ARDUINO_MEGA:
+      return ["Bluetooth"];
+    case MicroControllerType.ESP32:
+      return ["Serial", "Advanced IO"];
+    default:
+      return [];
+  }
 }

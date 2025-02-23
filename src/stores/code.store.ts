@@ -23,17 +23,19 @@ function updateBoardType(boardType: MicroControllerType) {
   let hiddenCategories: string[] = [];
 
   if (boardType === MicroControllerType.ARDUINO_MEGA) {
-    hiddenCategories = ["Bluetooth"]; 
+    hiddenCategories = ["Bluetooth"]; // Disable Bluetooth for Mega
+  } else {
+    hiddenCategories = []; // Enable Bluetooth for Uno (or other boards)
   }
   
-  console.log("Board Type Updated:", boardType);  
-  console.log("Hidden Categories:", hiddenCategories);
+  console.log("Updated Board Type:", boardType);
+  console.log("Updated Hidden Categories:", hiddenCategories);
 
-  codeStore.set({ code: resetCode, boardType, hiddenCategories }); 
+  codeStore.set({ code: resetCode, boardType, hiddenCategories });
 }
 
 export default {
   set: codeStore.set,
   subscribe: codeStore.subscribe,
-  resetCode: updateBoardType,
+  updateBoardType,
 };
