@@ -42,7 +42,14 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
     );
 
     // existing components must go first to take up areas of the breadboard that already exist
-    [...existingComponents, ...newComponents].forEach((state) => {
+    var componentList = [...existingComponents, ...newComponents];
+    componentList = componentList.sort((a, b) => {
+      var aPins = a.pins.sort().join("");
+      var bPins = b.pins.sort().join("");
+
+      return aPins > bPins ? 1 : -1;
+    });
+    componentList.forEach((state) => {
       state.pins.forEach((pin) => showWire(arduino, pin));
       createNewComponent(state, draw, arduino, board, frameContainer.settings);
     });
