@@ -26,13 +26,6 @@
     settings = newSettings;
   });
 
-  $: if (settings) {
-    console.log("Language Selector Changed", settings.language);
-    if (settings.language === "Python") {
-      codeStore.resetPythonCode();
-      console.log("Resetting to Python");
-    }
-  }
 
   async function onSaveSettings() {
     await saveSettings(settings);
@@ -70,6 +63,16 @@
   authStore.subscribe((auth) => {
     uid = auth.uid;
   });
+
+  function handleLangChange(e: Event) {
+    const target = e.target as HTMLSelectElement;
+    settings = { ...settings, language: target.value };
+
+    if (target.value === "Python") {
+      codeStore.resetPyCode();
+      console.log("Resetting to Python");
+    }
+  }
 </script>
 
 {#if settings}
@@ -106,6 +109,7 @@
         bind:value={settings.language}
         type="select"
         id="lang-select"
+        on:change={handleLangChange}
       >
         <option>Python</option>
         <option>C</option>

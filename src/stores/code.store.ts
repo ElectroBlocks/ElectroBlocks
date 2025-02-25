@@ -1,7 +1,7 @@
 import { writable } from "svelte/store";
 import { MicroControllerType } from "../core/microcontroller/microcontroller";
 
-const resetCode = `int simple_loop_variable = 0;
+const resetCCode = `int simple_loop_variable = 0;
 struct RGB {
 	int red;
 	int green;
@@ -20,19 +20,27 @@ void loop() {
 
 }
 `;
-const codeStore = writable({
-  code: resetCode,
-  boardType: MicroControllerType.ARDUINO_UNO,
-});
 
 const resetPythonCode = `# Python Code Snippet
 print("Hello, World!")`;
 
+const codeStore = writable({
+  c: resetCCode,
+  python: resetPythonCode,
+  boardType: MicroControllerType.ARDUINO_UNO,
+});
+
 export default {
   set: codeStore.set,
   subscribe: codeStore.subscribe,
-  resetCode: (boardType: MicroControllerType) =>
-    codeStore.set({ code: resetCode, boardType }),
-  resetPythonCode: () =>
-    codeStore.set({ code: resetPythonCode, boardType: "python"})
+  updateC: (newCCode: string) =>
+    codeStore.update((store) => ({ ...store, c: newCode })),
+  updatePy: (newPyCode: string) =>
+    codeStore.update((store) => ({ ...store, python: newPyCode})),
+  resetCCode: () =>
+    codeStore.update((store) => ({ ...store, c: resetCode})),
+  resetPyCode: () => 
+    codeStore.update((store) => ({ ...store, python: resetPythonCode})),
+  setBoardType: (newBoardType: MicroControllerType) =>
+    codeStore.update((store) => ({ ...store, boardType: newBoardType})),
 };
