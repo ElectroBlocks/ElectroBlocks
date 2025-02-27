@@ -25,22 +25,21 @@ const resetPythonCode = `# Python Code Snippet
 print("Hello, World!")`;
 
 const codeStore = writable({
+  code: resetCCode, //For Backwards Compatability
   c: resetCCode,
   python: resetPythonCode,
   boardType: MicroControllerType.ARDUINO_UNO,
 });
 
+// So this works for now, but throws an undefined 'e' error, once i click save on the settings tab. 
+// TODO: Check settings store or model.ts and find where the issue is.
+
 export default {
   set: codeStore.set,
   subscribe: codeStore.subscribe,
-  updateC: (newCCode: string) =>
-    codeStore.update((store) => ({ ...store, c: newCode })),
-  updatePy: (newPyCode: string) =>
-    codeStore.update((store) => ({ ...store, python: newPyCode})),
-  resetCCode: () =>
-    codeStore.update((store) => ({ ...store, c: resetCode})),
-  resetPyCode: () => 
-    codeStore.update((store) => ({ ...store, python: resetPythonCode})),
-  setBoardType: (newBoardType: MicroControllerType) =>
-    codeStore.update((store) => ({ ...store, boardType: newBoardType})),
-};
+  resetCode: (boardType: MicroControllerType) => 
+    codeStore.set({code: resetCCode}),
+  resetPythonCode: () => 
+    codeStore.set({python: resetPythonCode}),
+  
+  };

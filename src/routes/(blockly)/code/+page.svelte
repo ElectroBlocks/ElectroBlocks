@@ -33,8 +33,8 @@
     hljs.registerLanguage('python', pythonLang);
     codeStore.subscribe(async (codeInfo) => {
       try {
-        if (settings.language==="python") {
-          code = hljs.highlight(codeInfo.code, { language: 'python'}).value;
+        if (settings.language==="Python") {
+          code = hljs.highlight(codeInfo.python, { language: 'python'}).value;
         } else {
           // @ts-ignore
           code =  hljs.highlight(codeInfo.code,{ language: 'arduino' }).value;
@@ -103,7 +103,7 @@
   </div>
 </div>
 <pre style="font-size: {fontSize}px">
-  <code class="{settings.language === 'python' ? 'language-python' : 'language-arduino'}">{@html code}</code>
+  <code class="{settings.language === 'Python' ? 'language-python' : 'language-arduino'}">{@html code}</code>
   </pre>
 <svelte:head>
   <title>ElectroBlocks - Code</title>

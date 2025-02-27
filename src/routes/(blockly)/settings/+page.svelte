@@ -64,12 +64,16 @@
     uid = auth.uid;
   });
 
-  function handleLangChange(e: Event) {
+  function handleLangChange(e: Event | undefined) {
+    if (!e) {
+      console.warn("handleLangChange called w/o event object");
+    }
+    console.log("Event got");
     const target = e.target as HTMLSelectElement;
-    settings = { ...settings, language: target.value };
+    // settings = { ...settings, language: target.value };
 
     if (target.value === "Python") {
-      codeStore.resetPyCode();
+      codeStore.resetPythonCode();
       console.log("Resetting to Python");
     }
   }
@@ -111,8 +115,8 @@
         id="lang-select"
         on:change={handleLangChange}
       >
-        <option>Python</option>
-        <option>C</option>
+        <option value="Python">Python</option>
+        <option value="C">C</option>
       </Input>
       </FormGroup>
     </div>
