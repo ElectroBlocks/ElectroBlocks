@@ -39,7 +39,7 @@ export default {
   subscribe: codeStore.subscribe,
   resetCode: (boardType: MicroControllerType) => 
     codeStore.set({code: resetCCode}),
-  resetPythonCode: () => 
+  resetPythonCode: (boardType: MicroControllerType) => 
     codeStore.set({python: resetPythonCode}),
   
   };
