@@ -1,26 +1,27 @@
 import type { MicroControllerType } from "../microcontroller/microcontroller";
 import config from "../../env";
 
-declare class AvrgirlArduino {
+declare class UploadMultiTool {
   constructor(config: any);
 
-  flash(hex: string, call: (error) => void): void;
+  flash(hex: string, callback: (error: Error | null, result?: string) => void): void;
 }
+
+export default UploadMultiTool;
 
 export const upload = async (
   code: string,
-  avrgirl: AvrgirlArduino,
+  uploader: UploadMultiTool,
   type: MicroControllerType
-) => {
+): Promise<string> => {
   const hexCode = await compileCode(code, type);
 
-  const enc = new TextEncoder();
-  return new Promise((res, rej) => {
-    avrgirl.flash(enc.encode(hexCode) as any, (error) => {
+  return new Promise((resolve, reject) => {
+    uploader.flash(hexCode, (error, result) => {
       if (error) {
-        rej(error);
+        reject(new Error(`Upload failed: ${error.message}`));
       } else {
-        res("flash successful");
+        resolve(result || "Flash successful");
       }
     });
   });
