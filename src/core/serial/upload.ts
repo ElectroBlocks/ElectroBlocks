@@ -7,7 +7,6 @@ declare class UploadMultiTool {
   flash(hex: string, callback: (error: Error | null, result?: string) => void): void;
 }
 
-export default UploadMultiTool;
 
 export const upload = async (
   code: string,
