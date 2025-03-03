@@ -100,7 +100,7 @@ export const lessons: LessonContainer[] = [
         levelImage: "/example-projects/easy.png",
       },
       {
-        file: "'/example-projects/2different_colors.xml",
+        file: "2different_colors.xml",
         image: "/example-projects/2colors.jpeg",
         title: "Every other color",
         levelImage: "/example-projects/medium.png",

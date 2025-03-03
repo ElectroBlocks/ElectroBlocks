@@ -40,14 +40,14 @@ Blockly["Arduino"]["controls_for"] = function (block: Block) {
   const branch = Blockly["Arduino"].statementToCode(block, "DO");
 
   const startNumber =
-    +Blockly["Arduino"].valueToCode(
+    Blockly["Arduino"].valueToCode(
       block,
       "FROM",
       Blockly["Arduino"].ORDER_ASSIGNMENT
     ) || "0";
 
   const toNumber =
-    +Blockly["Arduino"].valueToCode(
+    Blockly["Arduino"].valueToCode(
       block,
       "TO",
       Blockly["Arduino"].ORDER_ASSIGNMENT

@@ -73,7 +73,7 @@ Blockly["Arduino"]["math_modulo"] = function (block: Block) {
       Blockly["Arduino"].ORDER_MODULUS
     ) || "0";
 
-  const code = "(double)(" + dividend + " % " + divisor + ")";
+  const code = "(double)((int)" + dividend + " % (int)" + divisor + ")";
 
   return [code, Blockly["Arduino"].ORDER_MODULUS];
 };
