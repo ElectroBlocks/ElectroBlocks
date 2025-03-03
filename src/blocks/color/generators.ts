@@ -11,11 +11,11 @@ function hexToRgb(hex) {
     : null;
 }
 
-function createColorStruct() {
+export function createColorStruct() {
   Blockly["Arduino"].libraries_["color_struct"] = `struct RGB {
-    int red;
-    int green;
-    int blue;
+    double red;
+    double green;
+    double blue;
 };`;
 }
 
