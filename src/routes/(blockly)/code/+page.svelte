@@ -34,10 +34,10 @@
     codeStore.subscribe(async (codeInfo) => {
       try {
         if (settings.language==="Python") {
-          code = hljs.highlight(codeInfo.code, { language: 'python'}).value;
+          code = hljs.highlight(codeInfo.pythonLang, { language: 'python'}).value;
         } else {
           // @ts-ignore
-          code =  hljs.highlight(codeInfo.code,{ language: 'arduino' }).value;
+          code =  hljs.highlight(codeInfo.cLang, { language: 'arduino' }).value;
         }
       }catch(e)
       {
@@ -66,7 +66,12 @@
   }
 
   function copy() {
-    navigator.clipboard.writeText(get(codeStore).code);
+    if (settings.language==="Python") {
+      navigator.clipboard.writeText(get(codeStore).cLang);
+    } else {
+      // @ts-ignore
+      navigator.clipboard.writeText(get(codeStore).pythonLang);
+    }
     hasCopiedCode = true;
   }
 
