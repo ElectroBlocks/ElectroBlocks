@@ -5,6 +5,7 @@ import { getBlockByType } from './block.helper';
  */
 export const arduinoLoopBlockShowNumberOfTimesThroughLoop = () => {
   const block = getBlockByType('arduino_loop');
+  if (!block) return;
   block.inputList[0].setVisible(false);
   block.inputList[1].setVisible(true);
   block.render();
