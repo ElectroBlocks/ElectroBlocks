@@ -1,9 +1,12 @@
 <script>
   import { onMount } from "svelte";
   import codeStore from "../../../stores/code.store";
-  
   import hljs from 'highlight.js/lib/core';
+  
+  //Import hljs generator for python
   import arduinoLang from 'highlight.js/lib/languages/arduino';
+  import pythonLang from 'highlight.js/lib/languages/python';
+  
   import 'highlight.js/styles/arduino-light.css';
   import 'highlight.js/styles/a11y-light.css';
 
@@ -11,20 +14,32 @@
   import { tooltip } from "@svelte-plugins/tooltips";
   import { get } from "svelte/store";
 
+  // Importing settings store
+  import settingsStore from "../../../stores/settings.store";
+
   let code = "";
   let loaded = false;
   let fontSize = 14;
   let hasCopiedCode = false;
+
+  // subscribing to the settings store
+  let settings = get(settingsStore);
+  settingsStore.subscribe((newSettings) => {
+    settings = newSettings;
+  });
+
   onMount(async () => {
     hljs.registerLanguage('arduino', arduinoLang);
+    hljs.registerLanguage('python', pythonLang);
     codeStore.subscribe(async (codeInfo) => {
-      try
-      {
-        // @ts-ignore
-        code =  hljs.highlight(codeInfo.code,{ language: 'arduino' }).value;
-
-      }
-      catch(e)
+      try {
+        if (settings.language==="Python") {
+          code = hljs.highlight(codeInfo.pythonLang, { language: 'python'}).value;
+        } else {
+          // @ts-ignore
+          code =  hljs.highlight(codeInfo.cLang, { language: 'arduino' }).value;
+        }
+      }catch(e)
       {
         console.log(e);
       }
@@ -51,7 +66,12 @@
   }
 
   function copy() {
-    navigator.clipboard.writeText(get(codeStore).code);
+    if (settings.language==="Python") {
+      navigator.clipboard.writeText(get(codeStore).cLang);
+    } else {
+      // @ts-ignore
+      navigator.clipboard.writeText(get(codeStore).pythonLang);
+    }
     hasCopiedCode = true;
   }
 
@@ -88,8 +108,8 @@
   </div>
 </div>
 <pre style="font-size: {fontSize}px">
-  <code class="language-arduino">{@html code}</code>
-</pre>
+  <code class="{settings.language === 'Python' ? 'language-python' : 'language-arduino'}">{@html code}</code>
+  </pre>
 <svelte:head>
   <title>ElectroBlocks - Code</title>
 </svelte:head>

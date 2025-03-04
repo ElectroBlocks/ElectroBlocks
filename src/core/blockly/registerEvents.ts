@@ -55,7 +55,12 @@ settingStore.subscribe((newSettings) => {
     // code might have to change if the board type changes
     // only run if a workspace exists to generate code from
     if (getWorkspace()) {
-      codeStore.set({ code: getArduinoCode(), boardType: settings.boardType });
+      codeStore.set({
+        cLang: getArduinoCode(),
+        pythonLang: `# Python Code Snippet
+    print("Hello, World!")`,
+        boardType: settings.boardType,
+      });
     }
     return newFrameContainer;
   });
@@ -143,7 +148,6 @@ export const createFrames = async (blocklyEvent) => {
       settings,
     };
     frameStore.set(currentFrameContainter);
-    codeStore.resetCode(microControllerType);
     return;
   }
 
@@ -189,7 +193,12 @@ export const createFrames = async (blocklyEvent) => {
     currentFrameContainter = newFrameContainer;
     frameStore.set(currentFrameContainter);
   }
-  codeStore.set({ code: getArduinoCode(), boardType: microControllerType });
+  codeStore.set({
+    cLang: getArduinoCode(),
+    pythonLang: `# Python Code Snippet
+print("Hello, World!")`,
+    boardType: microControllerType,
+  });
 };
 
 const enableBlocks = (actions: DisableBlock[]) => {
