@@ -1,11 +1,7 @@
 import type { MicroControllerType } from "../microcontroller/microcontroller";
 import config from "../../env";
+import UploadMultiTool from "@duinoapp/upload-multitool";
 
-declare class UploadMultiTool {
-  constructor(config: any);
-
-  flash(hex: string, callback: (error: Error | null, result?: string) => void): void;
-}
 
 
 export const upload = async (
