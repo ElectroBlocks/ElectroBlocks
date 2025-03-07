@@ -6,6 +6,9 @@
   import { fbSaveSettings } from "../../../firebase/db";
   import authStore from "../../../stores/auth.store";
   import settingsStore from "../../../stores/settings.store";
+
+  import codeStore from "../../../stores/code.store";
+
   import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
   import _ from "lodash";
   import { onErrorMessage } from "../../../help/alerts";
@@ -22,6 +25,7 @@
   settingsStore.subscribe((newSettings) => {
     settings = newSettings;
   });
+
 
   async function onSaveSettings() {
     await saveSettings(settings);
@@ -59,7 +63,7 @@
   authStore.subscribe((auth) => {
     uid = auth.uid;
   });
-</script>
+  </script>
 
 {#if settings}
   <div class="row">
@@ -83,6 +87,22 @@
           type="number"
           id="max-time-per-move"
         />
+      </FormGroup>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <FormGroup>
+      <Label for="lang-select">Select Language </Label>
+      <Input
+        bind:value={settings.language}
+        type="select"
+        id="lang-select" 
+      >
+        <option value="Python">Python</option>
+        <option value="C">C</option>
+      </Input>
       </FormGroup>
     </div>
   </div>
