@@ -63,30 +63,7 @@
   authStore.subscribe((auth) => {
     uid = auth.uid;
   });
-
-//   function handleLangChange(e: Event | undefined) {
-//     const resetPythonCode = `# Python Code Snippet
-// print("Hello, World!")`;
-
-
-//     function getPyCode() {
-//       return resetPythonCode;
-//     }
-
-
-//     if (!e) {
-//       console.warn("handleLangChange called w/o event object");
-//     }
-//     console.log("Event got");
-//     const target = e.target as HTMLSelectElement;
-//     // settings = { ...settings, language: target.value };
-
-//     if (target.value === "Python") {
-//       codeStore.set({ code: getPyCode(), boardType: settings.boardType });
-//       console.log("Resetting to Python");
-//     }
-//   }
-</script>
+  </script>
 
 {#if settings}
   <div class="row">
