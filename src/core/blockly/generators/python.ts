@@ -3,7 +3,7 @@ import _ from "lodash";
 import { getBlockByType } from "../helpers/block.helper";
 
 // Python Code generator
-Blockly["Python"] = new Blockly.Generator("Arduino");
+Blockly["Python"] = new Blockly.Generator("Python");
 
 
 // Python Equivalent ReservedWords
@@ -77,7 +77,7 @@ Blockly["Python"].init = function(workspace) {
   // to actual function names (to avoid collisions with user functions).
     Blockly["Python"].functionNames_ = Object.create(null);
 
-    Blockly["Arduino"].variablesInitCode_ = "";
+    Blockly["Python"].variablesInitCode_ = "";
     
     if (!Blockly["Python"].variableDB_){
         Blockly["Python"].variableDB_ = new Blockly.Names(
@@ -115,7 +115,7 @@ Blockly["Python"].init = function(workspace) {
     }
 
     const colourVariables = workspace.getVariablesOfType("Colour");
-    for (i=0; i < numberVariables.length; i++){
+    for (i=0; i < colourVariables.length; i++){
         variableCode +=
         Blockly["Python"].getVariableName(colourVariables[i].getId()) + 
         " = (0, 0, 0)\n\n";
@@ -160,10 +160,9 @@ Blockly["Python"].finish = function(code) {
       !_.isEmpty(Blockly["Python"].setupCode_)
     ) {
       setupCode =
-      "\n// Initialise the program settings and configurations" +
-      "\nvoid setup() { \n" +
+      "\n// Initialise the program settings and configurations\n" + 
       setupCodeFunctionText +
-      "\n}\n";
+      "\n";
   }
 
   else if (
@@ -258,7 +257,7 @@ Blockly["Python"].quote_ = function (string) {
  * @return {string} Python code with comments and subsequent blocks added.
  * @private
  */
-Blockly["Pythobn"].scrub_ = function (block, code) {
+Blockly["Python"].scrub_ = function (block, code) {
   let commentCode = "";
 
   // Only collect comments for blocks that aren't inline.
