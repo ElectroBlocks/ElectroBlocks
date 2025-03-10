@@ -198,7 +198,6 @@ Blockly["Python"].finish = function(code) {
 };
 
 // Don't know if this is needed but here nevertheless
-// Most probably not needed
 Blockly["Python"].scrubNakedValue = function (line) {
   return line + "\n";
 };
