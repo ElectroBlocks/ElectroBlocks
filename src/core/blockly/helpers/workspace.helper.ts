@@ -41,9 +41,8 @@ export const loadProject = (xmlString: string) => {
   localStorage.setItem("no_alert", "yes");
   // Delete all the old blocks and variables
   const blocksToDelete = getAllBlocks(); // get a list of all the old blocks
-  blocksToDelete.forEach((b) => b.dispose(true)); // delete the old blocks
+  blocksToDelete.forEach((b) => b.dispose(false)); // delete the old blocks
   getAllVariables().forEach((v) => deleteVariable(v.getId()));
-
   // Load the new blocks
   const xml = parser.parseFromString(xmlString, "application/xml");
   Blockly.Xml.domToWorkspace(xml.documentElement as any, getWorkspace()); // load new blocks
