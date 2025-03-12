@@ -14,6 +14,17 @@ Blockly["Arduino"]["arduino_setup"] = function (block: Block) {
   );
 };
 
+Blockly["Python"]["arduino_loop"] = function (block: Block) {
+  const statementsLoop = Blockly["Python"].statementToCode(block, "loop");
+
+  return `
+while True:
+${statementsLoop}
+`;
+};
+
+
+
 Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   const statementsLoop = Blockly["Arduino"].statementToCode(block, "loop");
 

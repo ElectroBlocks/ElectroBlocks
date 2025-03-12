@@ -169,9 +169,7 @@ Blockly["Python"].finish = function(code) {
     getBlockByType("arduino_setup") === undefined &&
     _.isEmpty(Blockly["Python"].setupCode_)
   ) {
-    setupCode =
-      "\n// Initialise the program settings and configurations" +
-      "\nvoid setup() { \n\n}\n";
+    setupCode = "";
   }
 
   code =
