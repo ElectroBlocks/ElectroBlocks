@@ -155,22 +155,10 @@ Blockly["Python"].finish = function(code) {
         setupCodeFunctionText += Blockly["Python"].setupCode_[key] || "";
     }
 
-    if(
-      getBlockByType("arduino_setup") === undefined &&
-      !_.isEmpty(Blockly["Python"].setupCode_)
-    ) {
-      setupCode =
-      "\n// Initialise the program settings and configurations\n" + 
-      setupCodeFunctionText +
-      "\n";
-  }
-
-  else if (
-    getBlockByType("arduino_setup") === undefined &&
-    _.isEmpty(Blockly["Python"].setupCode_)
-  ) {
-    setupCode = "";
-  }
+    if(!_.isEmpty(Blockly["Python"].setupCode_)) {
+      setupCode = "\n# Initialise the program settings and configurations\n" + 
+      setupCodeFunctionText + "\n";
+   }
 
   code =
     devVariables +
