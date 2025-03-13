@@ -2,8 +2,6 @@
   import { onMount, afterUpdate } from "svelte";
   import { get } from "svelte/store";
   import codeStore from "../../../stores/code.store";
-<<<<<<< HEAD
-=======
   import boardStore from "../../../stores/board.store"; // Board selection store
 
 >>>>>>> 65c3033 (fixed_toolbox_visibility)
