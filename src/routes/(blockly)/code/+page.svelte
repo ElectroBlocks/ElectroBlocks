@@ -4,7 +4,7 @@
   import codeStore from "../../../stores/code.store";
   import boardStore from "../../../stores/board.store"; // Board selection store
 
->>>>>>> 65c3033 (fixed_toolbox_visibility)
+
   import hljs from 'highlight.js/lib/core';
   
   //Import hljs generator for python
