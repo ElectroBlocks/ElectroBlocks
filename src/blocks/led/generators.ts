@@ -13,6 +13,17 @@ Blockly["Arduino"]["led"] = function (block: Block) {
   }\n`;
 };
 
+Blockly["Python"]["led"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+  const state = block.getFieldValue("STATE");
+
+  const ledState = state === "ON" ? "1" : "0";
+  return `board.digital[${pin}].write(${ledState}); // Set defined pin to ${
+    ledState == "1" ? "1 (turn it on)." : "0 (turn it off)."
+  }\n`;
+};
+
+
 Blockly["Arduino"]["led_fade"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
   const fadeNumber = Blockly["Arduino"].valueToCode(
