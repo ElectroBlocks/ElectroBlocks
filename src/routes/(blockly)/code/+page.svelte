@@ -1,6 +1,12 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, afterUpdate } from "svelte";
+  import { get } from "svelte/store";
   import codeStore from "../../../stores/code.store";
+<<<<<<< HEAD
+=======
+  import boardStore from "../../../stores/board.store"; // Board selection store
+
+>>>>>>> 65c3033 (fixed_toolbox_visibility)
   import hljs from 'highlight.js/lib/core';
   
   //Import hljs generator for python
@@ -10,9 +16,7 @@
   import 'highlight.js/styles/arduino-light.css';
   import 'highlight.js/styles/a11y-light.css';
 
-  import { afterUpdate } from "svelte";
   import { tooltip } from "@svelte-plugins/tooltips";
-  import { get } from "svelte/store";
 
   // Importing settings store
   import settingsStore from "../../../stores/settings.store";
@@ -21,6 +25,7 @@
   let loaded = false;
   let fontSize = 14;
   let hasCopiedCode = false;
+<<<<<<< HEAD
 
   // subscribing to the settings store
   let settings = get(settingsStore);
@@ -41,9 +46,92 @@
         }
       }catch(e)
       {
+=======
+  let isBluetoothEnabled = true; // Default: enabled
+  let selectedBoard = "Arduino Uno"; // Default selected board
+  let workspace; // Blockly workspace reference
+
+  // Toolboxes for different boards
+  const unoToolbox = `
+    <xml xmlns="https://developers.google.com/blockly/xml">
+      <category name="Logic" colour="#5C81A6">
+        <block type="controls_if"></block>
+        <block type="logic_compare"></block>
+      </category>
+      <category name="Loops" colour="#5CA65C">
+        <block type="controls_repeat_ext"></block>
+      </category>
+      <category name="Arduino Uno" colour="#FFA500">
+        <block type="arduino_uno_digital_write"></block>
+      </category>
+    </xml>
+  `;
+
+  const megaToolbox = `
+    <xml xmlns="https://developers.google.com/blockly/xml">
+      <category name="Logic" colour="#5C81A6">
+        <block type="controls_if"></block>
+      </category>
+      <category name="Loops" colour="#5CA65C">
+        <block type="controls_repeat_ext"></block>
+      </category>
+      <category name="Arduino Mega" colour="#FF4500">
+        <block type="arduino_mega_digital_write"></block>
+      </category>
+    </xml>
+  `;
+
+  // Inject Blockly into the container
+  function injectBlockly(toolboxXml) {
+    if (workspace) {
+      workspace.dispose();
+    }
+
+    const toolbox = Blockly.Xml.textToDom(toolboxXml);
+
+    workspace = Blockly.inject('blocklyDiv', {
+      toolbox: toolbox,
+      grid: { spacing: 20, length: 3, colour: '#ccc', snap: true },
+      trashcan: true,
+      zoom: { controls: true, wheel: true }
+    });
+  }
+
+  // Update the Blockly workspace whenever the board changes
+  function handleBoardChange(board) {
+    selectedBoard = board;
+
+    if (board === "Arduino Mega") {
+      isBluetoothEnabled = false;
+      injectBlockly(megaToolbox);
+    } else if (board === "Arduino Uno") {
+      isBluetoothEnabled = true;
+      injectBlockly(unoToolbox);
+    } else {
+      console.log(`Unknown board: ${board}`);
+    }
+  }
+
+  onMount(async () => {
+    hljs.registerLanguage('arduino', arduinoLang);
+
+    // Subscribe to code updates
+    codeStore.subscribe(async (codeInfo) => {
+      try {
+        code = hljs.highlight(codeInfo.code, { language: 'arduino' }).value;
+      } catch (e) {
+>>>>>>> 65c3033 (fixed_toolbox_visibility)
         console.log(e);
       }
     });
+
+    // Subscribe to board selection changes
+    boardStore.subscribe(board => {
+      handleBoardChange(board);
+    });
+
+    // Initial Blockly injection for default board
+    injectBlockly(unoToolbox);
 
     loaded = true;
   });
@@ -53,10 +141,11 @@
       try {
         hljs.highlightAll();
       } catch (error) {
-        console.log(error, 'error')
+        console.log(error, 'error');
       }
     }
   });
+
   function zoomIn() {
     fontSize += 2;
   }
@@ -88,28 +177,40 @@
     theme: "code-large-margin",
   };
 </script>
+
+<!-- Blockly & Code Controls -->
 <div class="row">
   <div class="col">
     {#if !hasCopiedCode}
-    <i use:tooltip={navTooltipStyleSmallMargin} title="Copy Code" on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
+      <i use:tooltip={navTooltipStyleSmallMargin} title="Copy Code" on:click={copy} class="fa fa-clipboard" aria-hidden="true"></i>
     {:else}
-    <i use:tooltip={navTooltipStyleSmallMargin} title="Copied" on:mouseleave={() => hasCopiedCode = false} on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
+      <i use:tooltip={navTooltipStyleSmallMargin} title="Copied" on:mouseleave={() => hasCopiedCode = false} on:click={copy} class="fa fa-clipboard" aria-hidden="true"></i>
     {/if}
-    <i       
-      use:tooltip={navTooltipStyleCodeSmallMarginBottom}
-      on:click={zoomOut} 
-      title="Zoom Out" 
-      class="fa fa-search-minus float-end me-4"
-      aria-hidden="true" />
-    <i use:tooltip={navTooltipStyleSmallMargin} 
-      on:click={zoomIn} title="Zoom In"  
-      class="fa fa-search-plus float-end" 
-      aria-hidden="true" />
+
+    <i use:tooltip={navTooltipStyleCodeSmallMarginBottom} on:click={zoomOut} title="Zoom Out" class="fa fa-search-minus float-end me-4" aria-hidden="true"></i>
+
+    <i use:tooltip={navTooltipStyleSmallMargin} on:click={zoomIn} title="Zoom In" class="fa fa-search-plus float-end" aria-hidden="true"></i>
   </div>
 </div>
+
+<!-- Bluetooth Status -->
+<p class="bluetooth-status">
+  Bluetooth: <strong>{isBluetoothEnabled ? "Enabled" : "Disabled"}</strong>
+</p>
+
+<!-- Code Viewer -->
 <pre style="font-size: {fontSize}px">
+<<<<<<< HEAD
   <code class="{settings.language === 'Python' ? 'language-python' : 'language-arduino'}">{@html code}</code>
   </pre>
+=======
+  <code class="language-arduino">{@html code}</code>
+</pre>
+
+<!-- Blockly Workspace -->
+<div id="blocklyDiv" style="height: 480px; width: 100%; margin: 20px auto;"></div>
+
+>>>>>>> 65c3033 (fixed_toolbox_visibility)
 <svelte:head>
   <title>ElectroBlocks - Code</title>
 </svelte:head>
@@ -137,4 +238,14 @@
   :global(.tooltip.code-large-margin) {
     margin-top: 30px;
   }
+  .bluetooth-status {
+    font-size: 16px;
+    margin-left: 20px;
+    color: #333;
+  }
+  #blocklyDiv {
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
 </style>
+

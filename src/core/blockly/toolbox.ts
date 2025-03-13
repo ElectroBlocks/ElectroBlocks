@@ -43,10 +43,19 @@ export interface ToolBoxEntries {
   color: COLOR_THEME;
 }
 
+export enum MicrocontrollerType {
+  ARDUINO_UNO = "Arduino UNO",
+  ARDUINO_MEGA = "Arduino MEGA",
+  ESP32 = "ESP32",
+}
+
 export interface ToolBoxEntry {
   name: string;
   xml: string;
+  supportedBoards?: MicrocontrollerType[];
+  supportedLanguages?: string[];
 }
+
 
 export enum ToolBoxCategory {
   COMPONENT = "Component",
@@ -66,6 +75,8 @@ const defaultToolbox: ToolBoxEntries[] = [
       {
         name: "Logic",
         xml: logicXMLString,
+        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ARDUINO_UNO],
+        supportedLanguages: ["python", "c"],
       },
       {
         name: "Loop",
@@ -74,6 +85,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       {
         name: "My Blocks",
         xml: functionXMLString,
+        supportedBoards: [MicrocontrollerType.ARDUINO_UNO, MicrocontrollerType.ARDUINO_MEGA],
       },
       {
         name: "Variables",
@@ -114,9 +126,9 @@ const defaultToolbox: ToolBoxEntries[] = [
     category: ToolBoxCategory.COMPONENT,
     name: "Add-ons",
     toolBoxEntries: [
-      { name: "Bluetooth", xml: bluetoothXMLString },
+      { name: "Bluetooth", xml: bluetoothXMLString,supportedBoards: [MicrocontrollerType.ARDUINO_UNO, MicrocontrollerType.ESP32]},
       { name: "Digital Display", xml: digitalDisplayXMLString },
-      { name: "FastLED", xml: fastLEDXMLString },
+      { name: "FastLED", xml: fastLEDXMLString,supportedBoards: [MicrocontrollerType.ARDUINO_MEGA],},
       { name: "LCD Screen", xml: lcdScreenXMLString },
       { name: "Led", xml: ledXMLString },
       { name: "Led Matrix", xml: ledMatrixXMLString },
@@ -125,8 +137,8 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Passive Buzzer", xml: passiveBuzzerXMLString },
       { name: "Pins", xml: writePinXMLString },
       { name: "RBG Led", xml: rgbLedXMLString },
-      { name: "Servos", xml: servoXMLString },
-      { name: "Stepper Motors", xml: stepperMotorXMLString },
+      { name: "Servos", xml: servoXMLString,supportedBoards: [MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ESP32]},
+      { name: "Stepper Motors", xml: stepperMotorXMLString,supportedBoards:[MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ESP32] },
     ],
   },
   {
@@ -137,7 +149,7 @@ const defaultToolbox: ToolBoxEntries[] = [
       { name: "Analog", xml: analogSensorXMLString },
       { name: "Button", xml: buttonXMLString },
       { name: "Digital Sensor", xml: digitalSensorXMLString },
-      { name: "IR Remote", xml: irRmoteXMLString },
+      { name: "IR Remote", xml: irRmoteXMLString,supportedBoards: [MicrocontrollerType.ARDUINO_UNO, MicrocontrollerType.ARDUINO_MEGA]  },
       { name: "JoyStick", xml: joystickXMLString },
       { name: "Motion Sensor", xml: ultraSonicXMLString },
       { name: "RFID", xml: rfidXMLString },
@@ -147,8 +159,9 @@ const defaultToolbox: ToolBoxEntries[] = [
   },
 ];
 
-export const getToolBoxString = (): string => {
-  const toolboxOptions = defaultToolbox; // TODO Make this dynamic
+export const getToolBoxString = (selectedBoard: MicrocontrollerType): string => {
+  const toolboxOptions = defaultToolbox;
+
   let toolbox = `<xml
     xmlns="https://developers.google.com/blockly/xml"
     id="toolbox-simple"
@@ -156,15 +169,22 @@ export const getToolBoxString = (): string => {
   >`;
 
   toolbox += toolboxOptions.reduce((acc, next) => {
+    const filteredEntries = next.toolBoxEntries.filter((entry) => {
+      if (!entry.supportedBoards) return true;
+      return entry.supportedBoards.includes(selectedBoard);
+    });
+
+    if (filteredEntries.length === 0) return acc;
+
     if (next.category === ToolBoxCategory.NONE) {
-      return acc + getMenuItems(next.toolBoxEntries);
+      return acc + getMenuItems(filteredEntries);
     }
 
     return (
       acc +
-      `<category name="${next.name}" colour="${next.color}">
-        ${getMenuItems(next.toolBoxEntries)}
-      </category>`
+      `<category name="${next.name}" colour="${next.color}">` +
+      getMenuItems(filteredEntries) +
+      `</category>`
     );
   }, "");
 
