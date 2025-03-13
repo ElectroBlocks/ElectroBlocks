@@ -56,9 +56,8 @@ settingStore.subscribe((newSettings) => {
     // only run if a workspace exists to generate code from
     if (getWorkspace()) {
       codeStore.set({
-        cLang: getArduinoCode(),
-        pythonLang: `# Python Code Snippet
-    print("Hello, World!")`,
+        cLang: getArduinoCode("Arduino"),
+        pythonLang: getArduinoCode("Python"),
         boardType: settings.boardType,
       });
     }
@@ -194,9 +193,8 @@ export const createFrames = async (blocklyEvent) => {
     frameStore.set(currentFrameContainter);
   }
   codeStore.set({
-    cLang: getArduinoCode(),
-    pythonLang: `# Python Code Snippet
-print("Hello, World!")`,
+    cLang: getArduinoCode("Arduino"),
+    pythonLang: getArduinoCode("Python"),
     boardType: microControllerType,
   });
 };

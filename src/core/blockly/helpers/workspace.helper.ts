@@ -4,9 +4,6 @@ import { arduinoLoopBlockShowLoopForeverText } from "./arduino_loop_block.helper
 import { getAllBlocks } from "./block.helper";
 import { deleteVariable, getAllVariables } from "./variable.helper";
 
-import settingsStore from "../../../stores/settings.store";
-import { get } from "svelte/store";
-
 
 export const getWorkspace = () => {
   return Blockly.getMainWorkspace() as WorkspaceSvg;
@@ -22,18 +19,8 @@ export const updateToolbox = (toolbox: string) => {
   }
 };
 
-export const getArduinoCode = () => {
-  let settings = get(settingsStore);
-  settingsStore.subscribe((newSettings) => {
-    settings = newSettings;
-  });
-  if(settings.language === "C"){
-    return Blockly["Arduino"].workspaceToCode(getWorkspace()) as string;
-  }else{
-  const resetPythonCode = `# Python Code Snippet
-   print("Hello, World!")`;
-   return resetPythonCode;
-  }
+export const getArduinoCode = (lang: string) => {
+  return Blockly[lang].workspaceToCode(getWorkspace()) as string;
 };
 
 

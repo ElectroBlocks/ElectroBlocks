@@ -158,7 +158,7 @@ Blockly["Python"].finish = function(code) {
     if(!_.isEmpty(Blockly["Python"].setupCode_)) {
       setupCode = "\n# Initialise the program settings and configurations\n" + 
       setupCodeFunctionText + "\n";
-  }
+   }
 
   code =
     devVariables +
