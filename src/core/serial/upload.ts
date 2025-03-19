@@ -1,29 +1,52 @@
 import { MicroControllerType } from "../microcontroller/microcontroller";
 import config from "../../env";
-import { upload } from '@duinoapp/upload-multitool';
-import type { ProgramConfig, SerialPortPromise } from '@duinoapp/upload-multitool';
+import  upload  from '@duinoapp/upload-multitool';
+import  SerialPort  from 'serialport';
 
 
+async function getAvailablePorts() {
+    try {
+        const ports = await SerialPort.SerialPort.list();
 
-export const upload1 = async (
+        if (ports.length === 0) {
+            console.log("No serial ports found!");
+            return [];
+        }
+
+        console.log("Available Serial Ports:");
+        ports.forEach((port, index) => {
+            console.log(`${index + 1}. Path: ${port.path}, Manufacturer: ${port.manufacturer || "Unknown"}`);
+        });
+
+        return ports;
+    } catch (error) {
+        console.error("Error listing serial ports:", error);
+        return [];
+    }
+}
+
+export const arduinoUploader = async (
   code: string,
   type: MicroControllerType
 ): Promise<string> => {
+  const selectedPort = await getAvailablePorts();
+  const serialport = new SerialPort.SerialPort({ path: selectedPort[0]?.path, baudRate: 115200 });
   const hexCode = await compileCode(code, type);
   let hexData, filesData, flashFreqData, flashModeData;
 
   try {
-    const parsedData = JSON.parse(hexCode);
-    hexData = parsedData.hex;
-    filesData = parsedData.files;
-    flashFreqData = parsedData.flashFreq;
-    flashModeData = parsedData.flashMode;
+    
+    hexData = "hardcoded_hex_data";
+filesData = ["hardcoded_file_1.bin", "hardcoded_file_2.bin"];
+flashFreqData = "40m"; 
+flashModeData = "qio";
+
   } catch (e) {
-    // If not JSON, assume it's just a hex file
+    
     hexData = hexCode;
   }
 
-  const uploadConfig: ProgramConfig = {
+  const config = {
     bin: hexData,
     files: filesData,
     flashFreq: flashFreqData,
@@ -37,11 +60,10 @@ export const upload1 = async (
     
   };
 
-  const serialport: SerialPortPromise = new SerialPort({ path: '/dev/example', baudRate: 115200 }) as any;
-
+  
 
   try {
-    const res = await upload(serialport, uploadConfig);
+    const res = await  new upload(config);
     return "Upload successful";
   } catch (error) {
     throw new Error("Upload failed: " + error.message);
