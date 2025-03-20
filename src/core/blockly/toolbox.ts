@@ -276,3 +276,34 @@ const defaultToolbox: ToolBoxEntries[] = [
     ],
   },
 ];
+export const getToolBoxString = (): string => {
+  const toolboxOptions = defaultToolbox; // TODO Make this dynamic
+  let toolbox = `<xml
+    xmlns="https://developers.google.com/blockly/xml"
+    id="toolbox-simple"
+    style="display: none"
+  >`;
+
+  toolbox += toolboxOptions.reduce((acc, next) => {
+    if (next.category === ToolBoxCategory.NONE) {
+      return acc + getMenuItems(next.toolBoxEntries);
+    }
+
+    return (
+      acc +
+      `<category name="${next.name}" colour="${next.color}">
+        ${getMenuItems(next.toolBoxEntries)}
+      </category>`
+    );
+  }, "");
+
+  toolbox += `</xml>`;
+
+  return toolbox;
+};
+
+function getMenuItems(toolBoxEntries: ToolBoxEntry[]) {
+  return toolBoxEntries.reduce((acc, next) => {
+    return acc + next.xml;
+  }, "");
+}
