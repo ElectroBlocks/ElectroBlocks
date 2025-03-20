@@ -8,7 +8,7 @@ Blockly['Arduino']['logic_boolean'] = function(block: Block) {
 };
 
 Blockly['Python']['logic_boolean'] = function(block: Block) {
-  const code = block.getFieldValue('BOOL') == 'True' ? 'True' : 'False';
+  const code = block.getFieldValue('BOOL') == 'TRUE' ? 'True' : 'False';
   return [code, Blockly['Python'].ORDER_ATOMIC];
 }
 
