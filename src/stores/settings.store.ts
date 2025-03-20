@@ -4,7 +4,7 @@ import is_browser from "../helpers/is_browser";
 import { defaultSetting } from "../firebase/model";
 import _ from "lodash";
 import authStore from "./auth.store";
-import { MicrocontrollerType } from "../core/microcontroller/microcontroller";
+import { MicroControllerType } from "../core/microcontroller/microcontroller";
 import { getSettings } from "../firebase/db";
 let settings;
 try {
@@ -16,7 +16,7 @@ try {
   settings = defaultSetting;
 }
 
-settings["boardType"] = settings.boardType || MicrocontrollerType.ARDUINO_UNO;
+settings["boardType"] = settings.boardType || MicroControllerType.ARDUINO_UNO;
 
 const settingsStore = writable<Settings>(settings);
 

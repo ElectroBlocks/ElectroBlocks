@@ -1,16 +1,15 @@
 import type { ARDUINO_PINS } from "./selectBoard";
 
-export enum MicrocontrollerType {
+export enum MicroControllerType {
   ARDUINO_UNO = "Arduino UNO",
   ARDUINO_MEGA = "Arduino MEGA",
   ESP32 = "ESP32",
 }
 
-
 export enum SUPPORTED_BOARDS {
-  ARDUINO_UNO = MicrocontrollerType.ARDUINO_UNO,
-  ARDUINO_MEGA = MicrocontrollerType.ARDUINO_MEGA,
-  ESP32 = MicrocontrollerType.ESP32,
+  ARDUINO_UNO = MicroControllerType.ARDUINO_UNO,
+  ARDUINO_MEGA = MicroControllerType.ARDUINO_MEGA,
+  ESP32 = MicroControllerType.ESP32,
 }
 
 export enum SUPPORTED_LANGUAGES {
@@ -52,7 +51,7 @@ export interface MicroController {
   misoPins: string[];
   sckPins: string[];
   ssPins: string[];
-  type: MicrocontrollerType;
+  type: MicroControllerType;
   breadboard: Breadboard;
   skipHoles: number[];
   pinConnections: { [key: string]: PinConnection };
@@ -70,5 +69,5 @@ export interface MicroControllerBlocks {
   misoPins: [string, string][];
   sckPins: [string, string][];
   ssPins: [string, string][];
-  type: MicrocontrollerType;
+  type: MicroControllerType;
 }
