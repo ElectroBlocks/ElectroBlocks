@@ -4,7 +4,7 @@ import  upload  from '@duinoapp/upload-multitool';
 import  SerialPort  from 'serialport';
 
 
-async function getAvailablePorts() {
+/*async function getAvailablePorts() {
     try {
         const ports = await SerialPort.SerialPort.list();
 
@@ -23,14 +23,14 @@ async function getAvailablePorts() {
         console.error("Error listing serial ports:", error);
         return [];
     }
-}
+}*/
 
 export const arduinoUploader = async (
   code: string,
   type: MicroControllerType
 ): Promise<string> => {
-  const selectedPort = await getAvailablePorts();
-  const serialport = new SerialPort.SerialPort({ path: selectedPort[0]?.path, baudRate: 115200 });
+ // const selectedPort = await getAvailablePorts();
+  //const serialport = new SerialPort.SerialPort({ path: selectedPort[0]?.path, baudRate: 115200 });
   const hexCode = await compileCode(code, type);
   let hexData, filesData, flashFreqData, flashModeData;
 
