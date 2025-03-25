@@ -12,7 +12,7 @@
   import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
   import _ from "lodash";
   import { onErrorMessage } from "../../../help/alerts";
-  import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
+  import { MicrocontrollerType } from "../../../core/microcontroller/microcontroller";
   import { ledColors } from "../../../blocks/led/virtual-circuit";
   let uid: string;
 
@@ -71,8 +71,8 @@
       <FormGroup>
         <Label for="boardType">MicroController</Label>
         <Input bind:value={settings.boardType} type="select" id="boardType">
-          <option value={MicroControllerType.ARDUINO_UNO}>Arduino Uno</option>
-          <option value={MicroControllerType.ARDUINO_MEGA}>Arduino Mega</option>
+          <option value={MicrocontrollerType.ARDUINO_UNO}>Arduino Uno</option>
+          <option value={MicrocontrollerType.ARDUINO_MEGA}>Arduino Mega</option>
         </Input>
       </FormGroup>
     </div>

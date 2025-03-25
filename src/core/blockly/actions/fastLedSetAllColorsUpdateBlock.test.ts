@@ -14,7 +14,7 @@ import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../../tests/tests.helper";
-import { MicroControllerType } from "../../microcontroller/microcontroller";
+import { MicrocontrollerType } from "../../microcontroller/microcontroller";
 import { updateFastLedSetAllColorsUpdateBlock } from "./fastLedSetAllColorsUpdateBlock";
 
 describe("fastLedSetAllColorsUpdateBlock", () => {

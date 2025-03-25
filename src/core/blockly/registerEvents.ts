@@ -29,7 +29,7 @@ import {
   ArduinoComponentType,
   type ArduinoFrameContainer,
 } from "../frames/arduino.frame";
-import type { MicroControllerType } from "../microcontroller/microcontroller";
+import type { MicrocontrollerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
 import type { Settings } from "../../firebase/model";
@@ -57,8 +57,8 @@ settingStore.subscribe((newSettings) => {
     if (getWorkspace()) {
       codeStore.set({
         cLang: getArduinoCode(),
-        pythonLang: `# Python Code Snippet
-    print("Hello, World!")`,
+      /* pythonLang: `# Python Code Snippet
+    print("Hello, World!")`,*/
         boardType: settings.boardType,
       });
     }
@@ -89,12 +89,12 @@ export const createFrames = async (blocklyEvent) => {
 
   if (!supportedEvents.has(blocklyEvent.type)) return;
 
-  const microControllerType = getBoardType() as MicroControllerType;
+  const microcontrollerType = getBoardType() as MicrocontrollerType;
   const event = transformEvent(
     getAllBlocks(),
     getAllVariables(),
     blocklyEvent,
-    microControllerType
+    microcontrollerType
   );
 
   const firstActionPass = [
@@ -119,7 +119,7 @@ export const createFrames = async (blocklyEvent) => {
     getAllBlocks(),
     getAllVariables(),
     blocklyEvent,
-    microControllerType
+    microcontrollerType
   );
   // We need to run this again incase anything got enable that was disabled.
   const secondActionPass = [
@@ -181,7 +181,7 @@ export const createFrames = async (blocklyEvent) => {
     getAllBlocks(),
     getAllVariables(),
     blocklyEvent,
-    microControllerType
+    microcontrollerType
   );
 
   const newFrameContainer = eventToFrameFactory(refreshEvent, settings);
@@ -195,9 +195,9 @@ export const createFrames = async (blocklyEvent) => {
   }
   codeStore.set({
     cLang: getArduinoCode(),
-    pythonLang: `# Python Code Snippet
-print("Hello, World!")`,
-    boardType: microControllerType,
+   /* pythonLang: `# Python Code Snippet
+print("Hello, World!")`,*/
+    boardType: microcontrollerType,
   });
 };
 

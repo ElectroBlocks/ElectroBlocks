@@ -1,10 +1,9 @@
 import {
   type Breadboard,
-  MicroControllerType,
+  MicrocontrollerType, 
   type PinConnection,
-} from "../../core/microcontroller/microcontroller";
-import type { MicroController } from "../../core/microcontroller/microcontroller";
-
+  type MicroController,
+} from "../../core/microcontroller/microcontroller"; 
 enum WIRE_COLORS {
   PURPLE = "#B637CC",
   LIGHT_BROWN = "#CC9E37",
@@ -94,7 +93,7 @@ const unoArduino: MicroController = {
   sclPins: ["A5"],
   sdaPins: ["A4"],
   serial_baud_rate: 9600,
-  type: MicroControllerType.ARDUINO_UNO,
+  type: MicrocontrollerType.ARDUINO_UNO,
   breadboard,
   skipHoles: [
     6, 9, 13, 18, 22, 27, 31, 37, 41, 46, 51, 54, 58, 61, 56, 50, 44, 38, 32,

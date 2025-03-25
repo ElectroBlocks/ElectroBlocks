@@ -1,13 +1,13 @@
 import { BlockData } from "./block.type";
 import { VariableData } from "./variable.type";
-import { MicroControllerType } from "../../microcontroller/microcontroller";
+import { MicrocontrollerType } from "../../microcontroller/microcontroller";
 
 export interface BlockEvent {
   blocks: BlockData[];
   variables: VariableData[];
   type: string; // the type of event
   blockId: string;
-  microController: MicroControllerType;
+  microController: MicrocontrollerType;
 
   fieldName?: string; // the field name that got changed
   fieldType?: string;

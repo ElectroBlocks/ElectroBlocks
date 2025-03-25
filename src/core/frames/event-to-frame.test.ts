@@ -20,7 +20,7 @@ import {
   createTestEvent,
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../blockly/dto/variable.type";
-import { MicroControllerType } from "../microcontroller/microcontroller";
+import { MicrocontrollerType } from "../microcontroller/microcontroller";
 import type { ButtonState } from "../../blocks/button/state";
 import { defaultSetting } from "../../firebase/model";
 
@@ -54,7 +54,7 @@ describe("generator", () => {
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
       blockId: buttonSetup.id,
-      microController: MicroControllerType.ARDUINO_UNO,
+      microController: MicrocontrollerType.ARDUINO_UNO,
     };
     saveSensorSetupBlockData(event2).forEach(updater);
   });

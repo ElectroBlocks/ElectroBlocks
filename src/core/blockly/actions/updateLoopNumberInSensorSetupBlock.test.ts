@@ -14,7 +14,7 @@ import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../../tests/tests.helper";
-import { MicroControllerType } from "../../microcontroller/microcontroller";
+import { MicrocontrollerType } from "../../microcontroller/microcontroller";
 
 describe("changeLoopNumberInSensorBlock", () => {
   let workspace;
@@ -45,7 +45,7 @@ describe("changeLoopNumberInSensorBlock", () => {
       oldValue: "1",
       fieldName: "LOOP_TIMES",
       fieldType: "field",
-      microController: MicroControllerType.ARDUINO_UNO,
+      microController: MicrocontrollerType.ARDUINO_UNO,
     };
 
     expect(updateLoopNumberInSensorSetupBlock(event)).toEqual([]);
@@ -75,7 +75,7 @@ describe("changeLoopNumberInSensorBlock", () => {
       oldValue: "10",
       fieldName: "LOOP_TIMES",
       fieldType: "field",
-      microController: MicroControllerType.ARDUINO_UNO,
+      microController: MicrocontrollerType.ARDUINO_UNO,
     };
 
     const updateBlockActions = updateLoopNumberInSensorSetupBlock(event);

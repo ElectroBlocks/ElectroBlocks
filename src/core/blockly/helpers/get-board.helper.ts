@@ -1,11 +1,11 @@
 import settingsStore from '../../../stores/settings.store';
-import { MicroControllerType } from '../../microcontroller/microcontroller';
+import { MicrocontrollerType } from '../../microcontroller/microcontroller';
 import { get } from 'svelte/store';
 
-export const getBoardType = (): MicroControllerType => {
+export const getBoardType = (): MicrocontrollerType => {
   const currentSettings = get(settingsStore);
   if (!currentSettings) {
-    return MicroControllerType.ARDUINO_UNO;
+    return MicrocontrollerType.ARDUINO_UNO;
   }
   return get(settingsStore)["boardType"];
 };
