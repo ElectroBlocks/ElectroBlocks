@@ -10,13 +10,20 @@ export const getBoard = (type: MicrocontrollerType) => {
 };
 
 export const selectBoardBlockly = (): MicroControllerBlocks => {
-  const boardType = getBoardType();
+  const boardType = getBoardType();  
+  console.log("✅ Board Type Selected:", boardType);  
+
+  if (!boardProfiles[boardType]) {
+    throw new Error(`❌ Undefined board profile for type: ${boardType}`);
+  }
+
   return transformBoardBlockly(boardProfiles[boardType]);
 };
 
+
 const boardProfiles = {
-  uno: unoArduino,
-  mega: arduinoMega,
+  ARDUINO_UNO: unoArduino,
+  ARDUINO_MEGA: arduinoMega,
 };
 
 export enum ARDUINO_PINS {

@@ -7,6 +7,11 @@ const pinArrayToFieldList = (pins: string[]): [string, string][] => {
 export const transformBoardBlockly = (
   board: MicroController
 ): MicroControllerBlocks => {
+  if (!board){
+      throw new Error("❌ Board is undefined in transformBlockly!");
+  }
+  console.log("✅ Board received in transformBoardBlockly::", board);  
+  
   return {
     serial_baud_rate: board.serial_baud_rate,
     type: board.type,
