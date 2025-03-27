@@ -136,7 +136,9 @@
   }
 
   function blocklyReloadToolbox(xmlToolbox) {
-    Blockly.getMainWorkspace().updateToolbox(xmlToolbox);
+    if (workspaceInitialize) {
+      Blockly.getMainWorkspace().updateToolbox(xmlToolbox);
+    }
   }
 
   onDestroy(() => {
