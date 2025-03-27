@@ -1,5 +1,5 @@
 import settingsStore from '../../../stores/settings.store';
-import { MicrocontrollerType } from '../../microcontroller/microcontroller';
+import { MicroControllerType } from "../../microcontroller/microcontroller";
 import { get } from 'svelte/store';
 
 export const getBoardType = (): string => {

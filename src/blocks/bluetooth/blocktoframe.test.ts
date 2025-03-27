@@ -25,7 +25,7 @@ import {
   createTestEvent,
 } from "../../tests/tests.helper";
 import { VariableTypes } from "../../core/blockly/dto/variable.type";
-import { MicrocontrollerType } from "../../core/microcontroller/microcontroller";
+import { MicroControllerType } from "../../core/microcontroller/microcontroller";
 import type { BluetoothState } from "./state";
 
 describe("bluetooth state factories", () => {
@@ -103,7 +103,7 @@ describe("bluetooth state factories", () => {
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
       blockId: bluethoothsetupblock.id,
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
 
     const [state1, state2, state3] = eventToFrameFactory(event1).frames;
@@ -135,7 +135,7 @@ describe("bluetooth state factories", () => {
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
       blockId: bluethoothsetupblock.id,
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
 
     const [state1e2, state2e2] = eventToFrameFactory(event2).frames;

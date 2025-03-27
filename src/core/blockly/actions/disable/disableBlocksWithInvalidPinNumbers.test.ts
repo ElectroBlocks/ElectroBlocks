@@ -9,7 +9,7 @@ import {
   createTestEvent,
 } from "../../../../tests/tests.helper";
 import settingsStore from "../../../../stores/settings.store";
-import { MicrocontrollerType } from "../../../microcontroller/microcontroller";
+import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
 describe("disable pins where the microcontroller does not have thoses pins", () => {
   let workspace: Workspace;
@@ -25,12 +25,12 @@ describe("disable pins where the microcontroller does not have thoses pins", () 
 
   it("should disable pin numbers where the don't exists", () => {
     settingsStore.update((settings) => {
-      return { ...settings, boardType: MicrocontrollerType.ARDUINO_MEGA };
+      return { ...settings, boardType: MicroControllerType.ARDUINO_MEGA };
     });
     const servoBlock1 = workspace.newBlock("rotate_servo") as BlockSvg;
     servoBlock1.setFieldValue("45", "PIN");
     settingsStore.update((settings) => {
-      return { ...settings, boardType: MicrocontrollerType.ARDUINO_UNO };
+      return { ...settings, boardType: MicroControllerType.ARDUINO_UNO };
     });
     const event = createTestEvent(arduinoBlock.id);
 

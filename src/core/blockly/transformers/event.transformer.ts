@@ -3,13 +3,13 @@ import { transformBlock } from "./block.transformer";
 import type { BlockEvent } from "../dto/event.type";
 import _ from "lodash";
 import { transformVariable } from "./variables.transformer";
-import type { MicrocontrollerType } from "../../microcontroller/microcontroller";
+import type { MicroControllerType } from "../../microcontroller/microcontroller";
 
 export const transformEvent = (
   blocks: BlockSvg[],
   variables: VariableModel[],
   event: Object | any,
-  microcontrollerType: MicrocontrollerType
+  microcontrollerType: MicroControllerType
 ): BlockEvent => {
   const blockDatum = blocks.map(transformBlock);
   return {

@@ -10,7 +10,7 @@ import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../../../tests/tests.helper";
-import { MicrocontrollerType } from "../../../microcontroller/microcontroller";
+import { MicroControllerType } from "../../../microcontroller/microcontroller";
 
 describe("disableSensorReadBlocksWithWrongPins", () => {
   let workspace: Workspace;

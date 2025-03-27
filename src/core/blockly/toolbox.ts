@@ -35,7 +35,7 @@ import joystickXMLString from "../../blocks/joystick/toolbox";
 import thermistorXMLString from "../../blocks/thermistor/toolbox";
 
 import { COLOR_THEME } from "./constants/colors";
-import { MicrocontrollerType } from "../../core/microcontroller/microcontroller";
+import { MicroControllerType } from "../../core/microcontroller/microcontroller";
 import { SUPPORTED_LANGUAGES } from "../../core/microcontroller/microcontroller";
 
 export interface ToolBoxEntries {
@@ -57,7 +57,7 @@ export enum ToolBoxCategory {
 export interface ToolBoxEntry {
   name: string;
   xml: string;
-  supportedBoards: MicrocontrollerType[];
+  supportedBoards: MicroControllerType[];
   supportedLanguages: string[];
 }
 
@@ -70,67 +70,84 @@ const defaultToolbox: ToolBoxEntries[] = [
       {
         name: "Logic",
         xml: logicXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ARDUINO_UNO],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_MEGA,
+          MicroControllerType.ARDUINO_UNO,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Loop",
         xml: loopXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO, MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ESP32],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_UNO,
+          MicroControllerType.ARDUINO_MEGA,
+          MicroControllerType.ESP32,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "My Blocks",
         xml: functionXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO, MicrocontrollerType.ARDUINO_MEGA],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_UNO,
+          MicroControllerType.ARDUINO_MEGA,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Variables",
         xml: variablesXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO, MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ESP32],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_UNO,
+          MicroControllerType.ARDUINO_MEGA,
+          MicroControllerType.ESP32,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "List",
         xml: listXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO],
+        supportedBoards: [MicroControllerType.ARDUINO_UNO],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Color",
         xml: colorXMLString,
-        supportedBoards: [MicrocontrollerType.ESP32],
+        supportedBoards: [MicroControllerType.ESP32],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Math",
         xml: mathXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ESP32],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_MEGA,
+          MicroControllerType.ESP32,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Text",
         xml: textXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO],
+        supportedBoards: [MicroControllerType.ARDUINO_UNO],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Code",
         xml: arduinoXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO],
+        supportedBoards: [MicroControllerType.ARDUINO_UNO],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Message",
         xml: messageXMLString,
-        supportedBoards: [MicrocontrollerType.ESP32],
+        supportedBoards: [MicroControllerType.ESP32],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Time",
         xml: timeXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA],
+        supportedBoards: [MicroControllerType.ARDUINO_MEGA],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
     ],
@@ -143,73 +160,85 @@ const defaultToolbox: ToolBoxEntries[] = [
       {
         name: "Bluetooth",
         xml: bluetoothXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO, MicrocontrollerType.ESP32],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_UNO,
+          MicroControllerType.ESP32,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Digital Display",
         xml: digitalDisplayXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO],
+        supportedBoards: [MicroControllerType.ARDUINO_UNO],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "FastLED",
         xml: fastLEDXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA],
+        supportedBoards: [MicroControllerType.ARDUINO_MEGA],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "LCD Screen",
         xml: lcdScreenXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ESP32],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_MEGA,
+          MicroControllerType.ESP32,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Led",
         xml: ledXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO],
+        supportedBoards: [MicroControllerType.ARDUINO_UNO],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Led Matrix",
         xml: ledMatrixXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA],
+        supportedBoards: [MicroControllerType.ARDUINO_MEGA],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Motor",
         xml: motorXMLString,
-        supportedBoards: [MicrocontrollerType.ESP32],
+        supportedBoards: [MicroControllerType.ESP32],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Passive Buzzer",
         xml: passiveBuzzerXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO],
+        supportedBoards: [MicroControllerType.ARDUINO_UNO],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Pins",
         xml: writePinXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA],
+        supportedBoards: [MicroControllerType.ARDUINO_MEGA],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "RGB Led",
         xml: rgbLedXMLString,
-        supportedBoards: [MicrocontrollerType.ESP32],
+        supportedBoards: [MicroControllerType.ESP32],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Servos",
         xml: servoXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ESP32],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_MEGA,
+          MicroControllerType.ESP32,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Stepper Motors",
         xml: stepperMotorXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ESP32],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_MEGA,
+          MicroControllerType.ESP32,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
     ],
@@ -222,55 +251,61 @@ const defaultToolbox: ToolBoxEntries[] = [
       {
         name: "Analog",
         xml: analogSensorXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO],
+        supportedBoards: [MicroControllerType.ARDUINO_UNO],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Button",
         xml: buttonXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA],
+        supportedBoards: [MicroControllerType.ARDUINO_MEGA],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Digital Sensor",
         xml: digitalSensorXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA, MicrocontrollerType.ESP32],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_MEGA,
+          MicroControllerType.ESP32,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "IR Remote",
         xml: irRmoteXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO, MicrocontrollerType.ARDUINO_MEGA],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_UNO,
+          MicroControllerType.ARDUINO_MEGA,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "JoyStick",
         xml: joystickXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA],
+        supportedBoards: [MicroControllerType.ARDUINO_MEGA],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Motion Sensor",
         xml: ultraSonicXMLString,
-        supportedBoards: [MicrocontrollerType.ESP32],
+        supportedBoards: [MicroControllerType.ESP32],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "RFID",
         xml: rfidXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_UNO],
+        supportedBoards: [MicroControllerType.ARDUINO_UNO],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Temperature/Humidity",
         xml: temperatureXMLString,
-        supportedBoards: [MicrocontrollerType.ESP32],
+        supportedBoards: [MicroControllerType.ESP32],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Thermistor",
         xml: thermistorXMLString,
-        supportedBoards: [MicrocontrollerType.ARDUINO_MEGA],
+        supportedBoards: [MicroControllerType.ARDUINO_MEGA],
         supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
     ],

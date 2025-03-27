@@ -1,10 +1,10 @@
 import type { Settings } from "../../firebase/model";
 import type { VariableTypes } from "../blockly/dto/variable.type";
-import type { MicrocontrollerType } from "../microcontroller/microcontroller";
+import type { MicroControllerType } from "../microcontroller/microcontroller";
 import type { ARDUINO_PINS } from "../microcontroller/selectBoard";
 
 export interface ArduinoFrameContainer {
-  board: MicrocontrollerType;
+  board: MicroControllerType;
   frames: ArduinoFrame[];
   settings: Settings;
   error: boolean;

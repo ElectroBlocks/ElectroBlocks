@@ -14,7 +14,7 @@ import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../../tests/tests.helper";
-import { MicrocontrollerType } from "../../microcontroller/microcontroller";
+import { MicroControllerType } from "../../microcontroller/microcontroller";
 import type { UltraSonicSensor } from "../../../blocks/ultrasonic_sensor/state";
 
 describe("saveSensorSetupBlockData", () => {
@@ -46,7 +46,7 @@ describe("saveSensorSetupBlockData", () => {
       oldValue: "1",
       fieldName: "LOOP",
       fieldType: "field",
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
     const actions = saveSensorSetupBlockData(event);
     expect(actions).toEqual([]);
@@ -63,7 +63,7 @@ describe("saveSensorSetupBlockData", () => {
       oldValue: "1",
       fieldName: "cm",
       fieldType: "field",
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
 
     const expectedData = [
@@ -125,7 +125,7 @@ describe("saveSensorSetupBlockData", () => {
       oldValue: "1",
       fieldName: "cm",
       fieldType: "field",
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
 
     const actions = saveSensorSetupBlockData(event);
@@ -153,7 +153,7 @@ describe("saveSensorSetupBlockData", () => {
       oldValue: "1",
       fieldName: "time_in_seconds",
       fieldType: "field",
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
     const actions = saveSensorSetupBlockData(event);
     expect(actions).toEqual([]);
@@ -193,7 +193,7 @@ describe("saveSensorSetupBlockData", () => {
       oldValue: "1",
       fieldName: "cm",
       fieldType: "field",
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
 
     const actions = saveSensorSetupBlockData(event);

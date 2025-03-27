@@ -1,4 +1,4 @@
-import type { MicrocontrollerType } from "../microcontroller/microcontroller";
+import type { MicroControllerType } from "../microcontroller/microcontroller";
 import config from "../../env";
 
 declare class AvrgirlArduino {
@@ -10,7 +10,7 @@ declare class AvrgirlArduino {
 export const upload = async (
   code: string,
   avrgirl: AvrgirlArduino,
-  type: MicrocontrollerType
+  type: MicroControllerType
 ) => {
   const hexCode = await compileCode(code, type);
 

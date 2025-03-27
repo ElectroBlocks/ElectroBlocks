@@ -10,7 +10,7 @@ import _ from "lodash";
 import { getAllVariables } from "../helpers/variable.helper";
 import { VariableTypes } from "../dto/variable.type";
 import { createArduinoAndWorkSpace } from "../../../tests/tests.helper";
-import { MicrocontrollerType } from "../../microcontroller/microcontroller";
+import { MicroControllerType } from "../../microcontroller/microcontroller";
 
 describe("event transformer", () => {
   let workspace: Workspace;
@@ -35,7 +35,7 @@ describe("event transformer", () => {
         newValue: "3",
         oldValue: "2",
       },
-      MicrocontrollerType.ARDUINO_UNO
+      MicroControllerType.ARDUINO_UNO
     );
 
     expect(changeEvent.blocks).toEqual(getAllBlocks().map(transformBlock));
@@ -58,7 +58,7 @@ describe("event transformer", () => {
         type: Blockly.Events.DELETE,
         blockId: "blockId",
       },
-      MicrocontrollerType.ARDUINO_UNO
+      MicroControllerType.ARDUINO_UNO
     );
 
     expect(deleteEvent.variables.length).toBe(3);
@@ -82,7 +82,7 @@ describe("event transformer", () => {
         type: Blockly.Events.DELETE,
         blockId: "blockId",
       },
-      MicrocontrollerType.ARDUINO_UNO
+      MicroControllerType.ARDUINO_UNO
     );
 
     expect(deleteEvent.blocks).toEqual(getAllBlocks().map(transformBlock));

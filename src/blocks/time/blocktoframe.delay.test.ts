@@ -18,7 +18,7 @@ import { transformBlock } from "../../core/blockly/transformers/block.transforme
 import { getAllVariables } from "../../core/blockly/helpers/variable.helper";
 import { transformVariable } from "../../core/blockly/transformers/variables.transformer";
 import { eventToFrameFactory } from "../../core/frames/event-to-frame.factory";
-import { MicrocontrollerType } from "../../core/microcontroller/microcontroller";
+import { MicroControllerType } from "../../core/microcontroller/microcontroller";
 
 describe("factories delay state", () => {
   let workspace: Workspace;
@@ -59,7 +59,7 @@ describe("factories delay state", () => {
       variables: getAllVariables().map(transformVariable),
       type: Blockly.Events.BLOCK_MOVE,
       blockId: delayBlock.id,
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
 
     const [event2state1] = eventToFrameFactory(event2).frames;

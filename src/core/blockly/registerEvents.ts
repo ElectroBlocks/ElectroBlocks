@@ -29,7 +29,7 @@ import {
   ArduinoComponentType,
   type ArduinoFrameContainer,
 } from "../frames/arduino.frame";
-import type { MicrocontrollerType } from "../microcontroller/microcontroller";
+import type { MicroControllerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
 import type { Settings } from "../../firebase/model";
@@ -57,7 +57,7 @@ settingStore.subscribe((newSettings) => {
     if (getWorkspace()) {
       codeStore.set({
         cLang: getArduinoCode(),
-      /* pythonLang: `# Python Code Snippet
+        /* pythonLang: `# Python Code Snippet
     print("Hello, World!")`,*/
         boardType: settings.boardType,
       });
@@ -89,7 +89,7 @@ export const createFrames = async (blocklyEvent) => {
 
   if (!supportedEvents.has(blocklyEvent.type)) return;
 
-  const microcontrollerType = getBoardType() as MicrocontrollerType;
+  const microcontrollerType = getBoardType() as MicroControllerType;
   const event = transformEvent(
     getAllBlocks(),
     getAllVariables(),
@@ -195,7 +195,7 @@ export const createFrames = async (blocklyEvent) => {
   }
   codeStore.set({
     cLang: getArduinoCode(),
-   /* pythonLang: `# Python Code Snippet
+    /* pythonLang: `# Python Code Snippet
 print("Hello, World!")`,*/
     boardType: microcontrollerType,
   });

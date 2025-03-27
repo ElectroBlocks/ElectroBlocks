@@ -14,7 +14,7 @@ import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../../tests/tests.helper";
-import { MicrocontrollerType } from "../../microcontroller/microcontroller";
+import { MicroControllerType } from "../../microcontroller/microcontroller";
 
 describe("updateSensorSetup", () => {
   let workspace;
@@ -47,7 +47,7 @@ describe("updateSensorSetup", () => {
       oldValue: "2",
       fieldType: "field",
       fieldName: "NUM",
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
     expect(updateSensorSetupFields(numValueChangingEvent)).toEqual([]);
   });
@@ -65,7 +65,7 @@ describe("updateSensorSetup", () => {
       fieldType: "field",
       fieldName: "LOOP",
       variables: getAllVariables().map(transformVariable),
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
     expect(_.isEmpty(sensorBlock.data)).toBeTruthy();
     expect(updateSensorSetupFields(sensorBlockChangeEvent)).toEqual([]);
@@ -105,7 +105,7 @@ describe("updateSensorSetup", () => {
       fieldType: "field",
       fieldName: "LOOP",
       variables: getAllVariables().map(transformVariable),
-      microController: MicrocontrollerType.ARDUINO_UNO,
+      microController: MicroControllerType.ARDUINO_UNO,
     };
 
     const expectedAction: UpdateSetupSensorBlockFields = {

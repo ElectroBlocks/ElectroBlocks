@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { MicrocontrollerType } from "../core/microcontroller/microcontroller";
+import { MicroControllerType } from "../core/microcontroller/microcontroller";
 
 const cCode = `int simple_loop_variable = 0;
 struct RGB {
@@ -22,7 +22,7 @@ void loop() {
 `;
 const codeStore = writable({
   cLang: cCode,
-  boardType: MicrocontrollerType.ARDUINO_UNO,
+  boardType: MicroControllerType.ARDUINO_UNO,
 });
 
 export default {

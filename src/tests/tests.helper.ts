@@ -5,7 +5,7 @@ import { VariableTypes } from "../core/blockly/dto/variable.type";
 import type { Variable, Color } from "../core/frames/arduino.frame";
 import { rgbToHex } from "../core/blockly/helpers/color.helper";
 import type { BlockEvent } from "../core/blockly/dto/event.type";
-import { MicrocontrollerType } from "../core/microcontroller/microcontroller";
+import { MicroControllerType } from "../core/microcontroller/microcontroller";
 import { getAllBlocks } from "../core/blockly/helpers/block.helper";
 import { transformBlock } from "../core/blockly/transformers/block.transformer";
 import { getAllVariables } from "../core/blockly/helpers/variable.helper";
@@ -192,6 +192,6 @@ export const createTestEvent = (
     variables: getAllVariables().map(transformVariable),
     type,
     blockId,
-    microController: MicrocontrollerType.ARDUINO_UNO,
+    microController: MicroControllerType.ARDUINO_UNO,
   };
 };
