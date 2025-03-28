@@ -39,12 +39,16 @@ export const loadProjectFromUrl = async (url: string) => {
 export const loadProject = (xmlString: string) => {
   var parser = new DOMParser();
   localStorage.setItem("no_alert", "yes");
-  getAllVariables().forEach((v) => deleteVariable(v.getId()));
+  // Delete all the old blocks and variables
   const blocksToDelete = getAllBlocks(); // get a list of all the old blocks
+  blocksToDelete.forEach((b) => b.dispose(false)); // delete the old blocks
+  getAllVariables().forEach((v) => deleteVariable(v.getId()));
+  // Load the new blocks
   const xml = parser.parseFromString(xmlString, "application/xml");
   Blockly.Xml.domToWorkspace(xml.documentElement as any, getWorkspace()); // load new blocks
-  blocksToDelete.forEach((b) => b.dispose(true)); // delete the old blocks
   localStorage.removeItem("no_alert");
+
+  // Scroll to the center
   getWorkspace().scrollCenter();
 };
 
