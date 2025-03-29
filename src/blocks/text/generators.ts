@@ -9,6 +9,12 @@ Blockly["Arduino"]["text"] = function (block: Block) {
   return [code, Blockly["Arduino"].ORDER_ATOMIC];
 };
 
+Blockly["Python"]["text"] = function (block: Block)  {
+  const code =
+    Blockly["Python"].quote_(block.getFieldValue("TEXT"));
+  return [code, Blockly["Python"].ORDER_ATOMIC];
+}
+
 /**
  * Enclose the provided value in 'String(...)' function.
  * Leave string literals alone.
@@ -22,10 +28,17 @@ Blockly["Arduino"].text.forceString_ = function (value) {
   return "String(" + value + ")";
 };
 
+Blockly["Python"].text.forceString_ = function (value) {
+  if (Blockly["Python"].text.forceString_.strRegExp.test(value)) {
+    return value;
+  }
+  return `str(${value})`;
+};
 /**
  * Regular expression to detect a single-quoted string literal.
  */
 Blockly["Arduino"].text.forceString_.strRegExp = /^\s*'([^']|\\')*'\s*$/;
+Blockly["Python"].text.forceString_.strRegExp = /^(['"])(?:\\.|[^\\])*?\1$/;
 
 Blockly["Arduino"]["text_join"] = function (block: Block | any) {
   if (block.itemCount_ === 0) {
@@ -63,6 +76,42 @@ Blockly["Arduino"]["text_join"] = function (block: Block | any) {
   return [code, Blockly["Arduino"].ORDER_ATOMIC];
 };
 
+Blockly["Python"]["text_join"] = function (block) {
+  if (block.itemCount_ === 0) {
+    return ['""', Blockly["Python"].ORDER_ATOMIC];
+  }
+
+  if (block.itemCount_ === 1) {
+    const element = Blockly["Python"].valueToCode(
+      block,
+      "ADD0",
+      Blockly["Python"].ORDER_NONE
+    ) || '""';
+    return [
+      Blockly["Python"].text.forceString_(element),
+      Blockly["Python"].ORDER_ATOMIC,
+    ];
+  }
+
+  const parts = [];
+
+  for (let i = 0; i < block.itemCount_; i++) {
+    const part = Blockly["Python"].valueToCode(
+      block,
+      "ADD" + i,
+      Blockly["Python"].ORDER_NONE
+    );
+    if (part && part.length > 0) {
+      parts.push(Blockly["Python"].text.forceString_(part));
+    }
+  }
+
+  const code = parts.join(" + ");
+  return [code, Blockly["Python"].ORDER_ADDITIVE];
+};
+
+
+
 Blockly["Arduino"]["text_length"] = function (block: Block | any) {
   Blockly["Arduino"].functionNames_["textLength"] =
     "double textLength(String str) {\n" +
@@ -77,6 +126,17 @@ Blockly["Arduino"]["text_length"] = function (block: Block | any) {
 
   return ["textLength(" + str + ")", Blockly["Arduino"].ORDER_ATOMIC];
 };
+
+Blockly["Python"]["text_length"] = function (block) {
+  const str = Blockly["Python"].valueToCode(
+    block,
+    "VALUE",
+    Blockly["Python"].ORDER_NONE
+  ) || '""';
+
+  return [`len(${str})`, Blockly["Python"].ORDER_FUNCTION_CALL];
+};
+
 
 Blockly["Arduino"]["text_isEmpty"] = function (block: Block | any) {
   Blockly["Arduino"].functionNames_["textLength"] =
@@ -93,6 +153,17 @@ Blockly["Arduino"]["text_isEmpty"] = function (block: Block | any) {
   return ["(textLength(" + str + ") > 0)", Blockly["Arduino"].ORDER_ATOMIC];
 };
 
+Blockly["Python"]["text_isEmpty"] = function (block) {
+  const str = Blockly["Python"].valueToCode(
+    block,
+    "VALUE",
+    Blockly["Python"].ORDER_NONE
+  ) || '""';
+
+  return [`(len(${str}) == 0)`, Blockly["Python"].ORDER_COMPARISON];
+};
+
+
 Blockly["Arduino"]["number_to_string"] = function (block: Block | any) {
   Blockly["Arduino"].functionNames_["double_to_string_debug"] =
     createDoubleToStringCFunc();
@@ -108,6 +179,20 @@ Blockly["Arduino"]["number_to_string"] = function (block: Block | any) {
     Blockly["Arduino"].ORDER_NONE,
   ];
 };
+
+Blockly["Python"]["number_to_string"] = function (block) {
+  const numberOfDecimals = block.getFieldValue("PRECISION");
+  const number = Blockly["Python"].valueToCode(
+    block,
+    "NUMBER",
+    Blockly["Python"].ORDER_NONE
+  ) || "0";
+
+  const code = `f"{${number}:.${numberOfDecimals}f}"`;
+
+  return [code, Blockly["Python"].ORDER_ATOMIC];
+};
+
 
 Blockly["Arduino"]["text_changeCase"] = function (block: Block | any) {
   Blockly["Arduino"].functionNames_["upperCaseString"] =
@@ -135,6 +220,22 @@ Blockly["Arduino"]["text_changeCase"] = function (block: Block | any) {
     return ["lowerCaseString(" + text + ")", Blockly["Arduino"].ORDER_ATOMIC];
   }
 };
+
+Blockly["Python"]["text_changeCase"] = function (block) {
+  const transformType = block.getFieldValue("CASE");
+  const text = Blockly["Python"].valueToCode(
+    block,
+    "TEXT",
+    Blockly["Python"].ORDER_FUNCTION_CALL
+  ) || '""';
+
+  if (transformType === "UPPERCASE") {
+    return [`${text}.upper()`, Blockly["Python"].ORDER_FUNCTION_CALL];
+  } else {
+    return [`${text}.lower()`, Blockly["Python"].ORDER_FUNCTION_CALL];
+  }
+};
+
 
 Blockly["Arduino"]["parse_string_block"] = function (block: Block | any) {
   Blockly["Arduino"].functionNames_["text_get_part_of_string"] =
@@ -171,4 +272,26 @@ Blockly["Arduino"]["parse_string_block"] = function (block: Block | any) {
     "getParseValue(" + text + ", " + delimiter + ", " + position + ")",
     Blockly["Arduino"].ORDER_ATOMIC,
   ];
+};
+
+Blockly["Python"]["parse_string_block"] = function (block) {
+  const text = Blockly["Python"].valueToCode(
+    block,
+    "VALUE",
+    Blockly["Python"].ORDER_NONE
+  ) || '""';
+
+  const delimiter = Blockly["Python"].quote_(block.getFieldValue("DELIMITER"));
+  let position = Blockly["Python"].valueToCode(
+    block,
+    "POSITION",
+    Blockly["Python"].ORDER_NONE
+  ) || "0";
+
+  // Adjust to zero-based index like in the Arduino version
+  position = `max(0, (${position}) - 1)`;
+
+  const code = `((${text}).split(${delimiter})[${position}] if ${position} < len((${text}).split(${delimiter})) else "")`;
+
+  return [code, Blockly["Python"].ORDER_CONDITIONAL];
 };
