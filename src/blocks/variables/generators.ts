@@ -53,10 +53,10 @@ const getVariableFunctionPy = function (block, generator: CodeGenerator) {
 };
 
 Blockly["Python"]["variables_set_number"] = setVariableFunctionPy(10);
-Blockly["Python"]["variables_set_boolean"] = setVariableFunctionPy("TRUE");
-Blockly["Python"]["variables_set_string"] = setVariableFunctionPy("' '");
+Blockly["Python"]["variables_set_boolean"] = setVariableFunctionPy("True");
+Blockly["Python"]["variables_set_string"] = setVariableFunctionPy("''");
 Blockly["Python"]["variables_set_colour"] =
-  setVariableFunctionPy(`{ 22,  0,  22}`);
+  setVariableFunctionPy("(22,  0,  22)");
 
 Blockly["Python"]["variables_get_number"] = getVariableFunctionPy;
 Blockly["Python"]["variables_get_boolean"] = getVariableFunctionPy;
