@@ -55,6 +55,9 @@ Blockly["Python"].ORDER_LAMBDA = 16;        // lambda
 Blockly["Python"].ORDER_ASSIGNMENT = 17;    // =
 Blockly["Python"].ORDER_NONE = 99;          // (...)
 
+// Bug fixes
+Blockly["Python"].ORDER_MODULUS ??= 5;
+
 Blockly["Python"].init = function(workspace) {
     if(!this.nameDB_){
         this.nameDB_ = new Blockly.Names(this.RESERVED_WORDS_);
