@@ -1,5 +1,4 @@
-import { ProgramConfig, upload } from "@duinoapp/upload-multitool";
-import { WebSerialPort } from "@duinoapp/upload-multitool";
+import { ProgramConfig, upload, WebSerialPortPromise } from "@duinoapp/upload-multitool";
 import config from "../../env";
 import { MicroControllerType } from "../microcontroller/microcontroller";
 
@@ -21,38 +20,37 @@ const compileCode = async (code: string, type: string): Promise<string> => {
   }
 };
 
-// Global port tracking to prevent multiple open attempts
-let currentPort: WebSerialPort | null = null;
+let currentPort: WebSerialPortPromise | null = null;
+
 export const arduinoUploader = async (
   code: string,
   type: MicroControllerType
 ): Promise<string> => {
+  let serialport: WebSerialPortPromise | null = null;
   
-  let serialport: WebSerialPort | null = null;
-
   try {
     const hexCode = await compileCode(code, type);
     const processedHex = processHexData(hexCode);
 
-    if (!processedHex || !processedHex.startsWith(":")) {
+    if (!processedHex.startsWith(":")) {
       throw new Error("Invalid hex data received from server");
     }
 
     console.log("Hex data is valid, requesting port...");
 
-    if (!WebSerialPort.isSupported()) {
+    if (!WebSerialPortPromise.isSupported()) {
       throw new Error("Web Serial API is not supported in this environment");
     }
 
     if (!currentPort) {
-      serialport = await WebSerialPort.requestPort({}, { baudRate: 9600 });
+      serialport = await WebSerialPortPromise.requestPort({}, { baudRate: 115200 });
       if (!serialport) throw new Error("No serial port selected.");
       currentPort = serialport;
     } else {
       serialport = currentPort;
     }
-
-    if (!serialport.port || !serialport.port.isOpen) {
+ console.log(processedHex)
+    if (!serialport.isOpen) {
       try {
         await serialport.open();
         console.log("Serial port opened successfully");
@@ -61,7 +59,6 @@ export const arduinoUploader = async (
       }
     }
 
-    // Directly use serialport.port without casting
     const config = {
       bin: processedHex,
       // files: filesData,
@@ -73,19 +70,19 @@ export const arduinoUploader = async (
       cpu: "atmega328p",
       stdout: console.log,
       verbose: true,
-    } as any as ProgramConfig;
+    } as any as ProgramConfig;
 
     console.log("\r\nUploading...\r\n");
-
-    const res = await upload(serialport.port, config); // Use serialport.port directly
+    await upload(serialport.port, config);
     console.log("Upload successful");
-    currentPort = serialport; // Ensure currentPort remains of type WebSerialPort
+
+    currentPort = serialport;
     return "Upload successful";
   } catch (error) {
     console.error("Upload error:", error);
     throw new Error("Upload failed: " + error.message);
   } finally {
-    if (serialport && serialport.port?.isOpen) {
+    if (serialport && serialport.isOpen) {
       try {
         await serialport.close();
         console.log("Serial port closed");
@@ -96,14 +93,16 @@ export const arduinoUploader = async (
     }
   }
 };
+
 // Function to process hex data
 function processHexData(hexData: string): string {
-  const lines = hexData.trim().split(/\r?\n/);
-  const processedLines = lines.map((line) => {
-    if (!line.trim().startsWith(":")) {
-      return ":" + line.trim();
-    }
-    return line.trim();
-  });
-  return processedLines.join("\n");
+  if (!hexData || typeof hexData !== "string") {
+    throw new Error("Invalid HEX data received");
+  }
+
+  return hexData
+    .trim()
+    .split(/\r?\n/)
+    .map((line) => (line.trim().startsWith(":") ? line.trim() : ":" + line.trim()))
+    .join("\n");
 }
