@@ -3,7 +3,7 @@
   import codeStore from "../../../stores/code.store";
   import arduinoStore, { PortState } from "../../../stores/arduino.store";
 
-  import { arduinoUploader } from "../../../core/serial/upload";
+  import { arduinoUploader} from "../../../core/serial/upload";
 
   import { afterUpdate } from "svelte";
   import { getBoard } from "../../../core/microcontroller/selectBoard";
@@ -133,8 +133,9 @@
     }
     arduinoStore.set(PortState.UPLOADING);
     try {
+    
 
-      await arduinoUploader(code, boardType);
+      await arduinoUploader(code,boardType);
       onSuccess("Your code is uploaded!! :)");
     } catch (e) {
       if (e.message.toLowerCase() === "no port selected by the user.") {
