@@ -55,7 +55,6 @@
     "@duinoapp/upload-multitool": "^0.0.3",
     "@serialport/list": "^13.0.0",
     "@serialport/parser-byte-length": "^13.0.0",
-    "serialport": "^13.0.0",
-    "vue": "^3.5.13"
+    "serialport": "^13.0.0"
   }
 }
