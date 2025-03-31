@@ -28,7 +28,6 @@
     "@types/firebase": "^3.2.1",
     "@types/jest": "^25.2.3",
     "@types/lodash": "^4.14.157",
-    "@types/vue": "^1.0.31",
     "@vitest/coverage-istanbul": "^1.5.3",
     "@vitest/coverage-v8": "^1.5.3",
     "axios": "^1.7.4",
@@ -56,7 +55,6 @@
     "@duinoapp/upload-multitool": "^0.0.3",
     "@serialport/list": "^13.0.0",
     "@serialport/parser-byte-length": "^13.0.0",
-    "@vue/reactivity": "^3.5.13",
     "serialport": "^13.0.0",
     "vue": "^3.5.13"
   }
