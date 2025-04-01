@@ -9,6 +9,14 @@ Blockly["Arduino"]["math_number"] = function (block: Block) {
   ];
 };
 
+Blockly["Python"]["math_number"] = function (block: Block) {
+  // Numeric value.
+  return [
+    parseFloat(block.getFieldValue("NUM")),
+    Blockly["Python"].ORDER_ATOMIC,
+  ];
+};
+
 Blockly["Arduino"]["math_arithmetic"] = function (block: Block) {
   // Basic arithmetic operators, and power.
   const OPERATORS = {
@@ -163,4 +171,95 @@ Blockly["Arduino"]["string_to_number"] = function (block: Block) {
   );
 
   return ["parseDouble(" + string + ")", Blockly["Arduino"].ORDER_ATOMIC];
+};
+
+Blockly["Python"]["math_arithmetic"] = function (block: Block) {
+  const OPERATORS = {
+    ADD: [" + ", Blockly["Python"].ORDER_ADDITIVE],
+    MINUS: [" - ", Blockly["Python"].ORDER_ADDITIVE],
+    MULTIPLY: [" * ", Blockly["Python"].ORDER_MULTIPLICATIVE],
+    DIVIDE: [" / ", Blockly["Python"].ORDER_MULTIPLICATIVE],
+    POWER: [" ** ", Blockly["Python"].ORDER_EXPONENTIATION],
+  };
+
+  const tuple = OPERATORS[block.getFieldValue("OP")];
+  const operator = tuple[0];
+  const order = tuple[1];
+
+  const argument0 = Blockly["Python"].valueToCode(block, "A", order) || "0";
+  const argument1 = Blockly["Python"].valueToCode(block, "B", order) || "0";
+
+  const code = argument0 + operator + argument1;
+  return [code, order];
+};
+
+Blockly["Python"]["math_round"] = function (block: Block) {
+  const operator = block.getFieldValue("OP");
+  const arg = Blockly["Python"].valueToCode(block, "NUM", Blockly["Python"].ORDER_NONE) || "0";
+
+  let code = "";
+  switch (operator) {
+    case "ROUND":
+      code = "round(" + arg + ")";
+      break;
+    case "ROUNDUP":
+      code = "math.ceil(" + arg + ")";
+      break;
+    case "ROUNDDOWN":
+      code = "math.floor(" + arg + ")";
+      break;
+    default:
+      throw Error("Unsupported operator: " + operator);
+  }
+
+  return [code, Blockly["Python"].ORDER_FUNCTION_CALL];
+};
+
+//this doesnt work with the repeat block either
+//no idea why
+Blockly["Python"]["math_modulo"] = function (block: Block) {
+  const dividend = Blockly["Python"].valueToCode(block, "DIVIDEND", Blockly["Python"].ORDER_MODULUS) || "0";
+  const divisor = Blockly["Python"].valueToCode(block, "DIVISOR", Blockly["Python"].ORDER_MODULUS) || "1";
+
+  const code = dividend + " % " + divisor;
+  return [code, Blockly["Python"].ORDER_MODULUS];
+};
+
+Blockly["Python"]["math_number_property"] = function (block: Block) {
+  const number = Blockly["Python"].valueToCode(block, "NUMBER_TO_CHECK", Blockly["Python"].ORDER_RELATIONAL) || "1";
+  const checkBy = block.getFieldValue("PROPERTY");
+
+  let code;
+  if (checkBy === "EVEN") {
+    code = number + " % 2 == 0";
+  } else if (checkBy === "ODD") {
+    code = number + " % 2 == 1";
+  } else if (checkBy === "POSITIVE") {
+    code = number + " > 0";
+  } else if (checkBy === "NEGATIVE") {
+    code = number + " < 0";
+  } else if (checkBy === "DIVISIBLE_BY") {
+    const divisor = Blockly["Python"].valueToCode(block, "DIVISOR", Blockly["Python"].ORDER_RELATIONAL) || "1";
+    code = number + " % " + divisor + " == 0";
+  } else {
+    code = "False";
+  }
+
+  return [code, Blockly["Python"].ORDER_RELATIONAL];
+};
+
+Blockly["Python"]["math_random_int"] = function (block: Block) {
+  const start = Blockly["Python"].valueToCode(block, "FROM", Blockly["Python"].ORDER_NONE) || "0";
+  const finish = Blockly["Python"].valueToCode(block, "TO", Blockly["Python"].ORDER_NONE) || "1";
+
+  Blockly["Python"].importedModules_["random"] = "import random";
+
+  return ["random.randint(" + start + ", " + finish + ")", Blockly["Python"].ORDER_FUNCTION_CALL];
+};
+
+//doesnt work with any of the repeat blocks
+//not cuz of the return type def
+Blockly["Python"]["string_to_number"] = function (block: Block) {
+  const string = Blockly["Python"].valueToCode(block, "VALUE", Blockly["Python"].ORDER_ATOMIC) || "''";
+  return ["float(" + string + ")", Blockly["Python"].ORDER_FUNCTION_CALL];
 };
