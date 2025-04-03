@@ -27,7 +27,6 @@ print("Hello, World!")`;
 const codeStore = writable({
   cLang: cCode,
   pythonLang: pythonCode,
-  boardType: MicroControllerType.ARDUINO_UNO,
 });
 
 export default {

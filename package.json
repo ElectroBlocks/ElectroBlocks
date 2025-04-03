@@ -4,8 +4,8 @@
   "description": "This is electroblocks video editing for code.",
   "version": "3.0.0",
   "scripts": {
-    "dev": "cp env/env.development.ts src/env.ts && vite dev",
-    "build": "cp ./env/env.staging.ts ./src/env.ts && vite build",
+    "dev": "copy env\\env.development.ts src\\env.ts && npx vite dev",
+    "build": "copy env\\env.staging.ts src\\env.ts && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test-coverage": "vitest --coverage",
