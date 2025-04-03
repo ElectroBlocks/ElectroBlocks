@@ -71,6 +71,7 @@ Blockly["Python"].init = function(workspace) {
 
     // Create a dictionary of definitions to be printed before the code.
     Blockly["Python"].imports_ = Object.create(null);
+    Blockly["Python"].definitions_ = Object.create(null);
 
     // creates a list of code to be setup before the setup block
     Blockly["Python"].setupCode_ = Object.create(null);
@@ -131,6 +132,7 @@ Blockly["Python"].finish = function(code) {
     let libraryCode = "";
     let functionsCode = "";
     let devVariables = "";
+    let definitionsCode = ""
     
     for (const key in Blockly["Python"].imports_){
         libraryCode += Blockly["Python"].imports_[key] + "\n";
@@ -138,6 +140,10 @@ Blockly["Python"].finish = function(code) {
 
     for (const key in Blockly["Python"].functionNames_){
         functionsCode += Blockly["Python"].functionNames_[key] + "\n";
+    }
+    
+    for(const key in Blockly["Python"].defintions_){
+        definitionsCode += Blockly["Python"].defintions_[key] + "\n";
     }
 
     if (!_.isEmpty(Blockly["Python"].setupCode_["bluetooth_setup"])) {
@@ -166,6 +172,8 @@ Blockly["Python"].finish = function(code) {
   code =
     devVariables +
     libraryCode +
+    "\n" +
+    definitionsCode +
     "\n" +
     Blockly["Python"].variablesInitCode_ +
     "\n" +

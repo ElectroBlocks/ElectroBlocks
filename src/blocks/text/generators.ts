@@ -274,24 +274,63 @@ Blockly["Arduino"]["parse_string_block"] = function (block: Block | any) {
   ];
 };
 
+// Blockly["Python"]["parse_string_block"] = function (block) {
+//   const text = Blockly["Python"].valueToCode(
+//     block,
+//     "VALUE",
+//     Blockly["Python"].ORDER_NONE
+//   ) || '""';
+
+//   const delimiter = Blockly["Python"].quote_(block.getFieldValue("DELIMITER"));
+//   let position = Blockly["Python"].valueToCode(
+//     block,
+//     "POSITION",
+//     Blockly["Python"].ORDER_NONE
+//   ) || "0";
+
+//   // Adjust to zero-based index like in the Arduino version
+//   position = `max(0, (${position}) - 1)`;
+
+//   // Expanded multi-line version using triple quotes for readability
+//   const code = `(lambda text=${text}, delim=${delimiter}, pos=${position}: 
+//     parts = text.split(delim)
+//     if 0 <= pos < len(parts):
+//         return parts[pos]
+//     else:
+//         return ""
+// )()`;  // Immediately invoke the lambda function
+
+//   return [code, Blockly["Python"].ORDER_NONE];
+// };
+
 Blockly["Python"]["parse_string_block"] = function (block) {
+  Blockly["Python"].definitions_["parse_string_block"] =
+  "def get_parse_value(data, separator, index):\n" +
+  "   found = 0\n" +
+  "   str_index = [0, -1]\n" +
+  "   max_index = len(data) - 1\n" +
+  "   for i in range(max_index + 1):\n" +
+  "       if data[i] == separator or i == max_index:\n" +
+  "           found += 1\n" +
+  "           str_index[0] = str_index[1] + 1\n" +
+  "           str_index[1] = i + 1 if i == max_index else i\n" +
+  "       if found > index:\n" +
+  "           return data[str_index[0]:str_index[1]]\n"
+  "   return ''\n";
   const text = Blockly["Python"].valueToCode(
     block,
     "VALUE",
     Blockly["Python"].ORDER_NONE
   ) || '""';
-
   const delimiter = Blockly["Python"].quote_(block.getFieldValue("DELIMITER"));
   let position = Blockly["Python"].valueToCode(
     block,
     "POSITION",
     Blockly["Python"].ORDER_NONE
   ) || "0";
-
   // Adjust to zero-based index like in the Arduino version
   position = `max(0, (${position}) - 1)`;
-
-  const code = `((${text}).split(${delimiter})[${position}] if ${position} < len((${text}).split(${delimiter})) else "")`;
-
-  return [code, Blockly["Python"].ORDER_CONDITIONAL];
+  // Expanded multi-line version using triple quotes for readability
+  const code = `get_parse_value(${text}, ${delimiter}, ${position})`;
+  return [code, Blockly["Python"].ORDER_NONE];
 };
