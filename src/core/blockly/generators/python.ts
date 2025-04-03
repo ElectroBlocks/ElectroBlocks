@@ -142,8 +142,8 @@ Blockly["Python"].finish = function(code) {
         functionsCode += Blockly["Python"].functionNames_[key] + "\n";
     }
     
-    for(const key in Blockly["Python"].defintions_){
-        definitionsCode += Blockly["Python"].defintions_[key] + "\n";
+    for(const key in Blockly["Python"].definitions_){
+        definitionsCode += Blockly["Python"].definitions_[key] + "\n";
     }
 
     if (!_.isEmpty(Blockly["Python"].setupCode_["bluetooth_setup"])) {
