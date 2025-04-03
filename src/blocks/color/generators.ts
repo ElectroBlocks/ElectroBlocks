@@ -25,9 +25,9 @@ from dataclasses import dataclass`
   Blockly["Python"].functionNames_["color_struct"] = `  
 @dataclass
 class RGB:
-  red: int
-  green: int
-  blue: int
+  red: float
+  green: float
+  blue: float
   `;
 }
 
