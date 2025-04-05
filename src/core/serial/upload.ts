@@ -32,9 +32,7 @@ export const arduinoUploader = async (
     const hexCode = await compileCode(code, type);
     const processedHex = processHexData(hexCode);
 
-    if (!processedHex.startsWith(":")) {
-      throw new Error("Invalid hex data received from server");
-    }
+   
 
     console.log("Hex data is valid, requesting port...");
 
@@ -49,7 +47,8 @@ export const arduinoUploader = async (
     } else {
       serialport = currentPort;
     }
- console.log(processedHex)
+    
+    console.log(processedHex)
     if (!serialport.isOpen) {
       try {
         await serialport.open();
@@ -64,23 +63,22 @@ export const arduinoUploader = async (
       // files: filesData,
       // flashFreq: flashFreqData,
       // flashMode: flashModeData,
-      speed: 9600,
-      uploadSpeed: 9600,
+      speed:  115200,
+      uploadSpeed:115200,
       tool: "avr",
       cpu: "atmega328p",
-      stdout: console.log,
+      stdout: {
+        write: (msg: string) => console.log(msg), // Properly implement the write method
+      },
       verbose: true,
     } as any as ProgramConfig;
-
+    console.log("Hex Data Before Parsing:", config.bin);
     console.log("\r\nUploading...\r\n");
     await upload(serialport.port, config);
     console.log("Upload successful");
 
     currentPort = serialport;
     return "Upload successful";
-  } catch (error) {
-    console.error("Upload error:", error);
-    throw new Error("Upload failed: " + error.message);
   } finally {
     if (serialport && serialport.isOpen) {
       try {
@@ -94,15 +92,13 @@ export const arduinoUploader = async (
   }
 };
 
-// Function to process hex data
-function processHexData(hexData: string): string {
-  if (!hexData || typeof hexData !== "string") {
-    throw new Error("Invalid HEX data received");
-  }
 
-  return hexData
+function processHexData(hexData: string): string {
+
+  const format= hexData
     .trim()
     .split(/\r?\n/)
     .map((line) => (line.trim().startsWith(":") ? line.trim() : ":" + line.trim()))
     .join("\n");
+    return  window.btoa(format); 
 }
