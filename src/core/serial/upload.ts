@@ -30,16 +30,11 @@ export const arduinoUploader = async (
   
   try {
     const hexCode = await compileCode(code, type);
-    const processedHex = processHexData(hexCode);
-
-   
-
-    console.log("Hex data is valid, requesting port...");
-
+    const processedHex = btoa(hexCode)
+    console.log("requesting port...");
     if (!WebSerialPortPromise.isSupported()) {
       throw new Error("Web Serial API is not supported in this environment");
     }
-
     if (!currentPort) {
       serialport = await WebSerialPortPromise.requestPort({}, { baudRate: 115200 });
       if (!serialport) throw new Error("No serial port selected.");
@@ -47,7 +42,6 @@ export const arduinoUploader = async (
     } else {
       serialport = currentPort;
     }
-    
     console.log(processedHex)
     if (!serialport.isOpen) {
       try {
@@ -57,7 +51,6 @@ export const arduinoUploader = async (
         throw new Error(`Failed to open port: ${portError.message}`);
       }
     }
-
     const config = {
       bin: processedHex,
       // files: filesData,
@@ -76,7 +69,6 @@ export const arduinoUploader = async (
     console.log("\r\nUploading...\r\n");
     await upload(serialport.port, config);
     console.log("Upload successful");
-
     currentPort = serialport;
     return "Upload successful";
   } finally {
@@ -92,13 +84,3 @@ export const arduinoUploader = async (
   }
 };
 
-
-function processHexData(hexData: string): string {
-
-  const format= hexData
-    .trim()
-    .split(/\r?\n/)
-    .map((line) => (line.trim().startsWith(":") ? line.trim() : ":" + line.trim()))
-    .join("\n");
-    return  window.btoa(format); 
-}
