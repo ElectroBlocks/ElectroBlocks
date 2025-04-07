@@ -55,6 +55,9 @@ Blockly["Python"].ORDER_LAMBDA = 16;        // lambda
 Blockly["Python"].ORDER_ASSIGNMENT = 17;    // =
 Blockly["Python"].ORDER_NONE = 99;          // (...)
 
+// Bug fixes
+Blockly["Python"].ORDER_MODULUS ??= 5;
+
 Blockly["Python"].init = function(workspace) {
     if(!this.nameDB_){
         this.nameDB_ = new Blockly.Names(this.RESERVED_WORDS_);
@@ -68,6 +71,7 @@ Blockly["Python"].init = function(workspace) {
 
     // Create a dictionary of definitions to be printed before the code.
     Blockly["Python"].imports_ = Object.create(null);
+    Blockly["Python"].definitions_ = Object.create(null);
 
     // creates a list of code to be setup before the setup block
     Blockly["Python"].setupCode_ = Object.create(null);
@@ -128,6 +132,7 @@ Blockly["Python"].finish = function(code) {
     let libraryCode = "";
     let functionsCode = "";
     let devVariables = "";
+    let definitionsCode = ""
     
     for (const key in Blockly["Python"].imports_){
         libraryCode += Blockly["Python"].imports_[key] + "\n";
@@ -135,6 +140,10 @@ Blockly["Python"].finish = function(code) {
 
     for (const key in Blockly["Python"].functionNames_){
         functionsCode += Blockly["Python"].functionNames_[key] + "\n";
+    }
+    
+    for(const key in Blockly["Python"].definitions_){
+        definitionsCode += Blockly["Python"].definitions_[key] + "\n";
     }
 
     if (!_.isEmpty(Blockly["Python"].setupCode_["bluetooth_setup"])) {
@@ -163,6 +172,8 @@ Blockly["Python"].finish = function(code) {
   code =
     devVariables +
     libraryCode +
+    "\n" +
+    definitionsCode +
     "\n" +
     Blockly["Python"].variablesInitCode_ +
     "\n" +
