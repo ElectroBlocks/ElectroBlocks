@@ -10,7 +10,7 @@
   import { onErrorMessage, onSuccess } from "../../../help/alerts";
   import { tooltip } from "@svelte-plugins/tooltips";
   import { get } from "svelte/store";
-  
+  import settings from "../../../stores/settings.store"; 
   const navigatorSerialNotAvailableMessaeg = `To upload code you must use chrome or a chromium based browser like edge, or brave.  This will work with chrome version 89 or higher. `;
 
   // controls whether the messages should autoscroll
@@ -42,12 +42,16 @@
       ? "fa-spinner fa-spin fa-6x fa-fw"
       : "fa-upload";
 
-   codeStore.subscribe((codeInfo) => {
-    selectedLanguage = codeInfo.selectedLanguage;
+   //  Get language from settings store instead of code store
+  settings.subscribe((setting) => {
+    selectedLanguage = setting.language;
+    console.log("Language from settings store:", selectedLanguage); // Debug
+  });
+
+  //  Get only boardType and code content from code store
+  codeStore.subscribe((codeInfo) => {
     boardType = codeInfo.boardType;
     code = selectedLanguage === "C" ? codeInfo.cLang : codeInfo.pythonLang;
-
-    console.log("Current language is:", selectedLanguage); // Debug
   });
 
 
@@ -136,7 +140,7 @@
     if (arduinoStatus !== PortState.CLOSE) {
       return;
     }
-    const currentLanguage = get(codeStore).selectedLanguage;
+    
     if (selectedLanguage !== "C") {
       onErrorMessage("Upload is only supported for C code.");
       return;
