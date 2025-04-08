@@ -13,6 +13,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
+    "@duinoapp/upload-multitool": "^0.0.3",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@svelte-plugins/tooltips": "^3.0.1",
     "@sveltejs/adapter-static": "^3.0.1",
@@ -50,11 +51,5 @@
     "vite": "^5.4.14",
     "vitest": "^1.5.2"
   },
-  "type": "module",
-  "dependencies": {
-    "@duinoapp/upload-multitool": "^0.0.3",
-    "@serialport/list": "^13.0.0",
-    "@serialport/parser-byte-length": "^13.0.0",
-    "serialport": "^13.0.0"
-  }
+  "type": "module"
 }
