@@ -12,37 +12,27 @@ const compileCode = async (code: string, type: string): Promise<string> => {
     );
     if (!response.ok) throw new Error(`Server responded with status: ${response.status}`);
     const result = await response.text();
-    console.log("Compilation successful, hex data length:", result.length);
-    return result;
+    return btoa(result);
   } catch (error) {
     console.error("Code compilation error:", error);
     throw error;
   }
 };
 
-let currentPort: WebSerialPortPromise | null = null;
 
 export const arduinoUploader = async (
   code: string,
   type: MicroControllerType
 ): Promise<string> => {
   let serialport: WebSerialPortPromise | null = null;
-  
   try {
     const hexCode = await compileCode(code, type);
-    const processedHex = btoa(hexCode)
     console.log("requesting port...");
     if (!WebSerialPortPromise.isSupported()) {
       throw new Error("Web Serial API is not supported in this environment");
     }
-    if (!currentPort) {
       serialport = await WebSerialPortPromise.requestPort({}, { baudRate: 115200 });
       if (!serialport) throw new Error("No serial port selected.");
-      currentPort = serialport;
-    } else {
-      serialport = currentPort;
-    }
-    console.log(processedHex)
     if (!serialport.isOpen) {
       try {
         await serialport.open();
@@ -52,7 +42,7 @@ export const arduinoUploader = async (
       }
     }
     const config = {
-      bin: processedHex,
+      bin: hexCode,
       // files: filesData,
       // flashFreq: flashFreqData,
       // flashMode: flashModeData,
@@ -69,14 +59,14 @@ export const arduinoUploader = async (
     console.log("\r\nUploading...\r\n");
     await upload(serialport.port, config);
     console.log("Upload successful");
-    currentPort = serialport;
     return "Upload successful";
+ 
   } finally {
-    if (serialport && serialport.isOpen) {
+    if (serialport) {
       try {
         await serialport.close();
         console.log("Serial port closed");
-        currentPort = null;
+     
       } catch (closeError) {
         console.warn("Warning: Error closing port:", closeError);
       }
