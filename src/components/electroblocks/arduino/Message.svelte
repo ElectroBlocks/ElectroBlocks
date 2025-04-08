@@ -9,7 +9,8 @@
   import { getBoard } from "../../../core/microcontroller/selectBoard";
   import { onErrorMessage, onSuccess } from "../../../help/alerts";
   import { tooltip } from "@svelte-plugins/tooltips";
-
+  import { get } from "svelte/store";
+  
   const navigatorSerialNotAvailableMessaeg = `To upload code you must use chrome or a chromium based browser like edge, or brave.  This will work with chrome version 89 or higher. `;
 
   // controls whether the messages should autoscroll
