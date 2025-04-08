@@ -12,11 +12,6 @@ export const upload = async (
   avrgirl: AvrgirlArduino,
   type: MicroControllerType
 ) => {
-  
-  if (type !== "C") {
-    throw new Error("Compilation is only allowed when the language is set to C.");
-  }
-
   const hexCode = await compileCode(code, type);
 
   const enc = new TextEncoder();

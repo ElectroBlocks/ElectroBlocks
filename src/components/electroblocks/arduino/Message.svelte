@@ -35,16 +35,20 @@
 
   // means that we already have seen the message
   let alreadyShownDebugMessage = false;
-
+  let selectedLanguage;
   $: uploadingClass =
     arduinoStatus === PortState.UPLOADING
       ? "fa-spinner fa-spin fa-6x fa-fw"
       : "fa-upload";
 
-  codeStore.subscribe((codeInfo) => {
-    code = codeInfo.code;
+   codeStore.subscribe((codeInfo) => {
+    selectedLanguage = codeInfo.selectedLanguage;
     boardType = codeInfo.boardType;
+    code = selectedLanguage === "C" ? codeInfo.cLang : codeInfo.pythonLang;
+
+    console.log("Current language is:", selectedLanguage); // Debug
   });
+
 
   arduinoStore.subscribe((status) => {
     arduinoStatus = status;
@@ -129,6 +133,11 @@
     }
 
     if (arduinoStatus !== PortState.CLOSE) {
+      return;
+    }
+    const currentLanguage = get(codeStore).selectedLanguage;
+    if (selectedLanguage !== "C") {
+      onErrorMessage("Upload is only supported for C code.");
       return;
     }
     arduinoStore.set(PortState.UPLOADING);

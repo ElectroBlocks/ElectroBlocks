@@ -24,12 +24,14 @@ void loop() {
 const pythonCode = `# Python Code Snippet
 print("Hello, World!")`;
 
-const codeStore = writable({
+export const codeStore = writable({
+  selectedLanguage: "C", 
   cLang: cCode,
   pythonLang: pythonCode,
 });
 
 export default {
   set: codeStore.set,
+  update: codeStore.update,
   subscribe: codeStore.subscribe,
 };
