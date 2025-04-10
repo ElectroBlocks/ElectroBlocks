@@ -55,10 +55,8 @@ export const arduinoUploader = async (
       },
       verbose: true,
     } as any as ProgramConfig;
-    console.log("Hex Data Before Parsing:", config.bin);
-    console.log("\r\nUploading...\r\n");
     await upload(serialport.port, config);
-    console.log("Upload successful");
+ 
     return "Upload successful";
  
   } finally {
