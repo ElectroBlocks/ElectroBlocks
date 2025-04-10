@@ -36,19 +36,15 @@
 
   // means that we already have seen the message
   let alreadyShownDebugMessage = false;
-  let selectedLanguage;
+
+  // Use Svelte auto-subscription to settings
+  $: selectedLanguage = $settings.language;
+
   $: uploadingClass =
     arduinoStatus === PortState.UPLOADING
       ? "fa-spinner fa-spin fa-6x fa-fw"
       : "fa-upload";
 
-   //  Get language from settings store instead of code store
-  settings.subscribe((setting) => {
-    selectedLanguage = setting.language;
-    console.log("Language from settings store:", selectedLanguage); // Debug
-  });
-
-  //  Get only boardType and code content from code store
   codeStore.subscribe((codeInfo) => {
     boardType = codeInfo.boardType;
     code = selectedLanguage === "C" ? codeInfo.cLang : codeInfo.pythonLang;

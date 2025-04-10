@@ -25,11 +25,6 @@
 
   settingsStore.subscribe((newSettings) => {
     settings = newSettings;
-    // Sync codeStore when settings update
-    codeStore.update(store => ({
-      ...store,
-      selectedLanguage: newSettings.language
-    }));
     console.log("Current language is:", newSettings.language);
   });
 
@@ -64,16 +59,7 @@
     settingsStore.set(settings);
     previousSettings = { ...settings };
     showMessage = true;
-
-    // Update selected language in codeStore
-    codeStore.update(store => ({
-      ...store,
-      selectedLanguage: settings.language
-    }));
-
-    console.log("Updated codeStore with selected language:", settings.language);
   }
-
   authStore.subscribe((auth) => {
     uid = auth.uid;
   });
@@ -113,14 +99,6 @@
           bind:value={settings.language}
           type="select"
           id="lang-select"
-          on:change={() => {
-            // Update code store immediately on selection
-            codeStore.update(store => ({
-              ...store,
-              selectedLanguage: settings.language
-            }));
-            console.log("Language changed to:", settings.language);
-          }}
         >
           <option value="Python">Python</option>
           <option value="C">C</option>

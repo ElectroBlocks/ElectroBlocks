@@ -58,7 +58,6 @@ settingStore.subscribe((newSettings) => {
       codeStore.set({
         cLang: getArduinoCode("Arduino"),
         pythonLang: getArduinoCode("Python"),
-        selectedLanguage: ""
       });
     }
     return newFrameContainer;
