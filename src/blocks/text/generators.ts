@@ -274,34 +274,6 @@ Blockly["Arduino"]["parse_string_block"] = function (block: Block | any) {
   ];
 };
 
-// Blockly["Python"]["parse_string_block"] = function (block) {
-//   const text = Blockly["Python"].valueToCode(
-//     block,
-//     "VALUE",
-//     Blockly["Python"].ORDER_NONE
-//   ) || '""';
-
-//   const delimiter = Blockly["Python"].quote_(block.getFieldValue("DELIMITER"));
-//   let position = Blockly["Python"].valueToCode(
-//     block,
-//     "POSITION",
-//     Blockly["Python"].ORDER_NONE
-//   ) || "0";
-
-//   // Adjust to zero-based index like in the Arduino version
-//   position = `max(0, (${position}) - 1)`;
-
-//   // Expanded multi-line version using triple quotes for readability
-//   const code = `(lambda text=${text}, delim=${delimiter}, pos=${position}: 
-//     parts = text.split(delim)
-//     if 0 <= pos < len(parts):
-//         return parts[pos]
-//     else:
-//         return ""
-// )()`;  // Immediately invoke the lambda function
-
-//   return [code, Blockly["Python"].ORDER_NONE];
-// };
 
 Blockly["Python"]["parse_string_block"] = function (block) {
   Blockly["Python"].definitions_["parse_string_block"] =
