@@ -39,16 +39,12 @@
 
   // Use Svelte auto-subscription to settings
   $: selectedLanguage = $settings.language;
+  $: boardType = $settings.boardType;
 
   $: uploadingClass =
     arduinoStatus === PortState.UPLOADING
       ? "fa-spinner fa-spin fa-6x fa-fw"
       : "fa-upload";
-
-  codeStore.subscribe((codeInfo) => {
-    boardType = codeInfo.boardType;
-    code = selectedLanguage === "C" ? codeInfo.cLang : codeInfo.pythonLang;
-  });
 
 
   arduinoStore.subscribe((status) => {
@@ -148,7 +144,7 @@
         debug: true,
       });
 
-      await upload(code, avrgirl, boardType);
+      await upload($codeStore.cLang, avrgirl, boardType);
       onSuccess("Your code is uploaded!! :)");
     } catch (e) {
       if (e.message.toLowerCase() === "no port selected by the user.") {

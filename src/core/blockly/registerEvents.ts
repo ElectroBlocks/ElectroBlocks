@@ -194,7 +194,6 @@ export const createFrames = async (blocklyEvent) => {
   codeStore.set({
     cLang: getArduinoCode("Arduino"),
     pythonLang: getArduinoCode("Python"),
-    selectedLanguage: ""
   });
 };
 

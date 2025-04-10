@@ -25,7 +25,6 @@ const pythonCode = `# Python Code Snippet
 print("Hello, World!")`;
 
 export const codeStore = writable({
-  selectedLanguage: "C", 
   cLang: cCode,
   pythonLang: pythonCode,
 });

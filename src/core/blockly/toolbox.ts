@@ -124,7 +124,10 @@ const defaultToolbox: ToolBoxEntries[] = [
       {
         name: "Math",
         xml: mathXMLString,
-        supportedBoards: [MicroControllerType.ARDUINO_MEGA],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_MEGA,
+          MicroControllerType.ARDUINO_UNO,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
