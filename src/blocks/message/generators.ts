@@ -118,7 +118,7 @@ Blockly["Python"]["arduino_send_message"] = function (block) {
   return (
     "ser.write((" +
     message +
-    " + '\\n').encode())\n" +
+    ").encode())\n" +
     "time.sleep(0.2)\n"
   );
 };
