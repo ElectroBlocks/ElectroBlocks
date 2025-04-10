@@ -21,14 +21,14 @@ export function stepSerialBeginPy() {
   if (!Blockly["Python"].setupCode_["serial_begin"]) {
     Blockly["Python"].setupCode_["serial_begin"] =
       "# Connect to the Arduino Board (pyFirmata)\n" +
-      "board = Arduino('/dev/ttyACM0')  # Update port if needed\n" +
+      "board = Arduino('REPLACE_WITH_YOUR_PORT')  # Update port if needed\n" +
       "\n" +
       "# Start iterator for pin reading\n" +
       "it = util.Iterator(board)\n" +
       "it.start()\n" +
       "\n" +
       "# Set up serial for messaging\n" +
-      "ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)\n" +
+      "ser = serial.Serial('REPLACE_WITH_YOUR_PORT', 9600, timeout=1)\n" +
       "serialMessageDEV = ''\n";
   }
 
