@@ -9,7 +9,8 @@
   import { getBoard } from "../../../core/microcontroller/selectBoard";
   import { onErrorMessage, onSuccess } from "../../../help/alerts";
   import { tooltip } from "@svelte-plugins/tooltips";
-
+  import { get } from "svelte/store";
+  import settings from "../../../stores/settings.store"; 
   const navigatorSerialNotAvailableMessaeg = `To upload code you must use chrome or a chromium based browser like edge, or brave.  This will work with chrome version 89 or higher. `;
 
   // controls whether the messages should autoscroll
@@ -36,15 +37,15 @@
   // means that we already have seen the message
   let alreadyShownDebugMessage = false;
 
+  // Use Svelte auto-subscription to settings
+  $: selectedLanguage = $settings.language;
+  $: boardType = $settings.boardType;
+
   $: uploadingClass =
     arduinoStatus === PortState.UPLOADING
       ? "fa-spinner fa-spin fa-6x fa-fw"
       : "fa-upload";
 
-  codeStore.subscribe((codeInfo) => {
-    code = codeInfo.code;
-    boardType = codeInfo.boardType;
-  });
 
   arduinoStore.subscribe((status) => {
     arduinoStatus = status;
@@ -131,6 +132,11 @@
     if (arduinoStatus !== PortState.CLOSE) {
       return;
     }
+    
+    if (selectedLanguage !== "C") {
+      onErrorMessage("Upload is only supported for C code.");
+      return;
+    }
     arduinoStore.set(PortState.UPLOADING);
     try {
       const avrgirl = new AvrgirlArduino({
@@ -138,7 +144,7 @@
         debug: true,
       });
 
-      await upload(code, avrgirl, boardType);
+      await upload($codeStore.cLang, avrgirl, boardType);
       onSuccess("Your code is uploaded!! :)");
     } catch (e) {
       if (e.message.toLowerCase() === "no port selected by the user.") {

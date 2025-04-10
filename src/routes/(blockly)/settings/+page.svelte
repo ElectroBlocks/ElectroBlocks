@@ -14,18 +14,19 @@
   import { onErrorMessage } from "../../../help/alerts";
   import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
   import { ledColors } from "../../../blocks/led/virtual-circuit";
+
   let uid: string;
 
   let settings: Settings;
 
   let showMessage = false;
-
+  
   let previousSettings = null;
 
   settingsStore.subscribe((newSettings) => {
     settings = newSettings;
+    console.log("Current language is:", newSettings.language);
   });
-
 
   async function onSaveSettings() {
     await saveSettings(settings);
@@ -59,11 +60,10 @@
     previousSettings = { ...settings };
     showMessage = true;
   }
-
   authStore.subscribe((auth) => {
     uid = auth.uid;
   });
-  </script>
+</script>
 
 {#if settings}
   <div class="row">
@@ -94,15 +94,15 @@
   <div class="row">
     <div class="col">
       <FormGroup>
-      <Label for="lang-select">Select Language </Label>
-      <Input
-        bind:value={settings.language}
-        type="select"
-        id="lang-select" 
-      >
-        <option value="Python">Python</option>
-        <option value="C">C</option>
-      </Input>
+        <Label for="lang-select">Select Language </Label>
+        <Input
+          bind:value={settings.language}
+          type="select"
+          id="lang-select"
+        >
+          <option value="Python">Python</option>
+          <option value="C">C</option>
+        </Input>
       </FormGroup>
     </div>
   </div>
@@ -123,8 +123,6 @@
         <div class="row">
           <div class="col color-container">
             {#each ledColors as color (color)}
-              <!-- svelte-ignore a11y-click-events-have-key-events -->
-              <!-- svelte-ignore a11y-no-static-element-interactions -->
               <div
                 class="color {color}"
                 on:click={changeLedColor}
