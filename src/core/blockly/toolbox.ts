@@ -354,7 +354,10 @@ const defaultToolbox: ToolBoxEntries[] = [
       {
         name: "Temperature/Humidity",
         xml: temperatureXMLString,
-        supportedBoards: [MicroControllerType.ARDUINO_MEGA],
+        supportedBoards: [
+          MicroControllerType.ARDUINO_UNO,
+          MicroControllerType.ARDUINO_MEGA,
+        ],
         supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
@@ -364,7 +367,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON],
+        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
     ],
   },
