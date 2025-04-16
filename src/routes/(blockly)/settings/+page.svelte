@@ -1,11 +1,14 @@
 <script lang="ts">
   import { FormGroup, Input, Label, Button } from "@sveltestrap/sveltestrap";
-
+ 
   import { defaultSetting } from "../../../firebase/model";
   import type { Settings } from "../../../firebase/model";
   import { fbSaveSettings } from "../../../firebase/db";
   import authStore from "../../../stores/auth.store";
   import settingsStore from "../../../stores/settings.store";
+
+  import codeStore from "../../../stores/code.store";
+
   import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
   import _ from "lodash";
   import { onErrorMessage } from "../../../help/alerts";
@@ -22,6 +25,14 @@
   settingsStore.subscribe((newSettings) => {
     settings = newSettings;
   });
+
+  $: if (settings) {
+    console.log("Language Selector Changed", settings.language);
+    if (settings.language === "Python") {
+      codeStore.resetPythonCode();
+      console.log("Resetting to Python");
+    }
+  }
 
   async function onSaveSettings() {
     await saveSettings(settings);
@@ -69,6 +80,7 @@
         <Input bind:value={settings.boardType} type="select" id="boardType">
           <option value={MicroControllerType.ARDUINO_UNO}>Arduino Uno</option>
           <option value={MicroControllerType.ARDUINO_MEGA}>Arduino Mega</option>
+          <option value={MicroControllerType.ESP32}>ESP32</option>
         </Input>
       </FormGroup>
     </div>
@@ -83,6 +95,22 @@
           type="number"
           id="max-time-per-move"
         />
+      </FormGroup>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <FormGroup>
+      <Label for="lang-select">Select Language </Label>
+      <Input
+        bind:value={settings.language}
+        type="select"
+        id="lang-select"
+      >
+        <option>Python</option>
+        <option>C</option>
+      </Input>
       </FormGroup>
     </div>
   </div>

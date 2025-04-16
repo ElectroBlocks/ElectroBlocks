@@ -3,6 +3,8 @@ import type { ARDUINO_PINS } from "./selectBoard";
 export enum MicroControllerType {
   ARDUINO_UNO = "uno",
   ARDUINO_MEGA = "mega",
+  python="python",
+  ESP32 = "esp32",
 }
 
 export interface BreadBoardArea {
