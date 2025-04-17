@@ -1,5 +1,3 @@
-import type { ARDUINO_PINS } from "./selectBoard";
-
 export enum MicroControllerType {
   ARDUINO_UNO = "uno",
   ARDUINO_MEGA = "mega",
@@ -11,6 +9,11 @@ export interface BreadBoardArea {
   holes: number[];
   taken: boolean;
   isDown: boolean;
+}
+
+export enum SUPPORTED_LANGUAGES {
+  PYTHON = "Python",
+  C = "C",
 }
 
 export interface PinConnection {
