@@ -1,13 +1,11 @@
 <script lang="ts">
   import { FormGroup, Input, Label, Button } from "@sveltestrap/sveltestrap";
-
+ 
   import { defaultSetting } from "../../../firebase/model";
   import type { Settings } from "../../../firebase/model";
   import { fbSaveSettings } from "../../../firebase/db";
   import authStore from "../../../stores/auth.store";
   import settingsStore from "../../../stores/settings.store";
-
-  import codeStore from "../../../stores/code.store";
 
   import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
   import _ from "lodash";
@@ -27,6 +25,7 @@
     settings = newSettings;
     console.log("Current language is:", newSettings.language);
   });
+
 
   async function onSaveSettings() {
     await saveSettings(settings);
@@ -73,6 +72,7 @@
         <Input bind:value={settings.boardType} type="select" id="boardType">
           <option value={MicroControllerType.ARDUINO_UNO}>Arduino Uno</option>
           <option value={MicroControllerType.ARDUINO_MEGA}>Arduino Mega</option>
+          <option value={MicroControllerType.ESP32}>ESP32</option>
         </Input>
       </FormGroup>
     </div>
