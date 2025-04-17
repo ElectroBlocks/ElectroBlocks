@@ -16,7 +16,7 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@svelte-plugins/tooltips": "^3.0.1",
     "@sveltejs/adapter-static": "^3.0.1",
-    "@sveltejs/kit": "^2.9.0",
+    "@sveltejs/kit": "^2.20.6",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@sveltestrap/sveltestrap": "^6.2.7",
     "@svgdotjs/svg.draggable.js": "^3.0.2",
