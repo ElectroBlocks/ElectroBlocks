@@ -7,8 +7,6 @@
   import authStore from "../../../stores/auth.store";
   import settingsStore from "../../../stores/settings.store";
 
-  import codeStore from "../../../stores/code.store";
-
   import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
   import _ from "lodash";
   import { onErrorMessage } from "../../../help/alerts";
@@ -28,13 +26,6 @@
     console.log("Current language is:", newSettings.language);
   });
 
-  $: if (settings) {
-    console.log("Language Selector Changed", settings.language);
-    if (settings.language === "Python") {
-      codeStore.resetPythonCode();
-      console.log("Resetting to Python");
-    }
-  }
 
   async function onSaveSettings() {
     await saveSettings(settings);

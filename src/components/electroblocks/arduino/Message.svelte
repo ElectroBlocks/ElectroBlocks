@@ -9,7 +9,6 @@
   import { getBoard } from "../../../core/microcontroller/selectBoard";
   import { onErrorMessage, onSuccess } from "../../../help/alerts";
   import { tooltip } from "@svelte-plugins/tooltips";
-  import { get } from "svelte/store";
   import settings from "../../../stores/settings.store"; 
   const navigatorSerialNotAvailableMessaeg = `To upload code you must use chrome or a chromium based browser like edge, or brave.  This will work with chrome version 89 or higher. `;
 
@@ -139,22 +138,18 @@
     }
     arduinoStore.set(PortState.UPLOADING);
     try {
-      await arduinoUploader($codeStore.cLang, avrgirl, boardType);
+      await arduinoUploader($codeStore.cLang, boardType);
       onSuccess("Your code is uploaded!! :)");
+      arduinoStore.set(PortState.OPEN);
+
     } catch (e) {
       if (e.message.toLowerCase() === "no port selected by the user.") {
         arduinoStore.set(PortState.CLOSE);
         return;
       }
-      if (e.message.includes("receiveData timeout after")) {
-        console.log(e, "eating these errors.  Everything should work!");
-        onSuccess("Your code is uploaded!! :)");
-        arduinoStore.set(PortState.CLOSE);
-        return;
-      }
+      
       onErrorMessage("Sorry, please try again in 5 minutes. :)", e);
     }
-    arduinoStore.set(PortState.CLOSE);
   }
   function clearMessages() {
     messages = [];

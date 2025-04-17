@@ -8,7 +8,7 @@ export function stepSerialBegin() {
     "); \n" +
     "   Serial.setTimeout(10);\n";
 }
-
+Blockly["Python"]["message_setup"] = () => "";
 Blockly["Arduino"]["message_setup"] = function () {
   stepSerialBegin();
 
@@ -43,6 +43,7 @@ Blockly["Arduino"]["arduino_receive_message"] = function (block) {
   `;
   return ["(serialMessageDEV.length() > 0)", Blockly["Arduino"].ORDER_ATOMIC];
 };
+Blockly["Python"]["arduino_send_message"] = () => "";
 
 Blockly["Arduino"]["arduino_send_message"] = function (block) {
   const message = Blockly["Arduino"].valueToCode(
