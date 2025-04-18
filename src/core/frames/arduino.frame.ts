@@ -41,6 +41,9 @@ export interface Variable {
 }
 
 export interface Color {
+  b: any;
+  g: any;
+  r: any;
   red: number;
   green: number;
   blue: number;

@@ -8,9 +8,6 @@ import { getBlockByType } from "../helpers/block.helper";
  */
 Blockly["Arduino"] = new Blockly.Generator("Arduino");
 
-// Modifications for Python Generator
-Blockly["Python"] = new Blockly.Generator("Python");
-
 /**
  * List of illegal variable names.
  * This is not intended to be a security feature.  Blockly is 100% client-side,
@@ -18,40 +15,52 @@ Blockly["Python"] = new Blockly.Generator("Python");
  * accidentally clobbering a built-in object or function.
  * @private
  */
-Blockly["Python"].addReservedWords(
-  "import,from,time,button,red,green,blue,set_color,True,False",
-  "int,float,str,bool"
+Blockly["Arduino"].addReservedWords(
+  // http://arduino.cc/en/Reference/HomePage
+  "setup,loop,if,else,for,switch,case,while," +
+    "do,break,continue,return,goto,define,include," +
+    "HIGH,LOW,INPUT,OUTPUT,INPUT_PULLUP,true,false," +
+    "interger, constants,floating,point,void,bookean,char," +
+    "unsigned,byte,int,word,long,float,double,string,String,array," +
+    "static, volatile,const,sizeof,pinMode,digitalWrite,digitalRead," +
+    "analogReference,analogRead,analogWrite,tone,noTone,shiftOut,shitIn," +
+    "pulseIn,millis,micros,delay,delayMicroseconds,min,max,abs,constrain," +
+    "map,pow,sqrt,sin,cos,tan,randomSeed,random,lowByte,highByte,bitRead," +
+    "bitWrite,bitSet,bitClear,ultraSonicDistance,parseDouble,setNeoPixelColor," +
+    "bit,attachInterrupt,detachInterrupt,interrupts,noInterrupts",
+  "short",
+  "isBtnPressed"
 );
 
 /**
  * Order of operation ENUMs.
  *
  */
-Blockly["Python"].ORDER_ATOMIC = 0; // 0 "" ...
-Blockly["Python"].ORDER_UNARY_POSTFIX = 1; // expr++ expr-- () [] .
-Blockly["Python"].ORDER_UNARY_PREFIX = 2; // -expr !expr ~expr ++expr --expr
-Blockly["Python"].ORDER_MULTIPLICATIVE = 3; // * / % ~/
-Blockly["Python"].ORDER_ADDITIVE = 4; // + -
-Blockly["Python"].ORDER_LOGICAL_NOT = 4.4; // !
-Blockly["Python"].ORDER_SHIFT = 5; // << >>
-Blockly["Python"].ORDER_MODULUS = 5.3; // %
-Blockly["Python"].ORDER_RELATIONAL = 6; // is is! >= > <= <
-Blockly["Python"].ORDER_EQUALITY = 7; // === !== === !==
-Blockly["Python"].ORDER_BITWISE_AND = 8; // &
-Blockly["Python"].ORDER_BITWISE_XOR = 9; // ^
-Blockly["Python"].ORDER_BITWISE_OR = 10; // |
-Blockly["Python"].ORDER_LOGICAL_AND = 11; // &&
-Blockly["Python"].ORDER_LOGICAL_OR = 12; // ||
-Blockly["Python"].ORDER_CONDITIONAL = 13; // expr ? expr : expr
-Blockly["Python"].ORDER_ASSIGNMENT = 14; // = *= /= ~/= %= += -= <<= >>= &= ^= |=
-Blockly["Python"].ORDER_COMMA = 18; // ,
-Blockly["Python"].ORDER_NONE = 99; // (...)
+Blockly["Arduino"].ORDER_ATOMIC = 0; // 0 "" ...
+Blockly["Arduino"].ORDER_UNARY_POSTFIX = 1; // expr++ expr-- () [] .
+Blockly["Arduino"].ORDER_UNARY_PREFIX = 2; // -expr !expr ~expr ++expr --expr
+Blockly["Arduino"].ORDER_MULTIPLICATIVE = 3; // * / % ~/
+Blockly["Arduino"].ORDER_ADDITIVE = 4; // + -
+Blockly["Arduino"].ORDER_LOGICAL_NOT = 4.4; // !
+Blockly["Arduino"].ORDER_SHIFT = 5; // << >>
+Blockly["Arduino"].ORDER_MODULUS = 5.3; // %
+Blockly["Arduino"].ORDER_RELATIONAL = 6; // is is! >= > <= <
+Blockly["Arduino"].ORDER_EQUALITY = 7; // === !== === !==
+Blockly["Arduino"].ORDER_BITWISE_AND = 8; // &
+Blockly["Arduino"].ORDER_BITWISE_XOR = 9; // ^
+Blockly["Arduino"].ORDER_BITWISE_OR = 10; // |
+Blockly["Arduino"].ORDER_LOGICAL_AND = 11; // &&
+Blockly["Arduino"].ORDER_LOGICAL_OR = 12; // ||
+Blockly["Arduino"].ORDER_CONDITIONAL = 13; // expr ? expr : expr
+Blockly["Arduino"].ORDER_ASSIGNMENT = 14; // = *= /= ~/= %= += -= <<= >>= &= ^= |=
+Blockly["Arduino"].ORDER_COMMA = 18; // ,
+Blockly["Arduino"].ORDER_NONE = 99; // (...)
 
 /**
- * Initialise the database of variable names for Python.
+ * Initialise the database of variable names.
  * @param {!Blockly.Workspace} workspace Workspace to generate code from.
  */
-Blockly["Python"].init = function (workspace) {
+Blockly["Arduino"].init = function (workspace) {
   if (!this.nameDB_) {
     this.nameDB_ = new Blockly.Names(this.RESERVED_WORDS_);
   } else {
@@ -63,101 +72,136 @@ Blockly["Python"].init = function (workspace) {
   this.nameDB_.populateProcedures(workspace);
 
   // Create a dictionary of definitions to be printed before the code.
-  Blockly["Python"].libraries_ = Object.create(null);
+  Blockly["Arduino"].libraries_ = Object.create(null);
 
   // creates a list of code to be setup before the setup block
-  Blockly["Python"].setupCode_ = Object.create(null);
-  Blockly["Python"].information_ = Object.create(null);
+  Blockly["Arduino"].setupCode_ = Object.create(null);
+  Blockly["Arduino"].information_ = Object.create(null);
 
   // Create a dictionary mapping desired function names in definitions_
   // to actual function names (to avoid collisions with user functions).
-  Blockly["Python"].functionNames_ = Object.create(null);
+  Blockly["Arduino"].functionNames_ = Object.create(null);
 
-  Blockly["Python"].variablesInitCode_ = "";
+  Blockly["Arduino"].variablesInitCode_ = "";
 
-  if (!Blockly["Python"].variableDB_) {
-    Blockly["Python"].variableDB_ = new Blockly.Names(
-      Blockly["Python"].RESERVED_WORDS_
+  if (!Blockly["Arduino"].variableDB_) {
+    Blockly["Arduino"].variableDB_ = new Blockly.Names(
+      Blockly["Arduino"].RESERVED_WORDS_
     );
   } else {
-    Blockly["Python"].variableDB_.reset();
+    Blockly["Arduino"].variableDB_.reset();
   }
 
-  Blockly["Python"].variableDB_.setVariableMap(workspace.getVariableMap());
+  Blockly["Arduino"].variableDB_.setVariableMap(workspace.getVariableMap());
+
+  // We don't have developer variables for now
+  // // Add developer variables (not created or named by the user).
+  // var devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+  // for (var i = 0; i < devVarList.length; i++) {
+  //     defvars.push(Blockly['Arduino'].variableDB_.getName(devVarList[i],
+  //         Blockly.Names.DEVELOPER_VARIABLE_TYPE));
+  // }
 
   const doubleVariables = workspace.getVariablesOfType("Number");
   let i = 0;
   let variableCode = "";
   for (i = 0; i < doubleVariables.length; i += 1) {
     variableCode +=
-      "r = 0.0\n" +  // Modifications for Python Generator
-      "g = 0.0\n" +  // Modifications for Python Generator
-      "b = 0.0\n";   // Modifications for Python Generator
+      "double " +
+      Blockly["Arduino"].getVariableName(doubleVariables[i].getId()) +
+      " = 0; \n\n";
   }
 
-  Blockly["Python"].variablesInitCode_ = variableCode;
+  const stringVariables = workspace.getVariablesOfType("String");
+  for (i = 0; i < stringVariables.length; i += 1) {
+    variableCode +=
+      "String " +
+      Blockly["Arduino"].getVariableName(stringVariables[i].getId()) +
+      ' = ""; \n\n';
+  }
+
+  const booleanVariables = workspace.getVariablesOfType("Boolean");
+  for (i = 0; i < booleanVariables.length; i += 1) {
+    variableCode +=
+      "boolean " +
+      Blockly["Arduino"].getVariableName(booleanVariables[i].getId()) +
+      " = false; \n\n";
+  }
+
+  const colourVariables = workspace.getVariablesOfType("Colour");
+  for (i = 0; i < colourVariables.length; i += 1) {
+    variableCode +=
+      "struct RGB " +
+      Blockly["Arduino"].getVariableName(colourVariables[i].getId()) +
+      " = {0, 0, 0}; \n\n";
+  }
+
+  Blockly["Arduino"].variablesInitCode_ = variableCode;
 };
 
 /**
- * Prepend the generated code with the variable definitions for Python.
+ * Prepend the generated code with the variable definitions.
  * @param {string} code Generated code.
  * @return {string} Completed code.
  */
-Blockly["Python"].finish = function (code) {
+Blockly["Arduino"].finish = function (code) {
   let libraryCode = "";
   let functionsCode = "";
   let devVariables = "";
 
-  for (const key in Blockly["Python"].libraries_) {
-    libraryCode += Blockly["Python"].libraries_[key] + "\n";
+  for (const key in Blockly["Arduino"].libraries_) {
+    libraryCode += Blockly["Arduino"].libraries_[key] + "\n";
   }
 
-  for (const key in Blockly["Python"].functionNames_) {
-    functionsCode += Blockly["Python"].functionNames_[key] + "\n";
+  for (const key in Blockly["Arduino"].functionNames_) {
+    functionsCode += Blockly["Arduino"].functionNames_[key] + "\n";
   }
 
-  if (!_.isEmpty(Blockly["Python"].setupCode_["bluetooth_setup"])) {
-    devVariables += 'bluetoothMessageDEV = ""\n';  // Modifications for Python Generator
+  if (!_.isEmpty(Blockly["Arduino"].setupCode_["bluetooth_setup"])) {
+    devVariables += 'String bluetoothMessageDEV = ""; \n';
   }
 
-  if (!_.isEmpty(Blockly["Python"].setupCode_["serial_begin"])) {
-    devVariables += 'serialMessageDEV = ""\n';  // Modifications for Python Generator
+  if (!_.isEmpty(Blockly["Arduino"].setupCode_["serial_begin"])) {
+    devVariables += 'String serialMessageDEV = ""; \n';
+  }
+
+  if (!_.isEmpty(Blockly["Arduino"].functionNames_["double_to_string_debug"])) {
+    devVariables += "boolean stopDebugging = false; \n";
   }
 
   let setupCode = "";
   let setupCodeFunctionText = "";
 
-  for (const key in Blockly["Python"].setupCode_) {
-    setupCodeFunctionText += Blockly["Python"].setupCode_[key] || "";
+  for (const key in Blockly["Arduino"].setupCode_) {
+    setupCodeFunctionText += Blockly["Arduino"].setupCode_[key] || "";
   }
 
   // If the setup block does not exist and the setup function is still required.
   if (
-    getBlockByType("python_setup") === undefined &&
-    !_.isEmpty(Blockly["Python"].setupCode_)
+    getBlockByType("arduino_setup") === undefined &&
+    !_.isEmpty(Blockly["Arduino"].setupCode_)
   ) {
     setupCode =
-      "\n# Initialise the program settings and configurations\n" +
-      "def setup():\n" +
+      "\n// Initialise the program settings and configurations" +
+      "\nvoid setup() { \n" +
       setupCodeFunctionText +
-      "\n";
+      "\n}\n";
   }
   // If setup block does not exist an empty setup function is required for things to compile
   else if (
-    getBlockByType("python_setup") === undefined &&
-    _.isEmpty(Blockly["Python"].setupCode_)
+    getBlockByType("arduino_setup") === undefined &&
+    _.isEmpty(Blockly["Arduino"].setupCode_)
   ) {
     setupCode =
-      "\n# Initialise the program settings and configurations\n" +
-      "def setup():\n" +
-      "\n";
+      "\n// Initialise the program settings and configurations" +
+      "\nvoid setup() { \n\n}\n";
   }
-
+  // Convert the definitions dictionary into a list.
   code =
     devVariables +
     libraryCode +
     "\n" +
-    Blockly["Python"].variablesInitCode_ +
+    Blockly["Arduino"].variablesInitCode_ +
     "\n" +
     setupCode +
     "\n" +
@@ -170,83 +214,106 @@ Blockly["Python"].finish = function (code) {
   code = code.replace("__REPLACE_WITH_SETUP_CODE", setupCodeFunctionText);
 
   // Clean up temporary data.
-  delete Blockly["Python"].definitions_;
-  delete Blockly["Python"].functionNames_;
-  delete Blockly["Python"].variablesInitCode_;
-  delete Blockly["Python"].libraries_;
-  Blockly["Python"].variableDB_.reset();
+  delete Blockly["Arduino"].definitions_;
+  delete Blockly["Arduino"].functionNames_;
+  delete Blockly["Arduino"].variablesInitCode_;
+  delete Blockly["Arduino"].libraries_;
+  Blockly["Arduino"].variableDB_.reset();
 
   return code;
 };
 
 /**
  * Naked values are top-level blocks with outputs that aren't plugged into
- * anything.  A trailing semicolon is needed to make this legal for Python.
+ * anything.  A trailing semicolon is needed to make this legal.
  * @param {string} line Line of generated code.
- * @return {string} Legal line of code for Python.
+ * @return {string} Legal line of code.
  */
-Blockly["Python"].scrubNakedValue = function (line) {
-  return line + "\n";  // Modifications for Python Generator
+Blockly["Arduino"].scrubNakedValue = function (line) {
+  return line + ";\n";
 };
 
 /**
- * Encode a string as a properly escaped Python string, complete with
+ * Encode a string as a properly escaped Arduino string, complete with
  * quotes.
  * @param {string} string Text to encode.
- * @return {string} Python string.
+ * @return {string} Arduino string.
  * @private
  */
-Blockly["Python"].quote_ = function (string) {
+Blockly["Arduino"].quote_ = function (string) {
+  // Can't use goog.string.quote since Google's style guide recommends
+  // JS string literals use single quotes.
   string = string
     .replace(/\\/g, "\\\\")
-    .replace(/\n/g, "\\n")
+    .replace(/\n/g, "\\\n")
     .replace(/'/g, "\\'");
-  return "'" + string + "'";  // Modifications for Python Generator
+  return '"' + string + '"';
 };
 
 /**
- * Common tasks for generating Python from blocks.
+ * Common tasks for generating Arduino from blocks.
  * Handles comments for the specified block and any connected value blocks.
  * Calls any statements following this block.
  * @param {!Blockly.Block} block The current block.
- * @param {string} code The Python code created for this block.
+ * @param {string} code The Arduino code created for this block.
  * @param {boolean=} opt_thisOnly True to generate code for only this statement.
- * @return {string} Python code with comments and subsequent blocks added.
+ * @return {string} Arduino code with comments and subsequent blocks added.
  * @private
  */
-Blockly["Python"].scrub_ = function (block, code) {
+Blockly["Arduino"].scrub_ = function (block, code) {
   let commentCode = "";
 
+  // Only collect comments for blocks that aren't inline.
+  // Do not collect comments for setup blocks
   if (
     (!block.outputConnection || !block.outputConnection.targetConnection) &&
     block.nextConnection !== null
   ) {
-    let comment = block.getCommentText();
+    // Collect comment for this block.
+    let comment =
+      [
+        "release_button",
+        "led",
+        "delay_block",
+        "set_color_led",
+        "set_simple_color_led",
+        "rotate_servo",
+      ].includes(block.type) == false
+        ? block.getCommentText()
+        : null;
+    //@ts-ignore
     comment = comment
       ? (Blockly.utils as any).string.wrap(
           comment,
-          Blockly["Python"].COMMENT_WRAP - 3
+          Blockly["Arduino"].COMMENT_WRAP - 3
         )
       : null;
     if (comment) {
-      commentCode += Blockly["Python"].prefixLines(comment + "\n", "# ");
+      if (block.getProcedureDef) {
+        // Use a comment block for function comments.
+        commentCode +=
+          "/**\n" +
+          Blockly["Arduino"].prefixLines(comment + "\n", " * ") +
+          " */\n";
+      } else {
+        commentCode += Blockly["Arduino"].prefixLines(comment + "\n", "// ");
+      }
     }
-
+    // Collect comments for all value arguments.
+    // Don't collect comments for nested statements.
     for (let i = 0; i < block.inputList.length; i++) {
       if (block.inputList[i].type === Blockly.INPUT_VALUE) {
         const childBlock = block.inputList[i].connection.targetBlock();
         if (childBlock) {
-          const comment = Blockly["Python"].allNestedComments(childBlock);
+          const comment = Blockly["Arduino"].allNestedComments(childBlock);
           if (comment) {
-            commentCode += Blockly["Python"].prefixLines(comment, "# ");
+            commentCode += Blockly["Arduino"].prefixLines(comment, "// ");
           }
         }
       }
     }
   }
-
   const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
-  const nextCode = nextBlock ? Blockly["Python"].blockToCode(nextBlock) : "";
-
+  const nextCode = Blockly["Arduino"].blockToCode(nextBlock);
   return commentCode + code + nextCode;
 };

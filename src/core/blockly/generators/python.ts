@@ -34,7 +34,7 @@ Blockly["Python"].addReservedWords(
 
 Blockly["Python"].ORDER_ATOMIC = 0;         // 0 "" 1234 'abc' True False None
 Blockly["Python"].ORDER_COLLECTION = 1;     // tuples, lists, dictionaries
-Blockly["Python"].ORDER_STRING_CONVERSION = 1; // `expression...`
+Blockly["Python"].ORDER_STRING_CONVERSION = 1; // expression...
 Blockly["Python"].ORDER_MEMBER = 2;         // . []
 Blockly["Python"].ORDER_FUNCTION_CALL = 2;  // ()
 Blockly["Python"].ORDER_EXPONENTIATION = 3; // **
@@ -183,37 +183,120 @@ Blockly["Python"].finish = function(code) {
     return code;
 };
 
+// Don't know if this is needed but here nevertheless
+Blockly["Python"].scrubNakedValue = function (line) {
+  return line + "\n";
+};
 
+
+// This supposedly has the same functionality as C, but I'm not sure
+// used AI for this, so let me know if it's wrong
+
+/**
+ * Encode a string as a properly escaped Python string, complete with
+ * quotes.
+ * @param {string} string Text to encode.
+ * @return {string} Python string.
+ * @private
+ */
 Blockly["Python"].quote_ = function (string) {
-  
-  const hasNewlines = string.includes('\n');
-  if (hasNewlines) {
-      return '"""' + string.replace(/"""/g, '\\"\\"\\"') + '"""';
-  }
-
+  // Check if the string contains both single and double quotes
   const hasSingle = string.includes("'");
   const hasDouble = string.includes('"');
-
+  const hasNewlines = string.includes('\n');
+  
+  // For multi-line strings, prefer triple quotes
+  if (hasNewlines) {
+    // If string has triple quotes inside, escape them
+    if (string.includes('"""')) {
+      string = string.replace(/"""/g, '\\"\\"\\"');
+    }
+    return '"""' + string + '"""';
+  }
+  
+  // For strings with both quote types, use triple quotes or escape
   if (hasSingle && hasDouble) {
-      return '"""' + string + '"""';
+    // Option 1: Use triple double quotes
+    return '"""' + string + '"""';
+    
+    // Alternative: Use double quotes and escape them
+    // string = string.replace(/"/g, '\\"');
+    // return '"' + string + '"';
   }
+  
+  // If string has double quotes, use single quotes
   if (hasDouble) {
-      return "'" + string + "'";
+    return "'" + string + "'";
   }
-
+  
+  // Default to double quotes
   return '"' + string + '"';
 };
 
-// Custom scrub function to handle nested comments and blocks
+/**
+ * Common tasks for generating Python from blocks.
+ * Handles comments for the specified block and any connected value blocks.
+ * Calls any statements following this block.
+ * @param {!Blockly.Block} block The current block.
+ * @param {string} code The Python code created for this block.
+ * @param {boolean=} opt_thisOnly True to generate code for only this statement.
+ * @return {string} Python code with comments and subsequent blocks added.
+ * @private
+ */
 Blockly["Python"].scrub_ = function (block, code) {
   let commentCode = "";
-  if (!block.outputConnection || !block.outputConnection.targetConnection) {
-      let comment = block.getCommentText();
-      if (comment) {
-          commentCode += Blockly["Python"].prefixLines(comment, "# ");
+
+  // Only collect comments for blocks that aren't inline.
+  // Do not collect comments for certain block types
+  if (
+    (!block.outputConnection || !block.outputConnection.targetConnection) &&
+    block.nextConnection !== null
+  ) {
+    // Collect comment for this block.
+    let comment =
+      [
+        "release_button",
+        "led",
+        "delay_block",
+        "set_color_led",
+        "set_simple_color_led",
+        "rotate_servo",
+      ].includes(block.type) == false
+        ? block.getCommentText()
+        : null;
+    //@ts-ignore
+    comment = comment
+      ? (Blockly.utils as any).string.wrap(
+          comment,
+          Blockly["Python"].COMMENT_WRAP - 3
+        )
+      : null;
+    if (comment) {
+      if (block.getProcedureDef) {
+        // Use docstring for function comments - Python style
+        commentCode +=
+          '"""\n' +
+          Blockly["Python"].prefixLines(comment + "\n", "") +
+          '"""\n';
+      } else {
+        // Single line comments use # in Python
+        commentCode += Blockly["Python"].prefixLines(comment + "\n", "# ");
       }
+    }
+    // Collect comments for all value arguments.
+    // Don't collect comments for nested statements.
+    for (let i = 0; i < block.inputList.length; i++) {
+      if (block.inputList[i].type === Blockly.INPUT_VALUE) {
+        const childBlock = block.inputList[i].connection.targetBlock();
+        if (childBlock) {
+          const comment = Blockly["Python"].allNestedComments(childBlock);
+          if (comment) {
+            commentCode += Blockly["Python"].prefixLines(comment, "# ");
+          }
+        }
+      }
+    }
   }
-  
   const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
   const nextCode = Blockly["Python"].blockToCode(nextBlock);
   return commentCode + code + nextCode;

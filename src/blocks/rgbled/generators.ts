@@ -148,3 +148,65 @@ Blockly["Arduino"]["set_color_led"] = function (block: Block) {
 
 Blockly["Arduino"]["set_simple_color_led"] =
   Blockly["Arduino"]["set_color_led"];
+  // ---------------- Python Code Generators ----------------
+
+Blockly["Python"]["rgb_led_setup"] = function (block: Block) {
+  const redPin1 = block.getFieldValue("PIN_RED_1");
+  const greenPin1 = block.getFieldValue("PIN_GREEN_1");
+  const bluePin1 = block.getFieldValue("PIN_BLUE_1");
+
+  const redPin2 = block.getFieldValue("PIN_RED_2");
+  const greenPin2 = block.getFieldValue("PIN_GREEN_2");
+  const bluePin2 = block.getFieldValue("PIN_BLUE_2");
+
+  let code = `
+import machine
+
+RED_PIN_1 = machine.PWM(machine.Pin(${redPin1}))
+GREEN_PIN_1 = machine.PWM(machine.Pin(${greenPin1}))
+BLUE_PIN_1 = machine.PWM(machine.Pin(${bluePin1}))
+`;
+
+  if (block.getFieldValue("NUMBER_OF_COMPONENTS") == "2") {
+    code += `
+RED_PIN_2 = machine.PWM(machine.Pin(${redPin2}))
+GREEN_PIN_2 = machine.PWM(machine.Pin(${greenPin2}))
+BLUE_PIN_2 = machine.PWM(machine.Pin(${bluePin2}))
+`;
+
+    code += `
+def setLedColor(color, ledNumber):
+    if ledNumber == 1:
+        RED_PIN_1.duty(color[0])
+        GREEN_PIN_1.duty(color[1])
+        BLUE_PIN_1.duty(color[2])
+    else:
+        RED_PIN_2.duty(color[0])
+        GREEN_PIN_2.duty(color[1])
+        BLUE_PIN_2.duty(color[2])
+`;
+  } else {
+    code += `
+def setLedColor(color):
+    RED_PIN_1.duty(color[0])
+    GREEN_PIN_1.duty(color[1])
+    BLUE_PIN_1.duty(color[2])
+`;
+  }
+
+  return code;
+};
+
+Blockly["Python"]["set_color_led"] = function (block: Block) {
+  let color = block.getFieldValue("COLOR");
+  const { r, g, b } = hexToRgb(color);
+
+  if (Blockly["Python"].definitions_["setLedColor"]) {
+    const ledNumber = +block.getFieldValue("WHICH_COMPONENT");
+    return `setLedColor((${r}, ${g}, ${b}), ${ledNumber})\n`;
+  }
+
+  return `setLedColor((${r}, ${g}, ${b}))\n`;
+};
+
+Blockly["Python"]["set_simple_color_led"] = Blockly["Python"]["set_color_led"];
