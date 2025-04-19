@@ -4,6 +4,14 @@ import { getBlockByType } from "../helpers/block.helper";
 
 // Python Code generator
 Blockly["Python"] = new Blockly.Generator("Python");
+Blockly.Generator['Python'] = Blockly["Python"];
+
+Blockly["Python"]["arduino_setup"] = function(block) {
+  // Example setup code for Arduino using pyfirmata in Python
+  Blockly["Python"].imports_['import_pyfirmata'] = "from pyfirmata import Arduino, util";
+  const code = "board = Arduino('COM3')  # Replace COM3 with your port\n";
+  return code;
+};
 
 
 // Python Equivalent ReservedWords
