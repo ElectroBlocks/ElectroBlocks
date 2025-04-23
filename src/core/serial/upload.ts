@@ -1,40 +1,86 @@
-import type { MicroControllerType } from "../microcontroller/microcontroller";
+import { MicroControllerType, MicroControllerLibraries} from "../microcontroller/microcontroller";
 import config from "../../env";
+import { ProgramConfig, upload } from "@duinoapp/upload-multitool";
+import { WebSerialPort } from "@duinoapp/upload-multitool";
 
-declare class AvrgirlArduino {
-  constructor(config: any);
+async function getAvailablePorts() {
+  try {
+    if (!WebSerialPort.isSupported()) {
+      console.error("Web Serial API is not supported in this environment.");
+      return [];
+    }
 
-  flash(hex: string, call: (error) => void): void;
+    // Request a serial connection from the user
+    const serialport = await WebSerialPort.requestPort({}, { baudRate: 9600 });
+    await serialport.open();
+
+    console.log("Serial port opened successfully.");
+    return [serialport];
+  } catch (error) {
+    console.error("Error requesting or opening serial port:", error);
+    return [];
+  }
 }
 
-export const upload = async (
+export const arduinoUploader = async (
   code: string,
-  avrgirl: AvrgirlArduino,
   type: MicroControllerType
-) => {
-  const hexCode = await compileCode(code, type);
+): Promise<string> => {
+  const selectedPorts = await getAvailablePorts();
+  if (selectedPorts.length === 0) {
+    throw new Error("No available serial port to upload.");
+  }
 
-  const enc = new TextEncoder();
-  return new Promise((res, rej) => {
-    avrgirl.flash(enc.encode(hexCode) as any, (error) => {
-      if (error) {
-        rej(error);
-      } else {
-        res("flash successful");
-      }
-    });
-  });
+  const serialport = selectedPorts[0];
+  const hexCode = await compileCode(code, type);
+  let hexData, filesData, flashFreqData, flashModeData;
+
+  // try {
+  //     hexData = "hardcoded_hex_data";
+  //     filesData = ["hardcoded_file_1.bin", "hardcoded_file_2.bin"];
+  //     flashFreqData = "40m";
+  //     flashModeData = "qio";
+  // } catch (e) {
+  //     hexData = hexCode;
+  // }
+
+  const config = {
+    bin: hexCode,
+    // files: filesData,
+    // flashFreq: flashFreqData,
+    // flashMode: flashModeData,
+    speed: 9600,
+    uploadSpeed: 9600,
+    tool: "avr",
+    cpu: "atmega328p",
+    stdout: console.log,
+    verbose: true,
+  } as any as ProgramConfig;
+
+  try {
+    const res = await upload(serialport.port, config);
+    return "Upload successful";
+  } catch (error) {
+    throw new Error("Upload failed: " + error.message);
+  }
 };
 
 const compileCode = async (code: string, type: string): Promise<string> => {
   const headers = new Headers();
   headers.append("Content-Type", "text/plain");
+  const libraries = MicroControllerLibraries[type] || [];
+
+  const payload = {
+    code,
+    libraries, // Include the libraries in the request
+    type,
+  };
 
   const response = await fetch(
     `${config.server_arduino_url}/upload-code/${type}`,
     {
       method: "POST",
-      body: code,
+      body: JSON.stringify(payload),
       headers,
     }
   );
