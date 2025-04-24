@@ -60,6 +60,30 @@ export interface MicroControllerBlocks {
   type: MicroControllerType;
 }
 export const MicroControllerLibraries: { [key in MicroControllerType]: string[] } = {
-  [MicroControllerType.ARDUINO_UNO]: ["Servo", "SoftwareSerial", "LiquidCrystal_I2C"],
-  [MicroControllerType.ARDUINO_MEGA]: ["Servo", "SoftwareSerial", "LiquidCrystal_I2C"]
+  [MicroControllerType.ARDUINO_UNO]: [
+    "Servo",
+    "SoftwareSerial",
+    "LiquidCrystal_I2C",
+    "FastLED",
+    "IRremote",
+    "Adafruit_NeoPixel",
+    "Stepper",
+    "Ultrasonic",
+    "SevenSegmentTM1637",
+    "PassiveBuzzer",
+    "RGBLED",
+  ],
+  [MicroControllerType.ARDUINO_MEGA]: [
+    "Servo",
+    "SoftwareSerial",
+    "LiquidCrystal_I2C",
+    "FastLED",
+    "IRremote",
+    "Adafruit_NeoPixel",
+    "Stepper",
+    "Ultrasonic",
+    "SevenSegmentTM1637",
+    "PassiveBuzzer",
+    "RGBLED",
+  ],
 };
