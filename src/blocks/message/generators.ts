@@ -32,6 +32,7 @@ export function stepSerialBeginPy() {
       "serialMessageDEV = ''\n";
   }
 
+  // Define setSerialMessage
   Blockly["Python"].functionNames_["setSerialMessage"] =
     "# Read a line from serial if available\n" +
     "def setSerialMessage():\n" +
@@ -39,20 +40,32 @@ export function stepSerialBeginPy() {
     "    serialMessageDEV = ''\n" +
     "    if ser.in_waiting > 0:\n" +
     "        serialMessageDEV = ser.readline().decode().strip()\n";
+
+  // Add wrapper functions that call setSerialMessage first
+  Blockly["Python"].functionNames_["getSerialMessage"] =
+    "# Wrapper: update then return message\n" +
+    "def getSerialMessage():\n" +
+    "    setSerialMessage()\n" +
+    "    return serialMessageDEV\n";
+
+  Blockly["Python"].functionNames_["hasSerialMessage"] =
+    "# Wrapper: update then check availability\n" +
+    "def hasSerialMessage():\n" +
+    "    setSerialMessage()\n" +
+    "    return len(serialMessageDEV) > 0\n";
 }
 
 Blockly["Arduino"]["message_setup"] = function () {
   stepSerialBegin();
-
   return "";
 };
 
 Blockly["Python"]["message_setup"] = function () {
   stepSerialBeginPy();
-  
   return "";
-}
+};
 
+// Arduino generators unchanged
 Blockly["Arduino"]["arduino_get_message"] = function (block) {
   Blockly["Arduino"].information_["message_recieve_block"] = true;
 
@@ -68,11 +81,6 @@ Blockly["Arduino"]["arduino_get_message"] = function (block) {
   return ["serialMessageDEV", Blockly["Arduino"].ORDER_ATOMIC];
 };
 
-Blockly["Python"]["arduino_get_message"] = function (block) {
-  Blockly["Python"].information_["message_recieve_block"] = true;
-  return ["serialMessageDEV", Blockly["Python"].ORDER_ATOMIC];
-};
-
 Blockly["Arduino"]["arduino_receive_message"] = function (block) {
   Blockly["Arduino"].information_["message_recieve_block"] = true;
   Blockly["Arduino"].functionNames_[
@@ -85,12 +93,6 @@ Blockly["Arduino"]["arduino_receive_message"] = function (block) {
 };
   `;
   return ["(serialMessageDEV.length() > 0)", Blockly["Arduino"].ORDER_ATOMIC];
-};
-
-
-Blockly["Python"]["arduino_receive_message"] = function (block) {
-  Blockly["Python"].information_["message_recieve_block"] = true;
-  return ["len(serialMessageDEV) > 0", Blockly["Python"].ORDER_ATOMIC];
 };
 
 Blockly["Arduino"]["arduino_send_message"] = function (block) {
@@ -108,6 +110,17 @@ Blockly["Arduino"]["arduino_send_message"] = function (block) {
   );
 };
 
+// Python generators now call the wrappers
+Blockly["Python"]["arduino_get_message"] = function (block) {
+  Blockly["Python"].information_["message_recieve_block"] = true;
+  return ["getSerialMessage()", Blockly["Python"].ORDER_ATOMIC];
+};
+
+Blockly["Python"]["arduino_receive_message"] = function (block) {
+  Blockly["Python"].information_["message_recieve_block"] = true;
+  return ["hasSerialMessage()", Blockly["Python"].ORDER_ATOMIC];
+};
+
 Blockly["Python"]["arduino_send_message"] = function (block) {
   const message = Blockly["Python"].valueToCode(
     block,
@@ -122,3 +135,4 @@ Blockly["Python"]["arduino_send_message"] = function (block) {
     "time.sleep(0.2)\n"
   );
 };
+
