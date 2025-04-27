@@ -22,7 +22,7 @@
 
 
   let showScrollOnRightSide = false;
-
+  let blocklyKey = 0;
   // this controls whether the arduino start block show numbers of times in to execute the loop for the virtual circuit
   // or the loop forever text.  If segment is null that means we are home the home page and that is page that shows virtual circuit
   let showLoopExecutionTimesArduinoStartBlock: boolean;
@@ -207,7 +207,7 @@
 >
   
   <div style="flex: {middleFlex}" id="middle_panel">
-    <Blockly {showLoopExecutionTimesArduinoStartBlock} />
+    <Blockly {showLoopExecutionTimesArduinoStartBlock} key={blocklyKey} />
   </div>
   <div on:mousedown={() => startResize('right')} class="grabber" />
   <div

@@ -11,6 +11,7 @@
   import { onErrorMessage } from "../../../help/alerts";
   import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
   import { ledColors } from "../../../blocks/led/virtual-circuit";
+  import {ucFirst} from "../../../helpers/ucFirst";
   let uid: string;
 
   let settings: Settings;
@@ -67,8 +68,9 @@
       <FormGroup>
         <Label for="boardType">MicroController</Label>
         <Input bind:value={settings.boardType} type="select" id="boardType">
-          <option value={MicroControllerType.ARDUINO_UNO}>Arduino Uno</option>
-          <option value={MicroControllerType.ARDUINO_MEGA}>Arduino Mega</option>
+          {#each Object.keys(MicroControllerType) as type}
+            <option value={MicroControllerType[type]}>{ ucFirst(type) }</option>
+          {/each}
         </Input>
       </FormGroup>
     </div>
