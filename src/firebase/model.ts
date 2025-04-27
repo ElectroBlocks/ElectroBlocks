@@ -37,5 +37,5 @@ export const defaultSetting: Settings = {
   ledColor: '#AA0000',
   customLedColor: false,
   maxTimePerMove: 20,
-  boardType: MicroControllerType.ARDUINO_UNO,
+  boardType: MicroControllerType.ARDUINO_SALEM,
 };

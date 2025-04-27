@@ -21,6 +21,11 @@ export interface PinConnection {
    * The hex color to use for the wire
    */
   color: string;
+
+
+  gnd?: string;
+
+  power?: string;
 }
 
 export interface Breadboard {
@@ -40,10 +45,12 @@ export interface MicroController {
   misoPins: string[];
   sckPins: string[];
   ssPins: string[];
-  type: MicroControllerType;
+  type: string;
   breadboard: Breadboard;
   skipHoles: number[];
   pinConnections: { [key: string]: PinConnection };
+  bluetooth: string[];
+  digitalDisplay: string[];
 }
 
 export interface MicroControllerBlocks {
