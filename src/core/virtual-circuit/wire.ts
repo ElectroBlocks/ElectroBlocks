@@ -215,15 +215,29 @@ export const createFromArduinoToArduino = (
     const arduinoPinTo = findArduinoConnectionCenter(arduino, pinToConnection.id);
 
     if (arduinoPinFrom && arduinoPinTo) {
-        const line = draw
-            .line()
-            .plot(arduinoPinFrom.x, arduinoPinFrom.y, arduinoPinTo.x, arduinoPinTo.y)
+        // Calculate control points for the curve
+        // The control points are positioned at a distance from the start and end points
+        // to create a smooth curve
+        const dx = arduinoPinTo.x - arduinoPinFrom.x;
+        const dy = arduinoPinTo.y - arduinoPinFrom.y;
+
+        // Create control points perpendicular to the line
+        const controlPoint1X = arduinoPinFrom.x + dx / 2 - dy / 2;
+        const controlPoint1Y = arduinoPinFrom.y + dy / 2 + dx / 2;
+        const controlPoint2X = arduinoPinTo.x - dx / 2 - dy / 2;
+        const controlPoint2Y = arduinoPinTo.y - dy / 2 + dx / 2;
+
+        // Create a curved path using SVG.js path method
+        const pathString = `M ${arduinoPinFrom.x} ${arduinoPinFrom.y} C ${controlPoint1X} ${controlPoint1Y}, ${controlPoint2X} ${controlPoint2Y}, ${arduinoPinTo.x} ${arduinoPinTo.y}`;
+        const path = draw
+            .path(pathString)
+            .fill('none')
             .stroke({width: 2, color: color ?? pinFromConnection.color, linecap: "round"});
 
-        line.data("type", "wire");
-        line.data("update-wire", false);
-        line.data("pin-from", pinFrom);
-        line.data("pin-to", pinTo);
+        path.data("type", "wire");
+        path.data("update-wire", false);
+        path.data("pin-from", pinFrom);
+        path.data("pin-to", pinTo);
     }
 
 }
