@@ -1,24 +1,20 @@
-import type {
-  SyncComponent,
-  ResetComponent,
-} from "../../core/virtual-circuit/svg-sync";
-import type {
-  PositionComponent,
-  CreateWire,
-  AfterComponentCreateHook,
-} from "../../core/virtual-circuit/svg-create";
+import type {ResetComponent, SyncComponent,} from "../../core/virtual-circuit/svg-sync";
+import type {AfterComponentCreateHook, CreateWire, PositionComponent,} from "../../core/virtual-circuit/svg-create";
 
-import type { Element, Svg, Text } from "@svgdotjs/svg.js";
-import _ from "lodash";
-import { positionComponent } from "../../core/virtual-circuit/svg-position";
-import { arduinoComponentStateToId } from "../../core/frames/arduino-component-id";
-import type { LedState } from "./state";
+import type {Element, Svg, Text} from "@svgdotjs/svg.js";
+import {positionComponent} from "../../core/virtual-circuit/svg-position";
+import {arduinoComponentStateToId} from "../../core/frames/arduino-component-id";
+import type {LedState} from "./state";
 import {
-  createWireComponentToBreadboard,
+  createFromArduinoToArduino,
+  createFromArduinoToComponent,
   createGroundOrPowerWire,
+  createGroundOrPowerWireArduino,
   createResistor,
+  createWireComponentToBreadboard,
   createWireFromArduinoToBreadBoard,
 } from "../../core/virtual-circuit/wire";
+import {ARDUINO_PINS} from "../../core/microcontroller/selectBoard";
 
 export const ledColors = [
   "red",
@@ -65,12 +61,16 @@ export const ledPosition: PositionComponent<LedState> = (
   board,
   area
 ) => {
-  const { holes, isDown } = area;
-
-  positionComponent(ledEl, arduinoEl, draw, holes[3], isDown, "POWER");
+  if(area) {
+    const {holes, isDown} = area;
+    positionComponent(ledEl, arduinoEl, draw, "POWER", holes[3], isDown);
+  } else {
+    positionComponent(ledEl, arduinoEl, draw, "POWER");
+  }
 };
 
 export const updateLed: SyncComponent = (state: LedState, ledEl, draw) => {
+  console.log('Led Updated', state, ledEl)
   const ledText = ledEl.findOne("#LED_TEXT") as Text;
   if (!state.fade) {
     ledText.node.innerHTML = state.state === 1 ? "on" : "off";
@@ -100,41 +100,70 @@ export const createWiresLed: CreateWire<LedState> = (
   arduino,
   id,
   board,
-  area
+  area = null
 ) => {
-  const { holes, isDown } = area;
-  createGroundOrPowerWire(holes[1], isDown, ledEl, draw, arduino, id, "ground");
+  console.log(area);
+  if(area) {
+    const {holes, isDown} = area;
+    createGroundOrPowerWire(holes[1], isDown, ledEl, draw, arduino, id, "ground");
+    const pinConnection = board.pinConnections[state.pin];
+    const color = board.pinConnections[state.pin].color;
+    createWireComponentToBreadboard(
+      `pin${holes[2]}${isDown ? "E" : "F"}`,
+      ledEl,
+      draw,
+      arduino,
+      "POWER",
+      id,
+      color
+    );
 
-  const color = board.pinConnections[state.pin].color;
-  createWireComponentToBreadboard(
-    `pin${holes[2]}${isDown ? "E" : "F"}`,
-    ledEl,
-    draw,
-    arduino,
-    "POWER",
-    id,
-    color
-  );
+    createResistor(
+      arduino,
+      draw,
+      holes[2],
+      false,
+      arduinoComponentStateToId(state),
+      "horizontal",
+      300
+    );
 
-  createResistor(
-    arduino,
-    draw,
-    holes[2],
-    false,
-    arduinoComponentStateToId(state),
-    "horizontal",
-    300
-  );
+    const holeId = `pin${holes[4]}${isDown ? "A" : "J"}`;
+    createWireFromArduinoToBreadBoard(
+        state.pins[0],
+        arduino as Svg,
+        draw,
+        holeId,
+        id,
+        board
+    );
+  } else {
+      createFromArduinoToComponent(
+          draw,
+          arduino as Svg,
+          state.pins[0],
+          ledEl,
+          "POWER",
+          board
+      );
 
-  const holeId = `pin${holes[4]}${isDown ? "A" : "J"}`;
-  createWireFromArduinoToBreadBoard(
-    state.pins[0],
-    arduino as Svg,
-    draw,
-    holeId,
-    id,
-    board
-  );
+      createGroundOrPowerWireArduino(
+          draw, arduino as Svg, state.pins[0], ledEl, board, "ground"
+      );
+
+
+    createFromArduinoToArduino(draw, arduino as Svg, ARDUINO_PINS.PIN_4, ARDUINO_PINS.PIN_5, board);
+  }
+
+  // createFromArduinoToArduino(draw, arduino, ARDUINO_PINS.PIN_1, ARDUINO_PINS.PIN_2, )
+  /*createFromArduinoToComponent(
+      draw,
+      arduino as Svg,
+      state.pins[0],
+      ledEl,
+      "ARDUINO_PIN_GND_1",
+      board
+  );*/
 };
 
 const changeLedColor = (state: LedState, ledEl: Element) => {

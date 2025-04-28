@@ -145,7 +145,7 @@ export default (
 
   if (componentEl) {
     // make sure the area get taken
-    takeBoardAreaWithExistingComponent(componentEl.data("holes").split("-"));
+    // takeBoardAreaWithExistingComponent(componentEl.data("holes").split("-"));
     // Show all the analog pins because they will turn off no matter what
     // in paint.
     state.pins
@@ -160,10 +160,10 @@ export default (
   const area = takeBoardArea();
 
   componentEl = createComponentEl(draw, state, getSvgString(state));
-
   (window as any)[state.type] = componentEl;
   if (area) {
     componentEl.data("holes", area.holes.join("-"));
+  }
     positionComponentHookFunc[state.type](
       state,
       componentEl,
@@ -181,7 +181,7 @@ export default (
       board,
       area
     );
-  }
+
   createComponentHookFunc[state.type](
     state,
     componentEl,

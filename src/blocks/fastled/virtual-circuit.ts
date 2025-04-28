@@ -8,14 +8,13 @@ import type {
   AfterComponentCreateHook,
 } from '../../core/virtual-circuit/svg-create';
 
-import type { Dom, Element, ElementAlias, Svg } from '@svgdotjs/svg.js';
-import _ from 'lodash';
+import type { Dom, Element, Svg } from '@svgdotjs/svg.js';
 import { rgbToHex } from '../../core/blockly/helpers/color.helper';
 import { positionComponent } from '../../core/virtual-circuit/svg-position';
 import type { FastLEDState } from './state';
 import {
-  createComponentWire,
-  createGroundOrPowerWire,
+  createComponentWire, createFromArduinoToComponent,
+  createGroundOrPowerWire, createGroundOrPowerWireArduino,
 } from '../../core/virtual-circuit/wire';
 
 export const fastLEDCreate: AfterComponentCreateHook<FastLEDState> = (
@@ -36,8 +35,12 @@ export const fastLEDPosition: PositionComponent<FastLEDState> = (
   board,
   area
 ) => {
-  const { holes, isDown } = area;
-  positionComponent(fastLEDEl, arduino, draw, holes[1], isDown, 'PIN_DATA');
+  if(area) {
+    const {holes, isDown} = area;
+    positionComponent(fastLEDEl, arduino, draw, 'PIN_DATA', holes[1], isDown);
+  } else {
+    positionComponent(fastLEDEl, arduino, draw, 'PIN_DATA');
+  }
 };
 
 export const fastLEDReset: ResetComponent = (fastLEDEl: Element) => {
@@ -72,37 +75,56 @@ export const createWiresFastLEDs: CreateWire<FastLEDState> = (
   board,
   area
 ) => {
-  const { holes, isDown } = area;
-  createComponentWire(
-    holes[1],
-    isDown,
-    fastLEDEl,
-    state.pins[0],
-    draw,
-    arduino,
-    id,
-    'PIN_DATA',
-    board
-  );
+  if(area) {
+    const {holes, isDown} = area;
+    createComponentWire(
+        holes[1],
+        isDown,
+        fastLEDEl,
+        state.pins[0],
+        draw,
+        arduino,
+        id,
+        'PIN_DATA',
+        board
+    );
 
-  createGroundOrPowerWire(
-    holes[0],
-    isDown,
-    fastLEDEl,
-    draw,
-    arduino,
-    id,
-    'ground'
-  );
-  createGroundOrPowerWire(
-    holes[2],
-    isDown,
-    fastLEDEl,
-    draw,
-    arduino,
-    id,
-    'power'
-  );
+    createGroundOrPowerWire(
+        holes[0],
+        isDown,
+        fastLEDEl,
+        draw,
+        arduino,
+        id,
+        'ground'
+    );
+    createGroundOrPowerWire(
+        holes[2],
+        isDown,
+        fastLEDEl,
+        draw,
+        arduino,
+        id,
+        'power'
+    );
+  } else {
+
+    console.log('Piins', state.pins)
+    createFromArduinoToComponent(
+        draw,
+        arduino as Svg,
+        state.pins[0],
+        fastLEDEl,
+        "PIN_DATA",
+        board
+    );
+    createGroundOrPowerWireArduino(
+        draw, arduino as Svg, state.pins[0], fastLEDEl, board, "ground"
+    );
+    createGroundOrPowerWireArduino(
+        draw, arduino as Svg, state.pins[0], fastLEDEl, board, "power"
+    );
+  }
 };
 
 const showRGBStripLeds = (fastLEDEl: Element, fastLEDState: FastLEDState) => {

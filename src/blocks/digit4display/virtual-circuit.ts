@@ -12,9 +12,10 @@ import type { DigitilDisplayState } from "./state";
 import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import {
-  createComponentWire,
-  createGroundOrPowerWire,
+  createComponentWire, createFromArduinoToComponent,
+  createGroundOrPowerWire, createGroundOrPowerWireArduino,
 } from "../../core/virtual-circuit/wire";
+import {ARDUINO_PINS} from "../../core/microcontroller/selectBoard";
 
 export const digitalDisplayCreate: AfterComponentCreateHook<DigitilDisplayState> = (
   state,
@@ -32,15 +33,24 @@ export const digitalDisplayPosition: PositionComponent<DigitilDisplayState> = (
   board,
   area
 ) => {
-  const { holes, isDown } = area;
-  positionComponent(
-    digitalDisplayEl,
-    arduino,
-    draw,
-    holes[0],
-    isDown,
-    "PIN_GND"
-  );
+  if(area) {
+    const {holes, isDown} = area;
+    positionComponent(
+        digitalDisplayEl,
+        arduino,
+        draw,
+        "PIN_GND",
+        holes[0],
+        isDown,
+    );
+  } else {
+     positionComponent(
+        digitalDisplayEl,
+        arduino,
+        draw,
+        "PIN_GND"
+    );
+  }
 };
 
 export const digitalDisplayReset: ResetComponent = (
@@ -100,49 +110,78 @@ export const createWiresDigitalDisplay: CreateWire<DigitilDisplayState> = (
   board,
   area
 ) => {
-  const { holes, isDown } = area;
+  if(area) {
+    const {holes, isDown} = area;
 
-  createGroundOrPowerWire(
-    holes[0],
-    isDown,
-    digitalDisplayEl,
-    draw,
-    arduino,
-    id,
-    "ground"
-  );
+    createGroundOrPowerWire(
+        holes[0],
+        isDown,
+        digitalDisplayEl,
+        draw,
+        arduino,
+        id,
+        "ground"
+    );
 
-  createGroundOrPowerWire(
-    holes[1],
-    isDown,
-    digitalDisplayEl,
-    draw,
-    arduino,
-    id,
-    "power"
-  );
+    createGroundOrPowerWire(
+        holes[1],
+        isDown,
+        digitalDisplayEl,
+        draw,
+        arduino,
+        id,
+        "power"
+    );
 
-  createComponentWire(
-    holes[3],
-    isDown,
-    digitalDisplayEl,
-    state.clkPin,
-    draw,
-    arduino,
-    id,
-    "PIN_CLK",
-    board
-  );
+    createComponentWire(
+        holes[3],
+        isDown,
+        digitalDisplayEl,
+        state.clkPin,
+        draw,
+        arduino,
+        id,
+        "PIN_CLK",
+        board
+    );
 
-  createComponentWire(
-    holes[2],
-    isDown,
-    digitalDisplayEl,
-    state.dioPin,
-    draw,
-    arduino,
-    id,
-    "PIN_DIO",
-    board
-  );
+    createComponentWire(
+        holes[2],
+        isDown,
+        digitalDisplayEl,
+        state.dioPin,
+        draw,
+        arduino,
+        id,
+        "PIN_DIO",
+        board
+    );
+  } else {
+    createFromArduinoToComponent(
+        draw,
+        arduino as Svg,
+        state.clkPin,
+        digitalDisplayEl,
+        "PIN_CLK",
+        board
+    );
+
+    createFromArduinoToComponent(
+        draw,
+        arduino as Svg,
+        state.dioPin,
+        digitalDisplayEl,
+        "PIN_DIO",
+        board
+    );
+
+    createGroundOrPowerWireArduino(draw, arduino as Svg, board.digitalDisplay[0] as ARDUINO_PINS, digitalDisplayEl, board, "ground")
+    createGroundOrPowerWireArduino(draw, arduino as Svg, board.digitalDisplay[1] as ARDUINO_PINS, digitalDisplayEl, board, "power")
+    /*createGroundOrPowerWireArduino(
+        draw, arduino as Svg, state.pins[0], digitalDisplayEl, board, "ground"
+    );
+    createGroundOrPowerWireArduino(
+        draw, arduino as Svg, state.pins[1], digitalDisplayEl, board, "power"
+    );*/
+  }
 };

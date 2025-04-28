@@ -1,10 +1,8 @@
 import {
   type Breadboard,
-  MicroControllerType,
   type PinConnection,
 } from "../../core/microcontroller/microcontroller";
 import type { MicroController } from "../../core/microcontroller/microcontroller";
-import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import _ from "lodash";
 // A0 => #B637CC
 // A1 => #CC9E37
@@ -187,7 +185,7 @@ const arduinoMega: MicroController = {
   sclPins: ["21"],
   sdaPins: ["20"],
   serial_baud_rate: 9600,
-  type: MicroControllerType.ARDUINO_MEGA,
+  type: "mega",
   breadboard,
   skipHoles: [
     1, 2, 3, 4, 6, 7, 8, 10, 12, 14, 15, 16, 18, 20, 22, 23, 25, 26, 28, 29, 31,

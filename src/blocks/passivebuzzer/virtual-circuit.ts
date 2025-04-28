@@ -1,4 +1,4 @@
-import { Element } from "@svgdotjs/svg.js";
+import {Svg} from "@svgdotjs/svg.js";
 import {
   AfterComponentCreateHook,
   CreateWire,
@@ -10,10 +10,10 @@ import {
   SyncComponent,
 } from "../../core/virtual-circuit/svg-sync";
 import {
-  createComponentWire,
-  createGroundOrPowerWire,
+  createComponentWire, createFromArduinoToComponent,
+  createGroundOrPowerWire, createGroundOrPowerWireArduino,
 } from "../../core/virtual-circuit/wire";
-import { PassiveBuzzerState, NOTE_TONES, Notes } from "./state";
+import { PassiveBuzzerState, Notes } from "./state";
 
 export const afterCreatePassiveBuzzer: AfterComponentCreateHook<PassiveBuzzerState> = (
   state,
@@ -57,8 +57,12 @@ export const positionPassiveBuzzer: PositionComponent<PassiveBuzzerState> = (
   board,
   area
 ) => {
-  const { holes, isDown } = area;
-  positionComponent(componentEl, arduinoEl, draw, holes[2], isDown, "PIN_GND");
+  if(area) {
+    const {holes, isDown} = area;
+    positionComponent(componentEl, arduinoEl, draw, "PIN_GND", holes[2], isDown);
+  } else {
+    positionComponent(componentEl, arduinoEl, draw, "PIN_GND");
+  }
 };
 
 export const createWiresPassiveBuzzer: CreateWire<PassiveBuzzerState> = (
@@ -70,29 +74,43 @@ export const createWiresPassiveBuzzer: CreateWire<PassiveBuzzerState> = (
   board,
   area
 ) => {
-  const { holes, isDown } = area;
 
-  createGroundOrPowerWire(
-    holes[3],
-    isDown,
-    passiveBuzzerEl,
-    draw,
-    arduinoEl,
-    componentId,
-    "ground"
-  );
+  if(area) {
+    const {holes, isDown} = area;
 
-  createComponentWire(
-    holes[0],
-    isDown,
-    passiveBuzzerEl,
-    state.pins[0],
-    draw,
-    arduinoEl,
-    componentId,
-    "PIN_DATA",
-    board
-  );
+    createGroundOrPowerWire(
+        holes[3],
+        isDown,
+        passiveBuzzerEl,
+        draw,
+        arduinoEl,
+        componentId,
+        "ground"
+    );
+
+    createComponentWire(
+        holes[0],
+        isDown,
+        passiveBuzzerEl,
+        state.pins[0],
+        draw,
+        arduinoEl,
+        componentId,
+        "PIN_DATA",
+        board
+    );
+  } else {
+    createFromArduinoToComponent(
+            draw,
+            arduinoEl as Svg,
+            state.pins[0],
+            passiveBuzzerEl,
+            "PIN_DATA",
+            board
+        );
+
+    createGroundOrPowerWireArduino(draw, arduinoEl as Svg, state.pins[0], passiveBuzzerEl, board, "ground")
+  }
 };
 
 export const resetPassiveBuzzer: ResetComponent = (component) => {
