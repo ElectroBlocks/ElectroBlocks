@@ -39,25 +39,28 @@ Blockly["Arduino"]["controls_for"] = function (block: Block) {
 
   const branch = Blockly["Arduino"].statementToCode(block, "DO");
 
-  const startNumber =
+  const startNumber = parseInt(
     Blockly["Arduino"].valueToCode(
       block,
       "FROM",
       Blockly["Arduino"].ORDER_ASSIGNMENT
-    ) || "0";
+    ) || "0"
+  );
 
-  const toNumber =
+  const toNumber = parseInt(
     Blockly["Arduino"].valueToCode(
       block,
       "TO",
       Blockly["Arduino"].ORDER_ASSIGNMENT
-    ) || "0";
+    ) || "0"
+  );
 
   let byNumber = Math.abs(parseInt(block.getFieldValue("BY")));
 
   byNumber = byNumber === 0 ? 1 : byNumber;
-
   const addingSub = startNumber < toNumber ? " +" : " -";
+  console.log(addingSub, "addingSub");
+
   const sign = startNumber < toNumber ? " <= " : " >= ";
 
   return (
