@@ -30,3 +30,52 @@ double ultraSonicDistance() {
 
   return "";
 };
+
+import Blockly from "blockly";
+import type { Block } from "blockly";
+
+Blockly.Python["ultra_sonic_sensor_motion"] = function (block: Block) {
+  return ["ultra_sonic_distance()", Blockly.Python.ORDER_ATOMIC];
+};
+
+Blockly.Python["ultra_sonic_sensor_setup"] = function (block: Block) {
+  const echoPin = block.getFieldValue("PIN_ECHO");
+  const trigPin = block.getFieldValue("PIN_TRIG");
+
+  Blockly.Python.definitions_ = Blockly.Python.definitions_ || {};
+  Blockly.Python.setups_ = Blockly.Python.setups_ || {};
+
+  Blockly.Python.definitions_["import_pyfirmata"] = `
+from pyfirmata import Arduino, util
+import time
+board = Arduino('/dev/ttyACM0')  # Change this to your correct port
+`;
+
+  Blockly.Python.setups_["start_iterator"] = `
+it = util.Iterator(board)
+it.start()
+board.digital[${echoPin}].mode = util.INPUT
+board.digital[${trigPin}].mode = util.OUTPUT
+`;
+
+  Blockly.Python.definitions_["ultrasonic_function"] = `
+def ultra_sonic_distance():
+    board.digital[${trigPin}].write(0)
+    time.sleep(0.000002)
+    board.digital[${trigPin}].write(1)
+    time.sleep(0.00001)
+    board.digital[${trigPin}].write(0)
+
+    # Wait for HIGH
+    while board.digital[${echoPin}].read() == 0:
+        pulse_start = time.time()
+    while board.digital[${echoPin}].read() == 1:
+        pulse_end = time.time()
+
+    pulse_duration = pulse_end - pulse_start
+    distance = pulse_duration * 17150
+    return round(distance, 2)
+`;
+
+  return "";
+};
