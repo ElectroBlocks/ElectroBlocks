@@ -68,3 +68,82 @@ Blockly["Arduino"]["joystick_engaged"] = function (block) {
     Blockly["Arduino"].ORDER_ATOMIC,
   ];
 };
+
+Blockly.Python["joystick_setup"] = function (block: Block) {
+  const pinX = block.getFieldValue("PIN_X");
+  const pinY = block.getFieldValue("PIN_Y");
+  const pinButton = block.getFieldValue("PIN_BUTTON");
+
+  Blockly.Python.definitions_ = Blockly.Python.definitions_ || {};
+  Blockly.Python.setups_ = Blockly.Python.setups_ || {};
+
+  Blockly.Python.definitions_["import_pyfirmata"] = `
+from pyfirmata import Arduino, util
+import math
+import time
+board = Arduino('/dev/ttyACM0')  # Update port if needed
+it = util.Iterator(board)
+it.start()
+`;
+
+  Blockly.Python.setups_["joystick_pin_modes"] = `
+joystick_button = board.digital[${pinButton}]
+joystick_button.mode = util.INPUT
+x_pin = board.analog[${pinX.replace("A", "")}]
+y_pin = board.analog[${pinY.replace("A", "")}]
+x_pin.enable_reporting()
+y_pin.enable_reporting()
+`;
+
+  Blockly.Python.definitions_["joystick_variables"] = `
+internal_variable_isJoystickButtonPressed = False
+internal_variable_isJoyStickEngaged = False
+internal_variable_degrees = 0
+`;
+
+  Blockly.Python.definitions_["joystick_function"] = `
+def set_joystick_values():
+    global internal_variable_isJoystickButtonPressed
+    global internal_variable_isJoyStickEngaged
+    global internal_variable_degrees
+
+    x_raw = x_pin.read()
+    y_raw = y_pin.read()
+
+    if x_raw is None or y_raw is None:
+        return
+
+    x = (x_raw * 5.0 * 1000) - 2457
+    y = (y_raw * 5.0 * 1000) - 2541
+
+    angle_rad = math.atan2(y, x)
+    angle_deg = math.degrees(angle_rad)
+    if angle_deg < 0:
+        angle_deg += 360
+
+    new_x = x / 100.0
+    new_y = y / 100.0
+    distance = math.sqrt(new_x ** 2 + new_y ** 2)
+
+    internal_variable_degrees = angle_deg if distance > 15 else 0
+    internal_variable_isJoyStickEngaged = distance > 15
+
+    btn_val = joystick_button.read()
+    internal_variable_isJoystickButtonPressed = btn_val == 0
+`;
+
+  return "";
+};
+
+Blockly.Python["joystick_angle"] = function (block: Block) {
+  return ["internal_variable_degrees", Blockly.Python.ORDER_ATOMIC];
+};
+
+Blockly.Python["joystick_button"] = function (block: Block) {
+  return ["internal_variable_isJoystickButtonPressed", Blockly.Python.ORDER_ATOMIC];
+};
+
+Blockly.Python["joystick_engaged"] = function (block: Block) {
+  return ["internal_variable_isJoyStickEngaged", Blockly.Python.ORDER_ATOMIC];
+};
+
