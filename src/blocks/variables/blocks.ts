@@ -54,9 +54,7 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       this.setColour(COLOR_THEME.DATA);
       this.setTooltip("");
       this.setHelpUrl("");
-      this.setCommentText(
-        `This block sets the value the variable is storing.  This variable will store ${humanType} only.`
-      );
+      this.setCommentText(`This variable will store ${humanType} only.`);
 
       this.getIcon("comment")?.setBubbleSize(new Blockly.utils.Size(460, 90));
     },

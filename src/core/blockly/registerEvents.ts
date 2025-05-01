@@ -84,6 +84,25 @@ export const createFrames = async (blocklyEvent) => {
 
   if (!supportedEvents.has(blocklyEvent.type)) return;
 
+  // A dynamic way to set the comment text of a block.
+  // TODO Refactor so it's more scalable.
+  console.log("blocklyEvent", blocklyEvent.type);
+  if (
+    blocklyEvent.type === Blockly.Events.CHANGE ||
+    blocklyEvent.type === Blockly.Events.BLOCK_CREATE ||
+    blocklyEvent.type === Blockly.Events.MOVE
+  ) {
+    const block = Blockly.getMainWorkspace().getBlockById(blocklyEvent.blockId);
+    if (block?.type === "logic_operation") {
+      const operator = block.getFieldValue("OP");
+      block.setCommentText(
+        operator === "AND"
+          ? "The && operator checks if both values are True."
+          : "The || operator checks if at least one value is True."
+      );
+    }
+  }
+
   const microControllerType = getBoardType() as MicroControllerType;
   const event = transformEvent(
     getAllBlocks(),
