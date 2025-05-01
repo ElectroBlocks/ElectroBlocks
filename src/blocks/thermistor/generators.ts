@@ -48,3 +48,48 @@ Blockly["Arduino"]["thermistor_read"] = function (block: Block) {
   var unit = block.getFieldValue("UNIT");
   return [`readThermistor("${unit}")`, Blockly["Arduino"].ORDER_ATOMIC];
 };
+
+
+Blockly["Python"]["thermistor_setup"] = function (block) {
+  const pin = block.getFieldValue("PIN");
+
+  Blockly["Python"].definitions_["import_pyfirmata"] = "from pyfirmata import Arduino, util";
+  Blockly["Python"].definitions_["import_math"] = "import math\nimport time";
+
+  Blockly["Python"].definitions_["board_setup"] =
+    "board = Arduino('COM3')  # Change to your port\n" +
+    "it = util.Iterator(board)\n" +
+    "it.start()\n" +
+    `board.analog[${pin}].enable_reporting()\n` +
+    "time.sleep(1)  # Allow time for board to initialize";
+
+  Blockly["Python"].definitions_["thermistor_constants"] =
+    `THERMISTOR_PIN = ${pin}  # Analog pin\n` +
+    "BETA = 3950\n" +
+    "RESISTANCE = 10  # Ohms";
+
+  Blockly["Python"].definitions_["read_thermistor_function"] = `
+def read_thermistor(return_unit="C"):
+    analog_value = board.analog[THERMISTOR_PIN].read()
+    if analog_value is None:
+        print("Waiting for sensor data...")
+        return None
+    a = analog_value * 1023
+    if a <= 0 or a >= 1023:
+        print("Invalid analog reading:", a)
+        return None
+    tempC = BETA / (math.log((1025.0 * RESISTANCE / a - RESISTANCE) / RESISTANCE) + BETA / 298.0) - 273.0
+    tempF = tempC * 1.8 + 32
+    print(f"TempC: {tempC:.2f} °C")
+    print(f"TempF: {tempF:.2f} °F")
+    time.sleep(0.2)
+    return tempC if return_unit == "C" else tempF
+`;
+
+  return "";
+};
+
+Blockly["Python"]["thermistor_read"] = function (block) {
+  var unit = block.getFieldValue("UNIT");
+  return [`read_thermistor("${unit}")`, Blockly["Python"].ORDER_ATOMIC];
+};

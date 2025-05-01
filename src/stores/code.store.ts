@@ -24,13 +24,13 @@ void loop() {
 const pythonCode = `# Python Code Snippet
 print("Hello, World!")`;
 
-const codeStore = writable({
+export const codeStore = writable({
   cLang: cCode,
   pythonLang: pythonCode,
-  boardType: MicroControllerType.ARDUINO_UNO,
 });
 
 export default {
   set: codeStore.set,
+  update: codeStore.update,
   subscribe: codeStore.subscribe,
 };

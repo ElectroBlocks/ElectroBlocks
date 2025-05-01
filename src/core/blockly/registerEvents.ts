@@ -58,7 +58,6 @@ settingStore.subscribe((newSettings) => {
       codeStore.set({
         cLang: getArduinoCode("Arduino"),
         pythonLang: getArduinoCode("Python"),
-        boardType: settings.boardType,
       });
     }
     return newFrameContainer;
@@ -195,7 +194,6 @@ export const createFrames = async (blocklyEvent) => {
   codeStore.set({
     cLang: getArduinoCode("Arduino"),
     pythonLang: getArduinoCode("Python"),
-    boardType: microControllerType,
   });
 };
 

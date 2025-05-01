@@ -48,6 +48,9 @@ export function stepSerialBeginPy() {
 }
 
 Blockly["Arduino"]["message_setup"] = function() {
+=======
+Blockly["Python"]["message_setup"] = () => "";
+Blockly["Arduino"]["message_setup"] = function () {
   stepSerialBegin();
   return "";
 };
@@ -85,6 +88,7 @@ Blockly["Arduino"]["arduino_receive_message"] = function(block) {
 };`;
   return ["(serialMessageDEV.length() > 0)", Blockly["Arduino"].ORDER_ATOMIC];
 };
+Blockly["Python"]["arduino_send_message"] = () => "";
 
 Blockly["Python"]["arduino_receive_message"] = function(block) {
   Blockly["Python"].information_["message_recieve_block"] = true;
