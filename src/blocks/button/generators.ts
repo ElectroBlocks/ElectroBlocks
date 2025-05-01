@@ -36,3 +36,39 @@ Blockly["Arduino"]["is_button_pressed"] = function (block: BlockSvg) {
 Blockly["Arduino"]["release_button"] = function (block: BlockSvg) {
   return "";
 };
+
+Blockly.Python["button_setup"] = function (block) {
+  const pin = block.getFieldValue("PIN");
+  const usePullup = block.getFieldValue("PULLUP_RESISTOR") === "TRUE";
+
+  Blockly.Python.definitions_ = Blockly.Python.definitions_ || {};
+  Blockly.Python.setups_ = Blockly.Python.setups_ || {};
+  Blockly.Python.definitions_["import_pyfirmata"] = `
+from pyfirmata import Arduino, util
+board = Arduino('/dev/ttyACM0')  # Update with your port
+it = util.Iterator(board)
+it.start()
+`;
+
+  Blockly.Python.setups_[`btn_pin_${pin}`] = `
+btn_pin_${pin} = board.digital[${pin}]
+btn_pin_${pin}.mode = util.INPUT
+`;
+
+  // Store button logic for later reference
+  Blockly.Python.buttonTypes = Blockly.Python.buttonTypes || {};
+  Blockly.Python.buttonTypes[pin] = { usePullup };
+
+  return "";
+};
+Blockly.Python["is_button_pressed"] = function (block) {
+  const pin = block.getFieldValue("PIN");
+  const usePullup = Blockly.Python.buttonTypes?.[pin]?.usePullup;
+
+  const expectedValue = usePullup ? "0" : "1"; // LOW if pull-up used, else HIGH
+  return [`(btn_pin_${pin}.read() == ${expectedValue})`, Blockly.Python.ORDER_ATOMIC];
+};
+Blockly.Python["release_button"] = function (block) {
+  return "";
+};
+
