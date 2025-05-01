@@ -73,7 +73,10 @@ Blockly["Python"]["stepper_motor_move"] = function (block: Block) {
   const code = `
 # Move the motor
 _steps = ${steps}
-_direction = 0 if _steps >= 0 else 1
+if _steps >= 0:
+  _direction = False
+else: 
+  _direction = True
 board.stepper_setup(abs(_steps), _direction)
 `;
   return code;
