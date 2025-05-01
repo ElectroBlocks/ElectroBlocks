@@ -7,6 +7,14 @@ Blockly['Arduino']['logic_boolean'] = function(block: Block) {
   return [code, Blockly['Arduino'].ORDER_ATOMIC];
 };
 
+Blockly['Python']['logic_boolean'] = function(block: Block) {
+  const code = block.getFieldValue('BOOL') == 'TRUE' ? 'True' : 'False';
+  return [code, Blockly['Python'].ORDER_ATOMIC];
+}
+
+Blockly["Python"].ORDER_EQUALITY = Blockly["Python"].ORDER_COMPARISON;
+Blockly["Python"].ORDER_RELATIONAL = Blockly["Python"].ORDER_COMPARISON;
+
 Blockly['Arduino']['logic_compare'] = function(block: Block) {
   // Comparison operator.
   const OPERATORS = {
@@ -27,6 +35,27 @@ Blockly['Arduino']['logic_compare'] = function(block: Block) {
   const code = "(" + argument0 + " " + operator + " " + argument1 + ")";
   return [code, order];
 };
+
+Blockly['Python']['logic_compare'] = function(block: Block) {
+  // Comparison operator.
+  const OPERATORS = {
+    EQ: '==',
+    NEQ: '!=',
+    LT: '<',
+    LTE: '<=',
+    GT: '>',
+    GTE: '>='
+  };
+  const operator = OPERATORS[block.getFieldValue('OP')];
+  const order =
+    operator === '==' || operator === '!='
+      ? Blockly['Python'].ORDER_COMPARISON
+      : Blockly['Python'].ORDER_RELATIONAL;
+  const argument0 = Blockly['Python'].valueToCode(block, 'A', order) || '0';
+  const argument1 = Blockly['Python'].valueToCode(block, 'B', order) || '0';
+  const code = "(" + argument0 + " " + operator + " " + argument1 + ")";
+  return [code, order];
+}
 
 Blockly['Arduino']['logic_operation'] = function(block: Block) {
   // Operations 'and', 'or'.
@@ -54,6 +83,33 @@ Blockly['Arduino']['logic_operation'] = function(block: Block) {
   const code = argument0 + ' ' + operator + ' ' + argument1;
   return [code, order];
 };
+
+Blockly['Python']['logic_operation'] = function(block: Block) {
+  // Operations 'and', 'or'.
+  const operator = block.getFieldValue('OP') === 'AND' ? 'and' : 'or';
+  const order =
+    operator === 'and'
+      ? Blockly['Python'].ORDER_LOGICAL_AND
+      : Blockly['Python'].ORDER_LOGICAL_OR;
+  let argument0 = Blockly['Python'].valueToCode(block, 'A', order);
+  let argument1 = Blockly['Python'].valueToCode(block, 'B', order);
+  if (!argument0 && !argument1) {
+    // If there are no arguments, then the return value is False.
+    argument0 = 'False';
+    argument1 = 'False';
+  } else {
+    // Single missing arguments have no effect on the return value.
+    const defaultArgument = operator === 'and' ? 'True' : 'False';
+    if (!argument0) {
+      argument0 = defaultArgument;
+    }
+    if (!argument1) {
+      argument1 = defaultArgument;
+    }
+  }
+  const code = argument0 + ' ' + operator + ' ' + argument1;
+  return [code, order];
+}
 
 Blockly["Arduino"]["control_if"] = function (block: Block) {
   let code = "",
@@ -88,7 +144,34 @@ Blockly["Arduino"]["control_if"] = function (block: Block) {
   return code + "\n";
 };
 
+Blockly['Python']['control_if'] = function(block: Block) {
+  let code = "",
+  branchCode,
+  conditionCode;
+  // If/elseif/else condition.
+  let n = 0;
+   
+  do{
+    conditionCode = 
+      Blockly['Python'].valueToCode(block, 'IF' + n, Blockly['Python'].ORDER_NONE) || 'False';
+    branchCode = Blockly['Python'].statementToCode(block, 'DO' + n);
+    code +=
+      (n > 0 ? 'elif ' : 'if ') +
+      conditionCode + ':\n' +
+      branchCode;
+    ++n; 
+  } while (block.getInput('IF' + n));
+
+  if (block.getInput('ELSE')) {
+    branchCode = Blockly['Python'].statementToCode(block, 'ELSE');
+    code += 'else:\n' + branchCode;
+  }
+  return code + '\n';
+};
+
 Blockly['Arduino']['controls_ifelse'] = Blockly['Arduino']['control_if'];
+
+Blockly['Python']['controls_ifelse'] = Blockly['Python']['control_if'];
 
 Blockly['Arduino']['logic_negate'] = function(block: Block) {
   // Negation.
@@ -96,5 +179,14 @@ Blockly['Arduino']['logic_negate'] = function(block: Block) {
   const argument0 =
     Blockly['Arduino'].valueToCode(block, 'BOOL', order) || 'true';
   const code = '!' + argument0;
+  return [code, order];
+};
+
+Blockly['Python']['logic_negate'] = function(block: Block) {
+  // Negation.
+  const order = Blockly['Python'].ORDER_LOGICAL_NOT;
+  const argument0 =
+    Blockly['Python'].valueToCode(block, 'BOOL', order) || 'True';
+  const code = 'not ' + argument0;
   return [code, order];
 };

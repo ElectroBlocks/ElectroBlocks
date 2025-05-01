@@ -93,7 +93,7 @@ const unoArduino: MicroController = {
   ssPins: ["10"],
   sclPins: ["A5"],
   sdaPins: ["A4"],
-  serial_baud_rate: 9600,
+  serial_baud_rate: 115200,
   type: MicroControllerType.ARDUINO_UNO,
   breadboard,
   skipHoles: [
