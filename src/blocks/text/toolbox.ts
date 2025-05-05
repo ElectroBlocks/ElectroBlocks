@@ -4,7 +4,7 @@ export default `
 <category name="Text" colour="${COLOR_THEME.VALUES}">
    <block type="text"></block>
    <block type="text_join">
-      <comment pinned="false" h="60" w="460">Turns multiple text blocks into one text block.</comment>
+      <comment pinned="false" h="60" w="460"></comment>
    </block>
    <block type="text_length">
    <comment pinned="false" h="80" w="460">Gets the number of letters inside a text block.  For example, a text block that stores “amy” will return 3.</comment>
