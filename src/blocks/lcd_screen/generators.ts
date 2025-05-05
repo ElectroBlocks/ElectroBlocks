@@ -78,7 +78,9 @@ Blockly["Arduino"]["lcd_screen_simple_print"] = function (
 
   function printRow(row, textRow) {
     return textRow !== '""' && textRow !== ""
-      ? "lcd.setCursor(0, " + row + "); \n" + "lcd.print(" + textRow + "); \n"
+      ? `lcd.setCursor(0, " + row + "); // Set cursor to row ${row}
+lcd.print(" + textRow + "); // Print to LCD row ${row}
+`
       : "";
   }
 
@@ -86,14 +88,14 @@ Blockly["Arduino"]["lcd_screen_simple_print"] = function (
   const row4 = numRows === 2 ? "" : printRow(3, textRow4);
 
   return (
-    "lcd.clear(); \n" +
+    "lcd.clear(); // Clear LCD Screen \n" +
     printRow(0, textRow1) +
     printRow(1, textRow2) +
     row3 +
     row4 +
     "delay(" +
     seconds * 1000 +
-    "); \n"
+    `); // Wait ${seconds} seconds. \n`
   );
 };
 

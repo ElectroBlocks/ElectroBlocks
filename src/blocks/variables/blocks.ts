@@ -2,11 +2,31 @@ import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 
 [
-  { type: "number", blockName: "number", variable_type: "Number" },
-  { type: "string", blockName: "string", variable_type: "String" },
-  { type: "boolean", blockName: "boolean", variable_type: "Boolean" },
-  { type: "color", blockName: "colour", variable_type: "Colour" },
-].forEach(({ type, blockName, variable_type }) => {
+  {
+    type: "number",
+    blockName: "number",
+    variable_type: "Number",
+    end_set_comment: "only numeric input.",
+  },
+  {
+    type: "string",
+    blockName: "string",
+    variable_type: "String",
+    end_set_comment: "string input.",
+  },
+  {
+    type: "boolean",
+    blockName: "boolean",
+    variable_type: "Boolean",
+    end_set_comment: "true or false state.",
+  },
+  {
+    type: "color",
+    blockName: "colour",
+    variable_type: "Colour",
+    end_set_comment: "color codes.",
+  },
+].forEach(({ type, blockName, variable_type, end_set_comment }) => {
   const humanType = type === "string" ? "text" : type;
 
   Blockly.Blocks[`variables_get_${blockName}`] = {
@@ -20,15 +40,13 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       (fieldVar as any).createNewVariable = false;
       (fieldVar as any).showOnlyVariableAssigned = false;
       this.appendDummyInput()
-        // .appendField(`= ${humanType} variable`)
+        .appendField(`= ${humanType} variable`)
         .appendField(fieldVar, "VAR");
       this.setOutput(true, variable_type);
       this.setColour(COLOR_THEME.DATA);
       this.setTooltip("");
       this.setHelpUrl("");
-      this.setCommentText(
-        `This block gets the value that the variable is storing.  This variable store a ${humanType}.`
-      );
+      this.setCommentText();
 
       this.getIcon("comment")?.setBubbleSize(new Blockly.utils.Size(460, 80));
     },
@@ -54,7 +72,9 @@ import { COLOR_THEME } from "../../core/blockly/constants/colors";
       this.setColour(COLOR_THEME.DATA);
       this.setTooltip("");
       this.setHelpUrl("");
-      this.setCommentText(`This variable will store ${humanType} only.`);
+      this.setCommentText(
+        `${variable_type} variable allows you to set values using ${end_set_comment}.`
+      );
 
       this.getIcon("comment")?.setBubbleSize(new Blockly.utils.Size(460, 90));
     },

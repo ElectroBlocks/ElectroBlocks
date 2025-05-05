@@ -48,7 +48,7 @@ describe("updateCommentIsButtonPressedBlock", () => {
     const expectedAction: CommentForButtonBlockAction = {
       blockId: isButtonPressedBlock.id,
       type: ActionType.UPDATE_COMMENT_FOR_BUTTON_BLOCK,
-      comment: "It Checks if the state of the defined pin is HIGH",
+      comment: "",
     };
 
     expect(updateCommentIsButtonPressedBlock(event)).toEqual([expectedAction]);

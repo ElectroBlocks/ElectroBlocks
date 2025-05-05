@@ -11,7 +11,7 @@ export const updateCommentIsButtonPressedBlock = (
 
   const pullupResistorButtonMessage =
     "It Checks if the state of the defined pin is LOW";
-  const buttonMessage = "It Checks if the state of the defined pin is HIGH";
+  const buttonMessage = "";
 
   const pinsToMessages = buttonSetupBlocks.reduce((acc, block) => {
     const pin = findFieldValue(block, "PIN");

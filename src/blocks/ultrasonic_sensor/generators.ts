@@ -17,7 +17,7 @@ Blockly["Arduino"]["ultra_sonic_sensor_setup"] = function (block: Block) {
   ] = `   pinMode(${trigPin}, OUTPUT); // Set pin ${trigPin} as output for the trigger signal \n`;
   Blockly["Arduino"].functionNames_[
     "pulse_in_function"
-  ] = `// This is function to Trigger the ultrasonic sensor and measure the distance
+  ] = `// Returns the distance in cm from the ultrasonic sensor
 double ultraSonicDistance() {
   digitalWrite(${trigPin}, LOW); // Set the trigger pin to low
   delayMicroseconds(2); // Wait for 2 microseconds
