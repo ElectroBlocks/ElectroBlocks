@@ -67,7 +67,7 @@ export const arduinoUploader = async (
     // flashMode: flashModeData,
     speed: 115200,
     uploadSpeed: 115200,
-    tool: type == MicroControllerType.ESP32 ? "esptool" : "avrdude",
+    tool:  "avrdude",
     cpu: "atmega328p",
     stdout: {
       write: (msg: string) => console.log(msg), // Properly implement the write method

@@ -24,16 +24,10 @@ export const libraries = [
       website: "https://github.com/GyverLibs/microWire",
     },
     {
-      name: "TinyLiquidCrystal_I2C",
-      version: "1.1.4",
-      url: "https://downloads.arduino.cc/libraries/github.com/lucas-inacio/TinyLiquidCrystal_I2C-1.1.4.zip",
-      website: "https://github.com/lucas-inacio/TinyLiquidCrystal_I2C.git",
-    },
-    {
-      name: "LiquidCrystal_I2C_Hangul",
-      version: "2.0.0",
-      url: "https://downloads.arduino.cc/libraries/github.com/junwha0511/LiquidCrystal_I2C_Hangul-2.0.0.zip",
-      website: "https://github.com/junwha0511/LiquidCrystal_I2C_Hangul",
+      name: "LiquidCrystal I2C",
+      version: "1.1.2",
+      url: "https://downloads.arduino.cc/libraries/github.com/marcoschwartz/LiquidCrystal_I2C-1.1.2.zip",
+      website: "https://github.com/marcoschwartz/LiquidCrystal_I2C",
     },
     {
       name: "LED",
