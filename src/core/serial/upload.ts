@@ -12,7 +12,9 @@ const compileCode = async (code: string, type: string): Promise<string> => {
   const includedLibraries = code
     .match(/#include\s+<([\w_]+)\.h>/g)
     ?.map((match) => match.match(/<([\w_]+)\.h>/)?.[1]) || [];
-
+  const filteredLibraries = includedLibraries.filter(
+      (libName) => libName !== "Wire"
+    );
   // Match extracted library names with metadata in library.ts
   const libs = libraries.filter((lib) =>
     includedLibraries.includes(lib.name)

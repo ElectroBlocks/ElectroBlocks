@@ -18,12 +18,6 @@ export const libraries = [
       website: "https://github.com/bremme/arduino-tm1637",
     },
     {
-      name: "microWire",
-      version: "2.2.0",
-      url: "https://downloads.arduino.cc/libraries/github.com/GyverLibs/microWire-2.2.0.zip",
-      website: "https://github.com/GyverLibs/microWire",
-    },
-    {
       name: "LiquidCrystal I2C",
       version: "1.1.2",
       url: "https://downloads.arduino.cc/libraries/github.com/marcoschwartz/LiquidCrystal_I2C-1.1.2.zip",
