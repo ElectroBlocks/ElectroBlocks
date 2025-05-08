@@ -3,7 +3,6 @@ import type { Block } from "blockly";
 import _ from "lodash";
 import { hexToRgb, rgbToColorStruct } from "../../core/blockly/helpers/color.helper";
 
-// Initialize code containers
 if (!Blockly.Arduino) Blockly.Arduino = {};
 Blockly.Arduino.libraries_ = Blockly.Arduino.libraries_ || {};
 Blockly.Arduino.variables_ = Blockly.Arduino.variables_ || {};
@@ -84,13 +83,15 @@ Blockly["Arduino"]["set_color_led"] = function (block: Block) {
   const rgb = hexToRgb(hexColor);
 
   let color = "{ 0, 0, 0 }";
-  if (rgb && typeof rgb.red === "number" && typeof rgb.green === "number" && typeof rgb.blue === "number") {
+  if (rgb && typeof rgb.red === "number") {
     color = rgbToColorStruct(rgb);
   }
 
+  const ledNumber = block.getFieldValue("WHICH_COMPONENT");
+  const targetLed = ledNumber ? +ledNumber : 1;
+
   if (Blockly.Arduino.variables_["RED_PIN_2"] !== undefined) {
-    const ledNumber = +block.getFieldValue("WHICH_COMPONENT");
-    return `setLedColor(${color}, ${ledNumber}); // Sets color of RGB LED ${ledNumber}\n`;
+    return `setLedColor(${color}, ${targetLed}); // Sets color of RGB LED ${targetLed}\n`;
   }
 
   return `setLedColor(${color}); // Sets RGB LED color\n`;
@@ -104,28 +105,47 @@ Blockly["Python"]["rgb_led_setup"] = function (block: Block) {
   const redPin1 = block.getFieldValue("PIN_RED_1");
   const greenPin1 = block.getFieldValue("PIN_GREEN_1");
   const bluePin1 = block.getFieldValue("PIN_BLUE_1");
+  const numComponents = block.getFieldValue("NUMBER_OF_COMPONENTS");
 
   Blockly.Python.imports_["machine"] = "import machine";
 
-  return `
-# Initialize pins
-red_pin = machine.PWM(machine.Pin(${redPin1}))
-green_pin = machine.PWM(machine.Pin(${greenPin1}))
-blue_pin = machine.PWM(machine.Pin(${bluePin1}))
 
-# Set frequency
-red_pin.freq(1000)
-green_pin.freq(1000)
-blue_pin.freq(1000)
-`;
-};
+   Blockly.Python.setupCode_["init_led_1"] = `
+   # Initialise the program settings and configurations
+   red_pin_1 = machine.PWM(machine.Pin(${redPin1}))
+   green_pin_1 = machine.PWM(machine.Pin(${greenPin1}))
+   blue_pin_1 = machine.PWM(machine.Pin(${bluePin1}))`;
+   
+     Blockly.Python.setupCode_["freq_led_1"] = `
+   red_pin_1.freq(1000)
+   green_pin_1.freq(1000)
+   blue_pin_1.freq(1000)`;
+   
+     if (numComponents === "2") {
+       const redPin2 = block.getFieldValue("PIN_RED_2");
+       const greenPin2 = block.getFieldValue("PIN_GREEN_2");
+       const bluePin2 = block.getFieldValue("PIN_BLUE_2");
+   
+       Blockly.Python.setupCode_["init_led_2"] = `
+   red_pin_2 = machine.PWM(machine.Pin(${redPin2}))
+   green_pin_2 = machine.PWM(machine.Pin(${greenPin2}))
+   blue_pin_2 = machine.PWM(machine.Pin(${bluePin2}))`;
+   
+       Blockly.Python.setupCode_["freq_led_2"] = `
+   red_pin_2.freq(1000)
+   green_pin_2.freq(1000)
+   blue_pin_2.freq(1000)`;
+     }
+   
+     return "";
+   };
 
 Blockly["Python"]["set_color_led"] = function (block: Block) {
   const hexColor = block.getFieldValue("COLOR");
   const rgb = hexToRgb(hexColor);
 
   let r = 0, g = 0, b = 0;
-  if (rgb && typeof rgb.red === "number" && typeof rgb.green === "number" && typeof rgb.blue === "number") {
+  if (rgb && typeof rgb.red === "number") {
     r = rgb.red;
     g = rgb.green;
     b = rgb.blue;
@@ -135,11 +155,23 @@ Blockly["Python"]["set_color_led"] = function (block: Block) {
   const gDuty = Math.round((1 - g / 255) * 1023);
   const bDuty = Math.round((1 - b / 255) * 1023);
 
+  const ledNumberRaw = block.getFieldValue("WHICH_COMPONENT");
+  const ledNumber = ledNumberRaw ? parseInt(ledNumberRaw) : 1;
+
+  if (ledNumber === 2 && Blockly.Python.setupCode_["init_led_2"]) {
+    return `
+# Set LED 2 color: ${hexColor}
+red_pin_2.duty(${rDuty})
+green_pin_2.duty(${gDuty})
+blue_pin_2.duty(${bDuty})
+`;
+  }
+
   return `
-# Set color: ${hexColor}
-red_pin.duty(${rDuty})
-green_pin.duty(${gDuty})
-blue_pin.duty(${bDuty})
+# Set LED 1 color: ${hexColor}
+red_pin_1.duty(${rDuty})
+green_pin_1.duty(${gDuty})
+blue_pin_1.duty(${bDuty})
 `;
 };
 
@@ -151,6 +183,5 @@ Blockly["Python"]["controls_forever"] = function (block: Block) {
   const statements = Blockly.Python.statementToCode(block, 'DO');
   return `
 while True:
-${statements}
-`;
+${Blockly.Python.prefixLines(statements, "  ")}`;
 };
