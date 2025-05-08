@@ -4,8 +4,8 @@
   "description": "This is electroblocks video editing for code.",
   "version": "3.0.0",
   "scripts": {
-    "dev": "copy env\\env.development.ts src\\env.ts && vite dev",
-    "build": "copy env\\env.staging.ts src\\env.ts && vite build",
+    "dev": "cp env\\env.development.ts src\\env.ts && vite dev",
+    "build": "cp env\\env.staging.ts src\\env.ts && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test-coverage": "vitest --coverage",
@@ -13,6 +13,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
+    "@duinoapp/upload-multitool": "^0.0.3",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@svelte-plugins/tooltips": "^3.0.1",
     "@sveltejs/adapter-static": "^3.0.1",
@@ -50,8 +51,5 @@
     "vite": "^5.4.14",
     "vitest": "^1.5.2"
   },
-  "type": "module",
-  "dependencies": {
-    "@duinoapp/upload-multitool": "^0.0.3"
-  }
+  "type": "module"
 }
