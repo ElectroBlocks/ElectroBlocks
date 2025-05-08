@@ -13,17 +13,20 @@ Blockly["Arduino"]["analog_read_setup"] = function (block: Block) {
 
 function firmata () {
   if(!Blockly["Python"].imports_["pyfirmata"]) {
-    Blockly["Python"].imports_["pyfirmata"]=`from pyfirmata import Arduino, util`;
-    Blockly["Python"].imports_["import time"] = `import time`;
-    Blockly["Python"].imports_["import serial"] = `import serial`;
-}
-  if(!Blockly["Python"].setupCode_["pyfirmata_board"]){
-    Blockly["Python"].setupCode_["pyfirmata_board"] =
-      "board = Arduino('YOUR PORT HERE')\n"+
-      "it = util.Iterator(board)\n"+
-      "it.start()\n";
+    Blockly["Python"].imports_["pyfirmata"]=`
+from pyfirmata import Arduino, util
+board = Arduino("YOUR_PORT_HERE")
+
+it = util.Iterator(board)
+it.start()
+`
   }
-}
+  if(!Blockly["Python"].imports_["import_time"]){
+    Blockly["Python"].imports_["import_time"] =`
+import time
+`
+  }
+};
 
 Blockly["Python"]["analog_read_setup"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
@@ -31,8 +34,9 @@ Blockly["Python"]["analog_read_setup"] = function (block: Block) {
   const pinVar = `analog_pin_${pin}`;
   
   Blockly["Python"].setupCode_[pinVar] =
-  `${pinVar} = board.get_pin('a:${pin}:i')\n`+
-  `${pinVar}.enable_reporting()\n`;
+  `${pinVar} = board.get_pin('a:${pin}:i')
+${pinVar}.enable_reporting()
+`;
   return "";
 };
 
@@ -45,5 +49,6 @@ Blockly["Arduino"]["analog_read"] = function (block: Block) {
 Blockly["Python"]["analog_read"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
   const pinVar = `analog_pin_${pin}`;
-  return [`${pinVar}.read()`, Blockly["Python"].ORDER_ATOMIC];
+  const code = `${pinVar}.read()`;
+  return [code, Blockly["Python"].ORDER_ATOMIC];
 };
