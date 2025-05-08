@@ -53,15 +53,7 @@ Blockly["Arduino"]["thermistor_read"] = function (block: Block) {
 Blockly["Python"]["thermistor_setup"] = function (block) {
   const pin = block.getFieldValue("PIN");
 
-  Blockly["Python"].definitions_["import_pyfirmata"] = "from pyfirmata import Arduino, util";
   Blockly["Python"].definitions_["import_math"] = "import math\nimport time";
-
-  Blockly["Python"].definitions_["board_setup"] =
-    "board = Arduino('COM3')  # Change to your port\n" +
-    "it = util.Iterator(board)\n" +
-    "it.start()\n" +
-    `board.analog[${pin}].enable_reporting()\n` +
-    "time.sleep(1)  # Allow time for board to initialize";
 
   Blockly["Python"].definitions_["thermistor_constants"] =
     `THERMISTOR_PIN = ${pin}  # Analog pin\n` +

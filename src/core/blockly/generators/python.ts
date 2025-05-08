@@ -19,7 +19,7 @@ Blockly["Python"].addReservedWords(
   "map,max,memoryview,min,next,object,oct,open,ord,pow,print,property,range," +
   "repr,reversed,round,set,setattr,slice,sorted,staticmethod,str,sum,super," +
   "tuple,type,vars,zip," +
-  // MicroPython specific
+  // MicroPython specic
   "board,digitalio,analogio,time,neopixel,servo,busio,math,random," +
   "pin,pin_in,pin_out,analog_read,analog_write,digital_read,digital_write," +
   "sleep,sleep_ms,ticks_ms,ticks_us," +
@@ -76,7 +76,14 @@ Blockly["Python"].init = function(workspace) {
     // creates a list of code to be setup before the setup block
     Blockly["Python"].setupCode_ = Object.create(null);
     Blockly["Python"].information_ = Object.create(null);
-    
+   
+
+    this.imports_["pyfirmata"] = `from pyfirmata import Arduino, util`;
+    this.setupCode_["firmata_board"] = 
+      'board = Arduino("YOUR_PORT_HERE")\n'+
+      'it = util.Iterator(board)\n'+
+      'it.start()'+
+      'time.sleep(1)\n';
     // Create a dictionary mapping desired function names in definitions_
   // to actual function names (to avoid collisions with user functions).
     Blockly["Python"].functionNames_ = Object.create(null);

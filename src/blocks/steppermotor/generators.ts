@@ -37,9 +37,7 @@ Blockly["Python"]["stepper_motor_setup"] = function (block: Block) {
 from pyfirmata import Arduino, util;`;
 
   Blockly["Python"].setupCode_["stepper_motor_init"] = 
-`board = Arduino('REPLACE_WITH_YOUR_PORT')
-it = util.Iterator(board)
-it.start()
+`
 # Make sure to enable stepper extension in your StandardFirmata
 # Configure the stepper motor:
 #   steps_per_rev = ${totalSteps}, control pins = ${pin1}, ${pin2}, ${pin3}, ${pin4}
