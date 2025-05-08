@@ -4,6 +4,14 @@ import { getBlockByType } from "../helpers/block.helper";
 
 // Python Code generator
 Blockly["Python"] = new Blockly.Generator("Python");
+Blockly.Generator['Python'] = Blockly["Python"];
+
+Blockly["Python"]["arduino_setup"] = function(block) {
+  // Example setup code for Arduino using pyfirmata in Python
+  Blockly["Python"].imports_['import_pyfirmata'] = "from pyfirmata import Arduino, util";
+  const code = "board = Arduino('COM3')  # Replace COM3 with your port\n";
+  return code;
+};
 
 
 // Python Equivalent ReservedWords
@@ -34,7 +42,7 @@ Blockly["Python"].addReservedWords(
 
 Blockly["Python"].ORDER_ATOMIC = 0;         // 0 "" 1234 'abc' True False None
 Blockly["Python"].ORDER_COLLECTION = 1;     // tuples, lists, dictionaries
-Blockly["Python"].ORDER_STRING_CONVERSION = 1; // `expression...`
+Blockly["Python"].ORDER_STRING_CONVERSION = 1; // expression...
 Blockly["Python"].ORDER_MEMBER = 2;         // . []
 Blockly["Python"].ORDER_FUNCTION_CALL = 2;  // ()
 Blockly["Python"].ORDER_EXPONENTIATION = 3; // **
