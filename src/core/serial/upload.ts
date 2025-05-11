@@ -26,7 +26,7 @@ const compileCode = async (code: string, type: string): Promise<string> => {
       fqbn: "arduino:avr:uno",
       files: [
         {
-          content: btoa(code),
+          content: code,
           name: "arduino/arduino.ino",
         },
       ],
@@ -63,7 +63,7 @@ export const arduinoUploader = async (
   );
   const hexCode = await compileCode(code, type);
   const config = {
-    bin: hexCode,
+    bin:btoa(hexCode),
     // files: filesData,
     // flashFreq: flashFreqData,
     // flashMode: flashModeData,
