@@ -26,7 +26,7 @@ const compileCode = async (code: string, type: string): Promise<string> => {
       fqbn: "arduino:avr:uno",
       files: [
         {
-          content: code,
+          content: btoa(code),
           name: "arduino/arduino.ino",
         },
       ],
