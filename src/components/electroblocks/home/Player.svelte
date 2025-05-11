@@ -10,12 +10,16 @@
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
   import { tooltip } from "@svelte-plugins/tooltips";
+  import { WebSerialPortPromise } from "@duinoapp/upload-multitool";
+  import { paintUsb, updateUsb } from "../../../core/usb/player";
+  import { useColorMode } from "@sveltestrap/sveltestrap";
 
   let frames: ArduinoFrame[] = [];
   let frameNumber = 1;
   let playing = false;
   let speedDivisor = 1;
   let maxTimePerStep = 1000;
+  let serial;
 
   const unsubscribes = [];
 
@@ -26,6 +30,14 @@
   unsubscribes.push(
     currentStepStore.subscribe((currentIndex) => {
       frameNumber = currentIndex;
+      if ($frameStore.frames.length > 0 && serial) {
+        if (frameNumber == 0) {
+          paintUsb($frameStore, serial);
+        }
+        if ($frameStore.frames[currentIndex]) {
+          updateUsb($frameStore.frames[currentIndex], serial);
+        }
+      }
     })
   );
 
@@ -34,7 +46,9 @@
       playing = false;
       const currentFrame = frames[frameNumber];
       frames = frameContainer.frames;
-
+      if (typeof serial != 'undefined') {
+        paintUsb(frameContainer, serial);
+      }
       // If we are starting out with set to first frame in the loop
       // We want to skip all the library and setup blocks
       if (frames.length === 0 || !currentFrame) {
@@ -50,6 +64,7 @@
 
       frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
       currentFrameStore.set(frames[frameNumber]);
+      
     })
   );
 
@@ -171,6 +186,21 @@
     );
   }
 
+  async function connectUsb()
+  {
+    serial = await WebSerialPortPromise.requestPort(
+    {},
+    { baudRate: 115200 }
+  );
+    await serial.open();
+    paintUsb($frameStore, serial);
+    console.log("Connected to USB");
+    serial.on('data', (data) => {
+      console.log('Received:', data.toString());
+    });
+
+  }
+
   function wait(msTime) {
     return new Promise((resolve) => setTimeout(resolve, msTime));
   }
@@ -241,6 +271,15 @@
   >
     <i class="fa fa-forward" />
   </span>
+
+  <span
+    use:tooltip
+    title="Enable USB"
+    on:click={connectUsb}
+    id="video-debug-usb"
+  >
+    <i class="fa fa-usb" />
+  </span>
 </div>
 
 <style>
@@ -250,7 +289,7 @@
 
   #video-controls-container {
     display: block;
-    width: 140px;
+    width: 180px;
     height: 40px;
     margin: auto;
     margin-top: 5px;

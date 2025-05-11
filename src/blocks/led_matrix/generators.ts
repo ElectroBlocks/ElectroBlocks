@@ -2,10 +2,13 @@ import Blockly from 'blockly';
 import { numberToCode } from '../../core/blockly/helpers/number-code.helper';
 // TODO REPLACE WITH THIS -> https://github.com/valmat/LedMatrix
 
-Blockly['Arduino']['led_matrix_setup'] = function (block) {
-  const dataPin = block.getFieldValue('PIN_DATA');
-  const clkPin = block.getFieldValue('PIN_CLK');
-  const csPin = block.getFieldValue('PIN_CS');
+Blockly["Python"]["led_matrix_setup"] = function (block) {
+  return "";
+};
+Blockly["Arduino"]["led_matrix_setup"] = function (block) {
+  const dataPin = block.getFieldValue("PIN_DATA");
+  const clkPin = block.getFieldValue("PIN_CLK");
+  const csPin = block.getFieldValue("PIN_CS");
 
   Blockly["Arduino"].libraries_[
     "define_led_matrix"
@@ -23,9 +26,12 @@ LedControl lc = LedControl(${dataPin},${clkPin},${csPin},1);`;
    lc.clearDisplay(0); // Clears the display for the first device
 `;
 
-  return '';
+  return "";
 };
 
+Blockly["Python"]["led_matrix_make_draw"] = function (block) {
+  return "";
+};
 Blockly['Arduino']['led_matrix_make_draw'] = function (block) {
   let code = '\n\t//START CODE TO DRAW BLOCK ' + block.id + '\n';
 

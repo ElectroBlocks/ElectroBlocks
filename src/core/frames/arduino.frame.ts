@@ -55,6 +55,8 @@ export interface Timeline {
 export interface ArduinoComponentState {
   pins: ARDUINO_PINS[];
   type: ArduinoComponentType;
+  usbCommand?: string;
+  setupCommand?: string;
 }
 
 export enum ArduinoComponentType {
