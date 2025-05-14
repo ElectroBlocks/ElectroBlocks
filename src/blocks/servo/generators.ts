@@ -13,6 +13,21 @@ function servoSetup(pin) {
 `;
 }
 
+Blockly["Python"]["rotate_servo"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+  const pinVar = `servo_pin_${pin}`;
+  const angleVar = `servo_angle_${pin}`;
+
+  const degrees = Blockly["Python"].valueToCode(
+    block,
+    "DEGREE",
+    Blockly["Python"].ORDER_ATOMIC
+  );
+  Blockly["Python"].setupCode_[pinVar] = `${pinVar} = board.get_pin('d:${pin}:s')\n`;
+  Blockly["Python"].setupCode_[`angle_var_${pin}`] = `${angleVar} = 0`;
+  return `${pinVar}.write(${degrees})\n${angleVar} = ${degrees}\ntime.sleep(1)\n`;
+};
+
 Blockly["Arduino"]["rotate_servo"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
   const degrees = Blockly["Arduino"].valueToCode(
@@ -40,6 +55,14 @@ Blockly['Arduino']['servo_read_degrees'] = function(block: Block) {
   return ['servo_' + pin + '.read()', Blockly['Arduino'].ORDER_ATOMIC];
 };
 
+Blockly["Python"]["servo_read_degrees"] = function(block: Block) {
+  const pin = block.getFieldValue('PIN');
+  const varName = `servo_angle_${pin}`;
+
+  Blockly["Python"].setupCode_[`angle_var_${pin}`] = `${varName} = 0`
+  return [varName, Blockly["Python"].ORDER_ATOMIC];
+};
+
 Blockly['Arduino']['servo_move_adafruit_tico'] = function(block: Block) {
   const pin = block.getFieldValue('PIN');
   const degree = Blockly['Arduino'].valueToCode(
@@ -57,3 +80,22 @@ Blockly['Arduino']['servo_move_adafruit_tico'] = function(block: Block) {
 
   return 'servo_adafruit' + pin + '.write(' + degree + ');\n';
 };
+
+Blockly["Python"]["servo_move_adafruit_tico"] = function(block: Block) {
+  const pin = block.getFieldValue('PIN');
+  const angle = Blockly["Python"].valueToCode(
+    block,
+    "DEGREE",
+    Blockly["Python"].ORDER_ATOMIC
+  );
+
+  const pinVar = `servo_adafruit_${pin}`;
+
+  Blockly["Python"].setupCode_[pinVar] = 
+    `${pinVar} = board.get_pin('d:${pin}:s')`;
+
+  return `${pinVar}.write(${angle})\n`;
+};
+
+
+
