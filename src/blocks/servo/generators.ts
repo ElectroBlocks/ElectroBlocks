@@ -12,6 +12,9 @@ function servoSetup(pin) {
   ] = `   servo_${pin}.attach(${pin}); // Attaches the servo motor to defined pin
 `;
 }
+Blockly["Python"]["rotate_servo"] = function (block: Block) {
+  return "";
+};
 
 Blockly["Arduino"]["rotate_servo"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");

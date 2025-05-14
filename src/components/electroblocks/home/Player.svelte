@@ -10,16 +10,14 @@
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
   import { tooltip } from "@svelte-plugins/tooltips";
-  import { WebSerialPortPromise } from "@duinoapp/upload-multitool";
   import { paintUsb, updateUsb } from "../../../core/usb/player";
-  import { useColorMode } from "@sveltestrap/sveltestrap";
+  import arduinoPortStore from "../../../stores/arduino-port.store";
 
   let frames: ArduinoFrame[] = [];
   let frameNumber = 1;
   let playing = false;
   let speedDivisor = 1;
   let maxTimePerStep = 1000;
-  let serial;
 
   const unsubscribes = [];
 
@@ -28,27 +26,26 @@
   $: frameIndex = frameNumber - 1;
 
   unsubscribes.push(
-    currentStepStore.subscribe((currentIndex) => {
+    currentStepStore.subscribe(async (currentIndex) => {
       frameNumber = currentIndex;
-      if ($frameStore.frames.length > 0 && serial) {
+      if ($frameStore.frames.length > 0) {
         if (frameNumber == 0) {
-          paintUsb($frameStore, serial);
+          await paintUsb($frameStore);
         }
         if ($frameStore.frames[currentIndex]) {
-          updateUsb($frameStore.frames[currentIndex], serial);
+          await updateUsb($frameStore.frames[currentIndex]);
         }
       }
     })
   );
 
   unsubscribes.push(
-    frameStore.subscribe((frameContainer) => {
+    frameStore.subscribe(async (frameContainer) => {
       playing = false;
       const currentFrame = frames[frameNumber];
       frames = frameContainer.frames;
-      if (typeof serial != 'undefined') {
-        paintUsb(frameContainer, serial);
-      }
+      await paintUsb(frameContainer);
+      
       // If we are starting out with set to first frame in the loop
       // We want to skip all the library and setup blocks
       if (frames.length === 0 || !currentFrame) {
@@ -188,17 +185,10 @@
 
   async function connectUsb()
   {
-    serial = await WebSerialPortPromise.requestPort(
-    {},
-    { baudRate: 115200 }
-  );
-    await serial.open();
-    paintUsb($frameStore, serial);
-    console.log("Connected to USB");
-    serial.on('data', (data) => {
-      console.log('Received:', data.toString());
-    });
-
+      if (!$arduinoPortStore?.isOpen) {
+        await resetPlayer();
+        await arduinoPortStore.connect();
+      }
   }
 
   function wait(msTime) {

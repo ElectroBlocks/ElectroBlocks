@@ -47,7 +47,7 @@ String lastRFID = "";
 
 void setup() {
   Serial.begin(115200);
-  delay(1000);
+  delay(100);
   while (!Serial) { ; }
   Serial.println(F("System:READY"));
   FastLED.clear();
@@ -356,6 +356,11 @@ void loop() {
     String input = Serial.readStringUntil('|');
     input.trim();
 
+    if(input == "IAM_READY") {
+      Serial.println(F("System:READY"));
+      return;
+    }
+
     int commandCount = 0;
     const int maxCommands = 10;
     String commands[maxCommands];
@@ -385,5 +390,7 @@ void loop() {
         handleCommand(cmd);
       }
     }
+    
+    Serial.println(F("DONE_NEXT_COMMAND"));
   }
 }
