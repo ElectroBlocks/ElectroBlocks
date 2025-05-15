@@ -115,21 +115,22 @@ void updateSensors()
 
 void handleconfig(String key, String value) {
    if (key == "servo") {
-    int sep = value.indexOf(',');
-    if (sep != -1) {
-      int index = value.substring(0, sep).toInt();
-      int pin = value.substring(sep + 1).toInt();
-      if (index >= 0 && index < 4) {
-        servoPins[index] = pin;
-        servos[index].attach(pin);
-        Serial.print(F("config:Servo"));
-        Serial.print(index);
-        Serial.println(F("=OK"));
-      } else {
-        Serial.println(F("config:Servo=INVALID_INDEX"));
+    int pin = value.toInt();
+    bool assigned = false;
+    for (int i = 0; i < 4; i++) {
+      if (servoPins[i] == -1) {
+        servoPins[i] = pin;
+        servos[i].attach(pin);
+        Serial.print(F("Config:ServoPIN="));
+        Serial.print(pin);
+        Serial.print(F(" AssignedToIndex="));
+        Serial.println(i);
+        assigned = true;
+        break;
       }
-    } else {
-      Serial.println(F("config:Servo=INVALID_FORMAT"));
+    }
+    if (!assigned) {
+      Serial.println(F("Config:Servo=NO_AVAILABLE_SLOT"));
     }
   } else if (key == "rgb") {
     int a = value.indexOf(',');
@@ -218,15 +219,23 @@ void handleCommand(String input) {
     int first = input.indexOf(":");
     int second = input.indexOf(":", first + 1);
     if (second != -1) {
-      int index = input.substring(first + 1, second).toInt();
+      int pin = input.substring(first + 1, second).toInt();
       int angle = input.substring(second + 1).toInt();
-      if (index >= 0 && index < 4 && servoPins[index] != -1) {
-        servos[index].write(angle);
-        Serial.print(F("Servo"));
-        Serial.print(index);
-        Serial.println(F(":OK"));
-      } else {
-        Serial.println(F("Servo:INVALID_INDEX"));
+      bool found = false;
+      for (int i = 0; i < 4; i++) {
+        if (servoPins[i] == pin) {
+          servos[i].write(angle);
+          Serial.print(F("Servo:PIN="));
+          Serial.print(pin);
+          Serial.print(F(" ANGLE="));
+          Serial.print(angle);
+          Serial.println(F(" OK"));
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        Serial.println(F("Servo:PIN_NOT_FOUND"));
       }
     } else {
       Serial.println(F("Servo:INVALID_FORMAT"));
