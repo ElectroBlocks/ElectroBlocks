@@ -155,7 +155,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Time",
