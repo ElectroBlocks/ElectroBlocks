@@ -164,7 +164,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
     ],
   },
@@ -295,7 +295,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Button",
@@ -304,7 +304,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Digital Sensor",
@@ -313,7 +313,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "IR Remote",
@@ -322,7 +322,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "JoyStick",
@@ -331,7 +331,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Motion Sensor",
@@ -340,7 +340,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "RFID",
@@ -349,7 +349,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Temperature/Humidity",
@@ -358,7 +358,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Thermistor",
@@ -367,7 +367,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
     ],
   },
