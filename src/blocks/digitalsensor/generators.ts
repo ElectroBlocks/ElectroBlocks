@@ -36,7 +36,3 @@ digital_read_pin_${pin}.mode = util.INPUT
 
   return "";
 };
-Blockly.Python["digital_read"] = function (block) {
-  const pin = block.getFieldValue("PIN");
-  return [`digital_read_pin_${pin}.read()`, Blockly.Python.ORDER_ATOMIC];
-};
