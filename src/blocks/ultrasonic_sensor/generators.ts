@@ -73,8 +73,7 @@ def ultra_sonic_distance():
         pulse_end = time.time()
 
     pulse_duration = pulse_end - pulse_start
-    distance = pulse_duration * 17150
-    return round(distance, 2)
+    return round(pulse_duration / 29 / 2, 2)
 `;
 
   return "";
