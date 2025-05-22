@@ -19,15 +19,15 @@ function createColorStruct() {
 };`;
 }
 
-function createColorStructPy() {
+export function createColorStructPy() {
   Blockly["Python"].imports_["import_dataclass"] = `
-from dataclasses import dataclass`
+from dataclasses import dataclass`;
   Blockly["Python"].definitions_["color_struct"] = `  
 @dataclass
 class RGB:
-  red: double
-  green: double
-  blue: double
+  red: float
+  green: float
+  blue: float
   `;
 }
 

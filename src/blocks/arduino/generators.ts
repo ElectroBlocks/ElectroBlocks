@@ -21,7 +21,6 @@ Blockly["Arduino"]["arduino_setup"] = function (block: Block) {
 
 Blockly["Python"]["arduino_loop"] = function (block: Block) {
   const statementsLoop = Blockly["Python"].statementToCode(block, "loop");
-  console.log("statementsLoop", statementsLoop);
   return `
 while True:
 ${statementsLoop}

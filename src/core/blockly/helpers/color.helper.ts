@@ -20,7 +20,7 @@ export const rgbToColorStruct = (color: Color): string => {
 };
 
 export const rgbToColorStructPy = (color: Color): string => {
-  return `${color.red}, ${color.green}, ${color.blue}`;
+  return `RGB(${color.red}, ${color.green}, ${color.blue})`;
 }
 
 export const rgbToHex = (color: Color) => {

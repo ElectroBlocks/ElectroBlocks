@@ -83,7 +83,9 @@ Blockly["Python"].addReservedWords(
     Blockly["Python"].variablesInitCode_ = "";
 
     this.imports_["electroblocks"] = "#Import ElectroBlocks library\nfrom electroblocks import ElectroBlocks";
-    this.setupCode_["eb_instance"] = '#Create an instance of the ElectroBlocks class\neb = ElectroBlocks()\n';
+    this.setupCode_[
+      "eb_instance"
+    ] = `eb = ElectroBlocks() # Create an instance of the ElectroBlocks class\n`;
 
     if (!Blockly["Python"].variableDB_) {
       Blockly["Python"].variableDB_ = new Blockly.Names(
@@ -127,7 +129,7 @@ Blockly["Python"].addReservedWords(
     for (i = 0; i < colourVariables.length; i++) {
       variableCode +=
         Blockly["Python"].getVariableName(colourVariables[i].getId()) +
-        " = (0, 0, 0)\n\n";
+        " = RGB(0, 0, 0)\n\n";
     }
 
     Blockly["Python"].variablesInitCode_ = variableCode;

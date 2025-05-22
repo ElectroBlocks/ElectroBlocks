@@ -7,18 +7,7 @@ import {
   rgbToHex,
   rgbToColorStructPy
 } from "../../core/blockly/helpers/color.helper";
-
-Blockly["Python"]["rgb_led_setup"] = function (block: Block) {
-  const redPin = block.getFieldValue("PIN_RED_1");
-  const greenPin = block.getFieldValue("PIN_GREEN_1");
-  const bluePin = block.getFieldValue("PIN_BLUE_1");
-
-  Blockly["Python"].setupCode_[
-    "rgb_setup"
-  ] = `eb.config_rgb(${redPin}, ${greenPin}, ${bluePin}) # Configures the RGB LED pins\n`;
-  return "";
-};
-
+import { createColorStructPy } from "../color/generators";
 
 Blockly["Arduino"]["rgb_led_setup"] = function (block: Block) {
   const redPin = block.getFieldValue("PIN_RED_1");
@@ -159,29 +148,34 @@ Blockly["Arduino"]["set_color_led"] = function (block: Block) {
   return `setLedColor(${color}); // Set the RGB LED colour. \n`;
 };
 
+Blockly["Python"]["rgb_led_setup"] = function (block: Block) {
+  const redPin = block.getFieldValue("PIN_RED_1");
+  const greenPin = block.getFieldValue("PIN_GREEN_1");
+  const bluePin = block.getFieldValue("PIN_BLUE_1");
+
+  Blockly["Python"].setupCode_[
+    "rgb_setup"
+  ] = `eb.config_rgb(${redPin}, ${greenPin}, ${bluePin}) # Configures the RGB LED pins\n`;
+  return "";
+};
+
 Blockly["Python"]["set_color_led"] = function (block: Block) {
-  let color = 
+  createColorStructPy();
+  let color =
     block.type == "set_color_led"
       ? Blockly["Python"].valueToCode(
           block,
           "COLOR",
           Blockly["Python"].ORDER_ATOMIC
-      )
+        )
       : rgbToColorStructPy(hexToRgb(block.getFieldValue("COLOR")));
 
   if (_.isEmpty(color)) {
-    color = "{0,0,0}";
+    color = "RGB(0,0,0)";
   }
-  
-  if (Blockly["Python"].functionNames_["color_pin_green_2"] !== undefined) {
-    const ledNumber = +block.getFieldValue("WHICH_COMPONENT");
-    return `
-c=${color}
-eb.set_rgb(c.red,c.green,c.blue)`;
-  }
-  return `
-c=${color}
-eb.set_rgb(c.red, c.green, c.blue)`;
+
+  return `dev_color = ${color} # Create the RGB color object.
+eb.set_rgb(dev_color.red, dev_color.green, dev_color.blue) # Set the RGB LED color on the Arduino.`;
 };
 
 Blockly["Arduino"]["set_simple_color_led"] =
