@@ -16,6 +16,7 @@
 
   // Importing settings store
   import settingsStore from "../../../stores/settings.store";
+  import { SUPPORTED_LANGUAGES } from "../../../core/microcontroller/microcontroller";
 
   let code = "";
   let loaded = false;
@@ -66,11 +67,12 @@
   }
 
   function copy() {
-    if (settings.language==="Python") {
-      navigator.clipboard.writeText(get(codeStore).cLang);
+    console.log(settings.language === SUPPORTED_LANGUAGES.PYTHON)
+    if (settings.language === SUPPORTED_LANGUAGES.PYTHON) {
+      navigator.clipboard.writeText(get(codeStore).pythonLang);
     } else {
       // @ts-ignore
-      navigator.clipboard.writeText(get(codeStore).pythonLang);
+      navigator.clipboard.writeText(get(codeStore).cLang);
     }
     hasCopiedCode = true;
   }
