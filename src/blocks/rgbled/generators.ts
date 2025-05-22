@@ -175,9 +175,13 @@ Blockly["Python"]["set_color_led"] = function (block: Block) {
   
   if (Blockly["Python"].functionNames_["color_pin_green_2"] !== undefined) {
     const ledNumber = +block.getFieldValue("WHICH_COMPONENT");
-    return `eb.set_rgb(${color}, ${ledNumber})`;
+    return `
+c=${color}
+eb.set_rgb(c.red,c.green,c.blue)`;
   }
-  return `eb.set_rgb(${color})`;
+  return `
+c=${color}
+eb.set_rgb(c.red, c.green, c.blue)`;
 };
 
 Blockly["Arduino"]["set_simple_color_led"] =
