@@ -13,6 +13,7 @@ import {
   UpdateComponentSetupBlock as UpdateMultipleComponentSetupBlock,
   UpdateSetAllFastLedBlock,
   CommentForButtonBlockAction,
+  UpdateRGBLEDSetup,
 } from "./actions/actions";
 import { deleteVariable } from "./helpers/variable.helper";
 import {
@@ -125,6 +126,25 @@ const updateMotorBlock = (action: UpdateMultipleComponentSetupBlock) => {
   });
 };
 
+const updateRGBLEDSetupBlock = (action: UpdateRGBLEDSetup) => {
+  const block = getBlockByType("rgb_led_setup");
+  block.getInput("COMPONENT_2").setVisible(action.showNumberOfRgbLeds);
+  block.getInput("NUMBER").setVisible(action.showNumberOfRgbLeds);
+  block.render();
+  console.log("test");
+  const setLedColorBlocks = getBlocksByName("set_color_led");
+  setLedColorBlocks.forEach((b) => {
+    b.getInput("WHICH_COMPONENT").setVisible(action.showNumberOfRgbLeds);
+    b.render();
+  });
+
+  const setSimpleRgbLedCOlorBlocks = getBlocksByName("set_simple_color_led");
+  setSimpleRgbLedCOlorBlocks.forEach((b) => {
+    b.getInput("WHICH_COMPONENT").setVisible(action.showNumberOfRgbLeds);
+    b.render();
+  });
+};
+
 const updateRGBLedColorBlocks = (action: UpdateMultipleComponentSetupBlock) => {
   const block = getBlockByType("rgb_led_setup");
   block.getInput("COMPONENT_2").setVisible(action.numberOfComponents == 2);
@@ -195,6 +215,7 @@ const updaterList: { [key: string]: Updater } = {
   [ActionType.UPDATE_FASTLED_SET_ALL_COLORS_BLOCK]:
     updateFastLedSetAllColorsBlock,
   [ActionType.UPDATE_COMMENT_FOR_BUTTON_BLOCK]: updateButtonIsPressedComments,
+  [ActionType.UPGRADE_RGB_LED_SETUP]: updateRGBLEDSetupBlock,
 };
 
 export const updater = (action: Action) => {

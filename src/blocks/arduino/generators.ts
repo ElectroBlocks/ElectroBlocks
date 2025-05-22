@@ -2,6 +2,11 @@ import Blockly from "blockly";
 import { Block } from "blockly";
 import _ from "lodash";
 
+
+Blockly["Python"]["arduino_setup"] = function (block: Block) {
+  return "";
+};
+
 Blockly["Arduino"]["arduino_setup"] = function (block: Block) {
   const statementsSetup = Blockly["Arduino"].statementToCode(block, "setup");
 
@@ -16,7 +21,7 @@ Blockly["Arduino"]["arduino_setup"] = function (block: Block) {
 
 Blockly["Python"]["arduino_loop"] = function (block: Block) {
   const statementsLoop = Blockly["Python"].statementToCode(block, "loop");
-
+  console.log("statementsLoop", statementsLoop);
   return `
 while True:
 ${statementsLoop}

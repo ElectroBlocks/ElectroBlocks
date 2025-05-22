@@ -1,11 +1,23 @@
 import Blockly from 'blockly';
-import type { Block } from 'blockly';
-import _ from 'lodash';
+import { Block } from "blockly";
+import _ from "lodash";
 import {
   hexToRgb,
   rgbToColorStruct,
   rgbToHex,
 } from "../../core/blockly/helpers/color.helper";
+
+Blockly["Python"]["rgb_led_setup"] = function (block: Block) {
+  const redPin = block.getFieldValue("PIN_RED_1");
+  const greenPin = block.getFieldValue("PIN_GREEN_1");
+  const bluePin = block.getFieldValue("PIN_BLUE_1");
+
+  Blockly["Python"].setupCode_[
+    "rgb_setup"
+  ] = `eb.config_rgb(${redPin}, ${greenPin}, ${bluePin}) # Configures the RGB LED pins\n`;
+  return "";
+};
+
 
 Blockly["Arduino"]["rgb_led_setup"] = function (block: Block) {
   const redPin = block.getFieldValue("PIN_RED_1");

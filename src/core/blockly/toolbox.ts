@@ -43,6 +43,7 @@ export interface ToolBoxEntries {
   name: string;
   toolBoxEntries: ToolBoxEntry[];
   color: COLOR_THEME;
+  supportedLanguages: SUPPORTED_LANGUAGES[];
 }
 
 export enum ToolBoxCategory {
@@ -65,6 +66,7 @@ const defaultToolbox: ToolBoxEntries[] = [
   {
     color: COLOR_THEME.CONTROL,
     category: ToolBoxCategory.NONE,
+    supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
     name: "TOP_LEVEL",
     toolBoxEntries: [
       {
@@ -110,7 +112,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Color",
@@ -164,12 +166,13 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
     ],
   },
   {
     color: COLOR_THEME.COMPONENTS,
+    supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
     category: ToolBoxCategory.COMPONENT,
     name: "Add-ons",
     toolBoxEntries: [
@@ -286,6 +289,7 @@ const defaultToolbox: ToolBoxEntries[] = [
   {
     color: COLOR_THEME.SENSOR,
     category: ToolBoxCategory.SENSORS,
+    supportedLanguages: [SUPPORTED_LANGUAGES.C],
     name: "Sensors",
     toolBoxEntries: [
       {
@@ -384,6 +388,10 @@ export const getToolBoxString = (
   >`;
 
   toolbox += toolboxOptions.reduce((acc, next) => {
+    if (!next.supportedLanguages.includes(lang)) {
+      return acc;
+    }
+
     if (next.category === ToolBoxCategory.NONE) {
       return acc + getMenuItems(next.toolBoxEntries, board, lang);
     }
