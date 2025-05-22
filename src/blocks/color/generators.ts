@@ -22,7 +22,7 @@ function createColorStruct() {
 function createColorStructPy() {
   Blockly["Python"].imports_["import_dataclass"] = `
 from dataclasses import dataclass`
-  Blockly["Python"].functionNames_["color_struct"] = `  
+  Blockly["Python"].definitions_["color_struct"] = `  
 @dataclass
 class RGB:
   red: double

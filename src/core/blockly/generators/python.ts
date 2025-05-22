@@ -82,6 +82,9 @@ Blockly["Python"].addReservedWords(
 
     Blockly["Python"].variablesInitCode_ = "";
 
+    this.imports_["electroblocks"] = "#Import ElectroBlocks library\nfrom electroblocks import ElectroBlocks";
+    this.setupCode_["eb_instance"] = 'eb = ElectroBlocks()\n';
+
     if (!Blockly["Python"].variableDB_) {
       Blockly["Python"].variableDB_ = new Blockly.Names(
         Blockly["Python"].RESERVED_WORDS_
@@ -131,8 +134,7 @@ Blockly["Python"].addReservedWords(
   };
 
   Blockly["Python"].finish = function (code) {
-    let libraryCode = `# import electroblocks library
-from electroblocks import ElectroBlocks\n`;
+    let libraryCode = ``;
     let functionsCode = "";
     let devVariables = "";
     let definitionsCode = "";
@@ -180,8 +182,6 @@ from electroblocks import ElectroBlocks\n`;
       definitionsCode +
       Blockly["Python"].variablesInitCode_ +
       setupCode +
-      `# Create an instance of the ElectroBlocks class
-eb = ElectroBlocks()` +
       "\n" +
       code +
       "\n\n" +
