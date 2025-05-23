@@ -4,7 +4,6 @@
 #include <Servo.h>
 #include <LiquidCrystal_I2C.h>
 #include <SoftwareSerial.h>
-#include <TM1637Display.h>
 #include <FastLED.h>
 #include <LedControlMS.h>
 #include <DHT.h>
@@ -18,7 +17,6 @@
 LedControl* ledMatrix = nullptr;
 Servo servos[4];
 LiquidCrystal_I2C* lcd = nullptr;
-TM1637Display* display = nullptr;
 DHT* dht = nullptr;
 IRrecv* irrecv = nullptr;
 decode_results results;
@@ -149,15 +147,7 @@ void handleconfig(String key, String value) {
     lcd->init();
     lcd->backlight();
     Serial.println(F("config:LCD=OK"));
-  } else if (key == "tm") {
-    int sep = value.indexOf(',');
-    tmPins[0] = value.substring(0, sep).toInt();
-    tmPins[1] = value.substring(sep + 1).toInt();
-    display = new TM1637Display(tmPins[0], tmPins[1]);
-    display->setBrightness(0x0F);
-    display->clear();
-    Serial.println(F("config:TM=OK"));
-  } else if (key == "ir") {
+  }  else if (key == "ir") {
     irPin = value.toInt();
     irrecv = new IRrecv(irPin);
     irrecv->enableIRIn();
@@ -266,10 +256,7 @@ void handleCommand(String input) {
         Serial.println(F("LCD:INVALID"));
       }
     }
-  } else if (input.startsWith("tm:") && display) {
-    display->showNumberDec(input.substring(3).toInt());
-    Serial.println(F("TM1637:OK"));
-  } else if (input == "ir:") {
+  }  else if (input == "ir:") {
     if (lastIR != 0) {
       Serial.print(F("IR:"));
       Serial.println(lastIR, HEX);

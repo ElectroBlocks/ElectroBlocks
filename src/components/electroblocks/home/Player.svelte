@@ -11,7 +11,8 @@
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
   import { tooltip } from "@svelte-plugins/tooltips";
   import { paintUsb, updateUsb } from "../../../core/usb/player";
-  import arduinoPortStore from "../../../stores/arduino-port.store";
+  import arduinoPortStore, { portStateStoreSub } from "../../../stores/arduino-port.store";
+  import settingsStore from "../../../stores/settings.store";
 
   let frames: ArduinoFrame[] = [];
   let frameNumber = 1;
@@ -183,11 +184,14 @@
     );
   }
 
-  async function connectUsb()
+  async function connectOrDisconnectUsb()
   {
       if (!$arduinoPortStore?.isOpen) {
         await resetPlayer();
-        await arduinoPortStore.connect();
+        await arduinoPortStore.connectWithAndUploadFirmware($settingsStore.boardType);
+      } else {
+        await resetPlayer();
+        await arduinoPortStore.disconnect();
       }
   }
 
@@ -265,10 +269,11 @@
   <span
     use:tooltip
     title="Enable USB"
-    on:click={connectUsb}
+    on:click={connectOrDisconnectUsb}
+    class="{$portStateStoreSub}"
     id="video-debug-usb"
   >
-    <i class="fa fa-usb" />
+    <i class="fa {$portStateStoreSub == "connecting" ? "fa-cog fa-spin fa-6x fa-fw" : $portStateStoreSub == "disconnected" ? "fa-usb" : "fa-eject"}"  />
   </span>
 </div>
 
@@ -380,5 +385,12 @@
 
   input:invalid {
     box-shadow: none;
+  }
+  #video-controls-container span.connected i.fa  {
+    color: #eb423c;
+  }
+
+  #video-controls-container span.disconnected i.fa  {
+    color: #b063c5;
   }
 </style>
