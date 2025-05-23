@@ -18,9 +18,7 @@ Blockly["Python"]["led"] = function (block: Block) {
   const state = block.getFieldValue("STATE");
 
   const ledState = state === "ON" ? "1" : "0";
-  return `board.digital[${pin}].write(${ledState}); // Set defined pin to ${
-    ledState == "1" ? "1 (turn it on)." : "0 (turn it off)."
-  }\n`;
+  return `eb.digital_write(${pin}, ${ledState}) # Turns the led ${state.toLowerCase()}\n`;
 };
 
 

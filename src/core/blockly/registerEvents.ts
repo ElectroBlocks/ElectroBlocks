@@ -39,6 +39,8 @@ import updateLedBlockColorField from "./actions/updateLedBlockColorField";
 import { updateWhichComponent } from "./actions/updateWhichComponent";
 import { updateFastLedSetAllColorsUpdateBlock } from "./actions/fastLedSetAllColorsUpdateBlock";
 import { updateCommentIsButtonPressedBlock } from "./actions/updateCommentForButtonBlock";
+import { updateRGBLEDBlockSupportLang } from "./actions/updateRGBLEDBlockSupportLang";
+import { get } from "svelte/store";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
@@ -148,8 +150,9 @@ export const createFrames = async (blocklyEvent) => {
     frameStore.set(currentFrameContainter);
     return;
   }
-
+  var settingData = get(settingStore);
   const thirdActionPass = [
+    ...updateRGBLEDBlockSupportLang(settingData.language)(event2),
     ...deleteUnusedVariables(event2),
     ...saveSensorSetupBlockData(event2),
     ...updateSensorSetupFields(event2),

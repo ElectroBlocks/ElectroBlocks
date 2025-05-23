@@ -10,6 +10,9 @@
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
   import { tooltip } from "@svelte-plugins/tooltips";
+  import { paintUsb, updateUsb } from "../../../core/usb/player";
+  import arduinoPortStore, { portStateStoreSub } from "../../../stores/arduino-port.store";
+  import settingsStore from "../../../stores/settings.store";
 
   let frames: ArduinoFrame[] = [];
   let frameNumber = 1;
@@ -24,17 +27,26 @@
   $: frameIndex = frameNumber - 1;
 
   unsubscribes.push(
-    currentStepStore.subscribe((currentIndex) => {
+    currentStepStore.subscribe(async (currentIndex) => {
       frameNumber = currentIndex;
+      if ($frameStore.frames.length > 0) {
+        if (frameNumber == 0) {
+          await paintUsb($frameStore);
+        }
+        if ($frameStore.frames[currentIndex]) {
+          await updateUsb($frameStore.frames[currentIndex]);
+        }
+      }
     })
   );
 
   unsubscribes.push(
-    frameStore.subscribe((frameContainer) => {
+    frameStore.subscribe(async (frameContainer) => {
       playing = false;
       const currentFrame = frames[frameNumber];
       frames = frameContainer.frames;
-
+      await paintUsb(frameContainer);
+      
       // If we are starting out with set to first frame in the loop
       // We want to skip all the library and setup blocks
       if (frames.length === 0 || !currentFrame) {
@@ -50,6 +62,7 @@
 
       frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
       currentFrameStore.set(frames[frameNumber]);
+      
     })
   );
 
@@ -171,6 +184,17 @@
     );
   }
 
+  async function connectOrDisconnectUsb()
+  {
+      if (!$arduinoPortStore?.isOpen) {
+        await resetPlayer();
+        await arduinoPortStore.connectWithAndUploadFirmware($settingsStore.boardType);
+      } else {
+        await resetPlayer();
+        await arduinoPortStore.disconnect();
+      }
+  }
+
   function wait(msTime) {
     return new Promise((resolve) => setTimeout(resolve, msTime));
   }
@@ -241,6 +265,16 @@
   >
     <i class="fa fa-forward" />
   </span>
+
+  <span
+    use:tooltip
+    title="Enable USB"
+    on:click={connectOrDisconnectUsb}
+    class="{$portStateStoreSub}"
+    id="video-debug-usb"
+  >
+    <i class="fa {$portStateStoreSub == "connecting" ? "fa-cog fa-spin fa-6x fa-fw" : $portStateStoreSub == "disconnected" ? "fa-usb" : "fa-eject"}"  />
+  </span>
 </div>
 
 <style>
@@ -250,7 +284,7 @@
 
   #video-controls-container {
     display: block;
-    width: 140px;
+    width: 180px;
     height: 40px;
     margin: auto;
     margin-top: 5px;
@@ -351,5 +385,12 @@
 
   input:invalid {
     box-shadow: none;
+  }
+  #video-controls-container span.connected i.fa  {
+    color: #eb423c;
+  }
+
+  #video-controls-container span.disconnected i.fa  {
+    color: #b063c5;
   }
 </style>
