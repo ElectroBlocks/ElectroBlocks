@@ -76,26 +76,24 @@ export default {
         verbose: true,
       } as any as ProgramConfig;
       await upload(port, config);
-      addListener(port);
-
       portStateStore.set("connected");
     } catch (error) {
       console.log(error);
 
       if (error.message == "receiveData timeout after 400ms") {
-        setTimeout(() => {
+        for (let i = 0; i < 10; i++) {
+          await new Promise((resolve) => setTimeout(resolve, 800));
           var lastMessage = get(usbMessageStore);
+          console.log("Last message:", lastMessage);
           if (lastMessage?.message.includes("System")) {
             portStateStore.set("connected");
             return;
           }
-          portStateStore.set("disconnected");
-          arduinoPortStore.set(null);
-        }, 200);
-        return;
+        }
       }
       portStateStore.set("disconnected");
       arduinoPortStore.set(null);
+      throw error;
     }
   },
   connect: async () => {

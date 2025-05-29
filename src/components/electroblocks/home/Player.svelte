@@ -5,7 +5,7 @@
   import currentFrameStore from "../../../stores/currentFrame.store";
   import currentStepStore from "../../../stores/currentStep.store";
   import settingStore from "../../../stores/settings.store";
-  import { onErrorMessage } from "../../../help/alerts";
+  import { onErrorMessage, onSuccess } from "../../../help/alerts";
   import { getAllBlocks } from "../../../core/blockly/helpers/block.helper";
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
@@ -13,6 +13,7 @@
   import { paintUsb, updateUsb } from "../../../core/usb/player";
   import arduinoPortStore, { portStateStoreSub } from "../../../stores/arduino-port.store";
   import settingsStore from "../../../stores/settings.store";
+  import { on } from "@svgdotjs/svg.js";
 
   let frames: ArduinoFrame[] = [];
   let frameNumber = 1;
@@ -187,8 +188,13 @@
   async function connectOrDisconnectUsb()
   {
       if (!$arduinoPortStore?.isOpen) {
-        await resetPlayer();
-        await arduinoPortStore.connectWithAndUploadFirmware($settingsStore.boardType);
+        try {
+          await resetPlayer();
+          await arduinoPortStore.connectWithAndUploadFirmware($settingsStore.boardType);
+          onSuccess("Firmware uploaded successfully, ready to use python!");
+        } catch (error) {
+          onErrorMessage("Failed to connect to the Arduino. Please try again.", error);
+        }
       } else {
         await resetPlayer();
         await arduinoPortStore.disconnect();
