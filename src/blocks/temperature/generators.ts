@@ -40,7 +40,7 @@ Blockly["Python"]["temp_setup"] = function (block) {
   // Set GPIO pin
   Blockly["Python"].definitions_["define_dht_pin"] = `dht_pin = ${pin}`;
 
-  return ""; // No code in-line; just definitions
+  return "";
 };
 Blockly["Python"]["temp_get_temp"] = function () {
   const code = "Adafruit_DHT.read_retry(dht_sensor, dht_pin)[0]";
