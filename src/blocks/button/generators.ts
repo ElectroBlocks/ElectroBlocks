@@ -55,7 +55,6 @@ btn_pin_${pin} = board.digital[${pin}]
 btn_pin_${pin}.mode = util.INPUT
 `;
 
-  // Store button logic for later reference
   Blockly.Python.buttonTypes = Blockly.Python.buttonTypes || {};
   Blockly.Python.buttonTypes[pin] = { usePullup };
 
