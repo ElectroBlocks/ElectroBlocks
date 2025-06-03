@@ -132,7 +132,11 @@ def set_joystick_values():
     internal_variable_isJoystickButtonPressed = btn_val == 0
 `;
 
-  return "";
+    return `
+while True:
+    set_joystick_values()
+    time.sleep(0.05)
+`;
 };
 
 Blockly.Python["joystick_angle"] = function (block: Block) {
