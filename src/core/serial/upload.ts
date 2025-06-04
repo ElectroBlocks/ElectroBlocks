@@ -1,7 +1,5 @@
 import { ProgramConfig, upload, WebSerialPortPromise } from "@duinoapp/upload-multitool";
-import config from "../../env";
 import { MicroControllerType } from "../microcontroller/microcontroller";
-import { filter } from "lodash";
 import { libraries } from "./library";
 
 
@@ -15,7 +13,7 @@ const compileCode = async (code: string, type: string): Promise<string> => {
   const filteredLibraries = includedLibraries.filter(
       (libName) => libName !== "Wire"
     );
-  // Match extracted library names with metadata in library.ts
+
   const libs = libraries.filter((lib) =>
     includedLibraries.includes(lib.name)
   );
@@ -26,7 +24,7 @@ const compileCode = async (code: string, type: string): Promise<string> => {
       fqbn: "arduino:avr:uno",
       files: [
         {
-          content: code,
+          content: btoa(code),
           name: "arduino/arduino.ino",
         },
       ],
@@ -63,7 +61,7 @@ export const arduinoUploader = async (
   );
   const hexCode = await compileCode(code, type);
   const config = {
-    bin:btoa(hexCode),
+    bin:hexCode,
     // files: filesData,
     // flashFreq: flashFreqData,
     // flashMode: flashModeData,
@@ -80,4 +78,3 @@ export const arduinoUploader = async (
 
   return "Upload successful";
 };
-
