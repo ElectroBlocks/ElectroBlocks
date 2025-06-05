@@ -49,7 +49,7 @@ Blockly["Python"]["delay_block"] = function (block) {
       Blockly["Arduino"].ORDER_ATOMIC
     ) || 1;
 
-  return `time.sleep(${delay}); # Wait for the given/defined seconds.\n`;
+  return `time.sleep(${delay}) # Wait for the given/defined seconds.\n`;
 };
 
 Blockly["Arduino"]["time_setup"] = function () {
