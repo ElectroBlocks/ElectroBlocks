@@ -14,6 +14,16 @@ Blockly["Arduino"]["time_seconds"] = function (block) {
   return ["secondsArduinoBeenOn()", Blockly["Arduino"].ORDER_ATOMIC];
 };
 
+Blockly["Python"]["time_seconds"] = function (block) {
+  Blockly["Python"].definitions_["start_time"] =
+    "arduino_start_time = time.time() # Start time of the Arduino program\n";
+
+  return [
+    "(time.time() - arduino_start_time)",
+    Blockly["Arduino"].ORDER_ATOMIC,
+  ];
+};
+
 Blockly["Arduino"]["delay_block"] = function (block) {
   let delay =
     Blockly["Arduino"].valueToCode(
@@ -30,6 +40,8 @@ Blockly["Arduino"]["delay_block"] = function (block) {
 };
 
 Blockly["Python"]["delay_block"] = function (block) {
+  Blockly["Python"].imports_["delay"] =
+    "import time # imports the time library\n";
   let delay =
     Blockly["Arduino"].valueToCode(
       block,
@@ -37,12 +49,13 @@ Blockly["Python"]["delay_block"] = function (block) {
       Blockly["Arduino"].ORDER_ATOMIC
     ) || 1;
 
-  if (isPureNumber(delay)) {
-    return `time.sleep(${delay}); // Wait for the given/defined seconds.\n`;
-  }
-  return `delay(round(${delay})); // Wait for the given/defined seconds.\n`;
+  return `time.sleep(${delay}) # Wait for the given/defined seconds.\n`;
 };
 
 Blockly["Arduino"]["time_setup"] = function () {
+  return "";
+};
+
+Blockly["Python"]["time_setup"] = function () {
   return "";
 };
