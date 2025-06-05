@@ -20,6 +20,7 @@ Thank you to all the contributors for making this project possible, and thank yo
 - [Zoha](https://github.com/imnot4real)
 - [Anushiya](https://github.com/Anushiya04)
 - [Abinaya](https://github.com/Abinayamuthuvel)
+- [Boobalan](https://github.com/Boopalan123)
 - [Pranav](https://github.com/pranavpr2404)
 - [Jyoti](https://github.com/vasu737et)
 - [Justin](https://github.com/justinbetabox)
