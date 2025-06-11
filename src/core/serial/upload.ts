@@ -1,19 +1,32 @@
 import { ProgramConfig, upload, WebSerialPortPromise } from "@duinoapp/upload-multitool";
-import config from "../../env";
 import { MicroControllerType } from "../microcontroller/microcontroller";
-import { filter } from "lodash";
+import { libraries } from "./library";
+const extractLibraries = (code: string): string[] => {
+  // Simple regex to find #include <LibName.h>
+  const regex = /#include\s*<([^>]+)>/g;
+  const found = new Set<string>();
+  let match;
+  while ((match = regex.exec(code)) !== null) {
+    const libName = match[1].replace(/\.h$/, ""); // Remove .h extension
+    found.add(libName);
+  }
+  return Array.from(found);
+};
 
 const compileCode = async (code: string, type: string): Promise<string> => {
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
   });
+   const requiredLibs = extractLibraries(code)
+    .map(lib => libraries[lib])
+    .filter(Boolean); 
   try {
     ///
     var jsonString = {
       fqbn: "arduino:avr:uno",
       files: [
         {
-          content: code,
+          content:code,
           name: "arduino/arduino.ino",
         },
       ],
