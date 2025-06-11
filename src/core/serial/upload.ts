@@ -9,6 +9,7 @@ const extractLibraries = (code: string): string[] => {
   while ((match = regex.exec(code)) !== null) {
     // Remove .h extension if present
     const libName = match[1].replace(/\.h$/, "");
+    if (libName === "Wire") continue;
     found.add(libName);
   }
   return Array.from(found);
