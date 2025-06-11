@@ -33,7 +33,7 @@ console.log("Required Libraries:", requiredLibs);
         },
       ],
       flags: { verbose: false, preferLocal: false },
-      libs: [requiredLibs],
+      libs: requiredLibs,
     };
 
     console.log(`Sending code to https://compile.duino.app/v3/compile`);
