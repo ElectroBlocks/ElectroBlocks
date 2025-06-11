@@ -7,7 +7,8 @@ const extractLibraries = (code: string): string[] => {
   const found = new Set<string>();
   let match;
   while ((match = regex.exec(code)) !== null) {
-    const libName = match[1].replace(/\.h$/, ""); // Remove .h extension
+    // Remove .h extension if present
+    const libName = match[1].replace(/\.h$/, "");
     found.add(libName);
   }
   return Array.from(found);
@@ -17,10 +18,10 @@ const compileCode = async (code: string, type: string): Promise<string> => {
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
   });
-   const requiredLibs = extractLibraries(code)
-    .map(lib => libraries[lib])
-    .filter(Boolean); 
-    console.log("Required Libraries:", requiredLibs);
+  const requiredLibs = extractLibraries(code)
+  .map(lib => libraries.find(l => l.name.replace(/\s+/g, "") === lib.replace(/\s+/g, "")))
+  .filter(Boolean);
+console.log("Required Libraries:", requiredLibs);
   try {
     ///
     var jsonString = {
