@@ -1,35 +1,24 @@
 import { ProgramConfig, upload, WebSerialPortPromise } from "@duinoapp/upload-multitool";
+import config from "../../env";
 import { MicroControllerType } from "../microcontroller/microcontroller";
-import { libraries } from "./library";
-
+import { filter } from "lodash";
 
 const compileCode = async (code: string, type: string): Promise<string> => {
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
   });
-  const includedLibraries = code
-    .match(/#include\s+<([\w_]+)\.h>/g)
-    ?.map((match) => match.match(/<([\w_]+)\.h>/)?.[1]) || [];
-  const filteredLibraries = includedLibraries.filter(
-      (libName) => libName !== "Wire"
-    );
-
-  const libs = libraries.filter((lib) =>
-    includedLibraries.includes(lib.name)
-  );
-
   try {
     ///
     var jsonString = {
       fqbn: "arduino:avr:uno",
       files: [
         {
-          content: btoa(code),
+          content: code,
           name: "arduino/arduino.ino",
         },
       ],
       flags: { verbose: false, preferLocal: false },
-      libs,
+      libs: [],
     };
 
     console.log(`Sending code to https://compile.duino.app/v3/compile`);
@@ -61,7 +50,7 @@ export const arduinoUploader = async (
   );
   const hexCode = await compileCode(code, type);
   const config = {
-    bin:hexCode,
+    bin: hexCode,
     // files: filesData,
     // flashFreq: flashFreqData,
     // flashMode: flashModeData,
@@ -78,3 +67,4 @@ export const arduinoUploader = async (
 
   return "Upload successful";
 };
+
