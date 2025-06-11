@@ -20,6 +20,7 @@ const compileCode = async (code: string, type: string): Promise<string> => {
    const requiredLibs = extractLibraries(code)
     .map(lib => libraries[lib])
     .filter(Boolean); 
+    console.log("Required Libraries:", requiredLibs);
   try {
     ///
     var jsonString = {
@@ -31,7 +32,7 @@ const compileCode = async (code: string, type: string): Promise<string> => {
         },
       ],
       flags: { verbose: false, preferLocal: false },
-      libs: [],
+      libs: requiredLibs,
     };
 
     console.log(`Sending code to https://compile.duino.app/v3/compile`);
