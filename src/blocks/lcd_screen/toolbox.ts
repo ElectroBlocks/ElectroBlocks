@@ -9,7 +9,7 @@ The chip determines the memory type.  Check where you purchased your chip; if yo
 For the size we the first number is the width, and the second number is the height.  16 x 2, 16 would be spaces left to right, and 2 would be 2 spaces up and down.</comment>
    </block>
    <block type="lcd_screen_simple_print">
-    <comment pinned="false" h="120" w="460">Prints something on the LCD screens and then clears it off.  The "Seconds to show" block is how many seconds the LCD Screen will display the message.</comment>
+    <comment pinned="false" h="120" w="460"></comment>
    <value name="ROW_1">
                    <block type="text">
                        <field name="TEXT"></field>
