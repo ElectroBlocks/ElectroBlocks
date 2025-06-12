@@ -35,14 +35,17 @@ import joystickXMLString from "../../blocks/joystick/toolbox";
 import thermistorXMLString from "../../blocks/thermistor/toolbox";
 
 import { COLOR_THEME } from "./constants/colors";
-import { MicroControllerType } from "../../core/microcontroller/microcontroller";
-import { SUPPORTED_LANGUAGES } from "../../core/microcontroller/microcontroller";
 
 export interface ToolBoxEntries {
   category: ToolBoxCategory;
   name: string;
   toolBoxEntries: ToolBoxEntry[];
-  color: COLOR_THEME;
+  color: keyof typeof COLOR_THEME;
+}
+
+export interface ToolBoxEntry {
+  name: string;
+  xml: string;
 }
 
 export enum ToolBoxCategory {
@@ -54,328 +57,97 @@ export enum ToolBoxCategory {
   SEPARATOR = "SEPARATOR",
 }
 
-export interface ToolBoxEntry {
-  name: string;
-  xml: string;
-  supportedBoards: MicroControllerType[];
-  supportedLanguages: SUPPORTED_LANGUAGES[];
-}
-
 const defaultToolbox: ToolBoxEntries[] = [
   {
-    color: COLOR_THEME.CONTROL,
+    color: "CONTROL",
     category: ToolBoxCategory.NONE,
     name: "TOP_LEVEL",
     toolBoxEntries: [
       {
         name: "Logic",
         xml: logicXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Loop",
         xml: loopXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "My Blocks",
         xml: functionXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Variables",
         xml: variablesXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "List",
         xml: listXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Color",
         xml: colorXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Math",
         xml: mathXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_MEGA,
-          MicroControllerType.ARDUINO_UNO,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Text",
         xml: textXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Code",
         xml: arduinoXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Message",
         xml: messageXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
       {
         name: "Time",
         xml: timeXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
       },
     ],
   },
   {
-    color: COLOR_THEME.COMPONENTS,
+    color: "COMPONENTS",
     category: ToolBoxCategory.COMPONENT,
     name: "Add-ons",
     toolBoxEntries: [
-      {
-        name: "Bluetooth",
-        xml: bluetoothXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Digital Display",
-        xml: digitalDisplayXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "FastLED",
-        xml: fastLEDXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "LCD Screen",
-        xml: lcdScreenXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Led",
-        xml: ledXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Led Matrix",
-        xml: ledMatrixXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Motor",
-        xml: motorXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Passive Buzzer",
-        xml: passiveBuzzerXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Pins",
-        xml: writePinXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "RGB Led",
-        xml: rgbLedXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Servos",
-        xml: servoXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Stepper Motors",
-        xml: stepperMotorXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
+      { name: "Bluetooth", xml: bluetoothXMLString },
+      { name: "Digital Display", xml: digitalDisplayXMLString },
+      { name: "FastLED", xml: fastLEDXMLString },
+      { name: "LCD Screen", xml: lcdScreenXMLString },
+      { name: "Led", xml: ledXMLString },
+      { name: "Led Matrix", xml: ledMatrixXMLString },
+      { name: "Motor", xml: motorXMLString },
+      //   { name: "Neo Pixel", xml: neoPixelXMLString },
+      { name: "Passive Buzzer", xml: passiveBuzzerXMLString },
+      { name: "Pins", xml: writePinXMLString },
+      { name: "RBG Led", xml: rgbLedXMLString },
+      { name: "Servos", xml: servoXMLString },
+      { name: "Stepper Motors", xml: stepperMotorXMLString },
     ],
   },
   {
-    color: COLOR_THEME.SENSOR,
+    color: "SENSOR",
     category: ToolBoxCategory.SENSORS,
     name: "Sensors",
     toolBoxEntries: [
-      {
-        name: "Analog",
-        xml: analogSensorXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Button",
-        xml: buttonXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Digital Sensor",
-        xml: digitalSensorXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "IR Remote",
-        xml: irRmoteXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "JoyStick",
-        xml: joystickXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Motion Sensor",
-        xml: ultraSonicXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "RFID",
-        xml: rfidXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Temperature/Humidity",
-        xml: temperatureXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
-      {
-        name: "Thermistor",
-        xml: thermistorXMLString,
-        supportedBoards: [
-          MicroControllerType.ARDUINO_UNO,
-          MicroControllerType.ARDUINO_MEGA,
-        ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.PYTHON, SUPPORTED_LANGUAGES.C],
-      },
+      { name: "Analog", xml: analogSensorXMLString },
+      { name: "Button", xml: buttonXMLString },
+      { name: "Digital Sensor", xml: digitalSensorXMLString },
+      { name: "IR Remote", xml: irRmoteXMLString },
+      { name: "JoyStick", xml: joystickXMLString },
+      { name: "Motion Sensor", xml: ultraSonicXMLString },
+      { name: "RFID", xml: rfidXMLString },
+      { name: "Temperature/Humidity", xml: temperatureXMLString },
+      { name: "Thermistor", xml: thermistorXMLString },
     ],
   },
 ];
-export const getToolBoxString = (
-  board: MicroControllerType,
-  lang: SUPPORTED_LANGUAGES
-): string => {
+
+export const getToolBoxString = (): string => {
   const toolboxOptions = defaultToolbox; // TODO Make this dynamic
   let toolbox = `<xml
     xmlns="https://developers.google.com/blockly/xml"
@@ -385,13 +157,13 @@ export const getToolBoxString = (
 
   toolbox += toolboxOptions.reduce((acc, next) => {
     if (next.category === ToolBoxCategory.NONE) {
-      return acc + getMenuItems(next.toolBoxEntries, board, lang);
+      return acc + getMenuItems(next.toolBoxEntries);
     }
 
     return (
       acc +
-      `<category name="${next.name}" colour="${next.color}">
-        ${getMenuItems(next.toolBoxEntries, board, lang)}
+      `<category name="${next.name}" colour="${String(next.color)}">
+        ${getMenuItems(next.toolBoxEntries)}
       </category>`
     );
   }, "");
@@ -401,18 +173,8 @@ export const getToolBoxString = (
   return toolbox;
 };
 
-function getMenuItems(
-  toolBoxEntries: ToolBoxEntry[],
-  board: MicroControllerType,
-  lang: SUPPORTED_LANGUAGES
-) {
+function getMenuItems(toolBoxEntries: ToolBoxEntry[]) {
   return toolBoxEntries.reduce((acc, next) => {
-    if (
-      next.supportedLanguages.includes(lang) &&
-      next.supportedBoards.includes(board)
-    ) {
-      return acc + next.xml;
-    }
-    return acc;
+    return acc + next.xml;
   }, "");
 }
