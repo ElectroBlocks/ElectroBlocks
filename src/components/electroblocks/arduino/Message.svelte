@@ -3,13 +3,13 @@
   import codeStore from "../../../stores/code.store";
   import arduinoStore, { PortState } from "../../../stores/arduino.store";
 
-  import { upload } from "../../../core/serial/upload";
+  import { arduinoUploader} from "../../../core/serial/upload";
 
   import { afterUpdate } from "svelte";
   import { getBoard } from "../../../core/microcontroller/selectBoard";
   import { onErrorMessage, onSuccess } from "../../../help/alerts";
   import { tooltip } from "@svelte-plugins/tooltips";
-
+  import settings from "../../../stores/settings.store"; 
   const navigatorSerialNotAvailableMessaeg = `To upload code you must use chrome or a chromium based browser like edge, or brave.  This will work with chrome version 89 or higher. `;
 
   // controls whether the messages should autoscroll
@@ -36,15 +36,15 @@
   // means that we already have seen the message
   let alreadyShownDebugMessage = false;
 
+  // Use Svelte auto-subscription to settings
+  $: selectedLanguage = $settings.language;
+  $: boardType = $settings.boardType;
+
   $: uploadingClass =
     arduinoStatus === PortState.UPLOADING
       ? "fa-spinner fa-spin fa-6x fa-fw"
       : "fa-upload";
 
-  codeStore.subscribe((codeInfo) => {
-    code = codeInfo.code;
-    boardType = codeInfo.boardType;
-  });
 
   arduinoStore.subscribe((status) => {
     arduinoStatus = status;
@@ -131,29 +131,25 @@
     if (arduinoStatus !== PortState.CLOSE) {
       return;
     }
+    
+    if (selectedLanguage !== "C") {
+      onErrorMessage("Upload is only supported for C code.");
+      return;
+    }
     arduinoStore.set(PortState.UPLOADING);
     try {
-      const avrgirl = new AvrgirlArduino({
-        board: boardType,
-        debug: true,
-      });
-
-      await upload(code, avrgirl, boardType);
+      await arduinoUploader($codeStore.cLang, boardType);
       onSuccess("Your code is uploaded!! :)");
+      arduinoStore.set(PortState.OPEN);
+
     } catch (e) {
       if (e.message.toLowerCase() === "no port selected by the user.") {
         arduinoStore.set(PortState.CLOSE);
         return;
       }
-      if (e.message.includes("receiveData timeout after")) {
-        console.log(e, "eating these errors.  Everything should work!");
-        onSuccess("Your code is uploaded!! :)");
-        arduinoStore.set(PortState.CLOSE);
-        return;
-      }
+      
       onErrorMessage("Sorry, please try again in 5 minutes. :)", e);
     }
-    arduinoStore.set(PortState.CLOSE);
   }
   function clearMessages() {
     messages = [];
