@@ -1,5 +1,6 @@
 import Blockly from "blockly";
 import type { Block } from "blockly";
+import { b } from "vitest/dist/suite-KPWE530F.js";
 
 Blockly["Arduino"]["controls_repeat_ext"] = function (block: Block) {
   // Repeat n times.
@@ -38,49 +39,48 @@ Blockly["Arduino"]["controls_for"] = function (block: Block) {
   ).name;
 
   const branch = Blockly["Arduino"].statementToCode(block, "DO");
-
-  const startNumber = parseInt(
-    Blockly["Arduino"].valueToCode(
-      block,
-      "FROM",
-      Blockly["Arduino"].ORDER_ASSIGNMENT
-    ) || "0"
+  const startNumberStr = Blockly["Arduino"].valueToCode(
+    block,
+    "FROM",
+    Blockly["Arduino"].ORDER_ASSIGNMENT
   );
+  const startNumber = isNaN(startNumberStr)
+    ? startNumberStr
+    : parseInt(startNumberStr || 0) || 0;
 
-  const toNumber = parseInt(
-    Blockly["Arduino"].valueToCode(
-      block,
-      "TO",
-      Blockly["Arduino"].ORDER_ASSIGNMENT
-    ) || "0"
+  var toNumberStr = Blockly["Arduino"].valueToCode(
+    block,
+    "TO",
+    Blockly["Arduino"].ORDER_ASSIGNMENT
   );
+  const toNumber = isNaN(toNumberStr)
+    ? toNumberStr
+    : parseInt(toNumberStr || "0") || 0;
 
   let byNumber = Math.abs(parseInt(block.getFieldValue("BY")));
 
-  byNumber = byNumber === 0 ? 1 : byNumber;
-  const addingSub = startNumber < toNumber ? " +" : " -";
-  console.log(addingSub, "addingSub");
+  if (!isNaN(toNumberStr) && !isNaN(startNumberStr)) {
+    byNumber = byNumber === 0 ? 1 : byNumber;
+    const addingSub = startNumber < toNumber ? "+" : "-";
+    const sign = startNumber < toNumber ? "<=" : ">=";
 
-  const sign = startNumber < toNumber ? " <= " : " >= ";
+    return `for (${loopIndexVariable} = ${startNumber}; ${loopIndexVariable} ${sign} ${toNumber}; ${loopIndexVariable} ${addingSub}= ${byNumber}) {
+${branch}
+}
+`;
+  }
+  Blockly["Arduino"].libraries_[
+    "controls_for_dev_var"
+  ] = `bool dev_forloopdirection = false;`;
 
-  return (
-    "for (" +
-    loopIndexVariable +
-    " = " +
-    startNumber +
-    "; " +
-    loopIndexVariable +
-    sign +
-    toNumber +
-    "; " +
-    loopIndexVariable +
-    addingSub +
-    "= " +
-    byNumber +
-    ") {\n" +
-    branch +
-    "}\n"
-  );
+  return `
+dev_forloopdirection = ${toNumber} > ${startNumber};
+${loopIndexVariable} = ${startNumber};
+while ((dev_forloopdirection && ${loopIndexVariable} <= ${toNumber}) || (!dev_forloopdirection && ${loopIndexVariable} >= ${toNumber})) {
+${branch}
+  ${loopIndexVariable} += dev_forloopdirection ? ${byNumber} : -${byNumber};
+}
+`;
 };
 
 Blockly["Arduino"]["controls_whileUntil"] = function (block: Block) {
