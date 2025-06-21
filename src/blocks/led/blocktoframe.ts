@@ -22,6 +22,7 @@ export const led: BlockToFrameTransformer = (
     state,
     fade: false,
     color: color,
+    usbCommands: [`dw:${pin}:${state}`],
   };
   const explanation = `Turning ${state === 1 ? "on" : "off"} led ${pin}.`;
 
@@ -63,6 +64,7 @@ export const ledFade: BlockToFrameTransformer = (
     state,
     fade: true,
     color: color,
+    usbCommands: [`aw:${pin}:${state}`],
   };
   const explanation = `Fading Led ${pin} to ${state}.`;
 

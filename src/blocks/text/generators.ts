@@ -10,8 +10,7 @@ Blockly["Arduino"]["text"] = function (block: Block) {
 };
 
 Blockly["Python"]["text"] = function (block: Block)  {
-  const code =
-    Blockly["Python"].quote_(block.getFieldValue("TEXT"));
+  const code = `"${block.getFieldValue("TEXT")}"`;
   return [code, Blockly["Python"].ORDER_ATOMIC];
 }
 

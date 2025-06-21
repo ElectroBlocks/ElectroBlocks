@@ -2,6 +2,11 @@ import { VARIABLE_TYPES } from "../../core/blockly/constants/variables";
 import Blockly from "blockly";
 import { stepSerialBegin } from "../message/generators";
 
+Blockly["Python"]["debug_block"] = function (block) {
+  return "";
+};
+
+
 Blockly["Arduino"]["debug_block"] = function (block) {
   stepSerialBegin();
 

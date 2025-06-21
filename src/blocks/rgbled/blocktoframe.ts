@@ -34,6 +34,7 @@ export const ledColorSetup: BlockToFrameTransformer = (
     bluePin,
     color: { green: 0, red: 0, blue: 0 },
     ledNumber: 1,
+    setupCommand: `config:rgb=${redPin},${greenPin},${bluePin}`,
   };
 
   const setupFrame = arduinoFrameByComponent(
@@ -58,6 +59,7 @@ export const ledColorSetup: BlockToFrameTransformer = (
     setupFrame.explanation = "Setting up color RGB Led 1 and 2.";
     setupFrame.components.push(ledColorState2);
   }
+
   return [setupFrame];
 };
 
@@ -90,11 +92,13 @@ export const setLedColor: BlockToFrameTransformer = (
   const ledColorStates = previousState.components.filter(
     (x) => x.type == ArduinoComponentType.LED_COLOR
   );
+
   let ledState = ledColorStates.find(
     (x: LedColorState) => x.ledNumber == whichComponent
   );
 
   const newComponent = { ...ledState, color };
+  ledState.usbCommands = [`rgb:${color.red},${color.green},${color.blue}`];
 
   return [
     arduinoFrameByComponent(
