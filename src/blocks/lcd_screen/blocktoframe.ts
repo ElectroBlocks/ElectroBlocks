@@ -37,6 +37,7 @@ export const lcdScreenSetup: BlockToFrameTransformer = (
     ],
     sdaPin,
     sclPin,
+    setupCommand: `config:lcd=${rows},${columns}`,
   };
 
   return [
@@ -70,6 +71,7 @@ export const lcdBlink: BlockToFrameTransformer = (
     const newComponent: LCDScreenState = {
       ...lcdState,
       blink: { row: 0, column: 0, blinking: false },
+      usbCommands: [`l:cursor_off:0,0`],
     };
 
     return [
@@ -108,6 +110,8 @@ export const lcdBlink: BlockToFrameTransformer = (
     ...lcdState,
     blink: { row, column, blinking: true },
   };
+
+  newComponent.usbCommands = [`l:cursor_on:${row - 1},${column - 1}`];
 
   return [
     arduinoFrameByComponent(
@@ -148,6 +152,8 @@ export const lcdScroll: BlockToFrameTransformer = (
     ...lcdState,
     rowsOfText,
   };
+
+  newComponent.usbCommands = [`l:scroll_${direction.toLowerCase()}`];
 
   return [
     arduinoFrameByComponent(
@@ -225,6 +231,8 @@ export const lcdPrint: BlockToFrameTransformer = (
     rowsOfText,
   };
 
+  newComponent.usbCommands = [`l:${row - 1}:${column - 1}:${print}`];
+
   return [
     arduinoFrameByComponent(
       block.id,
@@ -264,6 +272,8 @@ export const lcdClear: BlockToFrameTransformer = (
     ],
   };
 
+  clearComponent.usbCommands = [`l:clear`];
+
   return [
     arduinoFrameByComponent(
       block.id,
@@ -298,6 +308,8 @@ export const lcdBacklight: BlockToFrameTransformer = (
     ...lcdState,
     backLightOn,
   };
+
+  newComponent.usbCommands = [`l:backlight${backLightOn ? "on" : "off"}`];
 
   return [
     arduinoFrameByComponent(
@@ -361,6 +373,9 @@ export const lcdSimplePrint: BlockToFrameTransformer = (
       );
     }),
   };
+  newComponent.usbCommands = newComponent.rowsOfText
+    .filter((_, index) => index < newComponent.rows)
+    .map((t, index) => `l:${index}:0:${t}`);
 
   const clearComponent: LCDScreenState = {
     ..._.cloneDeep(newComponent),
@@ -370,6 +385,7 @@ export const lcdSimplePrint: BlockToFrameTransformer = (
       "                    ",
       "                    ",
     ],
+    usbCommands: [`l:clear`],
   };
 
   return [

@@ -1,7 +1,7 @@
 import Blockly from "blockly";
 
 
-function isPureNumber(str) {
+export function isPureNumber(str) {
   // Check if the string matches a valid number pattern
   const numberPattern = /^[+-]?\d+(\.\d+)?$/; // Matches integers and decimals
   return numberPattern.test(str);

@@ -319,5 +319,5 @@ Blockly["Python"].scrub_ = function (block, code) {
   }
   const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
   const nextCode = Blockly["Python"].blockToCode(nextBlock);
-  return commentCode + code + nextCode;
+  return code + nextCode;
 };

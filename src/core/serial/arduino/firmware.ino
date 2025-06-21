@@ -141,9 +141,11 @@ void handleconfig(String key, String value) {
     }
     Serial.println(F("config:RGB=OK"));
   } else if (key == "lcd") {
-    int row = value.indexOf(',');
-    int columns = value.indexOf(',', row + 1);
-    lcd = new LiquidCrystal_I2C(0x27, columns, row);
+    int firstIndex = value.indexOf(',');
+    int secondIndex = value.indexOf(',', firstIndex + 1);
+    int numRows = value.substring(firstIndex + 1, secondIndex).toInt();
+    int numCols = value.substring(secondIndex + 1).toInt();
+    lcd = new LiquidCrystal_I2C(0x27, numCols, numRows);
     lcd->init();
     lcd->backlight();
     Serial.println(F("config:LCD=OK"));
@@ -242,7 +244,40 @@ void handleCommand(String input) {
     if (args == "clear") {
       lcd->clear();
       Serial.println(F("LCD:CLEARED"));
-    } else {
+    } 
+    else if (args == "scroll_right") {
+      lcd->scrollDisplayRight();
+      Serial.println(F("LCD:RIGHT"));
+    }
+    else if (args == "scroll_left") {
+      lcd->scrollDisplayLeft();
+      Serial.println(F("LCD:LEFT"));   
+    }
+    else if (args == "backlighton") {
+      lcd->backlight();
+       Serial.println(F("LCD:BACKLIGHT_ON"));
+    }
+    else if (args == "backlightoff") {
+      lcd->noBacklight();
+      Serial.println(F("LCD:BACKLIGHT_OFF"));
+    }
+    else if(args.indexOf(F("cursor")) > -1) {
+      int first = args.indexOf(':');
+      int second = args.indexOf(':', first + 1);
+      int third = args.indexOf(':', second + 1);
+      bool isOn = args.substring(0, first) == "cursor_on";
+      int row = args.substring(first + 1, third).toInt();
+      int col = args.substring(second + 1).toInt();
+      lcd->setCursor(col, row);
+      if (isOn) {
+        lcd->blink();
+        Serial.println(F("LCD:BLINK"));
+      } else {
+        lcd->noBlink();
+        Serial.println(F("LCD:BLINK_OFF"));
+      }
+    }
+    else {
       int first = args.indexOf(':');
       int second = args.indexOf(':', first + 1);
       if (first != -1 && second != -1) {
@@ -252,7 +287,8 @@ void handleCommand(String input) {
         lcd->setCursor(col, row);
         lcd->print(msg);
         Serial.println(F("LCD:OK"));
-      } else {
+      } 
+      else {
         Serial.println(F("LCD:INVALID"));
       }
     }

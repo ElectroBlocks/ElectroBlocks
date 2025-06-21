@@ -49,7 +49,7 @@ export const ledMatrixSetup: BlockToFrameTransformer = (
     csPin,
     dataPin,
     setupCommand: `config:matrix=${dataPin},${clkPin},${csPin}`,
-    usbCommand: `matrix:${ledsToBytes(leds).join(",")}`,
+    usbCommands: [`matrix:${ledsToBytes(leds).join(",")}`],
   };
 
   return [
@@ -91,7 +91,7 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
     clkPin,
     csPin,
     dataPin,
-    usbCommand: `matrix:${ledsToBytes(leds).join(",")}`,
+    usbCommands: [`matrix:${ledsToBytes(leds).join(",")}`],
     setupCommand: `config:matrix=${dataPin},${clkPin},${csPin}`,
   };
 

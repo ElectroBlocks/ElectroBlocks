@@ -46,6 +46,7 @@ describe("rgb led frame", () => {
       ledNumber: 1,
       color: { green: 0, red: 0, blue: 0 },
       type: ArduinoComponentType.LED_COLOR,
+      setupCommand: `config:rgb=${ARDUINO_PINS.PIN_11},${ARDUINO_PINS.PIN_10},${ARDUINO_PINS.PIN_9}`,
     };
 
     const state: ArduinoFrame = {

@@ -58,10 +58,14 @@ export const updateUsb = async (frame: ArduinoFrame) => {
     return;
   }
   const setupMessage = frame.components.reduce((acc, component) => {
-    if (component?.usbCommand === undefined) {
+    if (
+      component?.usbCommands === undefined ||
+      component?.usbCommands.length === 0
+    ) {
       return acc;
     }
-    return acc + component?.usbCommand + "|";
+
+    return acc + component?.usbCommands.join("|");
   }, "");
   if (setupMessage === "") {
     return;
