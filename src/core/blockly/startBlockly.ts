@@ -74,6 +74,8 @@ const startBlockly = (
       getWorkspace().scrollCenter();
     }, 100);
   }
+  // return null if it's not there
+  if (!arduinoBlock) return;
   createFrames({
     type: Blockly.Events.MOVE,
     blockId: arduinoBlock.id,

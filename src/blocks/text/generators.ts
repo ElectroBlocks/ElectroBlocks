@@ -1,6 +1,7 @@
 import Blockly from "blockly";
 import type { Block } from "blockly";
 import { createDoubleToStringCFunc } from "../debug/generators";
+import * as _ from "lodash";
 
 Blockly["Arduino"]["text"] = function (block: Block) {
   // Text value.
@@ -258,14 +259,17 @@ Blockly["Arduino"]["parse_string_block"] = function (block: Block | any) {
     Blockly["Arduino"].ORDER_ATOMIC
   );
   const delimiter = "'" + block.getFieldValue("DELIMITER") + "'";
-  let position = +Blockly["Arduino"].valueToCode(
+  let position = Blockly["Arduino"].valueToCode(
     block,
     "POSITION",
     Blockly["Arduino"].ORDER_ATOMIC
   );
 
-  position = Math.abs(position);
-  position = position > 0 ? position - 1 : position;
+  if (!isNaN(position)) {
+    position = Math.round(position);
+    position = Math.abs(position);
+    position = position > 0 ? position - 1 : position;
+  }
 
   return [
     "getParseValue(" + text + ", " + delimiter + ", " + position + ")",

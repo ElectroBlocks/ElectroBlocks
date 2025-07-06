@@ -6,7 +6,7 @@ export function stepSerialBegin() {
     "   Serial.begin(" +
     selectBoardBlockly().serial_baud_rate +
     "); \n" +
-    "   Serial.setTimeout(10);\n";
+    "   Serial.setTimeout(100);\n";
 }
 Blockly["Python"]["message_setup"] = () => "";
 Blockly["Arduino"]["message_setup"] = function () {
@@ -53,9 +53,9 @@ Blockly["Arduino"]["arduino_send_message"] = function (block) {
   );
 
   return (
-    "\tSerial.println(" +
+    "Serial.println(" +
     message +
     ");\n" +
-    "\tdelay(200); // must have some delay always \n"
+    "Serial.flush(); // Waits until outgoing buffer is empty \n"
   );
 };
