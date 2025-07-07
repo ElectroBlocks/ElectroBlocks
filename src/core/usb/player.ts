@@ -6,7 +6,7 @@ const waitForCommand = async (command: string) => {
   var count = 0;
   while (arduinoPortStore.getLastMessage() != command) {
     console.log("waiting for message");
-    await new Promise((resolve) => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 10));
     count++;
     if (count > 100) {
       console.info("Timeout waiting for command:", command);
@@ -57,7 +57,7 @@ export const updateUsb = async (frame: ArduinoFrame) => {
     console.info("No components found");
     return;
   }
-  const setupMessage = frame.components.reduce((acc, component) => {
+  let usbMessage = frame.components.reduce((acc, component) => {
     if (
       component?.usbCommands === undefined ||
       component?.usbCommands.length === 0
@@ -67,10 +67,13 @@ export const updateUsb = async (frame: ArduinoFrame) => {
 
     return acc + component?.usbCommands.join("|");
   }, "");
-  if (setupMessage === "") {
+  if (usbMessage === "") {
     return;
   }
-  arduinoPortStore.sendMessage(setupMessage);
+  if (!usbMessage.includes("|")) {
+    usbMessage += "|";
+  }
+  arduinoPortStore.sendMessage(usbMessage);
 
   await waitForCommand("DONE_NEXT_COMMAND");
 };

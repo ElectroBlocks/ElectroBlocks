@@ -67,22 +67,15 @@ const uploadHexCodeToBoard = async (
   hexCode: string
 ) => {
   try {
-    const filters = [
-      { usbVendorId: 0x2341, usbProductId: 0x0043 },
-      { usbVendorId: 0x2341, usbProductId: 0x0001 },
-    ];
-    const port = await navigator.serial.requestPort({ filters });
-
     portStateStore.set(PortState.CONNECTING);
-    // const port = await WebSerialPortPromise.requestPort(
-    //   {},
-    //   { baudRate: 115200 }
-    // );
+    const port = await WebSerialPortPromise.requestPort(
+      {},
+      { baudRate: 115200 }
+    );
 
-    // if (!port.isOpen) {
-    //   await port.open();
-    // }
-    port.open({});
+    if (!port.isOpen) {
+      await port.open();
+    }
     arduinoPortStore.set(port);
     addListener(port);
 
