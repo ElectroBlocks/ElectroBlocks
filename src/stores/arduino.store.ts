@@ -1,16 +1,222 @@
-import { writable } from "svelte/store";
+import {
+  ProgramConfig,
+  upload,
+  WebSerialPortPromise,
+} from "@duinoapp/upload-multitool";
+import { get, writable } from "svelte/store";
+import { MicroControllerType } from "../core/microcontroller/microcontroller";
+import arduinoUnoHexCode from "../core/serial/arduino/arduino-firmware.hex?raw";
+import { onErrorMessage } from "../help/alerts";
 
 export enum PortState {
-  CLOSE = "CLOSE",
-  CLOSING = "CLOSING",
-  OPEN = "OPEN",
-  OPENNING = "OPENNING",
-  UPLOADING = "UPLOADING",
+  OPEN,
+  CLOSE,
+  CONNECTING,
+  UPLOADING,
 }
 
-const storeStatus = writable<PortState>(PortState.CLOSE);
+const arduinoPortStore = writable<WebSerialPortPromise | null>(null);
+
+export const usbMessageStore = writable<ArduinoMessage>();
+
+const portStateStore = writable<PortState>(PortState.CLOSE);
+
+let buffer = "";
+
+export const portStateStoreSub = {
+  subscribe: portStateStore.subscribe,
+};
+
+export interface ArduinoMessage {
+  type: "Arduino" | "Computer";
+  message: string;
+  id: string;
+  time: string;
+}
+
+function addListener(port: WebSerialPortPromise) {
+  port.removeAllListeners();
+  port.on("data", (data) => {
+    buffer += data.toString();
+
+    // Split on newlines
+    const lines = buffer.split("\n");
+
+    // Emit all complete lines
+    for (let i = 0; i < lines.length - 1; i++) {
+      const line = lines[i].trim(); // Clean \r if present
+
+      if (!line) continue;
+
+      usbMessageStore.set({
+        message: line,
+        type: "Arduino",
+        id: Date.now() + "_" + Math.random().toString(),
+        time: new Date().toLocaleTimeString(),
+      });
+      console.log("Received complete message:", line, new Date().getTime());
+    }
+
+    // Keep last incomplete part in buffer
+    buffer = lines[lines.length - 1];
+  });
+}
+
+const uploadHexCodeToBoard = async (
+  boardType: MicroControllerType,
+  hexCode: string
+) => {
+  try {
+    const filters = [
+      { usbVendorId: 0x2341, usbProductId: 0x0043 },
+      { usbVendorId: 0x2341, usbProductId: 0x0001 },
+    ];
+    const port = await navigator.serial.requestPort({ filters });
+
+    portStateStore.set(PortState.CONNECTING);
+    // const port = await WebSerialPortPromise.requestPort(
+    //   {},
+    //   { baudRate: 115200 }
+    // );
+
+    // if (!port.isOpen) {
+    //   await port.open();
+    // }
+    port.open({});
+    arduinoPortStore.set(port);
+    addListener(port);
+
+    const config = {
+      bin: hexCode,
+      // files: filesData,
+      // flashFreq: flashFreqData,
+      // flashMode: flashModeData,
+      speed: 115200,
+      uploadSpeed: 115200,
+
+      tool: boardType == MicroControllerType.ESP32 ? "esptool" : "avrdude",
+      cpu: "atmega328p",
+      stdout: {
+        write: (msg: string) => console.log(msg), // Properly implement the write method
+      },
+      verbose: true,
+    } as any as ProgramConfig;
+    await upload(port, config);
+    portStateStore.set(PortState.OPEN);
+  } catch (error) {
+    console.log(error);
+
+    if (error.message == "receiveData timeout after 400ms") {
+      for (let i = 0; i < 10; i++) {
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        var lastMessage = get(usbMessageStore);
+        console.log("Last message:", lastMessage);
+        if (lastMessage?.message.includes("System")) {
+          portStateStore.set(PortState.OPEN);
+          return;
+        }
+      }
+    }
+    portStateStore.set(PortState.CLOSE);
+    arduinoPortStore.set(null);
+    onErrorMessage("Error Uploading Code", error);
+  }
+};
+
+const compileCode = async (code: string, type: string): Promise<string> => {
+  const headers = new Headers({
+    "Content-Type": "application/json; charset=utf-8",
+  });
+  try {
+    ///
+    var jsonString = {
+      fqbn: "arduino:avr:uno",
+      files: [
+        {
+          content: code,
+          name: "arduino/arduino.ino",
+        },
+      ],
+      flags: { verbose: false, preferLocal: false },
+      libs: [],
+    };
+
+    console.log(`Sending code to https://compile.duino.app/v3/compile`);
+    const response = await fetch(`https://compile.duino.app/v3/compile`, {
+      method: "POST",
+      body: JSON.stringify(jsonString),
+      headers,
+    });
+    if (!response.ok)
+      throw new Error(`Server responded with status: ${response.status}`);
+    const result = await response.json();
+    return result.hex;
+  } catch (error) {
+    console.error("Code compilation error:", error);
+    onErrorMessage("Error compiling code", error);
+  }
+};
 
 export default {
-  subscribe: storeStatus.subscribe,
-  set: storeStatus.set,
+  subscribe: arduinoPortStore.subscribe,
+  uploadCode: async (boardType: MicroControllerType, code: string) => {
+    var hex = await compileCode(code, boardType);
+    await uploadHexCodeToBoard(boardType, hex);
+  },
+  connectWithAndUploadFirmware: async (boardType: MicroControllerType) => {
+    await uploadHexCodeToBoard(boardType, arduinoUnoHexCode);
+  },
+  connect: async () => {
+    try {
+      portStateStore.set(PortState.CONNECTING);
+      const port = await WebSerialPortPromise.requestPort(
+        {},
+        { baudRate: 115200 }
+      );
+      await port.open();
+      portStateStore.set(PortState.OPEN);
+      addListener(port);
+      arduinoPortStore.set(port);
+    } catch (error) {
+      portStateStore.set(PortState.CLOSE);
+    }
+  },
+  disconnect: async () => {
+    const port = await get(arduinoPortStore);
+    if (port) {
+      await port.close();
+    }
+    arduinoPortStore.set(null);
+    portStateStore.set(PortState.CLOSE);
+  },
+  isConnected: () => {
+    const port = get(arduinoPortStore);
+    return port !== null && port.isOpen;
+  },
+  getPortState: () => {
+    const portState = get(portStateStore);
+    return portState;
+  },
+  sendMessage: async (message: string) => {
+    const port = await get(arduinoPortStore);
+    if (port) {
+      await port.write(message);
+      console.log("Sent:", message, new Date().getTime());
+      usbMessageStore.set({
+        message,
+        type: "Computer",
+        id: new Date().getTime() + "_" + Math.random().toString(),
+        time: new Date().toLocaleTimeString(),
+      });
+    } else {
+      console.error("Port is not connected");
+    }
+  },
+  clearMessages: () => {
+    usbMessageStore.set(null);
+  },
+  arduinoMessages: usbMessageStore.subscribe,
+  getLastMessage: () => {
+    return get(usbMessageStore)?.message ?? "";
+  },
 };

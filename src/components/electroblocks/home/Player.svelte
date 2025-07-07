@@ -6,63 +6,59 @@
   import currentStepStore from "../../../stores/currentStep.store";
   import settingStore from "../../../stores/settings.store";
   import { onErrorMessage, onSuccess } from "../../../help/alerts";
-  import { getAllBlocks } from "../../../core/blockly/helpers/block.helper";
+  import { getAllBlocks, getBlockById } from "../../../core/blockly/helpers/block.helper";
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
   import { tooltip } from "@svelte-plugins/tooltips";
   import { paintUsb, updateUsb } from "../../../core/usb/player";
-  import arduinoPortStore, { portStateStoreSub } from "../../../stores/arduino-port.store";
   import settingsStore from "../../../stores/settings.store";
-  import { on } from "@svgdotjs/svg.js";
+  import arduinoStore, { PortState, portStateStoreSub } from "../../../stores/arduino.store";
 
   let frames: ArduinoFrame[] = [];
-  let frameNumber = 1;
+  let frameIndex = 0;
   let playing = false;
   let speedDivisor = 1;
   let maxTimePerStep = 1000;
 
   const unsubscribes = [];
 
-  $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
-  $: frameIndex = frameNumber - 1;
+
+  // unsubscribes.push(
+  //   currentStepStore.subscribe(async (currentIndex) => {
+  //     frameNumber = currentIndex;
+  //     if ($frameStore.frames.length > 0) {
+  //       if (frameNumber == 0) {
+  //         await paintUsb($frameStore);
+  //       }
+  //       if ($frameStore.frames[currentIndex]) {
+  //         await updateUsb($frameStore.frames[currentIndex]);
+  //       }
+  //     }
+  //   })
+  // );
 
   unsubscribes.push(
-    currentStepStore.subscribe(async (currentIndex) => {
-      frameNumber = currentIndex;
-      if ($frameStore.frames.length > 0) {
-        if (frameNumber == 0) {
-          await paintUsb($frameStore);
-        }
-        if ($frameStore.frames[currentIndex]) {
-          await updateUsb($frameStore.frames[currentIndex]);
-        }
-      }
-    })
-  );
-
-  unsubscribes.push(
-    frameStore.subscribe(async (frameContainer) => {
+    frameStore.subscribe((frameContainer) => {
       playing = false;
-      const currentFrame = frames[frameNumber];
+      const currentFrame = frames[frameIndex];
       frames = frameContainer.frames;
-      await paintUsb(frameContainer);
       
       // If we are starting out with set to first frame in the loop
       // We want to skip all the library and setup blocks
       if (frames.length === 0 || !currentFrame) {
-        frameNumber = frames.findIndex(
+        frameIndex = frames.findIndex(
           (f) => f.timeLine.function == "loop" && f.timeLine.iteration == 1
         );
-        frameNumber = frameNumber < 0 ? 0 : frameNumber;
+        frameIndex = frameIndex <= 0 ? 0 : frameIndex;
         if (frames.length > 0) {
-          currentFrameStore.set(frames[frameNumber]);
+          currentFrameStore.set(frames[frameIndex]);
         }
         return;
       }
 
-      frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
-      currentFrameStore.set(frames[frameNumber]);
+      frameIndex = navigateToClosestTimeline(currentFrame.timeLine);
+      currentFrameStore.set(frames[frameIndex]);
       
     })
   );
@@ -78,10 +74,10 @@
     // If we are starting out with set to first frame in the loop
     // We want to skip all the library and setup blocks
     if (timeLine.function !== "loop" || timeLine.iteration <= 1) {
-      frameNumber = frames.findIndex(
+      frameIndex = frames.findIndex(
         (f) => f.timeLine.function == "loop" && f.timeLine.iteration == 1
       );
-      return frameNumber < 0 ? 0 : frameNumber;
+      return frameIndex <= 0 ? 0 : frameIndex;
     }
 
     const lastFrameTimeLine = frames[frames.length - 1].timeLine;
@@ -98,21 +94,28 @@
     return frames.findIndex((f) => f.timeLine.iteration === loopNumber);
   }
 
-  function setCurrentFrame(frameNumber) {
-    currentFrameStore.set(frames[frameNumber]);
-    currentStepStore.set(frameNumber);
+   async function setCurrentFrame() {
+    // reactive statement is not fast enough to do this because we are doing it immediately
+    if (frameIndex == 0) {
+      await paintUsb($frameStore);
+    }
+    currentFrameStore.set(frames[frameIndex]);
+    currentStepStore.set(frameIndex);
+    await updateUsb($currentFrameStore);
   }
 
   async function play() {
     playing = !playing;
 
     if (playing && isLastFrame()) {
-      frameNumber = 0;
+      frameIndex = 0;
     }
     if (playing) {
       try {
+        
         playing = true;
         // Because we want to make it look like the first frame has a wait time equal
+
         await moveWait();
         await playFrame();
       } catch (e) {
@@ -126,12 +129,15 @@
       return;
     }
 
-    if (frames[frameNumber].delay > 0) {
-      await wait(frames[frameNumber].delay);
+    if (frames[frameIndex].delay > 0) {
+      await wait(frames[frameIndex].delay);
     }
 
-    currentFrameStore.set(frames[frameNumber]);
-    frameNumber += 1;
+    if (frameIndex == 0) {
+      await paintUsb($frameStore);
+    }
+    frameIndex += 1;
+    await setCurrentFrame();
     await moveWait();
     await playFrame();
     if (isLastFrame()) {
@@ -141,42 +147,47 @@
 
   async function resetPlayer() {
     try {
-      frameNumber = 0;
+      frameIndex = 0;
       playing = false;
-      currentFrameStore.set(frames[frameIndex]);
+      await setCurrentFrame();
       //unselect all the blocks
       getAllBlocks().forEach((b) => b.unselect());
+      const selectedBlock = getBlockById($currentFrameStore.blockId);
+      if (selectedBlock) {
+        selectedBlock.select();
+      }
+
     } catch (e) {
       onErrorMessage("Please refresh your browser and try again.", e);
     }
   }
 
-  function moveSlider() {
-    currentFrameStore.set(frames[frameIndex]);
+  async function moveSlider() {
+    await setCurrentFrame();
     playing = false;
   }
 
-  function prev() {
+  async function prev() {
     playing = false;
-    if (frameNumber <= 0) {
+    if (frameIndex <= 0) {
       return;
     }
-    frameNumber -= 1;
-    currentFrameStore.set(frames[frameIndex]);
+    frameIndex -= 1;
+    await setCurrentFrame();
   }
 
-  function next() {
+  async function next() {
     playing = false;
     if (isLastFrame()) {
       return;
     }
 
-    frameNumber += 1;
-    currentFrameStore.set(frames[frameIndex]);
+    frameIndex += 1;
+    await setCurrentFrame();
   }
 
   function isLastFrame() {
-    return frameNumber >= frames.length - 1;
+    return frameIndex >= frames.length - 1;
   }
 
   function moveWait() {
@@ -187,17 +198,17 @@
 
   async function connectOrDisconnectUsb()
   {
-      if (!$arduinoPortStore?.isOpen) {
+      if (!$arduinoStore?.isOpen) {
         try {
-          await resetPlayer();
-          await arduinoPortStore.connectWithAndUploadFirmware($settingsStore.boardType);
+          await arduinoStore.connectWithAndUploadFirmware($settingsStore.boardType);
           onSuccess("Firmware uploaded successfully, ready to use python!");
+          await resetPlayer();
         } catch (error) {
           onErrorMessage("Failed to connect to the Arduino. Please try again.", error);
         }
       } else {
         await resetPlayer();
-        await arduinoPortStore.disconnect();
+        await arduinoStore.disconnect();
       }
   }
 
@@ -221,7 +232,7 @@
     type="range"
     min="0"
     disabled={frames.length === 0}
-    bind:value={frameNumber}
+    bind:value={frameIndex}
     max={frames.length === 0 ? 0 : frames.length - 1}
     class="slider"
     id="scrub-bar"
@@ -279,7 +290,7 @@
     class="{$portStateStoreSub}"
     id="video-debug-usb"
   >
-    <i class="fa {$portStateStoreSub == "connecting" ? "fa-cog fa-spin fa-6x fa-fw" : $portStateStoreSub == "disconnected" ? "fa-usb" : "fa-eject"}"  />
+    <i class="fa {$portStateStoreSub == PortState.CONNECTING ? "fa-cog fa-spin fa-6x fa-fw" : $portStateStoreSub == PortState.CLOSE ? "fa-usb" : "fa-eject"}"  />
   </span>
 </div>
 

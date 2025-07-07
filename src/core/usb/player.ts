@@ -1,19 +1,19 @@
-import { WebSerialPortPromise } from "@duinoapp/upload-multitool";
 import { ArduinoFrame, ArduinoFrameContainer } from "../frames/arduino.frame";
-import arduinoPortStore from "../../stores/arduino-port.store";
+import arduinoPortStore from "../../stores/arduino.store";
 
 const waitForCommand = async (command: string) => {
   arduinoPortStore.clearMessages();
   var count = 0;
   while (arduinoPortStore.getLastMessage() != command) {
     console.log("waiting for message");
-    await new Promise((resolve) => setTimeout(resolve, 10));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     count++;
     if (count > 100) {
       console.info("Timeout waiting for command:", command);
       return;
     }
   }
+  console.log("DONE_WAITING", new Date().getTime());
   return;
 };
 

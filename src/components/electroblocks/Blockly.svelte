@@ -5,8 +5,7 @@
   import { WindowType, resizeStore } from '../../stores/resize.store';
   import startBlockly from '../../core/blockly/startBlockly';
   import currentFrameStore from '../../stores/currentFrame.store';
-  import arduinoStore from '../../stores/arduino.store';
-  import arduinoMessageStore from '../../stores/arduino-message.store';
+  import arduinoStore, { usbMessageStore } from '../../stores/arduino.store';
   import settingsStore from '../../stores/settings.store';
   import {
     arduinoLoopBlockShowLoopForeverText,
@@ -105,7 +104,7 @@
   }));
 
   unsubscribes.push(
-    arduinoMessageStore.subscribe((m) => {
+    usbMessageStore.subscribe((m) => {
       if (!m) {
         return;
       }

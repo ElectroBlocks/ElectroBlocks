@@ -3,7 +3,10 @@ import config from "../../env";
 import { MicroControllerType } from "../microcontroller/microcontroller";
 import { filter } from "lodash";
 
-const compileCode = async (code: string, type: string): Promise<string> => {
+export const compileCode = async (
+  code: string,
+  type: string
+): Promise<string> => {
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
   });
