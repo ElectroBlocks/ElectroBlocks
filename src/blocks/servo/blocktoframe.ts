@@ -57,8 +57,16 @@ const getServo = (
   pin: ARDUINO_PINS,
   previousState: ArduinoFrame
 ): ServoState => {
+  const setupCommand = `config:servo=${pin}`;
+  const usbCommands = [`s:${pin}:${degree}`];
   if (!previousState) {
-    return { pins: [pin], degree, type: ArduinoComponentType.SERVO };
+    return {
+      pins: [pin],
+      degree,
+      type: ArduinoComponentType.SERVO,
+      setupCommand,
+      usbCommands,
+    };
   }
 
   const servo = findComponent<ServoState>(
@@ -68,8 +76,14 @@ const getServo = (
   );
 
   if (!servo) {
-    return { pins: [pin], degree, type: ArduinoComponentType.SERVO };
+    return {
+      pins: [pin],
+      degree,
+      type: ArduinoComponentType.SERVO,
+      setupCommand,
+      usbCommands,
+    };
   }
 
-  return { ...servo, degree };
+  return { ...servo, degree, setupCommand, usbCommands };
 };

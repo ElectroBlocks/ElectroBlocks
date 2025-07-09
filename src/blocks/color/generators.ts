@@ -11,23 +11,23 @@ function hexToRgb(hex) {
     : null;
 }
 
-function createColorStruct() {
+export function createColorStruct() {
   Blockly["Arduino"].libraries_["color_struct"] = `struct RGB {
-    int red;
-    int green;
-    int blue;
+    double red;
+    double green;
+    double blue;
 };`;
 }
 
-function createColorStructPy() {
+export function createColorStructPy() {
   Blockly["Python"].imports_["import_dataclass"] = `
-from dataclasses import dataclass`
-  Blockly["Python"].functionNames_["color_struct"] = `  
+from dataclasses import dataclass`;
+  Blockly["Python"].definitions_["color_struct"] = `  
 @dataclass
 class RGB:
-  red: double
-  green: double
-  blue: double
+  red: float
+  green: float
+  blue: float
   `;
 }
 

@@ -186,7 +186,7 @@ const arduinoMega: MicroController = {
   ssPins: ["53"],
   sclPins: ["21"],
   sdaPins: ["20"],
-  serial_baud_rate: 9600,
+  serial_baud_rate: 115200,
   type: MicroControllerType.ARDUINO_MEGA,
   breadboard,
   skipHoles: [
