@@ -85,6 +85,7 @@
 
   async function uploadCode() {
     await arduinoStore.uploadCode(boardType, $codeStore.cLang);
+    onSuccess("Coding Uploaded!!");
   }
   function clearMessages() {
     messages = [];

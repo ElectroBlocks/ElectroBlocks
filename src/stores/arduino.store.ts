@@ -64,7 +64,7 @@ function addListener(port: WebSerialPortPromise) {
 
 const uploadHexCodeToBoard = async (
   boardType: MicroControllerType,
-  hexCode: string
+  getHexCode: () => Promise<string>
 ) => {
   try {
     portStateStore.set(PortState.CONNECTING);
@@ -76,9 +76,9 @@ const uploadHexCodeToBoard = async (
     if (!port.isOpen) {
       await port.open();
     }
-    arduinoPortStore.set(port);
-    addListener(port);
 
+    arduinoPortStore.set(port);
+    const hexCode = await getHexCode();
     const config = {
       bin: hexCode,
       // files: filesData,
@@ -95,6 +95,7 @@ const uploadHexCodeToBoard = async (
       verbose: true,
     } as any as ProgramConfig;
     await upload(port, config);
+    addListener(port);
     portStateStore.set(PortState.OPEN);
   } catch (error) {
     console.log(error);
@@ -153,11 +154,12 @@ const compileCode = async (code: string, type: string): Promise<string> => {
 export default {
   subscribe: arduinoPortStore.subscribe,
   uploadCode: async (boardType: MicroControllerType, code: string) => {
-    var hex = await compileCode(code, boardType);
-    await uploadHexCodeToBoard(boardType, hex);
+    await uploadHexCodeToBoard(boardType, async () => {
+      return await compileCode(code, boardType);
+    });
   },
   connectWithAndUploadFirmware: async (boardType: MicroControllerType) => {
-    await uploadHexCodeToBoard(boardType, arduinoUnoHexCode);
+    await uploadHexCodeToBoard(boardType, async () => arduinoUnoHexCode);
   },
   connect: async () => {
     try {
@@ -193,7 +195,7 @@ export default {
   sendMessage: async (message: string) => {
     const port = await get(arduinoPortStore);
     if (port) {
-      await port.write(message);
+      await port.write(message + "|");
       console.log("Sent:", message, new Date().getTime());
       usbMessageStore.set({
         message,

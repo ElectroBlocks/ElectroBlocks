@@ -30,13 +30,13 @@ export const paintUsb = async (frameContainer: ArduinoFrameContainer) => {
   }
   arduinoPortStore.sendMessage("restart:|");
   await waitForCommand("System:READY");
-  const setupMessage = frameContainer.frames[
+  let setupMessage = frameContainer.frames[
     frameContainer.frames.length - 1
   ].components.reduce((acc, component) => {
     if (component?.setupCommand === undefined) {
       return acc;
     }
-    return acc + component?.setupCommand + "|";
+    return acc + component?.setupCommand + ";";
   }, "");
 
   if (setupMessage === "") {
@@ -65,14 +65,12 @@ export const updateUsb = async (frame: ArduinoFrame) => {
       return acc;
     }
 
-    return acc + component?.usbCommands.join("|");
+    return acc + component?.usbCommands.join(";");
   }, "");
   if (usbMessage === "") {
     return;
   }
-  if (!usbMessage.includes("|")) {
-    usbMessage += "|";
-  }
+
   arduinoPortStore.sendMessage(usbMessage);
 
   await waitForCommand("DONE_NEXT_COMMAND");

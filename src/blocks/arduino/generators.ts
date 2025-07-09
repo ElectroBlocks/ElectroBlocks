@@ -1,7 +1,7 @@
 import Blockly from "blockly";
 import { Block } from "blockly";
 import _ from "lodash";
-
+import { getBlockByType } from "../../core/blockly/helpers/block.helper";
 
 Blockly["Python"]["arduino_setup"] = function (block: Block) {
   return "";
@@ -27,8 +27,6 @@ ${statementsLoop}
 `;
 };
 
-
-
 Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   const statementsLoop = Blockly["Arduino"].statementToCode(block, "loop");
 
@@ -39,30 +37,27 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   let setJoyStickValues = "";
   let setSerialMessageDEV = "";
 
-  if (!_.isEmpty(Blockly["Arduino"].setupCode_["bluetooth_setup"])) {
+  if (getBlockByType("bluetooth_setup")?.isEnabled()) {
     resetBluetoothVariable = '\tbluetoothMessageDEV = ""; \n';
   }
 
-  if (!_.isEmpty(Blockly["Arduino"].setupCode_["joystick"])) {
+  if (getBlockByType("joystick_setup")?.isEnabled()) {
     setJoyStickValues = "\tsetJoyStickValues(); \n";
   }
 
   if (
-    !_.isEmpty(Blockly["Arduino"].setupCode_["serial_begin"]) &&
-    Blockly["Arduino"].information_["message_recieve_block"]
+    getBlockByType("arduino_get_message")?.isEnabled() &&
+    getBlockByType("message_setup")?.isEnabled()
   ) {
     resetMessageVariable = ' serialMessageDEV= ""; \n';
     setSerialMessageDEV = "  setSerialMessage();\n";
   }
 
-  if (!_.isEmpty(Blockly["Arduino"].setupCode_["setup_ir_remote"])) {
+  if (getBlockByType("ir_remote_setup")?.isEnabled()) {
     resetIrRemoteCode =
       "  irReceiver.resume(); // Prepare the receiver to receive the next IR signal. \n";
   }
 
-  if (!_.isEmpty(Blockly["Arduino"].functionNames_["takeTempReading"])) {
-    getNewTempReading = "\ttakeTempReading(); \n";
-  }
   return (
     "// The void loop function runs over and over again forever." +
     "\nvoid loop() { \n" +
@@ -71,7 +66,6 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
     resetBluetoothVariable +
     resetMessageVariable +
     resetIrRemoteCode +
-    getNewTempReading +
     setJoyStickValues +
     "}"
   );

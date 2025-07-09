@@ -15,6 +15,10 @@ Blockly["Arduino"]["message_setup"] = function () {
   return "";
 };
 
+Blockly["Python"]["arduino_get_message"] = function (block) {
+  return "";
+};
+
 Blockly["Arduino"]["arduino_get_message"] = function (block) {
   Blockly["Arduino"].information_["message_recieve_block"] = true;
 
@@ -22,13 +26,18 @@ Blockly["Arduino"]["arduino_get_message"] = function (block) {
     "setSerialMessage"
   ] = `void setSerialMessage() {
   if (Serial.available() > 0) {
-      serialMessageDEV = Serial.readString();
+      serialMessageDEV = Serial.readStringUntil('|');
       serialMessageDEV.trim();      
   }
 };
   `;
   return ["serialMessageDEV", Blockly["Arduino"].ORDER_ATOMIC];
 };
+
+Blockly["Python"]["arduino_receive_message"] = () => [
+  "",
+  Blockly["Arduino"].ORDER_ATOMIC,
+];
 
 Blockly["Arduino"]["arduino_receive_message"] = function (block) {
   Blockly["Arduino"].information_["message_recieve_block"] = true;
