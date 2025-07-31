@@ -2,7 +2,6 @@
   import Player from './Player.svelte';
 
   import SimDebugger from './SimDebugger.svelte';
-  import LedColorChanger from './LedColorChanger.svelte';
 
   import { SVG } from '@svgdotjs/svg.js';
   import frameStore from '../../../stores/frame.store';
@@ -26,6 +25,7 @@
   let draw;
   let unsubscribes = [];
   let loopText = '';
+  export let mode = 'simulator';
 
   onMount(async () => {
     try {
@@ -68,7 +68,7 @@
         const firstFrame = frames ? frames[0] : undefined;
         const lastFrame = frames ? frames[frames.length - 1] : undefined;
         currentFrame = firstFrame;
-        paint(draw, frameContainer);
+        paint(draw, frameContainer, $settings);
         update(draw, firstFrame);
 
         const oldListOfComponentIds = oldLastFrame
@@ -169,9 +169,8 @@
 </script>
 
 <div style="background-color: {$settings.backgroundColor}" id="container">
-  <LedColorChanger />
-  <div bind:this={container} id="simulator" />
-  <div id="simulator-controls">
+  <div bind:this={container} id="simulator"  />
+  <div id="simulator-controls" class:live={mode == 'live'}>
     <h3>{loopText}</h3>
     <i on:click={reCenter} class="fa" id="recenter-icon" aria-hidden="true" />
     <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
@@ -179,7 +178,9 @@
   </div>
   <SimDebugger />
 </div>
-<Player />
+{#if mode === 'simulator'}
+  <Player />
+{/if} 
 
 <style>
   #container,
@@ -190,19 +191,20 @@
     top: 0;
     left: 0;
   }
+  
   #container {
     background-color: #d9e4ec;
   }
-  #simulator {
-    width: 100%;
-    height: calc(100% - 10px);
-  }
+  
   #simulator-controls {
     text-align: right;
     position: absolute;
     right: 10px;
     bottom: 5px;
     width: 100%;
+  }
+  #simulator-controls.live {
+    bottom: 50px;
   }
   #simulator-controls i {
     cursor: pointer;

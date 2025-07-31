@@ -145,7 +145,6 @@ export const createFrames = async (blocklyEvent) => {
       error: true,
       frames: [],
       board: event.microController,
-      settings,
     };
     frameStore.set(currentFrameContainter);
     return;

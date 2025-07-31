@@ -18,6 +18,7 @@ export enum PortState {
 const arduinoPortStore = writable<WebSerialPortPromise | null>(null);
 
 export const usbMessageStore = writable<ArduinoMessage>();
+export const sensorMessages = writable<ArduinoMessage>();
 
 const portStateStore = writable<PortState>(PortState.CLOSE);
 
@@ -48,12 +49,22 @@ function addListener(port: WebSerialPortPromise) {
 
       if (!line) continue;
 
+      if (line.includes("SENSE_COMPLETE")) {
+        sensorMessages.set({
+          message: line,
+          type: "Arduino",
+          id: Date.now() + "_" + Math.random().toString(),
+          time: new Date().toLocaleTimeString(),
+        });
+      }
+
       usbMessageStore.set({
         message: line,
         type: "Arduino",
         id: Date.now() + "_" + Math.random().toString(),
         time: new Date().toLocaleTimeString(),
       });
+
       console.log("Received complete message:", line, new Date().getTime());
     }
 
@@ -151,13 +162,14 @@ const compileCode = async (code: string, type: string): Promise<string> => {
   }
 };
 
-export default {
+const arduinoStore = {
   subscribe: arduinoPortStore.subscribe,
   uploadCode: async (boardType: MicroControllerType, code: string) => {
     await uploadHexCodeToBoard(boardType, async () => {
       return await compileCode(code, boardType);
     });
   },
+
   connectWithAndUploadFirmware: async (boardType: MicroControllerType) => {
     await uploadHexCodeToBoard(boardType, async () => arduinoUnoHexCode);
   },
@@ -214,4 +226,37 @@ export default {
   getLastMessage: () => {
     return get(usbMessageStore)?.message ?? "";
   },
+  getLastSensorMessage: () => {
+    return get(sensorMessages)?.message ?? "";
+  },
 };
+
+export default arduinoStore;
+
+const waitForCommand = async (command: string) => {
+  arduinoStore.clearMessages();
+  var count = 0;
+  while (!arduinoStore.getLastMessage().includes(command)) {
+    console.log("waiting for message");
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    count++;
+    if (count > 100) {
+      console.info("Timeout waiting for command:", command);
+      return;
+    }
+  }
+  console.log("DONE_WAITING", new Date().getTime());
+  return;
+};
+
+export async function senseDataArduino() {
+  if (!arduinoStore.isConnected()) {
+    console.error("Port is not connected");
+    return "";
+  }
+  await arduinoStore.sendMessage("sense|");
+  await waitForCommand("DONE_NEXT_COMMAND");
+  let sensorMessage = arduinoStore.getLastSensorMessage();
+  sensorMessage = sensorMessage.replace("SENSE_COMPLETE", "");
+  return sensorMessage;
+}

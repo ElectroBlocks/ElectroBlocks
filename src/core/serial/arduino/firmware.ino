@@ -96,14 +96,21 @@ void updateSensors()
   updateIR();
   for (int i = 0; i < 4; i += 1) {
     if (digitalReadPins[i] == -1) continue;
-    bool pinState = digitalRead(digitalReadPins[i]) == HIGH;
-    char pin = '0' + digitalReadPins[i];
+    int pin = digitalReadPins[i];
     Serial.print(F("dr:"));
-    Serial.print(pin  + ':' + (pinState ? '0' : '1'));
+    Serial.print(pin);
+    Serial.print(F(":")); 
+    // We are doing because we using in input pull resistor
+    // This is a cheap idea to avoid using un needed electricity and electric noise
+    if (digitalRead(digitalReadPins[i]) == LOW) {
+      Serial.print(F("1;"));
+    } else {
+      Serial.print(F("0;"));
+    }
   }
 
   for (int i = 0; i < 4; i += 1) {
-    if (digitalReadPins[i] == -1) continue;
+    if (analogReadPin[i] == -1) continue;
     int pinState = analogRead(analogReadPin[i]);
     char pin = '0' + analogReadPin[i];
     Serial.print(F("ar:"));
@@ -149,7 +156,23 @@ void handleconfig(String key, String value) {
     lcd->init();
     lcd->backlight();
     Serial.println(F("config:LCD=OK"));
-  }  else if (key == "ir") {
+  } else if (key == "dr") {
+    int digitalReadPin = value.toInt();
+    bool assigned = false;
+    for (int i = 0; i < 4; i += 1) {
+      if (digitalReadPins[i] == -1) {
+        digitalReadPins[i] = digitalReadPin;
+        pinMode(digitalReadPin, INPUT_PULLUP);
+        assigned = true;
+        break;
+      }
+    }
+    if (!assigned) {
+      Serial.println(F("Config:DigitalRead=NoSlotAvailable"));
+    }
+  }  
+  
+  else if (key == "ir") {
     irPin = value.toInt();
     irrecv = new IRrecv(irPin);
     irrecv->enableIRIn();
@@ -316,11 +339,13 @@ void handleCommand(String input) {
     wdt_enable(WDTO_15MS);
     while (1);
   } else if (input.startsWith("dw:")) {
+    unsigned long t = micros();
     int pin = input.substring(3, input.indexOf(':', 3)).toInt();
     int value = input.substring(input.indexOf(':', 3) + 1).toInt();
     pinMode(pin, OUTPUT);
     digitalWrite(pin, value);
-    Serial.println(F("DigitalWrite:OK"));
+    Serial.println(F("OK"));
+    Serial.println(micros() - t); // how long it took
   } else if (input.startsWith("dr:")) {
     int pin = input.substring(3).toInt();
     pinMode(pin, INPUT);
@@ -385,8 +410,12 @@ void handleCommand(String input) {
 
 void loop() {
   if (Serial.available()) {
+    unsigned long t = micros();
     String input = Serial.readStringUntil('|');
     input.trim();
+    if (input.length() == 0) {
+      return;
+    }
 
     if(input == "IAM_READY") {
       Serial.println(F("System:READY"));
@@ -398,6 +427,7 @@ void loop() {
     String commands[maxCommands];
 
     int start = 0;
+
     while (start < input.length() && commandCount < maxCommands) {
       int end = input.indexOf(';', start);
       if (end == -1) {
@@ -409,20 +439,20 @@ void loop() {
 
     for (int i = 0; i < commandCount; i++) {
       String cmd = commands[i];
-      if (cmd.startsWith("config:")) {
-        int eq = cmd.indexOf('=');
+      if (input.startsWith("config:")) {
+        int eq = input.indexOf('=');
         if (eq != -1) {
-          String key = cmd.substring(7, eq);
-          String val = cmd.substring(eq + 1);
+          String key = input.substring(7, eq);
+          String val = input.substring(eq + 1);
           handleconfig(key, val);
         } else {
           Serial.println(F("config:INVALID_FORMAT"));
         }
       } else {
-        handleCommand(cmd);
+        handleCommand(input);
       }
+
     }
-    
     Serial.println(F("DONE_NEXT_COMMAND"));
   }
 }

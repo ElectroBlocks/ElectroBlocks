@@ -103,7 +103,7 @@
       href="/{params}"
       class:active={isPathOnHomePage($page.url.pathname)}
     >
-      <i class="fa fa-home" title="Simulator" use:tooltip={navTooltipStyle} />
+      <i class="fa-light fa-desktop" title="Simulator" use:tooltip={navTooltipStyle} />
     </a>
 
     <a
@@ -112,7 +112,7 @@
       use:tooltip={navTooltipStyle}
       class:active={$page.url.pathname.includes("code")}
     >
-      <i class="fa fa-code" />
+      <i class="fa-solid fa-code" />
     </a>
     <a
       href="/arduino{params}"
@@ -120,7 +120,7 @@
       title="Upload"
       class:active={$page.url.pathname.includes("arduino")}
     >
-      <i class="fa fa-microchip" />
+      <i class="fa-solid fa-microchip" />
     </a>
 
     <a
@@ -130,9 +130,7 @@
       class:active={$page.url.pathname.includes('open')}
     >
       <i
-        class="fa"
-        class:fa-folder-open-o={!$page.url.pathname.includes('open')}
-        class:fa-folder-open={$page.url.pathname.includes('open')}
+        class="fa-solid fa-folder-open"
       />
     </a>
     <span
@@ -140,12 +138,12 @@
       use:tooltip={navTooltipStyle}
       on:click={onNewFileAuth}
     >
-      <i class="fa fa-file-o" />
+      <i class="fa-solid fa-file" />
     </span>
     <span
       title="Save Project"
       use:tooltip={navTooltipStyle}
-      on:click={onSaveClick}><i class="fa fa-floppy-o" /></span
+      on:click={onSaveClick}><i class="fa-solid fa-floppy-disk" /></span
     >
     <a
       title="Project Settings"
@@ -153,7 +151,7 @@
       use:tooltip={navTooltipStyle}
       class:active={$page.url.pathname.includes("project-settings")}
     >
-      <i class="fa fa-wrench" aria-hidden="true" />
+      <i class="fa-solid fa-wrench" aria-hidden="true" />
     </a>
     <a
       title="Settings"
@@ -161,21 +159,30 @@
       href="/settings"
       class:active={$page.url.pathname.includes('settings')}
     >
-      <i class="fa fa-gears" />
+      <i class="fa-solid fa-gears" />
     </a>
     <span use:tooltip={navTooltipStyle} on:click={onSignOut} title="Sign Out">
-      <i class="fa fa-sign-out" title="Sign Out" aria-hidden="true" />
+      <i class="fa-solid fa-sign-out" title="Sign Out" aria-hidden="true" />
     </span>
   {/if}
 
   {#if !$authStore.isLoggedIn}
     <a
       href="/"
-      title="Home"
+      title="Simulator"
       use:tooltip={navTooltipStyle}
       class:active={isPathOnHomePage($page.url.pathname)}
     >
-      <i class="fa fa-home" />
+      <i class="fa-solid fa-desktop" />
+    </a>
+
+    <a
+      href="/live"
+      title="Live Mode"
+      use:tooltip={navTooltipStyle}
+      class:active={$page.url.pathname.includes("live")}
+    >
+      <i class="fa-solid fa-bolt-lightning" />
     </a>
 
     <a
@@ -184,7 +191,7 @@
       use:tooltip={navTooltipStyle}
       class:active={$page.url.pathname.includes("code")}
     >
-      <i class="fa fa-code" />
+      <i class="fa-solid fa-code" />
     </a>
     <a
       href="/arduino"
@@ -192,7 +199,7 @@
       title="Upload"
       class:active={$page.url.pathname.includes("arduino")}
     >
-      <i class="fa fa-microchip" />
+      <i class="fa-solid fa-microchip" />
     </a>
 
     <a
@@ -202,9 +209,9 @@
       class:active={$page.url.pathname.includes("open")}
     >
       <i
-        class="fa"
-        class:fa-folder-open-o={!$page.url.pathname.includes("open")}
-        class:fa-folder-open={$page.url.pathname.includes("open")}
+        class="fa-folder-open"
+        class:fa-regular={!$page.url.pathname.includes("open")}
+        class:fa-solid={$page.url.pathname.includes("open")}
       />
     </a>
     <span
@@ -213,7 +220,7 @@
       on:click={onNewFileNoAuth}
       class="active"
     >
-      <i class="fa fa-file-o" />
+      <i class="fa-regular fa-file" />
     </span>
     <a
       href="/download"
@@ -221,7 +228,7 @@
       title="Download"
       class:active={$page.url.pathname.includes("download")}
     >
-      <i class="fa fa-download" />
+      <i class="fa-solid fa-download" />
     </a>
     <a
       href="/settings"
@@ -229,7 +236,7 @@
       title="Settings"
       class:active={$page.url.pathname.includes("settings")}
     >
-      <i class="fa fa-gears" />
+      <i class="fa-solid fa-gears" />
     </a>
     <a
       href="/login"
@@ -237,7 +244,7 @@
       title="Login"
       class:active={$page.url.pathname.includes("login")}
     >
-      <i class="fa fa-sign-in" />
+      <i class="fa-solid fa-sign-in" />
     </a>
   {/if}
   <a
@@ -246,7 +253,7 @@
       href="/about"
       class:active={$page.url.pathname.includes("about")}
     >
-      <i class="fa fa-info-circle" />
+      <i class="fa-solid fa-info-circle" />
     </a>
 </nav>
 {#if showSaveSuccess}
@@ -270,19 +277,17 @@
     max-width: 60%;
   }
 
-  nav .fa {
+  nav .fa-solid, nav .fa-light, nav .fa-solid {
     color: #505bda;
   }
   
   
 
-  nav a .fa,
-  nav span .fa,
-  nav .disabled .fa {
+  nav a i{    
     opacity: 0.5;
   }
 
-  nav .active .fa {
+  nav .active i {
     color: #505bda !important;
     opacity: 1;
   }
@@ -291,11 +296,11 @@
   nav span,
   label {
     float: left;
-    width: calc((100% - 170px) / 10);
+    width: calc((100% - 170px) / 11);
     text-align: center;
     padding: 2px 0;
     transition: all 0.3s ease;
-    color: white;
+    color: #858ddc;
     font-size: 3rem;
     cursor: pointer;
     line-height: 1px;
@@ -305,7 +310,7 @@
   nav.small a,
   nav.small span,
   nav.small label {
-    width: calc((100% - 170px) / 9);
+    width: calc((100% - 170px) / 10);
   }
   .logos {
     width: 170px!important;

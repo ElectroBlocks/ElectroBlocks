@@ -12,7 +12,10 @@ import { bluetoothSetupBlockToComponentState } from "../../../blocks/bluetooth/s
 import { buttonSetupBlockToComponentState } from "../../../blocks/button/setupblocktocomponentstate";
 import { irRemoteSetupBlocktoSensorData } from "../../../blocks/ir_remote/setupblocktosensordata";
 import { irRemoteSetupBlockToComponentState } from "../../../blocks/ir_remote/setupblocktocomponentstate";
-import { digitalSetupBlockToComponentState } from "../../../blocks/digitalsensor/setupblocktocomponentstate";
+import {
+  digitalReadSensorStringToComponentState,
+  digitalSetupBlockToComponentState,
+} from "../../../blocks/digitalsensor/setupblocktocomponentstate";
 import { digitalSetupBlockToSensorData } from "../../../blocks/digitalsensor/setupblocktosensordata";
 import { analogSetupBlockToComponentState } from "../../../blocks/analogsensor/setupblocktocomponentstate";
 import { analogSetupBlockToSensorData } from "../../../blocks/analogsensor/setupblocktosensordata";
@@ -30,13 +33,17 @@ import { thermistorSetupBlockToSensorData } from "../../../blocks/thermistor/set
 import { thermistorSetupBlockToComponentState } from "../../../blocks/thermistor/setupblocktocomponentstate";
 import { joyStickSetupBlocktoSensorData } from "../../../blocks/joystick/setupblocktosensordata";
 import { joystickSetupBlockToComponentState } from "../../../blocks/joystick/setupblocktocomponentstate";
-
+import arduinoStore from "../../../stores/arduino.store";
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
 }
 
 interface BlockToComponentState {
   (block: BlockData, timeline: Timeline): ArduinoComponentState;
+}
+
+interface SensorStringToComponentState {
+  (sensorStr: string, blocks: BlockData[]): ArduinoComponentState;
 }
 
 const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
@@ -52,6 +59,12 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   message_setup: messageSetupBlockToSensorData,
   thermistor_setup: thermistorSetupBlockToSensorData,
   joystick_setup: joyStickSetupBlocktoSensorData,
+};
+
+const sensorStringToComponentStateList: {
+  [sensorId: string]: SensorStringToComponentState;
+} = {
+  dr: digitalReadSensorStringToComponentState,
 };
 
 const blockToSensorComponent: {
@@ -72,6 +85,26 @@ const blockToSensorComponent: {
 };
 
 export const sensorSetupBlockName = _.keys(blockToSensorComponent);
+
+export const convertArduinoStringToSensorState = (
+  blocks: BlockData[],
+  allSensorDataStr: string
+): ArduinoComponentState[] => {
+  let components = [];
+  if (allSensorDataStr.length == 0) {
+    return components;
+  }
+  const sensorStrings = allSensorDataStr.split(";").filter((x) => x.length > 0);
+  for (const sensorString of sensorStrings) {
+    const [id] = sensorString.split(":");
+    const componentState = sensorStringToComponentStateList[id](
+      sensorString,
+      blocks
+    );
+    components.push(componentState);
+  }
+  return components;
+};
 
 export const convertToState = (
   block: BlockData,

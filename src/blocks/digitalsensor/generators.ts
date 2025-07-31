@@ -11,6 +11,18 @@ Blockly["Arduino"]["digital_read_setup"] = function (block: Block) {
   return "";
 };
 
+Blockly["Python"]["digital_read_setup"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+
+  return "";
+};
+
+Blockly["Python"]["digital_read"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+
+  return "";
+};
+
 Blockly["Arduino"]["digital_read"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
 
