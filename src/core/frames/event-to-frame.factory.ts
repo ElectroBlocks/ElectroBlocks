@@ -22,15 +22,24 @@ import {
 import { generateInputFrame } from "./transformer/block-to-frame.transformer";
 import { senseDataArduino } from "../../stores/arduino.store";
 
-export async function* generateNextFrame(event: BlockEvent) {
+export async function* generateNextFrame(
+  event: BlockEvent
+): AsyncGenerator<ArduinoFrame> {
   let frames = generatePreLoopFrames(event);
-  for (const frame of frames) {
-    yield frame;
+  for (let frame of frames) {
+    if (frame.timeLine.function == "setup") {
+      yield frame;
+    }
   }
 
   while (true) {
     const sensorDataString = await senseDataArduino();
-    frames = generateFramesWithLoop(event, frames, 1, sensorDataString);
+    frames = generateFramesWithLoop(
+      event,
+      frames[frames.length - 1],
+      1,
+      sensorDataString
+    );
     for (const frame of frames) {
       yield frame;
     }
@@ -41,19 +50,25 @@ export const eventToFrameFactory = (
   event: BlockEvent
 ): ArduinoFrameContainer => {
   const { blocks } = event;
-  let frames = generatePreLoopFrames(event);
+  let setupframes = generatePreLoopFrames(event);
   const loopTimes = getLoopTimeFromBlockData(blocks);
-  let framesWithLoop = generateFramesWithLoop(event, frames, loopTimes);
+  let framesWithLoop = generateFramesWithLoop(
+    event,
+    setupframes[setupframes.length - 1],
+    loopTimes
+  );
+  const frames = [...setupframes, ...framesWithLoop];
+  console.log(frames, "frames");
   return {
     board: event.microController,
-    frames: framesWithLoop,
+    frames,
     error: false,
   };
 };
 
 const generateFramesWithLoop = (
   event: BlockEvent,
-  frames: ArduinoFrame[],
+  previousFrame: ArduinoFrame,
   loopTimes: number,
   sensorDataString = ""
 ): ArduinoFrame[] => {
@@ -68,7 +83,7 @@ const generateFramesWithLoop = (
       }
       const timeLine: Timeline = {
         iteration: loopTime,
-        function: "loop",
+        function: sensorDataString.length == 0 ? "loop" : "realtime",
       };
       const previousFrame = _.isEmpty(prevFrames)
         ? undefined
@@ -99,8 +114,10 @@ const generateFramesWithLoop = (
 
       return [...prevFrames, ...frames];
     },
-    frames
+    [previousFrame]
   );
+  // Remove the first frame because it's presetup or undefined because there was no setup blocks.
+  framesWithLoop.shift();
   return framesWithLoop;
 };
 

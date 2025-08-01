@@ -7,6 +7,7 @@ import { get, writable } from "svelte/store";
 import { MicroControllerType } from "../core/microcontroller/microcontroller";
 import arduinoUnoHexCode from "../core/serial/arduino/arduino-firmware.hex?raw";
 import { onErrorMessage } from "../help/alerts";
+import { ArduinoFrame } from "../core/frames/arduino.frame";
 
 export enum PortState {
   OPEN,
@@ -260,3 +261,57 @@ export async function senseDataArduino() {
   sensorMessage = sensorMessage.replace("SENSE_COMPLETE", "");
   return sensorMessage;
 }
+
+export async function restartArduino() {
+  if (!arduinoStore.isConnected()) {
+    console.error("Port is not connected");
+    return "";
+  }
+  await arduinoStore.sendMessage("restart:|");
+  await waitForCommand("System:READY");
+}
+
+export const setupComponents = async (frame: ArduinoFrame) => {
+  let setupMessage = frame.components.reduce((acc, component) => {
+    if (component?.setupCommand === undefined) {
+      return acc;
+    }
+    return acc + component?.setupCommand + ";";
+  }, "");
+
+  if (setupMessage === "") {
+    return;
+  }
+  console.log("setupMessage", setupMessage);
+  arduinoStore.sendMessage(setupMessage);
+
+  await waitForCommand("DONE_NEXT_COMMAND");
+};
+
+export const updateComponents = async (frame: ArduinoFrame) => {
+  if (arduinoStore.isConnected() === false) {
+    console.info("Port is not connected");
+    return;
+  }
+  if (frame?.components === undefined) {
+    console.info("No components found");
+    return;
+  }
+  let usbMessage = frame.components.reduce((acc, component) => {
+    if (
+      component?.usbCommands === undefined ||
+      component?.usbCommands.length === 0
+    ) {
+      return acc;
+    }
+
+    return acc + component?.usbCommands.join(";");
+  }, "");
+  if (usbMessage === "") {
+    return;
+  }
+
+  arduinoStore.sendMessage(usbMessage);
+
+  await waitForCommand("DONE_NEXT_COMMAND");
+};

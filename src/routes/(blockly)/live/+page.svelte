@@ -1,30 +1,36 @@
 <script>
   import { onMount } from "svelte";
   import Simulator from "../../../components/electroblocks/home/Simulator.svelte";
-  import arduinoStore from "../../../stores/arduino.store";
+  import arduinoStore, {
+    restartArduino,
+    setupComponents,
+    updateComponents,
+  } from "../../../stores/arduino.store";
   import settingsStore from "../../../stores/settings.store";
-  import { getAllBlocks, getBlockByType } from "../../../core/blockly/helpers/block.helper";
+  import {
+    getAllBlocks,
+    getBlockByType,
+  } from "../../../core/blockly/helpers/block.helper";
   import { getAllVariables } from "../../../core/blockly/helpers/variable.helper";
   import { transformBlock } from "../../../core/blockly/transformers/block.transformer";
   import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
   import { transformVariable } from "../../../core/blockly/transformers/variables.transformer";
   import { generateNextFrame } from "../../../core/frames/event-to-frame.factory";
   import currentFrameStore from "../../../stores/currentFrame.store";
-  import { paintUsb } from "../../../core/usb/player";
+  import { wait } from "../../../helpers/wait";
   let isConnected = false;
   let generator;
   let isPlaying = false;
-  const createTestEvent = (
-  blockId,
-) => {
-  return {
-    blockId: blockId,
-    blocks: getAllBlocks().map(transformBlock),
-    variables: getAllVariables().map(transformVariable),
-    type: "move",
-    microController: MicroControllerType.ARDUINO_UNO,
+  let frameCount = 0;
+  const createTestEvent = (blockId) => {
+    return {
+      blockId: blockId,
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: "move",
+      microController: MicroControllerType.ARDUINO_UNO,
+    };
   };
-};
   async function connectOrEjectArduino() {
     if (arduinoStore.isConnected()) {
       await arduinoStore.disconnect();
@@ -32,24 +38,49 @@
     } else {
       // TODO see if the firmware is loaded before flashing it
       await arduinoStore.connectWithAndUploadFirmware($settingsStore.boardType);
-      var event = createTestEvent(getBlockByType('arduino_loop').id);
-      generator = generateNextFrame(event);
-      // Steps 
-      // 1. Restart the arduino command
-      // 2. If the frame is in a preset call right command have one command for everything
       isConnected = true;
     }
   }
-  async function play()
+
+  async function onPlayButton()
   {
-    if (isPlaying) {
+    if (!arduinoStore.isConnected() || isPlaying) return;
+    isPlaying = true;
+    await play();
+  }
+
+  function onStopButton()
+  {
+    if (!arduinoStore.isConnected()) return;
+    isPlaying = false;
+    frameCount = 0;
+  }
+
+  async function play() {
+    if (!isPlaying || !arduinoStore.isConnected()) {
       return;
     }
-    isPlaying = true;
-    const nextFrame = generator.next();
-    currentFrameStore.set(nextFrame.value);
-
-    await new Promise(resolve => setTimeout(resolve, 20)); // Simulate delay
+    console.log('first round');
+    if (frameCount == 0) {
+      var event = createTestEvent(getBlockByType("arduino_loop").id);
+      generator = generateNextFrame(event);
+      await restartArduino();
+      let frame = (await generator.next()).value;
+      await setupComponents(frame);
+      await updateComponents(frame);
+      currentFrameStore.set(frame);
+      frameCount += 1;
+      await wait(frame.delay);
+      await play();
+      return;
+    }
+    let frame = (await generator.next()).value;
+    frameCount += 1;
+    currentFrameStore.set(frame);
+    await updateComponents(frame);
+    await wait(frame.delay);
+    await wait(10); 
+    await play();
   }
   onMount(() => {
     isConnected = arduinoStore.isConnected();
@@ -67,10 +98,10 @@
       <h6>Status: Connected</h6>
     </div>
     <div class="col-auto">
-      <button disabled={!isConnected}>
+      <button on:click={onPlayButton}  disabled={!isConnected}>
         <i class="ph ph-play"></i>
       </button>
-      <button disabled={!isConnected}>
+      <button on:click={onStopButton} disabled={!isConnected}>
         <i class="ph ph-stop"></i>
       </button>
     </div>
