@@ -20,6 +20,21 @@ Blockly["Arduino"]["button_setup"] = function (block: BlockSvg) {
   return "";
 };
 
+Blockly["Python"]["button_setup"] = function (block: BlockSvg) {
+  const pin = block.getFieldValue("PIN");
+
+  Blockly["Python"].setupCode_[
+    "button_setup"
+  ] = `eb.config_button(${pin}) # Set up button for pin ${pin}.\n`;
+  return "";
+};
+
+Blockly["Python"]["is_button_pressed"] = function (block: BlockSvg) {
+  const pin = block.getFieldValue("PIN");
+
+  return [`eb.is_button_pressed(${pin})`, Blockly["Python"].ORDER_ATOMIC];
+};
+
 Blockly["Arduino"]["is_button_pressed"] = function (block: BlockSvg) {
   const pin = block.getFieldValue("PIN");
   const readType = Blockly["Arduino"].buttonTypes[pin].usePullupResistor

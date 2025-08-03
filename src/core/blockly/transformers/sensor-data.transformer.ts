@@ -9,7 +9,10 @@ import type {
 import { bluetoothSetupBlockToSensorData } from "../../../blocks/bluetooth/setupblocktosensordata";
 import { buttonSetupBlockToSensorData } from "../../../blocks/button/setupblocktosensordata";
 import { bluetoothSetupBlockToComponentState } from "../../../blocks/bluetooth/setupblocktocomponentstate";
-import { buttonSetupBlockToComponentState } from "../../../blocks/button/setupblocktocomponentstate";
+import {
+  buttonSetupBlockToComponentState,
+  buttonStringToComponentState,
+} from "../../../blocks/button/setupblocktocomponentstate";
 import { irRemoteSetupBlocktoSensorData } from "../../../blocks/ir_remote/setupblocktosensordata";
 import { irRemoteSetupBlockToComponentState } from "../../../blocks/ir_remote/setupblocktocomponentstate";
 import {
@@ -65,6 +68,7 @@ const sensorStringToComponentStateList: {
   [sensorId: string]: SensorStringToComponentState;
 } = {
   dr: digitalReadSensorStringToComponentState,
+  b: buttonStringToComponentState,
 };
 
 const blockToSensorComponent: {

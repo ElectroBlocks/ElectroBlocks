@@ -10,10 +10,10 @@ import { onErrorMessage } from "../help/alerts";
 import { ArduinoFrame } from "../core/frames/arduino.frame";
 
 export enum PortState {
-  OPEN,
-  CLOSE,
-  CONNECTING,
-  UPLOADING,
+  OPEN = "Open",
+  CLOSE = "Close",
+  CONNECTING = "Connecting",
+  UPLOADING = "Uploading",
 }
 
 const arduinoPortStore = writable<WebSerialPortPromise | null>(null);
@@ -278,7 +278,7 @@ export const setupComponents = async (frame: ArduinoFrame) => {
     }
     return acc + component?.setupCommand + ";";
   }, "");
-
+  console.log(setupMessage, "pre-test");
   if (setupMessage === "") {
     return;
   }

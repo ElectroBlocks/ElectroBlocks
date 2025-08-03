@@ -5,16 +5,16 @@
 #include <LiquidCrystal_I2C.h>
 #include <SoftwareSerial.h>
 #include <FastLED.h>
-#include <LedControlMS.h>
+// #include <LedControlMS.h>
 #include <DHT.h>
-#include <IRremote.h>
+#include <IRremote.hpp>
 #include <Stepper.h>
 #include <avr/wdt.h>
 
 #define MAX_LEDS 30
 
 // === Dynamic Pointers ===
-LedControl* ledMatrix = nullptr;
+// LedControl* ledMatrix = nullptr;
 Servo servos[4];
 LiquidCrystal_I2C* lcd = nullptr;
 DHT* dht = nullptr;
@@ -36,6 +36,7 @@ int tmPins[2] = { -1, -1 };
 int irPin = -1;
 int rfidPins[2] = { -1, -1 };
 int digitalReadPins[4] = { -1, -1, -1, -1 };
+int buttonPins[4] = { -1, -1, -1, -1 };
 int analogReadPin[4] = { -1, -1, -1, -1 };
 int stepperPins[4] = { -1, -1, -1, -1 };
 int ledPin = -1;
@@ -60,8 +61,8 @@ void updateRFID() {
 }
 
 void updateIR() {
-  if (irrecv && irrecv->decode(&results)) {
-    lastIR = results.value;
+  if (irrecv && irrecv->decode()) {
+    lastIR = new String(irrecv->decodedIRData.decodedRawData, HEX);
     irrecv->resume();
   }
 }
@@ -100,9 +101,20 @@ void updateSensors()
     Serial.print(F("dr:"));
     Serial.print(pin);
     Serial.print(F(":")); 
-    // We are doing because we using in input pull resistor
-    // This is a cheap idea to avoid using un needed electricity and electric noise
-    if (digitalRead(digitalReadPins[i]) == LOW) {
+    if (digitalRead(pin) == HIGH) {
+      Serial.print(F("1;"));
+    } else {
+      Serial.print(F("0;"));
+    }
+  }
+
+  for (int i = 0; i < 4; i += 1) {
+    if (buttonPins[i] == -1) continue;
+    int pin = buttonPins[i];
+    Serial.print(F("b:"));
+    Serial.print(pin);
+    Serial.print(F(":")); 
+    if (digitalRead(buttonPins[i]) == HIGH) {
       Serial.print(F("1;"));
     } else {
       Serial.print(F("0;"));
@@ -111,11 +123,12 @@ void updateSensors()
 
   for (int i = 0; i < 4; i += 1) {
     if (analogReadPin[i] == -1) continue;
-    int pinState = analogRead(analogReadPin[i]);
     char pin = '0' + analogReadPin[i];
+    int pinState = analogRead(pin);
     Serial.print(F("ar:"));
     Serial.print(pin  + ':' + pinState);
   }
+  Serial.print(F("SENSE_COMPLETE\n"));
 }
 
 void handleconfig(String key, String value) {
@@ -156,13 +169,18 @@ void handleconfig(String key, String value) {
     lcd->init();
     lcd->backlight();
     Serial.println(F("config:LCD=OK"));
+  }  else if (key == "ir") {
+    irPin = value.toInt();
+    irrecv = new IRrecv(irPin);
+    irrecv->enableIRIn();
+    Serial.println(F("config:IR=OK"));
   } else if (key == "dr") {
     int digitalReadPin = value.toInt();
     bool assigned = false;
     for (int i = 0; i < 4; i += 1) {
       if (digitalReadPins[i] == -1) {
         digitalReadPins[i] = digitalReadPin;
-        pinMode(digitalReadPin, INPUT_PULLUP);
+        pinMode(digitalReadPin, INPUT);
         assigned = true;
         break;
       }
@@ -170,14 +188,24 @@ void handleconfig(String key, String value) {
     if (!assigned) {
       Serial.println(F("Config:DigitalRead=NoSlotAvailable"));
     }
+  }
+  else if (key == "b") {
+    int buttonPin = value.toInt();
+    bool assigned = false;
+    for (int i = 0; i < 4; i += 1) {
+      if (buttonPins[i] == -1) {
+        buttonPins[i] = buttonPin;
+        // Cheap Trick to have no power used
+        pinMode(buttonPin, INPUT_PULLUP);
+        assigned = true;
+        break;
+      }
+    }
+    if (!assigned) {
+      Serial.println(F("Config:ButtonRead=NoSlotAvailable"));
+    }
   }  
-  
-  else if (key == "ir") {
-    irPin = value.toInt();
-    irrecv = new IRrecv(irPin);
-    irrecv->enableIRIn();
-    Serial.println(F("config:IR=OK"));
-  } else if (key == "rfid") {
+  else if (key == "rfid") {
     int sep = value.indexOf(',');
     rfidPins[0] = value.substring(0, sep).toInt();
     rfidPins[1] = value.substring(sep + 1).toInt();
@@ -197,22 +225,24 @@ void handleconfig(String key, String value) {
   } else if (key == "thermistor") {
     thermistorPin = value.toInt();
     Serial.println(F("config:Thermistor=OK"));
-  } else if (key == "matrix") {
-    int p1 = value.indexOf(',');
-    int p2 = value.indexOf(',', p1 + 1);
-    int p3 = value.indexOf(',', p2 + 1);
-    int dataPin = value.substring(0, p1).toInt();
-    int clkPin = value.substring(p1 + 1, p2).toInt();
-    int csPin = value.substring(p2 + 1, p3).toInt();
-    int numDevices = value.substring(p3 + 1).toInt();
-    ledMatrix = new LedControl(dataPin, clkPin, csPin, numDevices);
-    for (int i = 0; i < numDevices; i++) {
-      ledMatrix->shutdown(i, false);
-      ledMatrix->setIntensity(i, 8);
-      ledMatrix->clearDisplay(i);
-    }
-    Serial.println("config:Matrix=OK");
-  } else if (key == "bluetooth") {
+  } 
+  // else if (key == "matrix") {
+  //   int p1 = value.indexOf(',');
+  //   int p2 = value.indexOf(',', p1 + 1);
+  //   int p3 = value.indexOf(',', p2 + 1);
+  //   int dataPin = value.substring(0, p1).toInt();
+  //   int clkPin = value.substring(p1 + 1, p2).toInt();
+  //   int csPin = value.substring(p2 + 1, p3).toInt();
+  //   int numDevices = value.substring(p3 + 1).toInt();
+  //   ledMatrix = new LedControl(dataPin, clkPin, csPin, numDevices);
+  //   for (int i = 0; i < numDevices; i++) {
+  //     ledMatrix->shutdown(i, false);
+  //     ledMatrix->setIntensity(i, 8);
+  //     ledMatrix->clearDisplay(i);
+  //   }
+  //   Serial.println("config:Matrix=OK");
+  // }
+   else if (key == "bluetooth") {
     int sep = value.indexOf(',');
     int rx = value.substring(0, sep).toInt();
     int tx = value.substring(sep + 1).toInt();
@@ -228,9 +258,7 @@ void handleconfig(String key, String value) {
 void handleCommand(String input) {
   input.trim();
 
-  if (input == "sense") {
-    updateSensors();
-  } else if (input.startsWith("s:")) {
+   if (input.startsWith("s:")) {
     int first = input.indexOf(":");
     int second = input.indexOf(":", first + 1);
     if (second != -1) {
@@ -339,13 +367,11 @@ void handleCommand(String input) {
     wdt_enable(WDTO_15MS);
     while (1);
   } else if (input.startsWith("dw:")) {
-    unsigned long t = micros();
     int pin = input.substring(3, input.indexOf(':', 3)).toInt();
     int value = input.substring(input.indexOf(':', 3) + 1).toInt();
     pinMode(pin, OUTPUT);
     digitalWrite(pin, value);
-    Serial.println(F("OK"));
-    Serial.println(micros() - t); // how long it took
+    Serial.println(F("DigitalWrite:OK"));
   } else if (input.startsWith("dr:")) {
     int pin = input.substring(3).toInt();
     pinMode(pin, INPUT);
@@ -382,25 +408,27 @@ void handleCommand(String input) {
     String msg = input.substring(3);
     Serial.println(msg);
     Serial.println(F("SerialWrite:OK"));
-  } else if (input.startsWith("matrix:") && ledMatrix) {
-    String values = input.substring(7);
-    int lastComma = -1;
-    byte rows[8];
-    for (int i = 0; i < 8; i++) {
-      int nextComma = values.indexOf(',', lastComma + 1);
-      if (i < 7 && nextComma == -1) {
-        Serial.println(F("Matrix:INVALID_ROWS"));
-        return;
-      }
-      String val = (i < 7) ? values.substring(lastComma + 1, nextComma) : values.substring(lastComma + 1);
-      rows[i] = (byte)val.toInt();
-      lastComma = nextComma;
-    }
-    for (int i = 0; i < 8; i++) {
-      ledMatrix->setRow(0, i, rows[i]);
-    }
-    Serial.println(F("Matrix:OK"));
-  } else {
+  } 
+  // else if (input.startsWith("matrix:") && ledMatrix) {
+  //   String values = input.substring(7);
+  //   int lastComma = -1;
+  //   byte rows[8];
+  //   for (int i = 0; i < 8; i++) {
+  //     int nextComma = values.indexOf(',', lastComma + 1);
+  //     if (i < 7 && nextComma == -1) {
+  //       Serial.println(F("Matrix:INVALID_ROWS"));
+  //       return;
+  //     }
+  //     String val = (i < 7) ? values.substring(lastComma + 1, nextComma) : values.substring(lastComma + 1);
+  //     rows[i] = (byte)val.toInt();
+  //     lastComma = nextComma;
+  //   }
+  //   for (int i = 0; i < 8; i++) {
+  //     ledMatrix->setRow(0, i, rows[i]);
+  //   }
+  //   Serial.println(F("Matrix:OK"));
+  // } 
+  else {
     Serial.print(F("Unknown Command: "));
     Serial.println(input);
   }
@@ -410,15 +438,15 @@ void handleCommand(String input) {
 
 void loop() {
   if (Serial.available()) {
-    unsigned long t = micros();
     String input = Serial.readStringUntil('|');
     input.trim();
-    if (input.length() == 0) {
-      return;
-    }
 
     if(input == "IAM_READY") {
       Serial.println(F("System:READY"));
+      return;
+    }
+    if (input == "sense") {
+      updateSensors();
       return;
     }
 
@@ -427,7 +455,6 @@ void loop() {
     String commands[maxCommands];
 
     int start = 0;
-
     while (start < input.length() && commandCount < maxCommands) {
       int end = input.indexOf(';', start);
       if (end == -1) {
@@ -439,20 +466,20 @@ void loop() {
 
     for (int i = 0; i < commandCount; i++) {
       String cmd = commands[i];
-      if (input.startsWith("config:")) {
-        int eq = input.indexOf('=');
+      if (cmd.startsWith("config:")) {
+        int eq = cmd.indexOf('=');
         if (eq != -1) {
-          String key = input.substring(7, eq);
-          String val = input.substring(eq + 1);
+          String key = cmd.substring(7, eq);
+          String val = cmd.substring(eq + 1);
           handleconfig(key, val);
         } else {
           Serial.println(F("config:INVALID_FORMAT"));
         }
       } else {
-        handleCommand(input);
+        handleCommand(cmd);
       }
-
     }
+    
     Serial.println(F("DONE_NEXT_COMMAND"));
   }
 }

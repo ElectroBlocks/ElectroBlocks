@@ -25,7 +25,9 @@ import { senseDataArduino } from "../../stores/arduino.store";
 export async function* generateNextFrame(
   event: BlockEvent
 ): AsyncGenerator<ArduinoFrame> {
-  let frames = generatePreLoopFrames(event);
+  debugger;
+  let sensorDataString = await senseDataArduino();
+  let frames = generatePreLoopFrames(event, sensorDataString);
   for (let frame of frames) {
     if (frame.timeLine.function == "setup") {
       yield frame;
@@ -33,7 +35,7 @@ export async function* generateNextFrame(
   }
 
   while (true) {
-    const sensorDataString = await senseDataArduino();
+    sensorDataString = await senseDataArduino();
     frames = generateFramesWithLoop(
       event,
       frames[frames.length - 1],
@@ -121,7 +123,10 @@ const generateFramesWithLoop = (
   return framesWithLoop;
 };
 
-const generatePreLoopFrames = (event: BlockEvent): ArduinoFrame[] => {
+const generatePreLoopFrames = (
+  event: BlockEvent,
+  sensorDataStr = ""
+): ArduinoFrame[] => {
   const { blocks } = event;
 
   const preSetupBlockType = [
@@ -135,11 +140,16 @@ const generatePreLoopFrames = (event: BlockEvent): ArduinoFrame[] => {
   );
 
   const frames: ArduinoFrame[] = preSetupBlocks.reduce((prevFrames, block) => {
-    const previousState =
+    const frame =
       prevFrames.length === 0
         ? undefined
         : _.cloneDeep(prevFrames[prevFrames.length - 1]);
-
+    const previousFrame = getPreviousState(
+      blocks,
+      { function: "pre-setup", iteration: 0 },
+      frame,
+      sensorDataStr
+    );
     return [
       ...prevFrames,
       ...generateFrame(
@@ -147,7 +157,7 @@ const generatePreLoopFrames = (event: BlockEvent): ArduinoFrame[] => {
         block,
         event.variables,
         { iteration: 0, function: "pre-setup" },
-        previousState
+        previousFrame
       ),
     ];
   }, []);
@@ -194,7 +204,7 @@ const getPreviousState = (
     sensorSetupBlockName.includes(b.blockName)
   );
 
-  if (timeline.function == "realtime") {
+  if (sensorDataString.length > 0) {
     const newComponents = [
       ...nonSensorComponent,
       ...convertArduinoStringToSensorState(blocks, sensorDataString),

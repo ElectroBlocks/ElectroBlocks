@@ -293,8 +293,7 @@
   }
 
   nav a,
-  nav span,
-  label {
+  nav span {
     float: left;
     width: calc((100% - 170px) / 11);
     text-align: center;
@@ -308,12 +307,12 @@
     margin-top: 3px;
   }
   nav.small a,
-  nav.small span,
-  nav.small label {
+  nav.small span {
     width: calc((100% - 170px) / 10);
   }
   .logos {
     width: 170px!important;
+    color: transparent;
   }
   #saved {
     position: absolute;

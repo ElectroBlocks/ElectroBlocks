@@ -5,7 +5,7 @@
   import { WindowType, resizeStore } from '../../stores/resize.store';
   import startBlockly from '../../core/blockly/startBlockly';
   import currentFrameStore from '../../stores/currentFrame.store';
-  import arduinoStore, { usbMessageStore } from '../../stores/arduino.store';
+  import { usbMessageStore } from '../../stores/arduino.store';
   import settingsStore from '../../stores/settings.store';
   import {
     arduinoLoopBlockShowLoopForeverText,
@@ -85,15 +85,7 @@
       }
     })
   );
-
-  // Tells us the state of the port we always want to subscribe to this
-  // while blockly is running. Even though the message component is the only one that should
-  // set this
-  unsubscribes.push(
-    arduinoStore.subscribe((m) =>
-      console.log(m, 'arduino store blockly component')
-    )
-  );
+  
 
   unsubscribes.push(settingsStore.subscribe((settings) => {
     if (!settings) {

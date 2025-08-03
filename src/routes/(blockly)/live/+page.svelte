@@ -2,6 +2,8 @@
   import { onMount } from "svelte";
   import Simulator from "../../../components/electroblocks/home/Simulator.svelte";
   import arduinoStore, {
+  PortState,
+  portStateStoreSub,
     restartArduino,
     setupComponents,
     updateComponents,
@@ -18,7 +20,7 @@
   import { generateNextFrame } from "../../../core/frames/event-to-frame.factory";
   import currentFrameStore from "../../../stores/currentFrame.store";
   import { wait } from "../../../helpers/wait";
-  let isConnected = false;
+  import frameStore from "../../../stores/frame.store";
   let generator;
   let isPlaying = false;
   let frameCount = 0;
@@ -34,13 +36,16 @@
   async function connectOrEjectArduino() {
     if (arduinoStore.isConnected()) {
       await arduinoStore.disconnect();
-      isConnected = false;
     } else {
       // TODO see if the firmware is loaded before flashing it
       await arduinoStore.connectWithAndUploadFirmware($settingsStore.boardType);
-      isConnected = true;
     }
   }
+
+  frameStore.subscribe(container => {
+    console.log('frame change');
+    frameCount = 0;
+  });
 
   async function onPlayButton()
   {
@@ -51,13 +56,12 @@
 
   function onStopButton()
   {
-    if (!arduinoStore.isConnected()) return;
     isPlaying = false;
     frameCount = 0;
   }
 
   async function play() {
-    if (!isPlaying || !arduinoStore.isConnected()) {
+    if (!isPlaying || $portStateStoreSub != PortState.OPEN) {
       return;
     }
     console.log('first round');
@@ -65,8 +69,11 @@
       var event = createTestEvent(getBlockByType("arduino_loop").id);
       generator = generateNextFrame(event);
       await restartArduino();
+      let setupFrameCommands =  $frameStore.frames[$frameStore.frames.length - 1];
+      // We need to register all the sensors before we start generating new frames
+      await setupComponents(setupFrameCommands);
       let frame = (await generator.next()).value;
-      await setupComponents(frame);
+      console.log(frame, 'frame-test-most');
       await updateComponents(frame);
       currentFrameStore.set(frame);
       frameCount += 1;
@@ -79,12 +86,10 @@
     currentFrameStore.set(frame);
     await updateComponents(frame);
     await wait(frame.delay);
-    await wait(10); 
+    await wait(100); 
     await play();
   }
-  onMount(() => {
-    isConnected = arduinoStore.isConnected();
-  });
+  
 </script>
 
 <main style="height: 100px;">
@@ -95,18 +100,18 @@
       </button>
     </div>
     <div class="col text-center">
-      <h6>Status: Connected</h6>
+      <h6>Arduino Status: {$portStateStoreSub.toString()}</h6>
     </div>
     <div class="col-auto">
-      <button on:click={onPlayButton}  disabled={!isConnected}>
+      <button on:click={onPlayButton}  disabled={$portStateStoreSub !== PortState.OPEN}>
         <i class="ph ph-play"></i>
       </button>
-      <button on:click={onStopButton} disabled={!isConnected}>
+      <button on:click={onStopButton} disabled={$portStateStoreSub !== PortState.OPEN}>
         <i class="ph ph-stop"></i>
       </button>
     </div>
     <div class="row">
-      <h3>Arduino is turning LED on.</h3>
+      <h3 class="text-center">{$currentFrameStore?.explanation ?? '' }</h3>
     </div>
   </div>
 </main>
