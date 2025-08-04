@@ -13,13 +13,15 @@ export const ultraSonicSensor: BlockToFrameTransformer = (
 ) => {
   const sensorDatum = JSON.parse(block.metaData) as UltraSonicSensor[];
   const sensorData = sensorDatum.find((d) => d.loop === 1) as UltraSonicSensor;
-
+  const echoPin = findFieldValue(block, "PIN_ECHO");
+  const trigPin = findFieldValue(block, "PIN_TRIG");
   const ultraSonicState: UltraSonicSensorState = {
     cm: sensorData.cm,
     pins: block.pins.sort(),
-    trigPin: findFieldValue(block, "PIN_TRIG"),
-    echoPin: findFieldValue(block, "PIN_ECHO"),
+    trigPin,
+    echoPin,
     type: ArduinoComponentType.ULTRASONICE_SENSOR,
+    setupCommand: `config:m=${echoPin},${trigPin}`,
   };
 
   return [

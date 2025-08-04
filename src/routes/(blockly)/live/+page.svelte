@@ -64,12 +64,12 @@
     if (!isPlaying || $portStateStoreSub != PortState.OPEN) {
       return;
     }
-    console.log('first round');
     if (frameCount == 0) {
       var event = createTestEvent(getBlockByType("arduino_loop").id);
       generator = generateNextFrame(event);
       await restartArduino();
       let setupFrameCommands =  $frameStore.frames[$frameStore.frames.length - 1];
+      console.log(setupFrameCommands);
       // We need to register all the sensors before we start generating new frames
       await setupComponents(setupFrameCommands);
       let frame = (await generator.next()).value;

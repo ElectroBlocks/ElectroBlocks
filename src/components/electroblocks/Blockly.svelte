@@ -18,7 +18,7 @@
   } from '../../core/blockly/helpers/block.helper';
   import updateLoopblockStore from '../../stores/update-loopblock.store';
   import { workspaceToXML } from '../../core/blockly/helpers/workspace.helper';
-  import { getToolBoxString } from '../../core/blockly/toolbox';
+  import { getToolBoxString } from '../../core/blockly/toolboxConfig';
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text

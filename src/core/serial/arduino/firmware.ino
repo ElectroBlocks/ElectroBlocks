@@ -40,6 +40,8 @@ int buttonPins[4] = { -1, -1, -1, -1 };
 int analogReadPin[4] = { -1, -1, -1, -1 };
 int stepperPins[4] = { -1, -1, -1, -1 };
 int ledPin = -1;
+int echoPin = -1;
+int trigPin = -1;
 
 unsigned long lastIR = 0;
 String lastRFID = "";
@@ -73,15 +75,15 @@ float readThermistor() {
   return (voltage - 0.5) * 100;
 }
 
-long readUltrasonic(int trig, int echo) {
-  pinMode(trig, OUTPUT);
-  pinMode(echo, INPUT);
-  digitalWrite(trig, LOW);
+long readUltrasonic() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
-  digitalWrite(trig, HIGH);
+  digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trig, LOW);
-  return pulseIn(echo, HIGH) / 58;
+  digitalWrite(trigPin, LOW);
+  return pulseIn(echoPin, HIGH) / 58;
 }
 
 void setRGB(int r, int g, int b) {
@@ -95,6 +97,12 @@ void updateSensors()
 {
   updateRFID();
   updateIR();
+  if (trigPin != -1 && echoPin != -1) {
+    int cm = readUltrasonic();
+    Serial.print(F("m:0:"));
+    Serial.print(cm);
+    Serial.print(F(";"));
+  }
   for (int i = 0; i < 4; i += 1) {
     if (digitalReadPins[i] == -1) continue;
     int pin = digitalReadPins[i];
@@ -114,7 +122,8 @@ void updateSensors()
     Serial.print(F("b:"));
     Serial.print(pin);
     Serial.print(F(":")); 
-    if (digitalRead(buttonPins[i]) == HIGH) {
+    // Caused by the input pullup resistor
+    if (digitalRead(buttonPins[i]) == LOW) {
       Serial.print(F("1;"));
     } else {
       Serial.print(F("0;"));
@@ -150,7 +159,14 @@ void handleconfig(String key, String value) {
     if (!assigned) {
       Serial.println(F("Config:Servo=NO_AVAILABLE_SLOT"));
     }
-  } else if (key == "rgb") {
+  } 
+  else if (key == "m") {
+    int echoIndex = value.indexOf(',');
+    echoPin = value.substring(0, echoIndex).toInt();
+    trigPin = value.substring(echoIndex + 1).toInt();
+    Serial.println(F("config:m=OK"));
+  }
+  else if (key == "rgb") {
     int a = value.indexOf(',');
     int b = value.indexOf(',', a + 1);
     rgbPins[0] = value.substring(0, a).toInt();

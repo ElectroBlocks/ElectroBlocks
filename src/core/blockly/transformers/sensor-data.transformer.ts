@@ -27,7 +27,10 @@ import { messageSetupBlockToSensorData } from "../../../blocks/message/setupbloc
 import { timeSetupBlockToSensorData } from "../../../blocks/time/setupblocktosensordata";
 import { timeSetupBlockToComponentState } from "../../../blocks/time/setupblocktocomponentstate";
 import { ultraSonicSetupBlockToSensorData } from "../../../blocks/ultrasonic_sensor/setupblocktosensordata";
-import { ultraSonicSetupBlockToComponentState } from "../../../blocks/ultrasonic_sensor/setupblocktocomponentstate";
+import {
+  ultraSonicSetupBlockToComponentState,
+  utraSonicStringToComponentState,
+} from "../../../blocks/ultrasonic_sensor/setupblocktocomponentstate";
 import { rfidSetupBlockToSensorData } from "../../../blocks/rfid/setupblocktosensordata";
 import { rfidSetupBlockToComponentState } from "../../../blocks/rfid/setupblocktocomponentstate";
 import { temperatureSetupBlockToSensorData } from "../../../blocks/temperature/setupblocktosensordata";
@@ -69,6 +72,7 @@ const sensorStringToComponentStateList: {
 } = {
   dr: digitalReadSensorStringToComponentState,
   b: buttonStringToComponentState,
+  m: utraSonicStringToComponentState,
 };
 
 const blockToSensorComponent: {
