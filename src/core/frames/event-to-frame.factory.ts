@@ -25,7 +25,6 @@ import { senseDataArduino } from "../../stores/arduino.store";
 export async function* generateNextFrame(
   event: BlockEvent
 ): AsyncGenerator<ArduinoFrame> {
-  debugger;
   let sensorDataString = await senseDataArduino();
   let frames = generatePreLoopFrames(event, sensorDataString);
   for (let frame of frames) {

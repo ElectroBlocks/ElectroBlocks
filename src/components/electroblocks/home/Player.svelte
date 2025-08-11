@@ -6,15 +6,18 @@
   import currentStepStore from "../../../stores/currentStep.store";
   import settingStore from "../../../stores/settings.store";
   import { onConfirm, onErrorMessage, onSuccess } from "../../../help/alerts";
-  import { getAllBlocks } from "../../../core/blockly/helpers/block.helper";
+  import { getAllBlocks, getBlockByType } from "../../../core/blockly/helpers/block.helper";
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
   import { tooltip } from "@svelte-plugins/tooltips";
   import arduinoStore, {
     PortState,
     portStateStoreSub,
+    restartArduino,
+    setupComponents,
     SimulatorMode,
     simulatorStore,
+    updateComponents,
   } from "../../../stores/arduino.store";
   import Icon from "../../Icon.svelte";
   import {
@@ -25,6 +28,11 @@
     mdiStopCircle,
     mdiUploadCircleOutline,
   } from "@mdi/js";
+  import { generateNextFrame } from "../../../core/frames/event-to-frame.factory";
+  import { getAllVariables } from "../../../core/blockly/helpers/variable.helper";
+  import { transformBlock } from "../../../core/blockly/transformers/block.transformer";
+  import { transformVariable } from "../../../core/blockly/transformers/variables.transformer";
+  import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
 
   const playerTooltips = {
     position: "top",
@@ -38,6 +46,12 @@
   let playing = false;
   let speedDivisor = 1;
   let maxTimePerStep = 1000;
+
+  // Live Player
+  let generator;
+  let isPlaying = false;
+  let frameCount = 0;
+
 
   const unsubscribes = [];
 
@@ -53,6 +67,7 @@
 
   function exitLiveMode() {
     simulatorStore.set(SimulatorMode.VIRTUAL);
+    onStopButton();
   }
 
   async function goToLiveMode() {
@@ -137,6 +152,59 @@ Click Ok to confirm and get started!`);
   function setCurrentFrame(frameNumber) {
     currentFrameStore.set(frames[frameNumber]);
     currentStepStore.set(frameNumber);
+  }
+
+  const createBlocklyEvent = (blockId) => {
+    return {
+      blockId: blockId,
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: "move",
+      microController: MicroControllerType.ARDUINO_UNO,
+    };
+  };
+
+  async function playLive() {
+    if (!isPlaying || $portStateStoreSub != PortState.OPEN) {
+      return;
+    }
+    if (frameCount == 0) {
+      var event = createBlocklyEvent(getBlockByType("arduino_loop").id);
+      generator = generateNextFrame(event);
+      await restartArduino();
+      let setupFrameCommands =  $frameStore.frames[$frameStore.frames.length - 1];
+      console.log(setupFrameCommands);
+      // We need to register all the sensors before we start generating new frames
+      await setupComponents(setupFrameCommands);
+      let frame = (await generator.next()).value;
+      console.log(frame, 'frame-test-most');
+      await updateComponents(frame);
+      currentFrameStore.set(frame);
+      frameCount += 1;
+      await wait(frame.delay);
+      await playLive();
+      return;
+    }
+    let frame = (await generator.next()).value;
+    frameCount += 1;
+    currentFrameStore.set(frame);
+    await updateComponents(frame);
+    await wait(frame.delay);
+    await wait(100); 
+    await playLive();
+  }
+
+  async function onPlayButton()
+  {
+    if (!arduinoStore.isConnected() || isPlaying) return;
+    isPlaying = true;
+    await playLive();
+  }
+
+  function onStopButton()
+  {
+    isPlaying = false;
+    frameCount = 0;
   }
 
   async function play() {
@@ -316,11 +384,11 @@ Click Ok to confirm and get started!`);
         <Icon color="#aa0000" path={mdiEjectOutline} size={40} />
       </span>
     </span>
-    {#if playing}
+    {#if isPlaying}
       <span
         use:tooltip
         title="Stop"
-        on:click={play}
+        on:click={onStopButton}
         id="video-debug-play"
         class:disable={disablePlayer}
       >
@@ -330,7 +398,7 @@ Click Ok to confirm and get started!`);
       <span
         use:tooltip
         title="Play"
-        on:click={play}
+        on:click={onPlayButton}
         id="video-debug-play"
         class:disable={disablePlayer}
       >
@@ -349,6 +417,7 @@ Click Ok to confirm and get started!`);
     position: relative;
     width: 100%;
     height: 40px;
+    overflow: visible;
   }
 
   #main-player {
@@ -423,6 +492,7 @@ Click Ok to confirm and get started!`);
     top: 0px;
     height: 45px;
     width: 100px;
+    overflow: visible;
   }
   #side-options .live-mode {
     color: #b063c5;
@@ -487,9 +557,6 @@ Click Ok to confirm and get started!`);
     box-shadow: none;
   }
   :global(div.tooltip.player-tooltips) {
-    border: red 3px;
-    position: absolute;
-    bottom: 4px !important;
-    left: 10xp;
+    z-index: 1000;
   }
 </style>
