@@ -17,7 +17,9 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { tooltip } from "@svelte-plugins/tooltips";
-
+  import Icon from "../Icon.svelte";
+  import { mdiCarSettings, mdiCodeBraces, mdiCodeBracesBox, mdiCogOutline, mdiDownload, mdiFile, mdiFloppy, mdiFolder, mdiFolderOpen, mdiGaugeEmpty, mdiInformation, mdiLightningBolt, mdiLogin, mdiLogout, mdiMemory, mdiMonitor, mdiWrench } from "@mdi/js";
+  
   let canSave = true;
   let showSaveSuccess = false;
   let params = "";
@@ -89,6 +91,7 @@
       onErrorMessage("Please try again in 5 minutes", e);
     }
   }
+
 </script>
 
 <nav class:small={!$authStore.isLoggedIn}>
@@ -103,7 +106,7 @@
       href="/{params}"
       class:active={isPathOnHomePage($page.url.pathname)}
     >
-      <i class="fa-light fa-desktop" title="Simulator" use:tooltip={navTooltipStyle} />
+    <Icon path={mdiMonitor} size={50} />
     </a>
 
     <a
@@ -112,7 +115,7 @@
       use:tooltip={navTooltipStyle}
       class:active={$page.url.pathname.includes("code")}
     >
-      <i class="fa-solid fa-code" />
+      <Icon path={mdiCodeBraces} size={50} />
     </a>
     <a
       href="/arduino{params}"
@@ -120,7 +123,7 @@
       title="Upload"
       class:active={$page.url.pathname.includes("arduino")}
     >
-      <i class="fa-solid fa-microchip" />
+          <Icon path={mdiMemory} size={50} />
     </a>
 
     <a
@@ -129,40 +132,40 @@
       title="My Projects"
       class:active={$page.url.pathname.includes('open')}
     >
-      <i
-        class="fa-solid fa-folder-open"
-      />
+            <Icon path={mdiFolderOpen} size={50} />
+
     </a>
     <span
       title="New File/Blank File"
       use:tooltip={navTooltipStyle}
       on:click={onNewFileAuth}
     >
-      <i class="fa-solid fa-file" />
+          <Icon path={mdiFile} size={50} />
     </span>
     <span
       title="Save Project"
       use:tooltip={navTooltipStyle}
-      on:click={onSaveClick}><i class="fa-solid fa-floppy-disk" /></span
-    >
+      on:click={onSaveClick} >
+          <Icon path={mdiFloppy} size={50} />
+          </span>
     <a
       title="Project Settings"
       href="/project-settings"
       use:tooltip={navTooltipStyle}
       class:active={$page.url.pathname.includes("project-settings")}
     >
-      <i class="fa-solid fa-wrench" aria-hidden="true" />
+          <Icon path={mdiWrench} size={50} />
     </a>
     <a
       title="Settings"
       use:tooltip={navTooltipStyle}
       href="/settings"
-      class:active={$page.url.pathname.includes('settings')}
+      class:active={$page.url.pathname.includes('/settings')}
     >
-      <i class="fa-solid fa-gears" />
+      <Icon path={mdiCogOutline} size={50} />
     </a>
     <span use:tooltip={navTooltipStyle} on:click={onSignOut} title="Sign Out">
-      <i class="fa-solid fa-sign-out" title="Sign Out" aria-hidden="true" />
+          <Icon path={mdiLogout} size={50} />
     </span>
   {/if}
 
@@ -173,16 +176,8 @@
       use:tooltip={navTooltipStyle}
       class:active={isPathOnHomePage($page.url.pathname)}
     >
-      <i class="fa-solid fa-desktop" />
-    </a>
-
-    <a
-      href="/live"
-      title="Live Mode"
-      use:tooltip={navTooltipStyle}
-      class:active={$page.url.pathname.includes("live")}
-    >
-      <i class="fa-solid fa-bolt-lightning" />
+    <Icon path={mdiMonitor} size={50} />
+      <!-- <i class="fa-solid fa-desktop" /> -->
     </a>
 
     <a
@@ -191,7 +186,9 @@
       use:tooltip={navTooltipStyle}
       class:active={$page.url.pathname.includes("code")}
     >
-      <i class="fa-solid fa-code" />
+      <Icon path={mdiCodeBraces} size={50} />
+
+      <!-- <i class="fa-solid fa-code" /> -->
     </a>
     <a
       href="/arduino"
@@ -199,7 +196,9 @@
       title="Upload"
       class:active={$page.url.pathname.includes("arduino")}
     >
-      <i class="fa-solid fa-microchip" />
+          <Icon path={mdiMemory} size={50} />
+
+      <!-- <i class="fa-solid fa-microchip" /> -->
     </a>
 
     <a
@@ -208,11 +207,13 @@
       title="Projects"
       class:active={$page.url.pathname.includes("open")}
     >
-      <i
+      <!-- <i
         class="fa-folder-open"
         class:fa-regular={!$page.url.pathname.includes("open")}
         class:fa-solid={$page.url.pathname.includes("open")}
-      />
+      /> -->
+      <Icon path={mdiFolderOpen} size={50} />
+
     </a>
     <span
       use:tooltip={navTooltipStyle}
@@ -220,7 +221,9 @@
       on:click={onNewFileNoAuth}
       class="active"
     >
-      <i class="fa-regular fa-file" />
+          <Icon path={mdiFile} size={50} />
+
+      <!-- <i class="fa-regular fa-file" /> -->
     </span>
     <a
       href="/download"
@@ -228,7 +231,9 @@
       title="Download"
       class:active={$page.url.pathname.includes("download")}
     >
-      <i class="fa-solid fa-download" />
+              <Icon path={mdiDownload} size={50} />
+
+      <!-- <i class="fa-solid fa-download" /> -->
     </a>
     <a
       href="/settings"
@@ -236,7 +241,8 @@
       title="Settings"
       class:active={$page.url.pathname.includes("settings")}
     >
-      <i class="fa-solid fa-gears" />
+      <Icon path={mdiCogOutline} size={50} />
+      <!-- <i class="fa-solid fa-gears" /> -->
     </a>
     <a
       href="/login"
@@ -244,7 +250,9 @@
       title="Login"
       class:active={$page.url.pathname.includes("login")}
     >
-      <i class="fa-solid fa-sign-in" />
+      <Icon path={mdiLogin} size={50} />
+
+      <!-- <i class="fa-solid fa-sign-in" /> -->
     </a>
   {/if}
   <a
@@ -253,7 +261,9 @@
       href="/about"
       class:active={$page.url.pathname.includes("about")}
     >
-      <i class="fa-solid fa-info-circle" />
+      <Icon path={mdiInformation} size={50} />
+
+      <!-- <i class="fa-solid fa-info-circle" /> -->
     </a>
 </nav>
 {#if showSaveSuccess}
@@ -277,8 +287,9 @@
     max-width: 60%;
   }
 
-  nav .fa-solid, nav .fa-light, nav .fa-solid {
-    color: #505bda;
+  nav .fa-solid, nav .fa-light, nav .fa-solid, nav * {
+    /* color: #505bda; */
+    color: red;
   }
   
   
@@ -292,10 +303,15 @@
     opacity: 1;
   }
 
+  nav .active {
+    color: #505bda !important;
+    opacity: 1;
+  }
+
   nav a,
   nav span {
     float: left;
-    width: calc((100% - 170px) / 11);
+    width: calc((100% - 170px) / 10);
     text-align: center;
     padding: 2px 0;
     transition: all 0.3s ease;
@@ -308,7 +324,7 @@
   }
   nav.small a,
   nav.small span {
-    width: calc((100% - 170px) / 10);
+    width: calc((100% - 170px) / 9);
   }
   .logos {
     width: 170px!important;
@@ -329,5 +345,6 @@
 
   :global(.tooltip.nav-tooltip) {
     margin-top: 42px;
+    z-index: 1000;
   }
 </style>

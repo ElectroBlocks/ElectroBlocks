@@ -36,6 +36,13 @@ export interface ArduinoMessage {
   time: string;
 }
 
+export enum SimulatorMode {
+  LIVE = "LIVE",
+  VIRTUAL = "VIRTUAL",
+}
+
+export const simulatorStore = writable<SimulatorMode>(SimulatorMode.VIRTUAL);
+
 function addListener(port: WebSerialPortPromise) {
   port.removeAllListeners();
   port.on("data", (data) => {
@@ -125,7 +132,8 @@ const uploadHexCodeToBoard = async (
     }
     portStateStore.set(PortState.CLOSE);
     arduinoPortStore.set(null);
-    onErrorMessage("Error Uploading Code", error);
+    throw error;
+    // onErrorMessage("Error Uploading Code", error);
   }
 };
 

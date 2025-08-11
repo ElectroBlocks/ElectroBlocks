@@ -116,7 +116,7 @@
   </div>
 </main>
 
-<Simulator mode="live" />
+<Simulator  />
 
 <style>
   button {

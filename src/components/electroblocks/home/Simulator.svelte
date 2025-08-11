@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Player from './Player.svelte';
 
   import SimDebugger from './SimDebugger.svelte';
@@ -17,6 +17,7 @@
   import { arduinoComponentStateToId } from '../../../core/frames/arduino-component-id';
   import { centerCircuit } from '../../../core/virtual-circuit/centerCircuit';
   import { page } from '$app/stores';
+  import { SimulatorMode, simulatorStore } from '../../../stores/arduino.store';
 
 
   let container;
@@ -25,7 +26,6 @@
   let draw;
   let unsubscribes = [];
   let loopText = '';
-  export let mode = 'simulator';
 
   onMount(async () => {
     try {
@@ -167,10 +167,12 @@
     unsubscribes.forEach((unSubFunc) => unSubFunc());
   });
 </script>
-
-<div style="background-color: {$settings.backgroundColor}" id="container">
-  <div bind:this={container} id="simulator"  />
-  <div id="simulator-controls" class:live={mode == 'live'}>
+{#if $simulatorStore == SimulatorMode.LIVE}
+<Player />
+{/if}
+<div style="background-color: {$settings.backgroundColor}" id="container" class:live={$simulatorStore == SimulatorMode.LIVE}>
+  <div bind:this={container} id="simulator" class:live={$simulatorStore == SimulatorMode.LIVE} />
+  <div id="simulator-controls" >
     <h3>{loopText}</h3>
     <i on:click={reCenter} class="fa" id="recenter-icon" aria-hidden="true" />
     <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
@@ -178,9 +180,9 @@
   </div>
   <SimDebugger />
 </div>
-{#if mode === 'simulator'}
-  <Player />
-{/if} 
+{#if $simulatorStore == SimulatorMode.VIRTUAL}
+<Player />
+{/if}
 
 <style>
   #container,
@@ -190,6 +192,10 @@
     position: relative;
     top: 0;
     left: 0;
+  }
+  #container.live,
+  #simulator.live {
+    height: calc(100% - 45px);
   }
   
   #container {
@@ -203,9 +209,7 @@
     bottom: 5px;
     width: 100%;
   }
-  #simulator-controls.live {
-    bottom: 50px;
-  }
+  
   #simulator-controls i {
     cursor: pointer;
     margin-left: 10px;

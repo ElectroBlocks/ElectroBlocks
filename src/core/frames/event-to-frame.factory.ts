@@ -60,7 +60,7 @@ export const eventToFrameFactory = (
     loopTimes
   );
   const frames = [...setupframes, ...framesWithLoop];
-  console.log(frames, "frames");
+  // console.log(frames, "frames");
   return {
     board: event.microController,
     frames,
