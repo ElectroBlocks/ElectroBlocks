@@ -87,11 +87,12 @@ const uploadHexCodeToBoard = async (
 ) => {
   try {
     portStateStore.set(PortState.CONNECTING);
-    const port = await WebSerialPortPromise.requestPort(
-      {},
-      { baudRate: 115200 }
-    );
-
+    let port = get(arduinoPortStore);
+    port = port
+      ? port
+      : await WebSerialPortPromise.requestPort({}, { baudRate: 115200 });
+    
+     
     if (!port.isOpen) {
       await port.open();
     }

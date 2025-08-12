@@ -33,6 +33,7 @@
   import { transformBlock } from "../../../core/blockly/transformers/block.transformer";
   import { transformVariable } from "../../../core/blockly/transformers/variables.transformer";
   import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
+  import codeStore from "../../../stores/code.store";
 
   const playerTooltips = {
     position: "top",
@@ -68,6 +69,11 @@
   function exitLiveMode() {
     simulatorStore.set(SimulatorMode.VIRTUAL);
     onStopButton();
+  }
+
+  async function uploadCode() {
+    await arduinoStore.uploadCode($settingStore.boardType, $codeStore.cLang);
+    onSuccess("Coding Uploaded!!");
   }
 
   async function goToLiveMode() {
@@ -325,7 +331,7 @@ Click Ok to confirm and get started!`);
 <span class="live-mode" use:tooltip={playerTooltips} title="Live Mode" on:click={goToLiveMode}>
     <Icon path={mdiFlash} size={40}  />
   </span>
-  <span class="upload" use:tooltip={playerTooltips} title="Upload Code" >
+  <span class="upload" use:tooltip={playerTooltips} on:click={uploadCode} title="Upload Code" >
     <Icon path={mdiUploadCircleOutline}  size={40} />
   </span>
   </div>
@@ -375,7 +381,7 @@ Click Ok to confirm and get started!`);
   
 {:else if $portStateStoreSub == PortState.CONNECTING}
   <h2 class="text-center mt-4">
-    Loading Firmware <Icon spinning={true} size={30} path={mdiCogClockwise} />
+    Loading <Icon spinning={true} size={30} path={mdiCogClockwise} />
   </h2>
 {:else}
   <div class:disable={disablePlayer}>

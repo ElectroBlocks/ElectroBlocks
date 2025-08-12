@@ -158,7 +158,7 @@
   <button
     use:tooltip
     title="Upload code"
-    disabled={!($portStateStoreSub === PortState.CLOSE)}
+    disabled={($portStateStoreSub === PortState.CONNECTING)}
     on:click={uploadCode}
   >
     <i class="fa {uploadingClass}" />
