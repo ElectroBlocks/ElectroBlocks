@@ -50,7 +50,7 @@
 
   // Live Player
   let generator;
-  let isPlaying = false;
+  let isPlayingLive = false;
   let frameCount = 0;
 
 
@@ -171,7 +171,7 @@ Click Ok to confirm and get started!`);
   };
 
   async function playLive() {
-    if (!isPlaying || $portStateStoreSub != PortState.OPEN) {
+    if (!isPlayingLive || $portStateStoreSub != PortState.OPEN) {
       return;
     }
     if (frameCount == 0) {
@@ -202,14 +202,14 @@ Click Ok to confirm and get started!`);
 
   async function onPlayButton()
   {
-    if (!arduinoStore.isConnected() || isPlaying) return;
-    isPlaying = true;
+    if (!arduinoStore.isConnected() || isPlayingLive) return;
+    isPlayingLive = true;
     await playLive();
   }
 
   function onStopButton()
   {
-    isPlaying = false;
+    isPlayingLive = false;
     frameCount = 0;
   }
 
@@ -390,7 +390,7 @@ Click Ok to confirm and get started!`);
         <Icon color="#aa0000" path={mdiEjectOutline} size={40} />
       </span>
     </span>
-    {#if isPlaying}
+    {#if isPlayingLive}
       <span
         use:tooltip
         title="Stop"

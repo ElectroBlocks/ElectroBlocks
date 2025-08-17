@@ -32,7 +32,10 @@ import {
   utraSonicStringToComponentState,
 } from "../../../blocks/ultrasonic_sensor/setupblocktocomponentstate";
 import { rfidSetupBlockToSensorData } from "../../../blocks/rfid/setupblocktosensordata";
-import { rfidSetupBlockToComponentState } from "../../../blocks/rfid/setupblocktocomponentstate";
+import {
+  rfidSetupBlockToComponentState,
+  rfidStateStringToComponentState,
+} from "../../../blocks/rfid/setupblocktocomponentstate";
 import { temperatureSetupBlockToSensorData } from "../../../blocks/temperature/setupblocktosensordata";
 import { temperatureSetupBlockToComponentState } from "../../../blocks/temperature/setupblocktocomponentstate";
 import { thermistorSetupBlockToSensorData } from "../../../blocks/thermistor/setupblocktosensordata";
@@ -73,6 +76,7 @@ const sensorStringToComponentStateList: {
   dr: digitalReadSensorStringToComponentState,
   b: buttonStringToComponentState,
   m: utraSonicStringToComponentState,
+  rfid: rfidStateStringToComponentState,
 };
 
 const blockToSensorComponent: {

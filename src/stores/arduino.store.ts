@@ -8,6 +8,7 @@ import { MicroControllerType } from "../core/microcontroller/microcontroller";
 import arduinoUnoHexCode from "../core/serial/arduino/arduino-firmware.hex?raw";
 import { onErrorMessage } from "../help/alerts";
 import { ArduinoFrame } from "../core/frames/arduino.frame";
+import { getBoard } from "../core/microcontroller/selectBoard";
 
 export enum PortState {
   OPEN = "Open",
@@ -85,14 +86,17 @@ const uploadHexCodeToBoard = async (
   boardType: MicroControllerType,
   getHexCode: () => Promise<string>
 ) => {
+  const boardInfo = getBoard(boardType);
   try {
     portStateStore.set(PortState.CONNECTING);
     let port = get(arduinoPortStore);
     port = port
       ? port
-      : await WebSerialPortPromise.requestPort({}, { baudRate: 115200 });
-    
-     
+      : await WebSerialPortPromise.requestPort(
+          {},
+          { baudRate: boardInfo.serial_baud_rate }
+        );
+
     if (!port.isOpen) {
       await port.open();
     }
@@ -105,7 +109,7 @@ const uploadHexCodeToBoard = async (
       // flashFreq: flashFreqData,
       // flashMode: flashModeData,
       speed: 115200,
-      uploadSpeed: 115200,
+      uploadSpeed: boardInfo.serial_baud_rate,
 
       tool: boardType == MicroControllerType.ESP32 ? "esptool" : "avrdude",
       cpu: "atmega328p",

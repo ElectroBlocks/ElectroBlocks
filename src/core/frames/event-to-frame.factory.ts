@@ -39,7 +39,8 @@ export async function* generateNextFrame(
       event,
       frames[frames.length - 1],
       1,
-      sensorDataString
+      sensorDataString,
+      true
     );
     for (const frame of frames) {
       yield frame;
@@ -71,7 +72,8 @@ const generateFramesWithLoop = (
   event: BlockEvent,
   previousFrame: ArduinoFrame,
   loopTimes: number,
-  sensorDataString = ""
+  sensorDataString = "",
+  isRealTime = false
 ): ArduinoFrame[] => {
   const { blocks } = event;
   const arduinoLoopBlock = findArduinoLoopBlock(blocks);
@@ -84,7 +86,7 @@ const generateFramesWithLoop = (
       }
       const timeLine: Timeline = {
         iteration: loopTime,
-        function: sensorDataString.length == 0 ? "loop" : "realtime",
+        function: isRealTime ? "loop" : "realtime",
       };
       const previousFrame = _.isEmpty(prevFrames)
         ? undefined
@@ -100,7 +102,8 @@ const generateFramesWithLoop = (
           blocks,
           timeLine,
           _.cloneDeep(previousFrame),
-          sensorDataString
+          sensorDataString,
+          isRealTime
         ) // Deep clone to prevent object memory sharing
       );
 
@@ -190,7 +193,8 @@ const getPreviousState = (
   blocks: BlockData[],
   timeline: Timeline,
   previousFrame: ArduinoFrame = undefined,
-  sensorDataString = ""
+  sensorDataString = "",
+  isRealTime = false
 ): ArduinoFrame => {
   if (previousFrame === undefined) {
     return undefined;
@@ -203,7 +207,7 @@ const getPreviousState = (
     sensorSetupBlockName.includes(b.blockName)
   );
 
-  if (sensorDataString.length > 0) {
+  if (isRealTime) {
     const newComponents = [
       ...nonSensorComponent,
       ...convertArduinoStringToSensorState(blocks, sensorDataString),

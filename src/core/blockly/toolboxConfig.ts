@@ -353,7 +353,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Temperature/Humidity",

@@ -46,6 +46,7 @@ describe("rfid state factories", () => {
       pins: [ARDUINO_PINS.PIN_6, ARDUINO_PINS.PIN_7],
       txPin: ARDUINO_PINS.PIN_6,
       rxPin: ARDUINO_PINS.PIN_7,
+      setupCommand: "config:rfid=7,6",
       scannedCard: true,
       cardNumber: "card_num",
       tag: "tag",
