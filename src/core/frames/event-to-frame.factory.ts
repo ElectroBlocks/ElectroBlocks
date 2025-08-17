@@ -86,7 +86,7 @@ const generateFramesWithLoop = (
       }
       const timeLine: Timeline = {
         iteration: loopTime,
-        function: isRealTime ? "loop" : "realtime",
+        function: isRealTime ? "realtime" : "loop",
       };
       const previousFrame = _.isEmpty(prevFrames)
         ? undefined
