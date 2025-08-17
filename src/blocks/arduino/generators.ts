@@ -36,6 +36,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   let getNewTempReading = "";
   let setJoyStickValues = "";
   let setSerialMessageDEV = "";
+  let rfidSensorCheckCall = "";
 
   if (getBlockByType("bluetooth_setup")?.isEnabled()) {
     resetBluetoothVariable = '\tbluetoothMessageDEV = ""; \n';
@@ -58,10 +59,15 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
       "  irReceiver.resume(); // Prepare the receiver to receive the next IR signal. \n";
   }
 
+  if (getBlockByType("rfid_setup")?.isEnabled()) {
+    rfidSensorCheckCall = "   updateRFIDState();\n";
+  }
+
   return (
     "// The void loop function runs over and over again forever." +
     "\nvoid loop() { \n" +
     setSerialMessageDEV +
+    rfidSensorCheckCall +
     statementsLoop +
     resetBluetoothVariable +
     resetMessageVariable +

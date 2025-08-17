@@ -23,7 +23,6 @@ export const rfidSetup: BlockToFrameTransformer = (
     rxPin,
     scannedCard: rfidSensorLoop1.scanned_card,
     tag: rfidSensorLoop1.tag,
-    cardNumber: rfidSensorLoop1.card_number,
     setupCommand: `config:rfid=${rxPin},${txPin}`,
   };
 

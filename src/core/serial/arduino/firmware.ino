@@ -57,20 +57,6 @@ void setup() {
   FastLED.clear();
 }
 
-void purgeSerial(SoftwareSerial* s, uint16_t quietMs = 30) {
-  if (!s) return; // safety check
-
-  unsigned long lastByte = millis();
-  for (;;) {
-    while (s->available()) {
-      s->read();              // discard
-      lastByte = millis();    // mark time of last byte
-    }
-    if (millis() - lastByte >= quietMs) break; // stop when quiet
-    delayMicroseconds(300);   // avoid spinning too hot
-  }
-}
-
 void updateRFID() {
   if (!rfidSerial) return;
 
@@ -92,6 +78,7 @@ void updateRFID() {
     }
     if (rfidSerial->available() < 14) {
       // No fresh frame -> nothing to do (optionally: Serial.print(F("rfid:none;"));
+      Serial.print(F("rfid:0:"));
       return;
     }
   }
@@ -100,20 +87,36 @@ void updateRFID() {
   while (rfidSerial->available() && rfidSerial->peek() != 0x02) {
     rfidSerial->read();
   }
-  if (rfidSerial->available() < 14) return;      // still not enough
+
+  // still not enough
+  if (rfidSerial->available() < 14) 
+  {
+    Serial.print(F("rfid:0:"));
+    return;
+  }      
 
   // 4) Consume start
-  if (rfidSerial->read() != 0x02) return;
+  if (rfidSerial->read() != 0x02) {
+    Serial.print(F("rfid:0:"));
+    return;
+  }
 
   // 5) Read 10 ASCII hex chars (tag)
   char tagHex[11] = {0};
   for (int i = 0; i < 10; i++) {
-    if (!rfidSerial->available()) return;        // partial: bail
+    if (!rfidSerial->available()) {
+        Serial.print(F("rfid:0:"));  // partial: bail
+        return;
+    }
     tagHex[i] = rfidSerial->read();
   }
 
   // 6) Skip checksum (2 chars) and stop byte (0x03)
-  if (rfidSerial->available() < 3) return;
+  if (rfidSerial->available() < 3) 
+  {
+      Serial.print(F("rfid:0:"));
+      return;
+  }
   rfidSerial->read(); // chk hi
   rfidSerial->read(); // chk lo
   rfidSerial->read(); // stop (0x03)
@@ -126,11 +129,8 @@ void updateRFID() {
   }
 
   // 7) Convert to decimal and print (your format)
-  unsigned long cardNumber = strtoul(tagHex, NULL, 16);
   Serial.print(F("rfid:0:"));
   Serial.print(tagHex);
-  Serial.print(F("-"));
-  Serial.print(cardNumber);
   Serial.print(F(";"));
 
   // 8) Drain any leftovers quietly so nothing stale lingers

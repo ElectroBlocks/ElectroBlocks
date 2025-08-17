@@ -38,8 +38,8 @@ export const createRfid: AfterComponentCreateHook<RfidState> = (
 };
 
 export const updateRfid: SyncComponent = (state: RfidState, rfidEl) => {
+  rfidEl.findOne("#CARD_NUMBER_TEXT").hide();
   if (!state.scannedCard) {
-    rfidEl.findOne("#CARD_NUMBER_TEXT").hide();
     rfidEl.findOne("#TAG_TEXT").hide();
     rfidEl.findOne("#RFID_TAG_1").hide();
     rfidEl.findOne("#RFID_TAG_2").hide();
@@ -49,10 +49,8 @@ export const updateRfid: SyncComponent = (state: RfidState, rfidEl) => {
   rfidEl.findOne("#RFID_TAG_1").show();
   rfidEl.findOne("#RFID_TAG_2").show();
   rfidEl.findOne("#RFID").show();
-  rfidEl.findOne(
-    "#CARD_NUMBER_TEXT"
-  ).node.innerHTML = `Card #: "${state.cardNumber}"`;
-  rfidEl.findOne("#TAG_TEXT").node.innerHTML = `Tag #: "${state.tag}"`;
+  rfidEl.findOne("#TAG_TEXT").show();
+  rfidEl.findOne("#TAG_TEXT").node.innerHTML = ` Tag: ${state.tag}`;
 };
 
 export const resetRfid: ResetComponent = (rfidEl: Element) => {

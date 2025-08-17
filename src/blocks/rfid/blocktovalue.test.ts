@@ -38,24 +38,16 @@ describe("rfid value factories", () => {
     const setupBlock = workspace.newBlock("rfid_setup") as BlockSvg;
 
     const rfidHasScanCardBlock = workspace.newBlock("rfid_scan");
-    const rfidCardNumberBlock = workspace.newBlock("rfid_card");
     const rfidTagBlock = workspace.newBlock("rfid_tag");
 
-    setSetupBlock(1, true, "card_1", "tag_1", setupBlock);
-    setSetupBlock(2, false, "", "", setupBlock);
-    setSetupBlock(3, true, "card_3", "tag_3", setupBlock);
+    setSetupBlock(1, true, "tag_1", setupBlock);
+    setSetupBlock(2, false, "", setupBlock);
+    setSetupBlock(3, true, "tag_3", setupBlock);
 
     const hasCardVarBlock = createVariableBlock(
       "has_card",
       VariableTypes.BOOLEAN,
       rfidHasScanCardBlock,
-      workspace
-    );
-
-    const cardNumberVarBlock = createVariableBlock(
-      "card_number",
-      VariableTypes.STRING,
-      rfidCardNumberBlock,
       workspace
     );
 
@@ -68,66 +60,44 @@ describe("rfid value factories", () => {
 
     connectToArduinoBlock(hasCardVarBlock);
     hasCardVarBlock.nextConnection.connect(
-      cardNumberVarBlock.previousConnection
-    );
-    cardNumberVarBlock.nextConnection.connect(
       tagNumberVarBlock.previousConnection
     );
 
-    const [
-      setup,
-      state1,
-      state2,
-      state3,
-      state4,
-      state5,
-      state6,
-      state7,
-      state8,
-      state9,
-    ] = eventToFrameFactory(createTestEvent(setupBlock.id)).frames;
+    const [setup, state1, state2, state3, state4, state5, state6] =
+      eventToFrameFactory(createTestEvent(setupBlock.id)).frames;
+    console.log(state1.blockName);
+    verifyComponent(state1, true, "tag_1");
+    verifyComponent(state2, true, "tag_1");
+    verifyComponent(state3, false, "");
+    verifyComponent(state4, false, "");
+    verifyComponent(state5, true, "tag_3");
+    verifyComponent(state6, true, "tag_3");
 
-    verifyComponent(state1, true, "tag_1", "card_1");
-    verifyComponent(state2, true, "tag_1", "card_1");
-    verifyComponent(state3, true, "tag_1", "card_1");
-    verifyComponent(state4, false, "", "");
-    verifyComponent(state5, false, "", "");
-    verifyComponent(state6, false, "", "");
-    verifyComponent(state7, true, "tag_3", "card_3");
-    verifyComponent(state8, true, "tag_3", "card_3");
-    verifyComponent(state9, true, "tag_3", "card_3");
+    verifyVariables(state1, true, undefined);
+    verifyVariables(state2, true, "tag_1");
 
-    verifyVariables(state1, true, undefined, undefined);
-    verifyVariables(state2, true, "card_1", undefined);
-    verifyVariables(state3, true, "card_1", "tag_1");
+    verifyVariables(state3, false, "tag_1");
+    verifyVariables(state4, false, "");
 
-    verifyVariables(state4, false, "card_1", "tag_1");
-    verifyVariables(state5, false, "", "tag_1");
-    verifyVariables(state6, false, "", "");
-
-    verifyVariables(state7, true, "", "");
-    verifyVariables(state8, true, "card_3", "");
-    verifyVariables(state9, true, "card_3", "tag_3");
+    verifyVariables(state5, true, "");
+    verifyVariables(state6, true, "tag_3");
   });
 });
 
 const verifyComponent = (
   state: ArduinoFrame,
   hasCard: boolean,
-  tag: string,
-  cardNumer: string
+  tag: string
 ) => {
   const rfidState = findComponent<RfidState>(state, ArduinoComponentType.RFID);
 
   expect(rfidState.scannedCard).toBe(hasCard);
   expect(rfidState.tag).toBe(tag);
-  expect(rfidState.cardNumber).toBe(cardNumer);
 };
 
 const verifyVariables = (
   state: ArduinoFrame,
   hasCard: boolean | undefined,
-  cardNumber: string | undefined,
   tag: string | undefined
 ) => {
   if (hasCard !== undefined) {
@@ -136,10 +106,6 @@ const verifyVariables = (
 
   if (tag !== undefined) {
     expect(state.variables["tag_number"].value).toBe(tag);
-  }
-
-  if (cardNumber !== undefined) {
-    expect(state.variables["card_number"].value).toBe(cardNumber);
   }
 };
 
@@ -165,14 +131,12 @@ const createVariableBlock = (
 const setSetupBlock = (
   loopNumber: number,
   scannedCard: boolean,
-  cardNumber: string,
   tag: string,
   setupBlock: BlockSvg
 ) => {
   setupBlock.setFieldValue(loopNumber.toString(), "LOOP");
   setupBlock.setFieldValue(scannedCard ? "TRUE" : "FALSE", "scanned_card");
   setupBlock.setFieldValue(tag, "tag");
-  setupBlock.setFieldValue(cardNumber, "card_number");
 
   saveSensorSetupBlockData(createTestEvent(setupBlock.id)).forEach(updater);
 };

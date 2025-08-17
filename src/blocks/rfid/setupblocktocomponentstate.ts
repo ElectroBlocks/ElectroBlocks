@@ -23,7 +23,6 @@ export const rfidSetupBlockToComponentState = (
     rxPin,
     pins: [rxPin, txPin],
     scannedCard: rfidSensor.scanned_card,
-    cardNumber: rfidSensor.card_number,
     tag: rfidSensor.tag,
     setupCommand: `config:rfid=${rxPin},${txPin}`,
   };
@@ -34,18 +33,16 @@ export const rfidStateStringToComponentState = (
   blocks: BlockData[]
 ): RfidState => {
   const setupBlock = blocks.find((b) => b.blockName == "rfid_setup");
-  const [_, pinStr, state] = sensorStr.split(":");
+  const [_, pinState, state] = sensorStr.split(":");
   const rxPin = findFieldValue(setupBlock, "PIN_TX");
   const txPin = findFieldValue(setupBlock, "PIN_RX");
-  const tagAndCardNumber = state.split("-");
   return {
     type: ArduinoComponentType.RFID,
     txPin,
     rxPin,
     pins: [rxPin, txPin],
-    scannedCard: tagAndCardNumber.length == 2,
-    cardNumber: tagAndCardNumber.length == 2 ? tagAndCardNumber[0] : "",
-    tag: tagAndCardNumber.length == 2 ? tagAndCardNumber[1] : "",
+    scannedCard: state.length > 0,
+    tag: state,
     setupCommand: `config:rfid=${rxPin},${txPin}`,
   };
 };

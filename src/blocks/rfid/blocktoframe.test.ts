@@ -32,7 +32,6 @@ describe("rfid state factories", () => {
     rfidBlock.setFieldValue(ARDUINO_PINS.PIN_7, "PIN_RX");
 
     rfidBlock.setFieldValue("TRUE", "scanned_card");
-    rfidBlock.setFieldValue("card_num", "card_number");
     rfidBlock.setFieldValue("tag", "tag");
 
     const event = createTestEvent(rfidBlock.id);
@@ -48,7 +47,6 @@ describe("rfid state factories", () => {
       rxPin: ARDUINO_PINS.PIN_7,
       setupCommand: "config:rfid=7,6",
       scannedCard: true,
-      cardNumber: "card_num",
       tag: "tag",
       type: ArduinoComponentType.RFID,
     };
