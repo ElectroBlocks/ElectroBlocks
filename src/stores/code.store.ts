@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { MicroControllerType } from "../core/microcontroller/microcontroller";
+import { Library } from "../core/frames/arduino.frame";
 
 const cCode = `int simple_loop_variable = 0;
 struct RGB {
@@ -24,9 +24,14 @@ void loop() {
 const pythonCode = `# Python Code Snippet
 print("Hello, World!")`;
 
-export const codeStore = writable({
+export const codeStore = writable<{
+  cLang: string;
+  pythonLang: string;
+  imports: Library[];
+}>({
   cLang: cCode,
   pythonLang: pythonCode,
+  imports: [],
 });
 
 export default {

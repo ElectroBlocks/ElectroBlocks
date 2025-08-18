@@ -5,7 +5,7 @@ import type { Sensor } from "../../core/blockly/dto/sensors.type";
 export interface IRRemoteState extends ArduinoComponentState {
   hasCode: boolean;
   code: string;
-  analogPin: ARDUINO_PINS;
+  pin: ARDUINO_PINS;
 }
 
 export interface IRRemoteSensor extends Sensor {

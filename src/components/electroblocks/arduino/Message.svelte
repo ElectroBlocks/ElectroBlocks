@@ -84,7 +84,7 @@
   }
 
   async function uploadCode() {
-    await arduinoStore.uploadCode(boardType, $codeStore.cLang);
+    await arduinoStore.uploadCode(boardType, $codeStore.cLang, $codeStore.imports);
     onSuccess("Coding Uploaded!!");
   }
   function clearMessages() {

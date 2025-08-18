@@ -21,7 +21,13 @@ export const irRemoteSetup: BlockToFrameTransformer = (
     code: irRemoteData.code,
     type: ArduinoComponentType.IR_REMOTE,
     pins: block.pins,
-    analogPin,
+    pin: analogPin,
+    setupCommand: `config:ir=${analogPin}`,
+    importLibrary: {
+      name: "IRremote",
+      url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
+      version: "latest",
+    },
   };
 
   return [

@@ -56,7 +56,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
 
   if (getBlockByType("ir_remote_setup")?.isEnabled()) {
     resetIrRemoteCode =
-      "  irReceiver.resume(); // Prepare the receiver to receive the next IR signal. \n";
+      "  irRemoteLoopScan(); // Checks for then ir loop scan. \n";
   }
 
   if (getBlockByType("rfid_setup")?.isEnabled()) {

@@ -18,7 +18,6 @@
 Servo servos[4];
 LiquidCrystal_I2C* lcd = nullptr;
 DHT* dht = nullptr;
-IRrecv* irrecv = nullptr;
 decode_results results;
 SoftwareSerial* rfidSerial = nullptr;
 SoftwareSerial* bluetooth = nullptr;
@@ -44,8 +43,10 @@ int ledPin = -1;
 int echoPin = -1;
 int trigPin = -1;
 
-unsigned long lastIR = 0;
-unsigned long lastRfidCard = 0;
+// IR REMOTE
+uint32_t lastIrCode = 0;
+unsigned long lastIrAt = 0;
+const unsigned long IR_TIMEOUT = 1000;
 
 
 void setup() {
@@ -91,13 +92,13 @@ void updateRFID() {
   // still not enough
   if (rfidSerial->available() < 14) 
   {
-    Serial.print(F("rfid:0:"));
+    Serial.print(F("rfid:0:;"));
     return;
   }      
 
   // 4) Consume start
   if (rfidSerial->read() != 0x02) {
-    Serial.print(F("rfid:0:"));
+    Serial.print(F("rfid:0:;"));
     return;
   }
 
@@ -105,7 +106,7 @@ void updateRFID() {
   char tagHex[11] = {0};
   for (int i = 0; i < 10; i++) {
     if (!rfidSerial->available()) {
-        Serial.print(F("rfid:0:"));  // partial: bail
+        Serial.print(F("rfid:0:;"));  // partial: bail
         return;
     }
     tagHex[i] = rfidSerial->read();
@@ -114,7 +115,7 @@ void updateRFID() {
   // 6) Skip checksum (2 chars) and stop byte (0x03)
   if (rfidSerial->available() < 3) 
   {
-      Serial.print(F("rfid:0:"));
+      Serial.print(F("rfid:0:;"));
       return;
   }
   rfidSerial->read(); // chk hi
@@ -137,12 +138,36 @@ void updateRFID() {
   while (rfidSerial->available()) rfidSerial->read();
 }
 
+
 void updateIR() {
-  if (irrecv && irrecv->decode()) {
-    lastIR = new String(irrecv->decodedIRData.decodedRawData, HEX);
-    irrecv->resume();
+  if (irPin == -1) return;
+
+  if (IrReceiver.decode()) {
+    auto &d = IrReceiver.decodedIRData;
+    if (!(d.flags & (IRDATA_FLAGS_WAS_OVERFLOW | IRDATA_FLAGS_IS_REPEAT))) {
+      if (d.command != 0 && d.protocol != UNKNOWN) {
+        lastIrCode = d.command;
+        lastIrAt   = millis();
+      }
+    }
+    IrReceiver.resume();
+  }
+
+  // Timeout logic
+  if (lastIrCode != 0 && (millis() - lastIrAt > IR_TIMEOUT)) {
+    lastIrCode = 0; // expire
+  }
+
+  // Always print
+  if (lastIrCode != 0) {
+    Serial.print(F("ir:0:"));
+    Serial.print(lastIrCode, HEX);
+    Serial.print(F(";"));
+  } else {
+    Serial.print(F("ir:0:;"));
   }
 }
+
 
 float readThermistor() {
   int adc = analogRead(thermistorPin);
@@ -259,8 +284,7 @@ void handleconfig(String key, String value) {
     Serial.println(F("config:LCD=OK"));
   } else if (key == "ir") {
     irPin = value.toInt();
-    irrecv = new IRrecv(irPin);
-    irrecv->enableIRIn();
+    IrReceiver.begin(irPin, true);
     Serial.println(F("config:IR=OK"));
   } else if (key == "dr") {
     int digitalReadPin = value.toInt();
@@ -423,13 +447,6 @@ void handleCommand(String input) {
         Serial.println(F("LCD:INVALID"));
       }
     }
-  } else if (input == "ir:") {
-    if (lastIR != 0) {
-      Serial.print(F("IR:"));
-      Serial.println(lastIR, HEX);
-    } else {
-      Serial.println(F("IR:NONE"));
-    }
   } else if (input.startsWith("m:") && stepper) {
     stepper->setSpeed(10);
     stepper->step(input.substring(2).toInt());
@@ -519,6 +536,7 @@ void loop() {
       Serial.println(F("System:READY"));
       return;
     }
+    
     if (input == "sense") {
       updateSensors();
       return;

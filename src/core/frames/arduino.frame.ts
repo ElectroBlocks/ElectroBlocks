@@ -50,11 +50,18 @@ export interface Timeline {
   function: "setup" | "loop" | "pre-setup" | "realtime";
 }
 
+export interface Library {
+  name: string;
+  url: string;
+  version: string;
+}
+
 export interface ArduinoComponentState {
   pins: ARDUINO_PINS[];
   type: ArduinoComponentType;
   usbCommands?: string[];
   setupCommand?: string;
+  importLibrary?: Library;
 }
 
 export enum ArduinoComponentType {

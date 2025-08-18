@@ -32,7 +32,6 @@ import {
 import type { MicroControllerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
-import type { Settings } from "../../firebase/model";
 import settingStore from "../../stores/settings.store";
 import UpdateLCDScreenPrintBlock from "./actions/updateLcdScreenPrintBlock";
 import updateLedBlockColorField from "./actions/updateLedBlockColorField";
@@ -45,26 +44,6 @@ import { get } from "svelte/store";
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
 let currentFrameContainter: ArduinoFrameContainer = undefined;
-
-let settings: Settings = undefined;
-
-settingStore.subscribe((newSettings) => {
-  settings = newSettings;
-  frameStore.update((frameContainer) => {
-    const newFrameContainer = _.cloneDeep(frameContainer);
-    //updating the new board
-    newFrameContainer.board = settings.boardType;
-    // code might have to change if the board type changes
-    // only run if a workspace exists to generate code from
-    if (getWorkspace()) {
-      codeStore.set({
-        cLang: getArduinoCode("Arduino"),
-        pythonLang: getArduinoCode("Python"),
-      });
-    }
-    return newFrameContainer;
-  });
-});
 
 export const createFrames = async (blocklyEvent) => {
   if ((Blockly.getMainWorkspace() as any).isDragging()) {
@@ -184,7 +163,7 @@ export const createFrames = async (blocklyEvent) => {
     microControllerType
   );
 
-  const newFrameContainer = eventToFrameFactory(refreshEvent, settings);
+  const newFrameContainer = eventToFrameFactory(refreshEvent);
 
   if (
     currentFrameContainter === undefined ||
@@ -193,9 +172,21 @@ export const createFrames = async (blocklyEvent) => {
     currentFrameContainter = newFrameContainer;
     frameStore.set(currentFrameContainter);
   }
+  const imports =
+    currentFrameContainter?.frames.length == 0
+      ? []
+      : currentFrameContainter.frames[
+          currentFrameContainter.frames.length - 1
+        ].components.reduce((prev, next) => {
+          if (next?.importLibrary) {
+            return [...prev, next.importLibrary];
+          }
+          return [...prev];
+        }, []);
   codeStore.set({
     cLang: getArduinoCode("Arduino"),
     pythonLang: getArduinoCode("Python"),
+    imports,
   });
 };
 

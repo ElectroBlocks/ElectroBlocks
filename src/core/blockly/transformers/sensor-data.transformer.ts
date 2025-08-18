@@ -14,7 +14,10 @@ import {
   buttonStringToComponentState,
 } from "../../../blocks/button/setupblocktocomponentstate";
 import { irRemoteSetupBlocktoSensorData } from "../../../blocks/ir_remote/setupblocktosensordata";
-import { irRemoteSetupBlockToComponentState } from "../../../blocks/ir_remote/setupblocktocomponentstate";
+import {
+  irRemoteSetupBlockToComponentState,
+  irRemoteStateStringToComponentState,
+} from "../../../blocks/ir_remote/setupblocktocomponentstate";
 import {
   digitalReadSensorStringToComponentState,
   digitalSetupBlockToComponentState,
@@ -77,6 +80,7 @@ const sensorStringToComponentStateList: {
   b: buttonStringToComponentState,
   m: utraSonicStringToComponentState,
   rfid: rfidStateStringToComponentState,
+  ir: irRemoteStateStringToComponentState,
 };
 
 const blockToSensorComponent: {

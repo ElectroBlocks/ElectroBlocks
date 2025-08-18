@@ -7,7 +7,7 @@ import { get, writable } from "svelte/store";
 import { MicroControllerType } from "../core/microcontroller/microcontroller";
 import arduinoUnoHexCode from "../core/serial/arduino/arduino-firmware.hex?raw";
 import { onErrorMessage } from "../help/alerts";
-import { ArduinoFrame } from "../core/frames/arduino.frame";
+import { ArduinoFrame, Library } from "../core/frames/arduino.frame";
 import { getBoard } from "../core/microcontroller/selectBoard";
 
 export enum PortState {
@@ -142,7 +142,12 @@ const uploadHexCodeToBoard = async (
   }
 };
 
-const compileCode = async (code: string, type: string): Promise<string> => {
+const compileCode = async (
+  code: string,
+  type: string,
+  libraries: Library[]
+): Promise<string> => {
+  // TODO sub type in
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
   });
@@ -157,7 +162,7 @@ const compileCode = async (code: string, type: string): Promise<string> => {
         },
       ],
       flags: { verbose: false, preferLocal: false },
-      libs: [],
+      libs: libraries,
     };
 
     console.log(`Sending code to https://compile.duino.app/v3/compile`);
@@ -178,9 +183,13 @@ const compileCode = async (code: string, type: string): Promise<string> => {
 
 const arduinoStore = {
   subscribe: arduinoPortStore.subscribe,
-  uploadCode: async (boardType: MicroControllerType, code: string) => {
+  uploadCode: async (
+    boardType: MicroControllerType,
+    code: string,
+    libraries: Library[]
+  ) => {
     await uploadHexCodeToBoard(boardType, async () => {
-      return await compileCode(code, boardType);
+      return await compileCode(code, boardType, libraries);
     });
   },
 
