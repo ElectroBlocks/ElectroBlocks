@@ -41,8 +41,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   }
 
   if (!_.isEmpty(Blockly["Arduino"].setupCode_["setup_ir_remote"])) {
-    resetIrRemoteCode =
-      "  irReceiver.resume(); // Prepare the receiver to receive the next IR signal. \n";
+    resetIrRemoteCode = "  irRemoteLoopScan(); // Sense the next ir remote. \n";
   }
 
   if (!_.isEmpty(Blockly["Arduino"].functionNames_["takeTempReading"])) {
