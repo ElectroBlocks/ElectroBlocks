@@ -35,8 +35,8 @@ import joystickXMLString from "../../blocks/joystick/toolbox";
 import thermistorXMLString from "../../blocks/thermistor/toolbox";
 
 import { COLOR_THEME } from "./constants/colors";
-import { MicroControllerType } from "../../core/microcontroller/microcontroller";
-import { SUPPORTED_LANGUAGES } from "../../core/microcontroller/microcontroller";
+import { MicroControllerType } from "../microcontroller/microcontroller";
+import { SUPPORTED_LANGUAGES } from "../microcontroller/microcontroller";
 
 export interface ToolBoxEntries {
   category: ToolBoxCategory;
@@ -289,7 +289,7 @@ const defaultToolbox: ToolBoxEntries[] = [
   {
     color: COLOR_THEME.SENSOR,
     category: ToolBoxCategory.SENSORS,
-    supportedLanguages: [SUPPORTED_LANGUAGES.C],
+    supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
     name: "Sensors",
     toolBoxEntries: [
       {
@@ -308,7 +308,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Digital Sensor",
@@ -317,7 +317,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "IR Remote",
@@ -326,7 +326,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "JoyStick",
@@ -335,7 +335,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Motion Sensor",
@@ -344,7 +344,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "RFID",
@@ -353,7 +353,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Temperature/Humidity",

@@ -17,15 +17,118 @@ import {
 import {
   sensorSetupBlockName,
   convertToState,
+  convertArduinoStringToSensorState,
 } from "../blockly/transformers/sensor-data.transformer";
 import { generateInputFrame } from "./transformer/block-to-frame.transformer";
-import type { Settings } from "../../firebase/model";
-import { defaultSetting } from "../../firebase/model";
+import { senseDataArduino } from "../../stores/arduino.store";
+
+export async function* generateNextFrame(
+  event: BlockEvent
+): AsyncGenerator<ArduinoFrame> {
+  let sensorDataString = await senseDataArduino();
+  let frames = generatePreLoopFrames(event, sensorDataString);
+  for (let frame of frames) {
+    if (frame.timeLine.function == "setup") {
+      yield frame;
+    }
+  }
+
+  while (true) {
+    sensorDataString = await senseDataArduino();
+    frames = generateFramesWithLoop(
+      event,
+      frames[frames.length - 1],
+      1,
+      sensorDataString,
+      true
+    );
+    for (const frame of frames) {
+      yield frame;
+    }
+  }
+}
 
 export const eventToFrameFactory = (
-  event: BlockEvent,
-  settings: Settings = defaultSetting
+  event: BlockEvent
 ): ArduinoFrameContainer => {
+  const { blocks } = event;
+  let setupframes = generatePreLoopFrames(event);
+  const loopTimes = getLoopTimeFromBlockData(blocks);
+  let framesWithLoop = generateFramesWithLoop(
+    event,
+    setupframes[setupframes.length - 1],
+    loopTimes
+  );
+  const frames = [...setupframes, ...framesWithLoop];
+  // console.log(frames, "frames");
+  return {
+    board: event.microController,
+    frames,
+    error: false,
+  };
+};
+
+const generateFramesWithLoop = (
+  event: BlockEvent,
+  previousFrame: ArduinoFrame,
+  loopTimes: number,
+  sensorDataString = "",
+  isRealTime = false
+): ArduinoFrame[] => {
+  const { blocks } = event;
+  const arduinoLoopBlock = findArduinoLoopBlock(blocks);
+
+  let stopAllFrames = false;
+  let framesWithLoop = _.range(1, loopTimes + 1).reduce(
+    (prevFrames, loopTime) => {
+      if (stopAllFrames) {
+        return prevFrames;
+      }
+      const timeLine: Timeline = {
+        iteration: loopTime,
+        function: isRealTime ? "realtime" : "loop",
+      };
+      const previousFrame = _.isEmpty(prevFrames)
+        ? undefined
+        : prevFrames[prevFrames.length - 1];
+
+      const frames = generateInputFrame(
+        arduinoLoopBlock,
+        blocks,
+        event.variables,
+        timeLine,
+        "loop",
+        getPreviousState(
+          blocks,
+          timeLine,
+          _.cloneDeep(previousFrame),
+          sensorDataString,
+          isRealTime
+        ) // Deep clone to prevent object memory sharing
+      );
+
+      if (frames.length > 0 && frames[frames.length - 1].frameNumber > 5000) {
+        stopAllFrames = true;
+        alert(`Reached maximun steps for simulation.`);
+        const count = prevFrames.length;
+        const leftTo5000 = 5000 - count;
+        // minus 1 because we are starting from 0 index
+        return [...prevFrames, ...frames.slice(0, leftTo5000)];
+      }
+
+      return [...prevFrames, ...frames];
+    },
+    [previousFrame]
+  );
+  // Remove the first frame because it's presetup or undefined because there was no setup blocks.
+  framesWithLoop.shift();
+  return framesWithLoop;
+};
+
+const generatePreLoopFrames = (
+  event: BlockEvent,
+  sensorDataStr = ""
+): ArduinoFrame[] => {
   const { blocks } = event;
 
   const preSetupBlockType = [
@@ -39,11 +142,16 @@ export const eventToFrameFactory = (
   );
 
   const frames: ArduinoFrame[] = preSetupBlocks.reduce((prevFrames, block) => {
-    const previousState =
+    const frame =
       prevFrames.length === 0
         ? undefined
         : _.cloneDeep(prevFrames[prevFrames.length - 1]);
-
+    const previousFrame = getPreviousState(
+      blocks,
+      { function: "pre-setup", iteration: 0 },
+      frame,
+      sensorDataStr
+    );
     return [
       ...prevFrames,
       ...generateFrame(
@@ -51,7 +159,7 @@ export const eventToFrameFactory = (
         block,
         event.variables,
         { iteration: 0, function: "pre-setup" },
-        previousState
+        previousFrame
       ),
     ];
   }, []);
@@ -78,55 +186,15 @@ export const eventToFrameFactory = (
     : [];
 
   setupFrames.forEach((f) => frames.push(f));
-
-  const arduinoLoopBlock = findArduinoLoopBlock(blocks);
-  const loopTimes = getLoopTimeFromBlockData(blocks);
-  let stopAllFrames = false;
-  const framesWithLoop = _.range(1, loopTimes + 1).reduce(
-    (prevFrames, loopTime) => {
-      if (stopAllFrames) {
-        return prevFrames;
-      }
-      const timeLine: Timeline = { iteration: loopTime, function: "loop" };
-      const previousFrame = _.isEmpty(prevFrames)
-        ? undefined
-        : prevFrames[prevFrames.length - 1];
-
-      const frames = generateInputFrame(
-        arduinoLoopBlock,
-        blocks,
-        event.variables,
-        timeLine,
-        "loop",
-        getPreviousState(blocks, timeLine, _.cloneDeep(previousFrame)) // Deep clone to prevent object memory sharing
-      );
-
-      if (frames.length > 0 && frames[frames.length - 1].frameNumber > 5000) {
-        stopAllFrames = true;
-        alert(`Reached maximun steps for simulation.`);
-        const count = prevFrames.length;
-        const leftTo5000 = 5000 - count;
-        // minus 1 because we are starting from 0 index
-        return [...prevFrames, ...frames.slice(0, leftTo5000)];
-      }
-
-      return [...prevFrames, ...frames];
-    },
-    frames
-  );
-
-  return {
-    board: event.microController,
-    frames: framesWithLoop,
-    error: false,
-    settings,
-  };
+  return frames;
 };
 
 const getPreviousState = (
   blocks: BlockData[],
   timeline: Timeline,
-  previousFrame: ArduinoFrame = undefined
+  previousFrame: ArduinoFrame = undefined,
+  sensorDataString = "",
+  isRealTime = false
 ): ArduinoFrame => {
   if (previousFrame === undefined) {
     return undefined;
@@ -138,10 +206,20 @@ const getPreviousState = (
   const sensorSetupBlocks = blocks.filter((b) =>
     sensorSetupBlockName.includes(b.blockName)
   );
+
+  if (isRealTime) {
+    const newComponents = [
+      ...nonSensorComponent,
+      ...convertArduinoStringToSensorState(blocks, sensorDataString),
+    ];
+    return { ...previousFrame, components: newComponents };
+  }
+
   const newComponents = [
     ...nonSensorComponent,
     ...sensorSetupBlocks.map((b) => convertToState(b, timeline)),
   ];
+
   return { ...previousFrame, components: newComponents };
 };
 

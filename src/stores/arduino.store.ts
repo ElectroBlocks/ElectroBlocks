@@ -7,17 +7,20 @@ import { get, writable } from "svelte/store";
 import { MicroControllerType } from "../core/microcontroller/microcontroller";
 import arduinoUnoHexCode from "../core/serial/arduino/arduino-firmware.hex?raw";
 import { onErrorMessage } from "../help/alerts";
+import { ArduinoFrame, Library } from "../core/frames/arduino.frame";
+import { getBoard } from "../core/microcontroller/selectBoard";
 
 export enum PortState {
-  OPEN,
-  CLOSE,
-  CONNECTING,
-  UPLOADING,
+  OPEN = "Open",
+  CLOSE = "Close",
+  CONNECTING = "Connecting",
+  UPLOADING = "Uploading",
 }
 
 const arduinoPortStore = writable<WebSerialPortPromise | null>(null);
 
 export const usbMessageStore = writable<ArduinoMessage>();
+export const sensorMessages = writable<ArduinoMessage>();
 
 const portStateStore = writable<PortState>(PortState.CLOSE);
 
@@ -34,6 +37,13 @@ export interface ArduinoMessage {
   time: string;
 }
 
+export enum SimulatorMode {
+  LIVE = "LIVE",
+  VIRTUAL = "VIRTUAL",
+}
+
+export const simulatorStore = writable<SimulatorMode>(SimulatorMode.VIRTUAL);
+
 function addListener(port: WebSerialPortPromise) {
   port.removeAllListeners();
   port.on("data", (data) => {
@@ -48,12 +58,22 @@ function addListener(port: WebSerialPortPromise) {
 
       if (!line) continue;
 
+      if (line.includes("SENSE_COMPLETE")) {
+        sensorMessages.set({
+          message: line,
+          type: "Arduino",
+          id: Date.now() + "_" + Math.random().toString(),
+          time: new Date().toLocaleTimeString(),
+        });
+      }
+
       usbMessageStore.set({
         message: line,
         type: "Arduino",
         id: Date.now() + "_" + Math.random().toString(),
         time: new Date().toLocaleTimeString(),
       });
+
       console.log("Received complete message:", line, new Date().getTime());
     }
 
@@ -66,12 +86,16 @@ const uploadHexCodeToBoard = async (
   boardType: MicroControllerType,
   getHexCode: () => Promise<string>
 ) => {
+  const boardInfo = getBoard(boardType);
   try {
     portStateStore.set(PortState.CONNECTING);
-    const port = await WebSerialPortPromise.requestPort(
-      {},
-      { baudRate: 115200 }
-    );
+    let port = get(arduinoPortStore);
+    port = port
+      ? port
+      : await WebSerialPortPromise.requestPort(
+          {},
+          { baudRate: boardInfo.serial_baud_rate }
+        );
 
     if (!port.isOpen) {
       await port.open();
@@ -85,7 +109,7 @@ const uploadHexCodeToBoard = async (
       // flashFreq: flashFreqData,
       // flashMode: flashModeData,
       speed: 115200,
-      uploadSpeed: 115200,
+      uploadSpeed: boardInfo.serial_baud_rate,
 
       tool: boardType == MicroControllerType.ESP32 ? "esptool" : "avrdude",
       cpu: "atmega328p",
@@ -113,11 +137,17 @@ const uploadHexCodeToBoard = async (
     }
     portStateStore.set(PortState.CLOSE);
     arduinoPortStore.set(null);
-    onErrorMessage("Error Uploading Code", error);
+    throw error;
+    // onErrorMessage("Error Uploading Code", error);
   }
 };
 
-const compileCode = async (code: string, type: string): Promise<string> => {
+const compileCode = async (
+  code: string,
+  type: string,
+  libraries: Library[]
+): Promise<string> => {
+  // TODO sub type in
   const headers = new Headers({
     "Content-Type": "application/json; charset=utf-8",
   });
@@ -132,7 +162,7 @@ const compileCode = async (code: string, type: string): Promise<string> => {
         },
       ],
       flags: { verbose: false, preferLocal: false },
-      libs: [],
+      libs: libraries,
     };
 
     console.log(`Sending code to https://compile.duino.app/v3/compile`);
@@ -151,13 +181,18 @@ const compileCode = async (code: string, type: string): Promise<string> => {
   }
 };
 
-export default {
+const arduinoStore = {
   subscribe: arduinoPortStore.subscribe,
-  uploadCode: async (boardType: MicroControllerType, code: string) => {
+  uploadCode: async (
+    boardType: MicroControllerType,
+    code: string,
+    libraries: Library[]
+  ) => {
     await uploadHexCodeToBoard(boardType, async () => {
-      return await compileCode(code, boardType);
+      return await compileCode(code, boardType, libraries);
     });
   },
+
   connectWithAndUploadFirmware: async (boardType: MicroControllerType) => {
     await uploadHexCodeToBoard(boardType, async () => arduinoUnoHexCode);
   },
@@ -214,4 +249,91 @@ export default {
   getLastMessage: () => {
     return get(usbMessageStore)?.message ?? "";
   },
+  getLastSensorMessage: () => {
+    return get(sensorMessages)?.message ?? "";
+  },
+};
+
+export default arduinoStore;
+
+const waitForCommand = async (command: string) => {
+  arduinoStore.clearMessages();
+  var count = 0;
+  while (!arduinoStore.getLastMessage().includes(command)) {
+    console.log("waiting for message");
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    count++;
+    if (count > 100) {
+      console.info("Timeout waiting for command:", command);
+      return;
+    }
+  }
+  console.log("DONE_WAITING", new Date().getTime());
+  return;
+};
+
+export async function senseDataArduino() {
+  if (!arduinoStore.isConnected()) {
+    console.error("Port is not connected");
+    return "";
+  }
+  await arduinoStore.sendMessage("sense|");
+  await waitForCommand("DONE_NEXT_COMMAND");
+  let sensorMessage = arduinoStore.getLastSensorMessage();
+  sensorMessage = sensorMessage.replace("SENSE_COMPLETE", "");
+  return sensorMessage;
+}
+
+export async function restartArduino() {
+  if (!arduinoStore.isConnected()) {
+    console.error("Port is not connected");
+    return "";
+  }
+  await arduinoStore.sendMessage("restart:|");
+  await waitForCommand("System:READY");
+}
+
+export const setupComponents = async (frame: ArduinoFrame) => {
+  let setupMessage = frame.components.reduce((acc, component) => {
+    if (component?.setupCommand === undefined) {
+      return acc;
+    }
+    return acc + component?.setupCommand + ";";
+  }, "");
+  console.log(setupMessage, "pre-test");
+  if (setupMessage === "") {
+    return;
+  }
+  console.log("setupMessage", setupMessage);
+  arduinoStore.sendMessage(setupMessage);
+
+  await waitForCommand("DONE_NEXT_COMMAND");
+};
+
+export const updateComponents = async (frame: ArduinoFrame) => {
+  if (arduinoStore.isConnected() === false) {
+    console.info("Port is not connected");
+    return;
+  }
+  if (frame?.components === undefined) {
+    console.info("No components found");
+    return;
+  }
+  let usbMessage = frame.components.reduce((acc, component) => {
+    if (
+      component?.usbCommands === undefined ||
+      component?.usbCommands.length === 0
+    ) {
+      return acc;
+    }
+
+    return acc + component?.usbCommands.join(";");
+  }, "");
+  if (usbMessage === "") {
+    return;
+  }
+
+  arduinoStore.sendMessage(usbMessage);
+
+  await waitForCommand("DONE_NEXT_COMMAND");
 };

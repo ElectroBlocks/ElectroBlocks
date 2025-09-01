@@ -41,10 +41,16 @@ describe("button state factories", () => {
 
     const irRemote: IRRemoteState = {
       code: "32343",
-      pins: [ARDUINO_PINS.PIN_A4],
+      pins: [ARDUINO_PINS.PIN_2],
       hasCode: true,
-      analogPin: ARDUINO_PINS.PIN_A4,
+      pin: ARDUINO_PINS.PIN_2,
       type: ArduinoComponentType.IR_REMOTE,
+      setupCommand: "config:ir=2",
+      importLibrary: {
+        name: "IRremote",
+        url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
+        version: "latest",
+      },
     };
 
     const state: ArduinoFrame = {

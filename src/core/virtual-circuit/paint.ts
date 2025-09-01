@@ -12,8 +12,13 @@ import type { MicroController } from '../microcontroller/microcontroller';
 import { getBoardSvg } from './get-board-svg';
 import { registerHighlightEvents } from './highlightevent';
 import { arduinoComponentStateToId } from '../frames/arduino-component-id';
+import { Settings } from "../../firebase/model";
 
-export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
+export default (
+  draw: Svg,
+  frameContainer: ArduinoFrameContainer,
+  settings: Settings
+) => {
   const board = getBoard(frameContainer.board);
 
   const arduino = findOrCreateMicroController(draw, board);
@@ -44,7 +49,7 @@ export default (draw: Svg, frameContainer: ArduinoFrameContainer) => {
     // existing components must go first to take up areas of the breadboard that already exist
     [...existingComponents, ...newComponents].forEach((state) => {
       state.pins.forEach((pin) => showWire(arduino, pin));
-      createNewComponent(state, draw, arduino, board, frameContainer.settings);
+      createNewComponent(state, draw, arduino, board, settings);
     });
   }
 };

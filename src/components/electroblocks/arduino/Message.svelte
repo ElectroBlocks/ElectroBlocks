@@ -84,7 +84,7 @@
   }
 
   async function uploadCode() {
-    await arduinoStore.uploadCode(boardType, $codeStore.cLang);
+    await arduinoStore.uploadCode(boardType, $codeStore.cLang, $codeStore.imports);
     onSuccess("Coding Uploaded!!");
   }
   function clearMessages() {
@@ -158,7 +158,7 @@
   <button
     use:tooltip
     title="Upload code"
-    disabled={!($portStateStoreSub === PortState.CLOSE)}
+    disabled={($portStateStoreSub === PortState.CONNECTING)}
     on:click={uploadCode}
   >
     <i class="fa {uploadingClass}" />

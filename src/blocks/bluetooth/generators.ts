@@ -4,12 +4,11 @@ import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 Blockly["Arduino"]["bluetooth_setup"] = function (block) {
   const rxPin = block.getFieldValue("PIN_RX");
   const txPin = block.getFieldValue("PIN_TX");
+    Blockly["Arduino"].libraries_["SoftwareSerial"] =
+      "#include <SoftwareSerial.h>\n";
+
   Blockly["Arduino"].libraries_["define_bluetooth"] =
-    "\n#include <SoftwareSerial.h>;\nSoftwareSerial blueToothSerial(" +
-    txPin +
-    ", " +
-    rxPin +
-    "); \n\n";
+    "\nSoftwareSerial blueToothSerial(" + txPin + ", " + rxPin + "); \n\n";
   Blockly["Arduino"].functionNames_[
     "getBluetoothMessage"
   ] = `String getBluetoothMessage() {

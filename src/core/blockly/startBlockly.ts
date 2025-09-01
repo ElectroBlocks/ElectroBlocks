@@ -10,7 +10,7 @@ import { addListener, createFrames } from "./registerEvents";
 import registerListMenu from "../../blocks/list/menu";
 import registerCodeMenu from "../../blocks/arduino/menu";
 
-import { getToolBoxString } from "./toolbox";
+import { getToolBoxString } from "./toolboxConfig";
 
 import {
   connectToArduinoBlock,
