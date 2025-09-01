@@ -44,7 +44,10 @@ import { temperatureSetupBlockToComponentState } from "../../../blocks/temperatu
 import { thermistorSetupBlockToSensorData } from "../../../blocks/thermistor/setupblocktosensordata";
 import { thermistorSetupBlockToComponentState } from "../../../blocks/thermistor/setupblocktocomponentstate";
 import { joyStickSetupBlocktoSensorData } from "../../../blocks/joystick/setupblocktosensordata";
-import { joystickSetupBlockToComponentState } from "../../../blocks/joystick/setupblocktocomponentstate";
+import {
+  joystickSetupBlockToComponentState,
+  joyStickStringToState,
+} from "../../../blocks/joystick/setupblocktocomponentstate";
 import arduinoStore from "../../../stores/arduino.store";
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
@@ -81,6 +84,7 @@ const sensorStringToComponentStateList: {
   m: utraSonicStringToComponentState,
   rfid: rfidStateStringToComponentState,
   ir: irRemoteStateStringToComponentState,
+  js: joyStickStringToState,
 };
 
 const blockToSensorComponent: {

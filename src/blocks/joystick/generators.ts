@@ -1,5 +1,9 @@
 import Blockly from "blockly";
 
+Blockly["Python"]["joystick_setup"] = function (block) {
+  return "";
+};
+
 Blockly["Arduino"]["joystick_setup"] = function (block) {
   var dropdown_pin_x = block.getFieldValue("PIN_X");
   var dropdown_pin_y = block.getFieldValue("PIN_Y");
@@ -55,6 +59,9 @@ int internal_variable_degrees = 0;
 Blockly["Arduino"]["joystick_angle"] = function (block) {
   return ["internal_variable_degrees", Blockly["Arduino"].ORDER_ATOMIC];
 };
+Blockly["Python"]["joystick_angle"] = function (block) {
+  return ["", Blockly["Arduino"].ORDER_ATOMIC];
+};
 Blockly["Arduino"]["joystick_button"] = function (block) {
   return [
     "internal_variable_isJoystickButtonPressed",
@@ -62,9 +69,17 @@ Blockly["Arduino"]["joystick_button"] = function (block) {
   ];
 };
 
+Blockly["Python"]["joystick_button"] = function (block) {
+  return ["", Blockly["Arduino"].ORDER_ATOMIC];
+};
+
 Blockly["Arduino"]["joystick_engaged"] = function (block) {
   return [
     "internal_variable_isJoyStickEngaged",
     Blockly["Arduino"].ORDER_ATOMIC,
   ];
+};
+
+Blockly["Python"]["joystick_engaged"] = function (block) {
+  return ["", Blockly["Arduino"].ORDER_ATOMIC];
 };
