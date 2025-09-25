@@ -1,80 +1,73 @@
 import Blockly from 'blockly';
 import { numberToCode } from '../../core/blockly/helpers/number-code.helper';
 // TODO REPLACE WITH THIS -> https://github.com/valmat/LedMatrix
+// TODO REPLACE WITH THIS LIBRARY IT's working now on the server.
 
-Blockly['Arduino']['led_matrix_setup'] = function (block) {
-  const dataPin = block.getFieldValue('PIN_DATA');
-  const clkPin = block.getFieldValue('PIN_CLK');
-  const csPin = block.getFieldValue('PIN_CS');
+Blockly["Arduino"]["led_matrix_setup"] = function (block) {
+  const dataPin = block.getFieldValue("PIN_DATA");
+  const clkPin = block.getFieldValue("PIN_CLK");
+  const csPin = block.getFieldValue("PIN_CS");
 
   Blockly["Arduino"].libraries_[
     "define_led_matrix"
-  ] = `// Includes the LedControlMS library for controlling LED matrices
-#include <LedControlMS.h>;`;
+  ] = `// Includes the library for controlling LED matrix
+#include <LedControl.h>;`;
   Blockly["Arduino"].libraries_[
     "led_matrix_setup"
   ] = `// Initializes the LED control object with specified pins 	
-LedControl lc = LedControl(${dataPin},${clkPin},${csPin},1);`;
+LedControl lc = LedControl(${dataPin},${clkPin},${csPin}, 1);`;
+  Blockly["Arduino"].functionNames_[
+    "led_matrix_set_row"
+  ] = `void setRow(int row, byte leds) {
+  // Because we are using the breadboard to rotate the matrix by 90 degrees
+  lc.setColumn(0, row, leds); 
+}`;
 
-  Blockly["Arduino"].setupCode_[
-    "led_matrix"
-  ] = `   lc.shutdown(0,false); // Wakes up the first display (device 0)
-   lc.setIntensity(0,8); // Sets the brightness of the first display to a medium level
-   lc.clearDisplay(0); // Clears the display for the first device
+  Blockly["Arduino"].functionNames_[
+    "led_matrix_set_led"
+  ] = `void setLed(int row, int column, bool isOn) {
+   // row and columns are reversed because of the breadboard to rotate 90 degrees
+   lc.setLed(0,  abs(column - 1 - 7), (row - 1), isOn);
+}`;
+  Blockly["Arduino"].setupCode_["led_matrix"] = `   lc.shutdown(0, false);
+   lc.setIntensity(0, 8);
+   lc.clearDisplay(0);
 `;
 
-  return '';
+  return "";
 };
 
-Blockly['Arduino']['led_matrix_make_draw'] = function (block) {
-  let code = '\n\t//START CODE TO DRAW BLOCK ' + block.id + '\n';
-
-  for (let i = 1; i <= 8; i += 1) {
-    for (let j = 1; j <= 8; j += 1) {
-      const lightState = block.getFieldValue(i + ',' + j).toLowerCase();
-      // when you hook it up you have to reverse the x and y and minus to because it starts at zero.
-      code +=
-        '\tlc.setLed(0, ' +
-        (j - 1) +
-        ', ' +
-        (7 - (i - 1)) +
-        ', ' +
-        lightState +
-        ');\n';
+Blockly["Arduino"]["led_matrix_make_draw"] = function (block) {
+  let code = "// Updates the array of LED matrix rows with the new values\n";
+  for (let row = 1; row <= 8; row += 1) {
+    let binaryString = "0b";
+    let realRow = row - 1;
+    for (let col = 8; col >= 1; col -= 1) {
+      const lightState =
+        block.getFieldValue(row + "," + col).toLowerCase() === "true"
+          ? "1"
+          : "0";
+      binaryString += lightState;
     }
+    code += `setRow(${realRow}, ${binaryString}); // Updating row ${row}\n`;
   }
-
-  code += '\n\t//FINISH CODE TO DRAW BLOCK ' + block.id + '\n';
-
   return code;
 };
 
-Blockly['Arduino']['led_matrix_turn_one_on_off'] = function (block) {
+Blockly["Arduino"]["led_matrix_turn_one_on_off"] = function (block) {
   // todo fix code with variables
-  const row = Blockly['Arduino'].valueToCode(
+  const row = Blockly["Arduino"].valueToCode(
     block,
-    'ROW',
-    Blockly['Arduino'].ORDER_ATOMIC
+    "ROW",
+    Blockly["Arduino"].ORDER_ATOMIC
   );
-  let column = Blockly['Arduino'].valueToCode(
+  let column = Blockly["Arduino"].valueToCode(
     block,
-    'COLUMN',
-    Blockly['Arduino'].ORDER_ATOMIC
+    "COLUMN",
+    Blockly["Arduino"].ORDER_ATOMIC
   );
 
-  const state = block.getFieldValue('STATE') === 'ON' ? 'true' : 'false';
+  const state = block.getFieldValue("STATE") === "ON" ? "true" : "false";
 
-  return (
-    '\tlc.setLed(0, ' +
-    // This has to be 7 even though it's an 8 by 8 matrix
-    // Because we are already substracting one
-    // part still needs work
-    numberToCode(column) +
-    ',' +
-    '(7 - ' +
-    numberToCode(row) +
-    ' ), ' +
-    state +
-    ');\n'
-  );
+  return `setLed(${row}, ${column}, ${state});\n`;
 };
