@@ -9,7 +9,7 @@ export default `
          <field name="PIN_ECHO">10</field>
        </block>
        <block type="ultra_sonic_sensor_motion">
-        <comment pinned="false" h="60" w="460">Returns the number of centimeters the sensor sensed.</comment>
+        <comment pinned="false" h="60" w="460"></comment>
        </block>
        </category>
 `;
