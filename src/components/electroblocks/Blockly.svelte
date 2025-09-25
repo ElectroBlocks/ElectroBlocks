@@ -3,11 +3,11 @@
   import { onMount, onDestroy } from 'svelte';
 
   import { WindowType, resizeStore } from '../../stores/resize.store';
-  import startBlocly from '../../core/blockly/startBlockly';
+  import startBlockly from '../../core/blockly/startBlockly';
   import currentFrameStore from '../../stores/currentFrame.store';
   import arduinoStore from '../../stores/arduino.store';
   import arduinoMessageStore from '../../stores/arduino-message.store';
-
+  import settingsStore from '../../stores/settings.store';
   import {
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop,
@@ -19,6 +19,7 @@
   } from '../../core/blockly/helpers/block.helper';
   import updateLoopblockStore from '../../stores/update-loopblock.store';
   import { workspaceToXML } from '../../core/blockly/helpers/workspace.helper';
+  import { getToolBoxString } from '../../core/blockly/toolbox';
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text
@@ -45,7 +46,7 @@
     // Hack for debugging blockly
     window.Blockly = Blockly;
 
-    startBlocly(blocklyElement);
+    startBlockly(blocklyElement, $settingsStore.boardType, $settingsStore.language);
 
     workspaceInitialize = true;
     resizeBlockly();
@@ -95,6 +96,14 @@
     )
   );
 
+  unsubscribes.push(settingsStore.subscribe((settings) => {
+    if (!settings) {
+      return;
+    }
+
+    blocklyReloadToolbox(getToolBoxString(settings.boardType, settings.language));
+  }));
+
   unsubscribes.push(
     arduinoMessageStore.subscribe((m) => {
       if (!m) {
@@ -124,6 +133,12 @@
   // The function to resize blockly main window
   function resizeBlockly() {
     Blockly.svgResize(Blockly.getMainWorkspace());
+  }
+
+  function blocklyReloadToolbox(xmlToolbox) {
+    if (workspaceInitialize) {
+      Blockly.getMainWorkspace().updateToolbox(xmlToolbox);
+    }
   }
 
   onDestroy(() => {

@@ -1,4 +1,5 @@
 import './arduino';
+import "./python";
 import '../../../blocks/arduino/generators';
 import '../../../blocks/bluetooth/generators';
 import '../../../blocks/button/generators';
