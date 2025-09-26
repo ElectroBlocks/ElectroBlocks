@@ -278,7 +278,7 @@ export async function senseDataArduino() {
     return "";
   }
   await arduinoStore.sendMessage("sense|");
-  await waitForCommand("DONE_NEXT_COMMAND");
+  await waitForCommand("OK");
   let sensorMessage = arduinoStore.getLastSensorMessage();
   sensorMessage = sensorMessage.replace("SENSE_COMPLETE", "");
   return sensorMessage;
@@ -294,20 +294,12 @@ export async function restartArduino() {
 }
 
 export const setupComponents = async (frame: ArduinoFrame) => {
-  let setupMessage = frame.components.reduce((acc, component) => {
-    if (component?.setupCommand === undefined) {
-      return acc;
-    }
-    return acc + component?.setupCommand + ";";
-  }, "");
-  console.log(setupMessage, "pre-test");
-  if (setupMessage === "") {
-    return;
-  }
-  console.log("setupMessage", setupMessage);
-  arduinoStore.sendMessage(setupMessage);
+  for (var component of frame.components) {
+    console.log("setupMessage", component.setupCommand);
+    arduinoStore.sendMessage(component.setupCommand);
 
-  await waitForCommand("DONE_NEXT_COMMAND");
+    await waitForCommand("OK");
+  }
 };
 
 export const updateComponents = async (frame: ArduinoFrame) => {
@@ -319,21 +311,13 @@ export const updateComponents = async (frame: ArduinoFrame) => {
     console.info("No components found");
     return;
   }
-  let usbMessage = frame.components.reduce((acc, component) => {
-    if (
-      component?.usbCommands === undefined ||
-      component?.usbCommands.length === 0
-    ) {
-      return acc;
+
+  for (var component of frame.components) {
+    for (var usbCommand of component.usbCommands) {
+      console.log(`SENDING: ${usbCommand}`);
+      arduinoStore.sendMessage(usbCommand);
+
+      await waitForCommand("OK");
     }
-
-    return acc + component?.usbCommands.join(";");
-  }, "");
-  if (usbMessage === "") {
-    return;
   }
-
-  arduinoStore.sendMessage(usbMessage);
-
-  await waitForCommand("DONE_NEXT_COMMAND");
 };

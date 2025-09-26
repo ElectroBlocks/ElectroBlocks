@@ -57,8 +57,8 @@ const getServo = (
   pin: ARDUINO_PINS,
   previousState: ArduinoFrame
 ): ServoState => {
-  const setupCommand = `config:servo=${pin}`;
-  const usbCommands = [`s:${pin}:${degree}`];
+  const setupCommand = `register::servo::${pin}`;
+  const usbCommands = [`write::servo::${pin}::${degree}`];
   if (!previousState) {
     return {
       pins: [pin],

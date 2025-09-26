@@ -21,6 +21,17 @@ Blockly["Python"]["led"] = function (block: Block) {
   return `eb.digital_write(${pin}, ${ledState}) # Turns the led ${state.toLowerCase()}\n`;
 };
 
+Blockly["Python"]["led_fade"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+  const fadeNumber = Blockly["Python"].valueToCode(
+    block,
+    "FADE",
+    Blockly["Python"].ORDER_ATOMIC
+  );
+
+  return "";
+};
+
 
 Blockly["Arduino"]["led_fade"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
