@@ -3,6 +3,54 @@ import _ from 'lodash';
 import { hexToRgb } from '../../core/blockly/helpers/color.helper';
 import { createColorStruct } from "../color/generators";
 
+Blockly["Python"]["fastled_setup"] = function (block) {
+  const numberOfLeds = block.getFieldValue("NUMBER_LEDS");
+  const pin = block.getFieldValue("PIN");
+  const brightness = block.getFieldValue("BRIGHTNESS");
+  const colorOrder = block.getFieldValue("COLOR_ORDER");
+  const chipSet = block.getFieldValue("CHIP_SET");
+
+  Blockly["Python"].setupCode_[
+    "fastled"
+  ] = `config_rgb_strip("${pin}", ${numberOfLeds}, "${colorOrder}", ${brightness}) # Configures the NEOPIXEL strip\n`;
+
+  return "";
+};
+
+Blockly["Python"]["fastled_set_all_colors"] = function (block) {
+  const maxLeds = Blockly["Arduino"]["fastled_info"].numberOfLeds;
+  const statements = [`// Colors for block ${block.id} \n`];
+  for (let position = 1; position <= maxLeds; position += 1) {
+    const hexColor = block.getFieldValue(getRowColId(position));
+    const rgbColor = hexToRgb(hexColor);
+    statements.push(
+      `eb.rgb_strip_set_color(${position - 1}, ${rgbColor.red}, ${
+        rgbColor.green
+      }, ${rgbColor.blue}) # set the color of the led\n`
+    );
+  }
+
+  return statements.join("");
+};
+
+Blockly["Python"]["fastled_show_all_colors"] = function (block) {
+  return `eb.rgb_strip_set_color(i, 100, 0, 100)`;
+};
+
+Blockly["Arduino"]["fastled_set_color"] = function (block) {
+  const color = Blockly["Arduino"].valueToCode(
+    block,
+    "COLOR",
+    Blockly["Arduino"].ORDER_ATOMIC
+  );
+  const position = Blockly["Arduino"].valueToCode(
+    block,
+    "POSITION",
+    Blockly["Arduino"].ORDER_ATOMIC
+  );
+  return `eb.rgb_strip_set_color(${position}, ${color.red}, ${color.green}, ${color.blue})`;
+};
+
 Blockly["Arduino"]["fastled_setup"] = function (block) {
   const numberOfLeds = block.getFieldValue("NUMBER_LEDS");
   const pin = block.getFieldValue("PIN");
@@ -35,6 +83,8 @@ void setFastLEDColor(int pos, struct RGB color) {
 `;
   return "";
 };
+
+
 
 const getRowColId = (position: number): string => {
   const row = Math.ceil(position / 12);

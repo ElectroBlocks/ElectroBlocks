@@ -9,7 +9,20 @@ import {
 } from "../../core/frames/transformer/frame-transformer.helpers";
 import type { FastLEDState } from "./state";
 import _ from "lodash";
-import { hexToRgb } from "../../core/blockly/helpers/color.helper";
+import { hexToRgb, rgbToHex } from "../../core/blockly/helpers/color.helper";
+
+const colorOrderToNumber = (colorOrder) => {
+  const orderTONumber = {
+    RGB: 128,
+    GRB: 129,
+    RBG: 130,
+    GBR: 131,
+    BRG: 132,
+    BGR: 133,
+  };
+
+  return orderTONumber[colorOrder];
+};
 
 export const fastLEDSetup: BlockToFrameTransformer = (
   blocks,
@@ -19,11 +32,14 @@ export const fastLEDSetup: BlockToFrameTransformer = (
   previousState
 ) => {
   const numberOfLeds = +findFieldValue(block, "NUMBER_LEDS");
-
+  const colorOrder = findFieldValue(block, "COLOR_ORDER");
+  const brightness = +findFieldValue(block, "BRIGHTNESS");
+  const colorNum = colorOrderToNumber(colorOrder);
   const ledStripState: FastLEDState = {
     pins: block.pins,
     type: ArduinoComponentType.FASTLED_STRIP,
     numberOfLeds,
+    setupCommand: `register::leds::${block.pins[0]}::${numberOfLeds}::${colorNum}::${brightness}`,
     preShowLEDs: _.range(0, numberOfLeds).map((i) => {
       return {
         position: i,
@@ -81,6 +97,7 @@ export const showAllColors: BlockToFrameTransformer = (
   const newFastLeds = fastLED.preShowLEDs;
   fastLED.fastLEDs = _.cloneDeep(newFastLeds);
   const newComponent = _.cloneDeep(fastLED);
+  newComponent.usbCommands = [`write::leds::${fastLED.pins[0]}::1`];
 
   return [
     arduinoFrameByComponent(
@@ -114,6 +131,14 @@ export const setAllColors: BlockToFrameTransformer = (
   }
   fastLED.preShowLEDs = leds;
   const newComponent = _.cloneDeep(fastLED);
+  let usbCommands = [];
+  const usbCommandBase = `write::leds::${fastLED.pins[0]}::2`;
+  for (let position in newComponent.fastLEDs) {
+    let hex = rgbToHex(newComponent.fastLEDs[position].color);
+    hex = hex.replace("#", "");
+    usbCommands.push(usbCommandBase + `::${position}::${hex}`);
+  }
+  newComponent.usbCommands = usbCommands;
 
   return [
     arduinoFrameByComponent(

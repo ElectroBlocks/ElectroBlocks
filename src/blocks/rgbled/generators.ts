@@ -175,7 +175,7 @@ Blockly["Python"]["set_color_led"] = function (block: Block) {
   }
 
   return `dev_color = ${color} # Create the RGB color object.
-eb.set_rgb(dev_color.red, dev_color.green, dev_color.blue) # Set the RGB LED color on the Arduino.\n`;
+eb.set_color_rgbled(dev_color.red, dev_color.green, dev_color.blue) # Set the RGB LED color on the Arduino.\n`;
 };
 
 Blockly["Arduino"]["set_simple_color_led"] =

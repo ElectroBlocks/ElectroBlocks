@@ -4,13 +4,13 @@ import { isPureNumber } from "../time/generators";
 
 Blockly["Python"]["lcd_setup"] = function (block) {
   const size = block.getFieldValue("SIZE");
-  const memoryAddressLCDType = block.getFieldValue("MEMORY_TYPE").toUpperCase();
+  const memoryType = block.getFieldValue("MEMORY_TYPE") == "0x3F" ? 63 : 39;
 
   const numberOfRows = size === "16 x 2" ? 2 : 4;
   const numberOfColumns = size === "16 x 2" ? 16 : 20;
   Blockly["Python"].setupCode_[
     "rgb_setup"
-  ] = `eb.config_lcd(${numberOfRows}, ${numberOfColumns}) # Configures the LCD Screen pins\n`;
+  ] = `eb.config_lcd(${numberOfRows}, ${numberOfColumns}, ${memoryType}) # Configures the LCD Screen pins\n`;
   return "";
 };
 
@@ -172,12 +172,14 @@ Blockly["Python"]["lcd_screen_simple_print"] = function (
   );
 
   if (numRows == 2) {
-    return `eb.lcd_print(0, 0, ${textRow1}) # Print the first row text on the LCD screen
+    return `eb.lcd_clear() # clear screen
+eb.lcd_print(0, 0, ${textRow1}) # Print the first row text on the LCD screen
 eb.lcd_print(1, 0, ${textRow2}) # Print the second row text on the LCD screen
 time.sleep(${seconds}) # Pause / Wait\n`;
   }
 
-  return `eb.lcd_print(0, 0, ${textRow1}) # Print the first row text on the LCD screen
+  return `eb.lcd_clear() # clear screen
+eb.lcd_print(0, 0, ${textRow1}) # Print the first row text on the LCD screen
 eb.lcd_print(1, 0, ${textRow2}) # Print the second row text on the LCD screen
 eb.lcd_print(2, 0, ${textRow3}) # Print the third row text on the LCD screen
 eb.lcd_print(3, 0, ${textRow4}) # Print the fourth row text on the LCD screen
