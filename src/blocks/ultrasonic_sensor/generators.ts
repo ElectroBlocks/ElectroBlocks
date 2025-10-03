@@ -6,7 +6,7 @@ Blockly["Arduino"]["ultra_sonic_sensor_motion"] = function (block: Block) {
 };
 
 Blockly["Python"]["ultra_sonic_sensor_motion"] = function (block: Block) {
-  return ["motion_distance_cm()", Blockly["Python"].ORDER_ATOMIC];
+  return ["eb.motion_distance_cm()", Blockly["Python"].ORDER_ATOMIC];
 };
 
 Blockly["Python"]["ultra_sonic_sensor_setup"] = function (block: Block) {

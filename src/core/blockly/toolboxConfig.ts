@@ -192,7 +192,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "FastLED",
@@ -228,7 +228,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Motor",
@@ -237,7 +237,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Passive Buzzer",
@@ -246,7 +246,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "Pins",
@@ -255,7 +255,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
       {
         name: "RGB Led",
@@ -282,7 +282,7 @@ const defaultToolbox: ToolBoxEntries[] = [
           MicroControllerType.ARDUINO_UNO,
           MicroControllerType.ARDUINO_MEGA,
         ],
-        supportedLanguages: [SUPPORTED_LANGUAGES.C],
+        supportedLanguages: [SUPPORTED_LANGUAGES.C, SUPPORTED_LANGUAGES.PYTHON],
       },
     ],
   },

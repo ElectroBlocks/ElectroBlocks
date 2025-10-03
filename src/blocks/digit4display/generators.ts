@@ -1,5 +1,15 @@
 import Blockly, { type Block } from "blockly";
 
+Blockly["Python"]["digital_display_setup"] = function (block: Block) {
+  let dioPin = block.getFieldValue("DIO_PIN");
+  let clkPin = block.getFieldValue("CLK_PIN");
+  Blockly["Python"].setupCode_[
+    "tm"
+  ] = `eb.config_digital_display(${dioPin}, ${clkPin})\n`;
+
+  return "";
+};
+
 Blockly["Arduino"]["digital_display_setup"] = function (block: Block) {
   let dioPin = block.getFieldValue("DIO_PIN");
   let clkPin = block.getFieldValue("CLK_PIN");
@@ -20,6 +30,17 @@ SevenSegmentTM1637    digitalDisplay(PIN_CLK, PIN_DIO);
 
   let code = "";
   return code;
+};
+
+Blockly["Python"]["digital_display_set"] = function (block) {
+  let text = Blockly["Python"].valueToCode(
+    block,
+    "TEXT",
+    Blockly["Python"].ORDER_ATOMIC
+  );
+  let colonOn = block.getFieldValue("COLON") == "TRUE" ? "True" : "False";
+
+  return `eb.set_digital_display(${colonOn}, ${text})\n`;
 };
 
 Blockly["Arduino"]["digital_display_set"] = function (block) {

@@ -3,7 +3,11 @@ import { numberToCode } from '../../core/blockly/helpers/number-code.helper';
 // TODO REPLACE WITH THIS -> https://github.com/valmat/LedMatrix
 
 Blockly["Python"]["led_matrix_setup"] = function (block) {
-  return "";
+  const dataPin = block.getFieldValue("PIN_DATA");
+  const clkPin = block.getFieldValue("PIN_CLK");
+  const csPin = block.getFieldValue("PIN_CS");
+
+  return `eb.config_led_matrix(${dataPin},${csPin},${clkPin})`;
 };
 Blockly["Arduino"]["led_matrix_setup"] = function (block) {
   const dataPin = block.getFieldValue("PIN_DATA");
@@ -30,29 +34,62 @@ LedControl lc = LedControl(${dataPin},${clkPin},${csPin},1);`;
 };
 
 Blockly["Python"]["led_matrix_make_draw"] = function (block) {
-  return "";
-};
-Blockly['Arduino']['led_matrix_make_draw'] = function (block) {
-  let code = '\n\t//START CODE TO DRAW BLOCK ' + block.id + '\n';
+  let code = "\n# START CODE TO DRAW BLOCK " + block.id + "\n";
 
   for (let i = 1; i <= 8; i += 1) {
     for (let j = 1; j <= 8; j += 1) {
-      const lightState = block.getFieldValue(i + ',' + j).toLowerCase();
+      const lightState = block.getFieldValue(i + "," + j).toLowerCase();
       // when you hook it up you have to reverse the x and y and minus to because it starts at zero.
-      code +=
-        '\tlc.setLed(0, ' +
-        (j - 1) +
-        ', ' +
-        (7 - (i - 1)) +
-        ', ' +
-        lightState +
-        ');\n';
+      code += `eb.set_led_matrix_led(${i}, ${j}, ${
+        lightState == "true" ? "True" : "False"
+      }) \n`;
     }
   }
 
-  code += '\n\t//FINISH CODE TO DRAW BLOCK ' + block.id + '\n';
+  code += "\n# FINISH CODE TO DRAW BLOCK " + block.id + "\n";
 
   return code;
+};
+Blockly["Arduino"]["led_matrix_make_draw"] = function (block) {
+  let code = "\n\t//START CODE TO DRAW BLOCK " + block.id + "\n";
+
+  for (let i = 1; i <= 8; i += 1) {
+    for (let j = 1; j <= 8; j += 1) {
+      const lightState = block.getFieldValue(i + "," + j).toLowerCase();
+      // when you hook it up you have to reverse the x and y and minus to because it starts at zero.
+      code +=
+        "\tlc.setLed(0, " +
+        (j - 1) +
+        ", " +
+        (7 - (i - 1)) +
+        ", " +
+        lightState +
+        ");\n";
+    }
+  }
+
+  code += "\n\t//FINISH CODE TO DRAW BLOCK " + block.id + "\n";
+
+  return code;
+};
+
+Blockly["Python"]["led_matrix_turn_one_on_off"] = function (block) {
+  const row = Blockly["Arduino"].valueToCode(
+    block,
+    "ROW",
+    Blockly["Arduino"].ORDER_ATOMIC
+  );
+  let column = Blockly["Arduino"].valueToCode(
+    block,
+    "COLUMN",
+    Blockly["Arduino"].ORDER_ATOMIC
+  );
+
+  const state = block.getFieldValue("STATE") === "ON" ? "true" : "false";
+
+  return `eb.set_led_matrix_led(${row}, ${column}, ${
+    state ? "True" : "False"
+  }) \n`;
 };
 
 Blockly['Arduino']['led_matrix_turn_one_on_off'] = function (block) {

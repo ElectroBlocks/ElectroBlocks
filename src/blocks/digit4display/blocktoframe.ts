@@ -16,13 +16,16 @@ export const digit4DisplaySetup: BlockToFrameTransformer = (
   timeline,
   previousState
 ) => {
+  const dioPin = findFieldValue(block, "DIO_PIN");
+  const clkPin = findFieldValue(block, "CLK_PIN");
   const component: DigitilDisplayState = {
     type: ArduinoComponentType.DIGITAL_DISPLAY,
     pins: block.pins.sort(),
-    dioPin: findFieldValue(block, "DIO_PIN"),
-    clkPin: findFieldValue(block, "CLK_PIN"),
+    dioPin,
+    clkPin,
     chars: "",
     colonOn: false,
+    setupCommand: `register::tm::${dioPin}::${clkPin}`,
   };
 
   return [
@@ -61,7 +64,10 @@ export const digitalDisplaySet: BlockToFrameTransformer = (
     previousState
   );
   component.chars = chars.slice(0, 4);
-
+  component.setupCommand = `register::tm::${component.dioPin}::${component.clkPin}`;
+  component.usbCommands = [
+    `write::tm::${component.dioPin}::${component.colonOn ? 1 : 0}::${chars}`,
+  ];
   return [
     arduinoFrameByComponent(
       block.id,

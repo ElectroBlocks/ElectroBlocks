@@ -26,7 +26,7 @@ export const digitalReadSetup: BlockToFrameTransformer = (
     pins: [pin],
     isOn: digitalSensor1.isOn,
     pictureType,
-    setupCommand: `config:dr=${pin}`,
+    setupCommand: `register::dr::${pin}`,
   };
   var frame = arduinoFrameByComponent(
     block.id,

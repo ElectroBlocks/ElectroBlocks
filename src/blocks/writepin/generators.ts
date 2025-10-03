@@ -9,31 +9,17 @@ Blockly["Arduino"]["digital_write"] = function (block: Block) {
   return "digitalWrite(" + pin + ", " + state + "); \n";
 };
 
-export function setup_code() {
-  if(!Blockly["Python"].setupCode_["board_port"]) {
-    Blockly["Python"].setupCode_["board_port"] =
-      `PORT = "YOUR_PORT_HERE"\n`+
-      `board = pyfirmata.Arduino(PORT)\n`+
-      `\n`+
-      `#Start the iterator thread to read inputs\n`+
-      `it = pyfirmata.util.Iterator(board)\n`+
-      `it.start()`+
-      `\n`;
-  }
-}
 
 Blockly["Python"]["digital_write"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
-  
-  const state = block.getFieldValue("STATE") === "ON" ? "1" : "0";
+  const state = block.getFieldValue("STATE");
+  Blockly["Python"].setupCode_[
+    "write_pin_" + pin
+  ] = `eb.digital_config(${pin})\n`;
 
-  Blockly["Python"].imports_["import_mods"] = `from pyfirmata import Arduino, util\nimport time`;
-  setup_code();
-  const code = `board.digital[${pin}].write(${state})\n`+
-  `time.sleep(0.01)\n`;
-  return code;
- };
-  
+  const ledState = state === "ON" ? "1" : "0";
+  return `eb.digital_write(${pin}, ${ledState}) # Turns the led ${state.toLowerCase()}\n`;
+};
 
 Blockly["Arduino"]["analog_write"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
@@ -49,24 +35,15 @@ Blockly["Arduino"]["analog_write"] = function (block: Block) {
 Blockly["Python"]["analog_write"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
   // Grab the value plugged into the WRITE_VALUE input (0.0–1.0)
-  const value = Blockly["Python"].valueToCode(
-    block,
-    "WRITE_VALUE",
-    Blockly["Python"].ORDER_ATOMIC
-  ) || "0";
+  const value =
+    Blockly["Python"].valueToCode(
+      block,
+      "WRITE_VALUE",
+      Blockly["Python"].ORDER_ATOMIC
+    ) || "0";
 
-  // ensure pyFirmata + time are imported
-  Blockly["Python"].imports_["import_mods"] =
-    'from pyfirmata import Arduino, util\nimport time';
+  Blockly["Python"].setupCode_["write_pin_" + pin] = `eb.analog_config(${pin})`;
 
-  // make sure board/iterator setup is in place
-  setup_code();
-
-  // write the PWM duty cycle, then a tiny pause
-  const code =
-    `board.get_pin('d:${pin}:p').write(${value})\n` +
-    `time.sleep(0.01)\n`;
-
-  return code;
+  return `eb.analog_write(${pin}, ${value})\n`;
 };
 

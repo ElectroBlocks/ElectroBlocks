@@ -277,7 +277,7 @@ export async function senseDataArduino() {
     console.error("Port is not connected");
     return "";
   }
-  await arduinoStore.sendMessage("sense|");
+  await arduinoStore.sendMessage("sense");
   await waitForCommand("OK");
   let sensorMessage = arduinoStore.getLastSensorMessage();
   sensorMessage = sensorMessage.replace("SENSE_COMPLETE", "");
@@ -313,6 +313,7 @@ export const updateComponents = async (frame: ArduinoFrame) => {
   }
 
   for (var component of frame.components) {
+    if (!component.usbCommands) break;
     for (var usbCommand of component.usbCommands) {
       console.log(`SENDING: ${usbCommand}`);
       arduinoStore.sendMessage(usbCommand);

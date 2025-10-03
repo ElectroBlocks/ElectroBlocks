@@ -24,7 +24,7 @@ export const rfidSetupBlockToComponentState = (
     pins: [rxPin, txPin],
     scannedCard: rfidSensor.scanned_card,
     tag: rfidSensor.tag,
-    setupCommand: `config:rfid=${rxPin},${txPin}`,
+    setupCommand: `register::rfi::${rxPin}::${txPin}::9600`,
   };
 };
 
@@ -41,8 +41,8 @@ export const rfidStateStringToComponentState = (
     txPin,
     rxPin,
     pins: [rxPin, txPin],
-    scannedCard: state.length > 0,
-    tag: state,
-    setupCommand: `config:rfid=${rxPin},${txPin}`,
+    scannedCard: state != "0",
+    tag: state == "0" ? "" : state,
+    setupCommand: `register::rfi::${rxPin}::${txPin}::9600`,
   };
 };

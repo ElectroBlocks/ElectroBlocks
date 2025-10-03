@@ -11,8 +11,7 @@ import {
   findComponent,
   getDefaultIndexValue,
 } from '../../core/frames/transformer/frame-transformer.helpers';
-import type { LedMatrixState } from './state';
-import { led } from "../led/blocktoframe";
+import type { LedMatrixState } from "./state";
 
 export const ledMatrixSetup: BlockToFrameTransformer = (
   blocks,
@@ -48,8 +47,7 @@ export const ledMatrixSetup: BlockToFrameTransformer = (
     clkPin,
     csPin,
     dataPin,
-    setupCommand: `config:matrix=${dataPin},${clkPin},${csPin}`,
-    usbCommands: [`matrix:${ledsToBytes(leds).join(",")}`],
+    setupCommand: `register::ma::${dataPin}::${csPin}::${clkPin}`,
   };
 
   return [
@@ -84,6 +82,8 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
     ];
   }, []);
   const { pins, type, dataPin, csPin, clkPin } = getLedMatrix(previousState);
+  const usbCommands = makeLedCommands(dataPin, leds);
+
   const ledMatrixState: LedMatrixState = {
     type,
     pins,
@@ -91,8 +91,8 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
     clkPin,
     csPin,
     dataPin,
-    usbCommands: [`matrix:${ledsToBytes(leds).join(",")}`],
-    setupCommand: `config:matrix=${dataPin},${clkPin},${csPin}`,
+    usbCommands,
+    setupCommand: `register::ma::${dataPin}::${csPin}::${clkPin}`,
   };
 
   return [
@@ -147,6 +147,8 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
     return led;
   });
 
+  const usbCommands = makeLedCommands(dataPin, newLeds);
+
   const newComponent: LedMatrixState = {
     pins,
     type,
@@ -154,6 +156,10 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
     dataPin,
     csPin,
     clkPin,
+    usbCommands: [
+      `write::ma::${dataPin}::1::${col - 1}::${8 - row}::${isOn ? 1 : 0}`,
+    ],
+    setupCommand: `register::ma::${dataPin}::${csPin}::${clkPin}`,
   };
 
   return [
@@ -175,6 +181,17 @@ const getLedMatrix = (previousState?: ArduinoFrame): LedMatrixState => {
   );
 };
 
+const makeLedCommands = (
+  pin: string,
+  leds: Array<{ row: number; col: number; isOn: boolean }>
+): string[] => {
+  return leds.map((l) => {
+    return `write::ma::${pin}::1::${l.col - 1}::${8 - l.row}::${
+      l.isOn ? 1 : 0
+    }`;
+  });
+};
+
 export const ledsToBytes = (
   leds: { row: number; col: number; isOn: boolean }[]
 ): number[] => {
@@ -186,3 +203,4 @@ export const ledsToBytes = (
     }, 0);
   });
 };
+

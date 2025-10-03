@@ -19,7 +19,7 @@ export const buttonSetupBlockToComponentState = (
     pins: [pin as ARDUINO_PINS],
     isPressed: btState.is_pressed,
     usePullup: findFieldValue(block, "PULLUP_RESISTOR") === "TRUE",
-    setupCommand: `config:b=${pin}`,
+    setupCommand: `register::bt::${pin}`,
   };
 };
 

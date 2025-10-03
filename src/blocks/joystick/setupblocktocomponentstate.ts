@@ -27,7 +27,7 @@ export const joystickSetupBlockToComponentState = (
     buttonPressed: joyStickSensor.buttonPressed,
     engaged: joyStickSensor.engaged,
     degree: joyStickSensor.degree,
-    setupCommand: `config:js=${xPin},${yPin},${buttonPin}`,
+    setupCommand: `register::js::${xPin}::${yPin}::${buttonPin}`,
   };
 
   return joystickState;
@@ -41,8 +41,8 @@ export const joyStickStringToState = (
   const xPin = findFieldValue(block, "PIN_X") as ARDUINO_PINS;
   const yPin = findFieldValue(block, "PIN_Y") as ARDUINO_PINS;
   const buttonPin = findFieldValue(block, "PIN_BUTTON") as ARDUINO_PINS;
-  const [_, pinState, state] = sensorStr.split(":");
-  const [buttonPressedText, degreeText, engagedText] = state.split("-");
+  const [_, pinState, buttonPressedText, degreeText, engagedText] =
+    sensorStr.split(":");
   return {
     type: ArduinoComponentType.JOYSTICK,
     pins: [xPin, yPin, buttonPin],
@@ -52,7 +52,7 @@ export const joyStickStringToState = (
     buttonPressed: buttonPressedText == "1",
     engaged: engagedText == "1",
     degree: +degreeText,
-    setupCommand: `config:js=${xPin},${yPin},${buttonPin}`,
+    setupCommand: `register::js::${xPin}::${yPin}::${buttonPin}`,
   };
 };
 

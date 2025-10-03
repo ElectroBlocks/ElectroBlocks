@@ -23,7 +23,7 @@ export const digitalSetupBlockToComponentState = (
     type: ArduinoComponentType.DIGITAL_SENSOR,
     pins: [pin],
     pin,
-    setupCommand: `config:dr=${pin}`,
+    setupCommand: `register::dr::${pin}`,
     pictureType: findFieldValue(block, "TYPE") as DigitalPictureType,
     isOn: digitalSensorState.isOn,
   };

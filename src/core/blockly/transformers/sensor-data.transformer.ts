@@ -80,9 +80,9 @@ const sensorStringToComponentStateList: {
   [sensorId: string]: SensorStringToComponentState;
 } = {
   dr: digitalReadSensorStringToComponentState,
-  b: buttonStringToComponentState,
-  m: utraSonicStringToComponentState,
-  rfid: rfidStateStringToComponentState,
+  bt: buttonStringToComponentState,
+  ul: utraSonicStringToComponentState,
+  rfi: rfidStateStringToComponentState,
   ir: irRemoteStateStringToComponentState,
   js: joyStickStringToState,
 };

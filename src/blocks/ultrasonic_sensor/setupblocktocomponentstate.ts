@@ -24,7 +24,7 @@ export const ultraSonicSetupBlockToComponentState = (
       findFieldValue(block, "PIN_TRIG") as ARDUINO_PINS,
       findFieldValue(block, "PIN_ECHO") as ARDUINO_PINS,
     ],
-    setupCommand: `config:m=${echoPin},${trigPin}`,
+    setupCommand: `register::ul::${trigPin}::${echoPin}`,
     cm: ultraSensor.cm,
   };
 };
@@ -48,7 +48,7 @@ export const utraSonicStringToComponentState = (
       findFieldValue(setupBlock, "PIN_TRIG") as ARDUINO_PINS,
       findFieldValue(setupBlock, "PIN_ECHO") as ARDUINO_PINS,
     ],
-    setupCommand: `config:m=${echoPin},${trigPin}`,
+    setupCommand: `register::ul::${echoPin}::${trigPin}`,
     cm: state,
   };
 };

@@ -30,6 +30,7 @@ export const stepperMotorSetup: BlockToFrameTransformer = (
     currentRotation: 0,
     totalSteps,
     steps: 0,
+    setupCommand: `register::ste::${pin1}::${pin2}::${pin3}::${pin4}`,
   };
 
   return [
@@ -68,6 +69,7 @@ export const moveStepperMotor: BlockToFrameTransformer = (
     ...stepperMotorState,
     steps,
     currentRotation: stepperMotorState.currentRotation + steps,
+    usbCommands: [`write::ste::${stepperMotorState.pin1}::${steps}`],
   };
 
   return [

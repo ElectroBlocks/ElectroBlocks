@@ -15,14 +15,14 @@ export const irRemoteSetup: BlockToFrameTransformer = (
   const irRemoteData = irRemoteSensorDatum.find(
     (d) => d.loop == 1
   ) as IRRemoteSensor;
-  const [analogPin] = block.pins;
+  const [pin] = block.pins;
   const irRemoteState: IRRemoteState = {
     hasCode: irRemoteData.scanned_new_code,
     code: irRemoteData.code,
     type: ArduinoComponentType.IR_REMOTE,
     pins: block.pins,
-    pin: analogPin,
-    setupCommand: `config:ir=${analogPin}`,
+    pin: pin,
+    setupCommand: `register::ir::${pin}`,
     importLibrary: {
       name: "IRremote",
       url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
