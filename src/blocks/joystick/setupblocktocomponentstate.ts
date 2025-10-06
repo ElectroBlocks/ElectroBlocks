@@ -41,8 +41,8 @@ export const joyStickStringToState = (
   const xPin = findFieldValue(block, "PIN_X") as ARDUINO_PINS;
   const yPin = findFieldValue(block, "PIN_Y") as ARDUINO_PINS;
   const buttonPin = findFieldValue(block, "PIN_BUTTON") as ARDUINO_PINS;
-  const [_, pinState, buttonPressedText, degreeText, engagedText] =
-    sensorStr.split(":");
+  const [_, pin, state] = sensorStr.split(":");
+  const [buttonPressedText, engagedText, degreeText] = state.split("-");
   return {
     type: ArduinoComponentType.JOYSTICK,
     pins: [xPin, yPin, buttonPin],

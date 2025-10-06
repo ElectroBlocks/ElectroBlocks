@@ -289,7 +289,7 @@ export async function restartArduino() {
     console.error("Port is not connected");
     return "";
   }
-  await arduinoStore.sendMessage("restart:|");
+  await arduinoStore.sendMessage("restart|");
   await waitForCommand("System:READY");
 }
 

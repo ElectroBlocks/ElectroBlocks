@@ -40,7 +40,10 @@ import {
   rfidStateStringToComponentState,
 } from "../../../blocks/rfid/setupblocktocomponentstate";
 import { temperatureSetupBlockToSensorData } from "../../../blocks/temperature/setupblocktosensordata";
-import { temperatureSetupBlockToComponentState } from "../../../blocks/temperature/setupblocktocomponentstate";
+import {
+  temperatureSetupBlockToComponentState,
+  tempStateStringToComponentState,
+} from "../../../blocks/temperature/setupblocktocomponentstate";
 import { thermistorSetupBlockToSensorData } from "../../../blocks/thermistor/setupblocktosensordata";
 import { thermistorSetupBlockToComponentState } from "../../../blocks/thermistor/setupblocktocomponentstate";
 import { joyStickSetupBlocktoSensorData } from "../../../blocks/joystick/setupblocktosensordata";
@@ -85,6 +88,7 @@ const sensorStringToComponentStateList: {
   rfi: rfidStateStringToComponentState,
   ir: irRemoteStateStringToComponentState,
   js: joyStickStringToState,
+  dht: tempStateStringToComponentState,
 };
 
 const blockToSensorComponent: {
