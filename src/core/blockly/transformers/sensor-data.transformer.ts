@@ -45,7 +45,10 @@ import {
   tempStateStringToComponentState,
 } from "../../../blocks/temperature/setupblocktocomponentstate";
 import { thermistorSetupBlockToSensorData } from "../../../blocks/thermistor/setupblocktosensordata";
-import { thermistorSetupBlockToComponentState } from "../../../blocks/thermistor/setupblocktocomponentstate";
+import {
+  thermistorSetupBlockToComponentState,
+  thermistorStateStringToComponentState,
+} from "../../../blocks/thermistor/setupblocktocomponentstate";
 import { joyStickSetupBlocktoSensorData } from "../../../blocks/joystick/setupblocktosensordata";
 import {
   joystickSetupBlockToComponentState,
@@ -89,6 +92,7 @@ const sensorStringToComponentStateList: {
   ir: irRemoteStateStringToComponentState,
   js: joyStickStringToState,
   dht: tempStateStringToComponentState,
+  th: thermistorStateStringToComponentState,
 };
 
 const blockToSensorComponent: {

@@ -2,6 +2,16 @@ import Blockly from "blockly";
 import { Block } from "blockly";
 import { stepSerialBegin } from "../message/generators";
 
+Blockly["Python"]["thermistor_setup"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+
+  Blockly["Arduino"].setupCode_[
+    "thermistor_setup_" + pin
+  ] = `eb.config_thermistor("${pin}")
+`;
+  return "";
+};
+
 Blockly["Arduino"]["thermistor_setup"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
 
@@ -44,9 +54,18 @@ Blockly["Arduino"]["thermistor_setup"] = function (block: Block) {
   return "";
 };
 
-Blockly["Arduino"]["thermistor_read"] = function (block: Block) {
+Blockly["Python"]["thermistor_read"] = function (block: Block) {
   var unit = block.getFieldValue("UNIT");
   return [`readThermistor("${unit}")`, Blockly["Arduino"].ORDER_ATOMIC];
+};
+
+Blockly["Arduino"]["thermistor_read"] = function (block: Block) {
+  var unit = block.getFieldValue("UNIT");
+  if (unit == "C") {
+    return [`eb.thermistor_celsius()`, Blockly["Python"].ORDER_ATOMIC];
+  }
+
+  return [`eb.thermistor_fahrenheit()`, Blockly["Python"].ORDER_ATOMIC];
 };
 
 
