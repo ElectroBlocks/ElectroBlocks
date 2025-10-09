@@ -23,11 +23,13 @@ export const irRemoteSetup: BlockToFrameTransformer = (
     pins: block.pins,
     pin: pin,
     setupCommand: `register::ir::${pin}`,
-    importLibrary: {
-      name: "IRremote",
-      url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
-      version: "latest",
-    },
+    importLibraries: [
+      {
+        name: "IRremote",
+        url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
+        version: "latest",
+      },
+    ],
   };
 
   return [

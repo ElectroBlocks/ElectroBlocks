@@ -47,6 +47,7 @@ export const simulatorStore = writable<SimulatorMode>(SimulatorMode.VIRTUAL);
 function addListener(port: WebSerialPortPromise) {
   port.removeAllListeners();
   port.on("data", (data) => {
+    if (get(portStateStoreSub) != PortState.OPEN) return;
     buffer += data.toString();
 
     // Split on newlines
@@ -110,7 +111,6 @@ const uploadHexCodeToBoard = async (
       // flashMode: flashModeData,
       speed: 115200,
       uploadSpeed: boardInfo.serial_baud_rate,
-
       tool: boardType == MicroControllerType.ESP32 ? "esptool" : "avrdude",
       cpu: "atmega328p",
       stdout: {
@@ -194,7 +194,13 @@ const arduinoStore = {
   },
 
   connectWithAndUploadFirmware: async (boardType: MicroControllerType) => {
+    if (!arduinoStore.isConnected()) {
+      await arduinoStore.connect();
+    }
+    const successfulRestart = await restartArduino();
+    if (successfulRestart) return "restarted";
     await uploadHexCodeToBoard(boardType, async () => arduinoUnoHexCode);
+    return "full upload";
   },
   connect: async () => {
     try {
@@ -207,8 +213,10 @@ const arduinoStore = {
       portStateStore.set(PortState.OPEN);
       addListener(port);
       arduinoPortStore.set(port);
+      return true;
     } catch (error) {
       portStateStore.set(PortState.CLOSE);
+      return false;
     }
   },
   disconnect: async () => {
@@ -265,11 +273,11 @@ const waitForCommand = async (command: string) => {
     count++;
     if (count > 100) {
       console.info("Timeout waiting for command:", command);
-      return;
+      return false;
     }
   }
   console.log("DONE_WAITING", new Date().getTime());
-  return;
+  return true;
 };
 
 export async function senseDataArduino() {
@@ -287,10 +295,10 @@ export async function senseDataArduino() {
 export async function restartArduino() {
   if (!arduinoStore.isConnected()) {
     console.error("Port is not connected");
-    return "";
+    return false;
   }
   await arduinoStore.sendMessage("restart|");
-  await waitForCommand("System:READY");
+  return await waitForCommand("System:READY");
 }
 
 export const setupComponents = async (frame: ArduinoFrame) => {

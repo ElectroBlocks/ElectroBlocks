@@ -48,6 +48,13 @@ export const ledMatrixSetup: BlockToFrameTransformer = (
     csPin,
     dataPin,
     setupCommand: `register::ma::${dataPin}::${csPin}::${clkPin}`,
+    importLibraries: [
+      {
+        name: "LedControl",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/wayoda/LedControl-1.0.6.zip",
+      },
+    ],
   };
 
   return [
@@ -81,18 +88,13 @@ export const ledMatrixDraw: BlockToFrameTransformer = (
       }),
     ];
   }, []);
-  const { pins, type, dataPin, csPin, clkPin } = getLedMatrix(previousState);
-  const usbCommands = makeLedCommands(dataPin, leds);
+  const previousLedMatrix = _.cloneDeep(getLedMatrix(previousState));
+  const usbCommands = makeLedCommands(previousLedMatrix.dataPin, leds);
 
   const ledMatrixState: LedMatrixState = {
-    type,
-    pins,
+    ...previousLedMatrix,
     leds,
-    clkPin,
-    csPin,
-    dataPin,
     usbCommands,
-    setupCommand: `register::ma::${dataPin}::${csPin}::${clkPin}`,
   };
 
   return [
@@ -148,18 +150,13 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
   });
 
   const usbCommands = makeLedCommands(dataPin, newLeds);
-
+  const previousLedMatrix = _.cloneDeep(getLedMatrix(previousState));
   const newComponent: LedMatrixState = {
-    pins,
-    type,
+    ...previousLedMatrix,
     leds: newLeds,
-    dataPin,
-    csPin,
-    clkPin,
     usbCommands: [
       `write::ma::${dataPin}::1::${col - 1}::${8 - row}::${isOn ? 1 : 0}`,
     ],
-    setupCommand: `register::ma::${dataPin}::${csPin}::${clkPin}`,
   };
 
   return [

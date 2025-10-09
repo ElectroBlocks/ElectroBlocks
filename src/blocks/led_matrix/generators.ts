@@ -17,7 +17,7 @@ Blockly["Arduino"]["led_matrix_setup"] = function (block) {
   Blockly["Arduino"].libraries_[
     "define_led_matrix"
   ] = `// Includes the LedControlMS library for controlling LED matrices
-#include <LedControlMS.h>;`;
+#include <LedControl.h>;`;
   Blockly["Arduino"].libraries_[
     "led_matrix_setup"
   ] = `// Initializes the LED control object with specified pins 	

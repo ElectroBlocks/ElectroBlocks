@@ -15,17 +15,16 @@ Blockly["Arduino"]["digital_display_setup"] = function (block: Block) {
   let clkPin = block.getFieldValue("CLK_PIN");
 
   Blockly["Arduino"].libraries_["define_digital_display"] = `
-#include "SevenSegmentTM1637.h"  // Includes the library for the TM1637 7-segment display
+#include <TM1637.h>  // Includes the library for the TM1637 7-segment display
 const byte PIN_CLK = ${dioPin};   // Defines CLK pin for the display
 const byte PIN_DIO = ${clkPin};   // Defines DIO pin for the display
 // Initializes the 7-segment display with CLK and DIO pins
-SevenSegmentTM1637    digitalDisplay(PIN_CLK, PIN_DIO);
+TM1637    tm(PIN_CLK, PIN_DIO);
 `;
 
-  Blockly["Arduino"].setupCode_[
-    "digital_display_setup"
-  ] = `   digitalDisplay.begin(); // Starts the 7-segment display
-   digitalDisplay.setBacklight(100);  // Sets the display backlight to maximum brightness
+  Blockly["Arduino"].setupCode_["digital_display_setup"] = `  tm.begin();
+  tm.setBrightness(100);
+  tm.clearScreen();
 `;
 
   let code = "";
@@ -52,11 +51,10 @@ Blockly["Arduino"]["digital_display_set"] = function (block) {
   let colonOn = block.getFieldValue("COLON") == "TRUE";
 
   // This has to 4 in order to get the colons to work
-
   let code = `
-  digitalDisplay.clear();
-  digitalDisplay.setColonOn(${colonOn});
-  digitalDisplay.print(${text});
+  tm.clearScreen();
+  ${colonOn ? "tm.colonOn();" : "tm.colonOff()"}
+  tm.display(${text});
 `;
   return code;
 };

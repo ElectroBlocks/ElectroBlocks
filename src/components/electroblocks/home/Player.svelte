@@ -72,8 +72,21 @@
   }
 
   async function uploadCode() {
-    await arduinoStore.uploadCode($settingStore.boardType, $codeStore.cLang, $codeStore.imports);
-    onSuccess("Coding Uploaded!!");
+    try {
+      await arduinoStore.uploadCode($settingStore.boardType, $codeStore.cLang, $codeStore.imports);
+      onSuccess("Coding Uploaded!!");
+      // We want to enable usb messages
+      simulatorStore.set(SimulatorMode.VIRTUAL);
+    } catch (error) {
+      if (error.message.includes("No port selected by the user.")) {
+        onErrorMessage(
+          "Please try again and select a usb port if you wish to go live.",
+          error
+        );
+        return;
+      }
+      onErrorMessage("Error uploading code", error);
+    }
   }
 
   async function goToLiveMode() {
@@ -84,10 +97,13 @@ Click Ok to confirm and get started!`);
       if (!result) {
         return;
       }
-      await arduinoStore.connectWithAndUploadFirmware($settingStore.boardType);
-      onSuccess("Firmware was successfully loaded!");
+      const whatHappenned = await arduinoStore.connectWithAndUploadFirmware($settingStore.boardType);
+      if (whatHappenned == "full upload") {
+        onSuccess("Firmware was successfully loaded!");
+      }
 
       simulatorStore.set(SimulatorMode.LIVE);
+      console.log("COMPLETE");
     } catch (error) {
       if (error.message.includes("No port selected by the user.")) {
         onErrorMessage(
@@ -171,40 +187,52 @@ Click Ok to confirm and get started!`);
   };
 
   async function playLive() {
-    if (!isPlayingLive || $portStateStoreSub != PortState.OPEN) {
-      return;
-    }
-    if (frameCount == 0) {
-      var event = createBlocklyEvent(getBlockByType("arduino_loop").id);
-      generator = generateNextFrame(event);
-      await restartArduino();
-      let setupFrameCommands =  $frameStore.frames[$frameStore.frames.length - 1];
-      console.log(setupFrameCommands);
-      // We need to register all the sensors before we start generating new frames
-      await setupComponents(setupFrameCommands);
+    try {
+      if (!isPlayingLive || $portStateStoreSub != PortState.OPEN) {
+        return;
+      }
+      if ($frameStore.frames.length == 0) {
+        onConfirm("Put blocks into the setup block to get started");
+        onStopButton();
+        return;
+      }
+      if (frameCount == 0) {
+        var event = createBlocklyEvent(getBlockByType("arduino_loop").id);
+        generator = generateNextFrame(event);
+        await restartArduino();
+        let setupFrameCommands =  $frameStore.frames[$frameStore.frames.length - 1];
+        // We need to register all the sensors before we start generating new frames
+        await setupComponents(setupFrameCommands);
+        let frame = (await generator.next()).value;
+        await updateComponents(frame);
+        currentFrameStore.set(frame);
+        frameCount += 1;
+        await wait(frame.delay);
+        await playLive();
+        return;
+      }
       let frame = (await generator.next()).value;
-      console.log(frame, 'frame-test-most');
-      await updateComponents(frame);
-      currentFrameStore.set(frame);
       frameCount += 1;
+      currentFrameStore.set(frame);
+      await updateComponents(frame);
       await wait(frame.delay);
+      await wait(100); 
       await playLive();
-      return;
+    } catch (error) {
+      onStopButton();
+      onErrorMessage("There was an error running the code, please download, refresh and try again.", error);
     }
-    let frame = (await generator.next()).value;
-    frameCount += 1;
-    currentFrameStore.set(frame);
-    await updateComponents(frame);
-    await wait(frame.delay);
-    await wait(100); 
-    await playLive();
   }
 
   async function onPlayButton()
   {
-    if (!arduinoStore.isConnected() || isPlayingLive) return;
-    isPlayingLive = true;
-    await playLive();
+    try {
+      if (!arduinoStore.isConnected() || isPlayingLive) return;
+      isPlayingLive = true;
+      await playLive();
+    } catch (error) {
+      onErrorMessage("There was an error running the code, please download, refresh and try again.", error);
+    }
   }
 
   function onStopButton()
@@ -302,6 +330,7 @@ Click Ok to confirm and get started!`);
   onDestroy(async () => {
     if (is_browser()) {
       await resetPlayer();
+      onStopButton(); 
     }
     unsubscribes.forEach((unSubFunc) => {
       unSubFunc();

@@ -52,6 +52,8 @@ Blockly["Arduino"]["fastled_set_color"] = function (block) {
 };
 
 Blockly["Arduino"]["fastled_setup"] = function (block) {
+    createColorStruct();
+
   const numberOfLeds = block.getFieldValue("NUMBER_LEDS");
   const pin = block.getFieldValue("PIN");
   const brightness = block.getFieldValue("BRIGHTNESS");

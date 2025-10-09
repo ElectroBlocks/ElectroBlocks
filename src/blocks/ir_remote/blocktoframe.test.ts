@@ -46,7 +46,7 @@ describe("button state factories", () => {
       pin: ARDUINO_PINS.PIN_2,
       type: ArduinoComponentType.IR_REMOTE,
       setupCommand: "config:ir=2",
-      importLibrary: {
+      importLibraries: {
         name: "IRremote",
         url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
         version: "latest",

@@ -21,11 +21,13 @@ export const irRemoteSetupBlockToComponentState = (
     code: irRemoteData.code,
     hasCode: irRemoteData.scanned_new_code,
     setupCommand: `register::ir::${pin}`,
-    importLibrary: {
-      name: "IRremote",
-      url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
-      version: "latest",
-    },
+    importLibraries: [
+      {
+        name: "IRremote",
+        url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
+        version: "latest",
+      },
+    ],
   };
 };
 
@@ -43,10 +45,12 @@ export const irRemoteStateStringToComponentState = (
     hasCode: state.length > 0,
     code: state,
     setupCommand: `register::ir::${pin}`,
-    importLibrary: {
-      name: "IRremote",
-      url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
-      version: "latest",
-    },
+    importLibraries: [
+      {
+        name: "IRremote",
+        url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
+        version: "latest",
+      },
+    ],
   };
 };

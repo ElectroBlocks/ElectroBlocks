@@ -31,6 +31,13 @@ export const stepperMotorSetup: BlockToFrameTransformer = (
     totalSteps,
     steps: 0,
     setupCommand: `register::ste::${pin1}::${pin2}::${pin3}::${pin4}`,
+    importLibraries: [
+      {
+        name: "Stepper",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/arduino-libraries/Stepper-1.1.3.zip",
+      },
+    ],
   };
 
   return [

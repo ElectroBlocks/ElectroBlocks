@@ -26,6 +26,13 @@ export const digit4DisplaySetup: BlockToFrameTransformer = (
     chars: "",
     colonOn: false,
     setupCommand: `register::tm::${dioPin}::${clkPin}`,
+    importLibraries: [
+      {
+        name: "TM1637 Driver",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/AKJ7/TM1637_Driver-2.2.1.zip",
+      },
+    ],
   };
 
   return [

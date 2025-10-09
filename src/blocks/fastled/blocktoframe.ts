@@ -60,6 +60,13 @@ export const fastLEDSetup: BlockToFrameTransformer = (
         },
       };
     }),
+    importLibraries: [
+      {
+        name: "FastLED",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/FastLED/FastLED-3.6.0.zip",
+      },
+    ],
   };
   return [
     arduinoFrameByComponent(

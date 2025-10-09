@@ -178,8 +178,8 @@ export const createFrames = async (blocklyEvent) => {
       : currentFrameContainter.frames[
           currentFrameContainter.frames.length - 1
         ].components.reduce((prev, next) => {
-          if (next?.importLibrary) {
-            return [...prev, next.importLibrary];
+          if (next?.importLibraries) {
+            return [...prev, ...next.importLibraries];
           }
           return [...prev];
         }, []);

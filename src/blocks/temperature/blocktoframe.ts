@@ -21,6 +21,19 @@ export const tempSetupSensor: BlockToFrameTransformer = (
     tempType: type,
     type: ArduinoComponentType.TEMPERATURE_SENSOR,
     setupCommand: `register::dht::${block.pins[0]}::${type == "DHT11" ? 1 : 2}`,
+    importLibraries: [
+      {
+        name: "DHT sensor library",
+        version: "latest",
+        deps: ["Adafruit Unified Sensor"],
+        url: "https://downloads.arduino.cc/libraries/github.com/adafruit/DHT_sensor_library-1.4.6.zip",
+      },
+      {
+        name: "Adafruit Unified Sensor",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/adafruit/Adafruit_Unified_Sensor-1.1.14.zip",
+      },
+    ],
   };
 
   return [

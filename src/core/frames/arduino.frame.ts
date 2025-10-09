@@ -54,6 +54,7 @@ export interface Library {
   name: string;
   url: string;
   version: string;
+  deps?: string[];
 }
 
 export interface ArduinoComponentState {
@@ -61,7 +62,7 @@ export interface ArduinoComponentState {
   type: ArduinoComponentType;
   usbCommands?: string[];
   setupCommand?: string;
-  importLibrary?: Library;
+  importLibraries?: Library[];
 }
 
 export enum ArduinoComponentType {

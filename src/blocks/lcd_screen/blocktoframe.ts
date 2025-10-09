@@ -40,6 +40,13 @@ export const lcdScreenSetup: BlockToFrameTransformer = (
     sdaPin,
     sclPin,
     setupCommand: `register::lcd::${rows}::${columns}::${memoryType}`,
+    importLibraries: [
+      {
+        name: "LiquidCrystal I2C",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/marcoschwartz/LiquidCrystal_I2C-1.1.2.zip",
+      },
+    ],
   };
 
   return [
