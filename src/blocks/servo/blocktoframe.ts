@@ -40,11 +40,13 @@ export const servoRotate: BlockToFrameTransformer = (
     previousState
   );
 
-  newComponent.importLibraries = {
-    name: "Servo",
-    version: "latest",
-    url: "https://downloads.arduino.cc/libraries/github.com/arduino-libraries/Servo-1.2.1.zip",
-  };
+  newComponent.importLibraries = [
+    {
+      name: "Servo",
+      version: "latest",
+      url: "https://downloads.arduino.cc/libraries/github.com/arduino-libraries/Servo-1.2.1.zip",
+    },
+  ];
 
   return [
     arduinoFrameByComponent(
