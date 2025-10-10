@@ -13,11 +13,34 @@ export const temperatureSetupBlockToComponentState = (
   timeline: Timeline
 ): TemperatureState => {
   const tempSensor = findSensorState<TempSensor>(block, timeline);
-
+  const type = findFieldValue(block, "TYPE");
+  const pin = findFieldValue(block, "PIN");
   return {
     type: ArduinoComponentType.TEMPERATURE_SENSOR,
-    pins: [findFieldValue(block, "PIN") as ARDUINO_PINS],
+    pins: [pin],
     temperature: tempSensor.temp,
     humidity: tempSensor.humidity,
+    tempType: type,
+    setupCommand: `register::dht::${pin}::${type == "DHT11" ? 1 : 2}`,
+  };
+};
+
+export const tempStateStringToComponentState = (
+  sensorStr: string,
+  blocks: BlockData[]
+): TemperatureState => {
+  const block = blocks.find((b) => b.blockName == "temp_setup");
+  const pin = findFieldValue(block, "PIN") as ARDUINO_PINS;
+  const type = findFieldValue(block, "TYPE");
+  console.log(sensorStr, "sensor string");
+  const [_, pinState, state] = sensorStr.split(":");
+  const [humidity, temp] = state.split("-");
+  return {
+    type: ArduinoComponentType.TEMPERATURE_SENSOR,
+    pins: [pin],
+    temperature: +temp,
+    humidity: +humidity,
+    tempType: type,
+    setupCommand: `register::dht::${pin}::${type == "DHT11" ? 1 : 2}`,
   };
 };

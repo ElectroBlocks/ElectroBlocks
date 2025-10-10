@@ -21,6 +21,8 @@ export const digitalWrite: BlockToFrameTransformer = (
     pin: pin,
     state,
     pinType: WritePinType.DIGITAL_OUTPUT,
+    usbCommands: [`write::dw::${pin}::${state}`],
+    setupCommand: `register::dw::${pin}`,
   };
   const explanation = `Turning pin ${pin} ${wordState}.`;
 
@@ -59,6 +61,8 @@ export const analogWrite: BlockToFrameTransformer = (
     pin: pin,
     state,
     pinType: WritePinType.ANALOG_OUTPUT,
+    usbCommands: [`write::aw::${pin}::${state}`],
+    setupCommand: `register::aw::${pin}`,
   };
   const explanation = `Sending ${state} to pin ${pin}.`;
 

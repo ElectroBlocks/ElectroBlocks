@@ -1,6 +1,5 @@
 <script>
-  import arduinoStore, { PortState } from "../../../stores/arduino.store";
-  import arduionMessageStore from "../../../stores/arduino-message.store";
+  import arduinoStore, { PortState, portStateStoreSub, usbMessageStore } from "../../../stores/arduino.store";
   import { rgbToHex } from "../../../core/blockly/helpers/color.helper";
 
   // This is the variable list used to print all the variables
@@ -18,14 +17,14 @@
   // If true it means that debugging can start
   let debugStart = false;
 
-  arduinoStore.subscribe((newPortStatus) => {
+  portStateStoreSub.subscribe((newPortStatus) => {
     portStatus = newPortStatus;
     if (portStatus === PortState.CLOSE) {
       debugStart = false;
     }
   });
 
-  arduionMessageStore.subscribe((message) => {
+  usbMessageStore.subscribe((message) => {
     if (!message) {
       return;
     }
@@ -104,14 +103,14 @@
 
   function continueDebug() {
     if (inDebugStatement) {
-      arduionMessageStore.sendMessage("continue_debug");
+      arduinoStore.sendMessage("continue_debug");
       inDebugStatement = false;
     }
   }
 
   function stopDebug() {
     if (inDebugStatement) {
-      arduionMessageStore.sendMessage("stop_debug");
+      arduinoStore.sendMessage("stop_debug");
       inDebugStatement = false;
     }
   }

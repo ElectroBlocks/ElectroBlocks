@@ -34,6 +34,7 @@ export const joystickSetup: BlockToFrameTransformer = (
     buttonPressed,
     engaged,
     degree,
+    setupCommand: `register::js::${xPin}::${yPin}::${buttonPin}`,
   };
 
   return [

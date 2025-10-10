@@ -30,6 +30,14 @@ export const stepperMotorSetup: BlockToFrameTransformer = (
     currentRotation: 0,
     totalSteps,
     steps: 0,
+    setupCommand: `register::ste::${pin1}::${pin2}::${pin3}::${pin4}`,
+    importLibraries: [
+      {
+        name: "Stepper",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/arduino-libraries/Stepper-1.1.3.zip",
+      },
+    ],
   };
 
   return [
@@ -68,6 +76,7 @@ export const moveStepperMotor: BlockToFrameTransformer = (
     ...stepperMotorState,
     steps,
     currentRotation: stepperMotorState.currentRotation + steps,
+    usbCommands: [`write::ste::${stepperMotorState.pin1}::${steps}`],
   };
 
   return [

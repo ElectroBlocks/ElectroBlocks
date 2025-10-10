@@ -23,12 +23,12 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="6.8078407"
-     inkscape:cx="168.77598"
-     inkscape:cy="130.80506"
+     inkscape:cx="160.18295"
+     inkscape:cy="111.19532"
      inkscape:window-width="1920"
-     inkscape:window-height="1080"
+     inkscape:window-height="1027"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg23" />
   <g
@@ -330,14 +330,16 @@
     </g>
     <text
        id="TAG_TEXT"
-       transform="translate(109.85,91.15)"
        font-size="18px"
-       font-family="Biryani-Regular, Biryani">Tag #:</text>
+       font-family="Biryani-Regular, Biryani"
+       x="91.195038"
+       y="90.41555">Tag #:</text>
     <text
        id="CARD_NUMBER_TEXT"
-       transform="translate(110.85,126.15)"
        font-size="18px"
-       font-family="Biryani-Regular, Biryani">Card #:</text>
+       font-family="Biryani-Regular, Biryani"
+       x="92.195038"
+       y="125.41555">Card #:</text>
     <text
        transform="translate(114.71,21.1)"
        font-size="24px"

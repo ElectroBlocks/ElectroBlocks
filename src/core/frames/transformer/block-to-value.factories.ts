@@ -34,11 +34,7 @@ import {
 } from "../../../blocks/color/blocktovalue";
 import { findBlockInput } from "./frame-transformer.helpers";
 import _ from "lodash";
-import {
-  rfidScannedCard,
-  rfidCardNumber,
-  rfidTag,
-} from "../../../blocks/rfid/blocktovalue";
+import { rfidScannedCard, rfidTag } from "../../../blocks/rfid/blocktovalue";
 import { getHumidity, getTemp } from "../../../blocks/temperature/blocktovalue";
 import {
   getBtMessage,
@@ -139,7 +135,6 @@ export const valueList: { [blockName: string]: ValueGenerator } = {
   ultra_sonic_sensor_motion: ultraSonicSensorDistance,
 
   rfid_scan: rfidScannedCard,
-  rfid_card: rfidCardNumber,
   rfid_tag: rfidTag,
 
   temp_get_humidity: getHumidity,

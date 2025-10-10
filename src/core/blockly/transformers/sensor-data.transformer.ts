@@ -9,10 +9,19 @@ import type {
 import { bluetoothSetupBlockToSensorData } from "../../../blocks/bluetooth/setupblocktosensordata";
 import { buttonSetupBlockToSensorData } from "../../../blocks/button/setupblocktosensordata";
 import { bluetoothSetupBlockToComponentState } from "../../../blocks/bluetooth/setupblocktocomponentstate";
-import { buttonSetupBlockToComponentState } from "../../../blocks/button/setupblocktocomponentstate";
+import {
+  buttonSetupBlockToComponentState,
+  buttonStringToComponentState,
+} from "../../../blocks/button/setupblocktocomponentstate";
 import { irRemoteSetupBlocktoSensorData } from "../../../blocks/ir_remote/setupblocktosensordata";
-import { irRemoteSetupBlockToComponentState } from "../../../blocks/ir_remote/setupblocktocomponentstate";
-import { digitalSetupBlockToComponentState } from "../../../blocks/digitalsensor/setupblocktocomponentstate";
+import {
+  irRemoteSetupBlockToComponentState,
+  irRemoteStateStringToComponentState,
+} from "../../../blocks/ir_remote/setupblocktocomponentstate";
+import {
+  digitalReadSensorStringToComponentState,
+  digitalSetupBlockToComponentState,
+} from "../../../blocks/digitalsensor/setupblocktocomponentstate";
 import { digitalSetupBlockToSensorData } from "../../../blocks/digitalsensor/setupblocktosensordata";
 import { analogSetupBlockToComponentState } from "../../../blocks/analogsensor/setupblocktocomponentstate";
 import { analogSetupBlockToSensorData } from "../../../blocks/analogsensor/setupblocktosensordata";
@@ -21,22 +30,41 @@ import { messageSetupBlockToSensorData } from "../../../blocks/message/setupbloc
 import { timeSetupBlockToSensorData } from "../../../blocks/time/setupblocktosensordata";
 import { timeSetupBlockToComponentState } from "../../../blocks/time/setupblocktocomponentstate";
 import { ultraSonicSetupBlockToSensorData } from "../../../blocks/ultrasonic_sensor/setupblocktosensordata";
-import { ultraSonicSetupBlockToComponentState } from "../../../blocks/ultrasonic_sensor/setupblocktocomponentstate";
+import {
+  ultraSonicSetupBlockToComponentState,
+  utraSonicStringToComponentState,
+} from "../../../blocks/ultrasonic_sensor/setupblocktocomponentstate";
 import { rfidSetupBlockToSensorData } from "../../../blocks/rfid/setupblocktosensordata";
-import { rfidSetupBlockToComponentState } from "../../../blocks/rfid/setupblocktocomponentstate";
+import {
+  rfidSetupBlockToComponentState,
+  rfidStateStringToComponentState,
+} from "../../../blocks/rfid/setupblocktocomponentstate";
 import { temperatureSetupBlockToSensorData } from "../../../blocks/temperature/setupblocktosensordata";
-import { temperatureSetupBlockToComponentState } from "../../../blocks/temperature/setupblocktocomponentstate";
+import {
+  temperatureSetupBlockToComponentState,
+  tempStateStringToComponentState,
+} from "../../../blocks/temperature/setupblocktocomponentstate";
 import { thermistorSetupBlockToSensorData } from "../../../blocks/thermistor/setupblocktosensordata";
-import { thermistorSetupBlockToComponentState } from "../../../blocks/thermistor/setupblocktocomponentstate";
+import {
+  thermistorSetupBlockToComponentState,
+  thermistorStateStringToComponentState,
+} from "../../../blocks/thermistor/setupblocktocomponentstate";
 import { joyStickSetupBlocktoSensorData } from "../../../blocks/joystick/setupblocktosensordata";
-import { joystickSetupBlockToComponentState } from "../../../blocks/joystick/setupblocktocomponentstate";
-
+import {
+  joystickSetupBlockToComponentState,
+  joyStickStringToState,
+} from "../../../blocks/joystick/setupblocktocomponentstate";
+import arduinoStore from "../../../stores/arduino.store";
 interface RetrieveSensorData {
   (block: BlockData): Sensor;
 }
 
 interface BlockToComponentState {
   (block: BlockData, timeline: Timeline): ArduinoComponentState;
+}
+
+interface SensorStringToComponentState {
+  (sensorStr: string, blocks: BlockData[]): ArduinoComponentState;
 }
 
 const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
@@ -52,6 +80,19 @@ const blockToSensorData: { [blockName: string]: RetrieveSensorData } = {
   message_setup: messageSetupBlockToSensorData,
   thermistor_setup: thermistorSetupBlockToSensorData,
   joystick_setup: joyStickSetupBlocktoSensorData,
+};
+
+const sensorStringToComponentStateList: {
+  [sensorId: string]: SensorStringToComponentState;
+} = {
+  dr: digitalReadSensorStringToComponentState,
+  bt: buttonStringToComponentState,
+  ul: utraSonicStringToComponentState,
+  rfi: rfidStateStringToComponentState,
+  ir: irRemoteStateStringToComponentState,
+  js: joyStickStringToState,
+  dht: tempStateStringToComponentState,
+  th: thermistorStateStringToComponentState,
 };
 
 const blockToSensorComponent: {
@@ -72,6 +113,26 @@ const blockToSensorComponent: {
 };
 
 export const sensorSetupBlockName = _.keys(blockToSensorComponent);
+
+export const convertArduinoStringToSensorState = (
+  blocks: BlockData[],
+  allSensorDataStr: string
+): ArduinoComponentState[] => {
+  let components = [];
+  if (allSensorDataStr.length == 0) {
+    return components;
+  }
+  const sensorStrings = allSensorDataStr.split(";").filter((x) => x.length > 0);
+  for (const sensorString of sensorStrings) {
+    const [id] = sensorString.split(":");
+    const componentState = sensorStringToComponentStateList[id](
+      sensorString,
+      blocks
+    );
+    components.push(componentState);
+  }
+  return components;
+};
 
 export const convertToState = (
   block: BlockData,

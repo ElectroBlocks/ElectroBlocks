@@ -5,17 +5,54 @@
   import currentFrameStore from "../../../stores/currentFrame.store";
   import currentStepStore from "../../../stores/currentStep.store";
   import settingStore from "../../../stores/settings.store";
-  import { onErrorMessage } from "../../../help/alerts";
-  import { getAllBlocks } from "../../../core/blockly/helpers/block.helper";
+  import { onConfirm, onErrorMessage, onSuccess } from "../../../help/alerts";
+  import { getAllBlocks, getBlockByType } from "../../../core/blockly/helpers/block.helper";
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
   import { tooltip } from "@svelte-plugins/tooltips";
+  import arduinoStore, {
+    PortState,
+    portStateStoreSub,
+    restartArduino,
+    setupComponents,
+    SimulatorMode,
+    simulatorStore,
+    updateComponents,
+  } from "../../../stores/arduino.store";
+  import Icon from "../../Icon.svelte";
+  import {
+    mdiCogClockwise,
+    mdiEjectOutline,
+    mdiFlash,
+    mdiPlayCircle,
+    mdiStopCircle,
+    mdiUploadCircleOutline,
+  } from "@mdi/js";
+  import { generateNextFrame } from "../../../core/frames/event-to-frame.factory";
+  import { getAllVariables } from "../../../core/blockly/helpers/variable.helper";
+  import { transformBlock } from "../../../core/blockly/transformers/block.transformer";
+  import { transformVariable } from "../../../core/blockly/transformers/variables.transformer";
+  import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
+  import codeStore from "../../../stores/code.store";
+
+  const playerTooltips = {
+    position: "top",
+    align: "center",
+    animation: "slide",
+    theme: "player-tooltips",
+  };
 
   let frames: ArduinoFrame[] = [];
   let frameNumber = 1;
   let playing = false;
   let speedDivisor = 1;
   let maxTimePerStep = 1000;
+
+  // Live Player
+  let generator;
+  let isPlayingLive = false;
+  let frameCount = 0;
+
 
   const unsubscribes = [];
 
@@ -28,6 +65,56 @@
       frameNumber = currentIndex;
     })
   );
+
+  function exitLiveMode() {
+    simulatorStore.set(SimulatorMode.VIRTUAL);
+    onStopButton();
+  }
+
+  async function uploadCode() {
+    try {
+      await arduinoStore.uploadCode($settingStore.boardType, $codeStore.cLang, $codeStore.imports);
+      onSuccess("Coding Uploaded!!");
+      // We want to enable usb messages
+      simulatorStore.set(SimulatorMode.VIRTUAL);
+    } catch (error) {
+      if (error.message.includes("No port selected by the user.")) {
+        onErrorMessage(
+          "Please try again and select a usb port if you wish to go live.",
+          error
+        );
+        return;
+      }
+      onErrorMessage("Error uploading code", error);
+    }
+  }
+
+  async function goToLiveMode() {
+    try {
+      var result = await onConfirm(`🚀 We're about to go live!
+We'll set things up so your Arduino can receive commands over USB.
+Click Ok to confirm and get started!`);
+      if (!result) {
+        return;
+      }
+      const whatHappenned = await arduinoStore.connectWithAndUploadFirmware($settingStore.boardType);
+      if (whatHappenned == "full upload") {
+        onSuccess("Firmware was successfully loaded!");
+      }
+
+      simulatorStore.set(SimulatorMode.LIVE);
+      console.log("COMPLETE");
+    } catch (error) {
+      if (error.message.includes("No port selected by the user.")) {
+        onErrorMessage(
+          "Please try again and select a usb port if you wish to go live.",
+          error
+        );
+        return;
+      }
+      onErrorMessage("Error flashing firmware please try again.", error);
+    }
+  }
 
   unsubscribes.push(
     frameStore.subscribe((frameContainer) => {
@@ -87,6 +174,71 @@
   function setCurrentFrame(frameNumber) {
     currentFrameStore.set(frames[frameNumber]);
     currentStepStore.set(frameNumber);
+  }
+
+  const createBlocklyEvent = (blockId) => {
+    return {
+      blockId: blockId,
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: "move",
+      microController: MicroControllerType.ARDUINO_UNO,
+    };
+  };
+
+  async function playLive() {
+    try {
+      if (!isPlayingLive || $portStateStoreSub != PortState.OPEN) {
+        return;
+      }
+      if ($frameStore.frames.length == 0) {
+        onConfirm("Put blocks into the setup block to get started");
+        onStopButton();
+        return;
+      }
+      if (frameCount == 0) {
+        var event = createBlocklyEvent(getBlockByType("arduino_loop").id);
+        generator = generateNextFrame(event);
+        await restartArduino();
+        let setupFrameCommands =  $frameStore.frames[$frameStore.frames.length - 1];
+        // We need to register all the sensors before we start generating new frames
+        await setupComponents(setupFrameCommands);
+        let frame = (await generator.next()).value;
+        await updateComponents(frame);
+        currentFrameStore.set(frame);
+        frameCount += 1;
+        await wait(frame.delay);
+        await playLive();
+        return;
+      }
+      let frame = (await generator.next()).value;
+      frameCount += 1;
+      currentFrameStore.set(frame);
+      await updateComponents(frame);
+      await wait(frame.delay);
+      await wait(100); 
+      await playLive();
+    } catch (error) {
+      onStopButton();
+      onErrorMessage("There was an error running the code, please download, refresh and try again.", error);
+    }
+  }
+
+  async function onPlayButton()
+  {
+    try {
+      if (!arduinoStore.isConnected() || isPlayingLive) return;
+      isPlayingLive = true;
+      await playLive();
+    } catch (error) {
+      onErrorMessage("There was an error running the code, please download, refresh and try again.", error);
+    }
+  }
+
+  function onStopButton()
+  {
+    isPlayingLive = false;
+    frameCount = 0;
   }
 
   async function play() {
@@ -178,6 +330,7 @@
   onDestroy(async () => {
     if (is_browser()) {
       await resetPlayer();
+      onStopButton(); 
     }
     unsubscribes.forEach((unSubFunc) => {
       unSubFunc();
@@ -185,63 +338,110 @@
   });
 </script>
 
-<div id="slide-container">
-  <input
-    on:change={moveSlider}
-    type="range"
-    min="0"
-    disabled={frames.length === 0}
-    bind:value={frameNumber}
-    max={frames.length === 0 ? 0 : frames.length - 1}
-    class="slider"
-    id="scrub-bar"
-  />
-</div>
-<div
-  id="video-controls-container"
-  class:disable={disablePlayer}
-  class="icon-bar"
->
-  <span
-    use:tooltip
-    title="Previous Step"
-    on:click={prev}
+{#if $portStateStoreSub != PortState.CONNECTING && $simulatorStore == SimulatorMode.VIRTUAL}
+  <div id="slide-container">
+    <input
+      on:change={moveSlider}
+      type="range"
+      min="0"
+      disabled={frames.length === 0}
+      bind:value={frameNumber}
+      max={frames.length === 0 ? 0 : frames.length - 1}
+      class="slider"
+      id="scrub-bar"
+    />
+  </div>
+  <div
+    id="video-controls-container"
     class:disable={disablePlayer}
-    id="video-debug-backward"
+    class="icon-bar"
   >
-    <i class="fa fa-backward" />
+  <div id="side-options">
+<span class="live-mode" use:tooltip={playerTooltips} title="Live Mode" on:click={goToLiveMode}>
+    <Icon path={mdiFlash} size={40}  />
   </span>
-  {#if playing}
-    <span
-      use:tooltip
-      title="Stop"
-      on:click={play}
-      id="video-debug-play"
-      class:disable={disablePlayer}
-    >
-      <i class="fa fa-stop" />
-    </span>
-  {:else}
-    <span
-      use:tooltip
-      title="Play"
-      on:click={play}
-      id="video-debug-play"
-      class:disable={disablePlayer}
-    >
-      <i class="fa fa-play" />
-    </span>
-  {/if}
-  <span
-    use:tooltip
-    title="Next Step"
-    on:click={next}
-    id="video-debug-forward"
-    class:disable={disablePlayer}
-  >
-    <i class="fa fa-forward" />
+  <span class="upload" use:tooltip={playerTooltips} on:click={uploadCode} title="Upload Code" >
+    <Icon path={mdiUploadCircleOutline}  size={40} />
   </span>
-</div>
+  </div>
+    <div id="main-player">
+      <span
+        use:tooltip
+        title="Previous Step"
+        on:click={prev}
+        class:disable={disablePlayer}
+        id="video-debug-backward"
+      >
+        <i class="fa fa-backward" />
+      </span>
+      {#if playing}
+        <span
+          use:tooltip
+          title="Stop"
+          on:click={play}
+          id="video-debug-play"
+          class:disable={disablePlayer}
+        >
+          <i class="fa fa-stop" />
+        </span>
+      {:else}
+        <span
+          use:tooltip
+          title="Play"
+          on:click={play}
+          id="video-debug-play"
+          class:disable={disablePlayer}
+        >
+          <i class="fa fa-play" />
+        </span>
+      {/if}
+      <span
+        use:tooltip
+        title="Next Step"
+        on:click={next}
+        id="video-debug-forward"
+        class:disable={disablePlayer}
+      >
+        <i class="fa fa-forward" />
+      </span>
+    </div>
+  </div>
+  
+  
+{:else if $portStateStoreSub == PortState.CONNECTING}
+  <h2 class="text-center mt-4">
+    Loading <Icon spinning={true} size={30} path={mdiCogClockwise} />
+  </h2>
+{:else}
+  <div class:disable={disablePlayer}>
+    <span on:click={exitLiveMode}>
+      <span class="pull-right me-3" use:tooltip title="Exit">
+        <Icon color="#aa0000" path={mdiEjectOutline} size={40} />
+      </span>
+    </span>
+    {#if isPlayingLive}
+      <span
+        use:tooltip
+        title="Stop"
+        on:click={onStopButton}
+        id="video-debug-play"
+        class:disable={disablePlayer}
+      >
+        <Icon color="red" path={mdiStopCircle} size={40} />
+      </span>
+    {:else}
+      <span
+        use:tooltip
+        title="Play"
+        on:click={onPlayButton}
+        id="video-debug-play"
+        class:disable={disablePlayer}
+      >
+        <Icon color="green" path={mdiPlayCircle} size={40} />
+      </span>
+    {/if}
+  </div>
+{/if}
 
 <style>
   .slider:hover {
@@ -249,12 +449,24 @@
   }
 
   #video-controls-container {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    overflow: visible;
+  }
+
+  #main-player {
     display: block;
-    width: 140px;
+    text-align: center;
+    width: 135px;
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    transform: translate(-50%, 0%);
     height: 40px;
     margin: auto;
     margin-top: 5px;
-    overflow: hidden;
+    overflow: visible;
   }
 
   #video-controls-container span {
@@ -298,16 +510,42 @@
     margin: 0 10px;
     text-align: center;
     transition: all 0.3s ease;
-    color: white;
     font-size: 20px;
+  }
+  .fa-play,
+  .fa-stop {
+    margin-left: 2px;
+  }
+
+  i.fa-stop {
+    color: rgb(240, 66, 66) !important;
+  }
+
+  #side-options {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    height: 45px;
+    width: 100px;
+    overflow: visible;
+  }
+  #side-options .live-mode {
+    color: #b063c5;
+  }
+
+  #side-options .upload {
+    color: #512c62;
   }
 
   #video-debug-play {
     font-size: 30px;
   }
-  span#video-debug-play i.fa {
-    margin-top: 0 !important;
+  span#video-debug-play i.fa.fa-play {
     color: #b063c5 !important;
+  }
+
+  span#video-debug-play i.fa {
+    margin-top: -10px;
   }
 
   #slide-container {
@@ -316,6 +554,7 @@
     width: 100%;
     /* height: 23px; */
     z-index: 100;
+    overflow: visible;
   }
 
   .slider {
@@ -351,5 +590,8 @@
 
   input:invalid {
     box-shadow: none;
+  }
+  :global(div.tooltip.player-tooltips) {
+    z-index: 1000;
   }
 </style>

@@ -1,5 +1,6 @@
 import type { BlockData } from "../../core/blockly/dto/block.type";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
+import { getBlockByType } from "../../core/blockly/helpers/block.helper";
 import { findSensorState } from "../../core/blockly/helpers/sensor_block.helper";
 import {
   ArduinoComponentType,
@@ -13,17 +14,35 @@ export const rfidSetupBlockToComponentState = (
   timeline: Timeline
 ): RfidState => {
   const rfidSensor = findSensorState<RFIDSensor>(block, timeline);
+  const rxPin = findFieldValue(block, "PIN_TX");
+  const txPin = findFieldValue(block, "PIN_RX");
 
   return {
     type: ArduinoComponentType.RFID,
-    txPin: findFieldValue(block, "PIN_TX") as ARDUINO_PINS,
-    rxPin: findFieldValue(block, "PIN_RX") as ARDUINO_PINS,
-    pins: [
-      findFieldValue(block, "PIN_TX") as ARDUINO_PINS,
-      findFieldValue(block, "PIN_RX") as ARDUINO_PINS,
-    ],
+    txPin,
+    rxPin,
+    pins: [rxPin, txPin],
     scannedCard: rfidSensor.scanned_card,
-    cardNumber: rfidSensor.card_number,
     tag: rfidSensor.tag,
+    setupCommand: `register::rfi::${rxPin}::${txPin}::9600`,
+  };
+};
+
+export const rfidStateStringToComponentState = (
+  sensorStr: string,
+  blocks: BlockData[]
+): RfidState => {
+  const setupBlock = blocks.find((b) => b.blockName == "rfid_setup");
+  const [_, pinState, state] = sensorStr.split(":");
+  const rxPin = findFieldValue(setupBlock, "PIN_TX");
+  const txPin = findFieldValue(setupBlock, "PIN_RX");
+  return {
+    type: ArduinoComponentType.RFID,
+    txPin,
+    rxPin,
+    pins: [rxPin, txPin],
+    scannedCard: state != "0",
+    tag: state == "0" ? "" : state,
+    setupCommand: `register::rfi::${rxPin}::${txPin}::9600`,
   };
 };

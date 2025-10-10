@@ -74,23 +74,20 @@ describe("updateSensorSetup", () => {
   it("should update block with saved data based on the loop change", () => {
     const sensorBlock = workspace.newBlock("rfid_setup");
     workspace.newBlock("math_number");
-    // scanned_card, card_number, tag
+    // scanned_card, tag
     const jsonData = JSON.stringify([
       {
         scanned_card: true,
-        card_number: "333",
         tag: "tag_333",
         loop: 1,
       },
       {
         scanned_card: true,
-        card_number: "111",
         tag: "tag_111",
         loop: 2,
       },
       {
         scanned_card: true,
-        card_number: "222",
         tag: "tag_222",
         loop: 3,
       },
@@ -114,10 +111,6 @@ describe("updateSensorSetup", () => {
         {
           name: "scanned_card",
           value: true,
-        },
-        {
-          name: "card_number",
-          value: "222",
         },
         {
           name: "tag",

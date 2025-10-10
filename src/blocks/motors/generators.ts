@@ -1,6 +1,28 @@
 import Blockly from "blockly";
 import type { Block } from "blockly";
 
+Blockly["Python"]["motor_setup"] = function (block) {
+  const numberOfMotors = +block.getFieldValue("NUMBER_OF_COMPONENTS");
+  const pinEn1 = block.getFieldValue("PIN_EN1");
+  const pinIn1 = block.getFieldValue("PIN_IN1");
+  const pinIn2 = block.getFieldValue("PIN_IN2");
+  const pinEn2 = block.getFieldValue("PIN_EN2");
+  const pinIn3 = block.getFieldValue("PIN_IN3");
+  const pinIn4 = block.getFieldValue("PIN_IN4");
+
+  if (numberOfMotors == 1) {
+    Blockly["Python"].setupCode_[
+      "motor"
+    ] = `eb.config_motor(${pinEn1}, ${pinIn1}, ${pinIn2})\n`;
+  } else {
+    Blockly["Python"].setupCode_[
+      "motor"
+    ] = `eb.config_motor(${pinEn1}, ${pinIn1}, ${pinIn2}, ${pinEn2}, ${pinIn3}, ${pinIn4})\n`;
+  }
+
+  return "";
+};
+
 Blockly["Arduino"]["motor_setup"] = function (block) {
   const numberOfMotors = +block.getFieldValue("NUMBER_OF_COMPONENTS");
   const pinEn1 = block.getFieldValue("PIN_EN1");
@@ -95,6 +117,25 @@ Blockly["Arduino"]["stop_motor"] = function (block: Block) {
   const motorNumber = block.getFieldValue("MOTOR");
   return `moveMotor(${motorNumber}, 0, STOP);\n`;
 };
+
+Blockly["Python"]["stop_motor"] = function (block: Block) {
+  const motorNumber = block.getFieldValue("MOTOR");
+  return `eb.stop_motor(${motorNumber})\n`;
+};
+
+Blockly["Python"]["move_motor"] = function (block: Block) {
+  const motorNumber = block.getFieldValue("MOTOR");
+  const speed = Blockly["Arduino"].valueToCode(
+    block,
+    "SPEED",
+    Blockly["Arduino"].ORDER_ATOMIC
+  );
+  const direction = block.getFieldValue("DIRECTION").toLowerCase();
+
+  return `eb.move_motor(${motorNumber}, ${speed}, "${direction}")
+`;
+};
+
 Blockly["Arduino"]["move_motor"] = function (block: Block) {
   const motorNumber = block.getFieldValue("MOTOR");
   const speed = Blockly["Arduino"].valueToCode(

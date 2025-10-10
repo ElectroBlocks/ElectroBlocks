@@ -8,14 +8,12 @@ export default `
                <field name="PIN_TX">6</field>
                <field name="PIN_RX">5</field>
            </block>
-           <block type="rfid_card">
-           <comment pinned="false" h="60" w="460">Returns the card number (text data) of the RFID chip.</comment>
+           <block type="rfid_scan">
+                <comment pinned="false" h="80" w="460">Scans for a new RFID card. Returns true if a new RFID chip is found.</comment>
            </block>
            <block type="rfid_tag">
                 <comment pinned="false" h="60" w="460">Returns the tag of the RFID chip.</comment>
            </block>
-           <block type="rfid_scan">
-                <comment pinned="false" h="80" w="460">Scans for a new RFID card. Returns true if a new RFID chip is found.</comment>
-           </block>
+           
        </category>
 `;

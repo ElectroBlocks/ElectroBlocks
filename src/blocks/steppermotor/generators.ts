@@ -1,5 +1,21 @@
 import Blockly, { type Block } from "blockly";
 
+Blockly["Python"]["stepper_motor_setup"] = function (block: Block) {
+  const totalSteps = block.getFieldValue("TOTAL_STEPS");
+  const speed = block.getFieldValue("SPEED");
+
+  const pin1 = block.getFieldValue("PIN_1");
+  const pin2 = block.getFieldValue("PIN_2");
+  const pin3 = block.getFieldValue("PIN_3");
+  const pin4 = block.getFieldValue("PIN_4");
+  Blockly["Python"].setupCode_[
+    "stepper_motor_set_speed"
+  ] = `eb.config_stepper_motor(${pin1}, ${pin2}, ${pin3}, ${pin4}, ${totalSteps}, ${speed})
+`;
+
+  return "";
+};
+
 Blockly["Arduino"]["stepper_motor_setup"] = function (block: Block) {
   const totalSteps = block.getFieldValue("TOTAL_STEPS");
   const speed = block.getFieldValue("SPEED");
@@ -32,4 +48,14 @@ Blockly["Arduino"]["stepper_motor_move"] = function (block: Block) {
     Blockly["Arduino"].ORDER_ATOMIC
   );
   return `stepperMotor.step(${steps}); \n`;
+};
+
+Blockly["Python"]["stepper_motor_move"] = function (block: Block) {
+  const steps = Blockly["Python"].valueToCode(
+    block,
+    "STEPS",
+    Blockly["Python"].ORDER_ATOMIC
+  );
+  return `eb.move_stepper_motor(${steps})
+`;
 };

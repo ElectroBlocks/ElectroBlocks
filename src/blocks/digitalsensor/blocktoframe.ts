@@ -26,16 +26,16 @@ export const digitalReadSetup: BlockToFrameTransformer = (
     pins: [pin],
     isOn: digitalSensor1.isOn,
     pictureType,
+    setupCommand: `register::dr::${pin}`,
   };
+  var frame = arduinoFrameByComponent(
+    block.id,
+    block.blockName,
+    timeline,
+    digitalSensorState,
+    explanation,
+    previousState
+  );
 
-  return [
-    arduinoFrameByComponent(
-      block.id,
-      block.blockName,
-      timeline,
-      digitalSensorState,
-      explanation,
-      previousState
-    ),
-  ];
+  return [frame];
 };

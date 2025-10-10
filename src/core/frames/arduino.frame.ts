@@ -1,4 +1,3 @@
-import type { Settings } from "../../firebase/model";
 import type { VariableTypes } from "../blockly/dto/variable.type";
 import type { MicroControllerType } from "../microcontroller/microcontroller";
 import type { ARDUINO_PINS } from "../microcontroller/selectBoard";
@@ -6,7 +5,6 @@ import type { ARDUINO_PINS } from "../microcontroller/selectBoard";
 export interface ArduinoFrameContainer {
   board: MicroControllerType;
   frames: ArduinoFrame[];
-  settings: Settings;
   error: boolean;
 }
 
@@ -49,12 +47,22 @@ export interface Color {
 export interface Timeline {
   iteration: number;
 
-  function: "setup" | "loop" | "pre-setup";
+  function: "setup" | "loop" | "pre-setup" | "realtime";
+}
+
+export interface Library {
+  name: string;
+  url: string;
+  version: string;
+  deps?: string[];
 }
 
 export interface ArduinoComponentState {
   pins: ARDUINO_PINS[];
   type: ArduinoComponentType;
+  usbCommands?: string[];
+  setupCommand?: string;
+  importLibraries?: Library[];
 }
 
 export enum ArduinoComponentType {

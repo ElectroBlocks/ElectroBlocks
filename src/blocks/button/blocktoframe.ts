@@ -26,6 +26,7 @@ export const buttonSetup: BlockToFrameTransformer = (
     pins: block.pins,
     isPressed: btnData.is_pressed,
     usePullup,
+    setupCommand: `register::bt::${pin}`,
   };
   return [
     arduinoFrameByComponent(

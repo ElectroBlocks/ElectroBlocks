@@ -1,6 +1,11 @@
 import Blockly from "blockly";
-import type { Block } from "blockly";
+import { Block } from "blockly";
 
+Blockly["Python"]["temp_setup"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+  Blockly["Python"].setupCode_["temp_dht"] = `eb.config_dht_temp(${pin})\n`;
+  return "";
+};
 Blockly["Arduino"]["temp_setup"] = function (block: Block) {
   Blockly["Arduino"].libraries_[
     "temp_setup"
@@ -24,4 +29,12 @@ Blockly["Arduino"]["temp_get_temp"] = function () {
 
 Blockly["Arduino"]["temp_get_humidity"] = function () {
   return ["(double)dht.readHumidity()", Blockly["Arduino"].ORDER_ATOMIC];
+};
+
+Blockly["Python"]["temp_get_temp"] = function () {
+  return ["eb.dht_temp_celcius()", Blockly["Python"].ORDER_ATOMIC];
+};
+
+Blockly["Python"]["temp_get_humidity"] = function () {
+  return ["eb.dht_temp_humidity()", Blockly["Python"].ORDER_ATOMIC];
 };
