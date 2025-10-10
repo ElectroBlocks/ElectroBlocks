@@ -5,7 +5,8 @@ import {
 } from "@duinoapp/upload-multitool";
 import { get, writable } from "svelte/store";
 import { MicroControllerType } from "../core/microcontroller/microcontroller";
-import arduinoUnoHexCode from "../core/serial/arduino/arduino-firmware.hex?raw";
+import arduinoUnoHexCode from "../core/serial/arduino/arduino-uno-firmware.hex?raw";
+import arduinoMegaHexCode from "../core/serial/arduino/arduino-mega-firmware.hex?raw";
 import { onErrorMessage } from "../help/alerts";
 import { ArduinoFrame, Library } from "../core/frames/arduino.frame";
 import { getBoard } from "../core/microcontroller/selectBoard";
@@ -111,13 +112,18 @@ const uploadHexCodeToBoard = async (
       // flashMode: flashModeData,
       speed: 115200,
       uploadSpeed: boardInfo.serial_baud_rate,
-      tool: boardType == MicroControllerType.ESP32 ? "esptool" : "avrdude",
-      cpu: "atmega328p",
+      tool: "avrdude",
+      cpu:
+        boardType == MicroControllerType.ARDUINO_UNO
+          ? "atmega328p"
+          : "atmega2560",
       stdout: {
         write: (msg: string) => console.log(msg), // Properly implement the write method
       },
       verbose: true,
     } as any as ProgramConfig;
+    console.log(config);
+    debugger;
     await upload(port, config);
     addListener(port);
     portStateStore.set(PortState.OPEN);
@@ -144,7 +150,7 @@ const uploadHexCodeToBoard = async (
 
 const compileCode = async (
   code: string,
-  type: string,
+  type: MicroControllerType,
   libraries: Library[]
 ): Promise<string> => {
   // TODO sub type in
@@ -154,7 +160,10 @@ const compileCode = async (
   try {
     ///
     var jsonString = {
-      fqbn: "arduino:avr:uno",
+      fqbn:
+        type == MicroControllerType.ARDUINO_UNO
+          ? "arduino:avr:uno"
+          : "arduino:avr:mega",
       files: [
         {
           content: code,
@@ -165,7 +174,10 @@ const compileCode = async (
       libs: libraries,
     };
 
-    console.log(`Sending code to https://compile.duino.app/v3/compile`);
+    console.log(
+      `Sending code to https://compile.duino.app/v3/compile`,
+      jsonString
+    );
     const response = await fetch(`https://compile.duino.app/v3/compile`, {
       method: "POST",
       body: JSON.stringify(jsonString),
@@ -199,7 +211,11 @@ const arduinoStore = {
     }
     const successfulRestart = await restartArduino();
     if (successfulRestart) return "restarted";
-    await uploadHexCodeToBoard(boardType, async () => arduinoUnoHexCode);
+    await uploadHexCodeToBoard(boardType, async () =>
+      boardType == MicroControllerType.ARDUINO_UNO
+        ? arduinoUnoHexCode
+        : arduinoMegaHexCode
+    );
     return "full upload";
   },
   connect: async () => {
@@ -267,7 +283,11 @@ export default arduinoStore;
 const waitForCommand = async (command: string) => {
   arduinoStore.clearMessages();
   var count = 0;
-  while (!arduinoStore.getLastMessage().includes(command)) {
+  let lastMessage = arduinoStore.getLastMessage();
+  while (!lastMessage.includes(command)) {
+    if (lastMessage.includes("ERR")) {
+      throw new Error("Error handling usb command");
+    }
     console.log("waiting for message");
     await new Promise((resolve) => setTimeout(resolve, 10));
     count++;
@@ -275,6 +295,7 @@ const waitForCommand = async (command: string) => {
       console.info("Timeout waiting for command:", command);
       return false;
     }
+    lastMessage = arduinoStore.getLastMessage();
   }
   console.log("DONE_WAITING", new Date().getTime());
   return true;
