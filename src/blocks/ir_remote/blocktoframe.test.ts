@@ -45,12 +45,14 @@ describe("button state factories", () => {
       hasCode: true,
       pin: ARDUINO_PINS.PIN_2,
       type: ArduinoComponentType.IR_REMOTE,
-      setupCommand: "config:ir=2",
-      importLibraries: {
-        name: "IRremote",
-        url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
-        version: "latest",
-      },
+      setupCommand: "register::ir::2",
+      importLibraries: [
+        {
+          name: "IRremote",
+          url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
+          version: "latest",
+        },
+      ],
     };
 
     const state: ArduinoFrame = {

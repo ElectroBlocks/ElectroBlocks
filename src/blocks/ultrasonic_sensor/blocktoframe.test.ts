@@ -46,7 +46,7 @@ describe("ultra sonic sensor state factories", () => {
       echoPin: ARDUINO_PINS.PIN_12,
       trigPin: ARDUINO_PINS.PIN_11,
       cm: 10,
-      setupCommand: "config:m=12,11",
+      setupCommand: "register::ul::12::11",
       type: ArduinoComponentType.ULTRASONICE_SENSOR,
     };
 
