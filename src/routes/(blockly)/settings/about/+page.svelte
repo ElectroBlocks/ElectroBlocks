@@ -132,9 +132,6 @@
         <ListGroupItem href="https://svgjs.com/docs/3.0/">svg.js</ListGroupItem>
         <ListGroupItem href="https://prismjs.com/">prismjs</ListGroupItem>
         <ListGroupItem href="https://lodash.com/">lodash</ListGroupItem>
-        <ListGroupItem href="https://github.com/eligrey/FileSaver.js#readme">
-          file-saver
-        </ListGroupItem>
         <ListGroupItem href="https://sweetalert.js.org/guides/">
           sweetalert
         </ListGroupItem>
