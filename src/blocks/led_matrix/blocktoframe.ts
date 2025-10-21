@@ -196,11 +196,6 @@ const makeLedCommands = (
     [0, 0, 0, 0, 0, 0, 0, 0]
   );
   return [`${baseCommand}::${ledMap.join("::")}`];
-  // return leds.map((l) => {
-  //   return `write::ma::${pin}::1::${l.col - 1}::${8 - l.row}::${
-  //     l.isOn ? 1 : 0
-  //   }`;
-  // });
 };
 
 export const ledsToBytes = (
