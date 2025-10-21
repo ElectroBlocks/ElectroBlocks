@@ -182,11 +182,25 @@ const makeLedCommands = (
   pin: string,
   leds: Array<{ row: number; col: number; isOn: boolean }>
 ): string[] => {
-  return leds.map((l) => {
-    return `write::ma::${pin}::1::${l.col - 1}::${8 - l.row}::${
-      l.isOn ? 1 : 0
-    }`;
-  });
+  let baseCommand = `write::ma::${pin}::2`;
+  const ledMap = leds.reduce(
+    (acc, led) => {
+      if (!led.isOn) {
+        return acc;
+      }
+      const row = 8 - led.row;
+      const col = 8 - led.col;
+      acc[row] += Math.pow(2, col);
+      return acc;
+    },
+    [0, 0, 0, 0, 0, 0, 0, 0]
+  );
+  return [`${baseCommand}::${ledMap.join("::")}`];
+  // return leds.map((l) => {
+  //   return `write::ma::${pin}::1::${l.col - 1}::${8 - l.row}::${
+  //     l.isOn ? 1 : 0
+  //   }`;
+  // });
 };
 
 export const ledsToBytes = (
