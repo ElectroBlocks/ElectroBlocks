@@ -51,3 +51,7 @@ Blockly["Arduino"]["is_button_pressed"] = function (block: BlockSvg) {
 Blockly["Arduino"]["release_button"] = function (block: BlockSvg) {
   return "";
 };
+
+Blockly["Python"]["release_button"] = function (block: BlockSvg) {
+  return "";
+};

@@ -15,7 +15,7 @@ Blockly["Python"]["digital_write"] = function (block: Block) {
   const state = block.getFieldValue("STATE");
   Blockly["Python"].setupCode_[
     "write_pin_" + pin
-  ] = `eb.digital_config(${pin})\n`;
+  ] = `eb.digital_write_config(${pin})\n`;
 
   const ledState = state === "ON" ? "1" : "0";
   return `eb.digital_write(${pin}, ${ledState}) # Turns the led ${state.toLowerCase()}\n`;
