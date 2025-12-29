@@ -33,6 +33,7 @@ export const digit4DisplaySetup: BlockToFrameTransformer = (
         url: "https://downloads.arduino.cc/libraries/github.com/AKJ7/TM1637_Driver-2.2.1.zip",
       },
     ],
+    enableFlag: "ENABLE_TM",
   };
 
   return [

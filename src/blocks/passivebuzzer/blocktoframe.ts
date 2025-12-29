@@ -34,6 +34,7 @@ export const passiveBuzzer: BlockToFrameTransformer = (
     displaySimpleOn: block.blockName === "passive_buzzer_simple",
     setupCommand: `register::bu::${pin}`,
     usbCommands: [`write::bu::${pin}::${tone}`],
+    enableFlag: "ENABLE_BUZZER",
   };
   const explanation = getExplanation(block.blockName, tone, pin);
 

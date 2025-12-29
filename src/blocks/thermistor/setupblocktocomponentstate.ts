@@ -20,7 +20,7 @@ export const thermistorSetupBlockToComponentState = (
     temp: sensorData.temp,
     tempC: sensorData.temp,
     tempF: (sensorData.temp * 9) / 5 + 32,
-    externalResistorsOhms: +findFieldValue(block, "NONIMAL_RESISTANCE"),
+    externalResistorsOhms: 10_000,
     setupCommand: `register::th::${block.pins[0]}`,
   };
 };
@@ -38,7 +38,7 @@ export const thermistorStateStringToComponentState = (
     temp: +celsius,
     tempC: +celsius,
     tempF: (+celsius * 9) / 5 + 32,
-    externalResistorsOhms: +findFieldValue(block, "NONIMAL_RESISTANCE"),
+    externalResistorsOhms: 10_000,
     setupCommand: `register::th::${block.pins[0]}`,
   };
 };

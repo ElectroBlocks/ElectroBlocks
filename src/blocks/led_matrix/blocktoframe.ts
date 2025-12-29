@@ -55,6 +55,7 @@ export const ledMatrixSetup: BlockToFrameTransformer = (
         url: "https://downloads.arduino.cc/libraries/github.com/wayoda/LedControl-1.0.6.zip",
       },
     ],
+    enableFlag: "ENABLE_LED_MATRIX",
   };
 
   return [

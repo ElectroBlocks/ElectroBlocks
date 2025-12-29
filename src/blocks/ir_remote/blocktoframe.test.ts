@@ -53,6 +53,7 @@ describe("button state factories", () => {
           version: "latest",
         },
       ],
+      enableFlag: "ENABLE_IR_REMOTE",
     };
 
     const state: ArduinoFrame = {

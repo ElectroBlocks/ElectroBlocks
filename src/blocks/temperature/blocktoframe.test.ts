@@ -59,6 +59,7 @@ describe("rfid state factories", () => {
       ],
       tempType: "DHT11",
       setupCommand: "register::dht::8::1",
+      enableFlag: "ENABLE_DHT",
     };
 
     const state: ArduinoFrame = {

@@ -12,25 +12,26 @@ Blockly["Python"]["fastled_setup"] = function (block) {
 
   Blockly["Python"].setupCode_[
     "fastled"
-  ] = `config_rgb_strip("${pin}", ${numberOfLeds}, "${colorOrder}", ${brightness}) # Configures the NEOPIXEL strip\n`;
+  ] = `eb.config_rgb_strip("${pin}", ${numberOfLeds}, "${colorOrder}", ${brightness}) # Configures the NEOPIXEL strip\n`;
 
   return "";
 };
 
 Blockly["Python"]["fastled_set_all_colors"] = function (block) {
   const maxLeds = Blockly["Arduino"]["fastled_info"].numberOfLeds;
-  const statements = [`// Colors for block ${block.id} \n`];
+  let code = "eb.rgb_strip_set_all_colors([\n\t";
   for (let position = 1; position <= maxLeds; position += 1) {
     const hexColor = block.getFieldValue(getRowColId(position));
     const rgbColor = hexToRgb(hexColor);
-    statements.push(
-      `eb.rgb_strip_set_color(${position - 1}, ${rgbColor.red}, ${
-        rgbColor.green
-      }, ${rgbColor.blue}) # set the color of the led\n`
-    );
+    code += `(${rgbColor.red}, ${rgbColor.green}, ${rgbColor.blue})${
+      position == maxLeds ? "" : ","
+    }`;
+    if (position % 3 == 0 && position < maxLeds) {
+      code += "\n\t";
+    }
   }
-
-  return statements.join("");
+  code += "\n])";
+  return code;
 };
 
 Blockly["Python"]["fastled_show_all_colors"] = function (block) {

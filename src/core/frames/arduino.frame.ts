@@ -63,6 +63,7 @@ export interface ArduinoComponentState {
   usbCommands?: string[];
   setupCommand?: string;
   importLibraries?: Library[];
+  enableFlag?: string;
 }
 
 export enum ArduinoComponentType {

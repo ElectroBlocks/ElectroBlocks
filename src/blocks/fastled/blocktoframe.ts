@@ -67,6 +67,7 @@ export const fastLEDSetup: BlockToFrameTransformer = (
         url: "https://downloads.arduino.cc/libraries/github.com/FastLED/FastLED-3.6.0.zip",
       },
     ],
+    enableFlag: "ENABLE_LED_STRIP",
   };
   return [
     arduinoFrameByComponent(

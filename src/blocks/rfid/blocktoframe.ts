@@ -24,6 +24,7 @@ export const rfidSetup: BlockToFrameTransformer = (
     scannedCard: rfidSensorLoop1.scanned_card,
     tag: rfidSensorLoop1.tag,
     setupCommand: `register::rfi::${rxPin}::${txPin}::9600`,
+    enableFlag: "ENABLE_RFID_UART",
   };
 
   return [

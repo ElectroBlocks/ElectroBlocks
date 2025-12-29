@@ -34,6 +34,7 @@ export const tempSetupSensor: BlockToFrameTransformer = (
         url: "https://downloads.arduino.cc/libraries/github.com/adafruit/Adafruit_Unified_Sensor-1.1.14.zip",
       },
     ],
+    enableFlag: "ENABLE_DHT",
   };
 
   return [

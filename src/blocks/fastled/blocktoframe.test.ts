@@ -63,6 +63,7 @@ describe("fastLED state factories", () => {
           color: { red: 0, green: 0, blue: 0 },
         };
       }),
+      enableFlag: "ENABLE_LED_STRIP",
     };
 
     const state: ArduinoFrame = {

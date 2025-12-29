@@ -38,6 +38,7 @@ export const stepperMotorSetup: BlockToFrameTransformer = (
         url: "https://downloads.arduino.cc/libraries/github.com/arduino-libraries/Stepper-1.1.3.zip",
       },
     ],
+    enableFlag: "ENABLE_STEPPER",
   };
 
   return [

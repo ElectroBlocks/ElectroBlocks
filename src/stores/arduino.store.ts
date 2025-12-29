@@ -5,8 +5,12 @@ import {
 } from "@duinoapp/upload-multitool";
 import { get, writable } from "svelte/store";
 import { MicroControllerType } from "../core/microcontroller/microcontroller";
-import arduinoUnoHexCode from "../core/serial/arduino/arduino-uno-firmware.hex?raw";
-import arduinoMegaHexCode from "../core/serial/arduino/arduino-mega-firmware.hex?raw";
+
+import firmware from "../core/serial/arduino/firmware.ino?raw";
+import LedMatrixH from "../core/serial/arduino/LedMatrix.h?raw";
+import LedMatrixCPP from "../core/serial/arduino/LedMatrix.cpp?raw";
+import RfidParserH from "../core/serial/arduino/rfid_parser.h?raw";
+
 import { onErrorMessage } from "../help/alerts";
 import { ArduinoFrame, Library } from "../core/frames/arduino.frame";
 import { getBoard } from "../core/microcontroller/selectBoard";
@@ -122,8 +126,6 @@ const uploadHexCodeToBoard = async (
       },
       verbose: true,
     } as any as ProgramConfig;
-    console.log(config);
-    debugger;
     await upload(port, config);
     addListener(port);
     portStateStore.set(PortState.OPEN);
@@ -159,17 +161,31 @@ const compileCode = async (
   });
   try {
     ///
+    var files = [
+      {
+        content: code,
+        name: "arduino/arduino.ino",
+      },
+    ];
+    debugger;
+    // If there is another come up with a standard way of doing this.
+    if (libraries.find((x) => x.name == "LedControl")) {
+      files.push({
+        name: "arduino/LedMatrix.h",
+        content: LedMatrixH,
+      });
+      files.push({
+        name: "arduino/LedMatrix.cpp",
+        content: LedMatrixCPP,
+      });
+    }
+
     var jsonString = {
       fqbn:
         type == MicroControllerType.ARDUINO_UNO
           ? "arduino:avr:uno"
           : "arduino:avr:mega",
-      files: [
-        {
-          content: code,
-          name: "arduino/arduino.ino",
-        },
-      ],
+      files,
       flags: { verbose: false, preferLocal: false },
       libs: libraries,
     };
@@ -205,17 +221,135 @@ const arduinoStore = {
     });
   },
 
-  connectWithAndUploadFirmware: async (boardType: MicroControllerType) => {
+  connectWithAndUploadFirmware: async (
+    boardType: MicroControllerType,
+    enableFlags: string[]
+  ) => {
     if (!arduinoStore.isConnected()) {
       await arduinoStore.connect();
     }
-    const successfulRestart = await restartArduino();
-    if (successfulRestart) return "restarted";
-    await uploadHexCodeToBoard(boardType, async () =>
-      boardType == MicroControllerType.ARDUINO_UNO
-        ? arduinoUnoHexCode
-        : arduinoMegaHexCode
+
+    const libraries = [
+      {
+        name: "Servo",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/arduino-libraries/Servo-1.2.1.zip",
+      },
+      {
+        name: "LiquidCrystal I2C",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/marcoschwartz/LiquidCrystal_I2C-1.1.2.zip",
+      },
+      {
+        name: "Stepper",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/arduino-libraries/Stepper-1.1.3.zip",
+      },
+      {
+        name: "Adafruit NeoPixel",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/adafruit/Adafruit_NeoPixel-1.12.0.zip",
+      },
+      {
+        name: "LedControl",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/wayoda/LedControl-1.0.6.zip",
+      },
+      {
+        name: "TM1637 Driver",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/AKJ7/TM1637_Driver-2.2.1.zip",
+      },
+      {
+        name: "IRLremote",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/NicoHood/IRLremote-2.0.2.zip",
+      },
+      {
+        name: "DHT sensor library",
+        version: "latest",
+        deps: ["Adafruit Unified Sensor"],
+        url: "https://downloads.arduino.cc/libraries/github.com/adafruit/DHT_sensor_library-1.4.6.zip",
+      },
+      {
+        name: "Adafruit Unified Sensor",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/adafruit/Adafruit_Unified_Sensor-1.1.14.zip",
+      },
+    ];
+
+    let firmwareCode = firmware;
+    const availableEnableFlags = [
+      "ENABLE_BUZZER",
+      "ENABLE_SERVO",
+      "ENABLE_LCD",
+      "ENABLE_LED_STRIP",
+      "ENABLE_DHT",
+      "ENABLE_LED_MATRIX",
+      "ENABLE_IR_REMOTE",
+      "ENABLE_RFID_UART",
+      "ENABLE_STEPPER",
+      "ENABLE_TM",
+      "ENABLE_MOTOR",
+    ];
+    for (let flag of availableEnableFlags) {
+      const enabled = enableFlags.includes(flag);
+      firmwareCode = firmwareCode.replace(
+        "REPLACE_" + flag,
+        enabled ? "1" : "0"
+      );
+    }
+
+    const files = [
+      {
+        content: firmwareCode,
+        name: "firmware/firmware.ino",
+      },
+      {
+        content: RfidParserH,
+        name: "firmware/rfid_parser.h",
+      },
+      {
+        content: LedMatrixCPP,
+        name: "firmware/LedMatrix.cpp",
+      },
+      {
+        content: LedMatrixH,
+        name: "firmware/LedMatrix.h",
+      },
+    ];
+
+    const headers = new Headers({
+      "Content-Type": "application/json; charset=utf-8",
+    });
+
+    var jsonString = {
+      fqbn:
+        boardType == MicroControllerType.ARDUINO_UNO
+          ? "arduino:avr:uno"
+          : "arduino:avr:mega",
+      files,
+      flags: { verbose: false, preferLocal: false },
+      libs: libraries,
+    };
+
+    console.log(
+      `Sending code to https://compile.duino.app/v3/compile`,
+      jsonString
     );
+
+    await uploadHexCodeToBoard(boardType, async () => {
+      const response = await fetch(`https://compile.duino.app/v3/compile`, {
+        method: "POST",
+        body: JSON.stringify(jsonString),
+        headers,
+      });
+      if (!response.ok)
+        throw new Error(`Server responded with status: ${response.status}`);
+      const result = await response.json();
+      return result.hex;
+    });
+
     return "full upload";
   },
   connect: async () => {

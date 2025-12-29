@@ -183,10 +183,23 @@ export const createFrames = async (blocklyEvent) => {
           }
           return [...prev];
         }, []);
+  const enableFlags: string[] =
+    currentFrameContainter?.frames.length > 0
+      ? currentFrameContainter.frames[
+          currentFrameContainter.frames.length - 1
+        ].components.reduce((prev, next) => {
+          if (next?.enableFlag) {
+            return [...prev, next?.enableFlag];
+          }
+          return [...prev];
+        }, [])
+      : [];
+    
   codeStore.set({
     cLang: getArduinoCode("Arduino"),
     pythonLang: getArduinoCode("Python"),
     imports,
+    enableFlags,
   });
 };
 

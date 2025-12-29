@@ -28,10 +28,12 @@ export const codeStore = writable<{
   cLang: string;
   pythonLang: string;
   imports: Library[];
+  enableFlags: string[];
 }>({
   cLang: cCode,
   pythonLang: pythonCode,
   imports: [],
+  enableFlags: [],
 });
 
 export default {

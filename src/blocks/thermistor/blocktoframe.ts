@@ -18,7 +18,7 @@ export const thermistorSetup: BlockToFrameTransformer = (
     pins: block.pins,
     type: ArduinoComponentType.THERMISTOR,
     temp: sensorData.temp,
-    externalResistorsOhms: +findFieldValue(block, "NONIMAL_RESISTANCE"),
+    externalResistorsOhms: 10_000,
     setupCommand: `register::th::${block.pins[0]}`,
     tempC: sensorData.temp,
     tempF: tempF,

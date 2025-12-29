@@ -42,6 +42,7 @@ export const motorSetup: BlockToFrameTransformer = (
     speed2: 0,
     pins: [en1, in1, in2],
     type: ArduinoComponentType.MOTOR,
+    enableFlag: "ENABLE_MOTOR",
   };
 
   let setupCommand = `register::mo::${en1}::${in1}::${in2}`;

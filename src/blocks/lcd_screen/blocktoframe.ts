@@ -47,6 +47,7 @@ export const lcdScreenSetup: BlockToFrameTransformer = (
         url: "https://downloads.arduino.cc/libraries/github.com/marcoschwartz/LiquidCrystal_I2C-1.1.2.zip",
       },
     ],
+    enableFlag: "ENABLE_LCD",
   };
 
   return [

@@ -97,7 +97,7 @@ Click Ok to confirm and get started!`);
       if (!result) {
         return;
       }
-      const whatHappenned = await arduinoStore.connectWithAndUploadFirmware($settingStore.boardType);
+      const whatHappenned = await arduinoStore.connectWithAndUploadFirmware($settingStore.boardType, $codeStore.enableFlags);
       if (whatHappenned == "full upload") {
         onSuccess("Firmware was successfully loaded!");
       }

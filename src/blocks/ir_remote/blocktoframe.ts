@@ -30,6 +30,7 @@ export const irRemoteSetup: BlockToFrameTransformer = (
         version: "latest",
       },
     ],
+    enableFlag: "ENABLE_IR_REMOTE",
   };
 
   return [

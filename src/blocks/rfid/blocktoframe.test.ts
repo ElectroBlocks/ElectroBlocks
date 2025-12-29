@@ -49,6 +49,7 @@ describe("rfid state factories", () => {
       scannedCard: true,
       tag: "tag",
       type: ArduinoComponentType.RFID,
+      enableFlag: "ENABLE_RFID_UART",
     };
 
     const rfidSetupState: ArduinoFrame = {
