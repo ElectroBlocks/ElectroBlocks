@@ -28,6 +28,7 @@ export const irRemoteSetupBlockToComponentState = (
         version: "latest",
       },
     ],
+    enableFlag: "ENABLE_IR_REMOTE",
   };
 };
 
@@ -52,5 +53,6 @@ export const irRemoteStateStringToComponentState = (
         version: "latest",
       },
     ],
+    enableFlag: "ENABLE_IR_REMOTE",
   };
 };

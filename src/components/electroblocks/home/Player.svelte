@@ -55,6 +55,8 @@
 
 
   const unsubscribes = [];
+  let enableFlagsPrev = [];
+  let isAsking = false;
 
   $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
@@ -63,6 +65,15 @@
   unsubscribes.push(
     currentStepStore.subscribe((currentIndex) => {
       frameNumber = currentIndex;
+    }),
+    codeStore.subscribe(async ({ enableFlags }) => {
+      const enableFlagsPrevString = enableFlagsPrev.sort().join(',');
+      const enableFlagsString = enableFlags.sort().join(',');
+      if ($simulatorStore == SimulatorMode.LIVE && enableFlagsPrevString != enableFlagsString && enableFlagsString.length > enableFlagsPrevString.length) {
+        await onConfirm("Please reclick the lightning button and recompile the firmware to use the new Addon or Sensor.")
+        simulatorStore.set(SimulatorMode.VIRTUAL);
+      }
+      enableFlagsPrev = enableFlags;
     })
   );
 
