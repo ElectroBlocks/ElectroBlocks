@@ -932,8 +932,6 @@ bool commandMoveServo(Component& component, const char* command) {
       lcd->print(row1);
       lcd->setCursor(0, 1);
       lcd->print(row2);
-      Serial.println(row1);
-      Serial.println(row2);
       if (component.param[1] == 4) {
         char row3[21];
         char row4[21];
@@ -945,8 +943,6 @@ bool commandMoveServo(Component& component, const char* command) {
         lcd->print(row3);
         lcd->setCursor(0, 3);
         lcd->print(row4);
-        Serial.println(row3);
-        Serial.println(row4);
       }
       return true;
     } else if (option == 9) {

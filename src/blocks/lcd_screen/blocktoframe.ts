@@ -39,7 +39,7 @@ export const lcdScreenSetup: BlockToFrameTransformer = (
     ],
     sdaPin,
     sclPin,
-    setupCommand: `register::lcd::${rows}::${columns}::${memoryType}`,
+    setupCommand: `register::lcd::A4::${rows}::${columns}::${memoryType}`,
     importLibraries: [
       {
         name: "LiquidCrystal I2C",

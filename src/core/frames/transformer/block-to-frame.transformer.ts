@@ -235,6 +235,10 @@ export const generateInputFrame = (
     arduinoStates.push(...states);
     const newPreviousState = states[states.length - 1];
     previousState = _.cloneDeep(newPreviousState);
+    // clear out the usb commands so that they don't repeat
+    previousState.components.forEach((c) => {
+      c.usbCommands = [];
+    });
     nextBlock = findBlockById(blocks, nextBlock.nextBlockId);
   } while (nextBlock !== undefined);
 

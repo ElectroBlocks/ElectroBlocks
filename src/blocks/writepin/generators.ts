@@ -42,7 +42,9 @@ Blockly["Python"]["analog_write"] = function (block: Block) {
       Blockly["Python"].ORDER_ATOMIC
     ) || "0";
 
-  Blockly["Python"].setupCode_["write_pin_" + pin] = `eb.analog_config(${pin})`;
+  Blockly["Python"].setupCode_[
+    "write_pin_" + pin
+  ] = `eb.analog_write_config(${pin})`;
 
   return `eb.analog_write(${pin}, ${value})\n`;
 };

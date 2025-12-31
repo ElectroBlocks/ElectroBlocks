@@ -124,7 +124,10 @@ ${printRow(1, textRow2)}`;
   if (row4 !== "") {
     code += `\n${row4}`;
   }
-  code += `\ndelay(${seconds}); // Pause / Wait\n`;
+  code += `\ndelay(${seconds}); // Wait ${seconds / 1000} seconds
+lcd.clear(); // Clear LCD Screen
+
+`;
   return code;
 };
 
@@ -172,18 +175,20 @@ Blockly["Python"]["lcd_screen_simple_print"] = function (
   );
 
   if (numRows == 2) {
-    return `eb.lcd_clear() # clear screen
+    return `eb.lcd_clear() #clear screen
 eb.lcd_print(0, 0, ${textRow1}) # Print the first row text on the LCD screen
 eb.lcd_print(1, 0, ${textRow2}) # Print the second row text on the LCD screen
-time.sleep(${seconds}) # Pause / Wait\n`;
+time.sleep(${seconds}) # Pause / Wait
+eb.lcd_clear() # clear screen\n`;
   }
 
-  return `eb.lcd_clear() # clear screen
+  return `eb.lcd_clear() #clear screen
 eb.lcd_print(0, 0, ${textRow1}) # Print the first row text on the LCD screen
 eb.lcd_print(1, 0, ${textRow2}) # Print the second row text on the LCD screen
 eb.lcd_print(2, 0, ${textRow3}) # Print the third row text on the LCD screen
 eb.lcd_print(3, 0, ${textRow4}) # Print the fourth row text on the LCD screen
-time.sleep(${seconds}) # Wait for ${seconds} seconds\n`;
+time.sleep(${seconds}) # Wait for ${seconds} seconds
+eb.lcd_clear() # clear screen\n`;
 };
 
 Blockly["Arduino"]["lcd_backlight"] = function (block) {

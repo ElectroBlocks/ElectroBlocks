@@ -32,7 +32,9 @@ Blockly["Python"]["led_fade"] = function (block: Block) {
     Blockly["Python"].ORDER_ATOMIC
   );
 
-  Blockly["Python"].setupCode_["write_pin_" + pin] = `eb.analog_config(${pin})`;
+  Blockly["Python"].setupCode_[
+    "write_pin_" + pin
+  ] = `eb.analog_write_config(${pin})`;
 
   return `eb.analog_write(${pin}, ${fadeNumber})\n`;
 };
