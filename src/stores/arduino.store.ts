@@ -167,7 +167,6 @@ const compileCode = async (
         name: "arduino/arduino.ino",
       },
     ];
-    debugger;
     // If there is another come up with a standard way of doing this.
     if (libraries.find((x) => x.name == "LedControl")) {
       files.push({

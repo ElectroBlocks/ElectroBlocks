@@ -16,11 +16,10 @@ Blockly["Arduino"]["digital_display_setup"] = function (block: Block) {
 
   Blockly["Arduino"].libraries_["define_digital_display"] = `
 #include <TM1637.h>  // Includes the library for the TM1637 7-segment display
-const byte PIN_CLK = ${dioPin};   // Defines CLK pin for the display
-const byte PIN_DIO = ${clkPin};   // Defines DIO pin for the display
+const byte PIN_CLK = ${clkPin};   // Defines CLK pin for the display
+const byte PIN_DIO = ${dioPin};   // Defines DIO pin for the display
 // Initializes the 7-segment display with CLK and DIO pins
-TM1637    tm(PIN_CLK, PIN_DIO);
-`;
+TM1637    tm(PIN_CLK, PIN_DIO);`;
 
   Blockly["Arduino"].setupCode_["digital_display_setup"] = `  tm.begin();
   tm.setBrightness(100);
@@ -52,9 +51,9 @@ Blockly["Arduino"]["digital_display_set"] = function (block) {
 
   // This has to 4 in order to get the colons to work
   let code = `
-  tm.clearScreen();
-  ${colonOn ? "tm.colonOn();" : "tm.colonOff()"}
-  tm.display(${text});
+tm.clearScreen();
+${colonOn ? "tm.colonOn();" : "tm.colonOff();"}
+tm.display(${text});
 `;
   return code;
 };

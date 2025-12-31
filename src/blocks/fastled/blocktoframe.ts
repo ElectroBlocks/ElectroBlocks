@@ -139,14 +139,13 @@ export const setAllColors: BlockToFrameTransformer = (
   }
   fastLED.preShowLEDs = leds;
   const newComponent = _.cloneDeep(fastLED);
-  let usbCommands = [];
-  const usbCommandBase = `write::leds::${fastLED.pins[0]}::2`;
-  for (let position in newComponent.fastLEDs) {
-    let hex = rgbToHex(newComponent.fastLEDs[position].color);
-    hex = hex.replace("#", "");
-    usbCommands.push(usbCommandBase + `::${position}::${hex}`);
+  let usbCommand = `write::leds::${fastLED.pins[0]}::2::`;
+  for (let position in newComponent.preShowLEDs) {
+    let hex = rgbToHex(newComponent.preShowLEDs[position].color);
+    hex = hex.replace("#", "").toUpperCase();
+    usbCommand += hex;
   }
-  newComponent.usbCommands = usbCommands;
+  newComponent.usbCommands = [usbCommand];
 
   return [
     arduinoFrameByComponent(
@@ -201,6 +200,11 @@ export const setFastLEDColor: BlockToFrameTransformer = (
   );
   fastLED.preShowLEDs[position - 1] = { position: position - 1, color };
   const newComponent = _.cloneDeep(fastLED);
+  newComponent.usbCommands = [
+    `write::leds::${fastLED.pins[0]}::3::${position - 1}::${rgbToHex(color)
+      .toUpperCase()
+      .replace("#", "")}`,
+  ];
 
   return [
     arduinoFrameByComponent(

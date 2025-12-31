@@ -30,30 +30,32 @@ Blockly["Python"]["fastled_set_all_colors"] = function (block) {
       code += "\n\t";
     }
   }
-  code += "\n])";
+  code += "\n])\n";
   return code;
 };
 
 Blockly["Python"]["fastled_show_all_colors"] = function (block) {
-  return `eb.rgb_strip_set_color(i, 100, 0, 100)`;
+  return `eb.rgb_strip_show_all() # Sets the color the led strip.\n`;
 };
 
-Blockly["Arduino"]["fastled_set_color"] = function (block) {
-  const color = Blockly["Arduino"].valueToCode(
+Blockly["Python"]["fastled_set_color"] = function (block) {
+  const color = Blockly["Python"].valueToCode(
     block,
     "COLOR",
-    Blockly["Arduino"].ORDER_ATOMIC
+    Blockly["Python"].ORDER_ATOMIC
   );
-  const position = Blockly["Arduino"].valueToCode(
+  const position = Blockly["Python"].valueToCode(
     block,
     "POSITION",
-    Blockly["Arduino"].ORDER_ATOMIC
+    Blockly["Python"].ORDER_ATOMIC
   );
-  return `eb.rgb_strip_set_color(${position}, ${color.red}, ${color.green}, ${color.blue})`;
+  console.log(color);
+  return `developer_temp_color = ${color} # create a variable to store the color
+eb.rgb_strip_set_color(${position}, developer_temp_color.red, developer_temp_color.green, developer_temp_color.blue)\n`;
 };
 
 Blockly["Arduino"]["fastled_setup"] = function (block) {
-    createColorStruct();
+  createColorStruct();
 
   const numberOfLeds = block.getFieldValue("NUMBER_LEDS");
   const pin = block.getFieldValue("PIN");
@@ -87,8 +89,6 @@ void setFastLEDColor(int pos, struct RGB color) {
   return "";
 };
 
-
-
 const getRowColId = (position: number): string => {
   const row = Math.ceil(position / 12);
 
@@ -99,38 +99,38 @@ Blockly["Arduino"]["fastled_set_all_colors"] = function (block) {
   createColorStruct();
 
   const maxLeds = Blockly["Arduino"]["fastled_info"].numberOfLeds;
-  const statements = [`// Colors for block ${block.id} \n`];
+  const statements = [`// Set all Colors for led strip \n`];
   for (let position = 1; position <= maxLeds; position += 1) {
     const hexColor = block.getFieldValue(getRowColId(position));
     const rgbColor = hexToRgb(hexColor);
     statements.push(
-      "\tsetFastLEDColor(" +
+      "setFastLEDColor(" +
         position +
         "," +
         `{${rgbColor.red}, ${rgbColor.green}, ${rgbColor.blue}}` +
         ");\n"
     );
   }
-
+  statements.push(`// End of setting all the colors for the led strip. \n\n`);
   return statements.join("");
 };
 
-Blockly['Arduino']['fastled_show_all_colors'] = function (block) {
-  return `FastLED.show();\n`;
+Blockly["Arduino"]["fastled_show_all_colors"] = function (block) {
+  return `FastLED.show(); // Sets the color the led strip.\n`;
 };
 
-Blockly['Arduino']['fastled_set_color'] = function (block) {
-  const color = Blockly['Arduino'].valueToCode(
+Blockly["Arduino"]["fastled_set_color"] = function (block) {
+  const color = Blockly["Arduino"].valueToCode(
     block,
-    'COLOR',
-    Blockly['Arduino'].ORDER_ATOMIC
+    "COLOR",
+    Blockly["Arduino"].ORDER_ATOMIC
   );
 
-  const position = Blockly['Arduino'].valueToCode(
+  const position = Blockly["Arduino"].valueToCode(
     block,
-    'POSITION',
-    Blockly['Arduino'].ORDER_ATOMIC
+    "POSITION",
+    Blockly["Arduino"].ORDER_ATOMIC
   );
 
-  return '\tsetFastLEDColor(' + position + ',' + color + ');\n';
+  return "setFastLEDColor(" + position + "," + color + ");\n";
 };

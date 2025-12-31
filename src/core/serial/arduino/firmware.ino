@@ -1308,7 +1308,6 @@ bool commandMoveServo(Component& component, const char* command) {
     if (!hex6ToRGB(colorPtr, r, g, b)) return false;
 
     neoPixel->setPixelColor(position, r, g, b);
-    neoPixel->show();   // optional, but recommended for individual commands
 
     return true;
   }
