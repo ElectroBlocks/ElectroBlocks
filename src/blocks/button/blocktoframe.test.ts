@@ -66,6 +66,7 @@ describe("button state factories", () => {
       isPressed: true,
       pins: [ARDUINO_PINS.PIN_3],
       setupCommand: `register::bt::3`,
+      usbCommands: [],
       type: ArduinoComponentType.BUTTON,
       usePullup: false,
     };
