@@ -40,7 +40,7 @@ byte developer_ledmatrix_image[8] = {
 Blockly["Python"]["led_matrix_make_draw"] = function (block) {
   let code = "\neb.draw_led_matrix([\n";
   for (let i = 1; i <= 8; i += 1) {
-    code += '\t"B';
+    code += '\t"b';
     for (let j = 1; j <= 8; j += 1) {
       const lightState =
         block.getFieldValue(i + "," + j).toLowerCase() === "true";
@@ -48,7 +48,7 @@ Blockly["Python"]["led_matrix_make_draw"] = function (block) {
     }
     code += '",\n';
   }
-  code += "])";
+  code += "])\n\n";
   return code;
 };
 Blockly["Arduino"]["led_matrix_make_draw"] = function (block) {
@@ -79,7 +79,7 @@ Blockly["Python"]["led_matrix_turn_one_on_off"] = function (block) {
     Blockly["Arduino"].ORDER_ATOMIC
   );
 
-  const state = block.getFieldValue("STATE") === "ON" ? "true" : "false";
+  const state = block.getFieldValue("STATE") === "ON";
 
   return `eb.set_led_matrix_led(${row}, ${column}, ${
     state ? "True" : "False"

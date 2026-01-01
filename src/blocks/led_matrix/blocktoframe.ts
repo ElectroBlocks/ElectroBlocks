@@ -36,6 +36,7 @@ export const ledMatrixSetup: BlockToFrameTransformer = (
   const dataPin = findFieldValue(block, "PIN_DATA");
   const csPin = findFieldValue(block, "PIN_CS");
   const clkPin = findFieldValue(block, "PIN_CLK");
+  const isBreadboard = findFieldValue(block, "BREADBOARD") === "TRUE";
   const ledMatrixState: LedMatrixState = {
     type: ArduinoComponentType.LED_MATRIX,
     pins: [
@@ -47,7 +48,9 @@ export const ledMatrixSetup: BlockToFrameTransformer = (
     clkPin,
     csPin,
     dataPin,
-    setupCommand: `register::ma::${dataPin}::${csPin}::${clkPin}`,
+    setupCommand: `register::ma::${dataPin}::${csPin}::${clkPin}::${
+      isBreadboard ? 1 : 0
+    }`,
     importLibraries: [
       {
         name: "LedControl",
@@ -155,9 +158,7 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
   const newComponent: LedMatrixState = {
     ...previousLedMatrix,
     leds: newLeds,
-    usbCommands: [
-      `write::ma::${dataPin}::1::${col - 1}::${8 - row}::${isOn ? 1 : 0}`,
-    ],
+    usbCommands: [`write::ma::${dataPin}::1::${row}::${col}::${isOn ? 1 : 0}`],
   };
 
   return [
@@ -186,15 +187,10 @@ const makeLedCommands = (
   let baseCommand = `write::ma::${pin}::2`;
   const ledMap = leds.reduce(
     (acc, led) => {
-      if (!led.isOn) {
-        return acc;
-      }
-      const row = 8 - led.row;
-      const col = 8 - led.col;
-      acc[row] += Math.pow(2, col);
+      acc[led.row - 1] += led.isOn ? "1" : "0";
       return acc;
     },
-    [0, 0, 0, 0, 0, 0, 0, 0]
+    ["b", "b", "b", "b", "b", "b", "b", "b"]
   );
   return [`${baseCommand}::${ledMap.join("::")}`];
 };

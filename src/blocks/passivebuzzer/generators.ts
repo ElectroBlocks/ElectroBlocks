@@ -25,7 +25,11 @@ Blockly["Arduino"]["passive_buzzer_note"] = function (block) {
 };
 
 Blockly["Python"]["passive_buzzer_tone"] = function (block) {
-  var tone = +block.getFieldValue("TONE");
+  var tone = Blockly["Arduino"].valueToCode(
+    block,
+    "TONE",
+    Blockly["Arduino"].ORDER_ATOMIC
+  );
   var pin = block.getFieldValue("PIN");
   // This will not work because arduino only supports one tone
   Blockly["Python"].setupCode_[
@@ -37,7 +41,7 @@ Blockly["Python"]["passive_buzzer_tone"] = function (block) {
 };
 
 Blockly["Arduino"]["passive_buzzer_tone"] = function (block) {
-  var tone = +Blockly["Arduino"].valueToCode(
+  var tone = Blockly["Arduino"].valueToCode(
     block,
     "TONE",
     Blockly["Arduino"].ORDER_ATOMIC
