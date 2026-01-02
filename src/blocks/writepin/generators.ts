@@ -4,11 +4,13 @@ import type { Block } from "blockly";
 Blockly["Arduino"]["digital_write"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
 
+  Blockly["Arduino"].setupCode_["digital_write_" + pin] =
+    "   pinMode(" + pin + ", OUTPUT);  // Configures led pin as an output\n";
+
   const state = block.getFieldValue("STATE") === "ON" ? "HIGH" : "LOW";
 
   return "digitalWrite(" + pin + ", " + state + "); \n";
 };
-
 
 Blockly["Python"]["digital_write"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
@@ -23,6 +25,9 @@ Blockly["Python"]["digital_write"] = function (block: Block) {
 
 Blockly["Arduino"]["analog_write"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
+  Blockly["Arduino"].setupCode_["analog_write_" + pin] =
+    "   pinMode(" + pin + ", OUTPUT);  // Configures led pin as an output\n";
+
   const numberToSend = Blockly["Arduino"].valueToCode(
     block,
     "WRITE_VALUE",

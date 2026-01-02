@@ -1154,7 +1154,7 @@ bool commandMoveServo(Component& component, const char* command) {
       if (PinManager::valid(pin4)) PinManager::release(pin4);
       return false;
     }
-    static Stepper st(steps, pin1, pin2, pin3, pin4);
+    static Stepper st(steps, pin1, pin3, pin2, pin4);
     stepperMotor = &st;
     stepperMotor->setSpeed(speed);
     out = {};

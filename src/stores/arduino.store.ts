@@ -413,7 +413,7 @@ const arduinoStore = {
 
 export default arduinoStore;
 
-const waitForCommand = async (command: string) => {
+const waitForCommand = async (command: string, waitInMs: number = 10) => {
   arduinoStore.clearMessages();
   var count = 0;
   let lastMessage = arduinoStore.getLastMessage();
@@ -422,7 +422,7 @@ const waitForCommand = async (command: string) => {
       throw new Error("Error handling usb command");
     }
     console.log("waiting for message");
-    await new Promise((resolve) => setTimeout(resolve, 10));
+    await new Promise((resolve) => setTimeout(resolve, waitInMs));
     count++;
     if (count > 100) {
       console.info("Timeout waiting for command:", command);
@@ -478,9 +478,13 @@ export const updateComponents = async (frame: ArduinoFrame) => {
     if (!component.usbCommands) break;
     for (var usbCommand of component.usbCommands) {
       console.log(`SENDING: ${usbCommand}`);
-      arduinoStore.sendMessage(usbCommand);
-
-      await waitForCommand("OK");
+      if (typeof usbCommand == "string") {
+        arduinoStore.sendMessage(usbCommand);
+        await waitForCommand("OK");
+      } else {
+        arduinoStore.sendMessage(usbCommand.command);
+        await waitForCommand("OK", usbCommand.waitInMs);
+      }
     }
   }
 };

@@ -19,6 +19,7 @@ export const stepperMotorSetup: BlockToFrameTransformer = (
   const pin2 = findFieldValue(block, "PIN_2");
   const pin3 = findFieldValue(block, "PIN_3");
   const pin4 = findFieldValue(block, "PIN_4");
+  const speed = findFieldValue(block, "SPEED");
   const totalSteps = findFieldValue(block, "TOTAL_STEPS");
   const stepperMotorState: StepperMotorState = {
     type: ArduinoComponentType.STEPPER_MOTOR,
@@ -30,7 +31,7 @@ export const stepperMotorSetup: BlockToFrameTransformer = (
     currentRotation: 0,
     totalSteps,
     steps: 0,
-    setupCommand: `register::ste::${pin1}::${pin2}::${pin3}::${pin4}`,
+    setupCommand: `register::ste::${pin1}::${pin2}::${pin3}::${pin4}::${totalSteps}::${speed}`,
     importLibraries: [
       {
         name: "Stepper",
@@ -77,7 +78,12 @@ export const moveStepperMotor: BlockToFrameTransformer = (
     ...stepperMotorState,
     steps,
     currentRotation: stepperMotorState.currentRotation + steps,
-    usbCommands: [`write::ste::${stepperMotorState.pin1}::${steps}`],
+    usbCommands: [
+      {
+        command: `write::ste::${stepperMotorState.pin1}::${steps}`,
+        waitInMs: 100,
+      },
+    ],
   };
 
   return [

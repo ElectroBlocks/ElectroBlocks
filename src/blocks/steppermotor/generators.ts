@@ -31,7 +31,8 @@ Blockly["Arduino"]["stepper_motor_setup"] = function (block: Block) {
 const int stepsPerRevolution = ${totalSteps};
 // Initialize the stepper motor with the number of steps per revolution 
 // and the defined/given control pins
-Stepper stepperMotor(stepsPerRevolution, ${pin1}, ${pin2}, ${pin3}, ${pin4});
+// Pins listed in motor phase (spin) order
+Stepper stepperMotor(stepsPerRevolution, ${pin1}, ${pin3}, ${pin2}, ${pin4});
   `;
   Blockly["Arduino"].setupCode_[
     "stepper_motor_set_speed"

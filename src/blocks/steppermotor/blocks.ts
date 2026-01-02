@@ -39,7 +39,7 @@ Blockly.Blocks["stepper_motor_setup"] = {
     this.appendDummyInput()
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField("Total Steps")
-      .appendField(new Blockly.FieldNumber(200, 0, 500), "TOTAL_STEPS");
+      .appendField(new Blockly.FieldNumber(200, 0, 10000), "TOTAL_STEPS");
 
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");

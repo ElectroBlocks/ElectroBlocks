@@ -60,7 +60,7 @@ export interface Library {
 export interface ArduinoComponentState {
   pins: ARDUINO_PINS[];
   type: ArduinoComponentType;
-  usbCommands?: string[];
+  usbCommands?: string[] | Array<{ command: string; waitInMs: number }>;
   setupCommand?: string;
   importLibraries?: Library[];
   enableFlag?: string;
