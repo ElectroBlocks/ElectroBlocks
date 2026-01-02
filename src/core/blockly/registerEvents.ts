@@ -37,7 +37,6 @@ import UpdateLCDScreenPrintBlock from "./actions/updateLcdScreenPrintBlock";
 import updateLedBlockColorField from "./actions/updateLedBlockColorField";
 import { updateWhichComponent } from "./actions/updateWhichComponent";
 import { updateFastLedSetAllColorsUpdateBlock } from "./actions/fastLedSetAllColorsUpdateBlock";
-import { updateCommentIsButtonPressedBlock } from "./actions/updateCommentForButtonBlock";
 import { updateRGBLEDBlockSupportLang } from "./actions/updateRGBLEDBlockSupportLang";
 import { get } from "svelte/store";
 
@@ -149,7 +148,6 @@ export const createFrames = async (blocklyEvent) => {
       ArduinoComponentType.MOTOR
     )(event2),
     ...updateFastLedSetAllColorsUpdateBlock(event2),
-    ...updateCommentIsButtonPressedBlock(event2),
   ];
 
   thirdActionPass.forEach((a) => updater(a));
@@ -194,7 +192,7 @@ export const createFrames = async (blocklyEvent) => {
           return [...prev];
         }, [])
       : [];
-    
+
   codeStore.set({
     cLang: getArduinoCode("Arduino"),
     pythonLang: getArduinoCode("Python"),

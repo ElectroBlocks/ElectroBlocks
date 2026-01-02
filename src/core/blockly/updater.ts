@@ -194,11 +194,6 @@ const updateFastLedSetAllColorsBlock = (action: UpdateSetAllFastLedBlock) => {
   block.render();
 };
 
-const updateButtonIsPressedComments = (action: CommentForButtonBlockAction) => {
-  const block = getBlockById(action.blockId);
-  block.setCommentText(action.comment);
-  block.render();
-};
 
 const updaterList: { [key: string]: Updater } = {
   [ActionType.DELETE_VARIABLE]: updateVariable,
@@ -214,7 +209,6 @@ const updaterList: { [key: string]: Updater } = {
   [ActionType.UPDATE_MULTIPLE_SETUP_BLOCK]: updateMultipleSetupBlock,
   [ActionType.UPDATE_FASTLED_SET_ALL_COLORS_BLOCK]:
     updateFastLedSetAllColorsBlock,
-  [ActionType.UPDATE_COMMENT_FOR_BUTTON_BLOCK]: updateButtonIsPressedComments,
   [ActionType.UPGRADE_RGB_LED_SETUP]: updateRGBLEDSetupBlock,
 };
 

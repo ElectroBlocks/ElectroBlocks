@@ -19,9 +19,9 @@ const buttonSetupBlock: any = {
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN"
       );
-    this.appendDummyInput()
-      .appendField("Use PULLUP Resistor ")
-      .appendField(new Blockly.FieldCheckbox("FALSE"), "PULLUP_RESISTOR");
+    // this.appendDummyInput()
+    //   .appendField("Use PULLUP Resistor ")
+    //   .appendField(new Blockly.FieldCheckbox("FALSE"), "PULLUP_RESISTOR");
 
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(
       "-------------------------------------"
@@ -37,11 +37,11 @@ const buttonSetupBlock: any = {
     this.appendDummyInput()
       .appendField("Is button pressed: ")
       .appendField(new Blockly.FieldCheckbox("TRUE"), "is_pressed");
-    
+
     this.appendDummyInput("COPY_ALL")
-    .appendField("Copy All: ")
-    .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
-    
+      .appendField("Copy All: ")
+      .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");
+
     this.setColour(COLOR_THEME.SENSOR);
     this.setTooltip("");
     this.setHelpUrl("");

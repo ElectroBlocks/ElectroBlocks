@@ -18,7 +18,7 @@ export const buttonSetupBlockToComponentState = (
     type: ArduinoComponentType.BUTTON,
     pins: [pin as ARDUINO_PINS],
     isPressed: btState.is_pressed,
-    usePullup: findFieldValue(block, "PULLUP_RESISTOR") === "TRUE",
+    usePullup: true,
     setupCommand: `register::bt::${pin}`,
   };
 };
@@ -35,7 +35,7 @@ export const buttonStringToComponentState = (
   return {
     type: ArduinoComponentType.BUTTON,
     pins: [pin as ARDUINO_PINS],
-    usePullup: findFieldValue(setupBlock, "PULLUP_RESISTOR") === "TRUE",
+    usePullup: true,
     isPressed: state === "1",
   };
 };

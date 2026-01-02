@@ -73,7 +73,7 @@ Blockly["Python"]["thermistor_setup"] = function (block) {
   const pin = block.getFieldValue("PIN");
     Blockly["Python"].setupCode_[
       "thermistor_setup"
-    ] = `eb.config_thermistor(${pin}) # Set's up the thermistor.\n`;
+    ] = `eb.config_thermistor('${pin}') # Set's up the thermistor.\n`;
   
   return "";
 };

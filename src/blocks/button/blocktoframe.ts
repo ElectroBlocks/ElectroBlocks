@@ -17,7 +17,7 @@ export const buttonSetup: BlockToFrameTransformer = (
 ) => {
   const btnDatum = JSON.parse(block.metaData) as ButtonSensor[];
   const btnData = btnDatum.find((d) => d.loop === 1);
-  const usePullup = findFieldValue(block, "PULLUP_RESISTOR") === "TRUE";
+  const usePullup = true; // hard coding this for now
 
   const [pin] = block.pins;
 
