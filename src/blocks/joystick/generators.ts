@@ -1,6 +1,13 @@
 import Blockly from "blockly";
 
 Blockly["Python"]["joystick_setup"] = function (block) {
+  var pinX = block.getFieldValue("PIN_X");
+  var pinY = block.getFieldValue("PIN_Y");
+  var pinButton = block.getFieldValue("PIN_BUTTON");
+
+  Blockly["Python"].setupCode_[
+    "joystick"
+  ] = `eb.config_joystick("${pinX}", "${pinY}", ${pinButton}) # Configures the joystick\n`;
   return "";
 };
 
@@ -60,7 +67,7 @@ Blockly["Arduino"]["joystick_angle"] = function (block) {
   return ["internal_variable_degrees", Blockly["Arduino"].ORDER_ATOMIC];
 };
 Blockly["Python"]["joystick_angle"] = function (block) {
-  return ["", Blockly["Arduino"].ORDER_ATOMIC];
+  return ["eb.joystick_angle()", Blockly["Arduino"].ORDER_ATOMIC];
 };
 Blockly["Arduino"]["joystick_button"] = function (block) {
   return [
@@ -70,7 +77,7 @@ Blockly["Arduino"]["joystick_button"] = function (block) {
 };
 
 Blockly["Python"]["joystick_button"] = function (block) {
-  return ["", Blockly["Arduino"].ORDER_ATOMIC];
+  return ["eb.is_joystick_button_pressed()", Blockly["Arduino"].ORDER_ATOMIC];
 };
 
 Blockly["Arduino"]["joystick_engaged"] = function (block) {
@@ -81,5 +88,5 @@ Blockly["Arduino"]["joystick_engaged"] = function (block) {
 };
 
 Blockly["Python"]["joystick_engaged"] = function (block) {
-  return ["", Blockly["Arduino"].ORDER_ATOMIC];
+  return ["eb.is_joystick_engaged()", Blockly["Arduino"].ORDER_ATOMIC];
 };

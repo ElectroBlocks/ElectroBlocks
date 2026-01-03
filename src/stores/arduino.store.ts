@@ -475,7 +475,7 @@ export const updateComponents = async (frame: ArduinoFrame) => {
   }
 
   for (var component of frame.components) {
-    if (!component.usbCommands) break;
+    if (!component.usbCommands) continue;
     for (var usbCommand of component.usbCommands) {
       console.log(`SENDING: ${usbCommand}`);
       if (typeof usbCommand == "string") {

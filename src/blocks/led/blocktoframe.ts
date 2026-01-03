@@ -1,9 +1,30 @@
+import { BlockData } from "../../core/blockly/dto/block.type";
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
-import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type {
+  BlockToDefaultComponnet,
+  BlockToFrameTransformer,
+} from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import { arduinoFrameByComponent } from "../../core/frames/transformer/frame-transformer.helpers";
 import type { LedState } from "./state";
+
+export const ledDefault: BlockToDefaultComponnet = (block) => {
+  const pin = findFieldValue(block, "PIN");
+  const color = findFieldValue(block, "COLOR");
+
+  const ledState: LedState = {
+    type: ArduinoComponentType.LED,
+    pins: [pin],
+    pin: pin,
+    state: 0,
+    fade: block.blockName == "led_fade",
+    color: color,
+    usbCommands: [],
+    setupCommand: `register::dw::${pin}`,
+  };
+  return ledState;
+};
 
 export const led: BlockToFrameTransformer = (
   blocks,

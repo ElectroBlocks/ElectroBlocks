@@ -1,9 +1,30 @@
 import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
-import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type {
+  BlockToDefaultComponnet,
+  BlockToFrameTransformer,
+} from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import { arduinoFrameByComponent } from "../../core/frames/transformer/frame-transformer.helpers";
 import { WritePinState, WritePinType } from "./state";
+
+export const writePinDefault: BlockToDefaultComponnet = (block) => {
+  const pin = findFieldValue(block, "PIN");
+
+  const pinState: WritePinState = {
+    type: ArduinoComponentType.WRITE_PIN,
+    pinType:
+      block.blockName == "analog_write"
+        ? WritePinType.ANALOG_OUTPUT
+        : WritePinType.DIGITAL_OUTPUT,
+    pins: [pin],
+    pin: pin,
+    state: 0,
+    usbCommands: [],
+    setupCommand: `register::dw::${pin}`,
+  };
+  return pinState;
+};
 
 export const digitalWrite: BlockToFrameTransformer = (
   blocks,

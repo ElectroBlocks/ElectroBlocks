@@ -56,7 +56,7 @@ describe("test servos factories", () => {
       ArduinoComponentType.SERVO,
       ARDUINO_PINS.PIN_6
     );
-    expect(state1.components.length).toBe(1);
+    expect(state1.components.length).toBe(2);
     expect(servo6State1.degree).toBe(20);
 
     verifyServos(state2, 20, 29);

@@ -1,9 +1,17 @@
-import type { BlockData } from "../../blockly/dto/block.type";
-import type { Timeline, ArduinoFrame } from "../arduino.frame";
+import {
+  componentBlocksThatDoNotRequireSetup,
+  type BlockData,
+} from "../../blockly/dto/block.type";
+import type {
+  Timeline,
+  ArduinoFrame,
+  ArduinoComponentState,
+} from "../arduino.frame";
 import _ from "lodash";
 import {
   digitalWrite,
   analogWrite,
+  writePinDefault,
 } from "../../../blocks/writepin/blocktoframe";
 import {
   lcdScreenSetup,
@@ -63,7 +71,7 @@ import {
   ledColorSetup,
   setLedColor,
 } from "../../../blocks/rgbled/blocktoframe";
-import { led, ledFade } from "../../../blocks/led/blocktoframe";
+import { led, ledDefault, ledFade } from "../../../blocks/led/blocktoframe";
 import { digitalReadSetup } from "../../../blocks/digitalsensor/blocktoframe";
 import { analogReadSetup } from "../../../blocks/analogsensor/blocktoframe";
 import { ifElse } from "../../../blocks/logic/blocktoframe";
@@ -82,15 +90,25 @@ import {
 } from "../../../blocks/motors/blocktoframe";
 import { setVariable } from "../../../blocks/variables/blocktoframe";
 import { rfidSetup } from "../../../blocks/rfid/blocktoframe";
-import { servoRotate } from "../../../blocks/servo/blocktoframe";
+import {
+  defaultServoComponent,
+  servoRotate,
+} from "../../../blocks/servo/blocktoframe";
 import { tempSetupSensor } from "../../../blocks/temperature/blocktoframe";
 import { thermistorSetup } from "../../../blocks/thermistor/blocktoframe";
-import { passiveBuzzer } from "../../../blocks/passivebuzzer/blocktoframe";
+import {
+  defaultPassiveBuzzer,
+  passiveBuzzer,
+} from "../../../blocks/passivebuzzer/blocktoframe";
 import {
   moveStepperMotor,
   stepperMotorSetup,
 } from "../../../blocks/steppermotor/blocktoframe";
 import { joystickSetup } from "../../../blocks/joystick/blocktoframe";
+
+export interface BlockToDefaultComponnet {
+  (block: BlockData): ArduinoComponentState;
+}
 
 export interface BlockToFrameTransformer {
   (
@@ -98,7 +116,8 @@ export interface BlockToFrameTransformer {
     block: BlockData,
     variables: VariableData[],
     timeline: Timeline,
-    previousState?: ArduinoFrame
+    previousState?: ArduinoFrame,
+    defaultComponents?: ArduinoComponentState[]
   ): ArduinoFrame[];
 }
 
@@ -187,25 +206,73 @@ const blockToFrameTransformerList: {
   joystick_setup: joystickSetup,
 };
 
+const BlockToDefaultComponnet: {
+  [blockName: string]: BlockToDefaultComponnet;
+} = {
+  led: ledDefault,
+  led_fade: ledDefault,
+  passive_buzzer_note: defaultPassiveBuzzer,
+  passive_buzzer_tone: defaultPassiveBuzzer,
+  passive_buzzer_simple: defaultPassiveBuzzer,
+  digital_write: writePinDefault,
+  analog_write: writePinDefault,
+  rotate_servo: defaultServoComponent,
+};
+
 export const generateFrame: BlockToFrameTransformer = (
   blocks,
   block,
   variables,
   timeline,
-  previousState
+  previousState,
+  defaultComponents
 ) => {
   try {
-    return blockToFrameTransformerList[block.blockName](
+    const frames = blockToFrameTransformerList[block.blockName](
       blocks,
       block,
       variables,
       timeline,
       previousState
     );
+
+    if (defaultComponents && defaultComponents.length > 0) {
+      for (const frame of frames) {
+        const componentPinExists = frame.components
+          .map((x) => x.pins.sort())
+          .join(",");
+        defaultComponents = defaultComponents.filter(
+          (x) => !componentPinExists.includes(x.pins.sort().join(","))
+        );
+        frame.components = [...frame.components, ...defaultComponents];
+      }
+    }
+
+    return frames;
   } catch (e) {
     console.log(block.blockName, "block name");
     throw e;
   }
+};
+
+export const defaultComponentsWithNoSetupBlocks = (blocks: BlockData[]) => {
+  const blocksToDefaultSetup = blocks.filter((b) => {
+    return componentBlocksThatDoNotRequireSetup.includes(b.blockName);
+  });
+
+  let defaultComponents: ArduinoComponentState[] = [];
+
+  for (let block of blocksToDefaultSetup) {
+    let component = BlockToDefaultComponnet[block.blockName](block);
+    if (
+      !defaultComponents.find(
+        (x) => x.pins.sort().join(",") == component.pins.sort().join(",")
+      )
+    ) {
+      defaultComponents.push(component);
+    }
+  }
+  return defaultComponents;
 };
 
 export const generateInputFrame = (
@@ -214,7 +281,8 @@ export const generateInputFrame = (
   variables: VariableData[],
   timeline: Timeline,
   inputName: string,
-  previousState?: ArduinoFrame
+  previousState?: ArduinoFrame,
+  defaultComponents?: ArduinoComponentState[]
 ): ArduinoFrame[] => {
   // Fixing memory sharing between objects
   previousState = previousState ? _.cloneDeep(previousState) : undefined;
@@ -230,7 +298,8 @@ export const generateInputFrame = (
       nextBlock,
       variables,
       timeline,
-      previousState
+      previousState,
+      defaultComponents
     );
     arduinoStates.push(...states);
     const newPreviousState = states[states.length - 1];
@@ -239,6 +308,7 @@ export const generateInputFrame = (
     previousState.components.forEach((c) => {
       c.usbCommands = [];
     });
+
     nextBlock = findBlockById(blocks, nextBlock.nextBlockId);
   } while (nextBlock !== undefined);
 

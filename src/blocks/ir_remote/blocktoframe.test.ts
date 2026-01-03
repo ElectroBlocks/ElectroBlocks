@@ -30,7 +30,7 @@ describe("button state factories", () => {
     irRemoteSetup = workspace.newBlock("ir_remote_setup") as BlockSvg;
     irRemoteSetup.setFieldValue(ARDUINO_PINS.PIN_A4, "PIN");
     irRemoteSetup.setFieldValue("TRUE", "scanned_new_code");
-    irRemoteSetup.setFieldValue("32343", "code");
+    irRemoteSetup.setFieldValue("500", "code");
 
     const event = createTestEvent(irRemoteSetup.id);
     saveSensorSetupBlockData(event).forEach(updater);
@@ -40,7 +40,7 @@ describe("button state factories", () => {
     const event = createTestEvent(irRemoteSetup.id);
 
     const irRemote: IRRemoteState = {
-      code: "32343",
+      code: 500,
       pins: [ARDUINO_PINS.PIN_2],
       hasCode: true,
       pin: ARDUINO_PINS.PIN_2,

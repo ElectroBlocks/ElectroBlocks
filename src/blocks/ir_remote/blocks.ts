@@ -35,7 +35,7 @@ Blockly.defineBlocksWithJsonArray([
         flipRtl: false,
       },
     ],
-    output: "String",
+    output: "Number",
     colour: COLOR_THEME.SENSOR,
     tooltip: "",
     helpUrl: "",
@@ -80,10 +80,11 @@ const irSetupBlock: any = {
     this.appendDummyInput()
       .appendField("Code")
       .appendField(
-        new Blockly.FieldTextInput("40", (value) => {
+        new Blockly.FieldNumber(70, 1, 500, 1, (value) => {
           if (this.getFieldValue("scanned_new_code") === "FALSE") {
-            return null;
+            return "";
           }
+          console.log(value);
           return value;
         }),
         "code"

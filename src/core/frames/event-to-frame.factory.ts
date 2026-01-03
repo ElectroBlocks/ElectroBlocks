@@ -6,8 +6,15 @@ import {
   SENSOR_COMPONENTS,
   ArduinoFrameContainer,
 } from "./arduino.frame";
-import { BlockType, BlockData } from "../blockly/dto/block.type";
-import { generateFrame } from "./transformer/block-to-frame.transformer";
+import {
+  BlockType,
+  BlockData,
+  componentBlocksThatDoNotRequireSetup,
+} from "../blockly/dto/block.type";
+import {
+  defaultComponentsWithNoSetupBlocks,
+  generateFrame,
+} from "./transformer/block-to-frame.transformer";
 import _ from "lodash";
 import {
   getLoopTimeFromBlockData,
@@ -77,7 +84,6 @@ const generateFramesWithLoop = (
 ): ArduinoFrame[] => {
   const { blocks } = event;
   const arduinoLoopBlock = findArduinoLoopBlock(blocks);
-
   let stopAllFrames = false;
   let framesWithLoop = _.range(1, loopTimes + 1).reduce(
     (prevFrames, loopTime) => {
@@ -91,7 +97,7 @@ const generateFramesWithLoop = (
       const previousFrame = _.isEmpty(prevFrames)
         ? undefined
         : prevFrames[prevFrames.length - 1];
-
+      const defaultComponents = defaultComponentsWithNoSetupBlocks(blocks);
       const frames = generateInputFrame(
         arduinoLoopBlock,
         blocks,
@@ -104,7 +110,8 @@ const generateFramesWithLoop = (
           _.cloneDeep(previousFrame),
           sensorDataString,
           isRealTime
-        ) // Deep clone to prevent object memory sharing
+        ), // Deep clone to prevent object memory sharing
+        defaultComponents
       );
 
       if (frames.length > 0 && frames[frames.length - 1].frameNumber > 5000) {
@@ -152,6 +159,7 @@ const generatePreLoopFrames = (
       frame,
       sensorDataStr
     );
+
     return [
       ...prevFrames,
       ...generateFrame(

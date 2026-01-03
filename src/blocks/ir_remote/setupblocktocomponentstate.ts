@@ -44,7 +44,7 @@ export const irRemoteStateStringToComponentState = (
     pins: [pin],
     pin: pin,
     hasCode: state.length > 0,
-    code: state,
+    code: +state,
     setupCommand: `register::ir::${pin}`,
     importLibraries: [
       {

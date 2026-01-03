@@ -3,7 +3,10 @@ import {
   ArduinoComponentType,
   ArduinoFrame,
 } from "../../core/frames/arduino.frame";
-import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type {
+  BlockToDefaultComponnet,
+  BlockToFrameTransformer,
+} from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByComponent,
@@ -12,6 +15,20 @@ import {
 } from "../../core/frames/transformer/frame-transformer.helpers";
 import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import type { ServoState } from "./state";
+
+export const defaultServoComponent: BlockToDefaultComponnet = (block) => {
+  const pin = findFieldValue(block, "PIN");
+  const servoState: ServoState = {
+    pins: [pin],
+    degree: 0,
+    type: ArduinoComponentType.SERVO,
+    setupCommand: `register::servo::${pin}`,
+    usbCommands: [],
+    enableFlag: "ENABLE_SERVO",
+  };
+
+  return servoState;
+};
 
 export const servoRotate: BlockToFrameTransformer = (
   blocks,

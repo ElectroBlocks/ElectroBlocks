@@ -32,9 +32,9 @@ describe("button state factories", () => {
 
   it("should be able generate state for ir remote read setup block", () => {
     const irRemoteSetup = workspace.newBlock("ir_remote_setup") as BlockSvg;
-    setSetupBlock(1, true, "code_1", irRemoteSetup);
+    setSetupBlock(1, true, "70", irRemoteSetup);
     setSetupBlock(2, false, "", irRemoteSetup);
-    setSetupBlock(3, true, "code_3", irRemoteSetup);
+    setSetupBlock(3, true, "71", irRemoteSetup);
     const hasCodeBlock = workspace.newBlock("ir_remote_has_code_receive");
     const getCodeBlock = workspace.newBlock("ir_remote_get_code");
     const varHasCodeBlock = createSetVariableBlockWithValue(
@@ -52,7 +52,7 @@ describe("button state factories", () => {
     const varCodeBlock = createSetVariableBlockWithValue(
       workspace,
       "code",
-      VariableTypes.STRING,
+      VariableTypes.NUMBER,
       true
     );
 
@@ -71,28 +71,28 @@ describe("button state factories", () => {
 
     expect(_.keys(state1.variables).length).toBe(1);
     expect(state1.variables["has_code"].value).toBeTruthy();
-    verifyComponent(state1, "code_1", true);
+    verifyComponent(state1, 70, true);
 
-    verifyVariables(state2, "code_1", true);
-    verifyComponent(state2, "code_1", true);
+    verifyVariables(state2, 70, true);
+    verifyComponent(state2, 70, true);
 
-    verifyVariables(state3, "code_1", false);
-    verifyComponent(state3, "", false);
+    verifyVariables(state3, 70, false);
+    verifyComponent(state3, 0, false);
 
-    verifyVariables(state4, "", false);
-    verifyComponent(state4, "", false);
+    verifyVariables(state4, 0, false);
+    verifyComponent(state4, 0, false);
 
-    verifyVariables(state5, "", true);
-    verifyComponent(state5, "code_3", true);
+    verifyVariables(state5, 0, true);
+    verifyComponent(state5, 71, true);
 
-    verifyVariables(state6, "code_3", true);
-    verifyComponent(state6, "code_3", true);
+    verifyVariables(state6, 71, true);
+    verifyComponent(state6, 71, true);
   });
 });
 
 const verifyVariables = (
   state: ArduinoFrame,
-  code: string,
+  code: number,
   hasCode: boolean
 ) => {
   expect(state.variables["has_code"].value).toBe(hasCode);
@@ -101,7 +101,7 @@ const verifyVariables = (
 
 const verifyComponent = (
   state: ArduinoFrame,
-  code: string,
+  code: number,
   hasCode: boolean
 ) => {
   const irRemoteState = findComponent<IRRemoteState>(

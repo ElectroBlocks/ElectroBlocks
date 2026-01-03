@@ -53,17 +53,14 @@ Blockly["Arduino"]["ir_remote_has_code_receive"] = function () {
 };
 
 Blockly["Arduino"]["ir_remote_get_code"] = function () {
-  return [
-    "String(developer_ir_remote_command)",
-    Blockly["Arduino"].ORDER_ATOMIC,
-  ];
+  return ["developer_ir_remote_command", Blockly["Arduino"].ORDER_ATOMIC];
 };
 
 Blockly["Python"]["ir_remote_setup"] = function (block: Block) {
   const pin = block.getFieldValue("PIN") || "2";
-  Blockly["Python"].imports_[
+  Blockly["Python"].setupCode_[
     "ir"
-  ] = `eb.config_ir_remote(${pin}) # IR Remote Config`;
+  ] = `eb.config_ir_remote(${pin}) # IR Remote Config\n`;
 
   return "";
 };

@@ -26,7 +26,7 @@ Blockly["Python"]["analog_read"] = function (block: Block) {
 Blockly["Python"]["analog_read_setup"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
   Blockly["Python"].setupCode_[
-    "analog_read_config"
+    "analog_read_config" + pin
   ] = `eb.analog_read_config('${pin}') # Set up analog read for pin ${pin}.\n`;
 
   return "";
