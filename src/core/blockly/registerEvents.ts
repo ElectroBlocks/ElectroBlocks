@@ -225,6 +225,8 @@ export const createFrames = async (blocklyEvent) => {
   });
   if (
     currentFrameContainter === undefined ||
+    // on the live mode because it's coming from the actual components we need it to always change.
+    simulatorMode == SimulatorMode.LIVE ||
     JSON.stringify(newFrameContainer) !== JSON.stringify(currentFrameContainter)
   ) {
     frameStore.set(newFrameContainer);
