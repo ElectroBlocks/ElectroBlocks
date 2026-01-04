@@ -92,6 +92,7 @@ describe("arduino message state factories", () => {
     const [_, state2, state3, state4] = eventToFrameFactory(event).frames;
     expect(state2.variables["has_message"].value).toBeTruthy();
     expect(state3.variables["has_message"].value).toBeTruthy();
+    console.log(state4, "test");
     expect(state4.variables["has_message"].value).toBeFalsy();
   });
 });

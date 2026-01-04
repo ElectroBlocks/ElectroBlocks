@@ -106,4 +106,5 @@ export const SENSOR_COMPONENTS = [
   ArduinoComponentType.ANALOG_SENSOR,
   ArduinoComponentType.THERMISTOR,
   ArduinoComponentType.JOYSTICK,
+  ArduinoComponentType.MESSAGE,
 ];

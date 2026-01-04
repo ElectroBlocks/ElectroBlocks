@@ -2,10 +2,11 @@ import {
   componentBlocksThatDoNotRequireSetup,
   type BlockData,
 } from "../../blockly/dto/block.type";
-import type {
-  Timeline,
-  ArduinoFrame,
-  ArduinoComponentState,
+import {
+  type Timeline,
+  type ArduinoFrame,
+  type ArduinoComponentState,
+  ArduinoComponentType,
 } from "../arduino.frame";
 import _ from "lodash";
 import {

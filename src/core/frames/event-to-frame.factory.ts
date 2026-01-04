@@ -5,6 +5,7 @@ import {
   ArduinoComponentState,
   SENSOR_COMPONENTS,
   ArduinoFrameContainer,
+  ArduinoComponentType,
 } from "./arduino.frame";
 import { BlockType, BlockData } from "../blockly/dto/block.type";
 import {
@@ -30,6 +31,7 @@ export async function* generateNextFrame(
 ): AsyncGenerator<ArduinoFrame> {
   let sensorDataString = await senseDataArduino();
   let frames = generatePreLoopFrames(event, sensorDataString);
+  console.log("start frames", frames);
   for (let frame of frames) {
     if (frame.timeLine.function == "setup") {
       yield frame;
@@ -46,6 +48,7 @@ export async function* generateNextFrame(
       true
     );
     for (const frame of frames) {
+      console.log(frame, "yield frame");
       yield frame;
     }
   }
@@ -204,14 +207,14 @@ const getPreviousState = (
     return undefined;
   }
 
-  const nonSensorComponent = (previousFrame as ArduinoFrame).components.filter(
-    (c) => !isSensorComponent(c)
-  );
-  const sensorSetupBlocks = blocks.filter((b) =>
-    sensorSetupBlockName.includes(b.blockName)
-  );
-
   if (isRealTime) {
+    const nonSensorComponent = (
+      previousFrame as ArduinoFrame
+    ).components.filter(
+      // Message components will not sense anything in the real time mode because python is taking up the circuit
+      // It is a sensor block for the virtual circuit where block data is used.
+      (c) => !isSensorComponent(c) || c.type == ArduinoComponentType.MESSAGE
+    );
     const newComponents = [
       ...nonSensorComponent,
       ...convertArduinoStringToSensorState(blocks, sensorDataString),
@@ -219,6 +222,12 @@ const getPreviousState = (
     return { ...previousFrame, components: newComponents };
   }
 
+  const nonSensorComponent = (previousFrame as ArduinoFrame).components.filter(
+    (c) => !isSensorComponent(c)
+  );
+  const sensorSetupBlocks = blocks.filter((b) =>
+    sensorSetupBlockName.includes(b.blockName)
+  );
   const newComponents = [
     ...nonSensorComponent,
     ...sensorSetupBlocks.map((b) => convertToState(b, timeline)),
