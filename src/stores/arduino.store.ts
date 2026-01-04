@@ -37,6 +37,7 @@ export const ArduinoUsbFilters = [
 const arduinoPortStore = writable<WebSerialPortPromise | null>(null);
 
 export const usbMessageStore = writable<ArduinoMessage>();
+export const previousUsbMessageStore = writable<ArduinoMessage>();
 export const sensorMessages = writable<ArduinoMessage>();
 export const featureMessage = writable<ArduinoMessage>();
 
@@ -94,7 +95,8 @@ function addListener(port: WebSerialPortPromise) {
           time: new Date().toLocaleTimeString(),
         });
       }
-
+      const previousUsbMessage = get(usbMessageStore);
+      previousUsbMessageStore.set(previousUsbMessage);
       usbMessageStore.set({
         message: line,
         type: "Arduino",
@@ -437,6 +439,9 @@ const arduinoStore = {
   getLastMessage: () => {
     return get(usbMessageStore)?.message ?? "";
   },
+  getPreviousUsbMessage: () => {
+    return get(previousUsbMessageStore)?.message ?? "";
+  },
   getLastSensorMessage: () => {
     return get(sensorMessages)?.message ?? "";
   },
@@ -448,8 +453,12 @@ const waitForCommand = async (command: string, waitInMs: number = 10) => {
   arduinoStore.clearMessages();
   var count = 0;
   let lastMessage = arduinoStore.getLastMessage();
-  while (!lastMessage.includes(command)) {
-    if (lastMessage.includes("ERR")) {
+  let previousUsbMessage = arduinoStore.getPreviousUsbMessage();
+  while (
+    !lastMessage.includes(command) &&
+    !previousUsbMessage.includes(command)
+  ) {
+    if (lastMessage.includes("ERR") || previousUsbMessage.includes("ERR")) {
       return false;
     }
     console.log("waiting for message");
@@ -460,6 +469,7 @@ const waitForCommand = async (command: string, waitInMs: number = 10) => {
       return false;
     }
     lastMessage = arduinoStore.getLastMessage();
+    previousUsbMessage = arduinoStore.getPreviousUsbMessage();
   }
   console.log("DONE_WAITING", new Date().getTime());
   return true;
@@ -497,9 +507,9 @@ export async function getFeatures() {
     console.error("Port is not connected");
     return "";
   }
-  await arduinoStore.sendMessage("features|");
+  await arduinoStore.sendMessage("features");
   await waitForCommand("FEATURES");
-  return get(featureMessage)?.message;
+  return get(featureMessage)?.message ?? "";
 }
 
 
