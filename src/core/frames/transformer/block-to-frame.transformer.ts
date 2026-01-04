@@ -258,7 +258,9 @@ export const generateFrame: BlockToFrameTransformer = (
 
 export const defaultComponentsWithNoSetupBlocks = (blocks: BlockData[]) => {
   const blocksToDefaultSetup = blocks.filter((b) => {
-    return componentBlocksThatDoNotRequireSetup.includes(b.blockName);
+    return (
+      componentBlocksThatDoNotRequireSetup.includes(b.blockName) && !b.disabled
+    );
   });
 
   let defaultComponents: ArduinoComponentState[] = [];
