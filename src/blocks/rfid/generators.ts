@@ -15,8 +15,9 @@ Blockly["Arduino"]["rfid_setup"] = function (block) {
     "#include <SoftwareSerial.h>\n";
   Blockly["Arduino"].libraries_[
     "define_rfid"
-  ] = `// Only allowed global: the RFID serial port
-SoftwareSerial rfidSerial(${rxPin}, ${txPin});
+  ] = `// Plug the RFID reader's TX wire into pin ${txPin}.
+// This pin RECEIVES data from the RFID reader.
+SoftwareSerial rfidSerial(${txPin}, ${rxPin});
 
 String tagCache = "";
 String cardCache = "";

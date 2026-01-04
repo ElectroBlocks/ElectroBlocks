@@ -3,7 +3,9 @@ import { Block } from "blockly";
 
 Blockly["Python"]["temp_setup"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
-  Blockly["Python"].setupCode_["temp_dht"] = `eb.config_dht_temp(${pin})\n`;
+  Blockly["Python"].setupCode_[
+    "temp_dht"
+  ] = `eb.config_dht_temp(${pin}, '${block.getFieldValue("TYPE")}')\n`;
   return "";
 };
 Blockly["Arduino"]["temp_setup"] = function (block: Block) {

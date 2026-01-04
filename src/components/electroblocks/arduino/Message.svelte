@@ -1,7 +1,7 @@
 <script>
   import codeStore from "../../../stores/code.store";
   import arduinoStore, { PortState, portStateStoreSub, usbMessageStore } from "../../../stores/arduino.store";
-
+  import frameStore from "../../../stores/frame.store";
   import { afterUpdate } from "svelte";
   import { getBoard } from "../../../core/microcontroller/selectBoard";
   import { onErrorMessage, onSuccess } from "../../../help/alerts";
@@ -154,7 +154,8 @@
       <i class="fa fa-spinner fa-spin fa-6x fa-fw" />
     </button>
   {/if}
-
+  
+  {#if !$frameStore.error}
   <button
     use:tooltip
     title="Upload code"
@@ -163,6 +164,7 @@
   >
     <i class="fa {uploadingClass}" />
   </button>
+  {/if}
   <button use:tooltip title="Delete" on:click={clearMessages}>
     <i class="fa fa-trash" />
   </button>

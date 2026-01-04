@@ -3,9 +3,8 @@ import type { WorkspaceSvg } from "blockly";
 import _ from "lodash";
 import Blockly from "blockly";
 
-import codeStore from "../../stores/code.store";
 import frameStore from "../../stores/frame.store";
-import { getArduinoCode, getWorkspace } from "./helpers/workspace.helper";
+import { getArduinoCode, workspaceToXML } from "./helpers/workspace.helper";
 
 import { getAllBlocks } from "./helpers/block.helper";
 import { transformBlock } from "./transformers/block.transformer";
@@ -39,11 +38,14 @@ import { updateWhichComponent } from "./actions/updateWhichComponent";
 import { updateFastLedSetAllColorsUpdateBlock } from "./actions/fastLedSetAllColorsUpdateBlock";
 import { updateRGBLEDBlockSupportLang } from "./actions/updateRGBLEDBlockSupportLang";
 import { get } from "svelte/store";
+import { disableRecievingMessageBlocksForLiveModeAndPython } from "./actions/disableRecievingMessageBlocksForLiveModeAndPython";
+import { SimulatorMode, simulatorStore } from "../../stores/arduino.store";
+import codeStore from "../../stores/code.store";
+import { onErrorMessage } from "../../help/alerts";
 
 // This is the current frame list
 // We use this diff the new frame list so that we only update when things change
 let currentFrameContainter: ArduinoFrameContainer = undefined;
-
 export const createFrames = async (blocklyEvent) => {
   if ((Blockly.getMainWorkspace() as any).isDragging()) {
     return; // Don't update while changes are happening.
@@ -68,6 +70,9 @@ export const createFrames = async (blocklyEvent) => {
   if (!supportedEvents.has(blocklyEvent.type)) return;
 
   const microControllerType = getBoardType() as MicroControllerType;
+  var settingData = get(settingStore);
+  var codeData = get(codeStore);
+  var simulatorMode = get(simulatorStore);
   const event = transformEvent(
     getAllBlocks(),
     getAllVariables(),
@@ -85,6 +90,11 @@ export const createFrames = async (blocklyEvent) => {
 
     ...disableSensorReadBlocksWithWrongPins(event),
     ...disableBlocksThatNeedASetupBlock(event),
+    ...disableRecievingMessageBlocksForLiveModeAndPython(
+      event,
+      settingData,
+      simulatorMode == SimulatorMode.LIVE
+    ),
   ];
   firstActionPass.forEach((a) => updater(a));
   enableBlocks(
@@ -110,6 +120,11 @@ export const createFrames = async (blocklyEvent) => {
 
     ...disableSensorReadBlocksWithWrongPins(event2),
     ...disableBlocksThatNeedASetupBlock(event2),
+    ...disableRecievingMessageBlocksForLiveModeAndPython(
+      event2,
+      settingData,
+      simulatorMode == SimulatorMode.LIVE
+    ),
   ];
   secondActionPass.forEach((a) => updater(a));
   enableBlocks(
@@ -125,9 +140,27 @@ export const createFrames = async (blocklyEvent) => {
       board: event.microController,
     };
     frameStore.set(currentFrameContainter);
-    return;
+    if (
+      codeData.canShowCodeErrorMessage &&
+      simulatorMode != SimulatorMode.LIVE
+    ) {
+      onErrorMessage(
+        "Please fix the highlighted blocks and try again.\nLook for blocks with a ⚠️ symbol.",
+        {},
+        "Your program isn't ready to run yet."
+      );
+    }
+    codeStore.set({
+      cLang: `// Your program isn’t ready to run yet.
+// Please fix the highlighted blocks before continuing.`,
+      pythonLang: `# Your program isn’t ready to run yet.
+# Please fix the highlighted blocks before continuing.`,
+      imports: [],
+      enableFlags: [],
+      canShowCodeErrorMessage: false,
+    });
+    return false;
   }
-  var settingData = get(settingStore);
   const thirdActionPass = [
     ...updateRGBLEDBlockSupportLang(settingData.language)(event2),
     ...deleteUnusedVariables(event2),
@@ -192,13 +225,15 @@ export const createFrames = async (blocklyEvent) => {
           return [...prev];
         }, [])
       : [];
-
   codeStore.set({
     cLang: getArduinoCode("Arduino"),
     pythonLang: getArduinoCode("Python"),
     imports,
     enableFlags,
+    canShowCodeErrorMessage: true,
   });
+
+  return true;
 };
 
 const enableBlocks = (actions: DisableBlock[]) => {
@@ -219,6 +254,12 @@ const enableBlocks = (actions: DisableBlock[]) => {
   enableActions.forEach((a) => updater(a));
 };
 
+function saveToLocalStorage() {
+  const recentBlocks = workspaceToXML();
+  localStorage.setItem("reload_once_workspace", recentBlocks);
+}
+
 export const addListener = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(createFrames);
+  workspace.addChangeListener(saveToLocalStorage);
 };

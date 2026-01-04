@@ -6,12 +6,15 @@
   import { fbSaveSettings } from "../../../firebase/db";
   import authStore from "../../../stores/auth.store";
   import settingsStore from "../../../stores/settings.store";
+  import Blockly from "blockly";
 
   import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
   import _ from "lodash";
   import { onErrorMessage } from "../../../help/alerts";
   import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
   import { ledColors } from "../../../blocks/led/virtual-circuit";
+  import { createFrames } from "../../../core/blockly/registerEvents";
+  import { getBlockByType } from "../../../core/blockly/helpers/block.helper";
 
   let uid: string;
 
@@ -58,6 +61,10 @@
     settingsStore.set(settings);
     previousSettings = { ...settings };
     showMessage = true;
+    createFrames({
+      type: Blockly.Events.MOVE,
+      blockId: getBlockByType('arduino_loop').id,
+    });
   }
   authStore.subscribe((auth) => {
     uid = auth.uid;

@@ -19,7 +19,8 @@ export default `
     <comment pinned="false" h="80" w="460">Returns the message the Arduino received from the computer.</comment>
    </block>
    <block type="arduino_receive_message">
-       <comment pinned="false" h="80" w="460">Returns true if the Arduino is receiving a message.</comment>
+       <comment pinned="false" h="80" w="460">Returns true if the Arduino is receiving a message.
+       </comment>
 
    </block>
    </category>

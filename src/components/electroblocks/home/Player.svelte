@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
+  import Blockly from "blockly";
 
   import frameStore from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
@@ -23,6 +24,9 @@
   import {
     mdiCogClockwise,
     mdiEjectOutline,
+    mdiFastForward,
+    mdiFastForward10,
+    mdiFastForwardOutline,
     mdiFlash,
     mdiPlayCircle,
     mdiStopCircle,
@@ -34,6 +38,8 @@
   import { transformVariable } from "../../../core/blockly/transformers/variables.transformer";
   import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
   import codeStore from "../../../stores/code.store";
+  import { createFrames } from "../../../core/blockly/registerEvents";
+  import { error } from "@sveltejs/kit";
 
   const playerTooltips = {
     position: "top",
@@ -52,13 +58,15 @@
   let generator;
   let isPlayingLive = false;
   let frameCount = 0;
-
+  let successfullyCompiledInLiveMode = false;
+  let hasUploadedFirmware = false;
 
   const unsubscribes = [];
 
   $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
   $: frameIndex = frameNumber - 1;
+  $: canUploadFirmware = $simulatorStore == SimulatorMode.LIVE && successfullyCompiledInLiveMode;
 
   unsubscribes.push(
     currentStepStore.subscribe((currentIndex) => {
@@ -89,12 +97,18 @@
     }
   }
 
-  async function goToLiveMode() {
+  function goToLiveMode() {
+    simulatorStore.set(SimulatorMode.LIVE);
+  }
+
+  async function uploadFirmwareForLiveMode()
+  {
     try {
-      var result = await onConfirm(`🚀 We're about to go live!
-We'll set things up so your Arduino can receive commands over USB.
-Click Ok to confirm and get started!`);
+      var result = await onConfirm(`🚀 Start Live Mode?
+Your program will run and can talk to your Arduino.
+You'll see messages and results on this page.`);
       if (!result) {
+        simulatorStore.set(SimulatorMode.VIRTUAL);
         return;
       }
       const whatHappenned = await arduinoStore.connectWithAndUploadFirmware($settingStore.boardType, $codeStore.enableFlags);
@@ -102,17 +116,18 @@ Click Ok to confirm and get started!`);
         onSuccess("Firmware was successfully loaded!");
       }
 
-      simulatorStore.set(SimulatorMode.LIVE);
       console.log("COMPLETE");
+      hasUploadedFirmware = true;
     } catch (error) {
       if (error.message.includes("No port selected by the user.")) {
         onErrorMessage(
-          "Please try again and select a usb port if you wish to go live.",
-          error
+          "Please try again and select a usb port if you wish to go live.", 
+          error,
+          ""
         );
         return;
       }
-      onErrorMessage("Error flashing firmware please try again.", error);
+      onErrorMessage("Error flashing firmware please try again.", error, "");
     }
   }
 
@@ -137,6 +152,26 @@ Click Ok to confirm and get started!`);
 
       frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
       currentFrameStore.set(frames[frameNumber]);
+    }),
+    simulatorStore.subscribe(async mode => {
+      const loopBlock = getBlockByType('arduino_loop');
+      if (!loopBlock) return false;
+      if (mode == SimulatorMode.VIRTUAL) {
+        hasUploadedFirmware = false;
+        // should regenerate if it's only a live coding issue.
+        await createFrames({
+          type: Blockly.Events.MOVE,
+          blockId: loopBlock.id
+        })
+        return;
+      }
+      successfullyCompiledInLiveMode = await createFrames({
+          type: Blockly.Events.MOVE,
+          blockId: loopBlock.id
+        });
+      if (!successfullyCompiledInLiveMode && mode == SimulatorMode.LIVE) {
+        onErrorMessage("Your program isn’t ready to run yet.\nLook for blocks with a ⚠️ symbol.", {}, "Can’t start Live mode")
+      }
     })
   );
 
@@ -186,9 +221,9 @@ Click Ok to confirm and get started!`);
     };
   };
 
-  async function playLive() {
+  async function playLive(justNext = false) {
     try {
-      if (!isPlayingLive || $portStateStoreSub != PortState.OPEN) {
+      if ((!isPlayingLive && !justNext)|| $portStateStoreSub != PortState.OPEN) {
         return;
       }
       if ($frameStore.frames.length == 0) {
@@ -208,7 +243,10 @@ Click Ok to confirm and get started!`);
         currentFrameStore.set(frame);
         frameCount += 1;
         await wait(frame.delay);
-        await playLive();
+        await wait(100); // We don't want to blast the usb it will error out.
+        if (!justNext) {
+            await playLive();
+        }
         return;
       }
       let frame = (await generator.next()).value;
@@ -217,13 +255,19 @@ Click Ok to confirm and get started!`);
       await updateComponents(frame);
       await wait(frame.delay);
       await wait(100); 
-      await playLive();
+      if (!justNext) {
+        await playLive();
+      }
     } catch (error) {
       onStopButton();
       onErrorMessage("There was an error running the code, please download, refresh and try again.", error);
     }
   }
-
+  async function nextFrame()
+  {
+    isPlayingLive = false;
+    await playLive(true);
+  }
   async function onPlayButton()
   {
     try {
@@ -357,12 +401,14 @@ Click Ok to confirm and get started!`);
     class="icon-bar"
   >
   <div id="side-options">
-<span class="live-mode" use:tooltip={playerTooltips} title="Live Mode" on:click={goToLiveMode}>
-    <Icon path={mdiFlash} size={40}  />
-  </span>
-  <span class="upload" use:tooltip={playerTooltips} on:click={uploadCode} title="Upload Code" >
-    <Icon path={mdiUploadCircleOutline}  size={40} />
-  </span>
+  {#if !$frameStore.error }
+    <span class="live-mode" use:tooltip={playerTooltips} title="Live Mode" on:click={goToLiveMode}>
+      <Icon path={mdiFlash} size={40}  />
+    </span>
+    <span class="upload" use:tooltip={playerTooltips} on:click={uploadCode} title="Upload Code" >
+      <Icon path={mdiUploadCircleOutline}  size={40} />
+    </span>
+  {/if}
   </div>
     <div id="main-player">
       <span
@@ -412,34 +458,49 @@ Click Ok to confirm and get started!`);
   <h2 class="text-center mt-4">
     Loading <Icon spinning={true} size={30} path={mdiCogClockwise} />
   </h2>
-{:else}
-  <div class:disable={disablePlayer}>
+{:else if $simulatorStore == SimulatorMode.LIVE}
+  <div style="height: 50px;" class:disable={disablePlayer}>
     <span on:click={exitLiveMode}>
       <span class="pull-right me-3" use:tooltip title="Exit">
         <Icon color="#aa0000" path={mdiEjectOutline} size={40} />
       </span>
     </span>
-    {#if isPlayingLive}
-      <span
-        use:tooltip
-        title="Stop"
-        on:click={onStopButton}
-        id="video-debug-play"
-        class:disable={disablePlayer}
-      >
-        <Icon color="red" path={mdiStopCircle} size={40} />
-      </span>
-    {:else}
-      <span
-        use:tooltip
-        title="Play"
-        on:click={onPlayButton}
-        id="video-debug-play"
-        class:disable={disablePlayer}
-      >
-        <Icon color="green" path={mdiPlayCircle} size={40} />
-      </span>
-    {/if}
+    {#if hasUploadedFirmware && !$frameStore.error}
+          {#if isPlayingLive}
+            <span
+              use:tooltip
+              title="Stop"
+              on:click={onStopButton}
+              id="video-debug-play"
+              class:disable={disablePlayer}
+            >
+              <Icon color="red" path={mdiStopCircle} size={40} />
+            </span>
+          {:else}
+            <span
+              use:tooltip
+              title="Play"
+              on:click={onPlayButton}
+              id="video-debug-play"
+              class:disable={disablePlayer}
+            >
+              <Icon color="green" path={mdiPlayCircle} size={40} />
+            </span>
+          {/if}
+          <span
+              use:tooltip
+              title="Next Frame"
+              on:click={nextFrame}
+              id="video-debug-play"
+              class:disable={disablePlayer}
+            >
+              <Icon color="green" path={mdiFastForwardOutline} size={40} />
+            </span>
+      {:else if $frameStore.error}
+      <h4 class="mt-4 p-1">Fix blocks with the ⚠️ symbol.</h4>
+      {:else}
+          <button on:click={uploadFirmwareForLiveMode} class="btn btn-primary mt-1 pull-left">Start Live Mode</button>
+      {/if}
   </div>
 {/if}
 

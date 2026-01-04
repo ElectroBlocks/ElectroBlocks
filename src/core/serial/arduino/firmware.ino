@@ -582,18 +582,14 @@ bool cmdSense() {
 
       case COMP_THERMISTOR:
         {
-          int apin = c.pins[0];
-          int adc = analogRead(apin);
+          int thermistorPin = c.pins[0];
           // Beta equation
-
-          float beta = 3950.0, Rf = 10000.0, R0 = 10000.0, T0C = 25.0;
-          float T0K = T0C + 273.15;
-          // voltage divider: R_therm = Rf * (ADC / (1023 - ADC))
-          float Rth = (adc >= 1023) ? 1e9 : (adc <= 0 ? 1e-9 : Rf * ((float)adc / (1023.0f - adc)));
-          float invT = (1.0f / T0K) + (1.0f / beta) * log(Rth / R0);
-          float TK = 1.0f / invT;
-          float TC = TK - 273.15f;
-          Serial.print(TC, 2);
+          long a = analogRead(thermistorPin);
+          float RESISTANCE = 10000;
+          float BETA = 3950;
+          // Calculate the temperature using the thermistor's equation
+          float tempC = BETA / (log((1025.0 * RESISTANCE / a - RESISTANCE) / RESISTANCE) + BETA / 298.0) - 273.0;
+          Serial.print(tempC, 2);
         }
         break;
 

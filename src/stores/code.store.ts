@@ -21,19 +21,20 @@ void loop() {
 }
 `;
 
-const pythonCode = `# Python Code Snippet
-print("Hello, World!")`;
+const pythonCode = `# Please disabled blocks.`;
 
 export const codeStore = writable<{
   cLang: string;
   pythonLang: string;
   imports: Library[];
   enableFlags: string[];
+  canShowCodeErrorMessage: boolean;
 }>({
   cLang: cCode,
   pythonLang: pythonCode,
   imports: [],
   enableFlags: [],
+  canShowCodeErrorMessage: true,
 });
 
 export default {

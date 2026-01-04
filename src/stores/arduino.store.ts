@@ -225,7 +225,12 @@ const arduinoStore = {
     enableFlags: string[]
   ) => {
     if (!arduinoStore.isConnected()) {
-      await arduinoStore.connect();
+      const successfullyConnected = await arduinoStore.connect();
+      if (!successfullyConnected) {
+        throw new Error(
+          "Error connecting to the arduino please refresh and try again."
+        );
+      }
     }
 
     const libraries = [
@@ -419,7 +424,7 @@ const waitForCommand = async (command: string, waitInMs: number = 10) => {
   let lastMessage = arduinoStore.getLastMessage();
   while (!lastMessage.includes(command)) {
     if (lastMessage.includes("ERR")) {
-      throw new Error("Error handling usb command");
+      return false;
     }
     console.log("waiting for message");
     await new Promise((resolve) => setTimeout(resolve, waitInMs));
@@ -440,7 +445,13 @@ export async function senseDataArduino() {
     return "";
   }
   await arduinoStore.sendMessage("sense");
-  await waitForCommand("OK");
+  var wasSuccessful = await waitForCommand("OK");
+  // if it was not successful skip the message.
+  if (wasSuccessful) {
+    console.log(
+      "Using last sensor message because the sensor failed this time around the loop."
+    );
+  }
   let sensorMessage = arduinoStore.getLastSensorMessage();
   sensorMessage = sensorMessage.replace("SENSE_COMPLETE", "");
   return sensorMessage;
@@ -457,6 +468,7 @@ export async function restartArduino() {
 
 export const setupComponents = async (frame: ArduinoFrame) => {
   for (var component of frame.components) {
+    if (!component.setupCommand) continue;
     console.log("setupMessage", component.setupCommand);
     arduinoStore.sendMessage(component.setupCommand);
 

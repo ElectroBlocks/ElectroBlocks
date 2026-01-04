@@ -22,7 +22,7 @@ export const rfidSetupBlockToComponentState = (
     pins: [rxPin, txPin],
     scannedCard: rfidSensor.scanned_card,
     tag: rfidSensor.tag,
-    setupCommand: `register::rfi::${rxPin}::${txPin}::9600`,
+    setupCommand: `register::rfi::${txPin}::${rxPin}::9600`,
     enableFlag: "ENABLE_RFID_UART",
   };
 };
@@ -42,7 +42,7 @@ export const rfidStateStringToComponentState = (
     pins: [rxPin, txPin],
     scannedCard: state != "0",
     tag: state == "0" ? "" : state,
-    setupCommand: `register::rfi::${rxPin}::${txPin}::9600`,
+    setupCommand: `register::rfi::${txPin}::${rxPin}::9600`,
     enableFlag: "ENABLE_RFID_UART",
   };
 };

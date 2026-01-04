@@ -6,11 +6,7 @@ import {
   SENSOR_COMPONENTS,
   ArduinoFrameContainer,
 } from "./arduino.frame";
-import {
-  BlockType,
-  BlockData,
-  componentBlocksThatDoNotRequireSetup,
-} from "../blockly/dto/block.type";
+import { BlockType, BlockData } from "../blockly/dto/block.type";
 import {
   defaultComponentsWithNoSetupBlocks,
   generateFrame,

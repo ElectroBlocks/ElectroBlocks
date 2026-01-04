@@ -48,7 +48,7 @@ export const utraSonicStringToComponentState = (
       findFieldValue(setupBlock, "PIN_TRIG") as ARDUINO_PINS,
       findFieldValue(setupBlock, "PIN_ECHO") as ARDUINO_PINS,
     ],
-    setupCommand: `register::ul::${echoPin}::${trigPin}`,
+    setupCommand: `register::ul::${trigPin}::${echoPin}`,
     cm: state,
   };
 };

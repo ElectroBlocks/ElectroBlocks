@@ -21,7 +21,7 @@ export const ultraSonicSensor: BlockToFrameTransformer = (
     trigPin,
     echoPin,
     type: ArduinoComponentType.ULTRASONICE_SENSOR,
-    setupCommand: `register::ul::${echoPin}::${trigPin}`,
+    setupCommand: `register::ul::${trigPin}::${echoPin}`,
   };
 
   return [

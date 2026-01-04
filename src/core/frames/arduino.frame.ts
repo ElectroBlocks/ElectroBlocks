@@ -102,7 +102,6 @@ export const SENSOR_COMPONENTS = [
   ArduinoComponentType.IR_REMOTE,
   ArduinoComponentType.RFID,
   ArduinoComponentType.ULTRASONICE_SENSOR,
-  ArduinoComponentType.MESSAGE,
   ArduinoComponentType.DIGITAL_SENSOR,
   ArduinoComponentType.ANALOG_SENSOR,
   ArduinoComponentType.THERMISTOR,
