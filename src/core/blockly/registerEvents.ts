@@ -216,17 +216,17 @@ export const createFrames = async (blocklyEvent) => {
         }, [])
       : [];
 
+  codeStore.set({
+    cLang: getArduinoCode("Arduino"),
+    pythonLang: getArduinoCode("Python"),
+    imports,
+    enableFlags,
+    canShowCodeErrorMessage: true,
+  });
   if (
     currentFrameContainter === undefined ||
     JSON.stringify(newFrameContainer) !== JSON.stringify(currentFrameContainter)
   ) {
-    codeStore.set({
-      cLang: getArduinoCode("Arduino"),
-      pythonLang: getArduinoCode("Python"),
-      imports,
-      enableFlags,
-      canShowCodeErrorMessage: true,
-    });
     frameStore.set(newFrameContainer);
     return true;
   }
