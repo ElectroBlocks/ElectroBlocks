@@ -301,6 +301,7 @@ You'll see messages and results on this page.`);
   {
     isPlayingLive = false;
     frameCount = 0;
+    currentFrameStore.set($frameStore.frames[$frameStore.frames.length - 1])
   }
 
   async function play() {
