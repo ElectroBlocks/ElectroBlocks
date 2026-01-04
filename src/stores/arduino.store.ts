@@ -22,10 +22,23 @@ export enum PortState {
   UPLOADING = "Uploading",
 }
 
+export const ArduinoUsbFilters = [
+  { usbVendorId: 0x2341 },
+
+  // Arduino SRL (older / some official boards)
+  { usbVendorId: 0x2a03 },
+
+  // Common Arduino clone chips
+  { usbVendorId: 0x1a86 }, // CH340
+  { usbVendorId: 0x10c4 }, // CP210x
+  { usbVendorId: 0x0403 }, // FTDI
+];
+
 const arduinoPortStore = writable<WebSerialPortPromise | null>(null);
 
 export const usbMessageStore = writable<ArduinoMessage>();
 export const sensorMessages = writable<ArduinoMessage>();
+export const featureMessage = writable<ArduinoMessage>();
 
 const portStateStore = writable<PortState>(PortState.CLOSE);
 
@@ -73,6 +86,15 @@ function addListener(port: WebSerialPortPromise) {
         });
       }
 
+      if (line.includes("FEATURES")) {
+        featureMessage.set({
+          message: line,
+          type: "Arduino",
+          id: Date.now() + "_" + Math.random().toString(),
+          time: new Date().toLocaleTimeString(),
+        });
+      }
+
       usbMessageStore.set({
         message: line,
         type: "Arduino",
@@ -99,7 +121,9 @@ const uploadHexCodeToBoard = async (
     port = port
       ? port
       : await WebSerialPortPromise.requestPort(
-          {},
+          {
+            filters: ArduinoUsbFilters,
+          },
           { baudRate: boardInfo.serial_baud_rate }
         );
 
@@ -360,7 +384,9 @@ const arduinoStore = {
     try {
       portStateStore.set(PortState.CONNECTING);
       const port = await WebSerialPortPromise.requestPort(
-        {},
+        {
+          filters: ArduinoUsbFilters,
+        },
         { baudRate: 115200 }
       );
       await port.open();
@@ -465,6 +491,17 @@ export async function restartArduino() {
   await arduinoStore.sendMessage("restart|");
   return await waitForCommand("System:READY");
 }
+
+export async function getFeatures() {
+  if (!arduinoStore.isConnected()) {
+    console.error("Port is not connected");
+    return "";
+  }
+  await arduinoStore.sendMessage("features|");
+  await waitForCommand("FEATURES");
+  return get(featureMessage)?.message;
+}
+
 
 export const setupComponents = async (frame: ArduinoFrame) => {
   for (var component of frame.components) {

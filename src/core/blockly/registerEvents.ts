@@ -43,9 +43,6 @@ import { SimulatorMode, simulatorStore } from "../../stores/arduino.store";
 import codeStore from "../../stores/code.store";
 import { onErrorMessage } from "../../help/alerts";
 
-// This is the current frame list
-// We use this diff the new frame list so that we only update when things change
-let currentFrameContainter: ArduinoFrameContainer = undefined;
 export const createFrames = async (blocklyEvent) => {
   if ((Blockly.getMainWorkspace() as any).isDragging()) {
     return; // Don't update while changes are happening.
@@ -134,12 +131,12 @@ export const createFrames = async (blocklyEvent) => {
   );
 
   if (secondActionPass.filter((a) => a.stopCompiling).length >= 1) {
-    currentFrameContainter = {
+    let defaultFrames = {
       error: true,
       frames: [],
       board: event.microController,
     };
-    frameStore.set(currentFrameContainter);
+    frameStore.set(defaultFrames);
     if (
       codeData.canShowCodeErrorMessage &&
       simulatorMode != SimulatorMode.LIVE
@@ -195,19 +192,12 @@ export const createFrames = async (blocklyEvent) => {
   );
 
   const newFrameContainer = eventToFrameFactory(refreshEvent);
-
-  if (
-    currentFrameContainter === undefined ||
-    JSON.stringify(newFrameContainer) !== JSON.stringify(currentFrameContainter)
-  ) {
-    currentFrameContainter = newFrameContainer;
-    frameStore.set(currentFrameContainter);
-  }
+  const currentFrameContainter = get(frameStore);
   const imports =
-    currentFrameContainter?.frames.length == 0
+    newFrameContainer?.frames.length == 0
       ? []
-      : currentFrameContainter.frames[
-          currentFrameContainter.frames.length - 1
+      : newFrameContainer.frames[
+          newFrameContainer.frames.length - 1
         ].components.reduce((prev, next) => {
           if (next?.importLibraries) {
             return [...prev, ...next.importLibraries];
@@ -215,9 +205,9 @@ export const createFrames = async (blocklyEvent) => {
           return [...prev];
         }, []);
   const enableFlags: string[] =
-    currentFrameContainter?.frames.length > 0
-      ? currentFrameContainter.frames[
-          currentFrameContainter.frames.length - 1
+    newFrameContainer?.frames.length > 0
+      ? newFrameContainer.frames[
+          newFrameContainer.frames.length - 1
         ].components.reduce((prev, next) => {
           if (next?.enableFlag) {
             return [...prev, next?.enableFlag];
@@ -225,13 +215,21 @@ export const createFrames = async (blocklyEvent) => {
           return [...prev];
         }, [])
       : [];
-  codeStore.set({
-    cLang: getArduinoCode("Arduino"),
-    pythonLang: getArduinoCode("Python"),
-    imports,
-    enableFlags,
-    canShowCodeErrorMessage: true,
-  });
+
+  if (
+    currentFrameContainter === undefined ||
+    JSON.stringify(newFrameContainer) !== JSON.stringify(currentFrameContainter)
+  ) {
+    codeStore.set({
+      cLang: getArduinoCode("Arduino"),
+      pythonLang: getArduinoCode("Python"),
+      imports,
+      enableFlags,
+      canShowCodeErrorMessage: true,
+    });
+    frameStore.set(newFrameContainer);
+    return true;
+  }
 
   return true;
 };

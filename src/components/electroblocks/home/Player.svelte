@@ -12,6 +12,7 @@
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
   import { tooltip } from "@svelte-plugins/tooltips";
   import arduinoStore, {
+    getFeatures,
     PortState,
     portStateStoreSub,
     restartArduino,
@@ -39,7 +40,6 @@
   import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
   import codeStore from "../../../stores/code.store";
   import { createFrames } from "../../../core/blockly/registerEvents";
-  import { error } from "@sveltejs/kit";
 
   const playerTooltips = {
     position: "top",
@@ -116,7 +116,6 @@ You'll see messages and results on this page.`);
         onSuccess("Firmware was successfully loaded!");
       }
 
-      console.log("COMPLETE");
       hasUploadedFirmware = true;
     } catch (error) {
       if (error.message.includes("No port selected by the user.")) {
@@ -132,7 +131,26 @@ You'll see messages and results on this page.`);
   }
 
   unsubscribes.push(
+    frameStore.subscribe(async (frameContainer) => {
+      if ($simulatorStore != SimulatorMode.LIVE) {
+        return;
+      }
+      isPlayingLive = false;
+      if (!hasUploadedFirmware) return;
+      const commandString = await getFeatures();
+      const isReadyWithoutCompiling = $codeStore.enableFlags.filter(flag => !commandString.includes(flag)).length == 0;
+      if (isReadyWithoutCompiling) {
+        frames = frameContainer.frames;
+        currentFrameStore.set(frames[0]);
+        return;
+      }
+      await onConfirm("Please click on 'Start Live Mode' to recompile the firmware for your new code.");
+      hasUploadedFirmware = false; // this means it's not ready to run on the live mode.
+    }),
     frameStore.subscribe((frameContainer) => {
+      if ($simulatorStore == SimulatorMode.LIVE) {
+        return;
+      }
       playing = false;
       const currentFrame = frames[frameNumber];
       frames = frameContainer.frames;

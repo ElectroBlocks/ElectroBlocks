@@ -2,6 +2,7 @@ import { ProgramConfig, upload, WebSerialPortPromise } from "@duinoapp/upload-mu
 import config from "../../env";
 import { MicroControllerType } from "../microcontroller/microcontroller";
 import { filter } from "lodash";
+import { ArduinoUsbFilters } from "../../stores/arduino.store";
 
 export const compileCode = async (
   code: string,
@@ -48,7 +49,7 @@ export const arduinoUploader = async (
     throw new Error("Web Serial API is not supported in this environment");
   }
   const serialport = await WebSerialPortPromise.requestPort(
-    {},
+    { filters: ArduinoUsbFilters },
     { baudRate: 115200 }
   );
   const hexCode = await compileCode(code, type);

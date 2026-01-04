@@ -755,7 +755,59 @@ void printSuccessFailed(bool success) {
   }
 }
 
+bool printEnabledFirmwareFlags()
+{
+  Serial.print(F("FEATURES:"));
+
+#if ENABLE_RFID_UART
+  Serial.print(F(" - ENABLE_RFID_UART"));
+#endif
+
+#if ENABLE_SERVO
+  Serial.print(F(" - ENABLE_SERVO"));
+#endif
+
+#if ENABLE_DHT
+  Serial.print(F(" - ENABLE_DHT"));
+#endif
+
+#if ENABLE_LED_MATRIX
+  Serial.print(F(" - ENABLE_LED_MATRIX"));
+#endif
+
+#if ENABLE_LED_STRIP
+  Serial.print(F(" - ENABLE_LED_STRIP"));
+#endif
+
+#if ENABLE_IR_REMOTE
+  Serial.print(F(" - ENABLE_IR_REMOTE"));
+#endif
+
+#if ENABLE_LCD
+  Serial.print(F(" - ENABLE_LCD"));
+#endif
+
+#if ENABLE_TM
+  Serial.print(F(" - ENABLE_TM"));
+#endif
+
+#if ENABLE_MOTOR
+  Serial.print(F(" - ENABLE_MOTOR"));
+#endif
+
+#if ENABLE_STEPPER
+  Serial.print(F(" - ENABLE_STEPPER"));
+#endif
+
+#if ENABLE_BUZZER
+  Serial.print(F(" - ENABLE_BUZZER"));
+#endif
+  Serial.println("");
+  return true;
+}
+
 // ===================== ROUTER =====================
+
 void handleLine(const char* raw) {
   bool ok = false;
   if (!raw || !*raw) return;
@@ -772,6 +824,9 @@ void handleLine(const char* raw) {
   };
 
   if (ieq(raw, "sense")) ok = cmdSense();
+
+  if (ieq(raw, "features"))
+    ok = printEnabledFirmwareFlags();
 
   if (ieq(raw, "restart")) { doRestart(); return; }
 
