@@ -136,12 +136,15 @@ You'll see messages and results on this page.`);
         return;
       }
       isPlayingLive = false;
+      // Reseting the frames back to zero.
+      frames = frameContainer.frames;
+      currentFrameStore.set(frames[0]);
+      // Needs to be reset so it triggers a new generator
+      frameCount = 0;
       if (!hasUploadedFirmware) return;
       const commandString = await getFeatures();
       const isReadyWithoutCompiling = $codeStore.enableFlags.filter(flag => !commandString.includes(flag)).length == 0;
       if (isReadyWithoutCompiling) {
-        frames = frameContainer.frames;
-        currentFrameStore.set(frames[0]);
         return;
       }
       await onConfirm("Please click on 'Start Live Mode' to recompile the firmware for your new code.");

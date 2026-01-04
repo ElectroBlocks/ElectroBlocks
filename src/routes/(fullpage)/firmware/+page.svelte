@@ -77,11 +77,6 @@ const boards: { id: MicroControllerType; label: string; description: string }[] 
     isUploading = true;
 
     try {
-      // TODO: You fill in the non-UI logic:
-      // - build firmware based on enabledIds
-      // - call your upload routine (webserial, backend, etc.)
-      //
-      // Example placeholder:
       await upload(enabledIds);
 
       status = 'ok';
