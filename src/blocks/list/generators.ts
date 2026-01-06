@@ -77,6 +77,10 @@ Blockly["Arduino"]["create_list_number_block"] = function (block: Block) {
   return initListVariable(block, "double");
 };
 
+Blockly["Python"]["create_list_number_block"] = function (block: Block) {
+  return "";
+};
+
 Blockly["Arduino"]["create_list_string_block"] = function (block: Block) {
   return initListVariable(block, "String");
 };

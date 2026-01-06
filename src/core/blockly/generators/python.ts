@@ -182,12 +182,13 @@ Blockly["Python"].addReservedWords(
       devVariables +
       libraryCode +
       definitionsCode +
+      (functionsCode.length > 0 ? "# Function Code\n\n" : "") +
+      functionsCode +
       Blockly["Python"].variablesInitCode_ +
       setupCode +
       "\n" +
       code +
-      "\n\n" +
-      functionsCode;
+      "\n\n";
 
     completeCode = completeCode.replace(
       "__REPLACE_WITH_SETUP_CODE",

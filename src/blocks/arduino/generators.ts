@@ -4,7 +4,14 @@ import _ from "lodash";
 import { getBlockByType } from "../../core/blockly/helpers/block.helper";
 
 Blockly["Python"]["arduino_setup"] = function (block: Block) {
-  return "";
+    const statementsSetup = Blockly["Python"].statementToCode(block, "setup");
+
+    return `def setup():
+${statementsSetup}
+
+# Call Setup Function to do what the arduino does. Only gets called once.
+setup() 
+`;
 };
 
 Blockly["Arduino"]["arduino_setup"] = function (block: Block) {

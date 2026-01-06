@@ -296,13 +296,19 @@ Blockly["Arduino"]["string_to_number"] = function (block: Block) {
 };
 
 Blockly["Python"]["string_to_number"] = function (block) {
+  Blockly["Python"].functionNames_["to_float"] = `def to_float(s):
+    try:
+        return float(s)
+    except ValueError:
+        return 0.0
+`;
   const string = Blockly["Python"].valueToCode(
     block,
     "VALUE",
     Blockly["Python"].ORDER_ATOMIC
   ) || "''";
 
-  const code = `float(${string} if ${string}.replace('.','',1).isdigit() else 0)`;
+  const code = `to_float(${string})`;
   return [code, Blockly["Python"].ORDER_FUNCTION_CALL];
 };
 

@@ -307,19 +307,12 @@ Blockly["Arduino"]["parse_string_block"] = function (block: Block | any) {
 // };
 
 Blockly["Python"]["parse_string_block"] = function (block) {
-  Blockly["Python"].definitions_["parse_string_block"] =
-  "def get_parse_value(data, separator, index):\n" +
-  "   found = 0\n" +
-  "   str_index = [0, -1]\n" +
-  "   max_index = len(data) - 1\n" +
-  "   for i in range(max_index + 1):\n" +
-  "       if data[i] == separator or i == max_index:\n" +
-  "           found += 1\n" +
-  "           str_index[0] = str_index[1] + 1\n" +
-  "           str_index[1] = i + 1 if i == max_index else i\n" +
-  "       if found > index:\n" +
-  "           return data[str_index[0]:str_index[1]]\n"
-  "   return ''\n";
+  Blockly["Python"].functionNames_[
+    "parse_string_block"
+  ] = `def get_parse_value(data: str, separator: str, index: int, default: str = "") -> str:
+    parts = data.split(separator)
+    return parts[index] if 0 <= index < len(parts) else default
+`;
   const text = Blockly["Python"].valueToCode(
     block,
     "VALUE",
