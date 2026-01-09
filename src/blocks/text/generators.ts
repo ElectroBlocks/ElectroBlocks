@@ -150,7 +150,7 @@ Blockly["Arduino"]["text_isEmpty"] = function (block: Block | any) {
     Blockly["Arduino"].ORDER_COMMA
   );
 
-  return ["(textLength(" + str + ") > 0)", Blockly["Arduino"].ORDER_ATOMIC];
+  return ["(textLength(" + str + ") == 0)", Blockly["Arduino"].ORDER_ATOMIC];
 };
 
 Blockly["Python"]["text_isEmpty"] = function (block) {
