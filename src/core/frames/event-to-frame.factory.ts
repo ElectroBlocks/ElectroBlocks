@@ -17,6 +17,7 @@ import {
   getLoopTimeFromBlockData,
   findArduinoLoopBlock,
   findArduinoSetupBlock,
+  findFieldValue,
 } from "../blockly/helpers/block-data.helper";
 import {
   sensorSetupBlockName,
@@ -25,19 +26,20 @@ import {
 } from "../blockly/transformers/sensor-data.transformer";
 import { generateInputFrame } from "./transformer/block-to-frame.transformer";
 import { senseDataArduino } from "../../stores/arduino.store";
+import { TimeState } from "../../blocks/time/state";
+import { getBlockByType } from "../blockly/helpers/block.helper";
 
 export async function* generateNextFrame(
   event: BlockEvent
 ): AsyncGenerator<ArduinoFrame> {
   let sensorDataString = await senseDataArduino();
   let frames = generatePreLoopFrames(event, sensorDataString);
-  console.log("start frames", frames);
   for (let frame of frames) {
     if (frame.timeLine.function == "setup") {
       yield frame;
     }
   }
-
+  let realTimeLoopNumber = 1;
   while (true) {
     sensorDataString = await senseDataArduino();
     frames = generateFramesWithLoop(
@@ -45,12 +47,13 @@ export async function* generateNextFrame(
       frames[frames.length - 1],
       1,
       sensorDataString,
-      true
+      true,
+      realTimeLoopNumber
     );
     for (const frame of frames) {
-      console.log(frame, "yield frame");
       yield frame;
     }
+    realTimeLoopNumber += 1;
   }
 }
 
@@ -79,7 +82,8 @@ const generateFramesWithLoop = (
   previousFrame: ArduinoFrame,
   loopTimes: number,
   sensorDataString = "",
-  isRealTime = false
+  isRealTime = false,
+  realTimeLoopNumber = 1
 ): ArduinoFrame[] => {
   const { blocks } = event;
   const arduinoLoopBlock = findArduinoLoopBlock(blocks);
@@ -90,7 +94,7 @@ const generateFramesWithLoop = (
         return prevFrames;
       }
       const timeLine: Timeline = {
-        iteration: loopTime,
+        iteration: isRealTime ? realTimeLoopNumber : loopTime,
         function: isRealTime ? "realtime" : "loop",
       };
       const previousFrame = _.isEmpty(prevFrames)
@@ -213,12 +217,23 @@ const getPreviousState = (
     ).components.filter(
       // Message components will not sense anything in the real time mode because python is taking up the circuit
       // It is a sensor block for the virtual circuit where block data is used.
-      (c) => !isSensorComponent(c) || c.type == ArduinoComponentType.MESSAGE
+      (c) =>
+        !isSensorComponent(c) ||
+        c.type == ArduinoComponentType.MESSAGE ||
+        c.type == ArduinoComponentType.TIME
     );
     const newComponents = [
       ...nonSensorComponent,
       ...convertArduinoStringToSensorState(blocks, sensorDataString),
     ];
+    const timeComponent = newComponents.find(
+      (x) => x.type == ArduinoComponentType.TIME
+    ) as TimeState;
+    if (timeComponent) {
+      const timeSetupBlock = getBlockByType("time_setup");
+      timeComponent.timeInSeconds =
+        +timeSetupBlock.getFieldValue("time_in_seconds") * timeline.iteration;
+    }
     return { ...previousFrame, components: newComponents };
   }
 
