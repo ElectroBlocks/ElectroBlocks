@@ -1,7 +1,14 @@
 import type { WorkspaceSvg } from "blockly";
 import Blockly from "blockly";
-import { getVariableByName } from "../../core/blockly/helpers/variable.helper";
-import { createBlock } from "../../core/blockly/helpers/block.helper";
+import {
+  getAllVariables,
+  getVariableByName,
+} from "../../core/blockly/helpers/variable.helper";
+import {
+  createBlock,
+  getBlockByType,
+} from "../../core/blockly/helpers/block.helper";
+import { getWorkspace } from "../../core/blockly/helpers/workspace.helper";
 /**
  * Crappy code to register the button listeners for blockly
  */
@@ -213,8 +220,16 @@ const createListButtonHandler = (blockType: string) => {
     }
     const variable = getVariableByName(variableName);
     const variableId = variable ? variable.getId() : "";
-
-    const listBlock = createBlock(blockType, 20, 20, false);
+    const loopBlock = getBlockByType("arduino_loop");
+    const numberOfListVariables = getAllVariables().filter((x) =>
+      x.type.includes("List")
+    ).length;
+    const listBlock = createBlock(
+      blockType,
+      loopBlock.getRelativeToSurfaceXY().x,
+      loopBlock.getRelativeToSurfaceXY().y - 100 + -20 * numberOfListVariables,
+      false
+    );
     listBlock.setFieldValue(variableId, "VAR");
   };
 };

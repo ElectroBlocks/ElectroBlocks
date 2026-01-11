@@ -15,18 +15,30 @@ export const disableRecievingMessageBlocksForLiveModeAndPython = (
   isLiveMode: boolean = false
 ): DisableBlock[] => {
   const { blocks } = event;
-  if (!blocks.find(x => x.blockName == 'message_setup')) {
-    return []
+  let blocksNames = [
+    "arduino_get_message",
+    "arduino_receive_message",
+    "bluetooth_get_message",
+    "bluetooth_has_message",
+    "bluetooth_send_message",
+    "bluetooth_setup",
+  ];
+  if (!blocks.find((x) => x.blockName == "message_setup")) {
+    blocksNames = blocksNames.filter((x) => !x.includes("arduino_"));
   }
 
   return blocks
-    .filter((b) => ['arduino_get_message', 'arduino_receive_message'].includes(b.blockName))
+    .filter((b) => blocksNames.includes(b.blockName))
     .map((b) => {
       return {
         blockId: b.id,
-        type: isLiveMode || settingData.language == SUPPORTED_LANGUAGES.PYTHON ?  ActionType.DISABLE_BLOCK : ActionType.ENABLE_BLOCK,
+        type:
+          isLiveMode || settingData.language == SUPPORTED_LANGUAGES.PYTHON
+            ? ActionType.DISABLE_BLOCK
+            : ActionType.ENABLE_BLOCK,
         warningText: `Not available in Python or Live mode yet. You can still use Print to show messages.`,
-        stopCompiling: isLiveMode || settingData.language == SUPPORTED_LANGUAGES.PYTHON,
+        stopCompiling:
+          isLiveMode || settingData.language == SUPPORTED_LANGUAGES.PYTHON,
       };
     });
 };

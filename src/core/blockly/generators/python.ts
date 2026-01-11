@@ -132,6 +132,20 @@ Blockly["Python"].addReservedWords(
         " = RGB(0, 0, 0)\n\n";
     }
 
+    const numberList = workspace.getVariablesOfType("List Number");
+    const stringList = workspace.getVariablesOfType("List String");
+    const booleanList = workspace.getVariablesOfType("List Boolean");
+    const colourList = workspace.getVariablesOfType("List Colour");
+    for (const variable of [
+      ...numberList,
+      ...stringList,
+      ...booleanList,
+      ...colourList,
+    ]) {
+      variableCode +=
+        Blockly["Python"].getVariableName(variable.getId()) + " = []\n\n";
+    }
+
     Blockly["Python"].variablesInitCode_ = variableCode;
   };
 

@@ -50,7 +50,9 @@ Blockly["Python"]["fastled_set_color"] = function (block) {
     Blockly["Python"].ORDER_ATOMIC
   );
   console.log(color);
-  return `developer_temp_color = ${color} # create a variable to store the color
+  return `developer_temp_color = ${
+    color == "" ? `RGB(0,0,0)` : color
+  } # create a variable to store the color
 eb.rgb_strip_set_color(${position}, developer_temp_color.red, developer_temp_color.green, developer_temp_color.blue)\n`;
 };
 
