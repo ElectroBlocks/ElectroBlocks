@@ -155,7 +155,7 @@ Blockly["Python"]["rgb_led_setup"] = function (block: Block) {
 
   Blockly["Python"].setupCode_[
     "rgb_setup"
-  ] = `eb.config_rgb(${redPin}, ${greenPin}, ${bluePin}) # Configures the RGB LED pins\n`;
+  ] = `eb.config_rgbled(${redPin}, ${greenPin}, ${bluePin}) # Configures the RGB LED pins\n`;
   return "";
 };
 

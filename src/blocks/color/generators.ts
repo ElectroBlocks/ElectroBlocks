@@ -68,7 +68,7 @@ Blockly["Python"]["colour_random"] = function (block) {
   Blockly["Python"].imports_["import_random"] = "import random";
 
   return [
-    "RGB(random.randint(0, 255), random.randint(0,255), radnom.randit(0,255))",
+    "RGB(random.randint(0, 255), random.randint(0,255), random.randint(0,255))",
     Blockly["Python"].ORDER_ATOMIC,
   ];
 };
