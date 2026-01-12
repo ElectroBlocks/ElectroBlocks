@@ -153,12 +153,11 @@ export const ledMatrixOnLed: BlockToFrameTransformer = (
     return led;
   });
 
-  const usbCommands = makeLedCommands(dataPin, newLeds);
   const previousLedMatrix = _.cloneDeep(getLedMatrix(previousState));
   const newComponent: LedMatrixState = {
     ...previousLedMatrix,
     leds: newLeds,
-    usbCommands: [`write::ma::${dataPin}::1::${row}::${col}::${isOn ? 1 : 0}`],
+    usbCommands: [`write::ma::${dataPin}::1::${col}::${row}::${isOn ? 1 : 0}`],
   };
 
   return [
