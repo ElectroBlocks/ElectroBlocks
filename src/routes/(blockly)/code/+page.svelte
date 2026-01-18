@@ -18,7 +18,6 @@
   import { SUPPORTED_LANGUAGES } from "../../../core/microcontroller/microcontroller";
   import { FormGroup, Input, Label } from "@sveltestrap/sveltestrap";
 
-  let code = "";
   let loaded = false;
   let fontSize = 14;
   let hasCopiedCode = false;
