@@ -12,35 +12,29 @@
 
   import { afterUpdate } from "svelte";
   import { tooltip } from "@svelte-plugins/tooltips";
-  import { get } from "svelte/store";
 
   // Importing settings store
   import settingsStore from "../../../stores/settings.store";
   import { SUPPORTED_LANGUAGES } from "../../../core/microcontroller/microcontroller";
+  import { FormGroup, Input, Label } from "@sveltestrap/sveltestrap";
 
   let code = "";
   let loaded = false;
   let fontSize = 14;
   let hasCopiedCode = false;
-
-  // subscribing to the settings store
-  let settings = get(settingsStore);
-  settingsStore.subscribe((newSettings) => {
-    settings = newSettings;
-  });
+  let c_code = '';
+  let python_code = ''
 
   onMount(async () => {
     hljs.registerLanguage('arduino', arduinoLang);
     hljs.registerLanguage('python', pythonLang);
     codeStore.subscribe(async (codeInfo) => {
       try {
-        if (settings.language==="Python") {
-          code = hljs.highlight(codeInfo.pythonLang, { language: 'python'}).value;
-        } else {
+          python_code = hljs.highlight(codeInfo.pythonLang, { language: 'python'}).value;
           // @ts-ignore
-          code =  hljs.highlight(codeInfo.cLang, { language: 'arduino' }).value;
-        }
-      }catch(e)
+          c_code =  hljs.highlight(codeInfo.cLang, { language: 'arduino' }).value;
+      }
+      catch(e)
       {
         console.log(e);
       }
@@ -67,12 +61,11 @@
   }
 
   function copy() {
-    console.log(settings.language === SUPPORTED_LANGUAGES.PYTHON)
-    if (settings.language === SUPPORTED_LANGUAGES.PYTHON) {
-      navigator.clipboard.writeText(get(codeStore).pythonLang);
+    if ($settingsStore.language === SUPPORTED_LANGUAGES.PYTHON) {
+      navigator.clipboard.writeText($codeStore.pythonLang);
     } else {
       // @ts-ignore
-      navigator.clipboard.writeText(get(codeStore).cLang);
+      navigator.clipboard.writeText($codeStore.cLang);
     }
     hasCopiedCode = true;
   }
@@ -90,6 +83,24 @@
     theme: "code-large-margin",
   };
 </script>
+<div id="controls"  >
+
+<div class="row ps-3 pe-3">
+  <div class="col">
+    <FormGroup>
+      <Label for="lang-select">Selected Language</Label>
+      <Input
+        bind:value={$settingsStore.language}
+        type="select"
+        id="lang-select"
+      >
+        <option value="Python">Python</option>
+        <option value="C">C</option>
+      </Input>
+    </FormGroup>
+  </div>
+</div>
+
 <div class="row">
   <div class="col">
     {#if !hasCopiedCode}
@@ -97,6 +108,7 @@
     {:else}
     <i use:tooltip={navTooltipStyleSmallMargin} title="Copied" on:mouseleave={() => hasCopiedCode = false} on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
     {/if}
+    
     <i       
       use:tooltip={navTooltipStyleCodeSmallMarginBottom}
       on:click={zoomOut} 
@@ -109,9 +121,18 @@
       aria-hidden="true" />
   </div>
 </div>
-<pre style="font-size: {fontSize}px">
-  <code class="{settings.language === 'Python' ? 'language-python' : 'language-arduino'}">{@html code}</code>
-  </pre>
+</div>
+
+{#if $settingsStore.language == 'Python'}
+<pre style="font-size: {fontSize}px;">
+  <code  class="language-python">{@html python_code}</code>
+</pre>
+{:else}
+<pre style="font-size: {fontSize}px;">
+  <code class="language-arduino">{@html c_code}</code>
+</pre>
+{/if}
+
 <svelte:head>
   <title>ElectroBlocks - Code</title>
 </svelte:head>
@@ -120,12 +141,10 @@
   pre {
     margin: 0;
     padding: 0;
-    height: 100vh;
   }
   code {
-    margin-left: 10px;
-    height: 100vh;
-    overflow: scroll;
+    margin: 0;
+    padding: 0;
   }
   i {
     font-size: 30px;
@@ -139,4 +158,5 @@
   :global(.tooltip.code-large-margin) {
     margin-top: 30px;
   }
+  
 </style>
