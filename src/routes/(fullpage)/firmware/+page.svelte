@@ -228,10 +228,11 @@ const boards: { id: MicroControllerType; label: string; description: string }[] 
 
 <style>
   .page {
-    max-width: 980px;
+    max-width: 100wv;
     margin: 0 auto;
     padding: 24px 16px 48px;
     overflow: scroll;
+    height: 100vh;
   }
 
   .header h1 {
