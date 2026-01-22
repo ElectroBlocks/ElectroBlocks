@@ -37,7 +37,7 @@
     "firebase": "^10.12.2",
     "highlight.js": "^11.9.0",
     "jest": "^29.7.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "rollup-plugin-copy": "^3.3.0",
     "simple-color-picker": "^1.0.5",
     "svelte": "^4.2.19",
