@@ -1,7 +1,9 @@
 import Blockly from "blockly";
 
 Blockly["Arduino"]["passive_buzzer_note"] = function (block) {
-  var tone = +block.getFieldValue("TONE");
+  var tone = Number.isNaN(+block.getFieldValue("TONE"))
+    ? block.getFieldValue("TONE")
+    : +block.getFieldValue("TONE");
   var pin = block.getFieldValue("PIN");
   Blockly["Arduino"].setupCode_["tone_pin_" + pin] =
     "\tpinMode(" + pin + ", OUTPUT); \n";
