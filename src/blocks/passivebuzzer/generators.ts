@@ -15,7 +15,9 @@ Blockly["Python"]["passive_buzzer_note"] = function (block) {
 `;
 };
 Blockly["Arduino"]["passive_buzzer_note"] = function (block) {
-  var tone = +block.getFieldValue("TONE");
+  var tone = Number.isNaN(+block.getFieldValue("TONE"))
+    ? block.getFieldValue("TONE")
+    : +block.getFieldValue("TONE");
   var pin = block.getFieldValue("PIN");
   Blockly["Arduino"].setupCode_["tone_pin_" + pin] =
     "\tpinMode(" + pin + ", OUTPUT); \n";
@@ -44,11 +46,12 @@ Blockly["Python"]["passive_buzzer_tone"] = function (block) {
 };
 
 Blockly["Arduino"]["passive_buzzer_tone"] = function (block) {
-  var tone = Blockly["Arduino"].valueToCode(
+  var rawTone = Blockly["Arduino"].valueToCode(
     block,
     "TONE",
-    Blockly["Arduino"].ORDER_ATOMIC
+    Blockly["Arduino"].ORDER_ATOMIC,
   );
+  var tone = Number.isNaN(+rawTone) ? rawTone : +rawTone;
   var pin = block.getFieldValue("PIN");
   Blockly["Arduino"].setupCode_["tone_pin_" + pin] =
     "\tpinMode(" + pin + ", OUTPUT); \n";
