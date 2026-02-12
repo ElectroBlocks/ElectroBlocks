@@ -543,32 +543,32 @@ bool cmdSense() {
 
           int ax = c.pins[0], ay = c.pins[1], sw = c.pins[2];
 
-          // https://medium.com/@melaniechow/using-a-joystick-sensor-on-an-arduino-3498d7399464
           // This function was inspired by this Article
-          int y = (analogRead(ay) * 4.9);
-          delay(50);  // small pause needed between reading
-          int x = (analogRead(ax) * 4.9);
-          delay(50);
+          int xRaw = analogRead(ax);
+          int yRaw = analogRead(ay);
+          bool btnPressed = (digitalRead(sw) == LOW); // LOW means pressed
 
-          x = (x - 2457);
-          y = (y - 2541);
+          // 2. Center the values (-512 to 512)
+          int x = xRaw - 512;
+          int y = yRaw - 512;
 
-          double val = atan2(y, x) * 180 / 3.14159265358979;
+          // 3. Check if Engaged (Deadzone check)
+          // If the stick is moved more than 100 units from center
+          bool isEngaged = (abs(x) > 100 || abs(y) > 100);
 
-          if (val < 0) {
-            val += 360;
-          }
+          // 4. Calculate 360 Degree Angle
+          float radians = atan2(y, x);
+          float degrees = radians * (180.0 / PI);
 
-          //convert to a double
-          double new_x = x / 100.0;
-          double new_y = y / 100.0;
-          double distance = sqrt((new_x * new_x) + (new_y * new_y));
-          // this is actually the opposite.  If it's on it will read false.
-          Serial.print(digitalRead(sw) ? F("0") : F("1"));
+          // Convert -180/180 to a clean 0-360
+          if (degrees < 0)
+            degrees += 360;
+
+          Serial.print(btnPressed ? F("1") : F("0"));
           Serial.print('-');
-          Serial.print(distance > 15 ? val : 0);
+          Serial.print(isEngaged ? degrees : 0);
           Serial.print('-');
-          Serial.print(distance > 15 ? F("1") : F("0"));
+          Serial.print(isEngaged ? F("1") : F("0"));
         }
         break;
 
