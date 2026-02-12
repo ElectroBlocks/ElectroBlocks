@@ -16,30 +16,29 @@ boolean internal_variable_isJoyStickEngaged = false;
 int internal_variable_degrees = 0;
 `;
   Blockly["Arduino"].functionNames_["joystick"] = `void setJoyStickValues() {
-  // https://medium.com/@melaniechow/using-a-joystick-sensor-on-an-arduino-3498d7399464
-  // This function was inspired by this Article
-  int y = (analogRead(Y_PIN) * 4.9);   
-  delay(50); // small pause needed between reading
-  int x = (analogRead(X_PIN) * 4.9 );  
-  delay(50);  
-  
-  x = (x - 2457);
-  y = (y - 2541);
-  
-  double val = atan2(y, x) * 180/3.14159265358979; 
-  
-  if (val < 0) {
-    val += 360;
-  }
-  
-  //convert to a double
-  double new_x = x / 100.0;
-  double new_y = y / 100.0;
-  double distance = sqrt((new_x * new_x) + (new_y * new_y));
 
-  internal_variable_degrees = distance > 15 ? val : 0;
-  internal_variable_isJoyStickEngaged = distance > 15;
-  internal_variable_isJoystickButtonPressed = digitalRead(SW_PIN) == LOW;
+    int xRaw = analogRead(X_PIN);
+    int yRaw = analogRead(Y_PIN);
+    bool btnPressed = (digitalRead(SW_PIN) == LOW); // LOW means pressed
+
+    // 2. Center the values (-512 to 512)
+    int x = xRaw - 512;
+    int y = yRaw - 512;
+
+    // 3. Check if Engaged (Deadzone check)
+    // If the stick is moved more than 100 units from center
+    bool isEngaged = (abs(x) > 100 || abs(y) > 100);
+
+    // 4. Calculate 360 Degree Angle
+    float radians = atan2(y, x);
+    float degrees = radians * (180.0 / PI);
+    
+    // Convert -180/180 to a clean 0-360
+    if (degrees < 0) degrees += 360;
+
+  internal_variable_degrees = isEngaged ? degrees : 0;
+  internal_variable_isJoyStickEngaged = isEngaged;
+  internal_variable_isJoystickButtonPressed = btnPressed;
   
 }`;
   Blockly["Arduino"].setupCode_["joystick"] = `
