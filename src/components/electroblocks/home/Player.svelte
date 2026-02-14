@@ -339,7 +339,8 @@ You'll see messages and results on this page.`);
     await moveWait();
     await playFrame();
     if (isLastFrame()) {
-      playing = false;
+      await wait(1000);
+      await resetPlayer();
     }
   }
 
