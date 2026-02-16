@@ -2,7 +2,7 @@
   import { onDestroy } from "svelte";
   import Blockly from "blockly";
 
-  import frameStore from "../../../stores/frame.store";
+  import frameStore, { isContinousModeStore } from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
   import currentStepStore from "../../../stores/currentStep.store";
   import settingStore from "../../../stores/settings.store";
@@ -28,8 +28,6 @@
   import {
     mdiCogClockwise,
     mdiEjectOutline,
-    mdiFastForward,
-    mdiFastForward10,
     mdiFastForwardOutline,
     mdiFlash,
     mdiPlayCircle,
@@ -52,11 +50,12 @@
   };
 
   let frames: ArduinoFrame[] = [];
-  let frameNumber = 1;
+  let frameNumber = 0;
   let playing = false;
   let speedDivisor = 1;
   let maxTimePerStep = 1000;
   let isContinuous = false;
+  $: isContinousModeStore.set(isContinuous);
 
   // Live Player
   let generator;
@@ -69,22 +68,14 @@
 
   $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
-  $: frameIndex = frameNumber - 1;
   $: canUploadFirmware =
     $simulatorStore == SimulatorMode.LIVE && successfullyCompiledInLiveMode;
 
   unsubscribes.push(
-    currentStepStore.subscribe((currentIndex) => {
-      frameNumber = currentIndex;
+    currentStepStore.subscribe((state) => {
+      frameNumber = state;
     }),
   );
-
-  function getFirstLoopFrameIndex() {
-    const idx = frames.findIndex(
-      (f) => f.timeLine.function === "loop" && f.timeLine.iteration === 1,
-    );
-    return idx < 0 ? 0 : idx;
-  }
 
   async function exitLiveMode() {
     simulatorStore.set(SimulatorMode.VIRTUAL);
@@ -316,25 +307,31 @@ You'll see messages and results on this page.`);
     }
   }
 
+  async function playSingleFrame()
+  {
+    const frame = frames[frameNumber];    
+    if (frame.delay > 0) {
+      await wait(frame.delay);
+    }
+    await moveWait();
+  }
+
   async function playFrame() {
     if (!playing) {
       return;
     }
-
-    currentFrameStore.set(frames[frameNumber]);
+    
+    await playSingleFrame();
     frameNumber += 1;
-
-    if (frames[frameNumber].delay > 0) {
-      await wait(frames[frameNumber].delay);
-    }
-
-    await moveWait();
 
 
     if (!isLastFrame()) {
       await playFrame();
       return;
     }
+
+    // Play the last frame
+    await playSingleFrame();
 
     if (!isContinuous) {
       await wait(1000);
@@ -343,10 +340,8 @@ You'll see messages and results on this page.`);
     }
     const newFrames = generateNewFramesWithLoop($currentFrameStore);
     frames = newFrames;
-    frameIndex = 0;
     frameNumber = 0;
     
-    await moveWait();
     await playFrame();
   }
 
@@ -354,10 +349,9 @@ You'll see messages and results on this page.`);
     try {
       frames = $frameStore.frames;
       frameNumber = 0;
-      frameIndex = 0;
       playing = false;
       isContinuous = false;
-      currentFrameStore.set(frames[frameIndex]);
+      currentFrameStore.set(frames[frameNumber]);
       //unselect all the blocks
       getAllBlocks().forEach((b) => b.unselect());
     } catch (e) {
@@ -366,7 +360,7 @@ You'll see messages and results on this page.`);
   }
 
   function moveSlider() {
-    currentFrameStore.set(frames[frameIndex]);
+    currentFrameStore.set(frames[frameNumber]);
     playing = false;
   }
 
@@ -376,7 +370,6 @@ You'll see messages and results on this page.`);
       return;
     }
     frameNumber -= 1;
-    currentFrameStore.set(frames[frameIndex]);
   }
 
   function next() {
@@ -386,7 +379,6 @@ You'll see messages and results on this page.`);
     }
 
     frameNumber += 1;
-    currentFrameStore.set(frames[frameIndex]);
   }
 
   function isLastFrame() {
@@ -508,7 +500,7 @@ You'll see messages and results on this page.`);
         class:disable={disablePlayer || playing}
       >
         <i
-          class="fa fa-repeat repeat-on"
+          class="fa fa-refresh repeat-on"
         />
       </span>
       {:else}
@@ -522,7 +514,7 @@ You'll see messages and results on this page.`);
         class:disable={disablePlayer || playing}
       >
         <i
-          class="fa fa-repeat repeat-off"
+          class="fa fa-refresh repeat-off"
         />
       </span>
       {/if}

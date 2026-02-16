@@ -8,6 +8,7 @@ const stateStore = writable<ArduinoFrameContainer>({
   error: false,
 });
 
+export const isContinousModeStore = writable<boolean>(false);
 
 
 export default {
