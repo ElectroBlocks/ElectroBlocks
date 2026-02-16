@@ -2,7 +2,9 @@
   import { onDestroy } from "svelte";
   import Blockly from "blockly";
 
-  import frameStore, { isContinousModeStore } from "../../../stores/frame.store";
+  import frameStore, {
+    isContinousModeStore,
+  } from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
   import currentStepStore from "../../../stores/currentStep.store";
   import settingStore from "../../../stores/settings.store";
@@ -34,7 +36,10 @@
     mdiStopCircle,
     mdiUploadCircleOutline,
   } from "@mdi/js";
-  import { generateNewFramesWithLoop, generateNextFrame } from "../../../core/frames/event-to-frame.factory";
+  import {
+    generateNewFramesWithLoop,
+    generateNextFrame,
+  } from "../../../core/frames/event-to-frame.factory";
   import { getAllVariables } from "../../../core/blockly/helpers/variable.helper";
   import { transformBlock } from "../../../core/blockly/transformers/block.transformer";
   import { transformVariable } from "../../../core/blockly/transformers/variables.transformer";
@@ -48,7 +53,7 @@
     animation: "slide",
     theme: "player-tooltips",
   };
-
+  let runId = 0; // cancellation token
   let frames: ArduinoFrame[] = [];
   let frameNumber = 0;
   let playing = false;
@@ -66,7 +71,6 @@
 
   const unsubscribes = [];
 
-  $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
   $: canUploadFirmware =
     $simulatorStore == SimulatorMode.LIVE && successfullyCompiledInLiveMode;
@@ -290,69 +294,115 @@ You'll see messages and results on this page.`);
   }
 
   async function play() {
-    playing = !playing;
-
-    if (playing && isLastFrame()) {
-      frameNumber = 0;
-    }
+    // Toggle play/stop
     if (playing) {
-      try {
-        playing = true;
-        // Because we want to make it look like the first frame has a wait time equal
-        await moveWait();
-        await playFrame();
-      } catch (e) {
-        onErrorMessage("Please refresh your browser and try again.", e);
+      stopVirtualPlayback();
+      return;
+    }
+
+    if (frames.length === 0) return;
+
+    playing = true;
+    const myRun = ++runId;
+
+    try {
+      // Optional: if starting at end, restart
+      if (isLastFrame()) frameNumber = 0;
+
+      await playLoop(myRun);
+    } catch (e) {
+      onErrorMessage("Please refresh your browser and try again.", e);
+    } finally {
+      // Only the active run is allowed to finalize state
+      if (runId === myRun) {
+        playing = false;
       }
     }
   }
 
-  async function playSingleFrame()
-  {
-    const frame = frames[frameNumber];    
-    if (frame.delay > 0) {
-      await wait(frame.delay);
-    }
-    await moveWait();
+  function stopVirtualPlayback() {
+    playing = false;
+    runId++; // cancels any in-flight loop
   }
 
-  async function playFrame() {
-    if (!playing) {
-      return;
+  async function playLoop(myRun: number) {
+    // Small initial wait to match your old behavior
+    await moveWait();
+
+    while (playing && runId === myRun) {
+      // Safety: if frames changed underneath us
+      if (frames.length === 0) {
+        stopVirtualPlayback();
+        return;
+      }
+
+      // Clamp frameNumber
+      if (frameNumber < 0) frameNumber = 0;
+      if (frameNumber >= frames.length) frameNumber = frames.length - 1;
+
+      // Render the current frame deterministically here (don’t rely on $: setCurrentFrame)
+      const frame = frames[frameNumber];
+      if (!frame) {
+        // frames changed underneath us or bad index
+        stopVirtualPlayback();
+        await resetPlayer();
+        return;
+      }
+
+      currentFrameStore.set(frame);
+      currentStepStore.set(frameNumber);
+
+      // Wait according to the frame
+      const delay = frame?.delay ?? 0;
+
+      if (delay > 0) {
+        await wait(delay);
+      }
+      await moveWait();
+
+      // If we got stopped during awaits, exit cleanly
+      if (!playing || runId !== myRun) return;
+
+      // Advance
+      frameNumber += 1;
+
+      // End-of-loop handling
+      if (frameNumber >= frames.length) {
+        // We just passed the last frame. Decide what to do.
+        if (!isContinuous) {
+          await wait(1000);
+          // resetPlayer() already sets playing=false and isContinuous=false per your code
+          await resetPlayer();
+          return;
+        }
+
+        // Continuous: generate the next loop’s frames from the last rendered frame
+        // Note: $currentFrameStore should still be "frame" here (the last shown frame)
+        const newFrames = generateNewFramesWithLoop($currentFrameStore);
+
+        // If generation fails or returns nothing, stop safely
+        if (!newFrames || newFrames.length === 0) {
+          stopVirtualPlayback();
+          await resetPlayer();
+          return;
+        }
+
+        frames = newFrames;
+        frameNumber = 0;
+
+        // Optional: tiny pause between loops (keeps it readable)
+        await wait(50);
+      }
     }
-    
-    await playSingleFrame();
-    frameNumber += 1;
-
-
-    if (!isLastFrame()) {
-      await playFrame();
-      return;
-    }
-
-    // Play the last frame
-    await playSingleFrame();
-
-    if (!isContinuous) {
-      await wait(1000);
-      await resetPlayer();
-      return;
-    }
-    const newFrames = generateNewFramesWithLoop($currentFrameStore);
-    frames = newFrames;
-    frameNumber = 0;
-    
-    await playFrame();
   }
 
   async function resetPlayer() {
     try {
+      stopVirtualPlayback(); // cancels any in-flight loop safely
       frames = $frameStore.frames;
       frameNumber = 0;
-      playing = false;
       isContinuous = false;
       currentFrameStore.set(frames[frameNumber]);
-      //unselect all the blocks
       getAllBlocks().forEach((b) => b.unselect());
     } catch (e) {
       onErrorMessage("Please refresh your browser and try again.", e);
@@ -360,7 +410,7 @@ You'll see messages and results on this page.`);
   }
 
   function moveSlider() {
-    currentFrameStore.set(frames[frameNumber]);
+    setCurrentFrame(frameNumber);
     playing = false;
   }
 
@@ -370,6 +420,7 @@ You'll see messages and results on this page.`);
       return;
     }
     frameNumber -= 1;
+    setCurrentFrame(frameNumber);
   }
 
   function next() {
@@ -379,6 +430,7 @@ You'll see messages and results on this page.`);
     }
 
     frameNumber += 1;
+    setCurrentFrame(frameNumber);
   }
 
   function isLastFrame() {
@@ -408,18 +460,18 @@ You'll see messages and results on this page.`);
 
 {#if $portStateStoreSub != PortState.CONNECTING && $simulatorStore == SimulatorMode.VIRTUAL}
   {#if !isContinuous}
-  <div id="slide-container">
-    <input
-      on:change={moveSlider}
-      type="range"
-      min="0"
-      disabled={frames.length === 0 || playing || isContinuous}
-      bind:value={frameNumber}
-      max={frames.length === 0 ? 0 : frames.length - 1}
-      class="slider"
-      id="scrub-bar"
-    />
-  </div>
+    <div id="slide-container">
+      <input
+        on:change={moveSlider}
+        type="range"
+        min="0"
+        disabled={frames.length === 0 || playing || isContinuous}
+        bind:value={frameNumber}
+        max={frames.length === 0 ? 0 : frames.length - 1}
+        class="slider"
+        id="scrub-bar"
+      />
+    </div>
   {/if}
   <div
     id="video-controls-container"
@@ -489,36 +541,31 @@ You'll see messages and results on this page.`);
       </span>
       {#if isContinuous}
         <span
-        use:tooltip
-        title = "Continuous On"
-        on:click={async () => {
-          if (playing) return;
-          isContinuous = false;
-          frames = $frameStore.frames;
-          await resetPlayer();
-        }}
-        class:disable={disablePlayer || playing}
-      >
-        <i
-          class="fa fa-refresh repeat-on"
-        />
-      </span>
+          use:tooltip
+          title="Continuous On"
+          on:click={async () => {
+            if (playing) return;
+            isContinuous = false;
+            frames = $frameStore.frames;
+            await resetPlayer();
+          }}
+          class:disable={disablePlayer || playing}
+        >
+          <i class="fa fa-refresh repeat-on" />
+        </span>
       {:else}
-      <span
-        use:tooltip
-        title = "Continuous Off"
-        on:click={async () => {
-          if (playing) return;
-          isContinuous = true;
-        }}
-        class:disable={disablePlayer || playing}
-      >
-        <i
-          class="fa fa-refresh repeat-off"
-        />
-      </span>
+        <span
+          use:tooltip
+          title="Continuous Off"
+          on:click={async () => {
+            if (playing) return;
+            isContinuous = true;
+          }}
+          class:disable={disablePlayer || playing}
+        >
+          <i class="fa fa-refresh repeat-off" />
+        </span>
       {/if}
-      
     </div>
   </div>
 {:else if $portStateStoreSub == PortState.CONNECTING}
@@ -730,7 +777,7 @@ You'll see messages and results on this page.`);
 
   .repeat-on {
     opacity: 1;
-    color: #b063c5 !important
+    color: #b063c5 !important;
   }
   .repeat-off {
     opacity: 0.5;
