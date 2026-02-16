@@ -7,10 +7,12 @@ export const findSensorState = <S extends Sensor>(
   timeline: Timeline
 ): S => {
   const sensorStates = JSON.parse(block.metaData) as S[];
-
+  const numberOfSensorLoops = sensorStates.length;
+  const loopTimeTranslated =
+    ((timeline.iteration - 1) % numberOfSensorLoops) + 1;
   return sensorStates.find((s) => {
     return (
-      s.loop === timeline.iteration ||
+      s.loop === loopTimeTranslated ||
       ((timeline.function === "pre-setup" || timeline.function === "setup") &&
         s.loop === 1)
     );

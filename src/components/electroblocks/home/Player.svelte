@@ -7,7 +7,10 @@
   import currentStepStore from "../../../stores/currentStep.store";
   import settingStore from "../../../stores/settings.store";
   import { onConfirm, onErrorMessage, onSuccess } from "../../../help/alerts";
-  import { getAllBlocks, getBlockByType } from "../../../core/blockly/helpers/block.helper";
+  import {
+    getAllBlocks,
+    getBlockByType,
+  } from "../../../core/blockly/helpers/block.helper";
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
   import { tooltip } from "@svelte-plugins/tooltips";
@@ -33,7 +36,7 @@
     mdiStopCircle,
     mdiUploadCircleOutline,
   } from "@mdi/js";
-  import { generateNextFrame } from "../../../core/frames/event-to-frame.factory";
+  import { generateNewFramesWithLoop, generateNextFrame } from "../../../core/frames/event-to-frame.factory";
   import { getAllVariables } from "../../../core/blockly/helpers/variable.helper";
   import { transformBlock } from "../../../core/blockly/transformers/block.transformer";
   import { transformVariable } from "../../../core/blockly/transformers/variables.transformer";
@@ -53,6 +56,7 @@
   let playing = false;
   let speedDivisor = 1;
   let maxTimePerStep = 1000;
+  let isContinuous = false;
 
   // Live Player
   let generator;
@@ -66,22 +70,35 @@
   $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
   $: frameIndex = frameNumber - 1;
-  $: canUploadFirmware = $simulatorStore == SimulatorMode.LIVE && successfullyCompiledInLiveMode;
+  $: canUploadFirmware =
+    $simulatorStore == SimulatorMode.LIVE && successfullyCompiledInLiveMode;
 
   unsubscribes.push(
     currentStepStore.subscribe((currentIndex) => {
       frameNumber = currentIndex;
-    })
+    }),
   );
 
-  function exitLiveMode() {
+  function getFirstLoopFrameIndex() {
+    const idx = frames.findIndex(
+      (f) => f.timeLine.function === "loop" && f.timeLine.iteration === 1,
+    );
+    return idx < 0 ? 0 : idx;
+  }
+
+  async function exitLiveMode() {
     simulatorStore.set(SimulatorMode.VIRTUAL);
     onStopButton();
+    await resetPlayer();
   }
 
   async function uploadCode() {
     try {
-      await arduinoStore.uploadCode($settingStore.boardType, $codeStore.cLang, $codeStore.imports);
+      await arduinoStore.uploadCode(
+        $settingStore.boardType,
+        $codeStore.cLang,
+        $codeStore.imports,
+      );
       onSuccess("Coding Uploaded!!");
       // We want to enable usb messages
       simulatorStore.set(SimulatorMode.VIRTUAL);
@@ -89,7 +106,7 @@
       if (error.message.includes("No port selected by the user.")) {
         onErrorMessage(
           "Please try again and select a usb port if you wish to go live.",
-          error
+          error,
         );
         return;
       }
@@ -101,8 +118,7 @@
     simulatorStore.set(SimulatorMode.LIVE);
   }
 
-  async function uploadFirmwareForLiveMode()
-  {
+  async function uploadFirmwareForLiveMode() {
     try {
       var result = await onConfirm(`🚀 Start Live Mode?
 Your program will run and can talk to your Arduino.
@@ -111,7 +127,10 @@ You'll see messages and results on this page.`);
         simulatorStore.set(SimulatorMode.VIRTUAL);
         return;
       }
-      const whatHappenned = await arduinoStore.connectWithAndUploadFirmware($settingStore.boardType, $codeStore.enableFlags);
+      const whatHappenned = await arduinoStore.connectWithAndUploadFirmware(
+        $settingStore.boardType,
+        $codeStore.enableFlags,
+      );
       if (whatHappenned == "full upload") {
         onSuccess("Firmware was successfully loaded!");
       }
@@ -120,9 +139,9 @@ You'll see messages and results on this page.`);
     } catch (error) {
       if (error.message.includes("No port selected by the user.")) {
         onErrorMessage(
-          "Please try again and select a usb port if you wish to go live.", 
+          "Please try again and select a usb port if you wish to go live.",
           error,
-          ""
+          "",
         );
         return;
       }
@@ -143,89 +162,54 @@ You'll see messages and results on this page.`);
       frameCount = 0;
       if (!hasUploadedFirmware) return;
       const commandString = await getFeatures();
-      const isReadyWithoutCompiling = $codeStore.enableFlags.filter(flag => !commandString.includes(flag)).length == 0;
+      const isReadyWithoutCompiling =
+        $codeStore.enableFlags.filter((flag) => !commandString.includes(flag))
+          .length == 0;
       if (isReadyWithoutCompiling) {
         return;
       }
-      await onConfirm("Please click on 'Start Live Mode' to recompile the firmware for your new code.");
+      await onConfirm(
+        "Please click on 'Start Live Mode' to recompile the firmware for your new code.",
+      );
       hasUploadedFirmware = false; // this means it's not ready to run on the live mode.
     }),
-    frameStore.subscribe((frameContainer) => {
+    frameStore.subscribe(async (frameContainer) => {
       if ($simulatorStore == SimulatorMode.LIVE) {
         return;
       }
-      playing = false;
-      const currentFrame = frames[frameNumber];
-      frames = frameContainer.frames;
-
-      // If we are starting out with set to first frame in the loop
-      // We want to skip all the library and setup blocks
-      if (frames.length === 0 || !currentFrame) {
-        frameNumber = frames.findIndex(
-          (f) => f.timeLine.function == "loop" && f.timeLine.iteration == 1
-        );
-        frameNumber = frameNumber < 0 ? 0 : frameNumber;
-        if (frames.length > 0) {
-          currentFrameStore.set(frames[frameNumber]);
-        }
-        return;
-      }
-
-      frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
-      currentFrameStore.set(frames[frameNumber]);
+      await resetPlayer();
     }),
-    simulatorStore.subscribe(async mode => {
-      const loopBlock = getBlockByType('arduino_loop');
+    simulatorStore.subscribe(async (mode) => {
+      const loopBlock = getBlockByType("arduino_loop");
       if (!loopBlock) return false;
       if (mode == SimulatorMode.VIRTUAL) {
         hasUploadedFirmware = false;
         // should regenerate if it's only a live coding issue.
         await createFrames({
           type: Blockly.Events.MOVE,
-          blockId: loopBlock.id
-        })
+          blockId: loopBlock.id,
+        });
         return;
       }
       successfullyCompiledInLiveMode = await createFrames({
-          type: Blockly.Events.MOVE,
-          blockId: loopBlock.id
-        });
+        type: Blockly.Events.MOVE,
+        blockId: loopBlock.id,
+      });
       if (!successfullyCompiledInLiveMode && mode == SimulatorMode.LIVE) {
-        onErrorMessage("Your program isn’t ready to run yet.\nLook for blocks with a ⚠️ symbol.", {}, "Can’t start Live mode")
+        onErrorMessage(
+          "Your program isn’t ready to run yet.\nLook for blocks with a ⚠️ symbol.",
+          {},
+          "Can’t start Live mode",
+        );
       }
-    })
+    }),
   );
 
   unsubscribes.push(
     settingStore.subscribe((newSettings) => {
       maxTimePerStep = newSettings.maxTimePerMove;
-    })
+    }),
   );
-
-  function navigateToClosestTimeline(timeLine) {
-    // This means we have not left the first iteration
-    // If we are starting out with set to first frame in the loop
-    // We want to skip all the library and setup blocks
-    if (timeLine.function !== "loop" || timeLine.iteration <= 1) {
-      frameNumber = frames.findIndex(
-        (f) => f.timeLine.function == "loop" && f.timeLine.iteration == 1
-      );
-      return frameNumber < 0 ? 0 : frameNumber;
-    }
-
-    const lastFrameTimeLine = frames[frames.length - 1].timeLine;
-
-    // This means that there are more frames the previous version than there is now
-    // So go to the last iteration in the loop
-    if (timeLine.iteration > lastFrameTimeLine.iteration) {
-      const loopNumber = lastFrameTimeLine.iteration;
-      return frames.findIndex((f) => f.timeLine.iteration === loopNumber);
-    }
-
-    const loopNumber = timeLine.iteration;
-
-    return frames.findIndex((f) => f.timeLine.iteration === loopNumber);
-  }
 
   function setCurrentFrame(frameNumber) {
     currentFrameStore.set(frames[frameNumber]);
@@ -244,7 +228,10 @@ You'll see messages and results on this page.`);
 
   async function playLive(justNext = false) {
     try {
-      if ((!isPlayingLive && !justNext)|| $portStateStoreSub != PortState.OPEN) {
+      if (
+        (!isPlayingLive && !justNext) ||
+        $portStateStoreSub != PortState.OPEN
+      ) {
         return;
       }
       if ($frameStore.frames.length == 0) {
@@ -256,7 +243,8 @@ You'll see messages and results on this page.`);
         var event = createBlocklyEvent(getBlockByType("arduino_loop").id);
         generator = generateNextFrame(event);
         await restartArduino();
-        let setupFrameCommands =  $frameStore.frames[$frameStore.frames.length - 1];
+        let setupFrameCommands =
+          $frameStore.frames[$frameStore.frames.length - 1];
         // We need to register all the sensors before we start generating new frames
         await setupComponents(setupFrameCommands);
         let frame = (await generator.next()).value;
@@ -266,7 +254,7 @@ You'll see messages and results on this page.`);
         await wait(frame.delay);
         await wait(100); // We don't want to blast the usb it will error out.
         if (!justNext) {
-            await playLive();
+          await playLive();
         }
         return;
       }
@@ -275,36 +263,39 @@ You'll see messages and results on this page.`);
       currentFrameStore.set(frame);
       await updateComponents(frame);
       await wait(frame.delay);
-      await wait(100); 
+      await wait(100);
       if (!justNext) {
         await playLive();
       }
     } catch (error) {
       onStopButton();
-      onErrorMessage("There was an error running the code, please download, refresh and try again.", error);
+      onErrorMessage(
+        "There was an error running the code, please download, refresh and try again.",
+        error,
+      );
     }
   }
-  async function nextFrame()
-  {
+  async function nextFrame() {
     isPlayingLive = false;
     await playLive(true);
   }
-  async function onPlayButton()
-  {
+  async function onPlayButton() {
     try {
       if (!arduinoStore.isConnected() || isPlayingLive) return;
       isPlayingLive = true;
       await playLive();
     } catch (error) {
-      onErrorMessage("There was an error running the code, please download, refresh and try again.", error);
+      onErrorMessage(
+        "There was an error running the code, please download, refresh and try again.",
+        error,
+      );
     }
   }
 
-  function onStopButton()
-  {
+  function onStopButton() {
     isPlayingLive = false;
     frameCount = 0;
-    currentFrameStore.set($frameStore.frames[$frameStore.frames.length - 1])
+    currentFrameStore.set($frameStore.frames[$frameStore.frames.length - 1]);
   }
 
   async function play() {
@@ -326,28 +317,46 @@ You'll see messages and results on this page.`);
   }
 
   async function playFrame() {
-    if (!playing || isLastFrame()) {
+    if (!playing) {
       return;
     }
+
+    currentFrameStore.set(frames[frameNumber]);
+    frameNumber += 1;
 
     if (frames[frameNumber].delay > 0) {
       await wait(frames[frameNumber].delay);
     }
 
-    currentFrameStore.set(frames[frameNumber]);
-    frameNumber += 1;
     await moveWait();
-    await playFrame();
-    if (isLastFrame()) {
+
+
+    if (!isLastFrame()) {
+      await playFrame();
+      return;
+    }
+
+    if (!isContinuous) {
       await wait(1000);
       await resetPlayer();
+      return;
     }
+    const newFrames = generateNewFramesWithLoop($currentFrameStore);
+    frames = newFrames;
+    frameIndex = 0;
+    frameNumber = 0;
+    
+    await moveWait();
+    await playFrame();
   }
 
   async function resetPlayer() {
     try {
+      frames = $frameStore.frames;
       frameNumber = 0;
+      frameIndex = 0;
       playing = false;
+      isContinuous = false;
       currentFrameStore.set(frames[frameIndex]);
       //unselect all the blocks
       getAllBlocks().forEach((b) => b.unselect());
@@ -386,7 +395,7 @@ You'll see messages and results on this page.`);
 
   function moveWait() {
     return new Promise((resolve) =>
-      setTimeout(resolve, maxTimePerStep / speedDivisor)
+      setTimeout(resolve, maxTimePerStep / speedDivisor),
     );
   }
 
@@ -397,7 +406,7 @@ You'll see messages and results on this page.`);
   onDestroy(async () => {
     if (is_browser()) {
       await resetPlayer();
-      onStopButton(); 
+      onStopButton();
     }
     unsubscribes.forEach((unSubFunc) => {
       unSubFunc();
@@ -406,39 +415,52 @@ You'll see messages and results on this page.`);
 </script>
 
 {#if $portStateStoreSub != PortState.CONNECTING && $simulatorStore == SimulatorMode.VIRTUAL}
+  {#if !isContinuous}
   <div id="slide-container">
     <input
       on:change={moveSlider}
       type="range"
       min="0"
-      disabled={frames.length === 0}
+      disabled={frames.length === 0 || playing || isContinuous}
       bind:value={frameNumber}
       max={frames.length === 0 ? 0 : frames.length - 1}
       class="slider"
       id="scrub-bar"
     />
   </div>
+  {/if}
   <div
     id="video-controls-container"
     class:disable={disablePlayer}
     class="icon-bar"
+    class:continous-on={isContinuous}
   >
-  <div id="side-options">
-  {#if !$frameStore.error }
-    <span class="live-mode" use:tooltip={playerTooltips} title="Live Mode" on:click={goToLiveMode}>
-      <Icon path={mdiFlash} size={40}  />
-    </span>
-    <span class="upload" use:tooltip={playerTooltips} on:click={uploadCode} title="Upload Code" >
-      <Icon path={mdiUploadCircleOutline}  size={40} />
-    </span>
-  {/if}
-  </div>
+    <div id="side-options">
+      {#if !$frameStore.error}
+        <span
+          class="live-mode"
+          use:tooltip={playerTooltips}
+          title="Live Mode"
+          on:click={goToLiveMode}
+        >
+          <Icon path={mdiFlash} size={40} />
+        </span>
+        <span
+          class="upload"
+          use:tooltip={playerTooltips}
+          on:click={uploadCode}
+          title="Upload Code"
+        >
+          <Icon path={mdiUploadCircleOutline} size={40} />
+        </span>
+      {/if}
+    </div>
     <div id="main-player">
       <span
         use:tooltip
         title="Previous Step"
         on:click={prev}
-        class:disable={disablePlayer}
+        class:disable={disablePlayer || playing || isContinuous}
         id="video-debug-backward"
       >
         <i class="fa fa-backward" />
@@ -469,14 +491,44 @@ You'll see messages and results on this page.`);
         title="Next Step"
         on:click={next}
         id="video-debug-forward"
-        class:disable={disablePlayer}
+        class:disable={disablePlayer || playing || isContinuous}
       >
         <i class="fa fa-forward" />
       </span>
+      {#if isContinuous}
+        <span
+        use:tooltip
+        title = "Continuous On"
+        on:click={async () => {
+          if (playing) return;
+          isContinuous = false;
+          frames = $frameStore.frames;
+          await resetPlayer();
+        }}
+        class:disable={disablePlayer || playing}
+      >
+        <i
+          class="fa fa-repeat repeat-on"
+        />
+      </span>
+      {:else}
+      <span
+        use:tooltip
+        title = "Continuous Off"
+        on:click={async () => {
+          if (playing) return;
+          isContinuous = true;
+        }}
+        class:disable={disablePlayer || playing}
+      >
+        <i
+          class="fa fa-repeat repeat-off"
+        />
+      </span>
+      {/if}
+      
     </div>
   </div>
-  
-  
 {:else if $portStateStoreSub == PortState.CONNECTING}
   <h2 class="text-center mt-4">
     Loading <Icon spinning={true} size={30} path={mdiCogClockwise} />
@@ -489,41 +541,43 @@ You'll see messages and results on this page.`);
       </span>
     </span>
     {#if hasUploadedFirmware && !$frameStore.error}
-          {#if isPlayingLive}
-            <span
-              use:tooltip
-              title="Stop"
-              on:click={onStopButton}
-              id="video-debug-play"
-              class:disable={disablePlayer}
-            >
-              <Icon color="red" path={mdiStopCircle} size={40} />
-            </span>
-          {:else}
-            <span
-              use:tooltip
-              title="Play"
-              on:click={onPlayButton}
-              id="video-debug-play"
-              class:disable={disablePlayer}
-            >
-              <Icon color="green" path={mdiPlayCircle} size={40} />
-            </span>
-          {/if}
-          <span
-              use:tooltip
-              title="Next Frame"
-              on:click={nextFrame}
-              id="video-debug-play"
-              class:disable={disablePlayer}
-            >
-              <Icon color="green" path={mdiFastForwardOutline} size={40} />
-            </span>
-      {:else if $frameStore.error}
-      <h4 class="mt-4 p-1">Fix blocks with the ⚠️ symbol.</h4>
+      {#if isPlayingLive}
+        <span
+          use:tooltip
+          title="Stop"
+          on:click={onStopButton}
+          id="video-debug-play"
+          class:disable={disablePlayer}
+        >
+          <Icon color="red" path={mdiStopCircle} size={40} />
+        </span>
       {:else}
-          <button on:click={uploadFirmwareForLiveMode} class="btn btn-primary mt-1 pull-left">Start Live Mode</button>
+        <span
+          use:tooltip
+          title="Play"
+          on:click={onPlayButton}
+          id="video-debug-play"
+          class:disable={disablePlayer}
+        >
+          <Icon color="green" path={mdiPlayCircle} size={40} />
+        </span>
       {/if}
+      <span
+        use:tooltip
+        title="Next Frame"
+        on:click={nextFrame}
+        id="video-debug-play"
+      >
+        <Icon color="green" path={mdiFastForwardOutline} size={40} />
+      </span>
+    {:else if $frameStore.error}
+      <h4 class="mt-4 p-1">Fix blocks with the ⚠️ symbol.</h4>
+    {:else}
+      <button
+        on:click={uploadFirmwareForLiveMode}
+        class="btn btn-primary mt-1 pull-left">Start Live Mode</button
+      >
+    {/if}
   </div>
 {/if}
 
@@ -542,7 +596,7 @@ You'll see messages and results on this page.`);
   #main-player {
     display: block;
     text-align: center;
-    width: 135px;
+    width: 180px;
     position: absolute;
     left: 50%;
     bottom: 4px;
@@ -575,6 +629,9 @@ You'll see messages and results on this page.`);
     color: #0c0c0c;
     opacity: 0.5;
     cursor: not-allowed;
+  }
+  #video-controls-container.continous-on {
+    margin-top: 25px;
   }
 
   .icon-bar {
@@ -677,5 +734,13 @@ You'll see messages and results on this page.`);
   }
   :global(div.tooltip.player-tooltips) {
     z-index: 1000;
+  }
+
+  .repeat-on {
+    opacity: 1;
+    color: #b063c5 !important
+  }
+  .repeat-off {
+    opacity: 0.5;
   }
 </style>
