@@ -4,6 +4,7 @@ import { ArduinoFrame } from '../frames/arduino.frame';
 
 export const centerCircuit = (draw: Svg, frame?: ArduinoFrame) => {
   const arduino = draw.findOne('#microcontroller_main_svg') as Element;
+  console.log(arduino, "test");
   let components = frame
     ? [
         ...frame.components.map((c) => {

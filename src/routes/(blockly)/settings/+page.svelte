@@ -79,6 +79,7 @@
         <Input bind:value={settings.boardType} type="select" id="boardType">
           <option value={MicroControllerType.ARDUINO_UNO}>Arduino Uno</option>
           <option value={MicroControllerType.ARDUINO_MEGA}>Arduino Mega</option>
+          <option value={MicroControllerType.MICROBIT}>Microbit</option>
         </Input>
       </FormGroup>
     </div>

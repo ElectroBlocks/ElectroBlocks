@@ -1,6 +1,13 @@
 export enum MicroControllerType {
   ARDUINO_UNO = "uno",
   ARDUINO_MEGA = "mega",
+  MICROBIT = "microbit",
+}
+
+export enum MicroControllerFamily {
+  ARDUINO = "arduino",
+  ESP32 = "ESP32",
+  MICROBIT = "MICROBIT",
 }
 
 export interface BreadBoardArea {
