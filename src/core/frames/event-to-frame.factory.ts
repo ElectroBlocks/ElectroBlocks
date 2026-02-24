@@ -27,7 +27,10 @@ import {
 import { generateInputFrame } from "./transformer/block-to-frame.transformer";
 import { senseDataArduino } from "../../stores/arduino.store";
 import { TimeState } from "../../blocks/time/state";
-import { getBlockByType } from "../blockly/helpers/block.helper";
+import { getAllBlocks, getBlockByType } from "../blockly/helpers/block.helper";
+import { transformBlock } from "../blockly/transformers/block.transformer";
+import { getAllVariables } from "../blockly/helpers/variable.helper";
+import { transformVariable } from "../blockly/transformers/variables.transformer";
 
 export async function* generateNextFrame(
   event: BlockEvent
@@ -75,6 +78,30 @@ export const eventToFrameFactory = (
     frames,
     error: false,
   };
+};
+
+export const generateNewFramesWithLoop = (previousFrame: ArduinoFrame) => {
+  const blockSvgs = getAllBlocks();
+  const blocks = blockSvgs.map((b) => transformBlock(b));
+  const arduinoLoopBlock = findArduinoLoopBlock(blocks);
+  const blocklyVariables = getAllVariables();
+  const electroBlocksVariables = blocklyVariables.map((v) =>
+    transformVariable(v),
+  );
+  const newTimeline: Timeline = {
+    iteration: previousFrame.timeLine.iteration + 1,
+    function: "loop",
+  };
+  const frames = generateInputFrame(
+    arduinoLoopBlock,
+    blocks,
+    electroBlocksVariables,
+    newTimeline,
+    "loop",
+    getPreviousState(blocks, newTimeline, previousFrame, "", false),
+  );
+
+  return frames;
 };
 
 const generateFramesWithLoop = (
