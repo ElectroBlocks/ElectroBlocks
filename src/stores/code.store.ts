@@ -1,7 +1,7 @@
 import { writable } from "svelte/store";
-import { MicroControllerType } from "../core/microcontroller/microcontroller";
+import { Library } from "../core/frames/arduino.frame";
 
-const resetCode = `int simple_loop_variable = 0;
+const cCode = `int simple_loop_variable = 0;
 struct RGB {
 	int red;
 	int green;
@@ -20,14 +20,25 @@ void loop() {
 
 }
 `;
-const codeStore = writable({
-  code: resetCode,
-  boardType: MicroControllerType.ARDUINO_UNO,
+
+const pythonCode = `# Please disabled blocks.`;
+
+export const codeStore = writable<{
+  cLang: string;
+  pythonLang: string;
+  imports: Library[];
+  enableFlags: string[];
+  canShowCodeErrorMessage: boolean;
+}>({
+  cLang: cCode,
+  pythonLang: pythonCode,
+  imports: [],
+  enableFlags: [],
+  canShowCodeErrorMessage: true,
 });
 
 export default {
   set: codeStore.set,
+  update: codeStore.update,
   subscribe: codeStore.subscribe,
-  resetCode: (boardType: MicroControllerType) =>
-    codeStore.set({ code: resetCode, boardType }),
 };

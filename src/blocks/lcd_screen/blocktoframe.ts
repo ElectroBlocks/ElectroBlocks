@@ -21,6 +21,8 @@ export const lcdScreenSetup: BlockToFrameTransformer = (
   const columns = findFieldValue(block, "SIZE") === "20 x 4" ? 20 : 16;
   const sdaPin = findFieldValue(block, "PIN_SDA");
   const sclPin = findFieldValue(block, "PIN_SCL");
+  const memoryType = findFieldValue(block, "MEMORY_TYPE") == "0x3F" ? 63 : 39;
+
   const lcdState: LCDScreenState = {
     pins: block.pins.sort(),
     rows,
@@ -37,6 +39,15 @@ export const lcdScreenSetup: BlockToFrameTransformer = (
     ],
     sdaPin,
     sclPin,
+    setupCommand: `register::lcd::A4::${rows}::${columns}::${memoryType}`,
+    importLibraries: [
+      {
+        name: "LiquidCrystal I2C",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/marcoschwartz/LiquidCrystal_I2C-1.1.2.zip",
+      },
+    ],
+    enableFlag: "ENABLE_LCD",
   };
 
   return [
@@ -70,6 +81,7 @@ export const lcdBlink: BlockToFrameTransformer = (
     const newComponent: LCDScreenState = {
       ...lcdState,
       blink: { row: 0, column: 0, blinking: false },
+      usbCommands: [`write::lcd::A5::4`],
     };
 
     return [
@@ -108,6 +120,10 @@ export const lcdBlink: BlockToFrameTransformer = (
     ...lcdState,
     blink: { row, column, blinking: true },
   };
+
+  newComponent.usbCommands = [
+    `write::lcd::A5::${isBlinking ? 5 : 4}::${row - 1}::${column - 1}`,
+  ];
 
   return [
     arduinoFrameByComponent(
@@ -148,6 +164,10 @@ export const lcdScroll: BlockToFrameTransformer = (
     ...lcdState,
     rowsOfText,
   };
+
+  newComponent.usbCommands = [
+    `write::lcd::A5::${direction == "RIGHT" ? "6" : "7"}`,
+  ];
 
   return [
     arduinoFrameByComponent(
@@ -225,6 +245,10 @@ export const lcdPrint: BlockToFrameTransformer = (
     rowsOfText,
   };
 
+  newComponent.usbCommands = [
+    `write::lcd::A5::9::${row - 1}::${column - 1}::${print}`,
+  ];
+
   return [
     arduinoFrameByComponent(
       block.id,
@@ -264,6 +288,8 @@ export const lcdClear: BlockToFrameTransformer = (
     ],
   };
 
+  clearComponent.usbCommands = [`write::lcd::A5::1`];
+
   return [
     arduinoFrameByComponent(
       block.id,
@@ -298,6 +324,8 @@ export const lcdBacklight: BlockToFrameTransformer = (
     ...lcdState,
     backLightOn,
   };
+
+  newComponent.usbCommands = [`write::lcd::A5::${backLightOn ? "2" : "3"}`];
 
   return [
     arduinoFrameByComponent(
@@ -361,6 +389,9 @@ export const lcdSimplePrint: BlockToFrameTransformer = (
       );
     }),
   };
+  newComponent.usbCommands = [
+    `write::lcd::A5::8::${rowsOfText.filter((x) => x.length > 0).join("::")}`,
+  ];
 
   const clearComponent: LCDScreenState = {
     ..._.cloneDeep(newComponent),
@@ -370,6 +401,7 @@ export const lcdSimplePrint: BlockToFrameTransformer = (
       "                    ",
       "                    ",
     ],
+    usbCommands: [`write::lcd::A5::1`],
   };
 
   return [

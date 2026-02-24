@@ -46,6 +46,8 @@ describe("rgb led frame", () => {
       ledNumber: 1,
       color: { green: 0, red: 0, blue: 0 },
       type: ArduinoComponentType.LED_COLOR,
+      setupCommand: `register::rgb::11::10::9`,
+      usbCommands: ["write:rgb::11::0::0::0"],
     };
 
     const state: ArduinoFrame = {

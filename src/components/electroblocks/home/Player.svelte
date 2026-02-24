@@ -1,136 +1,408 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
+  import Blockly from "blockly";
 
-  import frameStore from "../../../stores/frame.store";
+  import frameStore, {
+    isContinousModeStore,
+  } from "../../../stores/frame.store";
   import currentFrameStore from "../../../stores/currentFrame.store";
   import currentStepStore from "../../../stores/currentStep.store";
   import settingStore from "../../../stores/settings.store";
-  import { onErrorMessage } from "../../../help/alerts";
-  import { getAllBlocks } from "../../../core/blockly/helpers/block.helper";
+  import { onConfirm, onErrorMessage, onSuccess } from "../../../help/alerts";
+  import {
+    getAllBlocks,
+    getBlockByType,
+  } from "../../../core/blockly/helpers/block.helper";
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
   import { tooltip } from "@svelte-plugins/tooltips";
+  import arduinoStore, {
+    getFeatures,
+    PortState,
+    portStateStoreSub,
+    restartArduino,
+    setupComponents,
+    SimulatorMode,
+    simulatorStore,
+    updateComponents,
+  } from "../../../stores/arduino.store";
+  import Icon from "../../Icon.svelte";
+  import {
+    mdiCogClockwise,
+    mdiEjectOutline,
+    mdiFastForwardOutline,
+    mdiFlash,
+    mdiPlayCircle,
+    mdiStopCircle,
+    mdiUploadCircleOutline,
+  } from "@mdi/js";
+  import {
+    generateNewFramesWithLoop,
+    generateNextFrame,
+  } from "../../../core/frames/event-to-frame.factory";
+  import { getAllVariables } from "../../../core/blockly/helpers/variable.helper";
+  import { transformBlock } from "../../../core/blockly/transformers/block.transformer";
+  import { transformVariable } from "../../../core/blockly/transformers/variables.transformer";
+  import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
+  import codeStore from "../../../stores/code.store";
+  import { createFrames } from "../../../core/blockly/registerEvents";
 
+  const playerTooltips = {
+    position: "top",
+    align: "center",
+    animation: "slide",
+    theme: "player-tooltips",
+  };
+  let runId = 0; // cancellation token
   let frames: ArduinoFrame[] = [];
-  let frameNumber = 1;
+  let frameNumber = 0;
   let playing = false;
   let speedDivisor = 1;
   let maxTimePerStep = 1000;
+  let isContinuous = false;
+  $: isContinousModeStore.set(isContinuous);
+
+  // Live Player
+  let generator;
+  let isPlayingLive = false;
+  let frameCount = 0;
+  let successfullyCompiledInLiveMode = false;
+  let hasUploadedFirmware = false;
 
   const unsubscribes = [];
 
-  $: setCurrentFrame(frameNumber);
   $: disablePlayer = frames.length === 0;
-  $: frameIndex = frameNumber - 1;
+  $: canUploadFirmware =
+    $simulatorStore == SimulatorMode.LIVE && successfullyCompiledInLiveMode;
 
   unsubscribes.push(
-    currentStepStore.subscribe((currentIndex) => {
-      frameNumber = currentIndex;
-    })
+    currentStepStore.subscribe((state) => {
+      frameNumber = state;
+    }),
   );
 
-  unsubscribes.push(
-    frameStore.subscribe((frameContainer) => {
-      playing = false;
-      const currentFrame = frames[frameNumber];
-      frames = frameContainer.frames;
+  async function exitLiveMode() {
+    simulatorStore.set(SimulatorMode.VIRTUAL);
+    onStopButton();
+    await resetPlayer();
+  }
 
-      // If we are starting out with set to first frame in the loop
-      // We want to skip all the library and setup blocks
-      if (frames.length === 0 || !currentFrame) {
-        frameNumber = frames.findIndex(
-          (f) => f.timeLine.function == "loop" && f.timeLine.iteration == 1
+  async function uploadCode() {
+    try {
+      await arduinoStore.uploadCode(
+        $settingStore.boardType,
+        $codeStore.cLang,
+        $codeStore.imports,
+      );
+      onSuccess("Coding Uploaded!!");
+      // We want to enable usb messages
+      simulatorStore.set(SimulatorMode.VIRTUAL);
+    } catch (error) {
+      if (error.message.includes("No port selected by the user.")) {
+        onErrorMessage(
+          "Please try again and select a usb port if you wish to go live.",
+          error,
         );
-        frameNumber = frameNumber < 0 ? 0 : frameNumber;
-        if (frames.length > 0) {
-          currentFrameStore.set(frames[frameNumber]);
-        }
         return;
       }
+      onErrorMessage("Error uploading code", error);
+    }
+  }
 
-      frameNumber = navigateToClosestTimeline(currentFrame.timeLine);
-      currentFrameStore.set(frames[frameNumber]);
-    })
+  function goToLiveMode() {
+    simulatorStore.set(SimulatorMode.LIVE);
+  }
+
+  async function uploadFirmwareForLiveMode() {
+    try {
+      var result = await onConfirm(`🚀 Start Live Mode?
+Your program will run and can talk to your Arduino.
+You'll see messages and results on this page.`);
+      if (!result) {
+        simulatorStore.set(SimulatorMode.VIRTUAL);
+        return;
+      }
+      const whatHappenned = await arduinoStore.connectWithAndUploadFirmware(
+        $settingStore.boardType,
+        $codeStore.enableFlags,
+      );
+      if (whatHappenned == "full upload") {
+        onSuccess("Firmware was successfully loaded!");
+      }
+
+      hasUploadedFirmware = true;
+    } catch (error) {
+      if (error.message.includes("No port selected by the user.")) {
+        onErrorMessage(
+          "Please try again and select a usb port if you wish to go live.",
+          error,
+          "",
+        );
+        return;
+      }
+      onErrorMessage("Error flashing firmware please try again.", error, "");
+    }
+  }
+
+  unsubscribes.push(
+    frameStore.subscribe(async (frameContainer) => {
+      if ($simulatorStore != SimulatorMode.LIVE) {
+        return;
+      }
+      isPlayingLive = false;
+      // Reseting the frames back to zero.
+      frames = frameContainer.frames;
+      currentFrameStore.set(frames[0]);
+      // Needs to be reset so it triggers a new generator
+      frameCount = 0;
+      if (!hasUploadedFirmware) return;
+      const commandString = await getFeatures();
+      const isReadyWithoutCompiling =
+        $codeStore.enableFlags.filter((flag) => !commandString.includes(flag))
+          .length == 0;
+      if (isReadyWithoutCompiling) {
+        return;
+      }
+      await onConfirm(
+        "Please click on 'Start Live Mode' to recompile the firmware for your new code.",
+      );
+      hasUploadedFirmware = false; // this means it's not ready to run on the live mode.
+    }),
+    frameStore.subscribe(async (frameContainer) => {
+      if ($simulatorStore == SimulatorMode.LIVE) {
+        return;
+      }
+      await resetPlayer();
+    }),
+    simulatorStore.subscribe(async (mode) => {
+      const loopBlock = getBlockByType("arduino_loop");
+      if (!loopBlock) return false;
+      if (mode == SimulatorMode.VIRTUAL) {
+        hasUploadedFirmware = false;
+        // should regenerate if it's only a live coding issue.
+        await createFrames({
+          type: Blockly.Events.MOVE,
+          blockId: loopBlock.id,
+        });
+        return;
+      }
+      successfullyCompiledInLiveMode = await createFrames({
+        type: Blockly.Events.MOVE,
+        blockId: loopBlock.id,
+      });
+      if (!successfullyCompiledInLiveMode && mode == SimulatorMode.LIVE) {
+        onErrorMessage(
+          "Your program isn’t ready to run yet.\nLook for blocks with a ⚠️ symbol.",
+          {},
+          "Can’t start Live mode",
+        );
+      }
+    }),
   );
 
   unsubscribes.push(
     settingStore.subscribe((newSettings) => {
       maxTimePerStep = newSettings.maxTimePerMove;
-    })
+    }),
   );
-
-  function navigateToClosestTimeline(timeLine) {
-    // This means we have not left the first iteration
-    // If we are starting out with set to first frame in the loop
-    // We want to skip all the library and setup blocks
-    if (timeLine.function !== "loop" || timeLine.iteration <= 1) {
-      frameNumber = frames.findIndex(
-        (f) => f.timeLine.function == "loop" && f.timeLine.iteration == 1
-      );
-      return frameNumber < 0 ? 0 : frameNumber;
-    }
-
-    const lastFrameTimeLine = frames[frames.length - 1].timeLine;
-
-    // This means that there are more frames the previous version than there is now
-    // So go to the last iteration in the loop
-    if (timeLine.iteration > lastFrameTimeLine.iteration) {
-      const loopNumber = lastFrameTimeLine.iteration;
-      return frames.findIndex((f) => f.timeLine.iteration === loopNumber);
-    }
-
-    const loopNumber = timeLine.iteration;
-
-    return frames.findIndex((f) => f.timeLine.iteration === loopNumber);
-  }
 
   function setCurrentFrame(frameNumber) {
     currentFrameStore.set(frames[frameNumber]);
     currentStepStore.set(frameNumber);
   }
 
-  async function play() {
-    playing = !playing;
+  const createBlocklyEvent = (blockId) => {
+    return {
+      blockId: blockId,
+      blocks: getAllBlocks().map(transformBlock),
+      variables: getAllVariables().map(transformVariable),
+      type: "move",
+      microController: MicroControllerType.ARDUINO_UNO,
+    };
+  };
 
-    if (playing && isLastFrame()) {
-      frameNumber = 0;
+  async function playLive(justNext = false) {
+    try {
+      if (
+        (!isPlayingLive && !justNext) ||
+        $portStateStoreSub != PortState.OPEN
+      ) {
+        return;
+      }
+      if ($frameStore.frames.length == 0) {
+        onConfirm("Put blocks into the setup block to get started");
+        onStopButton();
+        return;
+      }
+      if (frameCount == 0) {
+        var event = createBlocklyEvent(getBlockByType("arduino_loop").id);
+        generator = generateNextFrame(event);
+        await restartArduino();
+        let setupFrameCommands =
+          $frameStore.frames[$frameStore.frames.length - 1];
+        // We need to register all the sensors before we start generating new frames
+        await setupComponents(setupFrameCommands);
+        let frame = (await generator.next()).value;
+        await updateComponents(frame);
+        currentFrameStore.set(frame);
+        frameCount += 1;
+        await wait(frame.delay);
+        await wait(100); // We don't want to blast the usb it will error out.
+        if (!justNext) {
+          await playLive();
+        }
+        return;
+      }
+      let frame = (await generator.next()).value;
+      frameCount += 1;
+      currentFrameStore.set(frame);
+      await updateComponents(frame);
+      await wait(frame.delay);
+      await wait(100);
+      if (!justNext) {
+        await playLive();
+      }
+    } catch (error) {
+      onStopButton();
+      onErrorMessage(
+        "There was an error running the code, please download, refresh and try again.",
+        error,
+      );
     }
+  }
+  async function nextFrame() {
+    isPlayingLive = false;
+    await playLive(true);
+  }
+  async function onPlayButton() {
+    try {
+      if (!arduinoStore.isConnected() || isPlayingLive) return;
+      isPlayingLive = true;
+      await playLive();
+    } catch (error) {
+      onErrorMessage(
+        "There was an error running the code, please download, refresh and try again.",
+        error,
+      );
+    }
+  }
+
+  function onStopButton() {
+    isPlayingLive = false;
+    frameCount = 0;
+    currentFrameStore.set($frameStore.frames[$frameStore.frames.length - 1]);
+  }
+
+  async function play() {
+    // Toggle play/stop
     if (playing) {
-      try {
-        playing = true;
-        // Because we want to make it look like the first frame has a wait time equal
-        await moveWait();
-        await playFrame();
-      } catch (e) {
-        onErrorMessage("Please refresh your browser and try again.", e);
+      stopVirtualPlayback();
+      return;
+    }
+
+    if (frames.length === 0) return;
+
+    playing = true;
+    const myRun = ++runId;
+
+    try {
+      // Optional: if starting at end, restart
+      if (isLastFrame()) frameNumber = 0;
+
+      await playLoop(myRun);
+    } catch (e) {
+      onErrorMessage("Please refresh your browser and try again.", e);
+    } finally {
+      // Only the active run is allowed to finalize state
+      if (runId === myRun) {
+        playing = false;
       }
     }
   }
 
-  async function playFrame() {
-    if (!playing || isLastFrame()) {
-      return;
-    }
+  function stopVirtualPlayback() {
+    playing = false;
+    runId++; // cancels any in-flight loop
+  }
 
-    if (frames[frameNumber].delay > 0) {
-      await wait(frames[frameNumber].delay);
-    }
-
-    currentFrameStore.set(frames[frameNumber]);
-    frameNumber += 1;
+  async function playLoop(myRun: number) {
+    // Small initial wait to match your old behavior
     await moveWait();
-    await playFrame();
-    if (isLastFrame()) {
-      playing = false;
+
+    while (playing && runId === myRun) {
+      // Safety: if frames changed underneath us
+      if (frames.length === 0) {
+        stopVirtualPlayback();
+        return;
+      }
+
+      // Clamp frameNumber
+      if (frameNumber < 0) frameNumber = 0;
+      if (frameNumber >= frames.length) frameNumber = frames.length - 1;
+
+      // Render the current frame deterministically here (don’t rely on $: setCurrentFrame)
+      const frame = frames[frameNumber];
+      if (!frame) {
+        // frames changed underneath us or bad index
+        stopVirtualPlayback();
+        await resetPlayer();
+        return;
+      }
+
+      currentFrameStore.set(frame);
+      currentStepStore.set(frameNumber);
+
+      // Wait according to the frame
+      const delay = frame?.delay ?? 0;
+
+      if (delay > 0) {
+        await wait(delay);
+      }
+      await moveWait();
+
+      // If we got stopped during awaits, exit cleanly
+      if (!playing || runId !== myRun) return;
+
+      // Advance
+      frameNumber += 1;
+
+      // End-of-loop handling
+      if (frameNumber >= frames.length) {
+        // We just passed the last frame. Decide what to do.
+        if (!isContinuous) {
+          await wait(1000);
+          // resetPlayer() already sets playing=false and isContinuous=false per your code
+          await resetPlayer();
+          return;
+        }
+
+        // Continuous: generate the next loop’s frames from the last rendered frame
+        // Note: $currentFrameStore should still be "frame" here (the last shown frame)
+        const newFrames = generateNewFramesWithLoop($currentFrameStore);
+
+        // If generation fails or returns nothing, stop safely
+        if (!newFrames || newFrames.length === 0) {
+          stopVirtualPlayback();
+          await resetPlayer();
+          return;
+        }
+
+        frames = newFrames;
+        frameNumber = 0;
+
+        // Optional: tiny pause between loops (keeps it readable)
+        await wait(50);
+      }
     }
   }
 
   async function resetPlayer() {
     try {
+      stopVirtualPlayback(); // cancels any in-flight loop safely
+      frames = $frameStore.frames;
       frameNumber = 0;
-      playing = false;
-      currentFrameStore.set(frames[frameIndex]);
-      //unselect all the blocks
+      isContinuous = false;
+      currentFrameStore.set(frames[frameNumber]);
       getAllBlocks().forEach((b) => b.unselect());
     } catch (e) {
       onErrorMessage("Please refresh your browser and try again.", e);
@@ -138,7 +410,7 @@
   }
 
   function moveSlider() {
-    currentFrameStore.set(frames[frameIndex]);
+    setCurrentFrame(frameNumber);
     playing = false;
   }
 
@@ -148,7 +420,7 @@
       return;
     }
     frameNumber -= 1;
-    currentFrameStore.set(frames[frameIndex]);
+    setCurrentFrame(frameNumber);
   }
 
   function next() {
@@ -158,7 +430,7 @@
     }
 
     frameNumber += 1;
-    currentFrameStore.set(frames[frameIndex]);
+    setCurrentFrame(frameNumber);
   }
 
   function isLastFrame() {
@@ -167,7 +439,7 @@
 
   function moveWait() {
     return new Promise((resolve) =>
-      setTimeout(resolve, maxTimePerStep / speedDivisor)
+      setTimeout(resolve, maxTimePerStep / speedDivisor),
     );
   }
 
@@ -178,6 +450,7 @@
   onDestroy(async () => {
     if (is_browser()) {
       await resetPlayer();
+      onStopButton();
     }
     unsubscribes.forEach((unSubFunc) => {
       unSubFunc();
@@ -185,63 +458,167 @@
   });
 </script>
 
-<div id="slide-container">
-  <input
-    on:change={moveSlider}
-    type="range"
-    min="0"
-    disabled={frames.length === 0}
-    bind:value={frameNumber}
-    max={frames.length === 0 ? 0 : frames.length - 1}
-    class="slider"
-    id="scrub-bar"
-  />
-</div>
-<div
-  id="video-controls-container"
-  class:disable={disablePlayer}
-  class="icon-bar"
->
-  <span
-    use:tooltip
-    title="Previous Step"
-    on:click={prev}
-    class:disable={disablePlayer}
-    id="video-debug-backward"
-  >
-    <i class="fa fa-backward" />
-  </span>
-  {#if playing}
-    <span
-      use:tooltip
-      title="Stop"
-      on:click={play}
-      id="video-debug-play"
-      class:disable={disablePlayer}
-    >
-      <i class="fa fa-stop" />
-    </span>
-  {:else}
-    <span
-      use:tooltip
-      title="Play"
-      on:click={play}
-      id="video-debug-play"
-      class:disable={disablePlayer}
-    >
-      <i class="fa fa-play" />
-    </span>
+{#if $portStateStoreSub != PortState.CONNECTING && $simulatorStore == SimulatorMode.VIRTUAL}
+  {#if !isContinuous}
+    <div id="slide-container">
+      <input
+        on:change={moveSlider}
+        type="range"
+        min="0"
+        disabled={frames.length === 0 || playing || isContinuous}
+        bind:value={frameNumber}
+        max={frames.length === 0 ? 0 : frames.length - 1}
+        class="slider"
+        id="scrub-bar"
+      />
+    </div>
   {/if}
-  <span
-    use:tooltip
-    title="Next Step"
-    on:click={next}
-    id="video-debug-forward"
+  <div
+    id="video-controls-container"
     class:disable={disablePlayer}
+    class="icon-bar"
+    class:continous-on={isContinuous}
   >
-    <i class="fa fa-forward" />
-  </span>
-</div>
+    <div id="side-options">
+      {#if !$frameStore.error}
+        <span
+          class="live-mode"
+          use:tooltip={playerTooltips}
+          title="Live Mode"
+          on:click={goToLiveMode}
+        >
+          <Icon path={mdiFlash} size={40} />
+        </span>
+        <span
+          class="upload"
+          use:tooltip={playerTooltips}
+          on:click={uploadCode}
+          title="Upload Code"
+        >
+          <Icon path={mdiUploadCircleOutline} size={40} />
+        </span>
+      {/if}
+    </div>
+    <div id="main-player">
+      <span
+        use:tooltip
+        title="Previous Step"
+        on:click={prev}
+        class:disable={disablePlayer || playing || isContinuous}
+        id="video-debug-backward"
+      >
+        <i class="fa fa-backward" />
+      </span>
+      {#if playing}
+        <span
+          use:tooltip
+          title="Stop"
+          on:click={play}
+          id="video-debug-play"
+          class:disable={disablePlayer}
+        >
+          <i class="fa fa-stop" />
+        </span>
+      {:else}
+        <span
+          use:tooltip
+          title="Play"
+          on:click={play}
+          id="video-debug-play"
+          class:disable={disablePlayer}
+        >
+          <i class="fa fa-play" />
+        </span>
+      {/if}
+      <span
+        use:tooltip
+        title="Next Step"
+        on:click={next}
+        id="video-debug-forward"
+        class:disable={disablePlayer || playing || isContinuous}
+      >
+        <i class="fa fa-forward" />
+      </span>
+      {#if isContinuous}
+        <span
+          use:tooltip
+          title="Continuous On"
+          on:click={async () => {
+            if (playing) return;
+            isContinuous = false;
+            frames = $frameStore.frames;
+            await resetPlayer();
+          }}
+          class:disable={disablePlayer || playing}
+        >
+          <i class="fa fa-refresh repeat-on" />
+        </span>
+      {:else}
+        <span
+          use:tooltip
+          title="Continuous Off"
+          on:click={async () => {
+            if (playing) return;
+            isContinuous = true;
+          }}
+          class:disable={disablePlayer || playing}
+        >
+          <i class="fa fa-refresh repeat-off" />
+        </span>
+      {/if}
+    </div>
+  </div>
+{:else if $portStateStoreSub == PortState.CONNECTING}
+  <h2 class="text-center mt-4">
+    Loading <Icon spinning={true} size={30} path={mdiCogClockwise} />
+  </h2>
+{:else if $simulatorStore == SimulatorMode.LIVE}
+  <div style="height: 50px;" class:disable={disablePlayer}>
+    <span on:click={exitLiveMode}>
+      <span class="pull-right me-3" use:tooltip title="Exit">
+        <Icon color="#aa0000" path={mdiEjectOutline} size={40} />
+      </span>
+    </span>
+    {#if hasUploadedFirmware && !$frameStore.error}
+      {#if isPlayingLive}
+        <span
+          use:tooltip
+          title="Stop"
+          on:click={onStopButton}
+          id="video-debug-play"
+          class:disable={disablePlayer}
+        >
+          <Icon color="red" path={mdiStopCircle} size={40} />
+        </span>
+      {:else}
+        <span
+          use:tooltip
+          title="Play"
+          on:click={onPlayButton}
+          id="video-debug-play"
+          class:disable={disablePlayer}
+        >
+          <Icon color="green" path={mdiPlayCircle} size={40} />
+        </span>
+      {/if}
+      <span
+        use:tooltip
+        title="Next Frame"
+        on:click={nextFrame}
+        id="video-debug-play"
+      >
+        <Icon color="green" path={mdiFastForwardOutline} size={40} />
+      </span>
+    {:else if $frameStore.error}
+      <h4 class="mt-4 p-1">Fix blocks with the ⚠️ symbol.</h4>
+    {:else}
+      <button
+        on:click={uploadFirmwareForLiveMode}
+        class="btn btn-primary mt-1 pull-left">Start Live Mode</button
+      >
+    {/if}
+  </div>
+{/if}
 
 <style>
   .slider:hover {
@@ -249,12 +626,24 @@
   }
 
   #video-controls-container {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    overflow: visible;
+  }
+
+  #main-player {
     display: block;
-    width: 140px;
+    text-align: center;
+    width: 180px;
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    transform: translate(-50%, 0%);
     height: 40px;
     margin: auto;
     margin-top: 5px;
-    overflow: hidden;
+    overflow: visible;
   }
 
   #video-controls-container span {
@@ -280,6 +669,9 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
+  #video-controls-container.continous-on {
+    margin-top: 25px;
+  }
 
   .icon-bar {
     width: 100%;
@@ -298,16 +690,42 @@
     margin: 0 10px;
     text-align: center;
     transition: all 0.3s ease;
-    color: white;
     font-size: 20px;
+  }
+  .fa-play,
+  .fa-stop {
+    margin-left: 2px;
+  }
+
+  i.fa-stop {
+    color: rgb(240, 66, 66) !important;
+  }
+
+  #side-options {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    height: 45px;
+    width: 100px;
+    overflow: visible;
+  }
+  #side-options .live-mode {
+    color: #b063c5;
+  }
+
+  #side-options .upload {
+    color: #512c62;
   }
 
   #video-debug-play {
     font-size: 30px;
   }
-  span#video-debug-play i.fa {
-    margin-top: 0 !important;
+  span#video-debug-play i.fa.fa-play {
     color: #b063c5 !important;
+  }
+
+  span#video-debug-play i.fa {
+    margin-top: -10px;
   }
 
   #slide-container {
@@ -316,6 +734,7 @@
     width: 100%;
     /* height: 23px; */
     z-index: 100;
+    overflow: visible;
   }
 
   .slider {
@@ -351,5 +770,16 @@
 
   input:invalid {
     box-shadow: none;
+  }
+  :global(div.tooltip.player-tooltips) {
+    z-index: 1000;
+  }
+
+  .repeat-on {
+    opacity: 1;
+    color: #b063c5 !important;
+  }
+  .repeat-off {
+    opacity: 0.5;
   }
 </style>

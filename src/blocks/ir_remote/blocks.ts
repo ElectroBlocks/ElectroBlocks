@@ -35,7 +35,7 @@ Blockly.defineBlocksWithJsonArray([
         flipRtl: false,
       },
     ],
-    output: "String",
+    output: "Number",
     colour: COLOR_THEME.SENSOR,
     tooltip: "",
     helpUrl: "",
@@ -52,7 +52,7 @@ const irSetupBlock: any = {
     this.appendDummyInput()
       .appendField("Analog Pin# ")
       .appendField(
-        new Blockly.FieldDropdown(() => selectBoardBlockly().analogPins),
+        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN"
       );
     this.appendDummyInput("SHOW_CODE_VIEW").appendField(
@@ -76,18 +76,19 @@ const irSetupBlock: any = {
           return value;
         }),
         "scanned_new_code"
-      );   
+      );
     this.appendDummyInput()
       .appendField("Code")
       .appendField(
-        new Blockly.FieldTextInput("E932B", (value) => {
+        new Blockly.FieldNumber(70, 1, 500, 1, (value) => {
           if (this.getFieldValue("scanned_new_code") === "FALSE") {
-            return null;
+            return "";
           }
+          console.log(value);
           return value;
         }),
         "code"
-      )
+      );
     this.appendDummyInput("COPY_ALL")
       .appendField("Copy All: ")
       .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");

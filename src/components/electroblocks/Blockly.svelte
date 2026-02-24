@@ -3,11 +3,10 @@
   import { onMount, onDestroy } from 'svelte';
 
   import { WindowType, resizeStore } from '../../stores/resize.store';
-  import startBlocly from '../../core/blockly/startBlockly';
+  import startBlockly from '../../core/blockly/startBlockly';
   import currentFrameStore from '../../stores/currentFrame.store';
-  import arduinoStore from '../../stores/arduino.store';
-  import arduinoMessageStore from '../../stores/arduino-message.store';
-
+  import { usbMessageStore } from '../../stores/arduino.store';
+  import settingsStore from '../../stores/settings.store';
   import {
     arduinoLoopBlockShowLoopForeverText,
     arduinoLoopBlockShowNumberOfTimesThroughLoop,
@@ -19,6 +18,7 @@
   } from '../../core/blockly/helpers/block.helper';
   import updateLoopblockStore from '../../stores/update-loopblock.store';
   import { workspaceToXML } from '../../core/blockly/helpers/workspace.helper';
+  import { getToolBoxString } from '../../core/blockly/toolboxConfig';
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text
@@ -45,7 +45,7 @@
     // Hack for debugging blockly
     window.Blockly = Blockly;
 
-    startBlocly(blocklyElement);
+    startBlockly(blocklyElement, $settingsStore.boardType, $settingsStore.language);
 
     workspaceInitialize = true;
     resizeBlockly();
@@ -85,18 +85,18 @@
       }
     })
   );
+  
 
-  // Tells us the state of the port we always want to subscribe to this
-  // while blockly is running. Even though the message component is the only one that should
-  // set this
-  unsubscribes.push(
-    arduinoStore.subscribe((m) =>
-      console.log(m, 'arduino store blockly component')
-    )
-  );
+  unsubscribes.push(settingsStore.subscribe((settings) => {
+    if (!settings) {
+      return;
+    }
+
+    blocklyReloadToolbox(getToolBoxString(settings.boardType, settings.language));
+  }));
 
   unsubscribes.push(
-    arduinoMessageStore.subscribe((m) => {
+    usbMessageStore.subscribe((m) => {
       if (!m) {
         return;
       }
@@ -124,6 +124,12 @@
   // The function to resize blockly main window
   function resizeBlockly() {
     Blockly.svgResize(Blockly.getMainWorkspace());
+  }
+
+  function blocklyReloadToolbox(xmlToolbox) {
+    if (workspaceInitialize) {
+      Blockly.getMainWorkspace().updateToolbox(xmlToolbox);
+    }
   }
 
   onDestroy(() => {

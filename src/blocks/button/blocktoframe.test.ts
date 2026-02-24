@@ -40,7 +40,8 @@ describe("button state factories", () => {
       isPressed: false,
       pins: [ARDUINO_PINS.PIN_3],
       type: ArduinoComponentType.BUTTON,
-      usePullup: false,
+      setupCommand: `register::bt::3`,
+      usePullup: true,
     };
     const releaseButton1 = workspace.newBlock("release_button") as BlockSvg;
     releaseButton1.setFieldValue("RELEASED", "STATE");
@@ -64,8 +65,10 @@ describe("button state factories", () => {
     const buttonStateFrame2: ButtonState = {
       isPressed: true,
       pins: [ARDUINO_PINS.PIN_3],
+      setupCommand: `register::bt::3`,
+      usbCommands: [],
       type: ArduinoComponentType.BUTTON,
-      usePullup: false,
+      usePullup: true,
     };
     const expectedReleaseState2: ArduinoFrame = {
       blockId: releaseButton2.id,
@@ -97,7 +100,8 @@ describe("button state factories", () => {
       isPressed: true,
       pins: [ARDUINO_PINS.PIN_3],
       type: ArduinoComponentType.BUTTON,
-      usePullup: false,
+      usePullup: true,
+      setupCommand: `register::bt::3`,
     };
 
     const state: ArduinoFrame = {

@@ -41,8 +41,12 @@ export const logicCompare: ValueGenerator = (
     previousState
   );
 
+  if (aValue === undefined && bValue === undefined) {
+    return true;
+  }
+
   if (aValue === undefined || bValue === undefined) {
-    return false;
+    return true;
   }
 
   switch (operator) {

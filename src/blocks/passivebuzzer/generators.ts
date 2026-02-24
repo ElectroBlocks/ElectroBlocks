@@ -1,5 +1,19 @@
 import Blockly from "blockly";
 
+Blockly["Python"]["passive_buzzer_note"] = function (block) {
+  var tone = Number.isNaN(+block.getFieldValue("TONE"))
+    ? block.getFieldValue("TONE")
+    : +block.getFieldValue("TONE");
+
+  var pin = block.getFieldValue("PIN");
+  // This will not work because arduino only supports one tone
+  Blockly["Python"].setupCode_[
+    "tone_" + pin
+  ] = `eb.config_passive_buzzer(${pin})`;
+
+  return `eb.play_passive_buzzer(${pin}, ${tone})
+`;
+};
 Blockly["Arduino"]["passive_buzzer_note"] = function (block) {
   var tone = Number.isNaN(+block.getFieldValue("TONE"))
     ? block.getFieldValue("TONE")
@@ -13,6 +27,22 @@ Blockly["Arduino"]["passive_buzzer_note"] = function (block) {
   }
 
   return `tone(${pin}, ${tone});\n`;
+};
+
+Blockly["Python"]["passive_buzzer_tone"] = function (block) {
+  var tone = Blockly["Arduino"].valueToCode(
+    block,
+    "TONE",
+    Blockly["Arduino"].ORDER_ATOMIC
+  );
+  var pin = block.getFieldValue("PIN");
+  // This will not work because arduino only supports one tone
+  Blockly["Python"].setupCode_[
+    "tone_" + pin
+  ] = `eb.config_passive_buzzer(${pin})`;
+
+  return `eb.play_passive_buzzer(${pin}, ${tone})
+`;
 };
 
 Blockly["Arduino"]["passive_buzzer_tone"] = function (block) {
@@ -35,3 +65,6 @@ Blockly["Arduino"]["passive_buzzer_tone"] = function (block) {
 
 Blockly["Arduino"]["passive_buzzer_simple"] =
   Blockly["Arduino"]["passive_buzzer_note"];
+
+Blockly["Python"]["passive_buzzer_simple"] =
+  Blockly["Python"]["passive_buzzer_note"];

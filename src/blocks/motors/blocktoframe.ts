@@ -42,7 +42,10 @@ export const motorSetup: BlockToFrameTransformer = (
     speed2: 0,
     pins: [en1, in1, in2],
     type: ArduinoComponentType.MOTOR,
+    enableFlag: "ENABLE_MOTOR",
   };
+
+  let setupCommand = `register::mo::${en1}::${in1}::${in2}`;
 
   if (numberOfMotors === 2) {
     motorShieldState.en2 = en2;
@@ -51,8 +54,9 @@ export const motorSetup: BlockToFrameTransformer = (
     motorShieldState.pins.push(in4);
     motorShieldState.pins.push(in3);
     motorShieldState.pins.push(en2);
+    setupCommand += `::${en2}::${in3}::${in4}`;
   }
-
+  motorShieldState.setupCommand = setupCommand;
   var message =
     motorShieldState.numberOfMotors == 1
       ? "Setting up 1 motor with a motor shield"
@@ -87,8 +91,14 @@ export const stopMotor: BlockToFrameTransformer = (
   let actualMotorNumber = 1;
   if (motorShieldStateToUpdate.numberOfMotors === 1 || motorNumber === 1) {
     motorShieldStateToUpdate.speed1 = 0;
+    motorShieldStateToUpdate.usbCommands = [
+      `write::mo::${motorShieldStateToUpdate.en1}::1::0::3`,
+    ];
   } else {
     motorShieldStateToUpdate.speed2 = 0;
+    motorShieldStateToUpdate.usbCommands = [
+      `write::mo::${motorShieldStateToUpdate.en1}::2::0::3`,
+    ];
     actualMotorNumber = 2;
   }
 
@@ -130,10 +140,20 @@ export const moveMotor: BlockToFrameTransformer = (
   if (motorShieldStateToUpdate.numberOfMotors === 1 || motorNumber === 1) {
     motorShieldStateToUpdate.direction1 = direction;
     motorShieldStateToUpdate.speed1 = speed;
+    motorShieldStateToUpdate.usbCommands = [
+      `write::mo::${motorShieldStateToUpdate.en1}::1::${speed}::${
+        direction == MOTOR_DIRECTION.CLOCKWISE ? "1" : "2"
+      }`,
+    ];
   } else {
     motorShieldStateToUpdate.direction2 = direction;
     motorShieldStateToUpdate.speed2 = speed;
     actualMotorNumber = 2;
+    motorShieldStateToUpdate.usbCommands = [
+      `write::mo::${motorShieldStateToUpdate.en1}::2::${speed}::${
+        direction == MOTOR_DIRECTION.CLOCKWISE ? "1" : "2"
+      }`,
+    ];
   }
 
   return [

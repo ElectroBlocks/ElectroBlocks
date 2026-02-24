@@ -44,6 +44,22 @@ describe("rfid state factories", () => {
       temperature: 50,
       humidity: 70,
       type: ArduinoComponentType.TEMPERATURE_SENSOR,
+      importLibraries: [
+        {
+          name: "DHT sensor library",
+          version: "latest",
+          deps: ["Adafruit Unified Sensor"],
+          url: "https://downloads.arduino.cc/libraries/github.com/adafruit/DHT_sensor_library-1.4.6.zip",
+        },
+        {
+          name: "Adafruit Unified Sensor",
+          version: "latest",
+          url: "https://downloads.arduino.cc/libraries/github.com/adafruit/Adafruit_Unified_Sensor-1.1.14.zip",
+        },
+      ],
+      tempType: "DHT11",
+      setupCommand: "register::dht::8::1",
+      enableFlag: "ENABLE_DHT",
     };
 
     const state: ArduinoFrame = {
@@ -59,6 +75,7 @@ describe("rfid state factories", () => {
       delay: 0, // Number of milliseconds to delay
       powerLedOn: true,
       frameNumber: 1,
+
     };
 
     expect(eventToFrameFactory(event).frames).toEqual([state]);

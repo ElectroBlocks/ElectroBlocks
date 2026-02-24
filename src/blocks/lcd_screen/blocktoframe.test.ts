@@ -55,6 +55,15 @@ describe("lcd  factories", () => {
       type: ArduinoComponentType.LCD_SCREEN,
       sdaPin: ARDUINO_PINS.PIN_A4,
       sclPin: ARDUINO_PINS.PIN_A5,
+      setupCommand: "register::lcd::A4::4::20::39",
+      importLibraries: [
+        {
+          name: "LiquidCrystal I2C",
+          version: "latest",
+          url: "https://downloads.arduino.cc/libraries/github.com/marcoschwartz/LiquidCrystal_I2C-1.1.2.zip",
+        },
+      ],
+      enableFlag: "ENABLE_LCD",
     };
 
     const state: ArduinoFrame = {

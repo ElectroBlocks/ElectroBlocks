@@ -11,7 +11,7 @@
   import { onErrorMessage } from "../../../help/alerts";
   import { workspaceToXML } from "../../../core/blockly/helpers/workspace.helper";
   import codeStore from "../../../stores/code.store";
-  import { saveAs } from "file-saver";
+  import { saveDownloadFile } from "../../../core/blockly/helpers/file.helper";
 
   let showMessage = false;
   let projectName = "";
@@ -69,22 +69,24 @@
     }
   }
 
-  let code;
+  let cCode;
+  let pythonCode;
 
   let unsubCodeStore = codeStore.subscribe((newCode) => {
-    code = newCode.code;
+    cCode = newCode.cLang;
+    pythonCode = newCode.pythonLang;
   });
 
-  function downlaodCode() {
-    const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "electroblocks_code.ino");
+  function downlaodCode(type) {
+    const blob = new Blob([type == 'c++' ? cCode : pythonCode], { type: "text/plain;charset=utf-8" });
+    saveDownloadFile(blob, "electroblocks_code.ino");
   }
 
   function downloadProject() {
     const blob = new Blob([workspaceToXML()], {
       type: "application/xml;charset=utf-8",
     });
-    saveAs(blob, "electroblocks_project.xml");
+    saveDownloadFile(blob, "electroblocks_project.xml");
   }
 
   onDestroy(() => {
@@ -146,8 +148,13 @@
     </div>
     <div class="row">
       <div class="col">
-        <Button class="w-100" color="info" on:click={downlaodCode}>
-          Download Code
+        <Button class="w-100" color="primary" on:click={() => downlaodCode('c++')}>
+          Download C++ Code
+        </Button>
+      </div>
+      <div class="col">
+        <Button class="w-100" color="primary" on:click={() => downlaodCode('python')}>
+          Download Python Code
         </Button>
       </div>
     </div>

@@ -5,8 +5,12 @@ import {
   ArduinoComponentType,
   Timeline,
 } from "../../core/frames/arduino.frame";
-import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
-import type { DigitalSensor, DigitalSensorState, DigitalPictureType } from "./state";
+import { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
+import type {
+  DigitalSensor,
+  DigitalSensorState,
+  DigitalPictureType,
+} from "./state";
 
 export const digitalSetupBlockToComponentState = (
   block: BlockData,
@@ -19,7 +23,26 @@ export const digitalSetupBlockToComponentState = (
     type: ArduinoComponentType.DIGITAL_SENSOR,
     pins: [pin],
     pin,
+    setupCommand: `register::dr::${pin}`,
     pictureType: findFieldValue(block, "TYPE") as DigitalPictureType,
     isOn: digitalSensorState.isOn,
+  };
+};
+
+export const digitalReadSensorStringToComponentState = (
+  sensorStr: string,
+  blocks: BlockData[]
+): DigitalSensorState => {
+  const [_, pinStr, state] = sensorStr.split(":");
+  const pin = pinStr as ARDUINO_PINS;
+  const setupBlock = blocks.find(
+    (b) => b.blockName == "digital_read_setup" && b.pins.includes(pin)
+  );
+  return {
+    type: ArduinoComponentType.DIGITAL_SENSOR,
+    pins: [pin as ARDUINO_PINS],
+    pin: pin as ARDUINO_PINS,
+    pictureType: findFieldValue(setupBlock, "TYPE") as DigitalPictureType,
+    isOn: state === "1",
   };
 };

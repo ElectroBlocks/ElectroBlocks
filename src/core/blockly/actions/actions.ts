@@ -7,12 +7,12 @@ export enum ActionType {
   SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE = "SETUP_SENSOR_BLOCK_LOOP_FIELD_UPDATE",
   SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA = "SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA",
   DISABLE_BLOCK = "DISABLE_BLOCK",
+  UPGRADE_RGB_LED_SETUP = "UPGRADE_RGB_LED_SETUP",
   ENABLE_BLOCK = "ENABLE_BLOCK",
   DELETE_VARIABLE = "DELETE_VARIABLE",
   UPDATE_LED_COLOR = "UPDATE_LED_COLOR",
   UPDATE_MULTIPLE_SETUP_BLOCK = "UPDATE_MULTIPLE_SETUP_BLOCK",
   UPDATE_FASTLED_SET_ALL_COLORS_BLOCK = "UPDATE_FASTLED_SET_ALL_COLORS_BLOCK",
-  UPDATE_COMMENT_FOR_BUTTON_BLOCK = "UPDATE_COMMENT_FOR_BUTTON_BLOCK",
 }
 
 export interface Action {
@@ -40,6 +40,10 @@ export interface ForLoopTextChange extends BlockAction {
 export interface UpdateComponentSetupBlock extends BlockAction {
   numberOfComponents: number;
   componentType: ArduinoComponentType;
+}
+
+export interface UpdateRGBLEDSetup extends BlockAction {
+  showNumberOfRgbLeds: boolean;
 }
 
 export interface UpdateSetAllFastLedBlock extends BlockAction {

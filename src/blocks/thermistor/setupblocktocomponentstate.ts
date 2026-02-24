@@ -20,6 +20,25 @@ export const thermistorSetupBlockToComponentState = (
     temp: sensorData.temp,
     tempC: sensorData.temp,
     tempF: (sensorData.temp * 9) / 5 + 32,
-    externalResistorsOhms: +findFieldValue(block, "NONIMAL_RESISTANCE"),
+    externalResistorsOhms: 10_000,
+    setupCommand: `register::th::${block.pins[0]}`,
+  };
+};
+
+export const thermistorStateStringToComponentState = (
+  sensorStr: string,
+  blocks: BlockData[]
+): ThermistorState => {
+  const block = blocks.find((b) => b.blockName == "thermistor_setup");
+  const pin = findFieldValue(block, "PIN") as ARDUINO_PINS;
+  const [_, pinName, celsius] = sensorStr.split(":");
+  return {
+    type: ArduinoComponentType.THERMISTOR,
+    pins: [pin],
+    temp: +celsius,
+    tempC: +celsius,
+    tempF: (+celsius * 9) / 5 + 32,
+    externalResistorsOhms: 10_000,
+    setupCommand: `register::th::${block.pins[0]}`,
   };
 };

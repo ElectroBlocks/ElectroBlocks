@@ -13,15 +13,42 @@ export const ultraSonicSetupBlockToComponentState = (
   timeline: Timeline
 ): UltraSonicSensorState => {
   const ultraSensor = findSensorState<UltraSonicSensor>(block, timeline);
+  const echoPin = findFieldValue(block, "PIN_ECHO");
+  const trigPin = findFieldValue(block, "PIN_TRIG");
 
   return {
     type: ArduinoComponentType.ULTRASONICE_SENSOR,
-    trigPin: findFieldValue(block, "PIN_TRIG") as ARDUINO_PINS,
-    echoPin: findFieldValue(block, "PIN_ECHO") as ARDUINO_PINS,
+    trigPin,
+    echoPin,
     pins: [
       findFieldValue(block, "PIN_TRIG") as ARDUINO_PINS,
       findFieldValue(block, "PIN_ECHO") as ARDUINO_PINS,
     ],
+    setupCommand: `register::ul::${trigPin}::${echoPin}`,
     cm: ultraSensor.cm,
+  };
+};
+
+export const utraSonicStringToComponentState = (
+  sensorStr: string,
+  blocks: BlockData[]
+) => {
+  const setupBlock = blocks.find(
+    (b) => b.blockName == "ultra_sonic_sensor_setup"
+  );
+  const [_, pinStr, state] = sensorStr.split(":");
+  const echoPin = findFieldValue(setupBlock, "PIN_ECHO");
+  const trigPin = findFieldValue(setupBlock, "PIN_TRIG");
+
+  return {
+    type: ArduinoComponentType.ULTRASONICE_SENSOR,
+    trigPin,
+    echoPin,
+    pins: [
+      findFieldValue(setupBlock, "PIN_TRIG") as ARDUINO_PINS,
+      findFieldValue(setupBlock, "PIN_ECHO") as ARDUINO_PINS,
+    ],
+    setupCommand: `register::ul::${trigPin}::${echoPin}`,
+    cm: state,
   };
 };
