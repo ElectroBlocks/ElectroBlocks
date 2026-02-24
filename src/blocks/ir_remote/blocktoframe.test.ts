@@ -30,7 +30,7 @@ describe("button state factories", () => {
     irRemoteSetup = workspace.newBlock("ir_remote_setup") as BlockSvg;
     irRemoteSetup.setFieldValue(ARDUINO_PINS.PIN_A4, "PIN");
     irRemoteSetup.setFieldValue("TRUE", "scanned_new_code");
-    irRemoteSetup.setFieldValue("32343", "code");
+    irRemoteSetup.setFieldValue("500", "code");
 
     const event = createTestEvent(irRemoteSetup.id);
     saveSensorSetupBlockData(event).forEach(updater);
@@ -40,11 +40,20 @@ describe("button state factories", () => {
     const event = createTestEvent(irRemoteSetup.id);
 
     const irRemote: IRRemoteState = {
-      code: "32343",
-      pins: [ARDUINO_PINS.PIN_A4],
+      code: 500,
+      pins: [ARDUINO_PINS.PIN_2],
       hasCode: true,
-      analogPin: ARDUINO_PINS.PIN_A4,
+      pin: ARDUINO_PINS.PIN_2,
       type: ArduinoComponentType.IR_REMOTE,
+      setupCommand: "register::ir::2",
+      importLibraries: [
+        {
+          name: "IRremote",
+          url: "https://downloads.arduino.cc/libraries/github.com/z3t0/IRremote-4.2.1.zip",
+          version: "latest",
+        },
+      ],
+      enableFlag: "ENABLE_IR_REMOTE",
     };
 
     const state: ArduinoFrame = {

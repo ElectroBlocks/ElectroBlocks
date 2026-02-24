@@ -13,6 +13,24 @@ function servoSetup(pin) {
 `;
 }
 
+function servoSetupPython(pin) {
+  Blockly["Python"].setupCode_[
+    "setup_servo_" + pin
+  ] = `eb.config_servo(${pin}) # Configures the servo motor on pin ${pin}\n`;
+}
+
+Blockly["Python"]["rotate_servo"] = function (block: Block) {
+    const pin = block.getFieldValue("PIN");
+    const degrees = Blockly["Arduino"].valueToCode(
+      block,
+      "DEGREE",
+      Blockly["Arduino"].ORDER_ATOMIC
+    );
+    servoSetupPython(pin);
+
+    return `eb.move_servo(${pin}, ${degrees}) # Rotate servo position to ${degrees} degrees\n`;
+};
+
 Blockly["Arduino"]["rotate_servo"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
   const degrees = Blockly["Arduino"].valueToCode(

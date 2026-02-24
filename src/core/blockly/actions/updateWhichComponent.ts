@@ -1,4 +1,5 @@
 import { ArduinoComponentType } from "../../frames/arduino.frame";
+import { SUPPORTED_LANGUAGES } from "../../microcontroller/microcontroller";
 import { BlockEvent } from "../dto/event.type";
 import { findFieldValue } from "../helpers/block-data.helper";
 import { ActionType, UpdateComponentSetupBlock } from "./actions";

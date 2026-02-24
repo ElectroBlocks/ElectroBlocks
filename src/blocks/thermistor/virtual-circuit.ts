@@ -15,7 +15,10 @@ import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import {
   createGroundOrPowerWire,
   createResistor,
+  createWireBreadboard,
+  createWireComponentToBreadboard,
   createWireFromArduinoToBreadBoard,
+  getGroundorPowerWireLetter,
 } from "../../core/virtual-circuit/wire";
 
 export const positionThermistorSensor: PositionComponent<ThermistorState> = (
@@ -37,10 +40,9 @@ export const positionThermistorSensor: PositionComponent<ThermistorState> = (
   );
 };
 
-export const createThermistorSensorHook: AfterComponentCreateHook<ThermistorState> = (
-  state,
-  thermistorEl
-) => {
+export const createThermistorSensorHook: AfterComponentCreateHook<
+  ThermistorState
+> = (state, thermistorEl) => {
   const textEl = thermistorEl.findOne("#WIRE_TEXT") as Text;
   textEl.node.textContent = state.pins[0];
 };
@@ -86,17 +88,52 @@ export const createThermistorWires: CreateWire<ThermistorState> = (
     state.externalResistorsOhms
   );
 
-  createGroundOrPowerWire(
-    holes[1],
-    isDown,
+  // createWireComponentToBreadboard(
+  //       groundHole,
+  //       componentEl,
+  //       draw,
+  //       arduino,
+  //       pinConnectionId,
+  //       componentId,
+  //       color
+  //     );
+
+  const breadBoardHoleA = `pin${holes[3]}${isDown ? "A" : "J"}`;
+  // This is so that it does not collide with connector wire in the breadboard.
+  const breadBoardHoleB = `pin${
+    holes[3] == 31 ? 30 : holes[3]
+  }${getGroundorPowerWireLetter(isDown, "ground")}`;
+
+  createWireBreadboard(
+    breadBoardHoleA,
+    breadBoardHoleB,
+    "#000",
+    draw,
+    arduinoEl as Svg,
+    id
+  );
+
+  createWireComponentToBreadboard(
+    `pin${holes[1]}${isDown ? "E" : "F"}`,
     componentEl,
     draw,
     arduinoEl,
+    "PIN_GND",
     id,
-    "ground"
+    "#000"
   );
 
-  const holeId = `pin${holes[3]}${isDown ? "A" : "J"}`;
+  // createGroundOrPowerWire(
+  //   holes[1],
+  //   isDown,
+  //   componentEl,
+  //   draw,
+  //   arduinoEl,
+  //   id,
+  //   "ground"
+  // );
+
+  const holeId = `pin${holes[1]}${isDown ? "C" : "H"}`;
   createWireFromArduinoToBreadBoard(
     state.pins[0],
     arduinoEl as Svg,
@@ -106,3 +143,5 @@ export const createThermistorWires: CreateWire<ThermistorState> = (
     board
   );
 };
+
+

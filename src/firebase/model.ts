@@ -1,5 +1,8 @@
 import type { Timestamp } from 'firebase/firestore';
-import { MicroControllerType } from '../core/microcontroller/microcontroller';
+import {
+  MicroControllerType,
+  SUPPORTED_LANGUAGES,
+} from "../core/microcontroller/microcontroller";
 
 export interface User {
   id: string;
@@ -29,13 +32,15 @@ export interface Settings {
   customLedColor: boolean;
   maxTimePerMove: number;
   boardType: MicroControllerType;
+  language: SUPPORTED_LANGUAGES;
 }
 
 export const defaultSetting: Settings = {
-  backgroundColor: '#d9e4ec',
-  touchSkinColor: '#a424d3',
-  ledColor: '#AA0000',
+  backgroundColor: "#d9e4ec",
+  touchSkinColor: "#a424d3",
+  ledColor: "#AA0000",
   customLedColor: false,
   maxTimePerMove: 20,
   boardType: MicroControllerType.ARDUINO_UNO,
+  language: SUPPORTED_LANGUAGES.PYTHON,
 };

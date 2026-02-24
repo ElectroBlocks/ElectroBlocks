@@ -45,7 +45,7 @@ export const updateTemp: SyncComponent = (state: TemperatureState, tempEl) => {
   tempTextEl.show();
   humidText.show();
   const cx = tempTextEl.cx();
-  tempTextEl.node.innerHTML = `Temperature ${state.temperature}°F`;
+  tempTextEl.node.innerHTML = `Temperature ${state.temperature}°C`;
   tempTextEl.cx(cx);
   humidText.node.innerHTML = `Humitity: ${state.humidity}%`;
   humidText.cx(cx);

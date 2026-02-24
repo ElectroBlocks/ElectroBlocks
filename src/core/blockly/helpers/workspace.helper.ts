@@ -4,6 +4,7 @@ import { arduinoLoopBlockShowLoopForeverText } from "./arduino_loop_block.helper
 import { getAllBlocks } from "./block.helper";
 import { deleteVariable, getAllVariables } from "./variable.helper";
 
+
 export const getWorkspace = () => {
   return Blockly.getMainWorkspace() as WorkspaceSvg;
 };
@@ -18,9 +19,10 @@ export const updateToolbox = (toolbox: string) => {
   }
 };
 
-export const getArduinoCode = () => {
-  return Blockly["Arduino"].workspaceToCode(getWorkspace()) as string;
+export const getArduinoCode = (lang: string) => {
+  return Blockly[lang].workspaceToCode(getWorkspace()) as string;
 };
+
 
 export const workspaceToXML = () => {
   let workspace = getWorkspace();

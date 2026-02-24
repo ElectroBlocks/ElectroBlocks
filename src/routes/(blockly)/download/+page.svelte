@@ -1,44 +1,32 @@
 <script>
   import { workspaceToXML } from "../../../core/blockly/helpers/workspace.helper";
   import codeStore from "../../../stores/code.store";
-  // import { saveAs } from "file-saver";
   import { onDestroy } from "svelte";
   import { Button } from "@sveltestrap/sveltestrap";
+  import { saveDownloadFile } from "../../../core/blockly/helpers/file.helper";
 
-  let code;
+  let cCode;
+  let pythonCode;
 
   let unsubCodeStore = codeStore.subscribe((newCode) => {
-    code = newCode.code;
+    cCode = newCode.cLang;
+    pythonCode = newCode.pythonLang;
   });
 
-  function downlaodCode() {
-    const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "electroblocks_code.ino");
+  function downloadCode(type) {
+    let fileName ='electroblocks_' + new Date().getTime();
+    const blob = new Blob([type == 'c++' ? cCode : pythonCode], { type: "text/plain;charset=utf-8" });
+    saveDownloadFile(blob, fileName + (type == 'c++' ? ".ino"  : ".py"));
   }
 
   function downloadProject() {
     const blob = new Blob([workspaceToXML()], {
       type: "application/xml;charset=utf-8",
     });
-    saveAs(blob, "electroblocks_project.xml");
+    saveDownloadFile(blob, "electroblocks_project.xml");
   }
 
-  function saveAs(blob, filename) {
-    // Create a link element
-    const link = document.createElement('a');
 
-    // Set the link's attributes including the download attribute which specifies the filename
-    link.href = window.URL.createObjectURL(blob);
-    link.download = filename;
-
-    // Simulate a click on the link to trigger the download
-    document.body.appendChild(link);
-    link.click();
-
-    // Clean up
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(link.href);
- }
 
   onDestroy(() => {
     unsubCodeStore();
@@ -63,8 +51,13 @@
       </Button>
     </div>
     <div class="col">
-      <Button id="download-code-btn" color="info" on:click={downlaodCode}>
-        Download Code
+      <Button id="download-code-btn" color="primary" on:click={() => downloadCode('c++')}>
+        Download C++ Code
+      </Button>
+    </div>
+    <div class="col">
+      <Button id="download-code-btn" color="primary" on:click={() => downloadCode('python')}>
+        Download Python Code
       </Button>
     </div>
   </div>

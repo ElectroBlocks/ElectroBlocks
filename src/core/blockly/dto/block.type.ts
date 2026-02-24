@@ -104,6 +104,21 @@ export const sensorSetupBlocks = [
 ];
 
 /**
+ * A list of blocks that do not require setup
+ * These blocks will require us to default the components they create in the setup.
+ */
+export const componentBlocksThatDoNotRequireSetup = [
+  "led",
+  "led_fade",
+  "passive_buzzer_note",
+  "passive_buzzer_tone",
+  "passive_buzzer_simple",
+  "digital_write",
+  "analog_write",
+  "rotate_servo"
+];
+
+/**
  * List of key value block type => setup block required
  */
 export const blocksThatRequireSetup = {

@@ -91,7 +91,7 @@ export const createWiresIrRemote: CreateWire<IRRemoteState> = (
     holes[2],
     isDown,
     irRemoteEl,
-    state.analogPin,
+    state.pin,
     draw,
     arduino,
     id,

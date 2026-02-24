@@ -1,8 +1,6 @@
 import Blockly from "blockly";
 import { COLOR_THEME } from "../../core/blockly/constants/colors";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
-import { whatIsAPin } from "../comment-text";
-import { ledColors } from "./virtual-circuit";
 
 Blockly.Blocks["led"] = {
   init: function () {

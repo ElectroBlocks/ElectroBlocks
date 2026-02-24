@@ -15,10 +15,10 @@ const registerCodeMenu = (workspace: Blockly.WorkspaceSvg) => {
       xmlList.push(xmlArduinoSetupBlock);
     }
 
-    const xmlDebugBlock = Blockly.utils.xml.createElement("block");
-    xmlDebugBlock.setAttribute("type", "debug_block");
+    // const xmlDebugBlock = Blockly.utils.xml.createElement("block");
+    // xmlDebugBlock.setAttribute("type", "debug_block");
 
-    xmlList.push(xmlDebugBlock);
+    // xmlList.push(xmlDebugBlock);
     return xmlList;
   });
 };

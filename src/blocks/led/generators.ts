@@ -13,6 +13,33 @@ Blockly["Arduino"]["led"] = function (block: Block) {
   }\n`;
 };
 
+Blockly["Python"]["led"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+  const state = block.getFieldValue("STATE");
+  Blockly["Python"].setupCode_[
+    "write_pin_" + pin
+  ] = `eb.digital_write_config(${pin})\n`;
+
+  const ledState = state === "ON" ? "1" : "0";
+  return `eb.digital_write(${pin}, ${ledState}) # Turns the led ${state.toLowerCase()}\n`;
+};
+
+Blockly["Python"]["led_fade"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+  const fadeNumber = Blockly["Python"].valueToCode(
+    block,
+    "FADE",
+    Blockly["Python"].ORDER_ATOMIC
+  );
+
+  Blockly["Python"].setupCode_[
+    "write_pin_" + pin
+  ] = `eb.analog_write_config(${pin})`;
+
+  return `eb.analog_write(${pin}, ${fadeNumber})\n`;
+};
+
+
 Blockly["Arduino"]["led_fade"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
   const fadeNumber = Blockly["Arduino"].valueToCode(

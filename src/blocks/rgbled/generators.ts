@@ -1,11 +1,13 @@
 import Blockly from 'blockly';
-import type { Block } from 'blockly';
-import _ from 'lodash';
+import { Block } from "blockly";
+import _ from "lodash";
 import {
   hexToRgb,
   rgbToColorStruct,
   rgbToHex,
+  rgbToColorStructPy
 } from "../../core/blockly/helpers/color.helper";
+import { createColorStructPy } from "../color/generators";
 
 Blockly["Arduino"]["rgb_led_setup"] = function (block: Block) {
   const redPin = block.getFieldValue("PIN_RED_1");
@@ -146,5 +148,38 @@ Blockly["Arduino"]["set_color_led"] = function (block: Block) {
   return `setLedColor(${color}); // Set the RGB LED colour. \n`;
 };
 
+Blockly["Python"]["rgb_led_setup"] = function (block: Block) {
+  const redPin = block.getFieldValue("PIN_RED_1");
+  const greenPin = block.getFieldValue("PIN_GREEN_1");
+  const bluePin = block.getFieldValue("PIN_BLUE_1");
+
+  Blockly["Python"].setupCode_[
+    "rgb_setup"
+  ] = `eb.config_rgbled(${redPin}, ${greenPin}, ${bluePin}) # Configures the RGB LED pins\n`;
+  return "";
+};
+
+Blockly["Python"]["set_color_led"] = function (block: Block) {
+  createColorStructPy();
+  let color =
+    block.type == "set_color_led"
+      ? Blockly["Python"].valueToCode(
+          block,
+          "COLOR",
+          Blockly["Python"].ORDER_ATOMIC
+        )
+      : rgbToColorStructPy(hexToRgb(block.getFieldValue("COLOR")));
+
+  if (_.isEmpty(color)) {
+    color = "RGB(0,0,0)";
+  }
+
+  return `dev_color = ${color} # Create the RGB color object.
+eb.set_color_rgbled(dev_color.red, dev_color.green, dev_color.blue) # Set the RGB LED color on the Arduino.\n`;
+};
+
 Blockly["Arduino"]["set_simple_color_led"] =
   Blockly["Arduino"]["set_color_led"];
+
+Blockly["Python"]["set_simple_color_led"] =
+  Blockly["Python"]["set_color_led"];

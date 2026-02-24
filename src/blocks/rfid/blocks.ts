@@ -6,7 +6,7 @@ import loopTimes from "../../core/blockly/helpers/looptimes";
 Blockly.defineBlocksWithJsonArray([
   {
     type: "rfid_scan",
-    message0: "%1 rfid reader found a new card?",
+    message0: "%1 rfid reader sensed a rfid card?",
     args0: [
       {
         type: "field_image",
@@ -99,24 +99,13 @@ const rfidSetupBlock: any = {
       .appendField(
         new Blockly.FieldCheckbox("TRUE", (value) => {
           if ("FALSE" === value) {
-            this.getField("card_number").setValue("");
             this.getField("tag").setValue("");
           }
           return value;
         }),
         "scanned_card"
-      );          
-    this.appendDummyInput()
-      .appendField("Card #:")
-      .appendField(
-        new Blockly.FieldTextInput("card#", (value) => {
-          if (this.getFieldValue("scanned_card") === "FALSE") {
-            return null;
-          }
-          return value;
-        }),
-        "card_number"
       );
+
     this.appendDummyInput()
       .appendField("Tag#:")
       .appendField(
@@ -128,7 +117,7 @@ const rfidSetupBlock: any = {
         }),
         "tag"
       );
-      
+
     this.appendDummyInput("COPY_ALL")
       .appendField("Copy All: ")
       .appendField(new Blockly.FieldCheckbox(false), "COPY_SAME");

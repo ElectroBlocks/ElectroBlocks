@@ -95,8 +95,10 @@ describe("Passive Buzzer Tests", () => {
 
     const frames = eventToFrameFactory(event).frames;
     expect(frames.length).toBe(3);
-
-    verifySingleComponentFrame(frames[0], NOTE_TONES["A#"], ARDUINO_PINS.PIN_4);
+    const soundComponent = frames[0].components.find((x) =>
+      x.pins.includes(ARDUINO_PINS.PIN_4)
+    ) as PassiveBuzzerState;
+    expect(soundComponent.tone).toBe(NOTE_TONES["A#"]);
 
     const frame2 = frames[1];
     expect(frame2.components.length).toBe(2);

@@ -9,7 +9,7 @@ export default `
              <field name="PIN_3">9</field>
              <field name="PIN_4">8</field>
              <field name="SPEED">10</field>
-             <field name="TOTAL_STEPS">200</field>
+             <field name="TOTAL_STEPS">2048</field>
 
         <comment pinned="false" h="140" w="460">This block will setup the stepper motor.  A stepper motor allows to control it rotational position.
         

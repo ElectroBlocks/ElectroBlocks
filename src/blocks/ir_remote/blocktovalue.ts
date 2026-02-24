@@ -23,8 +23,8 @@ export const irRemoteGetCode: ValueGenerator = (
   timeline,
   previousState
 ) => {
-  return findComponent<IRRemoteState>(
-    previousState,
-    ArduinoComponentType.IR_REMOTE
-  ).code;
+  return (
+    findComponent<IRRemoteState>(previousState, ArduinoComponentType.IR_REMOTE)
+      .code ?? 0
+  );
 };

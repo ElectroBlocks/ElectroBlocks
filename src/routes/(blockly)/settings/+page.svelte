@@ -1,27 +1,34 @@
 <script lang="ts">
   import { FormGroup, Input, Label, Button } from "@sveltestrap/sveltestrap";
-
+ 
   import { defaultSetting } from "../../../firebase/model";
   import type { Settings } from "../../../firebase/model";
   import { fbSaveSettings } from "../../../firebase/db";
   import authStore from "../../../stores/auth.store";
   import settingsStore from "../../../stores/settings.store";
+  import Blockly from "blockly";
+
   import FlashMessage from "../../../components/electroblocks/ui/FlashMessage.svelte";
   import _ from "lodash";
   import { onErrorMessage } from "../../../help/alerts";
   import { MicroControllerType } from "../../../core/microcontroller/microcontroller";
   import { ledColors } from "../../../blocks/led/virtual-circuit";
+  import { createFrames } from "../../../core/blockly/registerEvents";
+  import { getBlockByType } from "../../../core/blockly/helpers/block.helper";
+
   let uid: string;
 
   let settings: Settings;
 
   let showMessage = false;
-
+  
   let previousSettings = null;
 
   settingsStore.subscribe((newSettings) => {
     settings = newSettings;
+    console.log("Current language is:", newSettings.language);
   });
+
 
   async function onSaveSettings() {
     await saveSettings(settings);
@@ -54,8 +61,11 @@
     settingsStore.set(settings);
     previousSettings = { ...settings };
     showMessage = true;
+    createFrames({
+      type: Blockly.Events.MOVE,
+      blockId: getBlockByType('arduino_loop').id,
+    });
   }
-
   authStore.subscribe((auth) => {
     uid = auth.uid;
   });
@@ -89,6 +99,22 @@
 
   <div class="row">
     <div class="col">
+      <FormGroup>
+        <Label for="lang-select">Select Language </Label>
+        <Input
+          bind:value={settings.language}
+          type="select"
+          id="lang-select"
+        >
+          <option value="Python">Python</option>
+          <option value="C">C</option>
+        </Input>
+      </FormGroup>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
       <Input
         type="switch"
         bind:checked={settings.customLedColor}
@@ -103,8 +129,6 @@
         <div class="row">
           <div class="col color-container">
             {#each ledColors as color (color)}
-              <!-- svelte-ignore a11y-click-events-have-key-events -->
-              <!-- svelte-ignore a11y-no-static-element-interactions -->
               <div
                 class="color {color}"
                 on:click={changeLedColor}
