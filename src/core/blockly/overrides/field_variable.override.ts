@@ -50,11 +50,9 @@ Blockly.FieldVariable.dropdownCreate = function () {
     const variableTypes = workspace.getVariableTypes().filter((x) => x !== "");
     // Get a copy of the list, so that adding rename and new variable options
     // doesn't modify the workspace's list.
-    for (let i = 0; i < variableTypes.length; i++) {
-      const variableType = variableTypes[i];
-      const variables = workspace.getVariablesOfType(variableType);
-      variableModelList = variableModelList.concat(variables);
-    }
+    const variables = workspace.getVariablesOfType(this.getVariable().type);
+    variableModelList = variableModelList.concat(variables);
+
     variableModelList.sort(Blockly.VariableModel.compareByName);
   }
 

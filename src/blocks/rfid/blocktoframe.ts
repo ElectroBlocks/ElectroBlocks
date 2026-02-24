@@ -14,15 +14,17 @@ export const rfidSetup: BlockToFrameTransformer = (
   const sensorData = JSON.parse(block.metaData) as RFIDSensor[];
 
   const rfidSensorLoop1 = sensorData.find((s) => s.loop === 1) as RFIDSensor;
-
+  const txPin = findFieldValue(block, "PIN_TX");
+  const rxPin = findFieldValue(block, "PIN_RX");
   const rfidComponent: RfidState = {
     pins: block.pins,
     type: ArduinoComponentType.RFID,
-    txPin: findFieldValue(block, "PIN_TX"),
-    rxPin: findFieldValue(block, "PIN_RX"),
+    txPin,
+    rxPin,
     scannedCard: rfidSensorLoop1.scanned_card,
     tag: rfidSensorLoop1.tag,
-    cardNumber: rfidSensorLoop1.card_number,
+    setupCommand: `register::rfi::${txPin}::${rxPin}::9600`,
+    enableFlag: "ENABLE_RFID_UART",
   };
 
   return [

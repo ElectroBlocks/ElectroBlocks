@@ -1,8 +1,7 @@
-<script>
+<script lang="ts">
   import Player from './Player.svelte';
 
   import SimDebugger from './SimDebugger.svelte';
-  import LedColorChanger from './LedColorChanger.svelte';
 
   import { SVG } from '@svgdotjs/svg.js';
   import frameStore from '../../../stores/frame.store';
@@ -18,6 +17,7 @@
   import { arduinoComponentStateToId } from '../../../core/frames/arduino-component-id';
   import { centerCircuit } from '../../../core/virtual-circuit/centerCircuit';
   import { page } from '$app/stores';
+  import { SimulatorMode, simulatorStore } from '../../../stores/arduino.store';
 
 
   let container;
@@ -68,7 +68,7 @@
         const firstFrame = frames ? frames[0] : undefined;
         const lastFrame = frames ? frames[frames.length - 1] : undefined;
         currentFrame = firstFrame;
-        paint(draw, frameContainer);
+        paint(draw, frameContainer, $settings);
         update(draw, firstFrame);
 
         const oldListOfComponentIds = oldLastFrame
@@ -167,11 +167,12 @@
     unsubscribes.forEach((unSubFunc) => unSubFunc());
   });
 </script>
-
-<div style="background-color: {$settings.backgroundColor}" id="container">
-  <LedColorChanger />
-  <div bind:this={container} id="simulator" />
-  <div id="simulator-controls">
+{#if $simulatorStore == SimulatorMode.LIVE}
+<Player />
+{/if}
+<div style="background-color: {$settings.backgroundColor}" id="container" class:live={$simulatorStore == SimulatorMode.LIVE}>
+  <div bind:this={container} id="simulator" class:live={$simulatorStore == SimulatorMode.LIVE} />
+  <div id="simulator-controls" >
     <h3>{loopText}</h3>
     <i on:click={reCenter} class="fa" id="recenter-icon" aria-hidden="true" />
     <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
@@ -179,7 +180,9 @@
   </div>
   <SimDebugger />
 </div>
+{#if $simulatorStore == SimulatorMode.VIRTUAL}
 <Player />
+{/if}
 
 <style>
   #container,
@@ -190,13 +193,15 @@
     top: 0;
     left: 0;
   }
+  #container.live,
+  #simulator.live {
+    height: calc(100% - 45px);
+  }
+  
   #container {
     background-color: #d9e4ec;
   }
-  #simulator {
-    width: 100%;
-    height: calc(100% - 10px);
-  }
+  
   #simulator-controls {
     text-align: right;
     position: absolute;
@@ -204,6 +209,7 @@
     bottom: 5px;
     width: 100%;
   }
+  
   #simulator-controls i {
     cursor: pointer;
     margin-left: 10px;

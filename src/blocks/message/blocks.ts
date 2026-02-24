@@ -5,7 +5,7 @@ import loopTimes from "../../core/blockly/helpers/looptimes";
 Blockly.defineBlocksWithJsonArray([
   {
     type: "arduino_receive_message",
-    message0: "%1 Arduino received a message? ",
+    message0: "%1 Message received? ",
     args0: [
       {
         type: "field_image",
@@ -23,7 +23,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "arduino_get_message",
-    message0: "%1 Arduino get message",
+    message0: "%1 Get message",
     args0: [
       {
         type: "field_image",
@@ -41,7 +41,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: "arduino_send_message",
-    message0: "%1 Arduino send message %2",
+    message0: "%1 Send message %2",
     args0: [
       {
         type: "field_image",

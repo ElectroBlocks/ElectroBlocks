@@ -66,7 +66,7 @@ describe("test leds", () => {
     const event = createTestEvent(ledBlock2.id);
 
     const [frame1, frame2] = eventToFrameFactory(event).frames;
-    expect(frame1.components.length).toBe(1);
+    expect(frame1.components.length).toBe(2);
     expect(frame1.components[0].pins).toEqual(["3"]);
     expect((frame1.components[0] as LedState).state).toBe(1);
     expect((frame1.components[0] as LedState).fade).toBeFalsy();

@@ -5,6 +5,21 @@ Blockly["Arduino"]["ultra_sonic_sensor_motion"] = function (block: Block) {
   return ["ultraSonicDistance()", Blockly["Arduino"].ORDER_ATOMIC];
 };
 
+Blockly["Python"]["ultra_sonic_sensor_motion"] = function (block: Block) {
+  return ["eb.motion_distance_cm()", Blockly["Python"].ORDER_ATOMIC];
+};
+
+Blockly["Python"]["ultra_sonic_sensor_setup"] = function (block: Block) {
+  const echoPin = block.getFieldValue("PIN_ECHO");
+  const trigPin = block.getFieldValue("PIN_TRIG");
+
+  Blockly["Python"].setupCode_[
+    "ultra_sonic_sensor_setup"
+  ] = `eb.config_motion_sensor(${echoPin}, ${trigPin}) # Setup Motion Sensor. EchoPin = ${echoPin} TrigPin = ${trigPin}\n`;
+
+  return "";
+};
+
 Blockly["Arduino"]["ultra_sonic_sensor_setup"] = function (block: Block) {
   const echoPin = block.getFieldValue("PIN_ECHO");
   const trigPin = block.getFieldValue("PIN_TRIG");

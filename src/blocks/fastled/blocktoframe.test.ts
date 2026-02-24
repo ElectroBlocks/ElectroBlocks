@@ -40,6 +40,14 @@ describe("fastLED state factories", () => {
     const event = createTestEvent(fastLEDSetup.id);
 
     const ledLightStrip: FastLEDState = {
+      importLibraries: [
+        {
+          name: "FastLED",
+          version: "latest",
+          url: "https://downloads.arduino.cc/libraries/github.com/FastLED/FastLED-3.6.0.zip",
+        },
+      ],
+      setupCommand: "register::leds::6::60::128::10",
       pins: [ARDUINO_PINS.PIN_6],
       numberOfLeds: 60,
       type: ArduinoComponentType.FASTLED_STRIP,
@@ -55,6 +63,7 @@ describe("fastLED state factories", () => {
           color: { red: 0, green: 0, blue: 0 },
         };
       }),
+      enableFlag: "ENABLE_LED_STRIP",
     };
 
     const state: ArduinoFrame = {

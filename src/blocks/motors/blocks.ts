@@ -121,7 +121,7 @@ const motor_setup = {
         new Blockly.FieldDropdown(selectBoardBlockly().pwmPins),
         "PIN_EN1"
       )
-      .appendField("IN2")
+      .appendField("IN1")
       .appendField(
         new Blockly.FieldDropdown(selectBoardBlockly().digitalPins),
         "PIN_IN1"

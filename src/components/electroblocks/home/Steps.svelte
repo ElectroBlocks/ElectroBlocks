@@ -1,5 +1,5 @@
 <script>
-  import frameStore from "../../../stores/frame.store";
+  import frameStore, {isContinousModeStore} from "../../../stores/frame.store";
   import currentStepStore from "../../../stores/currentStep.store";
   import { afterUpdate } from "svelte";
   import currentFrameStore from "../../../stores/currentFrame.store";
@@ -20,6 +20,7 @@
   });
 
   afterUpdate(() => {
+    if ($isContinousModeStore) return;
     const activeStep = stepContainer.querySelector(".current");
     if (activeStep) {
       activeStep.scrollIntoView({ block: "center" });
@@ -35,6 +36,7 @@
 </script>
 
 <div bind:this={stepContainer} id="steps">
+  {#if !$isContinousModeStore}
   <ol>
     {#each frames as frame, i (i)}
       <li
@@ -46,6 +48,9 @@
       </li>
     {/each}
   </ol>
+  {:else}
+    <p>Turn off Continuous to view steps.</p>
+  {/if}
 </div>
 
 <style>
@@ -55,6 +60,11 @@
     background: #242323;
     color: #eff0f1;
     box-sizing: border-box;
+  }
+  p {
+    text-align: center;
+    padding-top: 30px;
+    font-size: 30px;
   }
   ol {
     margin: 0;

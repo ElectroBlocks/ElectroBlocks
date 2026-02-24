@@ -94,7 +94,8 @@ describe("logic compare blocks", () => {
     const event = createTestEvent(logicOperatorBlock.id);
     const events = eventToFrameFactory(event).frames;
     const [state1] = events;
-    expect(state1.variables["bool_test"].value).toBe(false);
+    // Two Empty values will now produce a true value for the comparison block
+    expect(state1.variables["bool_test"].value).toBe(true);
   });
 
   const createLogicCompareBlock = (

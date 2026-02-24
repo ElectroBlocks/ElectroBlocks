@@ -8,11 +8,20 @@ export function stepSerialBegin() {
     "); \n" +
     "   Serial.setTimeout(100);\n";
 }
-
+Blockly["Python"]["message_setup"] = () => "";
 Blockly["Arduino"]["message_setup"] = function () {
   stepSerialBegin();
 
   return "";
+};
+
+Blockly["Python"]["arduino_get_message"] = function (block) {
+  Blockly["Python"].setupCode_["print_warning"] =
+    'print("ℹ️ Input and message receiving are not available in Python mode yet.")\n';
+  return [
+    "'⚠️ Receiving messages isn’t supported in Python mode yet.'",
+    Blockly["Python"].ORDER_ATOMIC,
+  ];
 };
 
 Blockly["Arduino"]["arduino_get_message"] = function (block) {
@@ -22,12 +31,20 @@ Blockly["Arduino"]["arduino_get_message"] = function (block) {
     "setSerialMessage"
   ] = `void setSerialMessage() {
   if (Serial.available() > 0) {
-      serialMessageDEV = Serial.readString();
+      serialMessageDEV = Serial.readStringUntil('|');
       serialMessageDEV.trim();      
   }
 };
   `;
   return ["serialMessageDEV", Blockly["Arduino"].ORDER_ATOMIC];
+};
+
+Blockly["Python"]["arduino_receive_message"] = () => {
+  Blockly["Python"].imports_["print_warning"] = ``;
+  Blockly["Python"].setupCode_["print_warning"] =
+    'print("ℹ️ Input and message receiving are not available in Python mode yet.")\n';
+
+  return ["False", Blockly["Python"].ORDER_ATOMIC];
 };
 
 Blockly["Arduino"]["arduino_receive_message"] = function (block) {
@@ -42,6 +59,15 @@ Blockly["Arduino"]["arduino_receive_message"] = function (block) {
 };
   `;
   return ["(serialMessageDEV.length() > 0)", Blockly["Arduino"].ORDER_ATOMIC];
+};
+Blockly["Python"]["arduino_send_message"] = function (block) {
+  const message = Blockly["Python"].valueToCode(
+    block,
+    "MESSAGE",
+    Blockly["Python"].ORDER_ATOMIC
+  );
+
+  return `print(${message})\n`;
 };
 
 Blockly["Arduino"]["arduino_send_message"] = function (block) {

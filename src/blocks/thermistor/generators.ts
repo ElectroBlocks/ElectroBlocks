@@ -2,13 +2,23 @@ import Blockly from "blockly";
 import { Block } from "blockly";
 import { stepSerialBegin } from "../message/generators";
 
+Blockly["Python"]["thermistor_setup"] = function (block: Block) {
+  const pin = block.getFieldValue("PIN");
+
+  Blockly["Arduino"].setupCode_[
+    "thermistor_setup_" + pin
+  ] = `eb.config_thermistor("${pin}")
+`;
+  return "";
+};
+
 Blockly["Arduino"]["thermistor_setup"] = function (block: Block) {
   const pin = block.getFieldValue("PIN");
 
   Blockly["Arduino"].libraries_["include_motor_library"] = `
 #define THERMISTOR_PIN  ${pin} // Define analog pin for the thermistor
 #define BETA            3950 // The beta value of the thermistor
-#define RESISTANCE      10 // The value of the pull-down resistor (in ohms)`;
+#define RESISTANCE      10000 // The value of the pull-down resistor (in ohms)`;
   stepSerialBegin();
 
   Blockly["Arduino"].functionNames_[
@@ -48,3 +58,22 @@ Blockly["Arduino"]["thermistor_read"] = function (block: Block) {
   var unit = block.getFieldValue("UNIT");
   return [`readThermistor("${unit}")`, Blockly["Arduino"].ORDER_ATOMIC];
 };
+
+Blockly["Python"]["thermistor_read"] = function (block: Block) {
+  var unit = block.getFieldValue("UNIT");
+  if (unit == "C") {
+    return [`eb.thermistor_celsius()`, Blockly["Python"].ORDER_ATOMIC];
+  }
+
+  return [`eb.thermistor_fahrenheit()`, Blockly["Python"].ORDER_ATOMIC];
+};
+
+Blockly["Python"]["thermistor_setup"] = function (block) {
+  const pin = block.getFieldValue("PIN");
+  Blockly["Python"].setupCode_[
+    "thermistor_setup"
+  ] = `eb.config_thermistor('${pin}') # Set's up the thermistor.\n`;
+
+  return "";
+};
+

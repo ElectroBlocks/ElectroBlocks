@@ -10,7 +10,7 @@ import { addListener, createFrames } from "./registerEvents";
 import registerListMenu from "../../blocks/list/menu";
 import registerCodeMenu from "../../blocks/arduino/menu";
 
-import { getToolBoxString } from "./toolbox";
+import { getToolBoxString } from "./toolboxConfig";
 
 import {
   connectToArduinoBlock,
@@ -24,17 +24,25 @@ import { LED_COMMENT } from "../../blocks/led/toolbox";
 import { registerVariableMenu } from "../../blocks/variables/menu";
 import { registerFunctionMenu } from "../../blocks/functions/menu";
 import { getWorkspace, loadProject } from "./helpers/workspace.helper";
+import {
+  MicroControllerType,
+  SUPPORTED_LANGUAGES,
+} from "../microcontroller/microcontroller";
 
 /**
  * This will start up blockly and will add all the event listeners and styles
  */
-const startBlockly = (blocklyElement: HTMLElement) => {
+const startBlockly = (
+  blocklyElement: HTMLElement,
+  boardType: MicroControllerType,
+  lang: SUPPORTED_LANGUAGES
+) => {
   // removing alert & confirms from blockly library
   Blockly.dialog.setAlert((m) => console.log(m));
   Blockly.dialog.setConfirm((m) => true);
 
   // creates the blockly workspace and toolbox
-  const workspace = createWorkspace(blocklyElement);
+  const workspace = createWorkspace(blocklyElement, boardType, lang);
 
   // Register custom list menu event for the toolbox
   registerListMenu(workspace);
@@ -77,8 +85,12 @@ const startBlockly = (blocklyElement: HTMLElement) => {
 /**
  * Creates the Blockly Workspace
  */
-const createWorkspace = (blocklyElement: HTMLElement) => {
-  Blockly.inject(blocklyElement, createBlockConfig());
+const createWorkspace = (
+  blocklyElement: HTMLElement,
+  boardType: MicroControllerType,
+  lang: SUPPORTED_LANGUAGES
+) => {
+  Blockly.inject(blocklyElement, createBlockConfig(boardType, lang));
   return Blockly.getMainWorkspace() as Blockly.WorkspaceSvg;
 };
 
@@ -104,8 +116,11 @@ const createLedWithDelay = (seconds = 1, isOn = true) => {
 /**
  * Returns the blockly config object
  */
-const createBlockConfig = (): Blockly.BlocklyOptions => {
-  const toolboxString = getToolBoxString();
+const createBlockConfig = (
+  boardType: MicroControllerType,
+  lang: SUPPORTED_LANGUAGES
+): Blockly.BlocklyOptions => {
+  const toolboxString = getToolBoxString(boardType, lang);
 
   return {
     toolbox: toolboxString,

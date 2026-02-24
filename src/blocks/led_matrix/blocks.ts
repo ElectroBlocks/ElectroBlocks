@@ -425,17 +425,24 @@ Blockly.Blocks["led_matrix_setup"] = {
         "PIN_DATA"
       );
     this.appendDummyInput()
-      .appendField("CLK Pin#")
-      .appendField(
-        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
-        "PIN_CLK"
-      );
-    this.appendDummyInput()
       .appendField("CS Pin#")
       .appendField(
         new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
         "PIN_CS"
       );
+
+    this.appendDummyInput()
+      .appendField("CLK Pin#")
+      .appendField(
+        new Blockly.FieldDropdown(() => selectBoardBlockly().digitalPins),
+        "PIN_CLK"
+      );
+
+    this.appendDummyInput()
+      .appendField("Using Breadboard?")
+      .appendField(new Blockly.FieldCheckbox(true), "BREADBOARD");
+
+   
     this.setColour(COLOR_THEME.COMPONENTS);
     this.setTooltip("");
     this.setHelpUrl("");

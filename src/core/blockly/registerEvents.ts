@@ -3,9 +3,8 @@ import type { WorkspaceSvg } from "blockly";
 import _ from "lodash";
 import Blockly from "blockly";
 
-import codeStore from "../../stores/code.store";
 import frameStore from "../../stores/frame.store";
-import { getArduinoCode, getWorkspace } from "./helpers/workspace.helper";
+import { getArduinoCode, workspaceToXML } from "./helpers/workspace.helper";
 
 import { getAllBlocks } from "./helpers/block.helper";
 import { transformBlock } from "./transformers/block.transformer";
@@ -32,34 +31,17 @@ import {
 import type { MicroControllerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
-import type { Settings } from "../../firebase/model";
 import settingStore from "../../stores/settings.store";
 import UpdateLCDScreenPrintBlock from "./actions/updateLcdScreenPrintBlock";
 import updateLedBlockColorField from "./actions/updateLedBlockColorField";
 import { updateWhichComponent } from "./actions/updateWhichComponent";
 import { updateFastLedSetAllColorsUpdateBlock } from "./actions/fastLedSetAllColorsUpdateBlock";
-import { updateCommentIsButtonPressedBlock } from "./actions/updateCommentForButtonBlock";
-
-// This is the current frame list
-// We use this diff the new frame list so that we only update when things change
-let currentFrameContainter: ArduinoFrameContainer = undefined;
-
-let settings: Settings = undefined;
-
-settingStore.subscribe((newSettings) => {
-  settings = newSettings;
-  frameStore.update((frameContainer) => {
-    const newFrameContainer = _.cloneDeep(frameContainer);
-    //updating the new board
-    newFrameContainer.board = settings.boardType;
-    // code might have to change if the board type changes
-    // only run if a workspace exists to generate code from
-    if (getWorkspace()) {
-      codeStore.set({ code: getArduinoCode(), boardType: settings.boardType });
-    }
-    return newFrameContainer;
-  });
-});
+import { updateRGBLEDBlockSupportLang } from "./actions/updateRGBLEDBlockSupportLang";
+import { get } from "svelte/store";
+import { disableRecievingMessageBlocksForLiveModeAndPython } from "./actions/disableRecievingMessageBlocksForLiveModeAndPython";
+import { SimulatorMode, simulatorStore } from "../../stores/arduino.store";
+import codeStore from "../../stores/code.store";
+import { onErrorMessage } from "../../help/alerts";
 
 export const createFrames = async (blocklyEvent) => {
   if ((Blockly.getMainWorkspace() as any).isDragging()) {
@@ -85,6 +67,9 @@ export const createFrames = async (blocklyEvent) => {
   if (!supportedEvents.has(blocklyEvent.type)) return;
 
   const microControllerType = getBoardType() as MicroControllerType;
+  var settingData = get(settingStore);
+  var codeData = get(codeStore);
+  var simulatorMode = get(simulatorStore);
   const event = transformEvent(
     getAllBlocks(),
     getAllVariables(),
@@ -102,6 +87,11 @@ export const createFrames = async (blocklyEvent) => {
 
     ...disableSensorReadBlocksWithWrongPins(event),
     ...disableBlocksThatNeedASetupBlock(event),
+    ...disableRecievingMessageBlocksForLiveModeAndPython(
+      event,
+      settingData,
+      simulatorMode == SimulatorMode.LIVE
+    ),
   ];
   firstActionPass.forEach((a) => updater(a));
   enableBlocks(
@@ -127,6 +117,11 @@ export const createFrames = async (blocklyEvent) => {
 
     ...disableSensorReadBlocksWithWrongPins(event2),
     ...disableBlocksThatNeedASetupBlock(event2),
+    ...disableRecievingMessageBlocksForLiveModeAndPython(
+      event2,
+      settingData,
+      simulatorMode == SimulatorMode.LIVE
+    ),
   ];
   secondActionPass.forEach((a) => updater(a));
   enableBlocks(
@@ -136,18 +131,35 @@ export const createFrames = async (blocklyEvent) => {
   );
 
   if (secondActionPass.filter((a) => a.stopCompiling).length >= 1) {
-    currentFrameContainter = {
+    let defaultFrames = {
       error: true,
       frames: [],
       board: event.microController,
-      settings,
     };
-    frameStore.set(currentFrameContainter);
-    codeStore.resetCode(microControllerType);
-    return;
+    frameStore.set(defaultFrames);
+    if (
+      codeData.canShowCodeErrorMessage &&
+      simulatorMode != SimulatorMode.LIVE
+    ) {
+      onErrorMessage(
+        "Please fix the highlighted blocks and try again.\nLook for blocks with a ⚠️ symbol.",
+        {},
+        "Your program isn't ready to run yet."
+      );
+    }
+    codeStore.set({
+      cLang: `// Your program isn’t ready to run yet.
+// Please fix the highlighted blocks before continuing.`,
+      pythonLang: `# Your program isn’t ready to run yet.
+# Please fix the highlighted blocks before continuing.`,
+      imports: [],
+      enableFlags: [],
+      canShowCodeErrorMessage: false,
+    });
+    return false;
   }
-
   const thirdActionPass = [
+    ...updateRGBLEDBlockSupportLang(settingData.language)(event2),
     ...deleteUnusedVariables(event2),
     ...saveSensorSetupBlockData(event2),
     ...updateSensorSetupFields(event2),
@@ -166,7 +178,6 @@ export const createFrames = async (blocklyEvent) => {
       ArduinoComponentType.MOTOR
     )(event2),
     ...updateFastLedSetAllColorsUpdateBlock(event2),
-    ...updateCommentIsButtonPressedBlock(event2),
   ];
 
   thirdActionPass.forEach((a) => updater(a));
@@ -180,16 +191,49 @@ export const createFrames = async (blocklyEvent) => {
     microControllerType
   );
 
-  const newFrameContainer = eventToFrameFactory(refreshEvent, settings);
+  const newFrameContainer = eventToFrameFactory(refreshEvent);
+  const currentFrameContainter = get(frameStore);
+  const imports =
+    newFrameContainer?.frames.length == 0
+      ? []
+      : newFrameContainer.frames[
+          newFrameContainer.frames.length - 1
+        ].components.reduce((prev, next) => {
+          if (next?.importLibraries) {
+            return [...prev, ...next.importLibraries];
+          }
+          return [...prev];
+        }, []);
+  const enableFlags: string[] =
+    newFrameContainer?.frames.length > 0
+      ? newFrameContainer.frames[
+          newFrameContainer.frames.length - 1
+        ].components.reduce((prev, next) => {
+          if (next?.enableFlag) {
+            return [...prev, next?.enableFlag];
+          }
+          return [...prev];
+        }, [])
+      : [];
 
+  codeStore.set({
+    cLang: getArduinoCode("Arduino"),
+    pythonLang: getArduinoCode("Python"),
+    imports,
+    enableFlags,
+    canShowCodeErrorMessage: true,
+  });
   if (
     currentFrameContainter === undefined ||
+    // on the live mode because it's coming from the actual components we need it to always change.
+    simulatorMode == SimulatorMode.LIVE ||
     JSON.stringify(newFrameContainer) !== JSON.stringify(currentFrameContainter)
   ) {
-    currentFrameContainter = newFrameContainer;
-    frameStore.set(currentFrameContainter);
+    frameStore.set(newFrameContainer);
+    return true;
   }
-  codeStore.set({ code: getArduinoCode(), boardType: microControllerType });
+
+  return true;
 };
 
 const enableBlocks = (actions: DisableBlock[]) => {
@@ -210,6 +254,12 @@ const enableBlocks = (actions: DisableBlock[]) => {
   enableActions.forEach((a) => updater(a));
 };
 
+function saveToLocalStorage() {
+  const recentBlocks = workspaceToXML();
+  localStorage.setItem("reload_once_workspace", recentBlocks);
+}
+
 export const addListener = (workspace: WorkspaceSvg) => {
   workspace.addChangeListener(createFrames);
+  workspace.addChangeListener(saveToLocalStorage);
 };

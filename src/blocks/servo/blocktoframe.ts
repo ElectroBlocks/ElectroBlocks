@@ -3,7 +3,10 @@ import {
   ArduinoComponentType,
   ArduinoFrame,
 } from "../../core/frames/arduino.frame";
-import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
+import type {
+  BlockToDefaultComponnet,
+  BlockToFrameTransformer,
+} from "../../core/frames/transformer/block-to-frame.transformer";
 import { getInputValue } from "../../core/frames/transformer/block-to-value.factories";
 import {
   arduinoFrameByComponent,
@@ -12,6 +15,20 @@ import {
 } from "../../core/frames/transformer/frame-transformer.helpers";
 import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 import type { ServoState } from "./state";
+
+export const defaultServoComponent: BlockToDefaultComponnet = (block) => {
+  const pin = findFieldValue(block, "PIN");
+  const servoState: ServoState = {
+    pins: [pin],
+    degree: 0,
+    type: ArduinoComponentType.SERVO,
+    setupCommand: `register::servo::${pin}`,
+    usbCommands: [],
+    enableFlag: "ENABLE_SERVO",
+  };
+
+  return servoState;
+};
 
 export const servoRotate: BlockToFrameTransformer = (
   blocks,
@@ -40,6 +57,14 @@ export const servoRotate: BlockToFrameTransformer = (
     previousState
   );
 
+  newComponent.importLibraries = [
+    {
+      name: "Servo",
+      version: "latest",
+      url: "https://downloads.arduino.cc/libraries/github.com/arduino-libraries/Servo-1.2.1.zip",
+    },
+  ];
+
   return [
     arduinoFrameByComponent(
       block.id,
@@ -57,8 +82,16 @@ const getServo = (
   pin: ARDUINO_PINS,
   previousState: ArduinoFrame
 ): ServoState => {
+  const setupCommand = `register::servo::${pin}`;
+  const usbCommands = [`write::servo::${pin}::${degree}`];
   if (!previousState) {
-    return { pins: [pin], degree, type: ArduinoComponentType.SERVO };
+    return {
+      pins: [pin],
+      degree,
+      type: ArduinoComponentType.SERVO,
+      setupCommand,
+      usbCommands,
+    };
   }
 
   const servo = findComponent<ServoState>(
@@ -68,8 +101,15 @@ const getServo = (
   );
 
   if (!servo) {
-    return { pins: [pin], degree, type: ArduinoComponentType.SERVO };
+    return {
+      pins: [pin],
+      degree,
+      type: ArduinoComponentType.SERVO,
+      setupCommand,
+      usbCommands,
+      enableFlag: "ENABLE_SERVO",
+    };
   }
 
-  return { ...servo, degree };
+  return { ...servo, degree, setupCommand, usbCommands };
 };
