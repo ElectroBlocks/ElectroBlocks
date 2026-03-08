@@ -110,7 +110,7 @@
   <section style="height: {top}px" id="top">
     <slot class="sections" name="top" />
   </section>
-  <div on:mousedown={startResize} id="grabber" />
+  <div on:mousedown={startResize} id="grabber"></div>
   <section style="height: {bottom}px" id="bottom">
     <slot name="bottom" />
   </section>
