@@ -142,7 +142,7 @@
   });
 </script>
 
-<section bind:this={blocklyElement} id="blockly" />
+<section bind:this={blocklyElement} id="blockly"></section>
 
 <style>
   #blockly {

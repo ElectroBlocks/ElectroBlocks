@@ -524,7 +524,7 @@ You'll see messages and results on this page.`);
         class:disable={disablePlayer || playing || isContinuous}
         id="video-debug-backward"
       >
-        <i class="fa fa-backward" />
+        <i class="fa fa-backward"></i>
       </span>
       {#if playing}
         <span
@@ -534,7 +534,7 @@ You'll see messages and results on this page.`);
           id="video-debug-play"
           class:disable={disablePlayer}
         >
-          <i class="fa fa-stop" />
+          <i class="fa fa-stop"></i>
         </span>
       {:else}
         <span
@@ -544,7 +544,7 @@ You'll see messages and results on this page.`);
           id="video-debug-play"
           class:disable={disablePlayer}
         >
-          <i class="fa fa-play" />
+          <i class="fa fa-play"></i>
         </span>
       {/if}
       <span
@@ -554,7 +554,7 @@ You'll see messages and results on this page.`);
         id="video-debug-forward"
         class:disable={disablePlayer || playing || isContinuous}
       >
-        <i class="fa fa-forward" />
+        <i class="fa fa-forward"></i>
       </span>
       {#if isContinuous}
         <span
@@ -568,7 +568,7 @@ You'll see messages and results on this page.`);
           }}
           class:disable={disablePlayer || playing}
         >
-          <i class="fa fa-refresh repeat-on" />
+          <i class="fa fa-refresh repeat-on"></i>
         </span>
       {:else}
         <span
@@ -580,7 +580,7 @@ You'll see messages and results on this page.`);
           }}
           class:disable={disablePlayer || playing}
         >
-          <i class="fa fa-refresh repeat-off" />
+          <i class="fa fa-refresh repeat-off"></i>
         </span>
       {/if}
     </div>

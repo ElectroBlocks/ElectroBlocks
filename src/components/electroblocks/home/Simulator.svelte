@@ -171,12 +171,12 @@
 <Player />
 {/if}
 <div style="background-color: {$settings.backgroundColor}" id="container" class:live={$simulatorStore == SimulatorMode.LIVE}>
-  <div bind:this={container} id="simulator" class:live={$simulatorStore == SimulatorMode.LIVE} />
+  <div bind:this={container} id="simulator" class:live={$simulatorStore == SimulatorMode.LIVE}></div>
   <div id="simulator-controls" >
     <h3>{loopText}</h3>
-    <i on:click={reCenter} class="fa" id="recenter-icon" aria-hidden="true" />
-    <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true" />
-    <i on:click={zoomOut} class="fa fa-search-minus" aria-hidden="true" />
+    <i on:click={reCenter} class="fa" id="recenter-icon" aria-hidden="true"></i>
+    <i on:click={zoomIn} class="fa fa-search-plus" aria-hidden="true"></i>
+    <i on:click={zoomOut} class="fa fa-search-minus" aria-hidden="true"></i>
   </div>
   <SimDebugger />
 </div>
