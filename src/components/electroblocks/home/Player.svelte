@@ -283,6 +283,7 @@ You'll see messages and results on this page.`);
   }
   async function nextFrame() {
     isPlayingLive = false;
+    isInStoppedMode = true;
     const myRun = ++liveRunId;
     await playLive(true, myRun);
   }
