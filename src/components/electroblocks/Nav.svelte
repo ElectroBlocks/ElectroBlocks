@@ -16,7 +16,7 @@
   import { onConfirm, onErrorMessage } from "../../help/alerts";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
-  import { tooltip } from "@svelte-plugins/tooltips";
+  import { tooltip } from "../../helpers/tooltip.action";
   import Icon from "../Icon.svelte";
   import { mdiCarSettings, mdiCodeBraces, mdiCodeBracesBox, mdiCogOutline, mdiDownload, mdiFile, mdiFloppy, mdiFolder, mdiFolderOpen, mdiGaugeEmpty, mdiInformation, mdiLightningBolt, mdiLogin, mdiLogout, mdiMemory, mdiMonitor, mdiWrench } from "@mdi/js";
   

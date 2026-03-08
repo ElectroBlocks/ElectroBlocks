@@ -15,7 +15,7 @@
   } from "../../../core/blockly/helpers/block.helper";
   import is_browser from "../../../helpers/is_browser";
   import type { ArduinoFrame } from "../../../core/frames/arduino.frame";
-  import { tooltip } from "@svelte-plugins/tooltips";
+  import { tooltip } from "../../../helpers/tooltip.action";
   import arduinoStore, {
     getFeatures,
     PortState,
