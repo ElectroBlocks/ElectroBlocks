@@ -69,6 +69,7 @@
   let liveRunId = 0;
   let successfullyCompiledInLiveMode = false;
   let hasUploadedFirmware = false;
+  let isInStoppedMode = true;
 
   const unsubscribes = [];
 
@@ -161,9 +162,13 @@ You'll see messages and results on this page.`);
       const isReadyWithoutCompiling =
         $codeStore.enableFlags.filter((flag) => !commandString.includes(flag))
           .length == 0;
-      if (isReadyWithoutCompiling) {
+      if (isReadyWithoutCompiling && !isInStoppedMode) {
+        await restartArduino();
         await wait(500);
         await onPlayButton();
+        return;
+      }
+      if (isReadyWithoutCompiling) {
         return;
       }
       await onConfirm(
@@ -285,6 +290,7 @@ You'll see messages and results on this page.`);
     try {
       if (!arduinoStore.isConnected() || isPlayingLive) return;
       isPlayingLive = true;
+      isInStoppedMode = false;
       const myRun = ++liveRunId;
       await playLive(false, myRun);
     } catch (error) {
@@ -297,6 +303,7 @@ You'll see messages and results on this page.`);
 
   function onStopButton() {
     isPlayingLive = false;
+    isInStoppedMode = true;
     liveRunId += 1;
     frameCount = 0;
     currentFrameStore.set($frameStore.frames[$frameStore.frames.length - 1]);
