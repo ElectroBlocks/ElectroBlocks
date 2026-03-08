@@ -4,7 +4,7 @@ import type { ARDUINO_PINS } from "../../core/microcontroller/selectBoard";
 
 export interface DigitalSensorState extends ArduinoComponentState {
   pin: ARDUINO_PINS;
-  pictureType: DigitalPictureType;
+  sensorType: DigitalSensorType;
   isOn: boolean;
 }
 
@@ -12,7 +12,8 @@ export interface DigitalSensor extends Sensor {
   isOn: boolean;
 }
 
-export enum DigitalPictureType {
+export enum DigitalSensorType {
   SENSOR = "SENSOR",
   TOUCH_SENSOR = "TOUCH_SENSOR",
+  IR_SENSOR = "IR_SENSOR"
 }

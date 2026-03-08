@@ -58,6 +58,7 @@ const digitalReadSetupBlock: any = {
       .appendField(
         new Blockly.FieldDropdown([
           ["Touch Sensor", "TOUCH_SENSOR"],
+          ["IR Sensor", "IR_SENSOR"],
           ["Sensor", "SENSOR"],
         ]),
         "TYPE"

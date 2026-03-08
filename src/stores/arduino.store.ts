@@ -329,7 +329,6 @@ const arduinoStore = {
         enabled ? "1" : "0"
       );
     }
-
     const files = [
       {
         content: firmwareCode,

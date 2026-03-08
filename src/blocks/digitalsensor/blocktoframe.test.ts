@@ -10,7 +10,7 @@ import {
   createArduinoAndWorkSpace,
   createTestEvent,
 } from "../../tests/tests.helper";
-import { DigitalPictureType, DigitalSensorState } from "./state";
+import { DigitalSensorType, DigitalSensorState } from "./state";
 
 describe("test digital sensor blocks", () => {
   let workspace: Workspace;
@@ -55,7 +55,7 @@ describe("test digital sensor blocks", () => {
     const frame1sensor = frame1.components.find((c) =>
       c.pins.includes(ARDUINO_PINS.PIN_5)
     ) as DigitalSensorState;
-    expect(frame1sensor.pictureType).toBe(DigitalPictureType.SENSOR);
+    expect(frame1sensor.sensorType).toBe(DigitalSensorType.SENSOR);
 
     expect(frame2.components.length).toBe(2);
     const frame2sensor5 = frame2.components.find((c) =>
@@ -66,7 +66,7 @@ describe("test digital sensor blocks", () => {
       c.pins.includes(ARDUINO_PINS.PIN_9)
     ) as DigitalSensorState;
 
-    expect(frame2sensor9.pictureType).toBe(DigitalPictureType.TOUCH_SENSOR);
-    expect(frame2sensor5.pictureType).toBe(DigitalPictureType.SENSOR);
+    expect(frame2sensor9.sensorType).toBe(DigitalSensorType.TOUCH_SENSOR);
+    expect(frame2sensor5.sensorType).toBe(DigitalSensorType.SENSOR);
   });
 });

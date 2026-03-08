@@ -66,6 +66,7 @@
   let generator;
   let isPlayingLive = false;
   let frameCount = 0;
+  let liveRunId = 0;
   let successfullyCompiledInLiveMode = false;
   let hasUploadedFirmware = false;
 
@@ -161,6 +162,8 @@ You'll see messages and results on this page.`);
         $codeStore.enableFlags.filter((flag) => !commandString.includes(flag))
           .length == 0;
       if (isReadyWithoutCompiling) {
+        await wait(500);
+        await onPlayButton();
         return;
       }
       await onConfirm(
@@ -221,7 +224,7 @@ You'll see messages and results on this page.`);
     };
   };
 
-  async function playLive(justNext = false) {
+  async function playLive(justNext = false, myRun = liveRunId) {
     try {
       if (
         (!isPlayingLive && !justNext) ||
@@ -234,33 +237,36 @@ You'll see messages and results on this page.`);
         onStopButton();
         return;
       }
-      if (frameCount == 0) {
-        var event = createBlocklyEvent(getBlockByType("arduino_loop").id);
-        generator = generateNextFrame(event);
-        await restartArduino();
-        let setupFrameCommands =
-          $frameStore.frames[$frameStore.frames.length - 1];
-        // We need to register all the sensors before we start generating new frames
-        await setupComponents(setupFrameCommands);
+      while ($portStateStoreSub == PortState.OPEN && myRun == liveRunId) {
+        if (!justNext && !isPlayingLive) {
+          return;
+        }
+
+        if (frameCount == 0) {
+          var event = createBlocklyEvent(getBlockByType("arduino_loop").id);
+          generator = generateNextFrame(event);
+          await restartArduino();
+          let setupFrameCommands =
+            $frameStore.frames[$frameStore.frames.length - 1];
+          // We need to register all the sensors before we start generating new frames
+          await setupComponents(setupFrameCommands);
+        }
+
         let frame = (await generator.next()).value;
-        await updateComponents(frame);
-        currentFrameStore.set(frame);
+        if (!frame) {
+          onStopButton();
+          return;
+        }
+
         frameCount += 1;
+        currentFrameStore.set(frame);
+        await updateComponents(frame);
         await wait(frame.delay);
         await wait(100); // We don't want to blast the usb it will error out.
-        if (!justNext) {
-          await playLive();
+
+        if (justNext || myRun != liveRunId || !isPlayingLive) {
+          return;
         }
-        return;
-      }
-      let frame = (await generator.next()).value;
-      frameCount += 1;
-      currentFrameStore.set(frame);
-      await updateComponents(frame);
-      await wait(frame.delay);
-      await wait(100);
-      if (!justNext) {
-        await playLive();
       }
     } catch (error) {
       onStopButton();
@@ -272,13 +278,15 @@ You'll see messages and results on this page.`);
   }
   async function nextFrame() {
     isPlayingLive = false;
-    await playLive(true);
+    const myRun = ++liveRunId;
+    await playLive(true, myRun);
   }
   async function onPlayButton() {
     try {
       if (!arduinoStore.isConnected() || isPlayingLive) return;
       isPlayingLive = true;
-      await playLive();
+      const myRun = ++liveRunId;
+      await playLive(false, myRun);
     } catch (error) {
       onErrorMessage(
         "There was an error running the code, please download, refresh and try again.",
@@ -289,6 +297,7 @@ You'll see messages and results on this page.`);
 
   function onStopButton() {
     isPlayingLive = false;
+    liveRunId += 1;
     frameCount = 0;
     currentFrameStore.set($frameStore.frames[$frameStore.frames.length - 1]);
   }

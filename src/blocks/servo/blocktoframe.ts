@@ -91,6 +91,7 @@ const getServo = (
       type: ArduinoComponentType.SERVO,
       setupCommand,
       usbCommands,
+      enableFlag: "ENABLE_SERVO",
     };
   }
 

@@ -13,7 +13,7 @@ import {
   createComponentWire,
   createGroundOrPowerWire,
 } from "../../core/virtual-circuit/wire";
-import { DigitalPictureType, DigitalSensorState } from "./state";
+import { DigitalSensorType, DigitalSensorState } from "./state";
 
 export const createDigitalSensor: AfterComponentCreateHook<DigitalSensorState> = (
   state,
@@ -24,14 +24,14 @@ export const createDigitalSensor: AfterComponentCreateHook<DigitalSensorState> =
   settings
 ) => {
   sensorEl.findOne("#PIN_TEXT").node.innerHTML = state.pin.toString();
-  sensorEl.data("picture-type", state.pictureType);
-  if (pinCenterText[state.pictureType]) {
+  sensorEl.data("picture-type", state.sensorType);
+  if (pinCenterText[state.sensorType]) {
     (sensorEl.findOne("#PIN_TEXT") as Element).cx(
-      pinCenterText[state.pictureType]
+      pinCenterText[state.sensorType]
     );
   }
 
-  if (state.pictureType === DigitalPictureType.TOUCH_SENSOR) {
+  if (state.sensorType === DigitalSensorType.TOUCH_SENSOR) {
     (sensorEl.findOne("#SKIN_COLOR_CHANGE") as Element).node.style.fill =
       settings.touchSkinColor;
   }
@@ -47,7 +47,7 @@ export const positionDigitalSensor: PositionComponent<DigitalSensorState> = (
 ) => {
   const { holes, isDown } = area;
 
-  if (state.pictureType === DigitalPictureType.TOUCH_SENSOR) {
+  if (state.sensorType === DigitalSensorType.TOUCH_SENSOR) {
     positionComponent(sensorEl, arduinoEl, draw, holes[2], isDown, "PIN_POWER");
     return;
   }
@@ -65,7 +65,7 @@ export const updateDigitalSensor: SyncComponent = (
   analogSensorEl,
   draw
 ) => {
-  if (state.pictureType === DigitalPictureType.SENSOR) {
+  if (state.sensorType === DigitalSensorType.SENSOR) {
     const sensingWave = analogSensorEl.findOne("#SENSING");
     if (state.isOn) {
       sensingWave.show();
@@ -75,7 +75,7 @@ export const updateDigitalSensor: SyncComponent = (
     return;
   }
 
-  if (state.pictureType === DigitalPictureType.TOUCH_SENSOR) {
+  if (state.sensorType === DigitalSensorType.TOUCH_SENSOR) {
     if (state.isOn) {
       analogSensorEl.findOne("#finger").show();
     } else {
@@ -95,7 +95,7 @@ export const createWireDigitalSensor: CreateWire<DigitalSensorState> = (
   board,
   area
 ) => {
-  return state.pictureType === DigitalPictureType.SENSOR
+  return state.sensorType === DigitalSensorType.SENSOR
     ? createSensorWires(state, draw, componentEl, arduinoEl, id, board, area)
     : createTouchSensorWires(
         state,
@@ -224,6 +224,6 @@ const createTouchSensorWires: CreateWire<DigitalSensorState> = (
 };
 
 const pinCenterText = {
-  [DigitalPictureType.SENSOR]: 18,
-  [DigitalPictureType.TOUCH_SENSOR]: 10,
+  [DigitalSensorType.SENSOR]: 18,
+  [DigitalSensorType.TOUCH_SENSOR]: 10,
 };

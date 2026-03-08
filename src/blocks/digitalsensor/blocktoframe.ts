@@ -2,7 +2,7 @@ import { findFieldValue } from "../../core/blockly/helpers/block-data.helper";
 import { ArduinoComponentType } from "../../core/frames/arduino.frame";
 import type { BlockToFrameTransformer } from "../../core/frames/transformer/block-to-frame.transformer";
 import { arduinoFrameByComponent } from "../../core/frames/transformer/frame-transformer.helpers";
-import { DigitalPictureType, DigitalSensor, DigitalSensorState } from "./state";
+import { DigitalSensorType, DigitalSensor, DigitalSensorState } from "./state";
 
 export const digitalReadSetup: BlockToFrameTransformer = (
   blocks,
@@ -15,17 +15,21 @@ export const digitalReadSetup: BlockToFrameTransformer = (
   const digitalSensor1 = digitalSensorInfo.find((d) => d.loop === 1);
 
   const pin = findFieldValue(block, "PIN");
-  const pictureType = findFieldValue(block, "TYPE") as DigitalPictureType;
-  const sensorType =
-    pictureType === DigitalPictureType.TOUCH_SENSOR ? "touch" : "digital";
-  const explanation = `Setting up ${sensorType} sensor ${pin}.`;
+  const sensorType = findFieldValue(block, "TYPE") as DigitalSensorType;
+  let humanSensorWord = "digital";
+  if (sensorType == DigitalSensorType.IR_SENSOR) {
+    humanSensorWord = "infrared";
+  } else if (sensorType == DigitalSensorType.TOUCH_SENSOR) {
+    humanSensorWord = "touch";
+  }
+  const explanation = `Setting up ${humanSensorWord} sensor ${pin}.`;
 
   const digitalSensorState: DigitalSensorState = {
     type: ArduinoComponentType.DIGITAL_SENSOR,
     pin,
     pins: [pin],
     isOn: digitalSensor1.isOn,
-    pictureType,
+    sensorType,
     setupCommand: `register::dr::${pin}`,
   };
   var frame = arduinoFrameByComponent(
