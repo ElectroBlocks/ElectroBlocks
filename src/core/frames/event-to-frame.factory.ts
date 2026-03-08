@@ -144,7 +144,8 @@ const generateFramesWithLoop = (
         defaultComponents
       );
 
-      if (frames.length > 0 && frames[frames.length - 1].frameNumber > 5000) {
+      // Realtime components use a generator so this is not a problem.
+      if (frames.length > 0 && frames[frames.length - 1].frameNumber > 5000 && !isRealTime) {
         stopAllFrames = true;
         alert(`Reached maximun steps for simulation.`);
         const count = prevFrames.length;

@@ -38,7 +38,7 @@
   } from "@mdi/js";
   import {
     generateNewFramesWithLoop,
-    generateNextFrame,
+    generateNextFrame as createGenerator,
   } from "../../../core/frames/event-to-frame.factory";
   import { getAllVariables } from "../../../core/blockly/helpers/variable.helper";
   import { transformBlock } from "../../../core/blockly/transformers/block.transformer";
@@ -244,7 +244,7 @@ You'll see messages and results on this page.`);
 
         if (frameCount == 0) {
           var event = createBlocklyEvent(getBlockByType("arduino_loop").id);
-          generator = generateNextFrame(event);
+          generator = createGenerator(event);
           await restartArduino();
           let setupFrameCommands =
             $frameStore.frames[$frameStore.frames.length - 1];
