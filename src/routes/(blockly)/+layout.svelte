@@ -198,7 +198,7 @@
   });
 </script>
 
-<Nav  />
+<Nav></Nav>
 <svelte:body on:mouseup={stopResize} />
 <main
   style="height: {height}"
@@ -209,7 +209,7 @@
   <div style="flex: {middleFlex}" id="middle_panel">
     <Blockly {showLoopExecutionTimesArduinoStartBlock} />
   </div>
-  <div on:mousedown={() => startResize('right')} class="grabber" />
+  <div on:mousedown={() => startResize('right')} class="grabber"></div>
   <div
     style="flex: {rightFlex}"
     class:scroll={showScrollOnRightSide}

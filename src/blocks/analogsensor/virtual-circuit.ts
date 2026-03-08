@@ -311,7 +311,7 @@ const updatePotentiometerSensor = (
   const textEl = sensor.findOne("#READING_VALUE") as Text;
   textEl.cx(43);
   const rotateEl = sensor.findOne("#ROTATE_KNOB") as Svg;
-  const lastDegree = +sensor.data("degree") ?? 0;
+  const lastDegree = Number(sensor.data("degree") ?? 0);
   const degree = (state.state / 1024) * 180;
   rotateEl.rotate(lastDegree, rotateEl.cx(), rotateEl.cy());
   rotateEl.rotate(degree * -1, rotateEl.cx(), rotateEl.cy());

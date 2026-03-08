@@ -80,7 +80,7 @@
           <span
             class="led-preview"
             style="background-color: {rgbToHex(led.color)};"
-          />
+          ></span>
         {/each}
       </div>
     {/each}
