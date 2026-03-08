@@ -65,15 +65,7 @@ export const updateDigitalSensor: SyncComponent = (
   analogSensorEl,
   draw
 ) => {
-  if (state.sensorType === DigitalSensorType.SENSOR) {
-    const sensingWave = analogSensorEl.findOne("#SENSING");
-    if (state.isOn) {
-      sensingWave.show();
-    } else {
-      sensingWave.hide();
-    }
-    return;
-  }
+  
 
   if (state.sensorType === DigitalSensorType.TOUCH_SENSOR) {
     if (state.isOn) {
@@ -84,6 +76,13 @@ export const updateDigitalSensor: SyncComponent = (
 
     return;
   }
+
+  const sensingWave = analogSensorEl.findOne("#SENSING");
+    if (state.isOn) {
+      sensingWave.show();
+    } else {
+      sensingWave.hide();
+    }
 };
 
 export const createWireDigitalSensor: CreateWire<DigitalSensorState> = (

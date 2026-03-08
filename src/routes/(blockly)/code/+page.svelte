@@ -11,7 +11,7 @@
   import 'highlight.js/styles/a11y-light.css';
 
   import { afterUpdate } from "svelte";
-  import { tooltip } from "@svelte-plugins/tooltips";
+  import { tooltip } from "../../../helpers/tooltip.action";
 
   // Importing settings store
   import settingsStore from "../../../stores/settings.store";
