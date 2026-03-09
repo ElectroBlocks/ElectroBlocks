@@ -4,7 +4,7 @@ So we are working on contributing docs. Right now everything is setup for people
 
 ## Code Coverage
 
-[![codecov](https://codecov.io/gh/ElectroBlocks/ElectroBlocks/branch/master/graph/badge.svg?token=kXJsoc3VSp)](https://codecov.io/gh/ElectroBlocks/ElectroBlocks)
+[![codecov](https://codecov.io/gh/ElectroBlocks/ElectroBlocks/branch/main/graph/badge.svg?token=kXJsoc3VSp)](https://codecov.io/gh/ElectroBlocks/ElectroBlocks)
 
 ## License
 

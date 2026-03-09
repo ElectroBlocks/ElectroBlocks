@@ -63,6 +63,23 @@ export enum SimulatorMode {
 
 export const simulatorStore = writable<SimulatorMode>(SimulatorMode.VIRTUAL);
 
+const requestArduinoPort = async (baudRate: number) => {
+  try {
+    return await WebSerialPortPromise.requestPort(
+      {
+        filters: ArduinoUsbFilters,
+      },
+      { baudRate }
+    );
+  } catch (error: any) {
+    // Fallback for boards that expose a different USB vendor id than our known list.
+    if (error?.name === "NotFoundError") {
+      return await WebSerialPortPromise.requestPort({}, { baudRate });
+    }
+    throw error;
+  }
+};
+
 function addListener(port: WebSerialPortPromise) {
   port.removeAllListeners();
   port.on("data", (data) => {
@@ -122,12 +139,7 @@ const uploadHexCodeToBoard = async (
     let port = get(arduinoPortStore);
     port = port
       ? port
-      : await WebSerialPortPromise.requestPort(
-          {
-            filters: ArduinoUsbFilters,
-          },
-          { baudRate: boardInfo.serial_baud_rate }
-        );
+      : await requestArduinoPort(boardInfo.serial_baud_rate);
 
     if (!port.isOpen) {
       await port.open();
@@ -384,12 +396,7 @@ const arduinoStore = {
   connect: async () => {
     try {
       portStateStore.set(PortState.CONNECTING);
-      const port = await WebSerialPortPromise.requestPort(
-        {
-          filters: ArduinoUsbFilters,
-        },
-        { baudRate: 115200 }
-      );
+      const port = await requestArduinoPort(115200);
       await port.open();
       portStateStore.set(PortState.OPEN);
       addListener(port);
