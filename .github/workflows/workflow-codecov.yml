@@ -12,6 +12,8 @@ jobs:
         uses: actions/setup-node@v2.1.5
         with:
           node-version: 20
+      - name: Clean npm cache
+        run: rm -f package-lock.json && npm cache clean --force
       - name: Install
         run: npm install
         env:
