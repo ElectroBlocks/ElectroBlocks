@@ -22,7 +22,7 @@ try {
 }
 
 settings["boardType"] = settings.boardType || MicroControllerType.ARDUINO_UNO;
-settings.language = settings.language || SUPPORTED_LANGUAGES.C;
+settings["language"] = settings.language || SUPPORTED_LANGUAGES.C;
 
 const settingsStore = writable<Settings>(settings);
 
