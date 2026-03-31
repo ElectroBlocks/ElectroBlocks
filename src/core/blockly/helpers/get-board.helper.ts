@@ -4,8 +4,8 @@ import { get } from 'svelte/store';
 
 export const getBoardType = (): MicroControllerType => {
   const currentSettings = get(settingsStore);
-  if (!currentSettings) {
+  if (!currentSettings || !currentSettings.boardType) {
     return MicroControllerType.ARDUINO_UNO;
   }
-  return get(settingsStore)["boardType"];
+  return currentSettings.boardType;
 };
