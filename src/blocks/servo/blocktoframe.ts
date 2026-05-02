@@ -25,6 +25,13 @@ export const defaultServoComponent: BlockToDefaultComponnet = (block) => {
     setupCommand: `register::servo::${pin}`,
     usbCommands: [],
     enableFlag: "ENABLE_SERVO",
+    importLibraries: [
+      {
+        name: "Servo",
+        version: "latest",
+        url: "https://downloads.arduino.cc/libraries/github.com/arduino-libraries/Servo-1.2.1.zip",
+      },
+    ]
   };
 
   return servoState;
@@ -56,7 +63,6 @@ export const servoRotate: BlockToFrameTransformer = (
     findFieldValue(block, "PIN"),
     previousState
   );
-
   newComponent.importLibraries = [
     {
       name: "Servo",
