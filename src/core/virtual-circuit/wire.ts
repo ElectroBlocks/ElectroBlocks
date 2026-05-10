@@ -134,6 +134,35 @@ export const getGroundorPowerWireLetter = (
   return "Z";
 };
 
+export const createGroundOrPowerWireDirect = (
+  hole: number,
+  isDown: boolean,
+  componentEl: Element,
+  draw: Svg,
+  arduino: Element,
+  componentId: string,
+  type: "ground" | "power",
+  pinConnectionId: string = "",
+) => {
+  if (pinConnectionId === "") {
+    pinConnectionId = type === "ground" ? "PIN_GND" : "PIN_POWER";
+  }
+  const color = type === "ground" ? "#000" : "#AA0000";
+  // This is so that it does not collide with connector wire in the breadboard.
+  const breadBoardHoleB = `pin${
+    hole == 31 ? 30 : hole
+  }${getGroundorPowerWireLetter(isDown, type)}`;
+  createWireComponentToBreadboard(
+    breadBoardHoleB,
+    componentEl,
+    draw,
+    arduino,
+    pinConnectionId,
+    componentId,
+    color,
+  );
+};
+
 export const createGroundOrPowerWire = (
   hole: number,
   isDown: boolean,
@@ -143,7 +172,7 @@ export const createGroundOrPowerWire = (
   componentId: string,
   type: "ground" | "power",
   pinConnectionId: string = "",
-  noComponentWire = false
+  noComponentWire = false,
 ) => {
   const groundHole = `pin${hole}${isDown ? "E" : "F"}`;
   if (pinConnectionId === "") {
@@ -163,7 +192,7 @@ export const createGroundOrPowerWire = (
       arduino,
       pinConnectionId,
       componentId,
-      color
+      color,
     );
   }
 
@@ -173,8 +202,35 @@ export const createGroundOrPowerWire = (
     color,
     draw,
     arduino as Svg,
-    componentId
+    componentId,
   );
+};
+
+export const createComponentWireDirect = (
+  componentEl: Element,
+  pin: ARDUINO_PINS,
+  draw: Svg,
+  arduino: Element,
+  componentId: string,
+  connectionId: string,
+  board: MicroController,
+) => {
+  const pinConnection = board.pinConnections[pin];
+  const arduinoPin = findArduinoConnectionCenter(arduino, pinConnection.id);
+  const componentPin = findComponentConnection(componentEl, connectionId);
+  const color = board.pinConnections[pin].color;
+  const line = draw
+    .line()
+    .plot(componentPin.x, componentPin.y, arduinoPin.x, arduinoPin.y)
+    .stroke({ width: 2, color, linecap: "round" });
+  line.data("connection-id", connectionId);
+  line.data("component-id", componentId);
+  line.data("type", "wire");
+  line.data("update-wire", true);
+  line.data("hole-id", pinConnection.id);
+  if (board.analonPins.includes(pin)) {
+    arduino.findOne("#" + pin).show();
+  }
 };
 
 export const createComponentWire = (

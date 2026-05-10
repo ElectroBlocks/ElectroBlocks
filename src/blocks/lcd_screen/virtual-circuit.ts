@@ -13,7 +13,9 @@ import type { Element, Svg, Text } from "@svgdotjs/svg.js";
 import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
+  createGroundOrPowerWireDirect,
 } from "../../core/virtual-circuit/wire";
 
 /**
@@ -145,30 +147,42 @@ export const createWiresLcd: CreateWire<LCDScreenState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  createGroundOrPowerWire(holes[1], isDown, lcdEl, draw, arduino, id, "power");
-  createGroundOrPowerWire(holes[0], isDown, lcdEl, draw, arduino, id, "ground");
-
-  createComponentWire(
-    holes[3],
+  createGroundOrPowerWireDirect(
+    holes[1],
     isDown,
+    lcdEl,
+    draw,
+    arduino,
+    id,
+    "power",
+  );
+  createGroundOrPowerWireDirect(
+    holes[0],
+    isDown,
+    lcdEl,
+    draw,
+    arduino,
+    id,
+    "ground",
+  );
+
+  createComponentWireDirect(
     lcdEl,
     state.sdaPin,
     draw,
     arduino as Svg,
     id,
     "PIN_SDA",
-    board
+    board,
   );
 
-  createComponentWire(
-    holes[2],
-    isDown,
+  createComponentWireDirect(
     lcdEl,
     state.sclPin,
     draw,
     arduino as Svg,
     id,
     "PIN_SCL",
-    board
+    board,
   );
 };

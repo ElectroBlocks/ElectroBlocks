@@ -14,7 +14,9 @@ import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import type { ServoState } from "./state";
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
+  createGroundOrPowerWireDirect,
 } from "../../core/virtual-circuit/wire";
 
 export const servoReset: ResetComponent = (servoEl) => {
@@ -84,34 +86,24 @@ export const createWiresServo: CreateWire<ServoState> = (
   const { holes, isDown } = area;
 
   const pin = state.pins[0];
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[0],
     isDown,
     servoEl,
     draw,
     arduino,
     id,
-    "ground"
+    "ground",
   );
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[1],
     isDown,
     servoEl,
     draw,
     arduino,
     id,
-    "power"
+    "power",
   );
 
-  createComponentWire(
-    holes[3],
-    isDown,
-    servoEl,
-    pin,
-    draw,
-    arduino,
-    id,
-    "PIN_DATA",
-    board
-  );
+  createComponentWireDirect(servoEl, pin, draw, arduino, id, "PIN_DATA", board);
 };

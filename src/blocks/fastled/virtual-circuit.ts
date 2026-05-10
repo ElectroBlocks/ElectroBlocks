@@ -15,8 +15,10 @@ import { positionComponent } from '../../core/virtual-circuit/svg-position';
 import type { FastLEDState } from './state';
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
-} from '../../core/virtual-circuit/wire';
+  createGroundOrPowerWireDirect,
+} from "../../core/virtual-circuit/wire";
 
 export const fastLEDCreate: AfterComponentCreateHook<FastLEDState> = (
   state,
@@ -73,35 +75,33 @@ export const createWiresFastLEDs: CreateWire<FastLEDState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  createComponentWire(
-    holes[1],
-    isDown,
+  createComponentWireDirect(
     fastLEDEl,
     state.pins[0],
     draw,
     arduino,
     id,
-    'PIN_DATA',
-    board
+    "PIN_DATA",
+    board,
   );
 
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[0],
     isDown,
     fastLEDEl,
     draw,
     arduino,
     id,
-    'ground'
+    "ground",
   );
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[2],
     isDown,
     fastLEDEl,
     draw,
     arduino,
     id,
-    'power'
+    "power",
   );
 };
 

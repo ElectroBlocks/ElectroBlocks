@@ -9,6 +9,7 @@ import type {
 } from "../../core/virtual-circuit/svg-create";
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
   createWireComponentToBreadboard,
   createWireFromArduinoToBreadBoard,
@@ -54,75 +55,63 @@ export const createMotorWires: CreateWire<MotorShieldState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  createComponentWire(
-    holes[0],
-    isDown,
+  createComponentWireDirect(
     motorEl,
     state.en1,
     draw,
     arduino,
     id,
     "EN1_PIN",
-    board
+    board,
   );
-  createComponentWire(
-    holes[1],
-    isDown,
+  createComponentWireDirect(
     motorEl,
     state.in1,
     draw,
     arduino,
     id,
     "IN1_PIN",
-    board
+    board,
   );
-  createComponentWire(
-    holes[2],
-    isDown,
+  createComponentWireDirect(
     motorEl,
     state.in2,
     draw,
     arduino,
     id,
     "IN2_PIN",
-    board
+    board,
   );
   if (state.numberOfMotors == 1) {
     return;
   }
 
-  createComponentWire(
-    holes[3],
-    isDown,
+  createComponentWireDirect(
     motorEl,
     state.in3,
     draw,
     arduino,
     id,
     "IN3_PIN",
-    board
+    board,
   );
-  createComponentWire(
-    holes[4],
-    isDown,
+  createComponentWireDirect(
     motorEl,
     state.in4,
     draw,
     arduino,
     id,
     "IN4_PIN",
-    board
+    board,
   );
-  createComponentWire(
-    holes[5],
-    isDown,
+  createComponentWireDirect(
     motorEl,
     state.en2,
     draw,
     arduino,
     id,
     "EN2_PIN",
-    board
+    board,
   );
 };
 
