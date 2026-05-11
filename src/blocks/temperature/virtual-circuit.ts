@@ -14,7 +14,9 @@ import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import { TemperatureState } from "./state";
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
+  createGroundOrPowerWireDirect,
 } from "../../core/virtual-circuit/wire";
 
 export const createTemp: AfterComponentCreateHook<TemperatureState> = (
@@ -66,35 +68,33 @@ export const createWiresTemp: CreateWire<TemperatureState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[0],
     isDown,
     componentEl,
     draw,
     arduionEl,
     id,
-    "power"
+    "power",
   );
 
-  createComponentWire(
-    holes[1],
-    isDown,
+  createComponentWireDirect(
     componentEl,
     state.pins[0],
     draw,
     arduionEl,
     id,
     "PIN_DATA",
-    board
+    board,
   );
 
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[2],
     isDown,
     componentEl,
     draw,
     arduionEl,
     id,
-    "ground"
+    "ground",
   );
 };

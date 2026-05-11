@@ -228,8 +228,11 @@ export const createComponentWireDirect = (
   line.data("type", "wire");
   line.data("update-wire", true);
   line.data("hole-id", pinConnection.id);
+  line.data("analog-pin", false);
+
   if (board.analonPins.includes(pin)) {
     arduino.findOne("#" + pin).show();
+    line.data("analog-pin", true);
   }
 };
 
@@ -368,9 +371,13 @@ export const updateWires = (element: Element, draw: Svg, arduino: Svg) => {
     })
     .forEach((w) => {
       const holeId = w.data("hole-id");
+      const analogPinDirect = w.data("analog-pin") == true;
       const hole = findSvgElement(holeId, arduino);
+
       const holeX = hole.cx() + arduino.x();
-      const holeY = hole.cy() + arduino.y();
+      const holeY = analogPinDirect
+        ? hole.y() + arduino.y()
+        : hole.cy() + arduino.y();
       const connectionId = w.data("connection-id");
       const componentPin = findComponentConnection(element, connectionId);
       w.plot(holeX, holeY, componentPin.x, componentPin.y);

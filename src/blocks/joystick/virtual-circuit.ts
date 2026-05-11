@@ -11,7 +11,9 @@ import {
 } from "../../core/virtual-circuit/svg-sync";
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
+  createGroundOrPowerWireDirect,
 } from "../../core/virtual-circuit/wire";
 import { JoystickState } from "./state";
 
@@ -25,59 +27,53 @@ export const createWireJoyStick: CreateWire<JoystickState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[0],
     isDown,
     joyStickEl,
     draw,
     arduinoEl,
     id,
-    "ground"
+    "ground",
   );
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[1],
     isDown,
     joyStickEl,
     draw,
     arduinoEl,
     id,
-    "power"
+    "power",
   );
 
-  createComponentWire(
-    holes[2],
-    isDown,
+  createComponentWireDirect(
     joyStickEl,
     state.xPin,
     draw,
     arduinoEl,
     id,
     "PIN_X",
-    board
+    board,
   );
 
-  createComponentWire(
-    holes[3],
-    isDown,
+  createComponentWireDirect(
     joyStickEl,
     state.yPin,
     draw,
     arduinoEl,
     id,
     "PIN_Y",
-    board
+    board,
   );
 
-  createComponentWire(
-    holes[4],
-    isDown,
+  createComponentWireDirect(
     joyStickEl,
     state.buttonPin,
     draw,
     arduinoEl,
     id,
     "PIN_SW",
-    board
+    board,
   );
 };
 
