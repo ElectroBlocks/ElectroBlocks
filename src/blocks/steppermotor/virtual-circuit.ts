@@ -11,7 +11,9 @@ import {
 } from "../../core/virtual-circuit/svg-sync";
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
+  createGroundOrPowerWireDirect,
 } from "../../core/virtual-circuit/wire";
 import { StepperMotorState } from "./state";
 
@@ -62,78 +64,70 @@ export const createWireStepperMotor: CreateWire<StepperMotorState> = (
   area
 ) => {
   const { isDown, holes } = area;
-
+  console.log(holes);
   if (holes.length < 6) {
     // this component requires 6 pins
     return;
   }
 
-  createComponentWire(
-    holes[0],
-    isDown,
+  createComponentWireDirect(
     componentEl,
     state.pin1,
     draw,
     arduinoEl,
     id,
     "PIN_1",
-    board
+    board,
   );
 
-  createComponentWire(
-    holes[1],
-    isDown,
+  createComponentWireDirect(
     componentEl,
     state.pin2,
     draw,
     arduinoEl,
     id,
     "PIN_2",
-    board
+    board,
   );
 
-  createComponentWire(
-    holes[2],
-    isDown,
+  createComponentWireDirect(
     componentEl,
     state.pin3,
     draw,
     arduinoEl,
     id,
     "PIN_3",
-    board
+    board,
   );
 
-  createComponentWire(
-    holes[5],
-    isDown,
+  createComponentWireDirect(
     componentEl,
     state.pin4,
     draw,
     arduinoEl,
     id,
     "PIN_4",
-    board
+    board,
   );
 
-  createGroundOrPowerWire(
-    holes[4],
+  createGroundOrPowerWireDirect(
+    holes[1],
     isDown,
     componentEl,
     draw,
     arduinoEl,
     id,
-    "ground"
+    "ground",
   );
 
-  createGroundOrPowerWire(
-    holes[3],
+  createGroundOrPowerWireDirect(
+    holes[0],
     isDown,
     componentEl,
     draw,
     arduinoEl,
     id,
-    "power"
+    "power",
   );
 };
 

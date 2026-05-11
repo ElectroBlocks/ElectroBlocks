@@ -14,7 +14,9 @@ import { positionComponent } from "../../core/virtual-circuit/svg-position";
 import type { RfidState } from "./state";
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
+  createGroundOrPowerWireDirect,
 } from "../../core/virtual-circuit/wire";
 
 export const positionRfid: PositionComponent<RfidState> = (
@@ -67,47 +69,43 @@ export const createWiresRfid: CreateWire<RfidState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[0],
     isDown,
     rfidEl,
     draw,
     arduinoEl,
     id,
-    "ground"
+    "ground",
   );
 
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[1],
     isDown,
     rfidEl,
     draw,
     arduinoEl,
     id,
-    "power"
+    "power",
   );
 
-  createComponentWire(
-    holes[2],
-    isDown,
+  createComponentWireDirect(
     rfidEl,
     state.txPin,
     draw,
     arduinoEl,
     id,
     "PIN_TX",
-    board
+    board,
   );
 
-  createComponentWire(
-    holes[3],
-    isDown,
+  createComponentWireDirect(
     rfidEl,
     state.rxPin,
     draw,
     arduinoEl,
     id,
     "PIN_RX",
-    board
+    board,
   );
 };

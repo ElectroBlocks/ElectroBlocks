@@ -11,7 +11,9 @@ import {
 } from "../../core/virtual-circuit/svg-sync";
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
+  createGroundOrPowerWireDirect,
 } from "../../core/virtual-circuit/wire";
 import { PassiveBuzzerState, NOTE_TONES, Notes } from "./state";
 
@@ -72,26 +74,24 @@ export const createWiresPassiveBuzzer: CreateWire<PassiveBuzzerState> = (
 ) => {
   const { holes, isDown } = area;
 
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[3],
     isDown,
     passiveBuzzerEl,
     draw,
     arduinoEl,
     componentId,
-    "ground"
+    "ground",
   );
 
-  createComponentWire(
-    holes[0],
-    isDown,
+  createComponentWireDirect(
     passiveBuzzerEl,
     state.pins[0],
     draw,
     arduinoEl,
     componentId,
     "PIN_DATA",
-    board
+    board,
   );
 };
 

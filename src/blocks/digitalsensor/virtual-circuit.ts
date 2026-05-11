@@ -11,7 +11,9 @@ import type {
 } from "../../core/virtual-circuit/svg-sync";
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
+  createGroundOrPowerWireDirect,
 } from "../../core/virtual-circuit/wire";
 import { DigitalSensorType, DigitalSensorState } from "./state";
 
@@ -117,26 +119,24 @@ const createSensorWires: CreateWire<DigitalSensorState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[0],
     isDown,
     componentEl,
     draw,
     arduinoEl,
     id,
-    "power"
+    "power",
   );
 
-  createComponentWire(
-    holes[1],
-    isDown,
+  createComponentWireDirect(
     componentEl,
     state.pin,
     draw,
     arduinoEl,
     id,
     "PIN_DATA",
-    board
+    board,
   );
 
   createGroundOrPowerWire(
@@ -189,36 +189,34 @@ const createTouchSensorWires: CreateWire<DigitalSensorState> = (
   area
 ) => {
   const { holes, isDown } = area;
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[1],
     isDown,
     componentEl,
     draw,
     arduinoEl,
     id,
-    "power"
+    "power",
   );
 
-  createComponentWire(
-    holes[0],
-    isDown,
+  createComponentWireDirect(
     componentEl,
     state.pin,
     draw,
     arduinoEl,
     id,
     "PIN_DATA",
-    board
+    board,
   );
 
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[2],
     isDown,
     componentEl,
     draw,
     arduinoEl,
     id,
-    "ground"
+    "ground",
   );
 };
 

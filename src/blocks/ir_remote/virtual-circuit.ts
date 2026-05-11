@@ -11,7 +11,9 @@ import type {
 } from "../../core/virtual-circuit/svg-sync";
 import {
   createComponentWire,
+  createComponentWireDirect,
   createGroundOrPowerWire,
+  createGroundOrPowerWireDirect,
 } from "../../core/virtual-circuit/wire";
 import type { IRRemoteState } from "./state";
 
@@ -68,34 +70,32 @@ export const createWiresIrRemote: CreateWire<IRRemoteState> = (
 ) => {
   const { holes, isDown } = area;
 
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[0],
     isDown,
     irRemoteEl,
     draw,
     arduino,
     id,
-    "ground"
+    "ground",
   );
-  createGroundOrPowerWire(
+  createGroundOrPowerWireDirect(
     holes[1],
     isDown,
     irRemoteEl,
     draw,
     arduino,
     id,
-    "power"
+    "power",
   );
 
-  createComponentWire(
-    holes[2],
-    isDown,
+  createComponentWireDirect(
     irRemoteEl,
     state.pin,
     draw,
     arduino,
     id,
     "PIN_DATA",
-    board
+    board,
   );
 };
