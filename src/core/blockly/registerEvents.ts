@@ -65,8 +65,8 @@ export const createFrames = async (blocklyEvent) => {
   ]);
 
   if (!supportedEvents.has(blocklyEvent.type)) return;
+  if (blocklyEvent.element == "comment") return;
 
-  console.log(blocklyEvent, "blockEvent");
   const microControllerType = getBoardType() as MicroControllerType;
   var settingData = get(settingStore);
   var codeData = get(codeStore);
@@ -229,12 +229,15 @@ export const createFrames = async (blocklyEvent) => {
     simulatorMode == SimulatorMode.LIVE ||
     JSON.stringify(newFrameContainer) !== JSON.stringify(currentFrameContainter)
   ) {
+    console.log("CHANGED", blocklyEvent);
     frameStore.set(newFrameContainer);
     return true;
+  } else {
+    console.log("NOT CHANGED", blocklyEvent);
   }
 
   return true;
-};;;;;
+};
 
 const enableBlocks = (actions: DisableBlock[]) => {
   const disabledBlockIds = actions
@@ -260,6 +263,6 @@ function saveToLocalStorage() {
 }
 
 export const addListener = (workspace: WorkspaceSvg) => {
-  workspace.addChangeListener(_.debounce(createFrames, 200));
+  workspace.addChangeListener(_.debounce(createFrames, 200, { leading: true }));
   workspace.addChangeListener(saveToLocalStorage);
 };

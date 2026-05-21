@@ -32,10 +32,11 @@ import {
 /**
  * This will start up blockly and will add all the event listeners and styles
  */
-const startBlockly = (
+const startBlockly = async (
   blocklyElement: HTMLElement,
   boardType: MicroControllerType,
-  lang: SUPPORTED_LANGUAGES
+  lang: SUPPORTED_LANGUAGES,
+  exampleProject?: string,
 ) => {
   // removing alert & confirms from blockly library
   Blockly.dialog.setAlert((m) => console.log(m));
@@ -51,14 +52,21 @@ const startBlockly = (
 
   registerFunctionMenu(workspace);
 
-  // Setups all the listeners for the blockly events
-  addListener(workspace);
-
   // Registers the code menu
   registerCodeMenu(workspace);
   let arduinoBlock;
+  if (exampleProject) {
+    const localFileResponse = await fetch(
+      `/example-projects/${exampleProject}`,
+    );
+    const xmlFile = await localFileResponse.text();
+    loadProject(xmlFile);
+  }
   // If the last workspace was empty, create the default blocks
-  if (localStorage && localStorage.getItem("reload_once_workspace") === null) {
+  else if (
+    localStorage &&
+    localStorage.getItem("reload_once_workspace") === null
+  ) {
     // creates the arduino loop block
     arduinoBlock = createBlock("arduino_loop", 50, 151, false);
 
@@ -74,12 +82,9 @@ const startBlockly = (
       getWorkspace().scrollCenter();
     }, 100);
   }
-  // return null if it's not there
-  if (!arduinoBlock) return;
-  createFrames({
-    type: Blockly.Events.MOVE,
-    blockId: arduinoBlock.id,
-  });
+
+  // Setups all the listeners for the blockly events
+  addListener(workspace);
 };
 
 /**

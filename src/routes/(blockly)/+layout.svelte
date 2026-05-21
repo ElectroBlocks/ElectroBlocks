@@ -12,10 +12,6 @@
   import projectStore from '../../stores/project.store';
   import { getFile, getProject } from '../../firebase/db';
   import { loadProject } from '../../core/blockly/helpers/workspace.helper';
-  import {
-    arduinoLoopBlockShowLoopForeverText,
-    arduinoLoopBlockShowNumberOfTimesThroughLoop,
-  } from '../../core/blockly/helpers/arduino_loop_block.helper';
   import swal from 'sweetalert';
   import { initializeAnalytics } from 'firebase/analytics';
   import { initializeApp } from 'firebase/app';
@@ -133,20 +129,7 @@
       resizeHeight();
     });
 
-    let loadedProject = false;
     const auth = getAuth();
-
-    if ($page.url.searchParams.get('example_project') !== null) {
-        const localFileResponse = await fetch(`/example-projects/${$page.url.searchParams.get('example_project')}`);
-        const xmlFile = await localFileResponse.text();
-        loadProject(xmlFile);
-        loadedProject = true;
-    } else if (localStorage.getItem('reload_once_workspace')) {
-      const xmlText = localStorage.getItem('reload_once_workspace');
-      localStorage.removeItem('reload_once_workspace');
-      loadProject(xmlText);
-      loadedProject = true;
-    }
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -166,8 +149,7 @@
 
       if (
         $projectStore.projectId === $page.url.searchParams.get('projectid') ||
-        !$page.url.searchParams.get('projectid') ||
-        loadedProject
+        !$page.url.searchParams.get('projectid') 
       ) {
         return;
       }
@@ -189,12 +171,6 @@
       swal.close();
       return;
     });
-
-    if (isPathOnHomePage($page.url.pathname)) {
-        arduinoLoopBlockShowNumberOfTimesThroughLoop();
-      } else {
-        arduinoLoopBlockShowLoopForeverText();
-      }
   });
 </script>
 

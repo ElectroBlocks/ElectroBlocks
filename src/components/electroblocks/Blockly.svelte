@@ -16,9 +16,10 @@
     getAllBlocks,
     getBlockById,
   } from '../../core/blockly/helpers/block.helper';
-  import updateLoopblockStore from '../../stores/update-loopblock.store';
   import { workspaceToXML } from '../../core/blockly/helpers/workspace.helper';
   import { getToolBoxString } from '../../core/blockly/toolboxConfig';
+  import { page } from '$app/state';
+  import projectStore from '../../stores/project.store';
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text
@@ -27,7 +28,7 @@
   // The elment that contains blockly
   let blocklyElement;
 
-  let workspaceInitialize = false;
+  $: workspaceInitialize = false;
 
   const unsubscribes = [];
 
@@ -41,13 +42,18 @@
     arduinoLoopBlockShowLoopForeverText();
   }
 
-  onMount(() => {
+  onMount(async () => {
     // Hack for debugging blockly
     window.Blockly = Blockly;
 
-    startBlockly(blocklyElement, $settingsStore.boardType, $settingsStore.language);
+    await startBlockly(blocklyElement, $settingsStore.boardType, $settingsStore.language, page.url.searchParams.get('example_project'));
 
     workspaceInitialize = true;
+    if (showLoopExecutionTimesArduinoStartBlock) {
+          arduinoLoopBlockShowNumberOfTimesThroughLoop();
+        } else if (workspaceInitialize) {
+          arduinoLoopBlockShowLoopForeverText();
+        }
     resizeBlockly();
     // Hack to make sure that once blockly loads it gets resized
     setTimeout(() => {
@@ -66,7 +72,7 @@
     );
 
     unsubscribes.push(
-      updateLoopblockStore.subscribe(() => {
+      projectStore.subscribe(() => {
         if (showLoopExecutionTimesArduinoStartBlock && workspaceInitialize) {
           arduinoLoopBlockShowNumberOfTimesThroughLoop();
         } else if (workspaceInitialize) {
