@@ -23,14 +23,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="9.9128422"
-     inkscape:cx="335.0704"
-     inkscape:cy="17.401669"
+     inkscape:cx="355.24625"
+     inkscape:cy="312.77609"
      inkscape:window-width="1728"
-     inkscape:window-height="1080"
+     inkscape:window-height="982"
      inkscape:window-x="0"
-     inkscape:window-y="37"
+     inkscape:window-y="33"
      inkscape:window-maximized="0"
-     inkscape:current-layer="MicroController" />
+     inkscape:current-layer="VIN" />
   <g
      id="g1726">
     <g
@@ -21923,37 +21923,40 @@
            id="line1738" />
       </g>
       <g
-         id="g1740">
+         id="g1740"
+         transform="translate(-21.588158)">
         <line
-           x1="364.74"
-           y1="344.54"
+           x1="364.73999"
+           y1="344.54001"
            x2="364.91"
-           y2="322.6"
-           style="fill: none;stroke: #8c0000;stroke-linecap: round;stroke-width: 3.20000004768372px"
+           y2="322.60001"
+           style="fill:none;stroke:#8c0000;stroke-width:3.2px;stroke-linecap:round"
            id="line1739" />
         <line
-           x1="364.74"
-           y1="344.54"
+           x1="364.73999"
+           y1="344.54001"
            x2="364.91"
-           y2="322.6"
-           style="fill: none;stroke: #cc1414;stroke-linecap: round;stroke-width: 1.60000002384186px"
+           y2="322.60001"
+           style="fill:none;stroke:#cc1414;stroke-width:1.6px;stroke-linecap:round"
            id="line1740" />
       </g>
       <g
-         id="g1742">
+         id="g1742"
+         transform="matrix(0.92686229,0,0,0.92686229,5.0033507,25.198866)"
+         style="stroke-width:1.07891">
         <line
-           x1="70.01"
-           y1="344.54"
-           x2="364.74"
-           y2="344.54"
-           style="fill: none;stroke: #8c0000;stroke-linecap: round;stroke-width: 3.20000004768372px"
+           x1="70.010002"
+           y1="344.54001"
+           x2="364.73999"
+           y2="344.54001"
+           style="fill:none;stroke:#8c0000;stroke-width:3.45251px;stroke-linecap:round"
            id="line1741" />
         <line
-           x1="70.01"
-           y1="344.54"
-           x2="364.74"
-           y2="344.54"
-           style="fill: none;stroke: #cc1414;stroke-linecap: round;stroke-width: 1.60000002384186px"
+           x1="70.010002"
+           y1="344.54001"
+           x2="364.73999"
+           y2="344.54001"
+           style="fill:none;stroke:#cc1414;stroke-width:1.72625px;stroke-linecap:round"
            id="line1742" />
       </g>
       <g
