@@ -135,15 +135,17 @@ const uploadHexCodeToBoard = async (
 ) => {
   const boardInfo = getBoard(boardType);
   try {
-    portStateStore.set(PortState.CONNECTING);
     let port = get(arduinoPortStore);
-    port = port
-      ? port
-      : await requestArduinoPort(boardInfo.serial_baud_rate);
-
-    if (!port.isOpen) {
-      await port.open();
+    try {
+      if (port) {
+        await arduinoStore.disconnect();
+      }
+    } catch (error) {
+      console.log("ignoring disconnect error", error);
     }
+
+    portStateStore.set(PortState.CONNECTING);
+    port = await requestArduinoPort(boardInfo.serial_baud_rate);
 
     arduinoPortStore.set(port);
     const hexCode = await getHexCode();
@@ -169,22 +171,9 @@ const uploadHexCodeToBoard = async (
     portStateStore.set(PortState.OPEN);
   } catch (error) {
     console.log(error);
-
-    if (error.message == "receiveData timeout after 400ms") {
-      for (let i = 0; i < 10; i++) {
-        await new Promise((resolve) => setTimeout(resolve, 800));
-        var lastMessage = get(usbMessageStore);
-        console.log("Last message:", lastMessage);
-        if (lastMessage?.message.includes("System")) {
-          portStateStore.set(PortState.OPEN);
-          return;
-        }
-      }
-    }
     portStateStore.set(PortState.CLOSE);
     arduinoPortStore.set(null);
     throw error;
-    // onErrorMessage("Error Uploading Code", error);
   }
 };
 

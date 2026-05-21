@@ -66,6 +66,7 @@ export const createFrames = async (blocklyEvent) => {
 
   if (!supportedEvents.has(blocklyEvent.type)) return;
 
+  console.log(blocklyEvent, "blockEvent");
   const microControllerType = getBoardType() as MicroControllerType;
   var settingData = get(settingStore);
   var codeData = get(codeStore);
@@ -74,7 +75,7 @@ export const createFrames = async (blocklyEvent) => {
     getAllBlocks(),
     getAllVariables(),
     blocklyEvent,
-    microControllerType
+    microControllerType,
   );
 
   const firstActionPass = [
@@ -90,21 +91,21 @@ export const createFrames = async (blocklyEvent) => {
     ...disableRecievingMessageBlocksForLiveModeAndPython(
       event,
       settingData,
-      simulatorMode == SimulatorMode.LIVE
+      simulatorMode == SimulatorMode.LIVE,
     ),
   ];
   firstActionPass.forEach((a) => updater(a));
   enableBlocks(
     firstActionPass.filter(
-      (a) => a.type === ActionType.DISABLE_BLOCK
-    ) as DisableBlock[]
+      (a) => a.type === ActionType.DISABLE_BLOCK,
+    ) as DisableBlock[],
   );
 
   const event2 = transformEvent(
     getAllBlocks(),
     getAllVariables(),
     blocklyEvent,
-    microControllerType
+    microControllerType,
   );
   // We need to run this again incase anything got enable that was disabled.
   const secondActionPass = [
@@ -120,14 +121,14 @@ export const createFrames = async (blocklyEvent) => {
     ...disableRecievingMessageBlocksForLiveModeAndPython(
       event2,
       settingData,
-      simulatorMode == SimulatorMode.LIVE
+      simulatorMode == SimulatorMode.LIVE,
     ),
   ];
   secondActionPass.forEach((a) => updater(a));
   enableBlocks(
     secondActionPass.filter(
-      (a) => a.type === ActionType.DISABLE_BLOCK
-    ) as DisableBlock[]
+      (a) => a.type === ActionType.DISABLE_BLOCK,
+    ) as DisableBlock[],
   );
 
   if (secondActionPass.filter((a) => a.stopCompiling).length >= 1) {
@@ -144,7 +145,7 @@ export const createFrames = async (blocklyEvent) => {
       onErrorMessage(
         "Please fix the highlighted blocks and try again.\nLook for blocks with a ⚠️ symbol.",
         {},
-        "Your program isn't ready to run yet."
+        "Your program isn't ready to run yet.",
       );
     }
     codeStore.set({
@@ -170,12 +171,12 @@ export const createFrames = async (blocklyEvent) => {
     ...updateWhichComponent(
       "rgb_led_setup",
       ["set_color_led", "set_simple_color_led", "rgb_led_setup"],
-      ArduinoComponentType.LED_COLOR
+      ArduinoComponentType.LED_COLOR,
     )(event2),
     ...updateWhichComponent(
       "motor_setup",
       ["move_motor", "stop_motor", "motor_setup"],
-      ArduinoComponentType.MOTOR
+      ArduinoComponentType.MOTOR,
     )(event2),
     ...updateFastLedSetAllColorsUpdateBlock(event2),
   ];
@@ -188,7 +189,7 @@ export const createFrames = async (blocklyEvent) => {
     getAllBlocks(),
     getAllVariables(),
     blocklyEvent,
-    microControllerType
+    microControllerType,
   );
 
   const newFrameContainer = eventToFrameFactory(refreshEvent);
@@ -233,7 +234,7 @@ export const createFrames = async (blocklyEvent) => {
   }
 
   return true;
-};
+};;;;;
 
 const enableBlocks = (actions: DisableBlock[]) => {
   const disabledBlockIds = actions
@@ -259,6 +260,6 @@ function saveToLocalStorage() {
 }
 
 export const addListener = (workspace: WorkspaceSvg) => {
-  workspace.addChangeListener(createFrames);
+  workspace.addChangeListener(_.debounce(createFrames, 200));
   workspace.addChangeListener(saveToLocalStorage);
 };

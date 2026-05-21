@@ -96,6 +96,11 @@
     unSubList.forEach((s) => s());
   });
 
+   async function goToExample(path) {
+    localStorage.removeItem('reload_once_workspace');
+    await goto(path);
+  }
+
   function formatDate(timestamp: Timestamp | Date) {
     if (timestamp instanceof Date) {
       return timestamp.toDateString();
@@ -203,7 +208,7 @@
         <div class="row g-2 g-lg-3">
           {#each lessonRow as lesson }
           <div class="col-4">
-            <div class="card" on:click={() => goto(`/?example_project=${lesson.file}`)}>
+            <div class="card" on:click={() => goToExample(`/?example_project=${lesson.file}`)}>
               <div class="card-body">
                 <img loading="lazy" src={lesson.levelImage} alt="difficulty-level" class="level">
                 <h5 class="card-title">{lesson.title}</h5>
