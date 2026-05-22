@@ -84,7 +84,7 @@ void setFastLEDColor(int pos, struct RGB color) {
 
   Blockly["Arduino"].setupCode_["fastled"] = `
    // Initializes the LED strip
-   FastLED.addLeds<${chipSet}, DATA_PIN, ${colorOrder}>(leds, NUM_LEDS);
+   FastLED.addLeds<${chipSet}, DATA_PIN, ${colorOrder}>(developer_leds, NUM_LEDS);
    // Sets the brightness of the LEDs
    FastLED.setBrightness(${brightness});    
 `;
