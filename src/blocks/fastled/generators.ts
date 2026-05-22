@@ -70,7 +70,7 @@ Blockly["Arduino"]["fastled_setup"] = function (block) {
 #include <FastLED.h>  // Includes the FastLED library for controlling LED strips
 #define NUM_LEDS ${numberOfLeds} // Defines the number of LEDs in the strip
 #define DATA_PIN ${pin} // Creates an array to hold the LED colors
-CRGB leds[NUM_LEDS]; // Creates an array to hold the LED colors
+CRGB developer_leds[NUM_LEDS]; // Creates an array to hold the LED colors
 
 `;
   Blockly["Arduino"].functionNames_["fastled_setColorFunction"] = `
@@ -78,7 +78,7 @@ CRGB leds[NUM_LEDS]; // Creates an array to hold the LED colors
 void setFastLEDColor(int pos, struct RGB color) {
     pos = pos <= 0 ? 0 : pos; // Ensures the position is not negative
     pos = pos >= 1 ? pos - 1 : pos;  // Adjusts position to fit within the array bounds
-    leds[pos].setRGB((int)color.red, (int)color.green, (int)color.blue); // Sets the LED color
+    developer_leds[pos].setRGB((int)color.red, (int)color.green, (int)color.blue); // Sets the LED color
 }
 `;
 
