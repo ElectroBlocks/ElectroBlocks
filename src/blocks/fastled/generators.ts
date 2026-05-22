@@ -75,10 +75,10 @@ CRGB developer_leds[NUM_LEDS]; // Creates an array to hold the LED colors
 `;
   Blockly["Arduino"].functionNames_["fastled_setColorFunction"] = `
 // Sets the color of a specific LED at the given position
-void setFastLEDColor(int pos, struct RGB color) {
+void setFastLEDColor(int pos, double red, double green, double blue) {
     pos = pos <= 0 ? 0 : pos; // Ensures the position is not negative
     pos = pos >= 1 ? pos - 1 : pos;  // Adjusts position to fit within the array bounds
-    developer_leds[pos].setRGB((int)color.red, (int)color.green, (int)color.blue); // Sets the LED color
+    developer_leds[pos].setRGB((int)red, (int)green, (int)blue); // Sets the LED color
 }
 `;
 
@@ -109,8 +109,8 @@ Blockly["Arduino"]["fastled_set_all_colors"] = function (block) {
       "setFastLEDColor(" +
         position +
         "," +
-        `{${rgbColor.red}, ${rgbColor.green}, ${rgbColor.blue}}` +
-        ");\n"
+        `${rgbColor.red}, ${rgbColor.green}, ${rgbColor.blue}` +
+        ");\n",
     );
   }
   statements.push(`// End of setting all the colors for the led strip. \n\n`);
@@ -134,5 +134,11 @@ Blockly["Arduino"]["fastled_set_color"] = function (block) {
     Blockly["Arduino"].ORDER_ATOMIC
   );
 
-  return "setFastLEDColor(" + position + "," + color + ");\n";
+  const fallbackColor = "{0,0,0}";
+  const safeColor = color == "" ? fallbackColor : color;
+
+  return `{
+  struct RGB developer_temp_color = ${safeColor};
+  setFastLEDColor(${position}, developer_temp_color.red, developer_temp_color.green, developer_temp_color.blue);
+}\n`;
 };
