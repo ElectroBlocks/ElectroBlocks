@@ -30,8 +30,8 @@
     "@types/firebase": "^3.2.1",
     "@types/jest": "^25.2.3",
     "@types/lodash": "^4.14.157",
-    "@vitest/coverage-istanbul": "^1.5.3",
-    "@vitest/coverage-v8": "^1.5.3",
+    "@vitest/coverage-istanbul": "^4.1.8",
+    "@vitest/coverage-v8": "^4.1.8",
     "axios": "^1.15.0",
     "blockly": "^10.4.3",
     "blockly-field-color-wheel": "^1.0.5",
@@ -50,7 +50,7 @@
     "typescript": "^5.0.0",
     "uuid": "^8.3.1",
     "vite": "^5.4.19",
-    "vitest": "^1.5.2"
+    "vitest": "^4.1.8"
   },
   "type": "module"
 }
