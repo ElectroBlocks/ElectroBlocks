@@ -53,10 +53,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
     setJoyStickValues = "\tsetJoyStickValues(); \n";
   }
 
-  if (
-    getBlockByType("arduino_get_message")?.isEnabled() &&
-    getBlockByType("message_setup")?.isEnabled()
-  ) {
+  if (getBlockByType("message_setup")?.isEnabled()) {
     resetMessageVariable = ' serialMessageDEV= ""; \n';
     setSerialMessageDEV = "  setSerialMessage();\n";
   }
