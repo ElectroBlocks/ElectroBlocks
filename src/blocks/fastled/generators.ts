@@ -71,7 +71,7 @@ Blockly["Arduino"]["fastled_setup"] = function (block) {
 #define NUM_LEDS ${numberOfLeds} // Defines the number of LEDs in the strip
 #define DATA_PIN ${pin} // Creates an array to hold the LED colors
 CRGB developer_leds[NUM_LEDS]; // Creates an array to hold the LED colors
-
+DevColor developer_temp_color = { 0, 0, 0};
 `;
   Blockly["Arduino"].functionNames_["fastled_setColorFunction"] = `
 // Sets the color of a specific LED at the given position
@@ -137,6 +137,6 @@ Blockly["Arduino"]["fastled_set_color"] = function (block) {
   const fallbackColor = "{0,0,0}";
   const safeColor = color == "" ? fallbackColor : color;
 
-  return `struct RGB developer_temp_color = ${safeColor};
+  return `developer_temp_color = ${safeColor};
 setFastLEDColor(${position}, developer_temp_color.red, developer_temp_color.green, developer_temp_color.blue);`;
 };

@@ -417,7 +417,7 @@ You'll see messages and results on this page.`);
     try {
       stopVirtualPlayback(); // cancels any in-flight loop safely
       frames = $frameStore.frames;
-      frameNumber = 0;
+      frameNumber = frames.findIndex(f => f.timeLine.function == 'loop');
       isContinuous = false;
       currentFrameStore.set(frames[frameNumber]);
       getAllBlocks().forEach((b) => b.unselect());

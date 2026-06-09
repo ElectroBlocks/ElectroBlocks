@@ -266,6 +266,6 @@ function saveToLocalStorage() {
 
 export const addListener = (workspace: WorkspaceSvg) => {
   sessionStorage.setItem("pause_updates", "false");
-  workspace.addChangeListener(_.debounce(createFrames, 200, { leading: true }));
+  workspace.addChangeListener(_.debounce(createFrames, 20, { leading: true }));
   workspace.addChangeListener(saveToLocalStorage);
 };

@@ -54,7 +54,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
   }
 
   if (getBlockByType("message_setup")?.isEnabled()) {
-    resetMessageVariable = ' serialMessageDEV= ""; \n';
+    resetMessageVariable = '  serialMessageDEV= ""; \n';
     setSerialMessageDEV = "  setSerialMessage();\n";
   }
 
@@ -77,6 +77,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
     resetMessageVariable +
     resetIrRemoteCode +
     setJoyStickValues +
+    "  delay(10); // stops serial flooding.\n" +
     "}"
   );
 };

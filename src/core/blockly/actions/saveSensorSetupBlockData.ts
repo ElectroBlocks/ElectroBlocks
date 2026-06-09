@@ -15,55 +15,55 @@ export const saveSensorSetupBlockData = (
   if (fieldName == "LOOP" && fieldType === "field") {
     return [];
   }
+  const actions = blocks.reduce((acc, block) => {
+    // We want to block the time setup because it does not have a loop drop down and time should remain constant for each loop to
+    // simplify the simulator.
+    if (
+      !block ||
+      block.type !== BlockType.SENSOR_SETUP ||
+      block.blockName === "time_setup"
+    ) {
+      return acc;
+    }
 
-  const block = blocks.find((b) => b.id == blockId);
+    const executionTimes = getLoopTimeFromBlockData(blocks);
 
-  // We want to block the time setup because it does not have a loop drop down and time should remain constant for each loop to
-  // simplify the simulator.
-  if (
-    !block ||
-    block.type !== BlockType.SENSOR_SETUP ||
-    block.blockName === "time_setup"
-  ) {
-    return [];
-  }
-
-  const executionTimes = getLoopTimeFromBlockData(blocks);
-
-  const loopTimes = _.range(1, executionTimes + 1);
-  const sensorData = convertToSensorData(block);
-  const copyAll = findFieldValue(block, "COPY_SAME") == "TRUE";
-  if (!_.isEmpty(block.metaData) && !copyAll) {
-    const metadata = JSON.parse(block.metaData);
-    const nonBlankMetaData = loopTimes.map((loopIndex) => {
-      const existingLoop = metadata.find((b) => b.loop === loopIndex);
-      if (existingLoop) {
-        return existingLoop;
-      }
-      return { ...sensorData, loop: loopIndex };
-    });
-    const newMetadata = [
-      ...nonBlankMetaData.filter((b) => b.loop !== sensorData.loop),
-      sensorData,
-    ];
-    return [
-      {
+    const loopTimes = _.range(1, executionTimes + 1);
+    const sensorData = convertToSensorData(block);
+    const copyAll = findFieldValue(block, "COPY_SAME") == "TRUE";
+    if (!_.isEmpty(block.metaData) && !copyAll) {
+      const metadata = JSON.parse(block.metaData);
+      const nonBlankMetaData = loopTimes.map((loopIndex) => {
+        const existingLoop = metadata.find((b) => b.loop === loopIndex);
+        if (existingLoop) {
+          return existingLoop;
+        }
+        return { ...sensorData, loop: loopIndex };
+      });
+      const newMetadata = [
+        ...nonBlankMetaData.filter((b) => b.loop !== sensorData.loop),
+        sensorData,
+      ];
+      acc.push({
         blockId: block.id,
         data: JSON.stringify(newMetadata),
         type: ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA,
-      },
-    ];
-  }
+      });
+      return acc;
+    }
 
-  const metadata = loopTimes.map((i) => {
-    return { ...sensorData, loop: i };
-  });  
+    const metadata = loopTimes.map((i) => {
+      return { ...sensorData, loop: i };
+    });
 
-  return [
-    {
+    acc.push({
       blockId: block.id,
       data: JSON.stringify(metadata),
       type: ActionType.SETUP_SENSOR_BLOCK_SAVE_DEBUG_DATA,
-    },
-  ];
+    });
+    return acc;
+  }, []);
+
+  console.log(actions, "actions");
+  return actions;
 };

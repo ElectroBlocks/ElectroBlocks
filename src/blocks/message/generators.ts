@@ -14,7 +14,7 @@ export function stepSerialBegin() {
       serialMessageDEV = Serial.readStringUntil('|');
       serialMessageDEV.trim();      
   }
-};
+}
   `;
 }
 Blockly["Python"]["message_setup"] = () => "";
@@ -48,15 +48,6 @@ Blockly["Python"]["arduino_receive_message"] = () => {
 
 Blockly["Arduino"]["arduino_receive_message"] = function (block) {
   Blockly["Arduino"].information_["message_recieve_block"] = true;
-  Blockly["Arduino"].functionNames_[
-    "setSerialMessage"
-  ] = `void setSerialMessage() {
-  if (Serial.available() > 0) {
-      serialMessageDEV = Serial.readString();
-      serialMessageDEV.trim();      
-  }
-};
-  `;
   return ["(serialMessageDEV.length() > 0)", Blockly["Arduino"].ORDER_ATOMIC];
 };
 Blockly["Python"]["arduino_send_message"] = function (block) {

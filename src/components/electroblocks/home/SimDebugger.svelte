@@ -79,7 +79,7 @@
         {#each i % 2 == 1 ? row.reverse() : row as led}
           <span
             class="led-preview"
-            style="background-color: {rgbToHex(led.color)};"
+            style="background-color: {rgbToHex(led?.color)};"
           ></span>
         {/each}
       </div>

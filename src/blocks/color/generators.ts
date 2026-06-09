@@ -15,7 +15,7 @@ export function createColorStruct() {
   if (!Blockly["Arduino"].libraries_) {
     Blockly["Arduino"].libraries_ = {};
   }
-  Blockly["Arduino"].libraries_["color_struct"] = `struct RGB {
+  Blockly["Arduino"].libraries_["color_struct"] = `struct DevColor {
     double red;
     double green;
     double blue;
