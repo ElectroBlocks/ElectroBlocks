@@ -137,8 +137,6 @@ Blockly["Arduino"]["fastled_set_color"] = function (block) {
   const fallbackColor = "{0,0,0}";
   const safeColor = color == "" ? fallbackColor : color;
 
-  return `{
-  struct RGB developer_temp_color = ${safeColor};
-  setFastLEDColor(${position}, developer_temp_color.red, developer_temp_color.green, developer_temp_color.blue);
-}\n`;
+  return `struct RGB developer_temp_color = ${safeColor};
+setFastLEDColor(${position}, developer_temp_color.red, developer_temp_color.green, developer_temp_color.blue);`;
 };
