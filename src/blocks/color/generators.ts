@@ -19,7 +19,7 @@ export function createColorStruct() {
     double red;
     double green;
     double blue;
-};`;
+}`;
 }
 
 export function createColorStructPy() {

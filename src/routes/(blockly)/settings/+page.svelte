@@ -26,7 +26,6 @@
 
   settingsStore.subscribe((newSettings) => {
     settings = newSettings;
-    console.log("Current language is:", newSettings.language);
   });
 
 
@@ -93,22 +92,6 @@
           type="number"
           id="max-time-per-move"
         />
-      </FormGroup>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <FormGroup>
-        <Label for="lang-select">Select Language </Label>
-        <Input
-          bind:value={settings.language}
-          type="select"
-          id="lang-select"
-        >
-          <option value="Python">Python</option>
-          <option value="C">C</option>
-        </Input>
       </FormGroup>
     </div>
   </div>

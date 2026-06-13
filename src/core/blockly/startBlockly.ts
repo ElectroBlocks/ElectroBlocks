@@ -35,7 +35,6 @@ import {
 const startBlockly = async (
   blocklyElement: HTMLElement,
   boardType: MicroControllerType,
-  lang: SUPPORTED_LANGUAGES,
   exampleProject?: string,
 ) => {
   // removing alert & confirms from blockly library
@@ -43,7 +42,7 @@ const startBlockly = async (
   Blockly.dialog.setConfirm((m) => true);
 
   // creates the blockly workspace and toolbox
-  const workspace = createWorkspace(blocklyElement, boardType, lang);
+  const workspace = createWorkspace(blocklyElement, boardType);
 
   // Register custom list menu event for the toolbox
   registerListMenu(workspace);
@@ -93,9 +92,8 @@ const startBlockly = async (
 const createWorkspace = (
   blocklyElement: HTMLElement,
   boardType: MicroControllerType,
-  lang: SUPPORTED_LANGUAGES
 ) => {
-  Blockly.inject(blocklyElement, createBlockConfig(boardType, lang));
+  Blockly.inject(blocklyElement, createBlockConfig(boardType));
   return Blockly.getMainWorkspace() as Blockly.WorkspaceSvg;
 };
 
@@ -123,9 +121,8 @@ const createLedWithDelay = (seconds = 1, isOn = true) => {
  */
 const createBlockConfig = (
   boardType: MicroControllerType,
-  lang: SUPPORTED_LANGUAGES
 ): Blockly.BlocklyOptions => {
-  const toolboxString = getToolBoxString(boardType, lang);
+  const toolboxString = getToolBoxString(boardType, SUPPORTED_LANGUAGES.C);
 
   return {
     toolbox: toolboxString,

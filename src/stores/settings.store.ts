@@ -30,9 +30,7 @@ authStore.subscribe(async (auth) => {
   if (auth.isLoggedIn && is_browser()) {
     try {
       const settingsFB = await getSettings(auth.uid);
-      if (!settingsFB.language) {
-        settingsFB.language = SUPPORTED_LANGUAGES.C;
-      }
+      settingsFB.language = SUPPORTED_LANGUAGES.C;
       settingsStore.set(settingsFB);
     } catch (e) {
       console.log(e, "error settings");
@@ -42,9 +40,7 @@ authStore.subscribe(async (auth) => {
 
 settingsStore.subscribe((newSettings) => {
   if (is_browser()) {
-    if (!newSettings.language) {
-      newSettings.language = SUPPORTED_LANGUAGES.C;
-    }
+    newSettings.language = SUPPORTED_LANGUAGES.C;
     localStorage.setItem("settings", JSON.stringify(newSettings));
   }
 });

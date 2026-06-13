@@ -24,10 +24,7 @@ import { disableSensorReadBlocksWithWrongPins } from "./actions/disable/disableS
 import { disableBlocksThatNeedASetupBlock } from "./actions/disable/disableBlocksThatNeedASetupBlock";
 import { ActionType, DisableBlock, EnableBlock } from "./actions/actions";
 import { eventToFrameFactory } from "../frames/event-to-frame.factory";
-import {
-  ArduinoComponentType,
-  type ArduinoFrameContainer,
-} from "../frames/arduino.frame";
+import { ArduinoComponentType } from "../frames/arduino.frame";
 import type { MicroControllerType } from "../microcontroller/microcontroller";
 import { getBoardType } from "./helpers/get-board.helper";
 import { disableBlocksWithInvalidPinNumbers } from "./actions/disable/disableBlocksWithInvalidPinNumbers";
@@ -36,7 +33,6 @@ import UpdateLCDScreenPrintBlock from "./actions/updateLcdScreenPrintBlock";
 import updateLedBlockColorField from "./actions/updateLedBlockColorField";
 import { updateWhichComponent } from "./actions/updateWhichComponent";
 import { updateFastLedSetAllColorsUpdateBlock } from "./actions/fastLedSetAllColorsUpdateBlock";
-import { updateRGBLEDBlockSupportLang } from "./actions/updateRGBLEDBlockSupportLang";
 import { get } from "svelte/store";
 import { disableRecievingMessageBlocksForLiveModeAndPython } from "./actions/disableRecievingMessageBlocksForLiveModeAndPython";
 import { SimulatorMode, simulatorStore } from "../../stores/arduino.store";
@@ -65,7 +61,6 @@ export const createFrames = async (blocklyEvent) => {
   ]);
 
   if (!supportedEvents.has(blocklyEvent.type)) return;
-  if (sessionStorage.getItem("pause_updates") == "true") return;
   if (blocklyEvent.element == "comment") return;
 
   const microControllerType = getBoardType() as MicroControllerType;
@@ -91,7 +86,6 @@ export const createFrames = async (blocklyEvent) => {
     ...disableBlocksThatNeedASetupBlock(event),
     ...disableRecievingMessageBlocksForLiveModeAndPython(
       event,
-      settingData,
       simulatorMode == SimulatorMode.LIVE,
     ),
   ];
@@ -121,7 +115,6 @@ export const createFrames = async (blocklyEvent) => {
     ...disableBlocksThatNeedASetupBlock(event2),
     ...disableRecievingMessageBlocksForLiveModeAndPython(
       event2,
-      settingData,
       simulatorMode == SimulatorMode.LIVE,
     ),
   ];
@@ -161,7 +154,6 @@ export const createFrames = async (blocklyEvent) => {
     return false;
   }
   const thirdActionPass = [
-    ...updateRGBLEDBlockSupportLang(settingData.language)(event2),
     ...deleteUnusedVariables(event2),
     ...saveSensorSetupBlockData(event2),
     ...updateSensorSetupFields(event2),
@@ -181,9 +173,7 @@ export const createFrames = async (blocklyEvent) => {
     )(event2),
     ...updateFastLedSetAllColorsUpdateBlock(event2),
   ];
-  sessionStorage.setItem("pause_updates", "true");
   thirdActionPass.forEach((a) => updater(a));
-  sessionStorage.setItem("pause_updates", "false");
 
   // We need this because we save the sensor setup data to the
   // block.
@@ -225,17 +215,18 @@ export const createFrames = async (blocklyEvent) => {
     enableFlags,
     canShowCodeErrorMessage: true,
   });
+  console.log(blocklyEvent);
   if (
     currentFrameContainter === undefined ||
     // on the live mode because it's coming from the actual components we need it to always change.
     simulatorMode == SimulatorMode.LIVE ||
     JSON.stringify(newFrameContainer) !== JSON.stringify(currentFrameContainter)
   ) {
-    console.log("CHANGED", blocklyEvent);
+    console.log("CHANGED");
     frameStore.set(newFrameContainer);
     return true;
   } else {
-    console.log("NOT CHANGED", blocklyEvent);
+    console.log("NOT CHANGED");
   }
 
   return true;
@@ -265,7 +256,6 @@ function saveToLocalStorage() {
 }
 
 export const addListener = (workspace: WorkspaceSvg) => {
-  sessionStorage.setItem("pause_updates", "false");
-  workspace.addChangeListener(_.debounce(createFrames, 20, { leading: true }));
+  workspace.addChangeListener(createFrames);
   workspace.addChangeListener(saveToLocalStorage);
 };

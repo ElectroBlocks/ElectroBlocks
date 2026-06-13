@@ -20,6 +20,7 @@
   import { getToolBoxString } from '../../core/blockly/toolboxConfig';
   import { page } from '$app/state';
   import projectStore from '../../stores/project.store';
+  import { SUPPORTED_LANGUAGES } from '../../core/microcontroller/microcontroller';
 
   // Controls whether to show the arduino loop block shows
   // the  loop forever text or loop number of times text
@@ -46,7 +47,7 @@
     // Hack for debugging blockly
     window.Blockly = Blockly;
 
-    await startBlockly(blocklyElement, $settingsStore.boardType, $settingsStore.language, page.url.searchParams.get('example_project'));
+    await startBlockly(blocklyElement, $settingsStore.boardType, page.url.searchParams.get('example_project'));
 
     workspaceInitialize = true;
     if (showLoopExecutionTimesArduinoStartBlock) {
@@ -98,7 +99,7 @@
       return;
     }
 
-    blocklyReloadToolbox(getToolBoxString(settings.boardType, settings.language));
+    blocklyReloadToolbox(getToolBoxString(settings.boardType, SUPPORTED_LANGUAGES.C));
   }));
 
   unsubscribes.push(

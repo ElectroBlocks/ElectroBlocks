@@ -42,5 +42,5 @@ export const defaultSetting: Settings = {
   customLedColor: false,
   maxTimePerMove: 20,
   boardType: MicroControllerType.ARDUINO_UNO,
-  language: SUPPORTED_LANGUAGES.PYTHON,
+  language: SUPPORTED_LANGUAGES.C,
 };

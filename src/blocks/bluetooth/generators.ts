@@ -2,7 +2,7 @@ import Blockly from "blockly";
 import { selectBoardBlockly } from "../../core/microcontroller/selectBoard";
 
 Blockly["Python"]["bluetooth_setup"] = function (block) {
-  return "";
+  return "# Bluetooth is not supported in Python.";
 };
 
 Blockly["Arduino"]["bluetooth_setup"] = function (block) {

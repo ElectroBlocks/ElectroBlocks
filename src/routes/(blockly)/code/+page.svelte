@@ -1,4 +1,5 @@
 <script>
+  export const ssr = false;
   import { onMount } from "svelte";
   import codeStore from "../../../stores/code.store";
   import hljs from 'highlight.js/lib/core';
@@ -14,43 +15,39 @@
   import { tooltip } from "../../../helpers/tooltip.action";
 
   // Importing settings store
-  import settingsStore from "../../../stores/settings.store";
   import { SUPPORTED_LANGUAGES } from "../../../core/microcontroller/microcontroller";
   import { FormGroup, Input, Label } from "@sveltestrap/sveltestrap";
 
   let loaded = false;
   let fontSize = 14;
   let hasCopiedCode = false;
+  let language = SUPPORTED_LANGUAGES.C;
   let c_code = '';
   let python_code = ''
+  let highlightedCode = '';
+    hljs.registerLanguage("arduino", arduinoLang);
+    hljs.registerLanguage("python", pythonLang);
 
   onMount(async () => {
-    hljs.registerLanguage('arduino', arduinoLang);
-    hljs.registerLanguage('python', pythonLang);
-    codeStore.subscribe(async (codeInfo) => {
-      try {
-          python_code = hljs.highlight(codeInfo.pythonLang, { language: 'python'}).value;
-          // @ts-ignore
-          c_code =  hljs.highlight(codeInfo.cLang, { language: 'arduino' }).value;
-      }
-      catch(e)
-      {
-        console.log(e);
-      }
-    });
-
-    loaded = true;
   });
 
-  afterUpdate(() => {
-    if (loaded) {
-      try {
-        hljs.highlightAll();
-      } catch (error) {
-        console.log(error, 'error')
-      }
+  $: {
+    try {
+      highlightedCode = hljs.highlight(language == SUPPORTED_LANGUAGES.C ?  $codeStore.cLang : $codeStore.pythonLang, { language: language == SUPPORTED_LANGUAGES.C ? "arduino" : "python" }).value;
+    } catch {
+      highlightedCode = hljs.highlight(language == SUPPORTED_LANGUAGES.C ?  $codeStore.cLang : $codeStore.pythonLang, { language: language == SUPPORTED_LANGUAGES.C ? "arduino" : "python" }).value;
     }
-  });
+  }
+
+  // afterUpdate(() => {
+  //   if (loaded) {
+  //     try {
+  //       hljs.highlightAll();
+  //     } catch (error) {
+  //       console.log(error, 'error')
+  //     }
+  //   }
+  // });
   function zoomIn() {
     fontSize += 2;
   }
@@ -60,7 +57,7 @@
   }
 
   function copy() {
-    if ($settingsStore.language === SUPPORTED_LANGUAGES.PYTHON) {
+    if (language === SUPPORTED_LANGUAGES.PYTHON) {
       navigator.clipboard.writeText($codeStore.pythonLang);
     } else {
       // @ts-ignore
@@ -89,7 +86,7 @@
     <FormGroup>
       <Label for="lang-select">Selected Language</Label>
       <Input
-        bind:value={$settingsStore.language}
+        bind:value={language}
         type="select"
         id="lang-select"
       >
@@ -122,15 +119,10 @@
 </div>
 </div>
 
-{#if $settingsStore.language == 'Python'}
+
 <pre style="font-size: {fontSize}px;">
-  <code  class="language-python">{@html python_code}</code>
+  <code class="hljs language-{language}">{@html highlightedCode}</code>
 </pre>
-{:else}
-<pre style="font-size: {fontSize}px;">
-  <code class="language-arduino">{@html c_code}</code>
-</pre>
-{/if}
 
 <svelte:head>
   <title>ElectroBlocks - Code</title>
