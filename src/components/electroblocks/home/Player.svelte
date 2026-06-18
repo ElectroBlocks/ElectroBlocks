@@ -498,14 +498,7 @@ You'll see messages and results on this page.`);
   >
     <div id="side-options">
       {#if !$frameStore.error}
-        <span
-          class="live-mode"
-          use:tooltip={playerTooltips}
-          title="Live Mode"
-          on:click={goToLiveMode}
-        >
-          <Icon path={mdiFlash} size={40} />
-        </span>
+
         <span
           class="upload"
           use:tooltip={playerTooltips}
@@ -732,6 +725,11 @@ You'll see messages and results on this page.`);
 
   #side-options .upload {
     color: #512c62;
+    float: right;
+    margin-right: 5px;
+    width: 40px;
+    height: 40px;
+    margin-top: -5px;
   }
 
   #video-debug-play {

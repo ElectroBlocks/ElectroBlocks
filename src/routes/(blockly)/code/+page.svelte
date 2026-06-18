@@ -1,6 +1,5 @@
 <script>
   export const ssr = false;
-  import { onMount } from "svelte";
   import codeStore from "../../../stores/code.store";
   import hljs from 'highlight.js/lib/core';
   
@@ -11,43 +10,22 @@
   import 'highlight.js/styles/arduino-light.css';
   import 'highlight.js/styles/a11y-light.css';
 
-  import { afterUpdate } from "svelte";
   import { tooltip } from "../../../helpers/tooltip.action";
 
-  // Importing settings store
-  import { SUPPORTED_LANGUAGES } from "../../../core/microcontroller/microcontroller";
-  import { FormGroup, Input, Label } from "@sveltestrap/sveltestrap";
-
-  let loaded = false;
   let fontSize = 14;
-  let hasCopiedCode = false;
-  let language = SUPPORTED_LANGUAGES.C;
-  let c_code = '';
-  let python_code = ''
   let highlightedCode = '';
-    hljs.registerLanguage("arduino", arduinoLang);
-    hljs.registerLanguage("python", pythonLang);
-
-  onMount(async () => {
-  });
+  hljs.registerLanguage("arduino", arduinoLang);
+  hljs.registerLanguage("python", pythonLang);
 
   $: {
     try {
-      highlightedCode = hljs.highlight(language == SUPPORTED_LANGUAGES.C ?  $codeStore.cLang : $codeStore.pythonLang, { language: language == SUPPORTED_LANGUAGES.C ? "arduino" : "python" }).value;
-    } catch {
-      highlightedCode = hljs.highlight(language == SUPPORTED_LANGUAGES.C ?  $codeStore.cLang : $codeStore.pythonLang, { language: language == SUPPORTED_LANGUAGES.C ? "arduino" : "python" }).value;
+      highlightedCode = hljs.highlight($codeStore.cLang, { language:  "arduino" }).value;
+    } catch(e) {
+      console.log(e);
     }
   }
 
-  // afterUpdate(() => {
-  //   if (loaded) {
-  //     try {
-  //       hljs.highlightAll();
-  //     } catch (error) {
-  //       console.log(error, 'error')
-  //     }
-  //   }
-  // });
+
   function zoomIn() {
     fontSize += 2;
   }
@@ -57,13 +35,9 @@
   }
 
   function copy() {
-    if (language === SUPPORTED_LANGUAGES.PYTHON) {
-      navigator.clipboard.writeText($codeStore.pythonLang);
-    } else {
       // @ts-ignore
-      navigator.clipboard.writeText($codeStore.cLang);
-    }
-    hasCopiedCode = true;
+    navigator.clipboard.writeText($codeStore.cLang);
+    alert("Copied Code");
   }
 
   const navTooltipStyleCodeSmallMarginBottom = {
@@ -79,31 +53,12 @@
     theme: "code-large-margin",
   };
 </script>
-<div id="controls"  >
 
-<div class="row ps-3 pe-3">
-  <div class="col">
-    <FormGroup>
-      <Label for="lang-select">Selected Language</Label>
-      <Input
-        bind:value={language}
-        type="select"
-        id="lang-select"
-      >
-        <option value="Python">Python</option>
-        <option value="C">C</option>
-      </Input>
-    </FormGroup>
-  </div>
-</div>
 
 <div class="row">
   <div class="col">
-    {#if !hasCopiedCode}
     <i use:tooltip={navTooltipStyleSmallMargin} title="Copy Code" on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
-    {:else}
-    <i use:tooltip={navTooltipStyleSmallMargin} title="Copied" on:mouseleave={() => hasCopiedCode = false} on:click={copy}  class="fa fa-clipboard" aria-hidden="true" />
-    {/if}
+    
     
     <i       
       use:tooltip={navTooltipStyleCodeSmallMarginBottom}
@@ -117,11 +72,10 @@
       aria-hidden="true" />
   </div>
 </div>
-</div>
 
 
 <pre style="font-size: {fontSize}px;">
-  <code class="hljs language-{language}">{@html highlightedCode}</code>
+  <code class="hljs language-c">{@html highlightedCode}</code>
 </pre>
 
 <svelte:head>
