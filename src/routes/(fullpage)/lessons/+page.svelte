@@ -9,12 +9,25 @@ window.open(link, '_blank');
   <h1 class="mt-5">Arduino Lessons</h1>
   <hr />
   <div class="row g-2 g-lg-3">
+      <div class="col-4" on:click={() => openLink('https://electroblocks.github.io/docs/lessons/flashlight/')}>
+      <div class="card">
+        <div class="card-body">
+          <img
+            loading="lazy"
+            src="./lesson/flashlight.png"
+            alt="difficulty-level"
+            class="level"
+          />
+          <h3 class="card-title">Flashlight</h3>
+        </div>
+      </div>
+    </div> 
     <div class="col-4" on:click={() => openLink('https://electroblocks.github.io/docs/lessons/lcd_screens/')}>
       <div class="card">
         <div class="card-body">
           <img
             loading="lazy"
-            src="https://electroblocks.github.io/docs/assets/lcd_screen/lcd_screen.png"
+            src="/lesson/lcd_screen.png"
             alt="difficulty-level"
             class="level"
           />
@@ -23,33 +36,7 @@ window.open(link, '_blank');
       </div>
     </div>
     
-    <div class="col-4">
-      <div class="card">
-        <div class="card-body">
-          <img
-            loading="lazy"
-            src="https://electroblocks.github.io/docs/assets/lcd_screen/lcd_screen.png"
-            alt="difficulty-level"
-            class="level"
-          />
-          <h3 class="card-title">LCD Screens</h3>
-        </div>
-      </div>
-    </div>    
-
-    <div class="col-4">
-      <div class="card">
-        <div class="card-body">
-          <img
-            loading="lazy"
-            src="https://electroblocks.github.io/docs/assets/lcd_screen/lcd_screen.png"
-            alt="difficulty-level"
-            class="level"
-          />
-          <h3 class="card-title">LCD Screens</h3>
-        </div>
-      </div>
-    </div>    
+     
 
   </div>
   <!-- {#each _.chunk(lessonList, 3) as lessonRow }
