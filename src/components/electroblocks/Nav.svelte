@@ -18,7 +18,7 @@
   import { page } from "$app/stores";
   import { tooltip } from "../../helpers/tooltip.action";
   import Icon from "../Icon.svelte";
-  import { mdiBook, mdiBookOpen, mdiCarSettings, mdiCodeBraces, mdiCodeBracesBox, mdiCogOutline, mdiDownload, mdiFile, mdiFloppy, mdiFolder, mdiFolderOpen, mdiGaugeEmpty, mdiInformation, mdiLightbulb, mdiLightningBolt, mdiLogin, mdiLogout, mdiMemory, mdiMonitor, mdiWrench } from "@mdi/js";
+  import { mdiCarSettings, mdiCodeBraces, mdiCodeBracesBox, mdiCogOutline, mdiDownload, mdiFile, mdiFloppy, mdiFolder, mdiFolderOpen, mdiGaugeEmpty, mdiInformation, mdiLightningBolt, mdiLogin, mdiLogout, mdiMemory, mdiMonitor, mdiWrench } from "@mdi/js";
   
   let canSave = true;
   let showSaveSuccess = false;
@@ -135,15 +135,6 @@
             <Icon path={mdiFolderOpen} size={50} />
 
     </a>
-    <a
-      href="/lessons"
-      use:tooltip={navTooltipStyle}
-      title="Lessons"
-      class:active={$page.url.pathname.includes('lessons')}
-    >
-            <Icon path={mdiLightbulb} size={50} />
-
-    </a>
     <span
       title="New File/Blank File"
       use:tooltip={navTooltipStyle}
@@ -222,15 +213,6 @@
         class:fa-solid={$page.url.pathname.includes("open")}
       /> -->
       <Icon path={mdiFolderOpen} size={50} />
-
-    </a>
-    <a
-      href="/lessons"
-      use:tooltip={navTooltipStyle}
-      title="Lessons"
-      class:active={$page.url.pathname.includes('lessons')}
-    >
-            <Icon path={mdiLightbulb} size={50} />
 
     </a>
     <span
@@ -329,7 +311,7 @@
   nav a,
   nav span {
     float: left;
-    width: calc((100% - 170px) / 11);
+    width: calc((100% - 170px) / 10);
     text-align: center;
     padding: 2px 0;
     transition: all 0.3s ease;
@@ -342,7 +324,7 @@
   }
   nav.small a,
   nav.small span {
-    width: calc((100% - 170px) / 10);
+    width: calc((100% - 170px) / 9);
   }
   .logos {
     width: 170px!important;

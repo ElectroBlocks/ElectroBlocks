@@ -77,7 +77,7 @@ Blockly["Arduino"]["arduino_loop"] = function (block: Block) {
     resetMessageVariable +
     resetIrRemoteCode +
     setJoyStickValues +
-    "\n\n  delay(10); // stops serial flooding.\n" +
+    "  delay(10); // stops serial flooding.\n" +
     "}"
   );
 };
